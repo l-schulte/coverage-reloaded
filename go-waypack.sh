@@ -1,7 +1,5 @@
 #!/bin/bash
 
-revision="$revision"
-timestamp="$timestamp"
 starttime=$(date +%s)
 
 echo "=== Starting npm_and_run.sh ==="
@@ -38,8 +36,8 @@ echo ""
 cd /app/repo
 git checkout "$revision"
 
-npm set registry http://waypack:3000/npm/$timestamp/
-npm config set registry http://waypack:3000/npm/$timestamp/
-yarn config set registry http://waypack:3000/yarn/$timestamp/
+npm set registry "http://waypack:3000/npm/$timestamp/"
+npm config set registry "http://waypack:3000/npm/$timestamp/"
+yarn config set registry "http://waypack:3000/yarn/$timestamp/"
 
 bash ./../run-coverage.sh

@@ -1,8 +1,5 @@
 #!/bin/bash
 
-revision="$revision"
-timestamp="$timestamp"
-
 echo "=== Starting run-coverage.sh ==="
 echo "$(date -d @$timestamp)"
 echo "Revision: $revision"
@@ -16,7 +13,7 @@ yarn build
 
 npx lerna run test -- --coverage
 
-zip -r ../coverage/$(date -d @$timestamp)-$revision.zip . -i '**/coverage/**' -i '**/packages/**/coverage/**'
+zip -r ../coverage/$(date -d @"$timestamp")-"$revision".zip . -i '**/coverage/**' -i '**/packages/**/coverage/**'
 
 echo "=== Coverage run completed ==="
 endtime=$(date +%s)
