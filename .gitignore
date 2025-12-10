@@ -1,7 +1,10 @@
 .env
+.venv
 *.zip
 
 repos/
 **/tmp/
 **/debug/
 **/coverage/
+**/logs/
+**/repo/
