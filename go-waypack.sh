@@ -4,7 +4,7 @@ starttime=$(date +%s)
 
 echo "=== Starting npm_and_run.sh ==="
 echo "$(date -d @$timestamp)"
-echo "bash docker-run.sh lodestar test $revision $timestamp $BASE_IMAGE"
+echo "bash docker-run.sh >project< test $revision $timestamp $BASE_IMAGE"
 echo "=== System Information ==="
 uname -a
 echo ""

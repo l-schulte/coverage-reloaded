@@ -70,7 +70,7 @@ def run_docker_container(commit):
         )
         success = result.returncode == 0
 
-        log_filename = f"{project}/{get_filename(container, timestamp, commit_hash, str(job), success)}"
+        log_filename = f"projects/{project}/{get_filename(container, timestamp, commit_hash, str(job), success)}"
         with open(log_filename, "w") as f:
             f.write(result.stdout + "\n----\n\n----\n" + (result.stderr if not success else "Success!"))
 
@@ -129,8 +129,8 @@ def execute(project):
     global next_worker_id
     next_worker_id = 1  # Reset worker ID counter
 
-    logs_path = f"{project}/logs"
-    commits_csv = f"{project}/" + COMMITS_CSV_FILE
+    logs_path = f"projects/{project}/logs"
+    commits_csv = f"projects/{project}/" + COMMITS_CSV_FILE
 
     os.makedirs(logs_path, exist_ok=True)
 

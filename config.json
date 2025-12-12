@@ -4,6 +4,12 @@
     "projects": [
         {
             "name": "sentry-javascript"
+        },
+        {
+            "name": "cli"
+        },
+        {
+            "name": "ecosystem-tests"
         }
     ]
 }

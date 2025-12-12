@@ -7,7 +7,7 @@ from tqdm import tqdm
 repo_path = "repo"
 output_file = "commits.csv"
 
-config = json.load(open("../config.json"))
+config = json.load(open("../../config.json"))
 start_date = datetime.datetime.fromisoformat(config["startdate"]).replace(tzinfo=datetime.timezone.utc)
 end_date = datetime.datetime.fromisoformat(config["enddate"]).replace(tzinfo=datetime.timezone.utc)
 
