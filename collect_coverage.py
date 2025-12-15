@@ -23,6 +23,7 @@ worker_ids = threading.local()
 worker_id_counter = threading.Lock()
 next_worker_id = 1
 
+
 def parse_filename(filename) -> tuple[str, str, str, str]:
     """Parse log filename to extract container, timestamp, commit hash, and job ID."""
     parts = filename.rsplit("_", 3)
@@ -32,10 +33,12 @@ def parse_filename(filename) -> tuple[str, str, str, str]:
     job_id = parts[3].split(".")[0]  # Remove file extension
     return container, timestamp, commit_hash, job_id
 
+
 def get_filename(container, timestamp, commit_hash, job_id, success=True):
     """Generate log filename based on parameters."""
     ext = "log" if success else "error"
     return f"logs/{container}_{timestamp}_{commit_hash}_{job_id}.{ext}"
+
 
 def get_worker_id():
     """Get or assign a worker ID for the current thread."""
@@ -61,18 +64,21 @@ def run_docker_container(commit):
         "exec",
         commit_hash,
         str(timestamp),
-        container
+        registry,
+        container,
     ]
 
     try:
-        result = subprocess.run(
-            command, capture_output=True, text=True
-        )
+        result = subprocess.run(command, capture_output=True, text=True)
         success = result.returncode == 0
 
         log_filename = f"projects/{project}/{get_filename(container, timestamp, commit_hash, str(job), success)}"
         with open(log_filename, "w") as f:
-            f.write(result.stdout + "\n----\n\n----\n" + (result.stderr if not success else "Success!"))
+            f.write(
+                result.stdout
+                + "\n----\n\n----\n"
+                + (result.stderr if not success else "Success!")
+            )
 
         return success
 
@@ -82,27 +88,26 @@ def run_docker_container(commit):
         print(f"Error occurred while processing commit {commit_hash}: {e}")
         return False
 
+
 def parse_args():
     parser = argparse.ArgumentParser(description="Process project parameters.")
     parser.add_argument(
         "--max-workers",
         type=int,
         required=True,
-        help="Maximum number of workers to use."
+        help="Maximum number of workers to use.",
     )
     parser.add_argument(
         "--max-commits",
         type=int,
         required=False,
-        help="Maximum number of commits to process."
+        help="Maximum number of commits to process.",
     )
     parser.add_argument(
-        "--project",
-        type=str,
-        required=False,
-        help="Project name or path."
+        "--project", type=str, required=False, help="Project name or path."
     )
     return parser.parse_args()
+
 
 def main():
     args = parse_args()
@@ -151,7 +156,7 @@ def execute(project):
         for row in rows:
             container = row.get("container", "").strip()
             registry = row.get("registry", "").strip()
-            if (row["commit_hash"] not in completed_commits):
+            if row["commit_hash"] not in completed_commits:
                 commits.append(
                     (project, row["commit_hash"], row["timestamp"], container, registry)
                 )
@@ -177,11 +182,9 @@ def execute(project):
             completed += 1
             if future.result():
                 successful += 1
-            
+
             progress.update(1)
-            progress.set_postfix(
-                successful=successful
-            )
+            progress.set_postfix(successful=successful)
 
     end = time.time()
     duration = end - start

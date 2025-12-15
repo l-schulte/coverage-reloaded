@@ -5,6 +5,7 @@ echo "=== Starting run-coverage.sh ==="
 echo "$(date -d @$timestamp)"
 echo "Revision: $revision"
 echo "Timestamp: $timestamp"
+echo "Package Manager: $package_manager"
 echo ""
 
 set -e
@@ -15,9 +16,8 @@ npm install
 
 set +e
 npx nyc --reporter=lcov --reporter=text npm test
-set -e
 
-zip -r "../coverage/$(date -d @$timestamp '+%Y-%m-%d')-$revision.zip" . -i 'packages/**/coverage/**'
+zip -r "../coverage/$(date -d @$timestamp '+%Y-%m-%d')-$revision.zip" . -i 'coverage/**' 'packages/**/coverage/**'
 [ -s "../coverage/$(date -d @$timestamp '+%Y-%m-%d')-$revision.zip" ] || { echo "Error: zip file is empty"; exit 1; }
 
 echo "=== Coverage run completed ==="
