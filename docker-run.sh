@@ -5,11 +5,10 @@
 # $4: timestamp
 # $5: package manager, including version (e.g., "npm:16", "yarn:18", "pnpm:20")
 # $6: node version for base image (e.g., "node:16")
-cp ./go-waypack.sh ./projects/$1/tmp/go-waypack.sh
 
-echo "Building and running $6 Docker container for $1 in mode '$2' with revision '$3' and timestamp '$4'"
+echo "Script called as: $0 $@"
+
 docker build --build-arg BASE_IMAGE=$6 -t cov_"$1"_"$6" ./projects/$1 
-echo "docker build --build-arg BASE_IMAGE=$6 -t cov_$1_$6 ./projects/$1"
 mkdir -p projects/$1/coverage
 mkdir -p projects/$1/debug
 mkdir -p projects/$1/tmp
@@ -22,5 +21,5 @@ elif [ "$2" = "debug" ]; then
     docker run --rm -it --network mining-net --cap-add=NET_ADMIN --env-file .env -v "$(pwd)/projects/$1/coverage:/app/coverage" -v "$(pwd)/projects/$1/debug:/app" -e "revision=$3" -e "timestamp=$4" -e "package_manager=$5" cov_"$1"_"$6" bash
 elif [ "$2" = "exec" ]; then
     # Run the full process non-interactively
-    docker run --rm --network mining-net --cap-add=NET_ADMIN --env-file .env -v "$(pwd)/projects/$1/coverage:/app/coverage" -e "revision=$3" -e "timestamp=$4" -e "package_manager=$5" cov_"$1"_"$6" bash go-waypack.sh
+    docker run --rm --network mining-net --cap-add=NET_ADMIN --env-file .env -v "$(pwd)/projects/$1/coverage:/app/coverage" -e "revision=$3" -e "timestamp=$4" -e "package_manager=$5" cov_"$1"_"$6" bash run-coverage.sh
 fi

@@ -46,12 +46,12 @@ set -e
 
 cd /app/repo
 
-npm install
+yarn install
 
 set +e
-npx nyc --reporter=lcov --reporter=text npm test
+yarn workspaces foreach run test --coverage
 
-zip -r "../coverage/$(date -d @$timestamp '+%Y-%m-%d')-$revision.zip" . -i 'coverage/**' 'packages/**/coverage/**'
+zip -r "../coverage/$(date -d @$timestamp '+%Y-%m-%d')-$revision.zip" . -i 'coverage/**' 'packages/**/coverage/**' 'apps/**/coverage/**'
 [ -s "../coverage/$(date -d @$timestamp '+%Y-%m-%d')-$revision.zip" ] || { echo "Error: zip file is empty"; exit 1; }
 
 echo "=== Coverage run completed ==="

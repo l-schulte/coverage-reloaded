@@ -18,5 +18,4 @@ RUN git clone ${REPO} repo
 RUN apt-get update && apt-get install -y zip bash chromium
 
 COPY ./run-coverage.sh /app/run-coverage.sh
-COPY ./tmp/go-waypack.sh /app/go-waypack.sh
-RUN chmod +x /app/run-coverage.sh /app/go-waypack.sh
+RUN chmod +x /app/run-coverage.sh
