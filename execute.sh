@@ -64,7 +64,7 @@ fi
 
 echo "Installing dependencies and running tests with coverage..."
 
-bash ../install-and-run.sh
+timeout 5400s bash ../install-and-run.sh
 
 
 PATTERNS=('coverage/**' 'packages/**/coverage/**' "apps/**/coverage/**")
