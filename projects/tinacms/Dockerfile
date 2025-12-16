@@ -11,7 +11,7 @@ RUN cat /etc/debian_version && \
 
 RUN apt-get update && apt-get install -y git
 
-ARG REPO=https://github.com/nextcloud/spreed
+ARG REPO=https://github.com/tinacms/tinacms
 
 RUN git clone ${REPO} repo
 

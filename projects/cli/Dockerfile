@@ -17,5 +17,6 @@ RUN git clone ${REPO} repo
 
 RUN apt-get update && apt-get install -y zip bash chromium
 
-COPY ./run-coverage.sh /app/run-coverage.sh
-RUN chmod +x /app/run-coverage.sh
+COPY ./execute.sh /app/execute.sh
+COPY ./install-and-run.sh /app/install-and-run.sh
+RUN chmod +x /app/install-and-run.sh /app/execute.sh

@@ -8,10 +8,11 @@
 
 echo "Script called as: $0 $@"
 
+cp execute.sh projects/$1/
+
 docker build --build-arg BASE_IMAGE=$6 -t cov_"$1"_"$6" ./projects/$1 
 mkdir -p projects/$1/coverage
 mkdir -p projects/$1/debug
-mkdir -p projects/$1/tmp
 
 if [ "$2" = "test" ]; then
     # Run an interactive container for testing, executes bash on start
@@ -21,5 +22,5 @@ elif [ "$2" = "debug" ]; then
     docker run --rm -it --network mining-net --cap-add=NET_ADMIN --env-file .env -v "$(pwd)/projects/$1/coverage:/app/coverage" -v "$(pwd)/projects/$1/debug:/app" -e "revision=$3" -e "timestamp=$4" -e "package_manager=$5" cov_"$1"_"$6" bash
 elif [ "$2" = "exec" ]; then
     # Run the full process non-interactively
-    docker run --rm --network mining-net --cap-add=NET_ADMIN --env-file .env -v "$(pwd)/projects/$1/coverage:/app/coverage" -e "revision=$3" -e "timestamp=$4" -e "package_manager=$5" cov_"$1"_"$6" bash run-coverage.sh
+    docker run --rm --network mining-net --cap-add=NET_ADMIN --env-file .env -v "$(pwd)/projects/$1/coverage:/app/coverage" -e "revision=$3" -e "timestamp=$4" -e "package_manager=$5" cov_"$1"_"$6" bash execute.sh
 fi

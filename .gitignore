@@ -2,9 +2,15 @@
 .venv
 *.zip
 
-repos/
+
+projects/**/execute.sh
+projects/**/old_commits.csv
 **/tmp/
 **/debug/
 **/coverage/
 **/logs/
 **/repo/
+
+node_modules/
+**/node_modules/
+**/__pycache__/
