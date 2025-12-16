@@ -51,9 +51,22 @@ yarn build
 
 set +e
 npx lerna run test --concurrency 1 -- --coverage
+set -e
 
-zip -r "../coverage/$(date -d @$timestamp '+%Y-%m-%d')-$revision.zip" . -i 'coverage/**' 'packages/**/coverage/**'
-[ -s "../coverage/$(date -d @$timestamp '+%Y-%m-%d')-$revision.zip" ] || { echo "Error: zip file is empty"; exit 1; }
+PATTERNS=('coverage/**' 'packages/**/coverage/**' "apps/**/coverage/**")
+
+lcov_count=0
+for pattern in "${PATTERNS[@]}"; do
+    lcov_count=$((lcov_count + $(find . -path "./$pattern" -name "lcov.info" | wc -l)))
+done
+
+if [ "$lcov_count" -eq 0 ]; then
+    echo "Error: No lcov.info files found in any of the specified paths"
+    exit 1
+fi
+
+zip_file="../coverage/$(date -d @$timestamp '+%Y-%m-%d')-$revision.zip"
+zip -r "$zip_file" . -i "${PATTERNS[@]}"
 
 echo "=== Coverage run completed ==="
 endtime=$(date +%s)

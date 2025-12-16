@@ -46,11 +46,17 @@ set -e
 
 cd /app/repo
 
-npm install
+npm ci --no-fund
+
 
 set +e
-npx nyc --reporter=lcov --reporter=text npm test
+if grep -q "test:coverage" package.json; then
+    npm run test:coverage -- --coverage.enabled=true --coverage.reporter=lcov
+else
+    npm run test:unit -- --coverage
+fi
 set -e
+
 
 PATTERNS=('coverage/**' 'packages/**/coverage/**' "apps/**/coverage/**")
 
@@ -66,6 +72,7 @@ fi
 
 zip_file="../coverage/$(date -d @$timestamp '+%Y-%m-%d')-$revision.zip"
 zip -r "$zip_file" . -i "${PATTERNS[@]}"
+
 
 echo "=== Coverage run completed ==="
 endtime=$(date +%s)
