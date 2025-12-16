@@ -1,0 +1,118 @@
+import argparse
+from datetime import datetime, timezone
+import pydriller
+import json
+import tqdm
+import pandas as pd
+
+from helpers import nvmrc, package_json, node_releases, docker, docker_container
+
+CONFIG = json.load(open("config.json"))
+START_DATE = datetime.fromisoformat(CONFIG["startdate"]).replace(tzinfo=timezone.utc)
+END_DATE = datetime.fromisoformat(CONFIG["enddate"]).replace(tzinfo=timezone.utc)
+
+
+def get_or(value, default) -> str | None:
+    return value if value is not None else default
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Process project parameters.")
+    parser.add_argument(
+        "--project", type=str, required=True, help="Project name or path."
+    )
+    return parser.parse_args()
+
+
+def get_node_version(commit: pydriller.Commit) -> tuple[str | None, str | None]:
+    """
+    Attempts to retrieve the Node.js version for a given commit hash.
+    1. Check .nvmrc
+    2. Check package.json
+    3. Check dockerfiles
+    """
+
+    # 1. Check .nvmrc
+    node_version = nvmrc.get_node_version(REPO_PATH, commit.hash, nvmrc_path=".nvmrc")
+    if node_version:
+        return node_version, ".nvmrc"
+
+    # 2. Check package.json
+    node_version = package_json.get_node_version(
+        REPO_PATH, commit.hash, packagejson_path="package.json"
+    )
+    if node_version:
+        return node_version, "package.json"
+
+    # 3. Check dockerfiles
+    node_version = docker.get_node_version(
+        REPO_PATH, commit.hash, dockerfile_paths=["Dockerfile", "docker/Dockerfile"]
+    )
+    if node_version:
+        return node_version, "Dockerfile"
+
+    return None, None
+
+
+def get_package_manager_version(commit: pydriller.Commit) -> str | None:
+    """
+    Attempts to retrieve the package manager version for a given commit hash from package.json.
+    """
+
+    package_manager_version = package_json.get_packagemaner_version(
+        REPO_PATH, commit.hash, packagejson_path="package.json"
+    )
+    if package_manager_version:
+        return package_manager_version
+
+    return None
+
+
+def main():
+    args = parse_args()
+    print(f"project: {args.project}")
+
+    global PROJECT, PROJECT_PATH, REPO_PATH, PROJECT_COMMITS_FILE
+    PROJECT = args.project
+    PROJECT_PATH = f"projects/{PROJECT}"
+    REPO_PATH = f"{PROJECT_PATH}/repo"
+    PROJECT_COMMITS_FILE = f"{PROJECT_PATH}/commits.csv"
+
+    commits = []
+    node = None
+    package_manager = None
+    container = None
+
+    repo = pydriller.Repository(REPO_PATH)
+    for commit in tqdm.tqdm(repo.traverse_commits(), desc="Processing commits"):
+
+        if commit.committer_date >= END_DATE or commit.committer_date < START_DATE:
+            continue
+
+        node, node_source = get_node_version(commit)
+        if not node:
+            # Check node_releases.json based on commit date
+            timestamp = int(commit.committer_date.timestamp())
+            node = node_releases.get_node_version(timestamp, major_only=True)
+            node_source = "node_releases.json (major_only)"
+
+        package_manager = get_or(get_package_manager_version(commit), package_manager)
+        container = get_or(docker_container.get_container_tag(node), container)
+
+        commits.append(
+            {
+                "commit_hash": commit.hash,
+                "timestamp": str(commit.committer_date.timestamp()).split(".")[0],
+                "node_version": node,
+                "node_version_source": node_source,
+                "package_manager_version": package_manager,
+                "container": container,
+            }
+        )
+
+    pd.DataFrame(commits).to_csv(PROJECT_COMMITS_FILE, index=False)
+    print(f"Saved commits to {PROJECT_COMMITS_FILE}")
+
+
+if __name__ == "__main__":
+    main()

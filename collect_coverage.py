@@ -54,7 +54,7 @@ def get_worker_id():
 
 def run_docker_container(commit):
     """Run docker container for a single commit."""
-    project, commit_hash, timestamp, container, registry = commit
+    project, commit_hash, timestamp, container, package_manager = commit
     job = get_worker_id()
 
     command = [
@@ -64,7 +64,7 @@ def run_docker_container(commit):
         "exec",
         commit_hash,
         str(timestamp),
-        registry,
+        package_manager,
         container,
     ]
 
@@ -155,10 +155,16 @@ def execute(project):
         random.shuffle(rows)
         for row in rows:
             container = row.get("container", "").strip()
-            registry = row.get("registry", "").strip()
+            package_manager = row.get("package_manager", "").strip()
             if row["commit_hash"] not in completed_commits:
                 commits.append(
-                    (project, row["commit_hash"], row["timestamp"], container, registry)
+                    (
+                        project,
+                        row["commit_hash"],
+                        row["timestamp"],
+                        container,
+                        package_manager,
+                    )
                 )
 
                 if MAX_COMMITS and len(commits) >= MAX_COMMITS:
