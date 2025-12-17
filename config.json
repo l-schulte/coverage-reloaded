@@ -13,6 +13,9 @@
         },
         "spreed": {
             "url": "https://github.com/nextcloud/spreed"
+        },
+        "aws-toolkit-vscode": {
+            "url": "https://github.com/aws/aws-toolkit-vscode"
         }
     }
 }

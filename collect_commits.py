@@ -125,6 +125,9 @@ def main():
             subprocess.run(["git", "clone", project_url, REPO_PATH], check=True)
         else:
             subprocess.run(["git", "-C", REPO_PATH, "fetch", "--all"], check=True)
+    else:
+        raise ValueError(f"Project URL not found for project: {PROJECT}")
+
     repo = pydriller.Repository(REPO_PATH)
     for commit in tqdm.tqdm(repo.traverse_commits(), desc="Processing commits"):
 

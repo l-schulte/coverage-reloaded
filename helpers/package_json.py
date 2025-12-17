@@ -85,7 +85,11 @@ def get_node_version(
     if not content:
         return None
 
-    package_json = json.loads(content)
+    try:
+        package_json = json.loads(content)
+    except json.JSONDecodeError:
+        print(f"\nError decoding package.json at revision {revision}")
+        return None
 
     node_version = None
 
