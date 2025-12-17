@@ -9,13 +9,11 @@ RUN cat /etc/debian_version && \
       sed -i 's/security.debian.org/archive.debian.org/g' /etc/apt/sources.list; \
     fi
 
-RUN apt-get update && apt-get install -y git
+RUN apt-get update && apt-get install -y git zip bash chromium
 
 ARG REPO=https://github.com/nextcloud/spreed
 
 RUN git clone ${REPO} repo
-
-RUN apt-get update && apt-get install -y zip bash chromium
 
 COPY ./execute.sh /app/execute.sh
 COPY ./install-and-run.sh /app/install-and-run.sh
