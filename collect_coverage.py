@@ -54,7 +54,7 @@ def get_worker_id():
 
 def run_docker_container(commit):
     """Run docker container for a single commit."""
-    project, commit_hash, timestamp, container, package_manager = commit
+    project, commit_hash, timestamp, container, pm = commit
     job = get_worker_id()
 
     command = [
@@ -64,7 +64,7 @@ def run_docker_container(commit):
         "exec",
         commit_hash,
         str(timestamp),
-        package_manager,
+        pm,
         container,
     ]
 
@@ -123,7 +123,7 @@ def main():
         execute(args.project)
         return
 
-    projects = config.get("projects", [])
+    projects = config.get("projects", {}).keys()
     progress = tqdm.tqdm(projects, desc="Processing projects...", position=0)
     for project in progress:
         progress.set_description(f"Processing project: {project['name']}")
@@ -155,7 +155,7 @@ def execute(project):
         random.shuffle(rows)
         for row in rows:
             container = row.get("container", "").strip()
-            package_manager = row.get("package_manager", "").strip()
+            pm = row.get("pm_version", "").strip()
             if row["commit_hash"] not in completed_commits:
                 commits.append(
                     (
@@ -163,7 +163,7 @@ def execute(project):
                         row["commit_hash"],
                         row["timestamp"],
                         container,
-                        package_manager,
+                        pm,
                     )
                 )
 

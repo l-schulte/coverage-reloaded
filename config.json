@@ -1,18 +1,17 @@
 {
     "startdate": "2020-01-01",
     "enddate": "2025-12-31",
-    "projects": [
-        {
-            "name": "sentry-javascript"
-        },
-        {
-            "name": "cli"
-        },
-        {
-            "name": "condo"
-        },
-        {
-            "name": "spreed"
+    "projects": {
+        "sentry-javascript": {},
+        "cli": {},
+        "condo": {},
+        "spreed": {},
+        "tinacms": {
+            "package_manager_priority": [
+                "pnpm",
+                "npm",
+                "yarn"
+            ]
         }
-    ]
+    }
 }

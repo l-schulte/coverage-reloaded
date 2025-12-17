@@ -33,24 +33,26 @@ def __get_node_version_from_key(key: str, package_json: dict) -> str | None:
     return None
 
 
-def __get_package_manager_version_from_key(key: str, package_json: dict) -> str | None:
+def __get_pnpm_version_from_key(key: str, package_json: dict) -> str | None:
     """
     Retrieves the package manager version from a specified key (engines, volta, etc.) in package.json.
     """
 
     if key in package_json:
-        for pm in ["npm", "yarn", "pnpm"]:
-            if pm in package_json[key]:
-                try:
-                    version = parse_version_string(package_json[key][pm])
-                    if version:
-                        return f"{pm}@{version}"
-                except Exception:
-                    pass
+        if type(package_json[key]) is str and package_json[key].startswith("pnpm@"):
+            return package_json[key]
+
+        if "pnpm" in package_json[key]:
+            try:
+                version = parse_version_string(package_json[key]["pnpm"])
+                if version:
+                    return f"pnpm@{version}"
+            except Exception:
+                pass
     return None
 
 
-def get_packagemaner_version(
+def get_pnpm_version(
     repo_path: str, revision: str, packagejson_path: str = "package.json"
 ) -> str | None:
     """
@@ -67,9 +69,7 @@ def get_packagemaner_version(
 
     for key in POTENTIAL_KEYS:
         if not package_manager_version:
-            package_manager_version = __get_package_manager_version_from_key(
-                key, package_json
-            )
+            package_manager_version = __get_pnpm_version_from_key(key, package_json)
 
     return package_manager_version
 

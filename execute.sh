@@ -8,28 +8,28 @@
 cd /app/repo
 starttime=$(date +%s)
 
+IS_NPM_MAIN_PM=$([[ "$package_manager" == npm* ]] && echo "true" || echo "false")
+export IS_NPM_MAIN_PM
+
+IS_YARN_MAIN_PM=$([[ "$package_manager" == yarn* ]] && echo "true" || echo "false")
+export IS_YARN_MAIN_PM
+
+IS_PNPM_MAIN_PM=$([[ "$package_manager" == pnpm* ]] && echo "true" || echo "false")
+export IS_PNPM_MAIN_PM
+
+IS_YARN_LEGACY=$(yarn --version | grep -q "^1\." && echo "true" || echo "false")
+
 echo "=== Starting run-coverage.sh ==="
 echo "Revision: $revision"
 echo "Commit date: $(date -d @$timestamp)"
 echo "Timestamp: $timestamp"
 echo "Package Manager: $package_manager"
+echo ""
 echo "=== System Information ==="
 uname -a
 echo ""
 echo "=== Linux Distribution ==="
 cat /etc/os-release
-echo ""
-echo "=== Node Version ==="
-node --version
-echo ""
-echo "=== NPM Version ==="
-npm --version
-echo ""
-echo "=== Yarn Version ==="
-yarn --version
-IS_YARN_LEGACY=$(yarn --version | grep -q "^1\." && echo "true" || echo "false")
-export IS_YARN_LEGACY
-echo "Legacy Yarn: $IS_YARN_LEGACY"
 echo ""
 echo "=== Git Version ==="
 git --version
@@ -44,30 +44,76 @@ echo "=== Disk Information ==="
 df -h
 echo ""
 set -e
-
+echo "=== Current Folder ==="
+pwd
+echo ""
+echo "=== Git Checkout ==="
 git checkout "$revision"
+echo ""
+echo "=== Node Version ==="
+node --version
+echo ""
+echo "=== NPM Version ==="
+npm --version
+echo "npm main PM: $IS_NPM_MAIN_PM"
+echo ""
+echo "=== Yarn Version ==="
+yarn --version
+echo "Yarn main PM: $IS_YARN_MAIN_PM"
+echo "Legacy Yarn: $IS_YARN_LEGACY"
+echo ""
 
-echo "Setting npm registry to Waypack..."
+echo "=== Setting up Package Managers ==="
+
+
+# Always set npm registry to Waypack
+# if [ "$IS_NPM_MAIN_PM" = "true" ] || [ "$package_manager" == "" ]; then
+#     echo " --> Setup npm"
+# fi
+echo " --> Setup npm"
 npm config set registry "http://waypack:3000/npm/$timestamp/"
 
-if [ "$IS_YARN_LEGACY" = "true" ]; then
-    echo "Setting yarn legacy registry to Waypack..."
-    yarn config set registry "http://waypack:3000/npm/$timestamp/"
-else
-    echo "Setting yarn modern registry to Waypack..."
-    yarn config set unsafeHttpWhitelist "waypack"
-    yarn config set npmRegistryServer "http://waypack:3000/npm/$timestamp/"
+# Set up yarn if it's the main package manager or no package manager is specified
+if [ "$IS_YARN_MAIN_PM" = "true" ] || [ "$package_manager" == "" ]; then
+    echo " --> Setup yarn"
+    if [ "$IS_YARN_LEGACY" = "true" ]; then
+        echo " --> Setting yarn legacy registry to Waypack..."
+        yarn config set registry "http://waypack:3000/npm/$timestamp/"
+    else
+        echo " --> Setting yarn modern registry to Waypack..."
+        yarn config set unsafeHttpWhitelist "waypack"
+        yarn config set npmRegistryServer "http://waypack:3000/npm/$timestamp/"
+    fi
 fi
 
-# echo "Setting pnpm registry to Waypack..."
-# pnpm config set registry "http://waypack:3000/npm/$timestamp/"
+# Set up pnpm only if it's the main package manager
+if [ "$IS_PNPM_MAIN_PM" = "true" ]; then
+    echo " --> Setup pnpm"
+    IS_PM_SPECIFIED=$(grep -q '"packageManager"' package.json && echo "true" || echo "false")
+    if [ "$IS_PM_SPECIFIED" = "true" ] && command -v corepack &> /dev/null && [ "${package_manager}" == pnpm* ]; then
+        echo " --> Setting up ${package_manager} via corepack..."
+        corepack enable
+        corepack prepare "${package_manager}" --activate
+    else 
+        echo " --> Installing pnpm globally via npm..."
+        npm install --no-fund -g pnpm
+    fi
+    pnpm config set registry "http://waypack:3000/npm/$timestamp/"
 
-echo "Installing dependencies and running tests with coverage..."
+    echo "=== PNPM Version ==="
+    pnpm --version
+    echo "pnpm main PM: $IS_PNPM_MAIN_PM"
+    echo ""
+fi
+echo ""
+
+
+echo "=== Calling install-and-run.sh ==="
 
 timeout 5400s bash ../install-and-run.sh
 
 
-PATTERNS=('coverage/**' 'packages/**/coverage/**' "apps/**/coverage/**")
+PATTERNS=('coverage/**' 'packages/**/coverage/**' 'packages/**/**/coverage/**' "apps/**/coverage/**")
 IGNORE_PATTERNS=('*/node_modules/*')
 
 # Build the find command's ignore arguments

@@ -5,7 +5,16 @@ import json
 import tqdm
 import pandas as pd
 
-from helpers import nvmrc, package_json, node_releases, docker, docker_container
+from helpers import (
+    nvmrc,
+    package_json,
+    node_releases,
+    docker,
+    docker_container,
+    pnpm_releases,
+)
+
+from helpers.helper import file_exists_in_commit
 
 CONFIG = json.load(open("config.json"))
 START_DATE = datetime.fromisoformat(CONFIG["startdate"]).replace(tzinfo=timezone.utc)
@@ -54,18 +63,24 @@ def get_node_version(commit: pydriller.Commit) -> tuple[str | None, str | None]:
     return None, None
 
 
-def get_package_manager_version(commit: pydriller.Commit) -> str | None:
+def get_pnpm_version(
+    commit: pydriller.Commit, node_version: str
+) -> tuple[str | None, str | None]:
     """
     Attempts to retrieve the package manager version for a given commit hash from package.json.
     """
 
-    package_manager_version = package_json.get_packagemaner_version(
+    package_manager_version = package_json.get_pnpm_version(
         REPO_PATH, commit.hash, packagejson_path="package.json"
     )
     if package_manager_version:
-        return package_manager_version
+        return package_manager_version, "package.json"
 
-    return None
+    package_manager_version = pnpm_releases.get_pnpm_version(node_version)
+    if package_manager_version:
+        return package_manager_version, "pnpm_releases.json"
+
+    return None, None
 
 
 def main():
@@ -78,9 +93,27 @@ def main():
     REPO_PATH = f"{PROJECT_PATH}/repo"
     PROJECT_COMMITS_FILE = f"{PROJECT_PATH}/commits.csv"
 
+    package_manager_priority = (
+        CONFIG["projects"]
+        .get(PROJECT, {})
+        .get("package_manager_priority", ["pnpm", "npm", "yarn"])
+    )
+    package_manager_runnables = {
+        "pnpm": {
+            "files": ["pnpm-lock.yaml"],
+            "runnable": get_pnpm_version,
+        },
+        "npm": {
+            "files": ["package-lock.json"],
+            "runnable": None,
+        },
+        "yarn": {
+            "files": ["yarn.lock"],
+            "runnable": None,
+        },
+    }
+
     commits = []
-    node = None
-    package_manager = None
     container = None
 
     repo = pydriller.Repository(REPO_PATH)
@@ -96,7 +129,24 @@ def main():
             node = node_releases.get_node_version(timestamp, major_only=True)
             node_source = "node_releases.json (major_only)"
 
-        package_manager = get_or(get_package_manager_version(commit), package_manager)
+        pm_version = None
+        pm_source = None
+        for pm in package_manager_priority:
+            pm_info = package_manager_runnables.get(pm)
+            if not pm_info:
+                continue
+
+            for file in pm_info["files"]:
+                if file_exists_in_commit(REPO_PATH, commit.hash, file):
+                    if pm_info["runnable"]:
+                        pm_version, pm_source = pm_info["runnable"](commit, node)
+                    else:
+                        pm_version = pm
+                        pm_source = file
+                    break
+            if pm_version:
+                break
+
         container = get_or(docker_container.get_container_tag(node), container)
 
         commits.append(
@@ -105,7 +155,8 @@ def main():
                 "timestamp": str(commit.committer_date.timestamp()).split(".")[0],
                 "node_version": node,
                 "node_version_source": node_source,
-                "package_manager_version": package_manager,
+                "pm_version": pm_version if pm_version else "npm",
+                "pm_version_source": pm_source if pm_source else "default (npm)",
                 "container": container,
             }
         )

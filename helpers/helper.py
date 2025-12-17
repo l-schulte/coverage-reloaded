@@ -2,6 +2,12 @@ import subprocess
 import re
 
 
+def file_exists_in_commit(repo_path, commit_hash, file_path) -> bool:
+    cmd = ["git", "-C", repo_path, "cat-file", "-e", f"{commit_hash}:{file_path}"]
+    result = subprocess.run(cmd, capture_output=True)
+    return result.returncode == 0
+
+
 def get_file_at_commit(repo_path, commit_hash, file_path):
     cmd = ["git", "-C", repo_path, "show", f"{commit_hash}:{file_path}"]
     result = subprocess.run(cmd, capture_output=True, text=True)
