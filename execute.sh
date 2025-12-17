@@ -78,11 +78,11 @@ if [ "$IS_YARN_MAIN_PM" = "true" ] || [ "$package_manager" == "" ]; then
     echo " --> Setup yarn"
     if [ "$IS_YARN_LEGACY" = "true" ]; then
         echo " --> Setting yarn legacy registry to Waypack..."
-        yarn config set registry "http://waypack:3000/npm/$timestamp/"
+        yarn config set registry "http://waypack:3000/yarn/$timestamp/"
     else
         echo " --> Setting yarn modern registry to Waypack..."
         yarn config set unsafeHttpWhitelist "waypack"
-        yarn config set npmRegistryServer "http://waypack:3000/npm/$timestamp/"
+        yarn config set npmRegistryServer "http://waypack:3000/yarn/$timestamp/"
     fi
 fi
 
@@ -90,7 +90,7 @@ fi
 if [ "$IS_PNPM_MAIN_PM" = "true" ]; then
     echo " --> Setup pnpm"
     IS_PM_SPECIFIED=$(grep -q '"packageManager"' package.json && echo "true" || echo "false")
-    if [ "$IS_PM_SPECIFIED" = "true" ] && command -v corepack &> /dev/null && [ "${package_manager}" == pnpm* ]; then
+    if [[ "$IS_PM_SPECIFIED" = "true" && -x "$(command -v corepack)" && "${package_manager}" == pnpm* ]]; then
         echo " --> Setting up ${package_manager} via corepack..."
         corepack enable
         corepack prepare "${package_manager}" --activate

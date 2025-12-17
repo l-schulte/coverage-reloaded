@@ -4,6 +4,8 @@ import pydriller
 import json
 import tqdm
 import pandas as pd
+import os
+import subprocess
 
 from helpers import (
     nvmrc,
@@ -91,7 +93,9 @@ def main():
     PROJECT = args.project
     PROJECT_PATH = f"projects/{PROJECT}"
     REPO_PATH = f"{PROJECT_PATH}/repo"
+    os.makedirs(REPO_PATH, exist_ok=True)
     PROJECT_COMMITS_FILE = f"{PROJECT_PATH}/commits.csv"
+    project_url = CONFIG["projects"].get(PROJECT, {}).get("url", None)
 
     package_manager_priority = (
         CONFIG["projects"]
@@ -116,6 +120,11 @@ def main():
     commits = []
     container = None
 
+    if project_url:
+        if not os.path.exists(os.path.join(REPO_PATH, ".git")):
+            subprocess.run(["git", "clone", project_url, REPO_PATH], check=True)
+        else:
+            subprocess.run(["git", "-C", REPO_PATH, "fetch", "--all"], check=True)
     repo = pydriller.Repository(REPO_PATH)
     for commit in tqdm.tqdm(repo.traverse_commits(), desc="Processing commits"):
 

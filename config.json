@@ -2,16 +2,17 @@
     "startdate": "2020-01-01",
     "enddate": "2025-12-31",
     "projects": {
-        "sentry-javascript": {},
-        "cli": {},
-        "condo": {},
-        "spreed": {},
-        "tinacms": {
-            "package_manager_priority": [
-                "pnpm",
-                "npm",
-                "yarn"
-            ]
+        "sentry-javascript": {
+            "url": "https://github.com/getsentry/sentry-javascript"
+        },
+        "cli": {
+            "url": "https://github.com/npm/cli"
+        },
+        "condo": {
+            "url": "https://github.com/open-condo-software/condo"
+        },
+        "spreed": {
+            "url": "https://github.com/nextcloud/spreed"
         }
     }
 }
