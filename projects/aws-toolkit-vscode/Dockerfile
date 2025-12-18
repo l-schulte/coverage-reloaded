@@ -35,7 +35,8 @@ RUN apt-get update && \
         libxi6 \
         libxtst6 \
         libgbm1 \
-        jq
+        jq \
+        python3
 
 RUN apt-get update && \
     apt-get install -y xvfb xauth xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
@@ -47,7 +48,9 @@ ENV DISPLAY=:99
 
 # Gulp sometimes requires python, and does not always specify python3.
 # Workaround: create a symlink from python3 to python.
-RUN ln -s /usr/bin/python3 /usr/bin/python
+RUN if ! command -v python >/dev/null 2>&1 && command -v python3 >/dev/null 2>&1; then \
+        ln -sf /usr/bin/python3 /usr/bin/python; \
+    fi
 
 # GitHub is deprecating the git:// protocol.
 # Workaround: configure git to use https:// instead of git:// for github.com.
@@ -60,19 +63,8 @@ COPY ./desktop-init.sh /tmp/desktop-init.sh
 RUN chmod +x /tmp/desktop-lite-debian.sh /tmp/desktop-init.sh
 RUN /tmp/desktop-lite-debian.sh
 
-# Running Main test suite...
-# Setting up VS Code test instance, version: stable
-# Found existing install in /app/repo/.vscode-test/vscode-linux-x64-1.107.0. Skipping download
-# VS Code test instance location: /app/repo/.vscode-test/vscode-linux-x64-1.107.0/code
-# Invoking vscode CLI command:
-#     "/app/repo/.vscode-test/vscode-linux-x64-1.107.0/bin/code" ["--extensions-dir=/app/repo/.vscode-test/extensions","--user-data-dir=/app/repo/.vscode-test/user-data","--version"]
-# 1.107.0
-# 618725e67565b290ba4da6fe2d29f8fa1d4e3622
-# x64
-
-RUN mkdir -p /repo/.vscode-test
-RUN wget https://update.code.visualstudio.com/1.107.0/linux-x64/stable -O vscode-linux-x64-1.107.0.tar.gz
-
 COPY ./execute.sh /app/execute.sh
 COPY ./install-and-run.sh /app/install-and-run.sh
+COPY ./restore_vscode.py /app/restore_vscode.py
+COPY ./store_vscode.py /app/store_vscode.py
 RUN chmod +x /app/install-and-run.sh /app/execute.sh
