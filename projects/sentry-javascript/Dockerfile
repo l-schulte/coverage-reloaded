@@ -15,5 +15,7 @@ ARG REPO=https://github.com/getsentry/sentry-javascript
 
 RUN git clone ${REPO} repo
 
-COPY ./run-coverage.sh /app/run-coverage.sh
-RUN chmod +x /app/run-coverage.sh
+COPY ./execute.sh /app/execute.sh
+COPY ./install-and-run.sh /app/install-and-run.sh
+COPY ./find-and-move-lcov.sh /app/find-and-move-lcov.sh
+RUN chmod +x /app/install-and-run.sh /app/execute.sh /app/find-and-move-lcov.sh

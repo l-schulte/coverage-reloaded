@@ -5,8 +5,11 @@
 # THIS WILL BE COPIED TO EACH PROJECT'S FOLDER AUTOMATICALLY
 # -------------------------------------------------------------
 
-cd /app/repo
 starttime=$(date +%s)
+cd /app/repo
+
+COVERAGE_REPORT_PATH="/app/c8"
+export COVERAGE_REPORT_PATH
 
 IS_NPM_MAIN_PM=$([[ "$package_manager" == npm* ]] && echo "true" || echo "false")
 export IS_NPM_MAIN_PM
@@ -81,7 +84,7 @@ if [ "$IS_YARN_MAIN_PM" = "true" ] || [ "$package_manager" == "" ]; then
         yarn config set registry "http://waypack:3000/yarn/$timestamp/"
     else
         echo " --> Setting yarn modern registry to Waypack..."
-        yarn config set unsafeHttpWhitelist "waypack"
+        yarn config set unsafeHttpWhitelist --json '["waypack", "verdaccio"]'
         yarn config set npmRegistryServer "http://waypack:3000/yarn/$timestamp/"
     fi
 fi
@@ -107,33 +110,39 @@ if [ "$IS_PNPM_MAIN_PM" = "true" ]; then
 fi
 echo ""
 
+# echo "=== Setting up nyc ==="
+# # Install nyc globally if not already installed
+# if ! npx nyc --version >/dev/null 2>&1; then
+#     echo " --> Installing nyc globally"
+#     if [ "$IS_NPM_MAIN_PM" = "true" ] || [ "$package_manager" == "" ]; then
+#         npm install --no-fund -g nyc
+#     elif [ "$IS_YARN_MAIN_PM" = "true" ]; then
+#         yarn global add nyc
+#     elif [ "$IS_PNPM_MAIN_PM" = "true" ]; then
+#         pnpm add -g nyc
+#     fi
+# else
+#     echo " --> nyc is already installed"
+# fi
+# echo ""
+
 
 echo "=== Calling install-and-run.sh ==="
 
 timeout 5400s bash ../install-and-run.sh
 
-
-PATTERNS=('coverage/**' 'packages/**/coverage/**' 'packages/**/**/coverage/**' "apps/**/coverage/**")
-IGNORE_PATTERNS=('*/node_modules/*')
-
-# Build the find command's ignore arguments
-ignore_args=()
-for ignore in "${IGNORE_PATTERNS[@]}"; do
-    ignore_args+=(-not -path "$ignore")
-done
-
-lcov_count=0
-for pattern in "${PATTERNS[@]}"; do
-    lcov_count=$((lcov_count + $(find . -path "./$pattern" -name "lcov.info" "${ignore_args[@]}" | wc -l)))
-done
-
+echo "=== Checking coverage reports ==="
+lcov_count=$(find "$COVERAGE_REPORT_PATH" -name "lcov.info" | wc -l)
 if [ "$lcov_count" -eq 0 ]; then
-    echo "Error: No lcov.info files found in any of the specified paths"
+    echo "Error: No lcov.info files found in $COVERAGE_REPORT_PATH"
     exit 1
+else
+    echo "Found $lcov_count lcov.info files in $COVERAGE_REPORT_PATH"
 fi
 
-zip_file="../coverage/$(date -d @$timestamp '+%Y-%m-%d')-$revision.zip"
-zip -r "$zip_file" . -i "${PATTERNS[@]}" -x "${IGNORE_PATTERNS[@]}"
+echo "=== Zipping coverage reports ==="
+zip_file="/app/coverage/$(date -d @$timestamp '+%Y-%m-%d')-$revision.zip"
+zip -r "$zip_file" "$COVERAGE_REPORT_PATH"
 
 echo "=== Coverage run completed ==="
 endtime=$(date +%s)

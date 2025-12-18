@@ -57,7 +57,9 @@ def get_container_tag(node_version: str | None) -> str | None:
     while version_parts[-1] == "0" and len(version_parts) > 1:
         version_parts = version_parts[:-1]
 
-    formatted_version = ".".join(version_parts[:2])
+    # formatted_version = ".".join(version_parts[:2])
+    # for now, only use major version to maximize cache hits
+    formatted_version = major_version
 
     if major_version < 10:
         formatted_version = "10"
