@@ -8,7 +8,12 @@
 starttime=$(date +%s)
 cd /app/repo
 
-COVERAGE_REPORT_PATH="/app/c8"
+# GitHub is deprecating the git:// protocol.
+# Workaround: configure git to use https:// instead of git:// for github.com.
+git config --global url."https://github.com/".insteadOf "git://github.com/"
+
+COVERAGE_REPORT_PATH="/app/cov_exports"
+mkdir -p "$COVERAGE_REPORT_PATH"
 export COVERAGE_REPORT_PATH
 
 IS_NPM_MAIN_PM=$([[ "$package_manager" == npm* ]] && echo "true" || echo "false")
@@ -19,8 +24,6 @@ export IS_YARN_MAIN_PM
 
 IS_PNPM_MAIN_PM=$([[ "$package_manager" == pnpm* ]] && echo "true" || echo "false")
 export IS_PNPM_MAIN_PM
-
-IS_YARN_LEGACY=$(yarn --version | grep -q "^1\." && echo "true" || echo "false")
 
 echo "=== Starting run-coverage.sh ==="
 echo "Revision: $revision"
@@ -63,6 +66,7 @@ echo ""
 echo "=== Yarn Version ==="
 yarn --version
 echo "Yarn main PM: $IS_YARN_MAIN_PM"
+IS_YARN_LEGACY=$(yarn --version | grep -q "^1\." && echo "true" || echo "false")
 echo "Legacy Yarn: $IS_YARN_LEGACY"
 echo ""
 
@@ -92,8 +96,9 @@ fi
 # Set up pnpm only if it's the main package manager
 if [ "$IS_PNPM_MAIN_PM" = "true" ]; then
     echo " --> Setup pnpm"
-    IS_PM_SPECIFIED=$(grep -q '"packageManager"' package.json && echo "true" || echo "false")
-    if [[ "$IS_PM_SPECIFIED" = "true" && -x "$(command -v corepack)" && "${package_manager}" == pnpm* ]]; then
+    # IS_PM_SPECIFIED=$(grep -q '"packageManager"' package.json && echo "true" || echo "false") # Unsure why this was needed
+    # if [[ "$IS_PM_SPECIFIED" = "true" && -x "$(command -v corepack)" && "${package_manager}" == pnpm* ]]; then
+    if [[ -x "$(command -v corepack)" && "${package_manager}" == pnpm* ]]; then
         echo " --> Setting up ${package_manager} via corepack..."
         corepack enable
         corepack prepare "${package_manager}" --activate

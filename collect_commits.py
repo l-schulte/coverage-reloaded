@@ -10,6 +10,7 @@ import subprocess
 from helpers import (
     nvmrc,
     package_json,
+    tool_version,
     node_releases,
     docker,
     docker_container,
@@ -55,7 +56,14 @@ def get_node_version(commit: pydriller.Commit) -> tuple[str | None, str | None]:
     if node_version:
         return node_version, "package.json"
 
-    # 3. Check dockerfiles
+    # 3. Check .tool-version
+    node_version = tool_version.get_node_version(
+        REPO_PATH, commit.hash, tool_version_path=".tool-version"
+    )
+    if node_version:
+        return node_version, ".tool-version"
+
+    # 4. Check dockerfiles
     node_version = docker.get_node_version(
         REPO_PATH, commit.hash, dockerfile_paths=["Dockerfile", "docker/Dockerfile"]
     )

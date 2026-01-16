@@ -16,6 +16,9 @@
         },
         "aws-toolkit-vscode": {
             "url": "https://github.com/aws/aws-toolkit-vscode"
+        },
+        "metaphysics": {
+            "url": "https://github.com/artsy/metaphysics"
         }
     }
 }
