@@ -47,7 +47,13 @@ AVAILABLE_CONTAINER_TAGS = __get_available_node_tags()
 def get_container_tag(node_version: str | None) -> str | None:
     """
     Given a Node.js version string, returns the appropriate Docker container tag.
+    .. deprecated::
+        This function is deprecated and will be removed in a future version.
     """
+
+    raise DeprecationWarning(
+        "This function is deprecated and will be removed in a future version."
+    )
 
     if not node_version:
         return None

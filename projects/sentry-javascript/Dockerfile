@@ -1,19 +1,22 @@
-ARG BASE_IMAGE=node:22-bullseye
-FROM ${BASE_IMAGE}
+FROM debian:bullseye-slim
+
+ARG REPO=https://github.com/getsentry/sentry-javascript
+ARG NODE_VERSION=22
 
 WORKDIR /app
 
-RUN cat /etc/debian_version && \
-    if grep -q "^10" /etc/debian_version; then \
-      sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list && \
-      sed -i 's/security.debian.org/archive.debian.org/g' /etc/apt/sources.list; \
-    fi
-
-RUN apt-get update && apt-get install -y git zip bash chromium
-
-ARG REPO=https://github.com/getsentry/sentry-javascript
-
+RUN apt-get update && apt-get install -y git
 RUN git clone ${REPO} repo
+
+RUN apt-get install -y curl bash make build-essential zip
+
+ENV N_PREFIX=/root/n
+ENV PATH="$N_PREFIX/bin:${PATH}"
+
+RUN curl -L https://bit.ly/n-install | bash -s -- -y
+RUN n "$NODE_VERSION"
+RUN node --version
+RUN npm install -g yarn
 
 COPY ./execute.sh /app/execute.sh
 COPY ./install-and-run.sh /app/install-and-run.sh

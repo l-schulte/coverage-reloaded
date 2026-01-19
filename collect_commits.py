@@ -10,6 +10,7 @@ import subprocess
 from helpers import (
     nvmrc,
     package_json,
+    preinstall,
     tool_version,
     node_releases,
     docker,
@@ -69,6 +70,13 @@ def get_node_version(commit: pydriller.Commit) -> tuple[str | None, str | None]:
     )
     if node_version:
         return node_version, "Dockerfile"
+
+    # 5. Check build/npm/preinstall.js
+    node_version = preinstall.get_node_version(
+        REPO_PATH, commit.hash, preinstall_path="build/npm/preinstall.js"
+    )
+    if node_version:
+        return node_version, "build/npm/preinstall.js"
 
     return None, None
 
@@ -167,8 +175,6 @@ def main():
             if pm_version:
                 break
 
-        container = get_or(docker_container.get_container_tag(node), container)
-
         commits.append(
             {
                 "commit_hash": commit.hash,
@@ -177,7 +183,6 @@ def main():
                 "node_version_source": node_source,
                 "pm_version": pm_version if pm_version else "npm",
                 "pm_version_source": pm_source if pm_source else "default (npm)",
-                "container": container,
             }
         )
 

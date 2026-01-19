@@ -23,9 +23,10 @@ def parse_version_string(version_string: str, major_only: bool = False) -> str |
     "v14.17.0" -> "14.17", but also "v15" -> "15"
     ">=14.17.0 <18" -> "14.17"
     ">=12.3 <14 || >=14.17.0" -> "14.17"
+    ">=14.17.4 and <17" -> "14.17"
     """
 
-    re_version_match = re.compile(r"(?:v|>=|<=|\^|^)+(\d+)(?:\.(\d+))?(?:\.(\d+))?")
+    re_version_match = re.compile(r"(?:v|>=|>|\^|^)+(\d+)(?:\.(\d+))?(?:\.(\d+))?")
     version_match = re.findall(re_version_match, version_string)
     if version_match:
         major, minor, _ = version_match[-1]

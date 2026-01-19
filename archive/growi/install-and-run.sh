@@ -12,9 +12,7 @@ if [ "$IS_PNPM_MAIN_PM" = "true" ]; then
     set -e
 elif [ "$IS_YARN_MAIN_PM" = "true" ]; then
     echo "=== Running with yarn ==="
-
-    # Clean yarn.lock to avoid resolved URLs that point to the non-cached registry
-    sed -i '/^  resolved/d' yarn.lock
+    
     yarn install
 
     # check if turbo.json exists

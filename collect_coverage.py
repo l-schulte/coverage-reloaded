@@ -37,7 +37,7 @@ def parse_filename(filename) -> tuple[str, str, str, str]:
 def get_filename(container, timestamp, commit_hash, job_id, success=True):
     """Generate log filename based on parameters."""
     ext = "log" if success else "error"
-    return f"logs/{container}_{timestamp}_{commit_hash}_{job_id}.{ext}"
+    return f"logs/node{container}_{timestamp}_{commit_hash}_{job_id}.{ext}"
 
 
 def get_worker_id():
@@ -54,7 +54,7 @@ def get_worker_id():
 
 def run_docker_container(commit):
     """Run docker container for a single commit."""
-    project, commit_hash, timestamp, container, pm = commit
+    project, commit_hash, timestamp, node, pm = commit
     job = get_worker_id()
 
     command = [
@@ -65,14 +65,14 @@ def run_docker_container(commit):
         commit_hash,
         str(timestamp),
         pm,
-        container,
+        node,
     ]
 
     try:
         result = subprocess.run(command, capture_output=True, text=True)
         success = result.returncode == 0
 
-        log_filename = f"projects/{project}/{get_filename(container, timestamp, commit_hash, str(job), success)}"
+        log_filename = f"projects/{project}/{get_filename(node, timestamp, commit_hash, str(job), success)}"
         with open(log_filename, "w") as f:
             f.write(
                 result.stdout
@@ -154,7 +154,7 @@ def execute(project):
         rows = list(reader)
         random.shuffle(rows)
         for row in rows:
-            container = row.get("container", "").strip()
+            node = row.get("node", "").strip()
             pm = row.get("pm_version", "").strip()
             if row["commit_hash"] not in completed_commits:
                 commits.append(
@@ -162,7 +162,7 @@ def execute(project):
                         project,
                         row["commit_hash"],
                         row["timestamp"],
-                        container,
+                        node,
                         pm,
                     )
                 )

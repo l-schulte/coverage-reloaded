@@ -2,9 +2,9 @@
 cd /app/repo
 
 # Define patterns to match only the coverage folder (not subdirectories)
-PATTERNS=('coverage' 'packages/*/coverage' 'apps/*/coverage')
-IGNORE_PATTERNS=('*/node_modules/*')
-
+PATTERNS=('coverage' 'packages/*/coverage' 'apps/*/coverage' '.build/coverage')
+IGNORE_PATTERNS=('*/node_modules/*' '*.html')
+    
 # Build the find command's ignore arguments
 ignore_args=()
 for ignore in "${IGNORE_PATTERNS[@]}"; do
