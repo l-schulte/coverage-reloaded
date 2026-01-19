@@ -1,6 +1,6 @@
 # !/bin/bash
 # $1: directory name (also used as docker image tag)
-# $2: mode (test, debug, or exec for full run)
+# $2: mode (shell, debug, or exec for full run)
 # $3: revision
 # $4: timestamp
 # $5: package manager, including version (e.g., "npm:16", "yarn:18", "pnpm:20")
@@ -16,7 +16,7 @@ docker volume create cov_"$1"_data
 mkdir -p projects/$1/coverage
 mkdir -p projects/$1/debug
 
-if [ "$2" = "test" ]; then
+if [ "$2" = "shell" ]; then
     # Run an interactive container for testing, executes bash on start
     docker run --rm -it --network mining-net --cap-add=NET_ADMIN --env-file .env -v "$(pwd)/projects/$1/coverage:/app/coverage" -v cov_"$1"_data:/app/data -e "revision=$3" -e "timestamp=$4" -e "package_manager=$5" cov_"$1"_"$6" bash
 elif [ "$2" = "debug" ]; then
