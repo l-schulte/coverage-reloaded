@@ -19,6 +19,9 @@
         },
         "metaphysics": {
             "url": "https://github.com/artsy/metaphysics"
+        },
+        "azuredatastudio": {
+            "url": "https://github.com/microsoft/azuredatastudio"
         }
     }
 }

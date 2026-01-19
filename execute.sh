@@ -83,6 +83,7 @@ npm config set registry "http://waypack:3000/npm/$timestamp/"
 # Set up yarn if it's the main package manager or no package manager is specified
 if [ "$IS_YARN_MAIN_PM" = "true" ] || [ "$package_manager" == "" ]; then
     echo " --> Setup yarn"
+
     if [ "$IS_YARN_LEGACY" = "true" ]; then
         echo " --> Setting yarn legacy registry to Waypack..."
         yarn config set registry "http://waypack:3000/yarn/$timestamp/"
@@ -113,6 +114,35 @@ if [ "$IS_PNPM_MAIN_PM" = "true" ]; then
     echo "pnpm main PM: $IS_PNPM_MAIN_PM"
     echo ""
 fi
+echo ""
+
+echo "=== Cleaning package manager lock files ==="
+
+# There may be a package-lock.json file with resolved URLs hardcoded to npmjs.org. Slow and potentially rate limited.
+# Workaround 1: remove URLs
+# Result: fails (TypeError [ERR_INVALID_ARG_TYPE]: The "paths[1]" argument must be of type string. Received undefined)
+# [ -f "package-lock.json" ] && sed -i '/"resolved":/d' package-lock.json
+
+# Workaround 2: replace URLs with waypack URL (https://registry.npmjs.org/)
+# Result: works
+if [ -f "package-lock.json" ]; then
+    sed -i 's#"resolved": "https://registry.npmjs.org/#"resolved": "http://waypack:3000/npm/'"$timestamp"'/#g' package-lock.json
+    echo "-> Cleaned package-lock.json"
+else
+    echo "-> No package-lock.json to clean"
+fi
+
+# yarn.lock files often contain resolved URLs to central repositories.
+# Workaround 1: remove those lines to let yarn resolve them via the configured registry (waypack & verdaccio).
+# [ -f "yarn.lock" ] && sed -i '/^  resolved/d' yarn.lock
+# Workaround 2: replace URLs with waypack URL (https://registry.yarnpkg.com/)
+if [ -f "yarn.lock" ]; then
+    sed -i 's#resolved "https://registry.yarnpkg.com/#resolved "http://waypack:3000/yarn/'"$timestamp"'/#g' yarn.lock
+    echo "-> Cleaned yarn.lock"
+else
+    echo "-> No yarn.lock to clean"
+fi
+
 echo ""
 
 # echo "=== Setting up nyc ==="
