@@ -141,6 +141,7 @@ def main():
             subprocess.run(["git", "clone", project_url, REPO_PATH], check=True)
         else:
             subprocess.run(["git", "-C", REPO_PATH, "fetch", "--all"], check=True)
+            subprocess.run(["git", "-C", REPO_PATH, "pull"], check=True)
     else:
         raise ValueError(f"Project URL not found for project: {PROJECT}")
 
