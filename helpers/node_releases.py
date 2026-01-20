@@ -7,20 +7,27 @@ NODE_RELEASES_PATH = "helpers/node_releases.json"
 NODE_RELEASES = json.load(open(NODE_RELEASES_PATH, "r"))
 
 
-def get_node_version(timestamp: int, major_only: bool = False) -> str:
+def get_node_version(
+    timestamp: int, major_only: bool = False, offset_months: int = 12
+) -> str:
     """
-    Retrieves the Node.js version applicable at a given timestamp from node_releases.json.
+    Retrieves the latest Node.js version applicable at a given timestamp plus a offset (defaut 12 months).
+    Node version dates are stored in helpers/node_releases.json.
     """
 
-    def version_was_available(release_date: str, timestamp: int) -> bool:
+    def version_was_available(
+        release_date: str, timestamp: int, offset_months: int
+    ) -> bool:
         return (
-            datetime.datetime.strptime(release_date, "%Y-%m-%d").timestamp() < timestamp
+            datetime.datetime.strptime(release_date, "%Y-%m-%d").timestamp()
+            + offset_months * 30 * 24 * 60 * 60
+            < timestamp
         )
 
     latest_node_releases = [
         release
         for release, data in NODE_RELEASES.items()
-        if version_was_available(data["start"], timestamp)
+        if version_was_available(data["start"], timestamp, offset_months)
     ]
 
     latest_node_release = parse_version_string(latest_node_releases[-1], major_only)

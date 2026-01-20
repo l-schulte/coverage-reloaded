@@ -32,7 +32,7 @@ def get_or(value, default) -> str | None:
 def parse_args():
     parser = argparse.ArgumentParser(description="Process project parameters.")
     parser.add_argument(
-        "--project", type=str, required=True, help="Project name or path."
+        "--project", type=str, required=False, help="Project name or path."
     )
     return parser.parse_args()
 
@@ -101,12 +101,11 @@ def get_pnpm_version(
     return None, None
 
 
-def main():
-    args = parse_args()
-    print(f"project: {args.project}")
+def run(project: str):
+    print(f"project: {project}")
 
     global PROJECT, PROJECT_PATH, REPO_PATH, PROJECT_COMMITS_FILE
-    PROJECT = args.project
+    PROJECT = project
     PROJECT_PATH = f"projects/{PROJECT}"
     REPO_PATH = f"{PROJECT_PATH}/repo"
     os.makedirs(REPO_PATH, exist_ok=True)
@@ -155,8 +154,12 @@ def main():
         if not node:
             # Check node_releases.json based on commit date
             timestamp = int(commit.committer_date.timestamp())
-            node = node_releases.get_node_version(timestamp, major_only=True)
-            node_source = "node_releases.json (major_only)"
+            node = node_releases.get_node_version(
+                timestamp, major_only=True, offset_months=12
+            )
+            node_source = "node_releases.json (12 months offset)"
+
+        node = node.split(".")[0]  # Use major version only
 
         pm_version = None
         pm_source = None
@@ -189,6 +192,16 @@ def main():
 
     pd.DataFrame(commits).to_csv(PROJECT_COMMITS_FILE, index=False)
     print(f"Saved commits to {PROJECT_COMMITS_FILE}")
+
+
+def main():
+    args = parse_args()
+
+    if args.project:
+        run(args.project)
+    else:
+        for project in CONFIG.get("projects", {}).keys():
+            run(project)
 
 
 if __name__ == "__main__":
