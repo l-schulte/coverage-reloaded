@@ -9,6 +9,7 @@
 echo "Script called as: $0 $@"
 
 cp execute.sh projects/$1/
+cp find-and-move-lcov.sh projects/$1/
 
 docker build --build-arg NODE_VERSION=$6 -t cov_"$1"_node"$6" ./projects/$1 
 docker volume create cov_"$1"_data

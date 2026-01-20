@@ -5,8 +5,36 @@
 # THIS WILL BE COPIED TO EACH PROJECT'S FOLDER AUTOMATICALLY
 # -------------------------------------------------------------
 
+#!/bin/bash
+
 starttime=$(date +%s)
 cd /app/repo
+
+process_files() {
+    set +e
+    local execute_function="$1"
+    local processed_count=0
+    local ignore_args=()
+
+    echo "Searching for patterns: ${match_patterns[*]}"
+    echo "Ignoring patterns: ${ignore_patterns[*]}"
+
+    for ignore in "${ignore_patterns[@]}"; do
+        ignore_args+=(-not -path "$ignore")
+    done
+
+    for pattern in "${match_patterns[@]}"; do
+        while IFS= read -r -d '' file; do
+            echo "Found file: $file"
+            cmd="${execute_function/\{\}/$file}"
+            eval "$cmd"
+            ((processed_count++))
+        done < <(find . -path "./$pattern" -type f "${ignore_args[@]}" -print0)
+    done
+
+    echo "$processed_count files processed"
+    set -e
+}
 
 # GitHub is deprecating the git:// protocol.
 # Workaround: configure git to use https:// instead of git:// for github.com.
@@ -122,26 +150,23 @@ echo "=== Cleaning package manager lock files ==="
 # Workaround 1: remove URLs
 # Result: fails (TypeError [ERR_INVALID_ARG_TYPE]: The "paths[1]" argument must be of type string. Received undefined)
 # [ -f "package-lock.json" ] && sed -i '/"resolved":/d' package-lock.json
-
 # Workaround 2: replace URLs with waypack URL (https://registry.npmjs.org/)
 # Result: works
-if [ -f "package-lock.json" ]; then
-    sed -i 's#"resolved": "https://registry.npmjs.org/#"resolved": "http://waypack:3000/npm/'"$timestamp"'/#g' package-lock.json
-    echo "-> Cleaned package-lock.json"
-else
-    echo "-> No package-lock.json to clean"
-fi
+match_patterns=('package-lock.json' '*/package-lock.json')
+ignore_patterns=('*/node_modules/*')
+execute_function='sed -i "s#\"resolved\": \"https://registry.npmjs.org/#\"resolved\": \"http://waypack:3000/npm/'"$timestamp"'/#g" {}'
+
+process_files "$execute_function"
 
 # yarn.lock files often contain resolved URLs to central repositories.
 # Workaround 1: remove those lines to let yarn resolve them via the configured registry (waypack & verdaccio).
 # [ -f "yarn.lock" ] && sed -i '/^  resolved/d' yarn.lock
 # Workaround 2: replace URLs with waypack URL (https://registry.yarnpkg.com/)
-if [ -f "yarn.lock" ]; then
-    sed -i 's#resolved "https://registry.yarnpkg.com/#resolved "http://waypack:3000/yarn/'"$timestamp"'/#g' yarn.lock
-    echo "-> Cleaned yarn.lock"
-else
-    echo "-> No yarn.lock to clean"
-fi
+match_patterns=('yarn.lock' '*/yarn.lock')
+ignore_patterns=('*/node_modules/*')
+execute_function='sed -i "s|resolved \"https://registry.yarnpkg.com/|resolved \"http://waypack:3000/yarn/'"$timestamp"'/|g" {}'
+
+process_files "$execute_function"
 
 echo ""
 
