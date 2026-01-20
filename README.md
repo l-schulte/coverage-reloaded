@@ -51,10 +51,16 @@ Collecting commits creates the projects `commits.csv` files. It applies strategi
 
 The repository already contains the `commits.csv` files for all projects. 
 
-Run this per-project to (re)generate individual `commits.csv` files:
+Run this per-project to (re)generate `commits.csv` files:
 
 ```bash
 python collect_commits.py --project <project_name>
+```
+
+or for all projects defined in `config.json`:
+
+```bash
+python collect_commits.py
 ```
 
 ## Debugging Coverage Collection
@@ -64,7 +70,7 @@ Running the coverage collection for a projects creates `.log` and `.error` files
 Example:
 
 ```bash
-Script called as: /home/user/VCS/causal_coverage/docker-run.sh condo exec 6ba1d41d7a96c5de4ca8f66a26e956c08476c68e 1629283212  node:14-buster
+Script called as: /home/user/VCS/causal_coverage/docker-run.sh condo exec 6ba1d41d7a96c5de4ca8f66a26e956c08476c68e 1629283212 npm 14
 ```
 
 The `docker-run.sh` script can be executed with the following commands:

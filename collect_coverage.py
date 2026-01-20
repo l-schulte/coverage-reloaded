@@ -25,19 +25,19 @@ next_worker_id = 1
 
 
 def parse_filename(filename) -> tuple[str, str, str, str]:
-    """Parse log filename to extract container, timestamp, commit hash, and job ID."""
+    """Parse log filename to extract node, timestamp, commit hash, and job ID."""
     parts = filename.rsplit("_", 3)
-    container = parts[0]
+    node = parts[0].replace("node", "")
     timestamp = parts[1]
     commit_hash = parts[2]
     job_id = parts[3].split(".")[0]  # Remove file extension
-    return container, timestamp, commit_hash, job_id
+    return node, timestamp, commit_hash, job_id
 
 
-def get_filename(container, timestamp, commit_hash, job_id, success=True):
+def get_filename(node, timestamp, commit_hash, job_id, success=True):
     """Generate log filename based on parameters."""
     ext = "log" if success else "error"
-    return f"logs/node{container}_{timestamp}_{commit_hash}_{job_id}.{ext}"
+    return f"logs/node{node}_{timestamp}_{commit_hash}_{job_id}.{ext}"
 
 
 def get_worker_id():
@@ -154,7 +154,7 @@ def execute(project):
         rows = list(reader)
         random.shuffle(rows)
         for row in rows:
-            node = row.get("node", "").strip()
+            node = row.get("node_version", "").strip()
             pm = row.get("pm_version", "").strip()
             if row["commit_hash"] not in completed_commits:
                 commits.append(

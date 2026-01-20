@@ -5,8 +5,6 @@
 # THIS WILL BE COPIED TO EACH PROJECT'S FOLDER AUTOMATICALLY
 # -------------------------------------------------------------
 
-#!/bin/bash
-
 starttime=$(date +%s)
 cd /app/repo
 
@@ -165,8 +163,9 @@ process_files "$execute_function"
 match_patterns=('yarn.lock' '*/yarn.lock')
 ignore_patterns=('*/node_modules/*')
 execute_function='sed -i "s|resolved \"https://registry.yarnpkg.com/|resolved \"http://waypack:3000/yarn/'"$timestamp"'/|g" {}'
-
 process_files "$execute_function"
+# execute_function='sed -i "/^[[:space:]]*integrity /d" {}'
+# process_files "$execute_function"
 
 echo ""
 
@@ -189,6 +188,7 @@ echo ""
 
 echo "=== Calling install-and-run.sh ==="
 
+(sleep 5220s && echo "WARNING: 90 minute timeout for install-and-run.sh about to apply") &
 timeout 5400s bash ../install-and-run.sh
 
 echo "=== Checking coverage reports ==="
@@ -202,7 +202,7 @@ fi
 
 echo "=== Zipping coverage reports ==="
 zip_file="/app/coverage/$(date -d @$timestamp '+%Y-%m-%d')-$revision.zip"
-zip -r "$zip_file" "$COVERAGE_REPORT_PATH"
+zip -r "$zip_file" "$COVERAGE_REPORT_PATH" -x "*.html"
 
 echo "=== Coverage run completed ==="
 endtime=$(date +%s)

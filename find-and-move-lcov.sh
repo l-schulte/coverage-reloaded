@@ -1,4 +1,10 @@
 #!/bin/bash
+
+# -------------------------------------------------------------
+# ATTENTION! ONLY MODIFY THE ORIGINAL
+# THIS WILL BE COPIED TO EACH PROJECT'S FOLDER AUTOMATICALLY
+# -------------------------------------------------------------
+
 cd /app/repo
 
 # Define patterns to match only the coverage folder (not subdirectories)
