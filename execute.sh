@@ -38,7 +38,7 @@ process_files() {
 # Workaround: configure git to use https:// instead of git:// for github.com.
 git config --global url."https://github.com/".insteadOf "git://github.com/"
 
-COVERAGE_REPORT_PATH="/app/cov_exports"
+COVERAGE_REPORT_PATH="/app/exported"
 mkdir -p "$COVERAGE_REPORT_PATH"
 export COVERAGE_REPORT_PATH
 
@@ -191,18 +191,64 @@ echo "=== Calling install-and-run.sh ==="
 (sleep 5220s && echo "WARNING: 90 minute timeout for install-and-run.sh about to apply") &
 timeout 5400s bash ../install-and-run.sh
 
-echo "=== Checking coverage reports ==="
-lcov_count=$(find "$COVERAGE_REPORT_PATH" -name "lcov.info" | wc -l)
+echo "=== Counting coverage reports ==="
+# Find all lcov.info files in the coverage directory
+lcov_files=$(find "$COVERAGE_REPORT_PATH" -name "lcov.info" -size +0)
+lcov_count=$(echo "$lcov_files" | wc -l)
 if [ "$lcov_count" -eq 0 ]; then
     echo "Error: No lcov.info files found in $COVERAGE_REPORT_PATH"
     exit 1
 else
-    echo "Found $lcov_count lcov.info files in $COVERAGE_REPORT_PATH"
+    echo "--> Found $lcov_count lcov.info files in $COVERAGE_REPORT_PATH"
 fi
 
-echo "=== Zipping coverage reports ==="
-zip_file="/app/coverage/$(date -d @$timestamp '+%Y-%m-%d')-$revision.zip"
-zip -r "$zip_file" "$COVERAGE_REPORT_PATH" -x "*.html"
+echo "=== Prepending full path to coverage files ==="
+# Iterate over all lcov.info files in $COVERAGE_REPORT_PATH
+while IFS= read -r -d '' lcov_file; do
+    # Get the relative path of the file's directory
+    rel_path="${lcov_file#$COVERAGE_REPORT_PATH/}"
+    rel_path="${rel_path%/*}"
+
+    # Create a temporary file for the modified content
+    temp_file="${lcov_file}.tmp"
+
+    # Prepend the relative path to each SF: line in the file
+    awk -v path="$rel_path/" '{if ($0 ~ /^SF:/) {sub(/^SF:/, "SF:" path)}; print}' "$lcov_file" > "$temp_file"
+
+    # Replace the original file with the modified content
+    mv "$temp_file" "$lcov_file"
+done < <(find "$COVERAGE_REPORT_PATH" -name "lcov.info" -print0)
+
+echo "=== Merging coverage reports ==="
+# Merge all found lcov.info files into a single output file
+lcov $(find "$COVERAGE_REPORT_PATH" -name "lcov.info" -size +0 | sed 's/^/--add-tracefile /') \
+    --output-file "$COVERAGE_REPORT_PATH/merged.lcov" \
+    --base-directory "$COVERAGE_REPORT_PATH" \
+    --ignore-errors inconsistent
+
+ls -lh "$COVERAGE_REPORT_PATH"
+# echo "=== Zipping coverage reports ==="
+# zip_file="/app/coverage/$(date -d @$timestamp '+%Y-%m-%d')-$revision.zip"
+# zip -r "$zip_file" "$COVERAGE_REPORT_PATH"
+
+echo "=== Reporting coverage to coverageSHARK ==="
+
+# The coverageSHARK API endpoint takes a post request with three parameters:
+# - revision: the git revision hash
+# - projectID: the project ID
+# - lcovCoverageFile: the content of the main lcov.info file
+coverage_shark_endpoint="http://coverageSHARK:5000/api/v1/report-coverage"
+lcov_file_path="$COVERAGE_REPORT_PATH/merged.lcov"
+response=$(curl -w "%{http_code}" -o /dev/null -X POST "$coverage_shark_endpoint" \
+    -F "revisionHash=$revision" \
+    -F "projectID=$project_id" \
+    -F "lcovCoverageFile=@$lcov_file_path")
+if [ "$response" -ne 200 ]; then
+    echo "Error: Failed to report coverage to coverageSHARK. HTTP status code: $response"
+    exit 1
+else
+    echo "--> Successfully reported coverage to coverageSHARK"
+fi
 
 echo "=== Coverage run completed ==="
 endtime=$(date +%s)

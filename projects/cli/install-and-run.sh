@@ -7,8 +7,7 @@ npm install --no-fund
 set +e
 # npx nyc --reporter=lcov --reporter=text npm test
 npx nyc \
-    --temp-directory="$COVERAGE_REPORT_PATH/nyc" \
     --reporter=lcov \
-    --report-dir="$COVERAGE_REPORT_PATH/lcov" \
+    --report-dir="$COVERAGE_REPORT_PATH" \
     npm test
 set -e
