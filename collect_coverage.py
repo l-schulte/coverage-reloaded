@@ -10,7 +10,7 @@ import random
 import tqdm
 import argparse
 
-config = json.load(open("config.json"))
+CONFIG = json.load(open("config.json"))
 
 MAX_WORKERS = 4
 MAX_COMMITS = None
@@ -54,7 +54,7 @@ def get_worker_id():
 
 def run_docker_container(commit):
     """Run docker container for a single commit."""
-    project, commit_hash, timestamp, node, pm = commit
+    project, project_id, commit_hash, timestamp, node, pm = commit
     job = get_worker_id()
 
     command = [
@@ -66,6 +66,7 @@ def run_docker_container(commit):
         str(timestamp),
         pm,
         node,
+        project_id,
     ]
 
     try:
@@ -123,7 +124,7 @@ def main():
         execute(args.project)
         return
 
-    projects = config.get("projects", {}).keys()
+    projects = CONFIG.get("projects", {}).keys()
     progress = tqdm.tqdm(projects, desc="Processing projects...", position=0)
     for project in progress:
         progress.set_description(f"Processing project: {project['name']}")
@@ -133,6 +134,13 @@ def main():
 def execute(project):
     global next_worker_id
     next_worker_id = 1  # Reset worker ID counter
+
+    project_config = CONFIG["projects"].get(project, {})
+    if not project_config:
+        print(f"No configuration found for project: {project}")
+        return
+
+    project_id = project_config.get("projectID", project)
 
     logs_path = f"projects/{project}/logs"
     commits_csv = f"projects/{project}/" + COMMITS_CSV_FILE
@@ -160,6 +168,7 @@ def execute(project):
                 commits.append(
                     (
                         project,
+                        project_id,
                         row["commit_hash"],
                         row["timestamp"],
                         node,
