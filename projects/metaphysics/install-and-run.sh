@@ -1,7 +1,7 @@
 #!/bin/bash
 cd /app/repo
 
-yarn install --silent
+yarn install
 
 set +e
 

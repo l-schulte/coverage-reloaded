@@ -56,10 +56,7 @@ RUN if ! command -v python >/dev/null 2>&1 && command -v python3 >/dev/null 2>&1
 # Workaround: configure git to use https:// instead of git:// for github.com.
 RUN git config --global url."https://github.com/".insteadOf "git://github.com/"
 
-RUN apt-get install -y libcapture-tiny-perl libdatetime-perl
-RUN curl -L https://github.com/linux-test-project/lcov/releases/download/v2.4/lcov-2.4.tar.gz -o lcov-2.4.tar.gz
-RUN tar -xvf lcov-2.4.tar.gz
-RUN cd lcov-2.4 && make install
+RUN apt-get install -y lcov=1.14
 
 # While there is a --headless flag for the tests, it causes segmentation faults for some commits.
 # Workaround: install a lightweight desktop environment and run the tests in a virtual framebuffer.

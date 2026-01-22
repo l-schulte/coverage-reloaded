@@ -18,10 +18,7 @@ RUN n "$NODE_VERSION"
 RUN node --version
 RUN npm install -g yarn
 
-RUN apt-get install -y libcapture-tiny-perl libdatetime-perl
-RUN curl -L https://github.com/linux-test-project/lcov/releases/download/v2.4/lcov-2.4.tar.gz -o lcov-2.4.tar.gz
-RUN tar -xvf lcov-2.4.tar.gz
-RUN cd lcov-2.4 && make install
+RUN apt-get install -y lcov=1.14
 
 COPY ./execute.sh /app/execute.sh
 COPY ./install-and-run.sh /app/install-and-run.sh
