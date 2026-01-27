@@ -8,7 +8,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y git
 RUN git clone ${REPO} repo
 
-RUN apt-get install -y curl bash make build-essential zip
+RUN apt-get install -y curl bash make build-essential zip nano
 
 ENV N_PREFIX=/root/n
 ENV PATH="$N_PREFIX/bin:${PATH}"

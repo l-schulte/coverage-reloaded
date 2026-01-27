@@ -40,7 +40,9 @@ git config --global url."https://github.com/".insteadOf "git://github.com/"
 
 export COVERAGE_REPORT_PATH="/app/exported"
 mkdir -p "$COVERAGE_REPORT_PATH"
-export COVERAGE_REPORT_PATH
+
+export OUTPUT_PATH="/app/coverage"
+mkdir -p "$OUTPUT_PATH"
 
 IS_NPM_MAIN_PM=$([[ "$package_manager" == npm* ]] && echo "true" || echo "false")
 export IS_NPM_MAIN_PM
@@ -214,21 +216,27 @@ echo "=== Prepending full path to coverage files ==="
 
 
 
-# Iterate over all lcov.info files in $COVERAGE_REPORT_PATH
-while IFS= read -r -d '' lcov_file; do
-    # Get the relative path of the file's directory
-    rel_path="${lcov_file#$COVERAGE_REPORT_PATH/}"
+find "$COVERAGE_REPORT_PATH" -name "lcov.info" -print0 | while IFS= read -r -d '' lcov_file; do
+    # Get the relative path of the file's directory, stripping $COVERAGE_REPORT_PATH
+    rel_path="${lcov_file#$COVERAGE_REPORT_PATH}"
     rel_path="${rel_path%/*}"
+    rel_path="${rel_path#/}"  # Remove leading slash if present
 
-    # Create a temporary file for the modified content
-    temp_file="${lcov_file}.tmp"
+    # If rel_path is empty, set it to "."
+    [ -z "$rel_path" ] && rel_path="."
 
     # Prepend the relative path to each SF: line in the file
-    awk -v path="$rel_path/" '{if ($0 ~ /^SF:/) {sub(/^SF:/, "SF:" path)}; print}' "$lcov_file" > "$temp_file"
+    awk -v path="$rel_path/" '{
+        if ($0 ~ /^SF:/) {
+            if (path != "./") {
+                sub(/^SF:/, "SF:" path)
+            }
+        }
+        print
+    }' "$lcov_file" > "$lcov_file.tmp" && mv "$lcov_file.tmp" "$lcov_file"
 
-    # Replace the original file with the modified content
-    mv "$temp_file" "$lcov_file"
-done < <(find "$COVERAGE_REPORT_PATH" -name "lcov.info" -print0)
+    echo "--> Processed $lcov_file"
+done
 
 
 
@@ -242,7 +250,13 @@ lcov $(find "$COVERAGE_REPORT_PATH" -name "lcov.info" -size +0 | sed 's/^/--add-
     --rc lcov_branch_coverage=1
 
 ls -lh "$COVERAGE_REPORT_PATH"
+
+
+
 # echo "=== Zipping coverage reports ==="
+
+
+
 # zip_file="/app/coverage/$(date -d @$timestamp '+%Y-%m-%d')-$revision.zip"
 # zip -r "$zip_file" "$COVERAGE_REPORT_PATH"
 
@@ -251,23 +265,10 @@ ls -lh "$COVERAGE_REPORT_PATH"
 echo "=== Reporting coverage to coverageSHARK ==="
 
 
+# mv "$COVERAGE_REPORT_PATH/lcov.info" "$OUTPUT_PATH/$revision.lcov"
+mv "$COVERAGE_REPORT_PATH/merged.lcov" "$OUTPUT_PATH/$revision.lcov"
 
-# The coverageSHARK API endpoint takes a post request with three parameters:
-# - revision: the git revision hash
-# - projectID: the project ID
-# - lcovCoverageFile: the content of the main lcov.info file
-coverage_shark_endpoint="http://coverageSHARK:5000/api/v1/report-coverage"
-lcov_file_path="$COVERAGE_REPORT_PATH/merged.lcov"
-response=$(curl -w "%{http_code}" -o /dev/null -X POST "$coverage_shark_endpoint" \
-    -F "revisionHash=$revision" \
-    -F "projectID=$project_id" \
-    -F "lcovCoverageFile=@$lcov_file_path")
-if [ "$response" -ne 200 ]; then
-    echo "Error: Failed to report coverage to coverageSHARK. HTTP status code: $response"
-    exit 1
-else
-    echo "--> Successfully reported coverage to coverageSHARK"
-fi
+
 
 echo "=== Coverage run completed ==="
 endtime=$(date +%s)

@@ -97,6 +97,7 @@ def parse_args():
         type=int,
         required=True,
         help="Maximum number of workers to use.",
+        default=4,
     )
     parser.add_argument(
         "--max-commits",

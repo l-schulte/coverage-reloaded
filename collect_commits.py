@@ -32,7 +32,10 @@ def get_or(value, default) -> str | None:
 def parse_args():
     parser = argparse.ArgumentParser(description="Process project parameters.")
     parser.add_argument(
-        "--project", type=str, required=False, help="Project name or path."
+        "--project",
+        type=str,
+        required=False,
+        help="Project name. Must be in config.json",
     )
     return parser.parse_args()
 
@@ -110,7 +113,6 @@ def run(project: str):
     REPO_PATH = f"{PROJECT_PATH}/repo"
     os.makedirs(REPO_PATH, exist_ok=True)
     PROJECT_COMMITS_FILE = f"{PROJECT_PATH}/commits.csv"
-    project_url = CONFIG["projects"].get(PROJECT, {}).get("url", None)
 
     package_manager_priority = (
         CONFIG["projects"]
@@ -133,16 +135,6 @@ def run(project: str):
     }
 
     commits = []
-    container = None
-
-    if project_url:
-        if not os.path.exists(os.path.join(REPO_PATH, ".git")):
-            subprocess.run(["git", "clone", project_url, REPO_PATH], check=True)
-        else:
-            subprocess.run(["git", "-C", REPO_PATH, "fetch", "--all"], check=True)
-            subprocess.run(["git", "-C", REPO_PATH, "pull"], check=True)
-    else:
-        raise ValueError(f"Project URL not found for project: {PROJECT}")
 
     repo = pydriller.Repository(REPO_PATH)
     for commit in tqdm.tqdm(repo.traverse_commits(), desc="Processing commits"):

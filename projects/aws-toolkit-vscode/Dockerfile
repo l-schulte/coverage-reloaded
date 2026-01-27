@@ -11,9 +11,7 @@ RUN cat /etc/debian_version && \
 
 RUN apt-get update && apt-get install -y git zip bash chromium
 
-ARG REPO=https://github.com/aws/aws-toolkit-vscode
-
-RUN git clone ${REPO} repo
+COPY ./repo /app/repo
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -56,7 +54,7 @@ RUN if ! command -v python >/dev/null 2>&1 && command -v python3 >/dev/null 2>&1
 # Workaround: configure git to use https:// instead of git:// for github.com.
 RUN git config --global url."https://github.com/".insteadOf "git://github.com/"
 
-RUN apt-get install -y lcov=1.14
+RUN apt-get install -y lcov=1.14-2
 
 # While there is a --headless flag for the tests, it causes segmentation faults for some commits.
 # Workaround: install a lightweight desktop environment and run the tests in a virtual framebuffer.

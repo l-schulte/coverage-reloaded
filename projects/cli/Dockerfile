@@ -1,14 +1,13 @@
 FROM debian:bullseye-slim
 
-ARG REPO=https://github.com/npm/cli
 ARG NODE_VERSION=22
 
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y git
-RUN git clone ${REPO} repo
+COPY ./repo /app/repo
 
-RUN apt-get install -y curl bash make build-essential zip python3
+RUN apt-get install -y curl bash make build-essential zip nano python3
 
 ENV N_PREFIX=/root/n
 ENV PATH="$N_PREFIX/bin:${PATH}"
@@ -18,7 +17,7 @@ RUN n "$NODE_VERSION"
 RUN node --version
 RUN npm install -g yarn
 
-RUN apt-get install -y lcov=1.14
+RUN apt-get install -y lcov=1.14-2
 
 COPY ./execute.sh /app/execute.sh
 COPY ./install-and-run.sh /app/install-and-run.sh
