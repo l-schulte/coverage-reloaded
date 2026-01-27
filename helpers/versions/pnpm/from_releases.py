@@ -1,7 +1,7 @@
 import json
 
 # https://pnpm.io/installation#compatibility
-PNPM_RELEASES_PATH = "helpers/pnpm_releases.json"
+PNPM_RELEASES_PATH = "helpers/repo/pnpm/releases.json"
 PNPM_RELEASES = json.load(open(PNPM_RELEASES_PATH, "r"))
 
 

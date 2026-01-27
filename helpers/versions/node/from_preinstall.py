@@ -1,18 +1,4 @@
-from helpers.helper import get_file_at_commit, parse_version_string
-
-
-def __get_preinstall_content(
-    repo_path: str, revision: str, preinstall_path: str = "build/npm/preinstall.js"
-) -> str | None:
-    """
-    Reads the content of the build/npm/preinstall.js file if it exists.
-    """
-
-    try:
-        content = get_file_at_commit(repo_path, revision, preinstall_path)
-        return content.strip() if content else None
-    except Exception:
-        return None
+from helpers.versions.helper import parse_version_string, get_file_content
 
 
 def get_node_version(
@@ -22,7 +8,7 @@ def get_node_version(
     Retrieves the Node.js version specified in the build/npm/preinstall.js file at a given revision.
     """
 
-    content = __get_preinstall_content(repo_path, revision, preinstall_path)
+    content = get_file_content(repo_path, revision, preinstall_path)
     if content:
         node_line = [
             line

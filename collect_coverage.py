@@ -117,22 +117,24 @@ def main():
     print(f"max_commits: {args.max_commits}")
     print(f"project: {args.project}")
 
-    global MAX_WORKERS, MAX_COMMITS
-    MAX_WORKERS = args.max_workers
+    global MAX_COMMITS
     MAX_COMMITS = args.max_commits
 
     if args.project:
-        execute(args.project)
+        execute(args.project, args.max_workers)
         return
 
     projects = CONFIG.get("projects", {}).keys()
     progress = tqdm.tqdm(projects, desc="Processing projects...", position=0)
     for project in progress:
         progress.set_description(f"Processing project: {project['name']}")
-        execute(project["name"])
+        execute(project["name"], args.max_workers)
 
 
-def execute(project):
+def execute(project, max_workers):
+    global MAX_WORKERS
+    MAX_WORKERS = max_workers
+
     global next_worker_id
     next_worker_id = 1  # Reset worker ID counter
 

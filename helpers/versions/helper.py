@@ -14,6 +14,18 @@ def get_file_at_commit(repo_path, commit_hash, file_path):
     return result.stdout
 
 
+def get_file_content(repo_path: str, revision: str, file_path: str) -> str | None:
+    """
+    Reads the content of the specified file if it exists.
+    """
+
+    try:
+        content = get_file_at_commit(repo_path, revision, file_path)
+        return content.strip() if content else None
+    except Exception:
+        return None
+
+
 def parse_version_string(version_string: str, major_only: bool = False) -> str | None:
     """
     Extracts version from string, e.g.;

@@ -5,24 +5,12 @@ import json
 import tqdm
 import pandas as pd
 import os
-import subprocess
 
-from helpers import (
-    nvmrc,
-    package_json,
-    preinstall,
-    tool_version,
-    node_releases,
-    docker,
-    docker_container,
-    pnpm_releases,
-)
-
-from helpers.helper import file_exists_in_commit
+from helpers.versions.helper import file_exists_in_commit
+from helpers.versions.node.find_version import get_node_version
+from helpers.versions.pnpm.find_version import get_pnpm_version
 
 CONFIG = json.load(open("config.json"))
-START_DATE = datetime.fromisoformat(CONFIG["startdate"]).replace(tzinfo=timezone.utc)
-END_DATE = datetime.fromisoformat(CONFIG["enddate"]).replace(tzinfo=timezone.utc)
 
 
 def get_or(value, default) -> str | None:
@@ -37,88 +25,24 @@ def parse_args():
         required=False,
         help="Project name. Must be in config.json",
     )
+    parser.add_argument(
+        "--start-date",
+        type=str,
+        default=CONFIG.get("startdate", "1970-01-01"),
+        help="Start date for commit collection in ISO format (YYYY-MM-DD).",
+    )
+    parser.add_argument(
+        "--end-date",
+        type=str,
+        default=CONFIG.get("enddate", "2100-01-01"),
+        help="End date for commit collection in ISO format (YYYY-MM-DD).",
+    )
     return parser.parse_args()
 
 
-def get_node_version(commit: pydriller.Commit) -> tuple[str | None, str | None]:
-    """
-    Attempts to retrieve the Node.js version for a given commit hash.
-    1. Check .nvmrc
-    2. Check package.json
-    3. Check dockerfiles
-    """
-
-    # 1. Check .nvmrc
-    node_version = nvmrc.get_node_version(REPO_PATH, commit.hash, nvmrc_path=".nvmrc")
-    if node_version:
-        return node_version, ".nvmrc"
-
-    # 2. Check package.json
-    node_version = package_json.get_node_version(
-        REPO_PATH, commit.hash, packagejson_path="package.json"
-    )
-    if node_version:
-        return node_version, "package.json"
-
-    # 3. Check .tool-version
-    node_version = tool_version.get_node_version(
-        REPO_PATH, commit.hash, tool_version_path=".tool-version"
-    )
-    if node_version:
-        return node_version, ".tool-version"
-
-    # 4. Check dockerfiles
-    node_version = docker.get_node_version(
-        REPO_PATH, commit.hash, dockerfile_paths=["Dockerfile", "docker/Dockerfile"]
-    )
-    if node_version:
-        return node_version, "Dockerfile"
-
-    # 5. Check build/npm/preinstall.js
-    node_version = preinstall.get_node_version(
-        REPO_PATH, commit.hash, preinstall_path="build/npm/preinstall.js"
-    )
-    if node_version:
-        return node_version, "build/npm/preinstall.js"
-
-    return None, None
-
-
-def get_pnpm_version(
-    commit: pydriller.Commit, node_version: str
+def determine_package_manager(
+    commit: pydriller.Commit, repo_path: str, priority: list[str]
 ) -> tuple[str | None, str | None]:
-    """
-    Attempts to retrieve the package manager version for a given commit hash from package.json.
-    """
-
-    package_manager_version = package_json.get_pnpm_version(
-        REPO_PATH, commit.hash, packagejson_path="package.json"
-    )
-    if package_manager_version:
-        return package_manager_version, "package.json"
-
-    package_manager_version = pnpm_releases.get_pnpm_version(node_version)
-    if package_manager_version:
-        return package_manager_version, "pnpm_releases.json"
-
-    return None, None
-
-
-def run(project: str):
-    print(f"project: {project}")
-
-    global PROJECT, PROJECT_PATH, REPO_PATH, PROJECT_COMMITS_FILE
-    PROJECT = project
-    PROJECT_PATH = f"projects/{PROJECT}"
-    REPO_PATH = f"{PROJECT_PATH}/repo"
-    os.makedirs(REPO_PATH, exist_ok=True)
-    PROJECT_COMMITS_FILE = f"{PROJECT_PATH}/commits.csv"
-
-    package_manager_priority = (
-        CONFIG["projects"]
-        .get(PROJECT, {})
-        .get("package_manager_priority", ["pnpm", "npm", "yarn"])
-    )
     package_manager_runnables = {
         "pnpm": {
             "files": ["pnpm-lock.yaml"],
@@ -134,42 +58,48 @@ def run(project: str):
         },
     }
 
-    commits = []
-
-    repo = pydriller.Repository(REPO_PATH)
-    for commit in tqdm.tqdm(repo.traverse_commits(), desc="Processing commits"):
-
-        if commit.committer_date >= END_DATE or commit.committer_date < START_DATE:
+    for pm in priority:
+        pm_info = package_manager_runnables.get(pm)
+        if not pm_info:
             continue
 
-        node, node_source = get_node_version(commit)
-        if not node:
-            # Check node_releases.json based on commit date
-            timestamp = int(commit.committer_date.timestamp())
-            node = node_releases.get_node_version(
-                timestamp, major_only=True, offset_months=12
-            )
-            node_source = "node_releases.json (12 months offset)"
+        for file in pm_info["files"]:
+            if file_exists_in_commit(repo_path, commit.hash, file):
+                if pm_info["runnable"]:
+                    pm_version, pm_source = pm_info["runnable"](commit, repo_path)
+                else:
+                    pm_version = pm
+                    pm_source = file
+                return pm_version, pm_source
 
+    return None, None
+
+
+def execute(project: str, start_date: datetime, end_date: datetime):
+    project_path = f"projects/{project}"
+    repo_path = f"{project_path}/repo"
+    project_commits_file = f"{project_path}/commits.csv"
+
+    package_manager_priority = (
+        CONFIG["projects"]
+        .get(project, {})
+        .get("package_manager_priority", ["pnpm", "npm", "yarn"])
+    )
+
+    commits = []
+
+    repo = pydriller.Repository(repo_path)
+    for commit in tqdm.tqdm(repo.traverse_commits(), desc="Processing commits"):
+
+        if commit.committer_date >= end_date or commit.committer_date < start_date:
+            continue
+
+        node, node_source = get_node_version(commit, repo_path)
         node = node.split(".")[0]  # Use major version only
 
-        pm_version = None
-        pm_source = None
-        for pm in package_manager_priority:
-            pm_info = package_manager_runnables.get(pm)
-            if not pm_info:
-                continue
-
-            for file in pm_info["files"]:
-                if file_exists_in_commit(REPO_PATH, commit.hash, file):
-                    if pm_info["runnable"]:
-                        pm_version, pm_source = pm_info["runnable"](commit, node)
-                    else:
-                        pm_version = pm
-                        pm_source = file
-                    break
-            if pm_version:
-                break
+        pm_version, pm_source = determine_package_manager(
+            commit, repo_path, package_manager_priority
+        )
 
         commits.append(
             {
@@ -182,18 +112,21 @@ def run(project: str):
             }
         )
 
-    pd.DataFrame(commits).to_csv(PROJECT_COMMITS_FILE, index=False)
-    print(f"Saved commits to {PROJECT_COMMITS_FILE}")
+    pd.DataFrame(commits).to_csv(project_commits_file, index=False)
+    print(f"Saved commits to {project_commits_file}")
 
 
 def main():
     args = parse_args()
 
+    start_date = datetime.fromisoformat(args.start_date).replace(tzinfo=timezone.utc)
+    end_date = datetime.fromisoformat(args.end_date).replace(tzinfo=timezone.utc)
+
     if args.project:
-        run(args.project)
+        execute(args.project, start_date, end_date)
     else:
         for project in CONFIG.get("projects", {}).keys():
-            run(project)
+            execute(project, start_date, end_date)
 
 
 if __name__ == "__main__":
