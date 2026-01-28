@@ -3,6 +3,8 @@
 .env
 .venv
 *.zip
+*.tar.gz
+*.lcov
 
 
 projects/**/execute.sh

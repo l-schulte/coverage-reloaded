@@ -3,7 +3,7 @@ import json
 
 from helpers.versions.helper import parse_version_string
 
-NODE_RELEASES_PATH = "helpers/repo/node/releases.json"
+NODE_RELEASES_PATH = "helpers/versions/node/data/releases.json"
 NODE_RELEASES = json.load(open(NODE_RELEASES_PATH, "r"))
 
 
@@ -12,7 +12,7 @@ def get_node_version(
 ) -> str:
     """
     Retrieves the latest Node.js version applicable at a given timestamp plus a offset (defaut 12 months).
-    Node version dates are stored in helpers/repo/node/releases.json.
+    Node version dates are stored in helpers/versions/node/data/releases.json.
     """
 
     def version_was_available(

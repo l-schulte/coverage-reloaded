@@ -38,7 +38,7 @@ def parse_args():
 def determine_package_manager(
     commit: pydriller.Commit,
     repo_path: str,
-    priority: list[str] = ["pnpm", "npm", "yarn"],
+    priority: list[str] | None,
 ) -> tuple[str | None, str | None]:
     """
     Determines the package manager and its version based on the given priority list.
@@ -46,7 +46,7 @@ def determine_package_manager(
     Args:
         commit (pydriller.Commit): The commit to check.
         repo_path (str): The path to the repository.
-        priority (list[str]): List of package managers in order of priority.
+        priority (list[str] | None): List of package managers in order of priority.
     """
     package_manager_runnables = {
         "pnpm": {
@@ -62,6 +62,9 @@ def determine_package_manager(
             "runnable": None,
         },
     }
+
+    if not priority:
+        priority = ["pnpm", "yarn", "npm"]
 
     for pm in priority:
         pm_info = package_manager_runnables.get(pm)
