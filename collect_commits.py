@@ -4,17 +4,12 @@ import pydriller
 import json
 import tqdm
 import pandas as pd
-import os
 
 from helpers.versions.helper import file_exists_in_commit
 from helpers.versions.node.find_version import get_node_version
 from helpers.versions.pnpm.find_version import get_pnpm_version
 
 CONFIG = json.load(open("config.json"))
-
-
-def get_or(value, default) -> str | None:
-    return value if value is not None else default
 
 
 def parse_args():
@@ -41,8 +36,18 @@ def parse_args():
 
 
 def determine_package_manager(
-    commit: pydriller.Commit, repo_path: str, priority: list[str]
+    commit: pydriller.Commit,
+    repo_path: str,
+    priority: list[str] = ["pnpm", "npm", "yarn"],
 ) -> tuple[str | None, str | None]:
+    """
+    Determines the package manager and its version based on the given priority list.
+
+    Args:
+        commit (pydriller.Commit): The commit to check.
+        repo_path (str): The path to the repository.
+        priority (list[str]): List of package managers in order of priority.
+    """
     package_manager_runnables = {
         "pnpm": {
             "files": ["pnpm-lock.yaml"],
@@ -76,14 +81,21 @@ def determine_package_manager(
 
 
 def execute(project: str, start_date: datetime, end_date: datetime):
+    """
+    Collects commit data for a given project within a specified date range.
+
+    Args:
+        project (str): The name of the project.
+        start_date (datetime): The start date for commit collection.
+        end_date (datetime): The end date for commit collection.
+    """
+
     project_path = f"projects/{project}"
     repo_path = f"{project_path}/repo"
     project_commits_file = f"{project_path}/commits.csv"
 
     package_manager_priority = (
-        CONFIG["projects"]
-        .get(project, {})
-        .get("package_manager_priority", ["pnpm", "npm", "yarn"])
+        CONFIG["projects"].get(project, {}).get("package_manager_priority", None)
     )
 
     commits = []
@@ -116,7 +128,12 @@ def execute(project: str, start_date: datetime, end_date: datetime):
     print(f"Saved commits to {project_commits_file}")
 
 
-def main():
+def __main():
+    """
+    Main entry point if executed as a script. For testing purposes.
+    For production use main.py / call execute() directly.
+    """
+
     args = parse_args()
 
     start_date = datetime.fromisoformat(args.start_date).replace(tzinfo=timezone.utc)
@@ -130,4 +147,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    __main()

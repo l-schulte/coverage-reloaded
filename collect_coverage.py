@@ -12,8 +12,6 @@ import argparse
 
 CONFIG = json.load(open("config.json"))
 
-MAX_WORKERS = 4
-MAX_COMMITS = None
 COMMITS_CSV_FILE = "commits.csv"
 WORKSPACE_PATH = os.path.dirname(os.path.abspath(__file__))
 DOCKER_RUN_SCRIPT = os.path.join(WORKSPACE_PATH, "docker-run.sh")
@@ -111,29 +109,7 @@ def parse_args():
     return parser.parse_args()
 
 
-def main():
-    args = parse_args()
-    print(f"max_workers: {args.max_workers}")
-    print(f"max_commits: {args.max_commits}")
-    print(f"project: {args.project}")
-
-    global MAX_COMMITS
-    MAX_COMMITS = args.max_commits
-
-    if args.project:
-        execute(args.project, args.max_workers)
-        return
-
-    projects = CONFIG.get("projects", {}).keys()
-    progress = tqdm.tqdm(projects, desc="Processing projects...", position=0)
-    for project in progress:
-        progress.set_description(f"Processing project: {project['name']}")
-        execute(project["name"], args.max_workers)
-
-
-def execute(project, max_workers):
-    global MAX_WORKERS
-    MAX_WORKERS = max_workers
+def execute(project, max_workers, max_commits=None):
 
     global next_worker_id
     next_worker_id = 1  # Reset worker ID counter
@@ -179,12 +155,12 @@ def execute(project, max_workers):
                     )
                 )
 
-                if MAX_COMMITS and len(commits) >= MAX_COMMITS:
+                if max_commits and len(commits) >= max_commits:
                     break
 
     start = time.time()
     print(
-        f"Processing {len(commits)} commits with {MAX_WORKERS} workers - start time: {time.ctime(start)}"
+        f"Processing {len(commits)} commits with {max_workers} workers - start time: {time.ctime(start)}"
     )
 
     # Run in parallel
@@ -192,7 +168,7 @@ def execute(project, max_workers):
     completed = 0
     total = len(commits)
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = [executor.submit(run_docker_container, commit) for commit in commits]
 
         progress = tqdm.tqdm(total=total, desc="Processing commits...", position=1)
@@ -208,7 +184,3 @@ def execute(project, max_workers):
     duration = end - start
     print(f"Total time: {duration:.2f} seconds")
     print(f"Final result: {successful}/{total} successful")
-
-
-if __name__ == "__main__":
-    main()

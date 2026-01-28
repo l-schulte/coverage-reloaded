@@ -52,6 +52,20 @@ def parse_args():
         default=defaults["max_workers"],
         help="Maximum number of worker threads to use.",
     )
+    parser.add_argument(
+        "--max-commits",
+        type=int,
+        required=False,
+        help="Maximum number of commits to process.",
+    )
+    parser.add_argument(
+        "--mode",
+        type=str,
+        choices=["full", "commits-only", "coverage-only"],
+        default="full",
+        help="Mode of operation:\n - 'full' to collect commits and coverage\n - 'commits-only' to collect only commits\n - 'coverage-only' to collect only coverage.",
+    )
+
     return parser.parse_args()
 
 
@@ -66,9 +80,13 @@ def main():
     print(f"end_date: {args.end_date}")
     print(f"output: {args.output}")
     print(f"max_workers: {args.max_workers}")
+    print(f"max_commits: {args.max_commits}")
+    print(f"mode: {args.mode}")
 
-    collect_commits.execute(args.project, start_date, end_date)
-    collect_coverage.execute(args.project, args.max_workers)
+    if args.mode in ["full", "commits-only"]:
+        collect_commits.execute(args.project, start_date, end_date)
+    if args.mode in ["full", "coverage-only"]:
+        collect_coverage.execute(args.project, args.max_workers, args.max_commits)
 
 
 if __name__ == "__main__":
