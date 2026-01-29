@@ -1,4 +1,5 @@
 import json
+import logging
 
 from helpers.versions.helper import (
     get_file_content,
@@ -6,6 +7,8 @@ from helpers.versions.helper import (
 )
 
 POTENTIAL_KEYS = ["engines", "volta", "packageManager"]
+
+logger = logging.getLogger(__name__)
 
 
 def __get_node_version_from_key(key: str, package_json: dict) -> str | None:
@@ -35,7 +38,7 @@ def get_node_version(
     try:
         package_json = json.loads(content)
     except json.JSONDecodeError:
-        print(f"\nError decoding package.json at revision {revision}")
+        logger.error(f"Error decoding package.json at revision {revision}")
         return None
 
     node_version = None

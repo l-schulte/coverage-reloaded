@@ -1,5 +1,6 @@
 import argparse
 from datetime import datetime, timezone
+import logging
 import pydriller
 import json
 import tqdm
@@ -10,6 +11,8 @@ from helpers.versions.node.find_version import get_node_version
 from helpers.versions.pnpm.find_version import get_pnpm_version
 
 CONFIG = json.load(open("config.json"))
+
+logger = logging.getLogger(__name__)
 
 
 def parse_args():
@@ -93,6 +96,8 @@ def execute(project: str, start_date: datetime, end_date: datetime):
         end_date (datetime): The end date for commit collection.
     """
 
+    logger.info(f"Collecting commits for project: {project}")
+
     project_path = f"projects/{project}"
     repo_path = f"{project_path}/repo"
     project_commits_file = f"{project_path}/commits.csv"
@@ -103,6 +108,8 @@ def execute(project: str, start_date: datetime, end_date: datetime):
 
     commits = []
 
+    # Suppress pydriller logging on info level
+    logging.getLogger("pydriller").setLevel(logging.WARNING)
     repo = pydriller.Repository(repo_path)
     for commit in tqdm.tqdm(repo.traverse_commits(), desc="Processing commits"):
 
@@ -128,7 +135,8 @@ def execute(project: str, start_date: datetime, end_date: datetime):
         )
 
     pd.DataFrame(commits).to_csv(project_commits_file, index=False)
-    print(f"Saved commits to {project_commits_file}")
+    logger.info(f"Collected {len(commits)} commits for project {project}.")
+    logger.debug(f"Saved commits to {project_commits_file}")
 
 
 def __main():

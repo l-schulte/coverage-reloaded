@@ -1,9 +1,13 @@
 import argparse
 from datetime import datetime, timezone
 import json
+import logging
 
 import collect_commits
 import collect_coverage
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 def get_defaults_from_config():
@@ -41,12 +45,6 @@ def parse_args():
         help="End date for commit collection in ISO format (YYYY-MM-DD).",
     )
     parser.add_argument(
-        "--output",
-        type=str,
-        default="./outputs/",
-        help="Path to the output directory.",
-    )
-    parser.add_argument(
         "--max-workers",
         type=int,
         default=defaults["max_workers"],
@@ -75,13 +73,10 @@ def main():
     start_date = datetime.fromisoformat(args.start_date).replace(tzinfo=timezone.utc)
     end_date = datetime.fromisoformat(args.end_date).replace(tzinfo=timezone.utc)
 
-    print(f"project: {args.project}")
-    print(f"start_date: {args.start_date}")
-    print(f"end_date: {args.end_date}")
-    print(f"output: {args.output}")
-    print(f"max_workers: {args.max_workers}")
-    print(f"max_commits: {args.max_commits}")
-    print(f"mode: {args.mode}")
+    logger.info(f"Starting in mode: {args.mode}")
+    logger.info(f"Project: {args.project}")
+    logger.info(f"Date range: {start_date} to {end_date}")
+    print("Lets go!")
 
     if args.mode in ["full", "commits-only"]:
         collect_commits.execute(args.project, start_date, end_date)

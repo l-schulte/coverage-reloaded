@@ -1,5 +1,6 @@
 import csv
 import json
+import logging
 import subprocess
 import concurrent.futures
 import sys
@@ -11,6 +12,8 @@ import tqdm
 import argparse
 
 CONFIG = json.load(open("config.json"))
+
+logger = logging.getLogger(__name__)
 
 COMMITS_CSV_FILE = "commits.csv"
 WORKSPACE_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -84,7 +87,7 @@ def run_docker_container(commit):
     except subprocess.TimeoutExpired:
         return False
     except Exception as e:
-        print(f"Error occurred while processing commit {commit_hash}: {e}")
+        logger.error(f"Error occurred while processing commit {commit_hash}: {e}")
         return False
 
 
@@ -116,7 +119,7 @@ def execute(project, max_workers, max_commits=None):
 
     project_config = CONFIG["projects"].get(project, {})
     if not project_config:
-        print(f"No configuration found for project: {project}")
+        logger.error(f"No configuration found for project: {project}")
         return
 
     project_id = project_config.get("projectID", project)
@@ -159,7 +162,7 @@ def execute(project, max_workers, max_commits=None):
                     break
 
     start = time.time()
-    print(
+    logger.info(
         f"Processing {len(commits)} commits with {max_workers} workers - start time: {time.ctime(start)}"
     )
 
@@ -182,5 +185,5 @@ def execute(project, max_workers, max_commits=None):
 
     end = time.time()
     duration = end - start
-    print(f"Total time: {duration:.2f} seconds")
-    print(f"Final result: {successful}/{total} successful")
+    logger.info(f"Total time: {duration:.2f} seconds")
+    logger.info(f"Final result: {successful}/{total} successful")

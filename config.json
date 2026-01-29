@@ -1,6 +1,7 @@
 {
     "startdate": "2020-01-01",
     "enddate": "2025-12-31",
+    "max_workers": 10,
     "projects": {
         "sentry-javascript": {
             "url": "https://github.com/getsentry/sentry-javascript"
