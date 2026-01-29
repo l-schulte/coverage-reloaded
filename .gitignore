@@ -6,9 +6,6 @@
 *.tar.gz
 *.lcov
 
-
-projects/**/execute.sh
-projects/**/find-and-move-lcov.sh
 projects/**/old_commits.csv
 **/tmp/
 **/debug/

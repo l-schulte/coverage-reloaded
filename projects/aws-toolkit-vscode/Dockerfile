@@ -1,21 +1,12 @@
-ARG BASE_IMAGE=node:22-bullseye
-FROM ${BASE_IMAGE}
+ARG NODE_VERSION=22
+FROM core_node${NODE_VERSION}_base
 
 WORKDIR /app
 
-RUN cat /etc/debian_version && \
-    if grep -q "^10" /etc/debian_version; then \
-      sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list && \
-      sed -i 's/security.debian.org/archive.debian.org/g' /etc/apt/sources.list; \
-    fi
-
-RUN apt-get update && apt-get install -y git zip bash chromium
-
-COPY ./repo /app/repo
+RUN apt-get update && apt-get install -y chromium
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        wget \
         gpg \
         libsecret-1-dev \
         libxkbfile-dev \
@@ -33,8 +24,7 @@ RUN apt-get update && \
         libxi6 \
         libxtst6 \
         libgbm1 \
-        jq \
-        python3
+        jq
 
 RUN apt-get update && \
     apt-get install -y xvfb xauth xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
@@ -52,9 +42,7 @@ RUN if ! command -v python >/dev/null 2>&1 && command -v python3 >/dev/null 2>&1
 
 # GitHub is deprecating the git:// protocol.
 # Workaround: configure git to use https:// instead of git:// for github.com.
-RUN git config --global url."https://github.com/".insteadOf "git://github.com/"
-
-RUN apt-get install -y lcov=1.14-2
+RUN git config --global url."https://github.com/".insteadOf "git://github.com/"s
 
 # While there is a --headless flag for the tests, it causes segmentation faults for some commits.
 # Workaround: install a lightweight desktop environment and run the tests in a virtual framebuffer.
@@ -63,8 +51,9 @@ COPY ./desktop-init.sh /tmp/desktop-init.sh
 RUN chmod +x /tmp/desktop-lite-debian.sh /tmp/desktop-init.sh
 RUN /tmp/desktop-lite-debian.sh
 
-COPY ./execute.sh /app/execute.sh
+COPY ./repo /app/repo
+
 COPY ./install-and-run.sh /app/install-and-run.sh
 COPY ./restore_vscode.py /app/restore_vscode.py
 COPY ./store_vscode.py /app/store_vscode.py
-RUN chmod +x /app/install-and-run.sh /app/execute.sh
+RUN chmod +x /app/install-and-run.sh
