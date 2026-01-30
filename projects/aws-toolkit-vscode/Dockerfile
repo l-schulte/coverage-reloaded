@@ -1,7 +1,7 @@
 ARG NODE_VERSION=22
 FROM core_node${NODE_VERSION}_base
 
-WORKDIR /app
+WORKDIR /coverage_reloaded
 
 RUN apt-get update && apt-get install -y chromium
 
@@ -51,9 +51,9 @@ COPY ./desktop-init.sh /tmp/desktop-init.sh
 RUN chmod +x /tmp/desktop-lite-debian.sh /tmp/desktop-init.sh
 RUN /tmp/desktop-lite-debian.sh
 
-COPY ./repo /app/repo
+COPY ./repo /coverage_reloaded/repo
 
-COPY ./install-and-run.sh /app/install-and-run.sh
-COPY ./restore_vscode.py /app/restore_vscode.py
-COPY ./store_vscode.py /app/store_vscode.py
-RUN chmod +x /app/install-and-run.sh
+COPY ./install-and-run.sh /coverage_reloaded/install-and-run.sh
+COPY ./restore_vscode.py /coverage_reloaded/restore_vscode.py
+COPY ./store_vscode.py /coverage_reloaded/store_vscode.py
+RUN chmod +x /coverage_reloaded/install-and-run.sh

@@ -82,6 +82,12 @@ def run_docker_container(commit):
                 + (result.stderr if not success else "Success!")
             )
 
+        if not success:
+            logger.error(f"Commit {commit_hash} failed. See log: {log_filename}")
+            error_lcov = f"projects/{project}/output/{commit_hash}.error"
+            with open(error_lcov, "w") as f:
+                f.write(f"Execution failed. See log for details.\n{log_filename}\n")
+
         return success
 
     except subprocess.TimeoutExpired:
@@ -169,12 +175,13 @@ def execute(project, max_workers, max_commits=None):
     # Run in parallel
     successful = 0
     completed = 0
+    stopwatch = time.time()
     total = len(commits)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = [executor.submit(run_docker_container, commit) for commit in commits]
 
-        progress = tqdm.tqdm(total=total, desc="Processing commits...", position=1)
+        progress = tqdm.tqdm(total=total, desc="Processing commits...")
         for future in concurrent.futures.as_completed(futures):
             completed += 1
             if future.result():
@@ -182,6 +189,16 @@ def execute(project, max_workers, max_commits=None):
 
             progress.update(1)
             progress.set_postfix(successful=successful)
+
+            # if completed % 10 == 0 or completed < 10:
+            #     elapsed = (time.time() - stopwatch) / 3600  # in hours
+            #     logger.info(f"Completed {completed}/{total} commits")
+            #     logger.info(f"\tSuccessful: {successful}")
+            #     logger.info(f"\tFailed: {completed - successful}")
+            #     logger.info(f"\tElapsed time: {elapsed:.2f} hours")
+            #     logger.info(
+            #         f"\tTime remaining: ~{(elapsed / completed) * (total - completed):.2f} hours"
+            #     )
 
     end = time.time()
     duration = end - start

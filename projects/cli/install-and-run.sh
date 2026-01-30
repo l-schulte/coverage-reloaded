@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /app/repo
+cd /coverage_reloaded/repo
 
 npm install --no-fund
 

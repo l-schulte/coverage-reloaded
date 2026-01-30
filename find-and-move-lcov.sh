@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /app/repo
+cd /coverage_reloaded/repo
 
 # Define patterns to match coverage folders
 PATTERNS=('coverage' 'packages/*/coverage' 'apps/*/coverage' '.build/coverage')

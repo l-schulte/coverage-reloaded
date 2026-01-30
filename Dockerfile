@@ -3,7 +3,7 @@
 FROM debian:bullseye-slim
 ARG NODE_VERSION=22
 
-WORKDIR /app
+WORKDIR /coverage_reloaded
 
 RUN apt-get update && \
     apt-get install -y \
@@ -29,6 +29,6 @@ RUN n "$NODE_VERSION"
 RUN node --version
 RUN npm install -g yarn
 
-COPY ./execute.sh /app/execute.sh
-COPY find-and-move-lcov.sh /app/find-and-move-lcov.sh
-RUN chmod +x /app/execute.sh /app/find-and-move-lcov.sh
+COPY ./execute.sh /coverage_reloaded/execute.sh
+COPY find-and-move-lcov.sh /coverage_reloaded/find-and-move-lcov.sh
+RUN chmod +x /coverage_reloaded/execute.sh /coverage_reloaded/find-and-move-lcov.sh

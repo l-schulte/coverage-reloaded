@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /app/repo
+cd /coverage_reloaded/repo
 
 yarn install
 

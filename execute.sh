@@ -6,7 +6,9 @@
 # -------------------------------------------------------------
 
 starttime=$(date +%s)
-cd /app/repo
+BASEDIR="/coverage_reloaded"
+REPOPATH="$BASEDIR/repo"
+cd "$REPOPATH"
 
 process_files() {
     set +e
@@ -38,10 +40,10 @@ process_files() {
 # Workaround: configure git to use https:// instead of git:// for github.com.
 git config --global url."https://github.com/".insteadOf "git://github.com/"
 
-export COVERAGE_REPORT_PATH="/app/exported"
+export COVERAGE_REPORT_PATH="$BASEDIR/exported"
 mkdir -p "$COVERAGE_REPORT_PATH"
 
-export OUTPUT_PATH="/app/coverage"
+export OUTPUT_PATH="$BASEDIR/coverage"
 mkdir -p "$OUTPUT_PATH"
 
 IS_NPM_MAIN_PM=$([[ "$package_manager" == npm* ]] && echo "true" || echo "false")
@@ -217,10 +219,13 @@ echo "=== Prepending full path to coverage files ==="
 
 
 find "$COVERAGE_REPORT_PATH" -name "lcov.info" -print0 | while IFS= read -r -d '' lcov_file; do
+    # First, replace all occurrences of $REPOPATH with an empty string
+    sed -i "s|$REPOPATH||g" "$lcov_file"
+
     # Get the relative path of the file's directory, stripping $COVERAGE_REPORT_PATH
     rel_path="${lcov_file#$COVERAGE_REPORT_PATH}"
     rel_path="${rel_path%/*}"
-    rel_path="${rel_path#/}"  # Remove leading slash if present
+    rel_path="${rel_path#/}"
 
     # If rel_path is empty, set it to "."
     [ -z "$rel_path" ] && rel_path="."
@@ -257,7 +262,7 @@ ls -lh "$COVERAGE_REPORT_PATH"
 
 
 
-# zip_file="/app/coverage/$(date -d @$timestamp '+%Y-%m-%d')-$revision.zip"
+# zip_file="$BASEDIR/coverage/$(date -d @$timestamp '+%Y-%m-%d')-$revision.zip"
 # zip -r "$zip_file" "$COVERAGE_REPORT_PATH"
 
 

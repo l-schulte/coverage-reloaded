@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /app/repo
+cd /coverage_reloaded/repo
 
 npm ci --no-fund
 npm install -g nyc --no-fund
