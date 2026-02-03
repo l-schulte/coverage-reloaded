@@ -130,18 +130,21 @@ def execute(project, max_workers, max_commits=None):
 
     project_id = project_config.get("projectID", project)
 
-    logs_path = f"projects/{project}/logs"
+    output_path = f"projects/{project}/output/"
     commits_csv = f"projects/{project}/" + COMMITS_CSV_FILE
 
-    os.makedirs(logs_path, exist_ok=True)
+    os.makedirs(output_path, exist_ok=True)
 
-    # Read existing logs to skip commits that already succeeded
+    # Read existing outputs to skip commits that already succeeded
+    logger.info("Checking for already completed commits and cleaning up errors...")
     completed_commits = set()
-    if os.path.exists(logs_path):
-        for filename in os.listdir(logs_path):
-            if filename.endswith(".log") or filename.endswith(".error"):
-                _, _, commit_hash, _ = parse_filename(filename)
+    if os.path.exists(output_path):
+        for filename in os.listdir(output_path):
+            if filename.endswith(".lcov"):
+                commit_hash = filename.split(".")[0]
                 completed_commits.add(commit_hash)
+            if filename.endswith(".error"):
+                os.remove(os.path.join(output_path, filename))
 
     # Read valid commits
     commits = []

@@ -5,6 +5,7 @@
 *.zip
 *.tar.gz
 *.lcov
+*.error
 
 projects/**/old_commits.csv
 **/tmp/
