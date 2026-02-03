@@ -102,13 +102,15 @@ echo ""
 
 echo "=== Setting up Package Managers ==="
 
+WAYPACK_NPM_REGISTRY="http://waypack:3000/npm/$timestamp/"
+WAYPACK_YARN_REGISTRY="http://waypack:3000/yarn/$timestamp/"
 
 # Always set npm registry to Waypack
 # if [ "$IS_NPM_MAIN_PM" = "true" ] || [ "$package_manager" == "" ]; then
 #     echo " --> Setup npm"
 # fi
 echo " --> Setup npm"
-npm config set registry "http://waypack:3000/npm/$timestamp/"
+npm config set registry "$WAYPACK_NPM_REGISTRY"
 
 # Set up yarn if it's the main package manager or no package manager is specified
 if [ "$IS_YARN_MAIN_PM" = "true" ] || [ "$package_manager" == "" ]; then
@@ -116,11 +118,11 @@ if [ "$IS_YARN_MAIN_PM" = "true" ] || [ "$package_manager" == "" ]; then
 
     if [ "$IS_YARN_LEGACY" = "true" ]; then
         echo " --> Setting yarn legacy registry to Waypack..."
-        yarn config set registry "http://waypack:3000/yarn/$timestamp/"
+        yarn config set registry "$WAYPACK_YARN_REGISTRY"
     else
         echo " --> Setting yarn modern registry to Waypack..."
         yarn config set unsafeHttpWhitelist --json '["waypack", "verdaccio"]'
-        yarn config set npmRegistryServer "http://waypack:3000/yarn/$timestamp/"
+        yarn config set npmRegistryServer "$WAYPACK_YARN_REGISTRY"
     fi
 fi
 
@@ -137,7 +139,7 @@ if [ "$IS_PNPM_MAIN_PM" = "true" ]; then
         echo " --> Installing pnpm globally via npm..."
         npm install --no-fund -g pnpm
     fi
-    pnpm config set registry "http://waypack:3000/npm/$timestamp/"
+    pnpm config set registry "$WAYPACK_NPM_REGISTRY"
 
     echo "=== PNPM Version ==="
     pnpm --version
@@ -156,7 +158,7 @@ echo "=== Cleaning package manager lock files ==="
 # Result: works
 match_patterns=('package-lock.json' '*/package-lock.json')
 ignore_patterns=('*/node_modules/*')
-execute_function='sed -i "s#\"resolved\": \"https://registry.npmjs.org/#\"resolved\": \"http://waypack:3000/npm/'"$timestamp"'/#g" {}'
+execute_function='sed -i "s#\"resolved\": \"https://registry.npmjs.org/#\"resolved\": \"'"$WAYPACK_NPM_REGISTRY"'#g" {}'
 
 process_files "$execute_function"
 
@@ -166,7 +168,7 @@ process_files "$execute_function"
 # Workaround 2: replace URLs with waypack URL (https://registry.yarnpkg.com/)
 match_patterns=('yarn.lock' '*/yarn.lock')
 ignore_patterns=('*/node_modules/*')
-execute_function='sed -i "s|resolved \"https://registry.yarnpkg.com/|resolved \"http://waypack:3000/yarn/'"$timestamp"'/|g" {}'
+execute_function='sed -i "s|resolved \"https://registry.yarnpkg.com/|resolved \"'"$WAYPACK_YARN_REGISTRY"'|g" {}'
 process_files "$execute_function"
 # execute_function='sed -i "/^[[:space:]]*integrity /d" {}'
 # process_files "$execute_function"

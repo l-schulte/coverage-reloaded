@@ -18,7 +18,8 @@ set +e
 #
 # npx c8 --r=lcov -o ../$COVERAGE_REPORT_PATH npm run test
 
-npx nyc \
+# npx requires npm_config_registry to be set every time it is called in order to use the verdaccio registry.
+npx --registry=$WAYPACK_NPM_REGISTRY nyc \
     --temp-directory="$COVERAGE_REPORT_PATH/nyc" \
     --reporter=lcov \
     --report-dir="$COVERAGE_REPORT_PATH/lcov" \

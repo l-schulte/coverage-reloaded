@@ -38,7 +38,7 @@ def parse_filename(filename) -> tuple[str, str, str, str]:
 def get_filename(node, timestamp, commit_hash, job_id, success=True):
     """Generate log filename based on parameters."""
     ext = "log" if success else "error"
-    return f"logs/node{node}_{timestamp}_{commit_hash}_{job_id}.{ext}"
+    return f"node{node}_{timestamp}_{commit_hash}_{job_id}.{ext}"
 
 
 def get_worker_id():
@@ -53,7 +53,7 @@ def get_worker_id():
     return worker_ids.id
 
 
-def run_docker_container(commit):
+def run_docker_container(commit, logs_path, output_path):
     """Run docker container for a single commit."""
     project, project_id, commit_hash, timestamp, node, pm = commit
     job = get_worker_id()
@@ -74,7 +74,10 @@ def run_docker_container(commit):
         result = subprocess.run(command, capture_output=True, text=True)
         success = result.returncode == 0
 
-        log_filename = f"projects/{project}/{get_filename(node, timestamp, commit_hash, str(job), success)}"
+        log_filename = os.path.join(
+            logs_path,
+            get_filename(node, timestamp, commit_hash, str(job), success),
+        )
         with open(log_filename, "w") as f:
             f.write(
                 result.stdout
@@ -83,8 +86,8 @@ def run_docker_container(commit):
             )
 
         if not success:
-            logger.error(f"Commit {commit_hash} failed. See log: {log_filename}")
-            error_lcov = f"projects/{project}/output/{commit_hash}.error"
+            logger.debug(f"Commit {commit_hash} failed. See log: {log_filename}")
+            error_lcov = os.path.join(output_path, f"{commit_hash}.error")
             with open(error_lcov, "w") as f:
                 f.write(f"Execution failed. See log for details.\n{log_filename}\n")
 
@@ -119,6 +122,10 @@ def parse_args():
 
 
 def execute(project, max_workers, max_commits=None):
+    output_path = os.path.join(WORKSPACE_PATH, "projects", project, "output")
+    logs_path = os.path.join(WORKSPACE_PATH, "projects", project, "logs")
+    os.makedirs(logs_path, exist_ok=True)
+    os.makedirs(output_path, exist_ok=True)
 
     global next_worker_id
     next_worker_id = 1  # Reset worker ID counter
@@ -130,7 +137,6 @@ def execute(project, max_workers, max_commits=None):
 
     project_id = project_config.get("projectID", project)
 
-    output_path = f"projects/{project}/output/"
     commits_csv = f"projects/{project}/" + COMMITS_CSV_FILE
 
     os.makedirs(output_path, exist_ok=True)
@@ -182,7 +188,10 @@ def execute(project, max_workers, max_commits=None):
     total = len(commits)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-        futures = [executor.submit(run_docker_container, commit) for commit in commits]
+        futures = [
+            executor.submit(run_docker_container, commit, logs_path, output_path)
+            for commit in commits
+        ]
 
         progress = tqdm.tqdm(total=total, desc="Processing commits...")
         for future in concurrent.futures.as_completed(futures):
