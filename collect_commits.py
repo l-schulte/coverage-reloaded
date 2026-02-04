@@ -96,7 +96,7 @@ def execute(project: str, start_date: datetime, end_date: datetime):
         end_date (datetime): The end date for commit collection.
     """
 
-    logger.info(f"Collecting commits for project: {project}")
+    logger.info(f"Collecting commits for {project} from {start_date} to {end_date}.")
 
     project_path = f"projects/{project}"
     repo_path = f"{project_path}/repo"

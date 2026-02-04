@@ -216,3 +216,12 @@ def execute(project, max_workers, max_commits=None):
     duration = end - start
     logger.info(f"Total time: {duration:.2f} seconds")
     logger.info(f"Final result: {successful}/{total} successful")
+
+
+def main():
+    args = parse_args()
+    execute(args.project, args.max_workers, args.max_commits)
+
+
+if __name__ == "__main__":
+    main()

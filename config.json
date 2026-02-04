@@ -23,6 +23,9 @@
         },
         "azuredatastudio": {
             "url": "https://github.com/microsoft/azuredatastudio"
+        },
+        "polkadot-apps": {
+            "url": "https://github.com/polkadot-js/apps"
         }
     }
 }

@@ -94,7 +94,17 @@ npm --version
 echo "npm main PM: $IS_NPM_MAIN_PM"
 echo ""
 echo "=== Yarn Version ==="
+
 yarn --version
+
+if yarn --version | grep -q "rc"; then
+    set +e
+    echo " --> Detected Yarn RC version, switching to latest stable..."
+    yarn set version latest
+    set -e
+    yarn --version
+fi
+
 echo "Yarn main PM: $IS_YARN_MAIN_PM"
 IS_YARN_LEGACY=$(yarn --version | grep -q "^1\." && echo "true" || echo "false")
 echo "Legacy Yarn: $IS_YARN_LEGACY"
