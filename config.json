@@ -26,6 +26,9 @@
         },
         "polkadot-apps": {
             "url": "https://github.com/polkadot-js/apps"
+        },
+        "serverless": {
+            "url": "https://github.com/serverless/serverless"
         }
     }
 }

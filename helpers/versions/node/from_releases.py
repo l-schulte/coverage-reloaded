@@ -1,7 +1,7 @@
 import datetime
 import json
 
-from helpers.versions.helper import parse_version_string
+from helpers.versions.node.parse_version import parse_node_version
 
 NODE_RELEASES_PATH = "helpers/versions/node/data/releases.json"
 NODE_RELEASES = json.load(open(NODE_RELEASES_PATH, "r"))
@@ -25,12 +25,14 @@ def get_node_version(
         )
 
     latest_node_releases = [
-        release
+        str(release)
         for release, data in NODE_RELEASES.items()
         if version_was_available(data["start"], timestamp, offset_months)
     ]
 
-    latest_node_release = parse_version_string(latest_node_releases[-1], major_only)
+    latest_node_release = parse_node_version(
+        latest_node_releases[-1].replace("v", ""), major_only
+    )
 
     if not latest_node_release:
         raise ValueError("No valid Node.js version found for the given timestamp.")

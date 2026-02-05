@@ -1,4 +1,5 @@
-from helpers.versions.helper import parse_version_string, get_file_content
+from helpers.versions.helper import get_file_content
+from helpers.versions.node.parse_version import parse_node_version
 
 
 def get_node_version(
@@ -14,7 +15,7 @@ def get_node_version(
         if not node_line:
             return None
         content = node_line[0].split(maxsplit=1)[1]
-        version = parse_version_string(content)
+        version = parse_node_version(content)
         if version:
             return version
     return None

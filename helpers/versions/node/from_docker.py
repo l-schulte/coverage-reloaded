@@ -1,6 +1,7 @@
 import re
 
-from helpers.versions.helper import parse_version_string, get_file_content
+from helpers.versions.helper import get_file_content
+from helpers.versions.node.parse_version import parse_node_version
 
 
 def get_node_version(
@@ -23,7 +24,7 @@ def get_node_version(
         re_from_node = re.compile(r"node:(?:v|>=|<=|\^)?([\.(\d+)]+)-")
         version_match = re.findall(re_from_node, content)
         if version_match:
-            version = parse_version_string(version_match[0])
+            version = parse_node_version(version_match[0])
             if version:
                 return version
     return None

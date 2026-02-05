@@ -1,6 +1,8 @@
 import argparse
 from datetime import datetime, timezone
 import logging
+import os
+import subprocess
 import pydriller
 import json
 import tqdm
@@ -41,6 +43,7 @@ def parse_args():
 def determine_package_manager(
     commit: pydriller.Commit,
     repo_path: str,
+    node_version: str,
     priority: list[str] | None,
 ) -> tuple[str | None, str | None]:
     """
@@ -77,7 +80,9 @@ def determine_package_manager(
         for file in pm_info["files"]:
             if file_exists_in_commit(repo_path, commit.hash, file):
                 if pm_info["runnable"]:
-                    pm_version, pm_source = pm_info["runnable"](commit, repo_path)
+                    pm_version, pm_source = pm_info["runnable"](
+                        commit, node_version, repo_path
+                    )
                 else:
                     pm_version = pm
                     pm_source = file
@@ -100,6 +105,12 @@ def execute(project: str, start_date: datetime, end_date: datetime):
 
     project_path = f"projects/{project}"
     repo_path = f"{project_path}/repo"
+
+    project_url = CONFIG["projects"].get(project, {}).get("url", None)
+    if project_url and not os.path.exists(repo_path):
+        logger.info(f"Cloning repository for project {project} from {project_url}.")
+        subprocess.run(["git", "clone", project_url, repo_path], check=True)
+
     project_commits_file = f"{project_path}/commits.csv"
 
     package_manager_priority = (
@@ -120,7 +131,7 @@ def execute(project: str, start_date: datetime, end_date: datetime):
         node = node.split(".")[0]  # Use major version only
 
         pm_version, pm_source = determine_package_manager(
-            commit, repo_path, package_manager_priority
+            commit, repo_path, node, package_manager_priority
         )
 
         commits.append(

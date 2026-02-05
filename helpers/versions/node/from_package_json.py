@@ -1,10 +1,8 @@
 import json
 import logging
 
-from helpers.versions.helper import (
-    get_file_content,
-    parse_version_string,
-)
+from helpers.versions.helper import get_file_content
+from helpers.versions.node.parse_version import parse_node_version
 
 POTENTIAL_KEYS = ["engines", "volta", "packageManager"]
 
@@ -18,7 +16,7 @@ def __get_node_version_from_key(key: str, package_json: dict) -> str | None:
 
     if key in package_json:
         if "node" in package_json[key]:
-            version = parse_version_string(package_json[key]["node"])
+            version = parse_node_version(package_json[key]["node"])
             if version:
                 return version
     return None
