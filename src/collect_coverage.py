@@ -16,7 +16,7 @@ CONFIG = json.load(open("config.json"))
 logger = logging.getLogger(__name__)
 
 COMMITS_CSV_FILE = "commits.csv"
-WORKSPACE_PATH = os.path.dirname(os.path.abspath(__file__))
+WORKSPACE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCKER_RUN_SCRIPT = os.path.join(WORKSPACE_PATH, "docker-run.sh")
 
 # Thread-local storage to assign worker IDs
@@ -57,6 +57,10 @@ def run_docker_container(commit, logs_path, output_path):
     """Run docker container for a single commit."""
     project, project_id, commit_hash, timestamp, node, pm = commit
     job = get_worker_id()
+
+    logger.debug(
+        f"Starting worker {job} processing commit {commit_hash} with Node {node} and PM {pm}"
+    )
 
     command = [
         "/bin/sh",

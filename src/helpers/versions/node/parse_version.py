@@ -103,8 +103,8 @@ def parse_node_version(version_string: str, use_first: bool = False) -> str | No
     - use_first: If True, returns the first matching version instead of the last.
     """
 
-    # Check if range_str is single concrete version → major match
-    if re.match(r"^\d+(?:\.\d+(?:\.\d+)?)?$", version_string.strip()):
+    # Check if range_str is single concrete version -> return as-is
+    if re.match(r"^(\d+(?:\.\d+){0,2})$", version_string.strip()):
         return version_string
 
     last_ok = None
