@@ -1,9 +1,9 @@
 import datetime
 import json
 
-from helpers.versions.node.parse_version import parse_node_version
+from src.helpers.versions.node.parse_version import parse_node_version
 
-NODE_RELEASES_PATH = "helpers/versions/node/data/releases.json"
+NODE_RELEASES_PATH = "src/helpers/versions/node/data/releases.json"
 NODE_RELEASES = json.load(open(NODE_RELEASES_PATH, "r"))
 
 

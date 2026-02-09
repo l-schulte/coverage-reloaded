@@ -1,5 +1,5 @@
 import json
-from helpers.versions.helper import get_file_content, parse_version_string
+from src.helpers.versions.helper import get_file_content, parse_version_string
 
 POTENTIAL_KEYS = ["engines", "volta", "packageManager"]
 

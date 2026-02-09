@@ -8,9 +8,9 @@ import json
 import tqdm
 import pandas as pd
 
-from helpers.versions.helper import file_exists_in_commit
-from helpers.versions.node.find_version import get_node_version
-from helpers.versions.pnpm.find_version import get_pnpm_version
+from src.helpers.versions.helper import file_exists_in_commit
+from src.helpers.versions.node.find_version import get_node_version
+from src.helpers.versions.pnpm.find_version import get_pnpm_version
 
 CONFIG = json.load(open("config.json"))
 

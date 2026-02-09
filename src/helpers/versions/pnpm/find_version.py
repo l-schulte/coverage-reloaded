@@ -1,7 +1,7 @@
 import pydriller
 
-from helpers.versions.pnpm import from_package_json as package_json
-from helpers.versions.pnpm import from_releases as pnpm_releases
+from src.helpers.versions.pnpm import from_package_json as package_json
+from src.helpers.versions.pnpm import from_releases as pnpm_releases
 
 
 def get_pnpm_version(
