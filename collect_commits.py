@@ -104,9 +104,14 @@ def execute(project: str, start_date: datetime, end_date: datetime):
     logger.info(f"Collecting commits for {project} from {start_date} to {end_date}.")
 
     project_path = f"projects/{project}"
-    repo_path = f"{project_path}/repo"
-
     project_url = CONFIG["projects"].get(project, {}).get("url", None)
+    repo_path = f"{project_path}/repo"
+    use_exact_version = (
+        CONFIG["projects"].get(project, {}).get("use_exact_node_version", False)
+    )
+
+    os.makedirs(project_path, exist_ok=True)
+
     if project_url and not os.path.exists(repo_path):
         logger.info(f"Cloning repository for project {project} from {project_url}.")
         subprocess.run(["git", "clone", project_url, repo_path], check=True)
@@ -128,7 +133,13 @@ def execute(project: str, start_date: datetime, end_date: datetime):
             continue
 
         node, node_source = get_node_version(commit, repo_path)
-        node = node.split(".")[0]  # Use major version only
+        if not node:
+            raise ValueError(
+                f"Could not determine Node.js version for commit {commit.hash} in project {project}. Likely the parsing failed. Please check the commit and the parsing logic."
+            )
+
+        if not use_exact_version:
+            node = node.split(".")[0]  # Use major version only
 
         pm_version, pm_source = determine_package_manager(
             commit, repo_path, node, package_manager_priority
