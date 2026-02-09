@@ -53,8 +53,6 @@ def get_node_version(
 
     # Last: Check node_releases.json based on commit date
     timestamp = int(commit.committer_date.timestamp())
-    node_version = from_releases.get_node_version(
-        timestamp, major_only=True, offset_months=12
-    )
+    node_version = from_releases.get_node_version(timestamp, offset_months=12)
 
     return node_version, "node_releases.json (12 months offset)"

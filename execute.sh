@@ -113,7 +113,9 @@ echo ""
 echo "=== Setting up Package Managers ==="
 
 WAYPACK_NPM_REGISTRY="http://waypack:3000/npm/$timestamp/"
+export WAYPACK_NPM_REGISTRY
 WAYPACK_YARN_REGISTRY="http://waypack:3000/yarn/$timestamp/"
+export WAYPACK_YARN_REGISTRY
 
 # Always set npm registry to Waypack
 # if [ "$IS_NPM_MAIN_PM" = "true" ] || [ "$package_manager" == "" ]; then

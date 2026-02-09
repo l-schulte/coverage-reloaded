@@ -3,8 +3,7 @@ from datetime import datetime, timezone
 import json
 import logging
 
-import collect_commits
-import collect_coverage
+from src import collect_commits, collect_coverage
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

@@ -55,7 +55,7 @@ def __npm_satisfies(probe_version: str, range_str: str) -> bool:
                     clause_ok = False
                     break
             elif op == "~" or op == "^":
-                if v[0] != r[0] or (len(r) > 1 and v[1] > r[1]):
+                if v[0] != r[0] or (len(r) > 1 and len(v) > 1 and v[1] > r[1]):
                     clause_ok = False
                     break
 
@@ -64,22 +64,32 @@ def __npm_satisfies(probe_version: str, range_str: str) -> bool:
     return False
 
 
-def __max_major_for_range(version_string: str) -> int | None:
-    last_ok = None
-    for major in NODE_RELEASES.keys():
-        major = major.removeprefix("v")
-        if __npm_satisfies(major, version_string):
-            last_ok = major
-    return last_ok
-
-
-def parse_node_version(version_string: str, major_only: bool = True) -> str | None:
+def parse_node_version(version_string: str, use_first: bool = False) -> str | None:
     """
     Parses a Node.js version string to extract the version.
+
+    Parameters:
+    - version_string: The version string to parse.
+    - use_first: If True, returns the first matching version instead of the last.
     """
 
     # Check if range_str is single concrete version → major match
     if re.match(r"^\d+(?:\.\d+(?:\.\d+)?)?$", version_string.strip()):
         return version_string
 
-    return str(__max_major_for_range(version_string))
+    last_ok = None
+    for major in NODE_RELEASES.keys():
+        major = major.removeprefix("v")
+        try:
+            if __npm_satisfies(major, version_string):
+                last_ok = major
+
+                if use_first:
+                    return str(major)
+
+        except Exception:
+            raise ValueError(
+                f"npm satisfies check failed for version '{major}' and range '{version_string}'"
+            )
+
+    return str(last_ok)

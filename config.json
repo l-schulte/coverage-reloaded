@@ -29,6 +29,9 @@
         },
         "serverless": {
             "url": "https://github.com/serverless/serverless"
+        },
+        "rancher-desktop": {
+            "url": "https://github.com/rancher-sandbox/rancher-desktop"
         }
     }
 }

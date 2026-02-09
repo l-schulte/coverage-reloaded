@@ -12,11 +12,12 @@ logger = logging.getLogger(__name__)
 def __get_node_version_from_key(key: str, package_json: dict) -> str | None:
     """
     Retrieves the Node.js version from a specified key (engines, volta, etc.) in package.json.
+    Package.json specified versions are often open-ended ranges, so we use the first match, not the last (use_first=True).
     """
 
     if key in package_json:
         if "node" in package_json[key]:
-            version = parse_node_version(package_json[key]["node"])
+            version = parse_node_version(package_json[key]["node"], use_first=True)
             if version:
                 return version
     return None
