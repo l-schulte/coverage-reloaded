@@ -3,7 +3,7 @@ cd /coverage_reloaded/repo
 
 yarn install
 
-set +e
+# set +e
 # Yarn workspaces does not work with nyc directly. Ends up overwriting the coverage 
 # report from each workspace instead of combining them. Generating them into different 
 # report-dirs does not work.
@@ -21,4 +21,4 @@ else
     yarn workspaces run test --coverage
 fi
 bash ../find-and-move-lcov.sh
-set -e
+# set -e

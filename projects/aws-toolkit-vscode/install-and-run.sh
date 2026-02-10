@@ -11,7 +11,7 @@ ls -la .vscode-test/
 
 npm install --no-fund
 
-set +e
+# set +e
 # Between c8 and nyc, nyc seems to produce better reports for vscode extensions.
 # Specifically, c8 does not generate reports if tests fail, while nyc does.
 # c8 would need to be installed: npm install c8 --no-fund
@@ -25,6 +25,6 @@ npx --registry=$WAYPACK_NPM_REGISTRY nyc \
     --report-dir="$COVERAGE_REPORT_PATH/lcov" \
     npm run test
 
-set -e
+# set -e
 
 python ../store_vscode.py

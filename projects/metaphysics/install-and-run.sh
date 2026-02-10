@@ -3,7 +3,7 @@ cd /coverage_reloaded/repo
 
 yarn install
 
-set +e
+# set +e
 
 npm run
 
@@ -23,4 +23,4 @@ else
     yarn run test --coverage --coverageDirectory="$COVERAGE_REPORT_PATH"
 fi
 
-set -e
+# set -e

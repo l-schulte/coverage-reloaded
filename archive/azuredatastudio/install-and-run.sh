@@ -30,7 +30,7 @@ export CHROMIUM_FLAGS="--no-sandbox --disable-setuid-sandbox"
 python ../restore_vscode.py
 ls -la .vscode-test/
 
-set -e
+# set -e
 
 # If playwright is not installed manually, it will try to do it during tests, which fails due to unavailable urls, i.e.,
 # https://playwright.azureedge.net/builds/firefox/1205/firefox-ubuntu-18.04.zip
@@ -51,13 +51,13 @@ yarn install --update-checksums
 echo "-> Compiling the project via yarn..."
 yarn compile
 
-set +e
+# set +e
 
 # There seems to be no way to control the output format/location
 echo "-> Running tests with coverage via bash ./scripts/test.sh --coverage ..."
 bash ./scripts/test.sh --coverage
 
-set -e
+# set -e
 
 bash ../find-and-move-lcov.sh
 

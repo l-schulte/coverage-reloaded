@@ -25,11 +25,11 @@ ln -s /bin/tar /usr/bin/tar
 
 npm ci
 
-set +e
+# set +e
 
 npx --registry=$WAYPACK_NPM_REGISTRY nyc \
     --reporter=lcov \
     --report-dir="$COVERAGE_REPORT_PATH" \
     npm run test:unit:jest
 
-set -e
+# set -e

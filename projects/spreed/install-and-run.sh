@@ -11,7 +11,7 @@ npm install -g nyc --no-fund
 # npx c8 --r=lcov -o ../$COVERAGE_REPORT_PATH npm run test:unit
 # npx c8 --r=lcov -o ../$COVERAGE_REPORT_PATH npm run test
 
-set +e
+# set +e
 if grep -q "test:coverage" package.json; then
     echo "Running tests with coverage script..."
     npm run test:coverage -- --coverage.enabled=true --coverage.reporter=lcov
@@ -21,4 +21,4 @@ else
 fi
 
 bash ../find-and-move-lcov.sh
-set -e
+# set -e

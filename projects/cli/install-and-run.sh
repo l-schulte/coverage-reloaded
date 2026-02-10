@@ -6,7 +6,7 @@ cd /coverage_reloaded/repo
 # Workaround: add --include=dev to install dev dependencies as well
 npm install --no-fund --include=dev
 
-set +e
+# set +e
 
 # if package.json contains "test": "tap" run npx tap --coverage
 # if package.json contains "test-tap" then run that (otherwise tries to run the linter)
@@ -30,4 +30,4 @@ else
         --report-dir="$COVERAGE_REPORT_PATH" \
         npm test
 fi
-set -e
+# set -e

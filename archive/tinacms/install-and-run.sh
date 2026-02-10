@@ -6,23 +6,23 @@ if [ "$IS_PNPM_MAIN_PM" = "true" ]; then
 
     pnpm install
 
-    set +e
+    # set +e
     pnpm run test -- --coverage --continue
-    set -e
+    # set -e
 elif [ "$IS_YARN_MAIN_PM" = "true" ]; then
     echo "=== Running with yarn ==="
 
     yarn install
 
-    set +e
+    # set +e
     yarn run test --coverage --continue
-    set -e
+    # set -e
 else
     echo "=== Running with npm ==="
 
     npm ci
 
-    set +e
+    # set +e
     npm run test -- --coverage --continue
-    set -e
+    # set -e
 fi
