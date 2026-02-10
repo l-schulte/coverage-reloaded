@@ -1,6 +1,6 @@
 import pydriller
 
-from src.helpers.versions.node import from_docker as docker
+from src.helpers.versions.node import from_angular, from_docker as docker
 from src.helpers.versions.node import from_package_json as package_json
 from src.helpers.versions.node import from_nvmrc as nvmrc
 from src.helpers.versions.node import from_preinstall as preinstall
@@ -17,6 +17,7 @@ def get_node_version(
     2. Check package.json
     3. Check dockerfiles
     """
+    timestamp = int(commit.committer_date.timestamp())
 
     # 1. Check .nvmrc
     node_version = nvmrc.get_node_version(repo_path, commit.hash, nvmrc_path=".nvmrc")
@@ -51,8 +52,12 @@ def get_node_version(
     if node_version:
         return node_version, "build/npm/preinstall.js"
 
+    # 6. Check Angular compatibility (if applicable)
+    node_version = from_angular.get_node_version(repo_path, commit.hash, timestamp)
+    if node_version:
+        return node_version, "Angular compatibility"
+
     # Last: Check node_releases.json based on commit date
-    timestamp = int(commit.committer_date.timestamp())
     node_version = from_releases.get_node_version(timestamp, offset_months=12)
 
     return node_version, "node_releases.json (12 months offset)"

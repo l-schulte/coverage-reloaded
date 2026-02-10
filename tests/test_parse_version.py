@@ -6,8 +6,10 @@ from pathlib import Path
 src_path = Path(__file__).parent.parent / "src"
 sys.path.insert(0, str(src_path))
 
-from src.src.helpers.versions.node.parse_version import parse_node_version
-from src.src.helpers.versions.node.parse_version import __npm_satisfies as npm_satisfies
+from src.helpers.versions.node.parse_version import (
+    parse_node_version,
+    version_satisfies,
+)
 
 
 class TestNpmSatisfies:
@@ -72,10 +74,10 @@ class TestNpmSatisfies:
 
     @pytest.mark.parametrize("probe_version,range_str,expected", test_cases)
     def test_npm_satisfies(self, probe_version, range_str, expected):
-        """Test __npm_satisfies with various version ranges."""
-        result = npm_satisfies(probe_version, range_str)
+        """Test version_satisfies with various version ranges."""
+        result = version_satisfies(probe_version, range_str)
         assert result == expected, (
-            f"npm_satisfies('{probe_version}', '{range_str}') "
+            f"version_satisfies('{probe_version}', '{range_str}') "
             f"returned {result}, expected {expected}"
         )
 

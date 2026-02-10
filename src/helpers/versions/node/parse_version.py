@@ -2,18 +2,18 @@ import json
 import re
 
 
-def __npm_satisfies(probe_version: str, range_str: str) -> bool:
+def version_satisfies(probe_version: str, range_str: str) -> bool:
     """
     Simplified implementation of npm's semver satisfies function for basic version range checks.
     Deviations from full npm semantics:
     - Only supports basic operators: <, <=, >, >=, =, ~, ^, and wildcard (*).
     - Only supports major.minor.patch versions (no pre-release or build metadata).
 
-    :param probe_version: Description
+    :param probe_version: The version to test.
     :type probe_version: str
-    :param range_str: Description
+    :param range_str: The version range string to test against.
     :type range_str: str
-    :return: Description
+    :return: True if the probe_version satisfies the range_str, False otherwise.
     :rtype: bool
     """
     v_parts = list(map(int, probe_version.split(".")))
@@ -25,6 +25,7 @@ def __npm_satisfies(probe_version: str, range_str: str) -> bool:
 
     for clause in clauses:
         clause = clause.strip()
+        clause = clause.replace(".x", "")  # Handle wildcard in minor/patch
         if not clause:
             continue
 
@@ -32,8 +33,8 @@ def __npm_satisfies(probe_version: str, range_str: str) -> bool:
         clause_ok = True
 
         # Check if range_str is single concrete version
-        if re.match(r"^(\d+(?:\.\d+){0,2})$", clause):
-            c_parts = list(map(int, clause.split(".")))
+        if re.match(r"^(\d+(?:\.\d+){0,2})$", clause.strip()):
+            c_parts = list(map(int, clause.strip().split(".")))
             if tuple(v[: len(c_parts)]) != tuple(c_parts):
                 clause_ok = False
                 continue
@@ -90,7 +91,7 @@ def __npm_satisfies(probe_version: str, range_str: str) -> bool:
     return False
 
 
-NODE_RELEASES_PATH = "src/helpers/versions/node/data/releases.json"
+NODE_RELEASES_PATH = "src/helpers/versions/node/data/node_releases.json"
 NODE_RELEASES = json.load(open(NODE_RELEASES_PATH, "r"))
 
 
@@ -111,7 +112,7 @@ def parse_node_version(version_string: str, use_first: bool = False) -> str | No
     for major in NODE_RELEASES.keys():
         major = major.removeprefix("v")
         try:
-            if __npm_satisfies(major, version_string):
+            if version_satisfies(major, version_string):
                 last_ok = major
 
                 if use_first:
