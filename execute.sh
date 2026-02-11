@@ -95,15 +95,20 @@ echo "npm main PM: $IS_NPM_MAIN_PM"
 echo ""
 echo "=== Yarn Version ==="
 
-yarn --version
-
-if yarn --version | grep -q "rc"; then
+# if yarn is the main pm and there is a version specified in $package_manager (yarn@x.x.x), run yarn set version on that version
+if [ "$IS_YARN_MAIN_PM" = "true" ] && [[ "$package_manager" == yarn@* ]]; then
+    specified_version="${package_manager#yarn@}"
+    echo " --> Setting yarn version to specified version: $specified_version"
+    yarn set version "$specified_version"
+elif yarn --version | grep -q "rc"; then
     set +e
     echo " --> Detected Yarn RC version, switching to latest stable..."
     yarn set version latest
     set -e
     yarn --version
 fi
+
+yarn --version
 
 echo "Yarn main PM: $IS_YARN_MAIN_PM"
 IS_YARN_LEGACY=$(yarn --version | grep -q "^1\." && echo "true" || echo "false")
@@ -171,7 +176,6 @@ echo "=== Cleaning package manager lock files ==="
 match_patterns=('package-lock.json' '*/package-lock.json')
 ignore_patterns=('*/node_modules/*')
 execute_function='sed -i "s#\"resolved\": \"https://registry.npmjs.org/#\"resolved\": \"'"$WAYPACK_NPM_REGISTRY"'#g" {}'
-
 process_files "$execute_function"
 
 # yarn.lock files often contain resolved URLs to central repositories.
