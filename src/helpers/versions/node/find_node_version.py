@@ -8,7 +8,7 @@ from src.helpers.versions.node import from_tool_version as tool_version
 from src.helpers.versions.node import from_releases
 
 
-def get_node_version(
+def find_node_version(
     commit: pydriller.Commit, repo_path: str
 ) -> tuple[str, str | None]:
     """

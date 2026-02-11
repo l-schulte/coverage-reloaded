@@ -113,25 +113,3 @@ def version_satisfies(probe_version: str, range_str: str) -> bool:
         if clause_ok:
             return True
     return False
-
-
-def parse_version_string(version_string: str, major_only: bool = False) -> str | None:
-    """
-    Extracts version from string, e.g.;
-    "14.17.0" -> "14.17", but also "15" -> "15"
-    "14.17.9" -> "14.17"
-    "^14.17.0" -> "14.17", but also "^15" -> "15"
-    "v14.17.0" -> "14.17", but also "v15" -> "15"
-    ">=14.17.0 <18" -> "14.17"
-    ">=12.3 <14 || >=14.17.0" -> "14.17"
-    ">=14.17.4 and <17" -> "14.17"
-    """
-
-    re_version_match = re.compile(r"(?:v|>=|>|\^|^)+(\d+)(?:\.(\d+))?(?:\.(\d+))?")
-    version_match = re.findall(re_version_match, version_string)
-    if version_match:
-        major, minor, patch = version_match[-1]
-        if major_only:
-            return major
-        return f"{major}.{minor}.{patch}"
-    return None

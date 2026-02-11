@@ -8,10 +8,10 @@ import json
 import tqdm
 import pandas as pd
 
-from src.helpers.versions.helper import file_exists_in_commit
-from src.helpers.versions.node.find_version import get_node_version
-from src.helpers.versions.pnpm.find_version import get_pnpm_version
-from src.helpers.versions.yarn.find_version import get_yarn_version
+from src.helpers.versions.node.find_node_version import find_node_version
+from src.helpers.versions.package_manager.find_package_manager import (
+    find_package_manager,
+)
 
 CONFIG = json.load(open("config.json"))
 
@@ -39,57 +39,6 @@ def parse_args():
         help="End date for commit collection in ISO format (YYYY-MM-DD).",
     )
     return parser.parse_args()
-
-
-def determine_package_manager(
-    commit: pydriller.Commit,
-    repo_path: str,
-    node_version: str,
-    priority: list[str] | None,
-) -> tuple[str | None, str | None]:
-    """
-    Determines the package manager and its version based on the given priority list.
-
-    Args:
-        commit (pydriller.Commit): The commit to check.
-        repo_path (str): The path to the repository.
-        priority (list[str] | None): List of package managers in order of priority.
-    """
-    package_manager_runnables = {
-        "pnpm": {
-            "files": ["pnpm-lock.yaml"],
-            "runnable": get_pnpm_version,
-        },
-        "npm": {
-            "files": ["package-lock.json"],
-            "runnable": None,
-        },
-        "yarn": {
-            "files": ["yarn.lock"],
-            "runnable": get_yarn_version,
-        },
-    }
-
-    if not priority:
-        priority = ["pnpm", "yarn", "npm"]
-
-    for pm in priority:
-        pm_info = package_manager_runnables.get(pm)
-        if not pm_info:
-            continue
-
-        for file in pm_info["files"]:
-            if file_exists_in_commit(repo_path, commit.hash, file):
-                if pm_info["runnable"]:
-                    pm_version, pm_source = pm_info["runnable"](
-                        commit, node_version, repo_path
-                    )
-                else:
-                    pm_version = pm
-                    pm_source = file
-                return pm_version, pm_source
-
-    return None, None
 
 
 def execute(project: str, start_date: datetime, end_date: datetime):
@@ -133,7 +82,7 @@ def execute(project: str, start_date: datetime, end_date: datetime):
         if commit.committer_date >= end_date or commit.committer_date < start_date:
             continue
 
-        node, node_source = get_node_version(commit, repo_path)
+        node, node_source = find_node_version(commit, repo_path)
         if not node:
             raise ValueError(
                 f"Could not determine Node.js version for commit {commit.hash} in project {project}. Likely the parsing failed. Please check the commit and the parsing logic."
@@ -142,7 +91,7 @@ def execute(project: str, start_date: datetime, end_date: datetime):
         if not use_exact_version:
             node = node.split(".")[0]  # Use major version only
 
-        pm_version, pm_source = determine_package_manager(
+        pm_version, pm_source = find_package_manager(
             commit, repo_path, node, package_manager_priority
         )
 
