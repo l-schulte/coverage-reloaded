@@ -1,8 +1,8 @@
 import pydriller
 
-from src.helpers.versions.helper import file_exists_in_commit
-from src.helpers.versions.package_manager.pnpm.find_version import get_pnpm_version
-from src.helpers.versions.package_manager.yarn.find_version import get_yarn_version
+from src.helpers.helper import file_exists_in_commit
+from src.helpers.package_manager.pnpm.find_version import get_pnpm_version
+from src.helpers.package_manager.yarn.find_version import get_yarn_version
 
 
 def find_package_manager(

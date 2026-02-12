@@ -1,7 +1,7 @@
 import re
 
-from src.helpers.versions.helper import get_file_content
-from src.helpers.versions.node.parse_version import parse_node_version
+from src.helpers.helper import get_file_content
+from src.helpers.node.parse_version import parse_node_version
 
 
 def get_node_version(

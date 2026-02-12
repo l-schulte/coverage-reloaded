@@ -1,6 +1,6 @@
 import json
-from src.helpers.versions.helper import get_file_content
-from src.helpers.versions.package_manager.parse_version import (
+from src.helpers.helper import get_file_content
+from src.helpers.package_manager.parse_version import (
     parse_package_manager_version,
 )
 

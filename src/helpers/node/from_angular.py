@@ -3,13 +3,13 @@ import json
 import logging
 import pandas as pd
 
-from src.helpers.versions.helper import get_file_content
-from src.helpers.versions.node.parse_version import (
+from src.helpers.helper import get_file_content
+from src.helpers.node.parse_version import (
     version_satisfies,
     parse_node_version,
 )
 
-ANGULAR_VERSIONS_PATH = "src/helpers/versions/node/data/angular_releases.csv"
+ANGULAR_VERSIONS_PATH = "src/helpers/node/data/angular_releases.csv"
 ANGULAR_VERSIONS = pd.read_csv(ANGULAR_VERSIONS_PATH)
 ANGULAR_VERSIONS["First official release"] = ANGULAR_VERSIONS[
     "First official release"
@@ -19,7 +19,7 @@ ANGULAR_VERSIONS = ANGULAR_VERSIONS.sort_values(
 )
 
 # https://angular.dev/reference/versions
-ANGULAR_MATRIX_PATH = "src/helpers/versions/node/data/angular_matrix.csv"
+ANGULAR_MATRIX_PATH = "src/helpers/node/data/angular_matrix.csv"
 ANGULAR_MATRIX = pd.read_csv(ANGULAR_MATRIX_PATH)
 
 

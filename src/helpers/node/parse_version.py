@@ -1,10 +1,10 @@
 import json
 import re
 
-from src.helpers.versions.helper import version_satisfies
+from src.helpers.helper import version_satisfies
 
 
-NODE_RELEASES_PATH = "src/helpers/versions/node/data/node_releases.json"
+NODE_RELEASES_PATH = "src/helpers/node/data/node_releases.json"
 NODE_RELEASES = json.load(open(NODE_RELEASES_PATH, "r"))
 
 

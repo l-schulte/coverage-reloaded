@@ -1,11 +1,11 @@
 import pydriller
 
-from src.helpers.versions.node import from_angular, from_docker as docker
-from src.helpers.versions.node import from_package_json as package_json
-from src.helpers.versions.node import from_nvmrc as nvmrc
-from src.helpers.versions.node import from_preinstall as preinstall
-from src.helpers.versions.node import from_tool_version as tool_version
-from src.helpers.versions.node import from_releases
+from src.helpers.node import from_angular, from_docker as docker
+from src.helpers.node import from_package_json as package_json
+from src.helpers.node import from_nvmrc as nvmrc
+from src.helpers.node import from_preinstall as preinstall
+from src.helpers.node import from_tool_version as tool_version
+from src.helpers.node import from_releases
 
 
 def find_node_version(
