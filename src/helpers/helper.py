@@ -6,9 +6,13 @@ import json
 logger = logging.getLogger(__name__)
 
 
-def file_exists_in_commit(repo_path, commit_hash, file_path) -> bool:
-    cmd = ["git", "-C", repo_path, "cat-file", "-e", f"{commit_hash}:{file_path}"]
-    result = subprocess.run(cmd, capture_output=True)
+def file_existed_at_commit(repo_path: str, commit_hash: str, file_path: str) -> bool:
+    """Checks if a file existed at a specific commit in the given repository."""
+    result = subprocess.run(
+        ["git", "-C", repo_path, "cat-file", "-e", f"{commit_hash}:{file_path}"],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
     return result.returncode == 0
 
 

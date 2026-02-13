@@ -1,6 +1,6 @@
 import pydriller
 
-from src.helpers.helper import file_exists_in_commit
+from src.helpers.helper import file_existed_at_commit
 from src.helpers.package_manager.pnpm.find_version import get_pnpm_version
 from src.helpers.package_manager.yarn.find_version import get_yarn_version
 
@@ -40,14 +40,19 @@ def find_package_manager(
             continue
 
         for file in pm_info["files"]:
-            if file_exists_in_commit(repo_path, commit.hash, file):
+            if file_existed_at_commit(repo_path, commit.hash, file):
+                pm_version = None
+                pm_source = None
+                # If the package manager has a specific function to extract the version, try to use it
                 if pm_info["runnable"]:
                     pm_version, pm_source = pm_info["runnable"](
                         commit, node_version, repo_path
                     )
-                else:
+                # If we couldn't extract a version but found the lock file, we can at least return the package manager name
+                if not pm_version:
                     pm_version = pm
                     pm_source = file
+
                 return pm_version, pm_source
 
     return None, None
