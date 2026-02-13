@@ -30,11 +30,16 @@ def parse_package_manager_version(
     ">=14.17.4 and <17" -> "14.17"
     """
 
-    re_version_match = re.compile(r"(?:v|>=|>|\^|^)+(\d+)(?:\.(\d+))?(?:\.(\d+))?")
+    re_version_match = re.compile(
+        r"(?:v|>=|>|\^|^)+(\d+)(?:\.(\d+|\*))?(?:\.(\d+|\*))?"
+    )
     version_match = re.findall(re_version_match, version_string)
     if version_match:
         major, minor, patch = version_match[-1]
         if major_only:
             return major
-        return sanitize_package_manager_version(f"{major}.{minor}.{patch}")
+
+        return sanitize_package_manager_version(
+            ".".join([v for v in [major, minor, patch] if v != ""])
+        )
     return None
