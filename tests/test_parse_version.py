@@ -6,8 +6,8 @@ from pathlib import Path
 src_path = Path(__file__).parent.parent / "src"
 sys.path.insert(0, str(src_path))
 
-from src.helpers.versions.node.parse_version import parse_node_version
-from src.helpers.versions.helper import version_satisfies
+from src.helpers.node.parse_version import parse_node_version
+from src.helpers.helper import version_satisfies
 
 
 class TestNpmSatisfies:
