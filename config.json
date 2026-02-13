@@ -29,6 +29,9 @@
         },
         "serverless": {
             "url": "https://github.com/serverless/serverless"
+        },
+        "owid-grapher": {
+            "url": "https://github.com/owid/owid-grapher"
         }
     }
 }

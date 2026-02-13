@@ -15,7 +15,8 @@ if grep -q '"test-tap":' package.json; then
     npx --registry=$WAYPACK_NPM_REGISTRY nyc \
         --reporter=lcov \
         --report-dir="$COVERAGE_REPORT_PATH" \
-        npm run test-tap
+        --force \
+        -- npm run test-tap
 elif grep -q '"test": *"tap' package.json; then
     echo "Detected tap as test runner, using tap for coverage collection"
     npx --registry=$WAYPACK_NPM_REGISTRY tap \
@@ -28,6 +29,7 @@ else
     npx --registry=$WAYPACK_NPM_REGISTRY nyc \
         --reporter=lcov \
         --report-dir="$COVERAGE_REPORT_PATH" \
-        npm test
+        --force \
+        -- npm test
 fi
 # set -e

@@ -8,12 +8,14 @@ if $IS_NPM_MAIN_PM; then
     npx --registry=$WAYPACK_NPM_REGISTRY nyc \
         --reporter=lcov \
         --report-dir="$COVERAGE_REPORT_PATH" \
-        npm test
+        --force \
+        -- npm test
 elif $IS_YARN_MAIN_PM; then
     yarn install --no-fund --dev
 
     npx --registry=$WAYPACK_NPM_REGISTRY nyc \
         --reporter=lcov \
         --report-dir="$COVERAGE_REPORT_PATH" \
-        yarn test
+        --force \
+        -- yarn test
 fi

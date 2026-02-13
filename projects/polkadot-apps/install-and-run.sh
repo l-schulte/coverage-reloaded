@@ -12,13 +12,15 @@ if grep -q '"test:all":' package.json; then
     npx --registry=$WAYPACK_NPM_REGISTRY c8 \
         --reporter=lcov \
         --report-dir="$COVERAGE_REPORT_PATH" \
-        yarn test:all
+        --force \
+        -- yarn test:all
 else
     echo "Using test script for coverage collection"
     npx --registry=$WAYPACK_NPM_REGISTRY c8 \
         --reporter=lcov \
         --report-dir="$COVERAGE_REPORT_PATH" \
-        yarn test
+        --force \
+        -- yarn test
 fi
 
 # set -e
