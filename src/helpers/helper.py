@@ -1,5 +1,9 @@
+import logging
 import subprocess
 import re
+import json
+
+logger = logging.getLogger(__name__)
 
 
 def file_exists_in_commit(repo_path, commit_hash, file_path) -> bool:
@@ -14,13 +18,27 @@ def get_file_at_commit(repo_path, commit_hash, file_path):
     return result.stdout
 
 
-def get_file_content(repo_path: str, revision: str, file_path: str) -> str | None:
+def get_file_json_content(repo_path, commit_hash, file_path) -> dict | None:
+    content = get_file_at_commit(repo_path, commit_hash, file_path)
+    try:
+        return json.loads(content)
+    except json.JSONDecodeError as e:
+        logger.error(
+            f"Failed to parse {file_path} at revision {commit_hash} in {repo_path}: {e}"
+        )
+        return None
+
+
+def get_file_content(
+    repo_path: str, revision: str, file_path: str
+) -> str | dict | None:
     """
     Reads the content of the specified file if it exists.
     """
 
     try:
         content = get_file_at_commit(repo_path, revision, file_path)
+
         return content.strip() if content else None
     except Exception:
         return None

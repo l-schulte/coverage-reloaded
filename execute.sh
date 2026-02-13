@@ -10,6 +10,12 @@ BASEDIR="/coverage_reloaded"
 REPOPATH="$BASEDIR/repo"
 cd "$REPOPATH"
 
+export COVERAGE_REPORT_PATH="$BASEDIR/exported"
+mkdir -p "$COVERAGE_REPORT_PATH"
+
+export OUTPUT_PATH="$BASEDIR/coverage"
+mkdir -p "$OUTPUT_PATH"
+
 process_files() {
     set +e
     local execute_function="$1"
@@ -39,12 +45,6 @@ process_files() {
 # GitHub is deprecating the git:// protocol.
 # Workaround: configure git to use https:// instead of git:// for github.com.
 git config --global url."https://github.com/".insteadOf "git://github.com/"
-
-export COVERAGE_REPORT_PATH="$BASEDIR/exported"
-mkdir -p "$COVERAGE_REPORT_PATH"
-
-export OUTPUT_PATH="$BASEDIR/coverage"
-mkdir -p "$OUTPUT_PATH"
 
 IS_NPM_MAIN_PM=$([[ "$package_manager" == npm* ]] && echo "true" || echo "false")
 export IS_NPM_MAIN_PM
@@ -95,18 +95,7 @@ echo "npm main PM: $IS_NPM_MAIN_PM"
 echo ""
 echo "=== Yarn Version ==="
 
-# if yarn is the main pm and there is a version specified in $package_manager (yarn@x.x.x), run yarn set version on that version
-if [ "$IS_YARN_MAIN_PM" = "true" ] && [[ "$package_manager" == yarn@* ]]; then
-    specified_version="${package_manager#yarn@}"
-    echo " --> Setting yarn version to specified version: $specified_version"
-    yarn set version "$specified_version"
-elif yarn --version | grep -q "rc"; then
-    set +e
-    echo " --> Detected Yarn RC version, switching to latest stable..."
-    yarn set version latest
-    set -e
-    yarn --version
-fi
+
 
 yarn --version
 
@@ -129,40 +118,57 @@ export WAYPACK_YARN_REGISTRY
 echo " --> Setup npm"
 npm config set registry "$WAYPACK_NPM_REGISTRY"
 
-# Set up yarn if it's the main package manager or no package manager is specified
-if [ "$IS_YARN_MAIN_PM" = "true" ] || [ "$package_manager" == "" ]; then
-    echo " --> Setup yarn"
+# If the packageManager key is specified in package.json, we need to use corepack.
 
-    if [ "$IS_YARN_LEGACY" = "true" ]; then
-        echo " --> Setting yarn legacy registry to Waypack..."
-        yarn config set registry "$WAYPACK_YARN_REGISTRY"
-    else
-        echo " --> Setting yarn modern registry to Waypack..."
-        yarn config set unsafeHttpWhitelist --json '["waypack", "verdaccio"]'
-        yarn config set npmRegistryServer "$WAYPACK_YARN_REGISTRY"
+
+if [ -x "$(command -v corepack)" ] && grep -q '"packageManager"' package.json; then
+    echo " --> Detected packageManager key in package.json and corepack is available, setting up via corepack..."
+    corepack enable
+    corepack prepare "$package_manager" --activate
+# Otherwise, setup manually.
+else 
+    # Set up yarn if it's the main package manager
+    if [ "$IS_YARN_MAIN_PM" = "true" ]; then
+        # if yarn is the main pm and there is a version specified in $package_manager (yarn@x.x.x), run yarn set version on that version
+        if [[ "$package_manager" == yarn@* ]]; then
+            specified_version="${package_manager#yarn@}"
+            echo " --> Setting yarn version to specified version: $specified_version"
+            yarn set version "$specified_version"
+        elif yarn --version | grep -q "rc"; then
+            set +e
+            echo " --> Detected Yarn RC version, switching to latest stable..."
+            yarn set version latest
+            set -e
+            yarn --version
+        fi
+        if [ "$package_manager" == "" ]; then
+            echo " --> Setup yarn"
+
+            if [ "$IS_YARN_LEGACY" = "true" ]; then
+                echo " --> Setting yarn legacy registry to Waypack..."
+                yarn config set registry "$WAYPACK_YARN_REGISTRY"
+            else
+                echo " --> Setting yarn modern registry to Waypack..."
+                yarn config set unsafeHttpWhitelist --json '["waypack", "verdaccio"]'
+                yarn config set npmRegistryServer "$WAYPACK_YARN_REGISTRY"
+            fi
+        fi
     fi
-fi
 
-# Set up pnpm only if it's the main package manager
-if [ "$IS_PNPM_MAIN_PM" = "true" ]; then
-    echo " --> Setup pnpm"
-    # IS_PM_SPECIFIED=$(grep -q '"packageManager"' package.json && echo "true" || echo "false") # Unsure why this was needed
-    # if [[ "$IS_PM_SPECIFIED" = "true" && -x "$(command -v corepack)" && "${package_manager}" == pnpm* ]]; then
-    if [[ -x "$(command -v corepack)" && "${package_manager}" == pnpm* ]]; then
-        echo " --> Setting up ${package_manager} via corepack..."
-        corepack enable
-        corepack prepare "${package_manager}" --activate
-    else 
-        echo " --> Installing pnpm globally via npm..."
+    # Set up pnpm only if it's the main package manager
+    if [ "$IS_PNPM_MAIN_PM" = "true" ]; then
+        echo " --> Setup pnpm"
         npm install --no-fund -g pnpm
-    fi
-    pnpm config set registry "$WAYPACK_NPM_REGISTRY"
+        pnpm config set registry "$WAYPACK_NPM_REGISTRY"
 
-    echo "=== PNPM Version ==="
-    pnpm --version
-    echo "pnpm main PM: $IS_PNPM_MAIN_PM"
-    echo ""
+        echo "=== PNPM Version ==="
+        pnpm --version
+        echo "pnpm main PM: $IS_PNPM_MAIN_PM"
+        echo ""
+    fi
 fi
+
+
 echo ""
 
 echo "=== Cleaning package manager lock files ==="
@@ -237,7 +243,7 @@ echo "=== Prepending full path to coverage files ==="
 
 
 find "$COVERAGE_REPORT_PATH" -name "lcov.info" -print0 | while IFS= read -r -d '' lcov_file; do
-    # First, replace all occurrences of $REPOPATH with an empty string
+    # Replace all occurrences of $REPOPATH with an empty string
     sed -i "s|$REPOPATH||g" "$lcov_file"
 
     # Get the relative path of the file's directory, stripping $COVERAGE_REPORT_PATH
@@ -258,7 +264,10 @@ find "$COVERAGE_REPORT_PATH" -name "lcov.info" -print0 | while IFS= read -r -d '
         print
     }' "$lcov_file" > "$lcov_file.tmp" && mv "$lcov_file.tmp" "$lcov_file"
 
-    echo "--> Processed $lcov_file"
+    # Remove special folder prefixes (co_re!_sub_*) from paths
+    sed -i 's|co_re!_sub_[^/]*\/||g' "$lcov_file"
+
+    echo "--> Processed and cleaned $lcov_file"
 done
 
 

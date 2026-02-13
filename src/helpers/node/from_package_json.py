@@ -1,7 +1,6 @@
-import json
 import logging
 
-from src.helpers.helper import get_file_content
+from src.helpers.helper import get_file_json_content
 from src.helpers.node.parse_version import parse_node_version
 
 POTENTIAL_KEYS = ["engines", "volta", "packageManager"]
@@ -29,15 +28,8 @@ def get_node_version(
     """
     Retrieves the Node.js version specified in the package.json file at a given revision.
     """
-
-    content = get_file_content(repo_path, revision, packagejson_path)
-    if not content:
-        return None
-
-    try:
-        package_json = json.loads(content)
-    except json.JSONDecodeError:
-        logger.error(f"Error decoding package.json at revision {revision}")
+    package_json = get_file_json_content(repo_path, revision, packagejson_path)
+    if not package_json:
         return None
 
     node_version = None
