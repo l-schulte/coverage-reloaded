@@ -1,7 +1,19 @@
 #!/bin/bash
 cd /coverage_reloaded/repo
 
-yarn install
+if $IS_NPM_MAIN_PM; then
+    echo "Installing dependencies with npm..."
+    npm install --no-fund --include=dev
+elif $IS_YARN_MAIN_PM; then
+    echo "Installing dependencies with yarn..."
+    yarn install --no-fund --dev
+elif $IS_PNPM_MAIN_PM; then
+    echo "Installing dependencies with pnpm..."
+    pnpm install
+else
+    echo "No main package manager detected... raising error."
+    exit 1
+fi
 
 # set +e
 # Lerna monorepo do not work with nyc directly...

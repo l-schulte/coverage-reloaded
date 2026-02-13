@@ -21,17 +21,14 @@
         "metaphysics": {
             "url": "https://github.com/artsy/metaphysics"
         },
-        "azuredatastudio": {
-            "url": "https://github.com/microsoft/azuredatastudio"
-        },
         "polkadot-apps": {
             "url": "https://github.com/polkadot-js/apps"
         },
         "serverless": {
             "url": "https://github.com/serverless/serverless"
         },
-        "owid-grapher": {
-            "url": "https://github.com/owid/owid-grapher"
+        "material-ui": {
+            "url": "https://github.com/mui/material-ui"
         }
     }
 }

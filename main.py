@@ -19,6 +19,11 @@ def get_defaults_from_config():
     return defaults
 
 
+def get_all_projects_from_config():
+    CONFIG = json.load(open("config.json"))
+    return CONFIG.get("projects", [])
+
+
 DEFAULTS = get_defaults_from_config()
 
 
@@ -92,14 +97,27 @@ def execute(
 def main():
     args = parse_args()
 
-    execute(
-        args.project,
-        args.mode,
-        args.start_date,
-        args.end_date,
-        args.max_workers,
-        args.max_commits,
-    )
+    if args.project == "all":
+        projects = get_all_projects_from_config()
+        for project in projects:
+            logger.info(f"Processing project: {project}")
+            execute(
+                project,
+                args.mode,
+                args.start_date,
+                args.end_date,
+                args.max_workers,
+                args.max_commits,
+            )
+    else:
+        execute(
+            args.project,
+            args.mode,
+            args.start_date,
+            args.end_date,
+            args.max_workers,
+            args.max_commits,
+        )
 
 
 if __name__ == "__main__":
