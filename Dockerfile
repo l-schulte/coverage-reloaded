@@ -16,7 +16,8 @@ RUN apt-get update && \
         zip \
         nano \
         python3 \
-        lcov=1.14-2
+        lcov=1.14-2 \
+        jq
 
 
 
@@ -29,6 +30,10 @@ RUN n "$NODE_VERSION"
 RUN node --version
 RUN npm install -g yarn
 RUN yarn set version latest
+
+# Problem: test runner starts in watch mode, expecting user input
+# Solution: set CI=true to disable watch mode and run tests once
+ENV CI=true
 
 COPY ./execute.sh /coverage_reloaded/execute.sh
 COPY find-and-move-lcov.sh /coverage_reloaded/find-and-move-lcov.sh

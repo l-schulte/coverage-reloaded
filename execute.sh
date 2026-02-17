@@ -264,8 +264,8 @@ find "$COVERAGE_REPORT_PATH" -name "lcov.info" -print0 | while IFS= read -r -d '
         print
     }' "$lcov_file" > "$lcov_file.tmp" && mv "$lcov_file.tmp" "$lcov_file"
 
-    # Remove special folder prefixes (co_re!_sub_*) from paths
-    sed -i 's|co_re!_sub_[^/]*\/||g' "$lcov_file"
+    # Remove special folder prefixes (co_re_*) from paths
+    sed -i 's|co_re_[^/]*\/||g' "$lcov_file"
 
     echo "--> Processed and cleaned $lcov_file"
 done
@@ -277,10 +277,14 @@ echo "=== Merging coverage reports ==="
 
 
 # Merge all found lcov.info files into a single output file
-lcov $(find "$COVERAGE_REPORT_PATH" -name "lcov.info" -size +0 | sed 's/^/--add-tracefile /') \
+mapfile -t lcov_files < <(find "$COVERAGE_REPORT_PATH" -name "lcov.info" -size +0)
+lcov_args=()
+for f in "${lcov_files[@]}"; do
+    lcov_args+=(--add-tracefile "$f")
+done
+lcov "${lcov_args[@]}" \
     --output-file "$COVERAGE_REPORT_PATH/merged.lcov" \
     --rc lcov_branch_coverage=1
-
 ls -lh "$COVERAGE_REPORT_PATH"
 
 
