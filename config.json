@@ -29,6 +29,9 @@
         },
         "material-ui": {
             "url": "https://github.com/mui/material-ui"
+        },
+        "yari": {
+            "url": "https://github.com/mdn/yari"
         }
     }
 }

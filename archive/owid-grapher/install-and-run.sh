@@ -54,13 +54,13 @@ else
     echo "No default test script found in package.json, checking for testJest or testCypress scripts..."
     if grep -q "testJest" package.json; then
         echo "Running tests with testJest script..."
-        $COMMAND testJest -- --coverage.enabled=true --coverage.reporter=lcov --coverageDirectory="$COVERAGE_REPORT_PATH/co_re!_sub_jest" --passWithNoTests
+        $COMMAND testJest -- --coverage.enabled=true --coverage.reporter=lcov --coverageDirectory="$COVERAGE_REPORT_PATH/co_re_jest" --passWithNoTests
     fi
     if grep -q "testCypress" package.json; then
         echo "Running tests with testCypress script..."
         npx --registry=$WAYPACK_NPM_REGISTRY nyc \
             --reporter=lcov \
-            --report-dir="$COVERAGE_REPORT_PATH/co_re!_sub_cypress" \
+            --report-dir="$COVERAGE_REPORT_PATH/co_re_cypress" \
             --force \
             -- $COMMAND testCypress
     fi    
