@@ -11,7 +11,7 @@ def get_node_version(
 
     content = get_file_content(repo_path, revision, nvmrc_path)
     if content:
-        version = parse_node_version(content)
+        version = parse_node_version(str(content), use_artificial_minor_version=False)
         if version:
             return version
     return None
