@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 def get_test_commands(
     repo_path: str, revision: str, packagejson_path: str = "package.json"
-) -> list[str] | None:
+) -> dict[str, str] | None:
     """
     Retrieves the test commands specified in the package.json file at a given revision.
     """
@@ -16,10 +16,10 @@ def get_test_commands(
         return None
 
     scripts = package_json.get("scripts", {})
-    test_commands = set()
+    test_commands = {}
 
     for key in scripts.keys():
         if "test" in key:
-            test_commands.add(key)
+            test_commands[key] = scripts[key]
 
-    return list(test_commands)
+    return test_commands

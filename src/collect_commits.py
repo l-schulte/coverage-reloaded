@@ -104,8 +104,8 @@ def execute(project: str, start_date: datetime, end_date: datetime):
                 "node_version_source": node_source,
                 "pm_version": pm_version if pm_version else "npm",
                 "pm_version_source": pm_source if pm_source else "default (npm)",
-                "test_commands": test_commands if test_commands else [],
             }
+            | test_commands
         )
 
     pd.DataFrame(commits).to_csv(project_commits_file, index=False)
