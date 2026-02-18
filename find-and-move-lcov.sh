@@ -18,8 +18,9 @@ mkdir -p "$COVERAGE_REPORT_PATH"
 while IFS= read -r -d '' lcov_file; do
     # Get the directory containing the lcov.info file
     dir=$(dirname "$lcov_file")
-    # Remove leading './' from the path
-    rel_path="${dir#./}"
+    # Remove leading './' from the path, and strip the trailing '/coverage' if it exists
+    rel_path="${dir%/coverage}"
+    rel_path="${rel_path#./}"
     dest_dir="$COVERAGE_REPORT_PATH/$rel_path"
     mkdir -p "$dest_dir"
     cp "$lcov_file" "$dest_dir/"
