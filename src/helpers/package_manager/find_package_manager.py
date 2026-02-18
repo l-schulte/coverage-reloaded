@@ -3,6 +3,7 @@ import pydriller
 from src.helpers.helper import file_existed_at_commit
 from src.helpers.package_manager.pnpm.find_version import get_pnpm_version
 from src.helpers.package_manager.yarn.find_version import get_yarn_version
+from src.helpers.package_manager.npm.find_version import get_npm_version
 
 
 def find_package_manager(
@@ -23,7 +24,7 @@ def find_package_manager(
         },
         "npm": {
             "files": ["package-lock.json"],
-            "runnable": None,
+            "runnable": get_npm_version,
         },
         "yarn": {
             "files": ["yarn.lock"],

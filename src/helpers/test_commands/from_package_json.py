@@ -19,7 +19,10 @@ def get_test_commands(
     test_commands = {}
 
     for key in scripts.keys():
-        if "test" in key:
+        if any(
+            keyword in key.lower()
+            for keyword in ["test", "jest", "mocha", "ava", "tap"]
+        ):
             test_commands[key] = scripts[key]
 
     return test_commands
