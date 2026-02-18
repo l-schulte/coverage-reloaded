@@ -11,6 +11,7 @@ import pandas as pd
 from src.helpers.node.find_node_version import find_node_version
 from src.helpers.package_manager.find_package_manager import find_package_manager
 from src.helpers.test_commands.find_test_commands import find_test_commands
+from src.helpers.coverage_tools.find_coverage_tools import find_coverage_tools
 
 CONFIG = json.load(open("config.json"))
 
@@ -95,6 +96,7 @@ def execute(project: str, start_date: datetime, end_date: datetime):
         )
 
         test_commands = find_test_commands(commit, repo_path)
+        coverage_tools = find_coverage_tools(commit, repo_path)
 
         commits.append(
             {
@@ -104,6 +106,7 @@ def execute(project: str, start_date: datetime, end_date: datetime):
                 "node_version_source": node_source,
                 "pm_version": pm_version if pm_version else "npm",
                 "pm_version_source": pm_source if pm_source else "default (npm)",
+                "coverage_tools": coverage_tools,
             }
             | test_commands
         )
