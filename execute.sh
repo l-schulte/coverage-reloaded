@@ -8,6 +8,7 @@
 starttime=$(date +%s)
 BASEDIR="/coverage_reloaded"
 REPOPATH="$BASEDIR/repo"
+export REPOPATH
 cd "$REPOPATH"
 
 export COVERAGE_REPORT_PATH="$BASEDIR/exported"
@@ -58,6 +59,7 @@ export IS_PNPM_MAIN_PM
 echo "=== Starting run-coverage.sh ==="
 echo "Revision: $revision"
 echo "Commit date: $(date -d @$timestamp)"
+echo "Current date: $(date)"
 echo "Timestamp: $timestamp"
 echo "Package Manager: $package_manager"
 echo ""
@@ -89,15 +91,6 @@ echo ""
 echo "=== Node Version ==="
 node --version
 echo ""
-echo "=== NPM Version ==="
-npm --version
-echo "npm main PM: $IS_NPM_MAIN_PM"
-echo ""
-echo "=== Yarn Version ==="
-
-
-
-yarn --version
 
 echo "Yarn main PM: $IS_YARN_MAIN_PM"
 IS_YARN_LEGACY=$(yarn --version | grep -q "^1\." && echo "true" || echo "false")
@@ -127,8 +120,14 @@ if [ -x "$(command -v corepack)" ] && grep -q '"packageManager"' package.json; t
     corepack prepare "$package_manager" --activate
 # Otherwise, setup manually.
 else 
-    # Set up yarn if it's the main package manager
-    if [ "$IS_YARN_MAIN_PM" = "true" ]; then
+    if [ "$IS_NPM_MAIN_PM" = "true" ]; then
+        # if npm is the main pm and there is a version specified in $package_manager (npm@x.x.x), install that version globally
+        if [[ "$package_manager" == npm@* ]]; then
+            specified_version="${package_manager#npm@}"
+            echo " --> Installing npm version specified in package_manager: $specified_version"
+            npm install --no-fund -g "npm@$specified_version"
+        fi
+    elif [ "$IS_YARN_MAIN_PM" = "true" ]; then
         # if yarn is the main pm and there is a version specified in $package_manager (yarn@x.x.x), run yarn set version on that version
         if [[ "$package_manager" == yarn@* ]]; then
             specified_version="${package_manager#yarn@}"
@@ -168,6 +167,12 @@ else
     fi
 fi
 
+echo "=== NPM Version ==="
+npm --version
+echo "npm main PM: $IS_NPM_MAIN_PM"
+echo ""
+echo "=== Yarn Version ==="
+yarn --version
 
 echo ""
 
@@ -228,12 +233,13 @@ echo "=== Counting coverage reports ==="
 
 
 # Find all lcov.info files in the coverage directory
-lcov_count=$(find "$COVERAGE_REPORT_PATH" -name "lcov.info" -size +0 | wc -l)
+lcov_count=$(find "$COVERAGE_REPORT_PATH" -name "lcov.info" | wc -l)
+lcov_count_valid=$(find "$COVERAGE_REPORT_PATH" -name "lcov.info" -size +0 | wc -l)
 if [ "$lcov_count" -eq 0 ]; then
     echo "Error: No lcov.info files found in $COVERAGE_REPORT_PATH"
     exit 1
 else
-    echo "--> Found $lcov_count lcov.info files in $COVERAGE_REPORT_PATH"
+    echo "--> Found $lcov_count lcov.info files in $COVERAGE_REPORT_PATH ($lcov_count_valid with size > 0)"
 fi
 
 
@@ -242,7 +248,7 @@ echo "=== Prepending full path to coverage files ==="
 
 
 
-find "$COVERAGE_REPORT_PATH" -name "lcov.info" -print0 | while IFS= read -r -d '' lcov_file; do
+find "$COVERAGE_REPORT_PATH" -name "lcov.info" -size +0 -print0 | while IFS= read -r -d '' lcov_file; do
     # Replace all occurrences of $REPOPATH with an empty string
     sed -i "s|$REPOPATH||g" "$lcov_file"
 
