@@ -54,6 +54,4 @@ RUN /tmp/desktop-lite-debian.sh
 COPY ./repo /coverage_reloaded/repo
 
 COPY ./install-and-run.sh /coverage_reloaded/install-and-run.sh
-COPY ./restore_vscode.py /coverage_reloaded/restore_vscode.py
-COPY ./store_vscode.py /coverage_reloaded/store_vscode.py
 RUN chmod +x /coverage_reloaded/install-and-run.sh
