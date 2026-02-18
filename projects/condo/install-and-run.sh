@@ -1,7 +1,7 @@
 #!/bin/bash
 cd /coverage_reloaded/repo
 
-yarn install
+CI= yarn install
 
 # set +e
 # Yarn workspaces does not work with nyc directly. Ends up overwriting the coverage 
