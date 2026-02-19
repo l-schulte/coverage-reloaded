@@ -112,6 +112,10 @@ def execute(project: str, start_date: datetime, end_date: datetime):
         )
 
     pd.DataFrame(commits).to_csv(project_commits_file, index=False)
+    if os.path.exists(os.path.join(project_path, "commits_postprocess.py")):
+        subprocess.run(
+            ["python3", "commits_postprocess.py"], cwd=project_path, check=True
+        )
     logger.info(f"Collected {len(commits)} commits for project {project}.")
     logger.debug(f"Saved commits to {project_commits_file}")
 
