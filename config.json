@@ -15,9 +15,6 @@
         "spreed": {
             "url": "https://github.com/nextcloud/spreed"
         },
-        "aws-toolkit-vscode": {
-            "url": "https://github.com/aws/aws-toolkit-vscode"
-        },
         "metaphysics": {
             "url": "https://github.com/artsy/metaphysics"
         },
@@ -32,6 +29,9 @@
         },
         "yari": {
             "url": "https://github.com/mdn/yari"
+        },
+        "site-kit-wp": {
+            "url": "https://github.com/google/site-kit-wp"
         }
     }
 }
