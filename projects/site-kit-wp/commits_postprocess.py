@@ -5,8 +5,15 @@ import pandas as pd
 def postprocess():
     parent_dir = os.path.dirname(__file__)
     commits_file = os.path.join(parent_dir, "commits.csv")
+    additional_info_file = os.path.join(
+        parent_dir, "commits_additional_information.csv"
+    )
 
     commits = pd.read_csv(commits_file, low_memory=False)
+    additional_info = pd.read_csv(additional_info_file, low_memory=False)
+
+    # Merge additional information with commits
+    commits = commits.merge(additional_info, on="commit_hash", how="left")
 
     # where column "test:js" container "-w", set "pm_version" to "npm@7"
     commits.loc[commits["test:js"].str.contains("-w", na=False), "pm_version"] = (

@@ -8,6 +8,7 @@ import json
 import tqdm
 import pandas as pd
 
+from src.helpers.lock_files.find_lock_files import find_lock_files
 from src.helpers.node.find_node_version import find_node_version
 from src.helpers.package_manager.find_package_manager import find_package_manager
 from src.helpers.test_commands.find_test_commands import find_test_commands
@@ -73,6 +74,7 @@ def execute(project: str, start_date: datetime, end_date: datetime):
     )
 
     commits = []
+    additional_information = []
 
     # Suppress pydriller logging on info level
     logging.getLogger("pydriller").setLevel(logging.WARNING)
@@ -97,6 +99,7 @@ def execute(project: str, start_date: datetime, end_date: datetime):
 
         test_commands = find_test_commands(commit, repo_path)
         coverage_tools = find_coverage_tools(commit, repo_path)
+        lock_files = find_lock_files(commit, repo_path)
 
         commits.append(
             {
@@ -108,7 +111,14 @@ def execute(project: str, start_date: datetime, end_date: datetime):
                 "pm_version_source": pm_source if pm_source else "default (npm)",
                 "coverage_tools": coverage_tools,
             }
+        )
+
+        additional_information.append(
+            {
+                "commit_hash": commit.hash,
+            }
             | test_commands
+            | lock_files
         )
 
     pd.DataFrame(commits).to_csv(project_commits_file, index=False)
@@ -118,6 +128,9 @@ def execute(project: str, start_date: datetime, end_date: datetime):
         )
     logger.info(f"Collected {len(commits)} commits for project {project}.")
     logger.debug(f"Saved commits to {project_commits_file}")
+    pd.DataFrame(additional_information).to_csv(
+        f"{project_path}/additional_information.csv", index=False
+    )
 
 
 def __main():
