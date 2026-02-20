@@ -1,3 +1,0 @@
-[submodule "waypack-machine"]
-	path = waypack-machine
-	url = ssh://git@git.cubenote.de:222/l-schulte/waypack-machine.git
