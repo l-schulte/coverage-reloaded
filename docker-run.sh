@@ -9,8 +9,8 @@
 
 echo "Script called as: $0 $@"
 
-# Change to "podman" if necessary
-EXECUTOR="docker"
+# Change to "docker" if necessary
+EXECUTOR="podman"
 
 BASE_CONTAINER_NAME=core_node"$6"_base
 CONTAINER_NAME=core_node"$6"_"$1"
@@ -19,7 +19,7 @@ CONTAINER_DIR=/coverage_reloaded
 $EXECUTOR build --build-arg NODE_VERSION=$6 -t $BASE_CONTAINER_NAME .
 
 $EXECUTOR build --build-arg NODE_VERSION=$6 -t $CONTAINER_NAME ./projects/$1 
-$EXECUTOR volume create core_"$1"_data
+$EXECUTOR volume create core_"$1"_data 2>/dev/null || true
 
 mkdir -p projects/$1/output
 
