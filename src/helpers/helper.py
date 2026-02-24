@@ -64,7 +64,7 @@ def version_satisfies(probe_version: str, range_str: str) -> bool:
     """
     v_parts = list(map(int, probe_version.split(".")))
     v = v_parts + [0] * (3 - len(v_parts))  # Pad to major.minor.patch
-    range_str = range_str.strip()
+    range_str = range_str.replace(" ", "")
 
     # Normal range parsing for everything else
     clauses = re.split(r"\s*\|\|\s*", range_str)
@@ -74,6 +74,12 @@ def version_satisfies(probe_version: str, range_str: str) -> bool:
         clause = clause.replace(".x", "")  # Handle wildcard in minor/patch
         if not clause:
             continue
+
+        # Handle hyphen ranges: "A - B" → ">=A <=B"
+        hyphen_match = re.match(r"^(\d+(?:\.\d+){0,2})-(\d+(?:\.\d+){0,2})$", clause)
+        if hyphen_match:
+            lo, hi = hyphen_match.group(1), hyphen_match.group(2)
+            clause = f">={lo} <={hi}"
 
         ands = re.split(r"[\s,]+", clause)
         clause_ok = True
