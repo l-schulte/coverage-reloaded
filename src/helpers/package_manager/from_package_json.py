@@ -33,14 +33,12 @@ def __get_package_manager_version_from_key(
     return None
 
 
-def get_package_manager_version(
-    pm: str, repo_path: str, revision: str, packagejson_path: str = "package.json"
-) -> str | None:
+def get_package_manager_version(pm: str, repo_path: str, revision: str) -> str | None:
     """
     Retrieves the package manager version specified in the package.json file at a given revision.
     """
 
-    package_json = get_file_json_content(repo_path, revision, packagejson_path)
+    package_json = get_file_json_content(repo_path, revision, "package.json")
     if not package_json:
         return None
 

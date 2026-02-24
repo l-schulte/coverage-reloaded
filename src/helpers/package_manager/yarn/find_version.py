@@ -4,7 +4,7 @@ from src.helpers.package_manager import from_package_json
 
 
 def get_yarn_version(
-    commit: pydriller.Commit, node_version: str, repo_path: str
+    commit_hash: str, node_version: str, repo_path: str
 ) -> tuple[str | None, str | None]:
     """
     Attempts to retrieve the package manager version for a given commit hash from package.json.
@@ -12,7 +12,7 @@ def get_yarn_version(
     """
 
     package_manager_version = from_package_json.get_package_manager_version(
-        "yarn", repo_path, commit.hash, packagejson_path="package.json"
+        "yarn", repo_path, commit_hash
     )
     if package_manager_version:
         return package_manager_version, "package.json"

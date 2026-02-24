@@ -1,4 +1,5 @@
 import argparse
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from datetime import datetime, timezone
 import logging
 import os
@@ -8,6 +9,7 @@ import json
 import tqdm
 import pandas as pd
 
+from src.helpers.helper import file_existed_at_commit
 from src.helpers.lock_files.find_lock_files import find_lock_files
 from src.helpers.node.find_node_version import find_node_version
 from src.helpers.package_manager.find_package_manager import find_package_manager
@@ -42,6 +44,95 @@ def parse_args():
     return parser.parse_args()
 
 
+def get_project_root_at_commit(repo_path: str, project: str, commit_hash: str) -> str:
+    """
+    Determines the project root at a specific commit by checking for the existence of package.json in the current and alternate paths.
+    """
+
+    alternate_project_roots = (
+        CONFIG["projects"].get(project, {}).get("alternate_project_root", [])
+    )
+
+    for alternate_project_root in alternate_project_roots:
+        alternate_package_json_path = os.path.join(
+            alternate_project_root, "package.json"
+        )
+        if file_existed_at_commit(
+            repo_path,
+            commit_hash,
+            alternate_package_json_path,
+        ):
+            return os.path.join(repo_path, alternate_project_root)
+
+    return repo_path  # Default to original repo path if no package.json found
+
+
+def process_commit(
+    commit_hash: str,
+    committer_date: datetime,
+    repo_path: str,
+    project: str,
+    project_config: dict,
+) -> dict:
+    """
+    Process a single commit to extract relevant information such as Node.js version, package manager version, test commands, coverage tools, and lock files.
+
+    Args:
+        commit_hash (str): The hash of the commit to process.
+        committer_date (datetime): The committer date of the commit.
+        repo_path (str): The path to the local repository.
+        project (str): The name of the project being processed.
+
+    """
+
+    use_exact_version = project_config.get("use_exact_node_version", False)
+    package_manager_priority = project_config.get("package_manager_priority", None)
+
+    repo_path_at_commit = get_project_root_at_commit(repo_path, project, commit_hash)
+
+    node, node_source = find_node_version(
+        commit_hash, committer_date, repo_path_at_commit
+    )
+    if not node:
+        raise ValueError(
+            f"Could not determine Node.js version for commit {commit_hash} in project {project}. Likely the parsing failed. Please check the commit and the parsing logic."
+        )
+
+    if not use_exact_version:
+        node = node.split(".")[0]  # Use major version only
+
+    pm_version, pm_source = find_package_manager(
+        commit_hash, repo_path_at_commit, node, package_manager_priority
+    )
+
+    test_commands = find_test_commands(commit_hash, repo_path_at_commit)
+    coverage_tools = find_coverage_tools(commit_hash, repo_path_at_commit)
+    lock_files = find_lock_files(commit_hash, repo_path_at_commit)
+
+    timestamp = int(committer_date.timestamp())
+
+    return {
+        "commit": {
+            "commit_hash": commit_hash,
+            "timestamp": timestamp,
+            "node_version": node,
+            "node_version_source": node_source,
+            "pm_version": pm_version if pm_version else "npm",
+            "pm_version_source": pm_source if pm_source else "default (npm)",
+            "coverage_tools": coverage_tools,
+            "repo_root": repo_path_at_commit,
+        },
+        "additional": (
+            {
+                "commit_hash": commit_hash,
+                "timestamp": timestamp,
+            }
+            | test_commands
+            | lock_files
+        ),
+    }
+
+
 def execute(project: str, start_date: datetime, end_date: datetime):
     """
     Collects commit data for a given project within a specified date range.
@@ -57,9 +148,8 @@ def execute(project: str, start_date: datetime, end_date: datetime):
     project_path = f"projects/{project}"
     project_url = CONFIG["projects"].get(project, {}).get("url", None)
     repo_path = f"{project_path}/repo"
-    use_exact_version = (
-        CONFIG["projects"].get(project, {}).get("use_exact_node_version", False)
-    )
+
+    project_config = CONFIG["projects"].get(project, {})
 
     os.makedirs(project_path, exist_ok=True)
 
@@ -69,57 +159,42 @@ def execute(project: str, start_date: datetime, end_date: datetime):
 
     project_commits_file = f"{project_path}/commits.csv"
 
-    package_manager_priority = (
-        CONFIG["projects"].get(project, {}).get("package_manager_priority", None)
-    )
-
     commits = []
     additional_information = []
 
     # Suppress pydriller logging on info level
     logging.getLogger("pydriller").setLevel(logging.WARNING)
-    repo = pydriller.Repository(repo_path)
-    for commit in tqdm.tqdm(repo.traverse_commits(), desc="Processing commits"):
 
-        if commit.committer_date >= end_date or commit.committer_date < start_date:
-            continue
+    tasks = [
+        {"hash": c.hash, "committer_date": c.committer_date}
+        for c in pydriller.Repository(repo_path).traverse_commits()
+        if start_date <= c.committer_date < end_date
+    ]
 
-        node, node_source = find_node_version(commit, repo_path)
-        if not node:
-            raise ValueError(
-                f"Could not determine Node.js version for commit {commit.hash} in project {project}. Likely the parsing failed. Please check the commit and the parsing logic."
-            )
+    with ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
+        futures = {
+            executor.submit(
+                process_commit,
+                c["hash"],
+                c["committer_date"],
+                repo_path,
+                project,
+                project_config,
+            ): c["hash"]
+            for c in tasks
+        }
+        for future in tqdm.tqdm(
+            as_completed(futures), total=len(tasks), desc="Processing commits"
+        ):
+            result = future.result()  # re-raises exceptions from workers
+            if not result:
+                continue
 
-        if not use_exact_version:
-            node = node.split(".")[0]  # Use major version only
+            commits.append(result["commit"])
+            additional_information.append(result["additional"])
 
-        pm_version, pm_source = find_package_manager(
-            commit, repo_path, node, package_manager_priority
-        )
-
-        test_commands = find_test_commands(commit, repo_path)
-        coverage_tools = find_coverage_tools(commit, repo_path)
-        lock_files = find_lock_files(commit, repo_path)
-
-        commits.append(
-            {
-                "commit_hash": commit.hash,
-                "timestamp": str(commit.committer_date.timestamp()).split(".")[0],
-                "node_version": node,
-                "node_version_source": node_source,
-                "pm_version": pm_version if pm_version else "npm",
-                "pm_version_source": pm_source if pm_source else "default (npm)",
-                "coverage_tools": coverage_tools,
-            }
-        )
-
-        additional_information.append(
-            {
-                "commit_hash": commit.hash,
-            }
-            | test_commands
-            | lock_files
-        )
+    commits.sort(key=lambda c: c["timestamp"])
+    additional_information.sort(key=lambda a: a["timestamp"])
 
     pd.DataFrame(commits).to_csv(project_commits_file, index=False)
     if os.path.exists(os.path.join(project_path, "commits_postprocess.py")):

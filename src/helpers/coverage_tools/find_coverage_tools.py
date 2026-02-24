@@ -5,7 +5,7 @@ import src.helpers.coverage_tools.from_config_files as config_files
 
 
 def find_coverage_tools(
-    commit: pydriller.Commit,
+    commit_hash: str,
     repo_path: str,
 ) -> list[str]:
     """
@@ -14,9 +14,9 @@ def find_coverage_tools(
 
     coverage_tools = set()
 
-    coverage_tools.update(package_json.get_coverage_tools(repo_path, commit.hash))
+    coverage_tools.update(package_json.get_coverage_tools(repo_path, commit_hash))
 
     if "nyc" not in coverage_tools or "c8" not in coverage_tools:
-        coverage_tools.update(config_files.get_coverage_tools(repo_path, commit.hash))
+        coverage_tools.update(config_files.get_coverage_tools(repo_path, commit_hash))
 
     return list(coverage_tools)
