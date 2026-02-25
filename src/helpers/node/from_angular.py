@@ -29,7 +29,6 @@ logger = logging.getLogger(__name__)
 def get_node_version(
     repo_path: str,
     revision: str,
-    timestamp: int,
     packagejson_path: str = "package.json",
 ) -> str | None:
     """ """

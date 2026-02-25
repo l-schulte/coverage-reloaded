@@ -1,4 +1,4 @@
-import pydriller
+from datetime import datetime
 
 from src.helpers.node import from_angular, from_docker as docker
 from src.helpers.node import from_package_json as package_json
@@ -9,7 +9,7 @@ from src.helpers.node import from_releases
 
 
 def find_node_version(
-    commit_hash: str, committer_date, repo_path: str
+    commit_hash: str, committer_date: datetime, repo_path: str
 ) -> tuple[str, str | None]:
     """
     Attempts to retrieve the Node.js version for a given commit hash.
@@ -52,11 +52,13 @@ def find_node_version(
         return node_version, "build/npm/preinstall.js"
 
     # 6. Check Angular compatibility (if applicable)
-    node_version = from_angular.get_node_version(repo_path, commit_hash, committer_date)
+    node_version = from_angular.get_node_version(repo_path, commit_hash)
     if node_version:
         return node_version, "Angular compatibility"
 
     # Last: Check node_releases.json based on commit date
-    node_version = from_releases.get_node_version(committer_date, offset_months=12)
+    node_version = from_releases.get_node_version(
+        committer_date.timestamp(), offset_months=12
+    )
 
     return node_version, "node_releases.json (12 months offset)"
