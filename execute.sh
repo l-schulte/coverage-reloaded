@@ -56,6 +56,8 @@ export IS_YARN_MAIN_PM
 IS_PNPM_MAIN_PM=$([[ "$package_manager" == pnpm* ]] && echo "true" || echo "false")
 export IS_PNPM_MAIN_PM
 
+echo " "
+echo " "
 echo "=== Starting run-coverage.sh ==="
 echo "Revision: $revision"
 echo "Commit date: $(date -d @$timestamp)"
@@ -104,77 +106,64 @@ export WAYPACK_NPM_REGISTRY
 WAYPACK_YARN_REGISTRY="http://waypack:3000/yarn/$timestamp/"
 export WAYPACK_YARN_REGISTRY
 
-# Always set npm registry to Waypack
-# if [ "$IS_NPM_MAIN_PM" = "true" ] || [ "$package_manager" == "" ]; then
-#     echo " --> Setup npm"
-# fi
-echo " --> Setup npm"
 npm config set registry "$WAYPACK_NPM_REGISTRY"
-
-# If the packageManager key is specified in package.json, we need to use corepack.
 
 
 if [ -x "$(command -v corepack)" ] && grep -q '"packageManager"' package.json; then
-    echo " --> Detected packageManager key in package.json and corepack is available, setting up via corepack..."
+    echo " --> Corepack setup for $package_manager"
     corepack enable
     corepack prepare "$package_manager" --activate
 # Otherwise, setup manually.
 else 
+    echo " --> Manual setup for $package_manager"
     if [ "$IS_NPM_MAIN_PM" = "true" ]; then
         # if npm is the main pm and there is a version specified in $package_manager (npm@x.x.x), install that version globally
         if [[ "$package_manager" == npm@* ]]; then
             specified_version="${package_manager#npm@}"
-            echo " --> Installing npm version specified in package_manager: $specified_version"
             npm install --no-fund -g "npm@$specified_version"
         fi
     elif [ "$IS_YARN_MAIN_PM" = "true" ]; then
         # if yarn is the main pm and there is a version specified in $package_manager (yarn@x.x.x), run yarn set version on that version
         if [[ "$package_manager" == yarn@* ]]; then
             specified_version="${package_manager#yarn@}"
-            echo " --> Setting yarn version to specified version: $specified_version"
             yarn set version "$specified_version"
         elif yarn --version | grep -q "rc"; then
             set +e
-            echo " --> Detected Yarn RC version, switching to latest stable..."
             yarn set version latest
             set -e
-            yarn --version
-        fi
-        if [ "$package_manager" == "" ]; then
-            echo " --> Setup yarn"
-
-            if [ "$IS_YARN_LEGACY" = "true" ]; then
-                echo " --> Setting yarn legacy registry to Waypack..."
-                yarn config set registry "$WAYPACK_YARN_REGISTRY"
-            else
-                echo " --> Setting yarn modern registry to Waypack..."
-                yarn config set unsafeHttpWhitelist --json '["waypack", "verdaccio"]'
-                yarn config set npmRegistryServer "$WAYPACK_YARN_REGISTRY"
-            fi
         fi
     fi
-
-    # Set up pnpm only if it's the main package manager
     if [ "$IS_PNPM_MAIN_PM" = "true" ]; then
-        echo " --> Setup pnpm"
         npm install --no-fund -g pnpm
-        pnpm config set registry "$WAYPACK_NPM_REGISTRY"
-
-        echo "=== PNPM Version ==="
-        pnpm --version
-        echo "pnpm main PM: $IS_PNPM_MAIN_PM"
-        echo ""
     fi
 fi
 
-echo "=== NPM Version ==="
-npm --version
-echo "npm main PM: $IS_NPM_MAIN_PM"
-echo ""
-echo "=== Yarn Version ==="
-yarn --version
+if [ "$IS_YARN_MAIN_PM" = "true" ]; then
+    echo "=== Yarn Version After Setup ==="
+    yarn --version
+    echo "Legacy Yarn: $IS_YARN_LEGACY"
+    echo ""
 
-echo ""
+    if [ "$IS_YARN_LEGACY" = "true" ]; then
+        yarn config set registry "$WAYPACK_YARN_REGISTRY"
+    else
+        yarn config set unsafeHttpWhitelist --json '["waypack", "verdaccio"]'
+        yarn config set npmRegistryServer "$WAYPACK_YARN_REGISTRY"
+    fi
+fi
+
+if [ "$IS_NPM_MAIN_PM" = "true" ]; then
+    echo "=== NPM Version After Setup ==="
+    npm --version
+    echo ""
+fi
+
+if [ "$IS_PNPM_MAIN_PM" = "true" ]; then
+    echo "=== PNPM Version After Setup ==="
+    pnpm --version
+    echo ""
+    pnpm config set registry "$WAYPACK_NPM_REGISTRY"
+fi
 
 echo "=== Cleaning package manager lock files ==="
 
