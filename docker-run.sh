@@ -7,7 +7,7 @@
 # $6: node version for base image (e.g., "16")
 # $7: (optional) project_id to use inside the container, e.g., for reporting to coverageSHARK
 
-echo "Script called as: $0 $@"
+echo "Script called as: \n bash $(basename "$0") $@ \n"
 
 # Change to "docker" if necessary
 EXECUTOR="podman"

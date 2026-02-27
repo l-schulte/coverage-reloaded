@@ -94,11 +94,6 @@ echo "=== Node Version ==="
 node --version
 echo ""
 
-echo "Yarn main PM: $IS_YARN_MAIN_PM"
-IS_YARN_LEGACY=$(yarn --version | grep -q "^1\." && echo "true" || echo "false")
-echo "Legacy Yarn: $IS_YARN_LEGACY"
-echo ""
-
 echo "=== Setting up Package Managers ==="
 
 WAYPACK_NPM_REGISTRY="http://waypack:3000/npm/$timestamp/"
@@ -141,28 +136,34 @@ fi
 if [ "$IS_YARN_MAIN_PM" = "true" ]; then
     echo "=== Yarn Version After Setup ==="
     yarn --version
+    IS_YARN_LEGACY=$(yarn --version | grep -q "^1\." && echo "true" || echo "false")
     echo "Legacy Yarn: $IS_YARN_LEGACY"
-    echo ""
 
     if [ "$IS_YARN_LEGACY" = "true" ]; then
         yarn config set registry "$WAYPACK_YARN_REGISTRY"
+        yarn config get registry
     else
         yarn config set unsafeHttpWhitelist --json '["waypack", "verdaccio"]'
         yarn config set npmRegistryServer "$WAYPACK_YARN_REGISTRY"
+        yarn config get npmRegistryServer
     fi
+    echo ""
 fi
 
 if [ "$IS_NPM_MAIN_PM" = "true" ]; then
     echo "=== NPM Version After Setup ==="
     npm --version
+    npm config set registry "$WAYPACK_NPM_REGISTRY"
+    npm config get registry
     echo ""
 fi
 
 if [ "$IS_PNPM_MAIN_PM" = "true" ]; then
     echo "=== PNPM Version After Setup ==="
     pnpm --version
-    echo ""
     pnpm config set registry "$WAYPACK_NPM_REGISTRY"
+    pnpm config get registry
+    echo ""
 fi
 
 echo "=== Cleaning package manager lock files ==="

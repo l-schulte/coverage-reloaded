@@ -35,6 +35,9 @@
         },
         "github-docs": {
             "url": "https://github.com/github/docs"
+        },
+        "rxdb": {
+            "url": "https://github.com/pubkey/rxdb"
         }
     }
 }
