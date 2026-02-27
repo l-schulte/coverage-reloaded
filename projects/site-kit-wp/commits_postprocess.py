@@ -13,7 +13,9 @@ def postprocess():
     additional_info = pd.read_csv(additional_info_file, low_memory=False)
 
     # Merge additional information with commits
-    commits = commits.merge(additional_info, on="commit_hash", how="left")
+    commits = commits.merge(
+        additional_info, on="commit_hash", how="left", suffixes=("", "_additional_info")
+    )
 
     # where column "test:js" container "-w", set "pm_version" to "npm@7"
     commits.loc[commits["test:js"].str.contains("-w", na=False), "pm_version"] = (
@@ -22,6 +24,11 @@ def postprocess():
     commits.loc[
         commits["test:js"].str.contains("-w", na=False), "pm_version_source"
     ] = "postprocessing fix"
+
+    # remove additional information columns
+    commits = commits.drop(
+        columns=[col for col in commits.columns if col.endswith("_additional_info")]
+    )
 
     commits.to_csv(commits_file, index=False)
 
