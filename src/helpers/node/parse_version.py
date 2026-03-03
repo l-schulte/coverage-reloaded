@@ -1,11 +1,31 @@
 import json
 import re
+import semantic_version
 
 from src.helpers.helper import version_satisfies
 
 
 NODE_RELEASES_PATH = "src/helpers/node/data/node_releases.json"
 NODE_RELEASES = json.load(open(NODE_RELEASES_PATH, "r"))
+
+
+def validate_node_version(version_string: str) -> bool:
+    """
+    Validates if a given version string is a valid Node.js version or range.
+    """
+
+    version_string = sanitize_node_version(version_string)
+
+    # Check if version_string is a single concrete version
+    if re.match(r"^(\d+(?:\.\d+){0,2})$", version_string.strip()):
+        return True
+
+    # Check if version_string is a valid range
+    try:
+        semantic_version.NpmSpec(version_string)
+        return True
+    except ValueError:
+        return False
 
 
 def sanitize_node_version(version: str) -> str:
@@ -35,6 +55,9 @@ def parse_node_version(
                                     This is usefull because the containers download the latest version anyways.
     """
     version_string = sanitize_node_version(version_string)
+
+    if not validate_node_version(version_string):
+        return None
 
     # Check if range_str is single concrete version -> return as-is
     if re.match(r"^(\d+(?:\.\d+){0,2})$", version_string.strip()):

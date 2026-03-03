@@ -35,7 +35,8 @@ def get_node_version(
     node_version = None
 
     for key in POTENTIAL_KEYS:
-        if not node_version:
-            node_version = __get_node_version_from_key(key, package_json)
+        node_version = __get_node_version_from_key(key, package_json)
+        if node_version:
+            break
 
     return node_version
