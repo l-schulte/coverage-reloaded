@@ -38,6 +38,9 @@
         },
         "rxdb": {
             "url": "https://github.com/pubkey/rxdb"
+        },
+        "govuk-frontend": {
+            "url": "https://github.com/alphagov/govuk-frontend"
         }
     }
 }
