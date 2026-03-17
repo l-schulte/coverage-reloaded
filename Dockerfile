@@ -13,12 +13,26 @@ RUN apt-get update && \
         bash \
         make \
         build-essential \
+        cmake-latest \
         zip \
         nano \
-        python3 \
         lcov=1.14-2 \
         jq
 
+RUN apt-get update && apt-get install -y python2.7 && \
+    update-alternatives --install /usr/bin/python2 python2 /usr/bin/python2.7 1
+
+# RUN ln -s /usr/bin/python2 /usr/local/bin/python
+
+# uv for Python 3
+RUN curl -Ls https://astral.sh/uv/install.sh | sh
+ENV PATH="/root/.local/bin:$PATH"
+RUN uv python install 3.11
+RUN ln -sf $(uv python find 3.11) /usr/local/bin/python3
+RUN ln -sf $(uv python find 3.11) /usr/bin/python3
+
+# Default python = python3, overridden per-build for old node-gyp eras
+RUN ln -sf $(uv python find 3.11) /usr/local/bin/python
 
 
 RUN curl -L https://bit.ly/n-install | bash -s -- -y
