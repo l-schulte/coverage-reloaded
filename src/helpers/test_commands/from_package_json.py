@@ -3,6 +3,8 @@ from src.helpers.helper import get_file_json_content
 
 logger = logging.getLogger(__name__)
 
+KEYWORDS = ["test", "jest", "mocha", "ava", "tap", "ci", "coverage"]
+
 
 def get_test_commands(
     repo_path: str, revision: str, packagejson_path: str = "package.json"
@@ -18,11 +20,11 @@ def get_test_commands(
     scripts = package_json.get("scripts", {})
     test_commands = {}
 
-    for key in scripts.keys():
-        if any(
-            keyword in key.lower()
-            for keyword in ["test", "jest", "mocha", "ava", "tap", "ci", "coverage"]
-        ):
-            test_commands[key] = scripts[key]
+    for key, value in scripts.items():
+        if any(keyword in key.lower() for keyword in KEYWORDS):
+            test_commands[key] = value
+
+        if any(keyword in value.lower() for keyword in KEYWORDS):
+            test_commands[key] = value
 
     return test_commands
