@@ -41,6 +41,10 @@
         },
         "govuk-frontend": {
             "url": "https://github.com/alphagov/govuk-frontend"
+        },
+        "linode-manager": {
+            "url": "https://github.com/linode/manager",
+            "alternate_project_root": "linode-manager"
         }
     }
 }
