@@ -4,7 +4,7 @@ import json
 import logging
 import os
 
-from src import collect_commits, collect_coverage
+from src import collect_commits, collect_coverage, collect_single_commit
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -66,9 +66,21 @@ def parse_args():
     parser.add_argument(
         "--mode",
         type=str,
-        choices=["full", "commits-only", "coverage-only"],
+        choices=["full", "commits-only", "coverage-only", "single-commit"],
         default="full",
-        help="Mode of operation:\n - 'full' to collect commits and coverage\n - 'commits-only' to collect only commits\n - 'coverage-only' to collect only coverage.",
+        help="Mode of operation:\n - 'full' to collect commits and coverage\n - 'commits-only' to collect only commits\n - 'coverage-only' to collect only coverage\n - 'single-commit' to collect data for a single commit.",
+    )
+    parser.add_argument(
+        "--commit-hash",
+        type=str,
+        required=False,
+        help="Commit hash to process when using 'single-commit' mode.",
+    )
+    parser.add_argument(
+        "--base-path",
+        type=str,
+        required=False,
+        help="Base path for project repositories and outputs.",
     )
 
     return parser.parse_args()
@@ -81,6 +93,8 @@ def execute(
     end_date=DEFAULTS["end_date"],
     max_workers=DEFAULTS["max_workers"],
     max_commits=None,
+    commit_hash=None,
+    base_path=None,
 ):
     start_date = datetime.fromisoformat(start_date).replace(tzinfo=timezone.utc)
     end_date = datetime.fromisoformat(end_date).replace(tzinfo=timezone.utc)
@@ -93,6 +107,11 @@ def execute(
         collect_commits.execute(project, start_date, end_date)
     if mode in ["full", "coverage-only"]:
         collect_coverage.execute(project, max_workers, max_commits)
+    if mode == "single-commit":
+        if not commit_hash:
+            logger.error("Commit hash is required for 'single-commit' mode.")
+            return
+        collect_single_commit.execute(project, commit_hash, base_path)
 
 
 def main():
@@ -109,6 +128,8 @@ def main():
                 args.end_date,
                 args.max_workers,
                 args.max_commits,
+                None,  # commit_hash is not applicable for multiple projects
+                args.base_path,
             )
     else:
         execute(
@@ -118,6 +139,8 @@ def main():
             args.end_date,
             args.max_workers,
             args.max_commits,
+            args.commit_hash,
+            args.base_path,
         )
 
 

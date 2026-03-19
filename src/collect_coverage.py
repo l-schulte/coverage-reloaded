@@ -1,9 +1,7 @@
 import csv
 import json
 import logging
-import subprocess
 import concurrent.futures
-import sys
 import time
 import threading
 import os
@@ -11,34 +9,19 @@ import random
 import tqdm
 import argparse
 
+from src.docker.docker_run import docker_run_script
+
 CONFIG = json.load(open("config.json"))
 
 logger = logging.getLogger(__name__)
 
 COMMITS_CSV_FILE = "commits.csv"
 WORKSPACE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DOCKER_RUN_SCRIPT = os.path.join(WORKSPACE_PATH, "docker-run.sh")
 
 # Thread-local storage to assign worker IDs
 worker_ids = threading.local()
 worker_id_counter = threading.Lock()
 next_worker_id = 1
-
-
-def parse_filename(filename) -> tuple[str, str, str, str]:
-    """Parse log filename to extract node, timestamp, commit hash, and job ID."""
-    parts = filename.rsplit("_", 3)
-    node = parts[0].replace("node", "")
-    timestamp = parts[1]
-    commit_hash = parts[2]
-    job_id = parts[3].split(".")[0]  # Remove file extension
-    return node, timestamp, commit_hash, job_id
-
-
-def get_filename(node, timestamp, commit_hash, job_id, success=True):
-    """Generate log filename based on parameters."""
-    ext = "log" if success else "error"
-    return f"node{node}_{timestamp}_{commit_hash}_{job_id}.{ext}"
 
 
 def get_worker_id():
@@ -51,57 +34,6 @@ def get_worker_id():
             next_worker_id += 1
 
     return worker_ids.id
-
-
-def run_docker_container(commit, logs_path, output_path):
-    """Run docker container for a single commit."""
-    project, project_id, commit_hash, timestamp, node, pm = commit
-    job = get_worker_id()
-
-    logger.debug(
-        f"Starting worker {job} processing commit {commit_hash} with Node {node} and PM {pm}"
-    )
-
-    command = [
-        "/bin/sh",
-        DOCKER_RUN_SCRIPT,
-        project,
-        "exec",
-        commit_hash,
-        str(timestamp),
-        pm,
-        node,
-        project_id,
-    ]
-
-    try:
-        result = subprocess.run(command, capture_output=True, text=True)
-        success = result.returncode == 0
-
-        log_filename = os.path.join(
-            logs_path,
-            get_filename(node, timestamp, commit_hash, str(job), success),
-        )
-        with open(log_filename, "w") as f:
-            f.write(
-                result.stdout
-                + "\n----\n\n----\n"
-                + (result.stderr if not success else "Success!")
-            )
-
-        if not success:
-            logger.debug(f"Commit {commit_hash} failed. See log: {log_filename}")
-            error_lcov = os.path.join(output_path, f"{commit_hash}.error")
-            with open(error_lcov, "w") as f:
-                f.write(f"Execution failed. See log for details.\n{log_filename}\n")
-
-        return success
-
-    except subprocess.TimeoutExpired:
-        return False
-    except Exception as e:
-        logger.error(f"Error occurred while processing commit {commit_hash}: {e}")
-        return False
 
 
 def parse_args():
@@ -193,7 +125,9 @@ def execute(project, max_workers, max_commits=None):
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = [
-            executor.submit(run_docker_container, commit, logs_path, output_path)
+            executor.submit(
+                docker_run_script, commit, WORKSPACE_PATH, logs_path, output_path
+            )
             for commit in commits
         ]
 
