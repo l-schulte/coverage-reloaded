@@ -6,7 +6,9 @@ from pathlib import Path
 src_path = Path(__file__).parent.parent / "src"
 sys.path.insert(0, str(src_path))
 
-from src.project_metadata.node.parse_version import parse_node_version
+from src.project_metadata.node.parse_version import (
+    find_matching_version_from_version_string,
+)
 from src.project_metadata.helper import version_satisfies
 
 
@@ -108,7 +110,7 @@ class TestParseNodeVersion:
     @pytest.mark.parametrize("version_string,use_first,expected", test_cases)
     def test_parse_node_version(self, version_string, use_first, expected):
         """Test parse_node_version with various version strings."""
-        result = parse_node_version(version_string, use_first)
+        result = find_matching_version_from_version_string(version_string, use_first)
         assert result == expected, (
             f"parse_node_version('{version_string}', use_first={use_first}) "
             f"returned {result}, expected {expected}"
