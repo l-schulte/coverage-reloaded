@@ -42,7 +42,13 @@ def execute(project, commit_hash, base_path=None):
 
     commit_information.get("commit", {})
     package_manager = commit_information.get("commit", {}).get("pm_version")
+    package_manager_source = commit_information.get("commit", {}).get(
+        "pm_version_source"
+    )
     node_version = commit_information.get("commit", {}).get("node_version")
+    node_version_source = commit_information.get("commit", {}).get(
+        "node_version_source"
+    )
 
     if not package_manager or not node_version:
         logger.error(
@@ -53,16 +59,18 @@ def execute(project, commit_hash, base_path=None):
 
     logger.info(
         f"Extracted metadata for commit {commit_hash} in project {project}:\n"
-        + f"\tNode Version: {node_version}\n"
-        + f"\tPackage Manager: {package_manager}"
+        + f"\tNode Version: {node_version} (from {node_version_source})\n"
+        + f"\tPackage Manager: {package_manager} (from {package_manager_source})"
     )
+
+    timestamp = str(int(commit_data.committer_date.timestamp()))
 
     success = docker_run_script(
         (
             project,
             project_id,
             commit_hash,
-            commit_data.committer_date.timestamp(),
+            timestamp,
             node_version,
             package_manager,
         ),
