@@ -1,29 +1,21 @@
+from datetime import datetime
 import logging
 
 from src.project_metadata.helper import get_file_json_content
-from src.project_metadata.node.parse_version import parse_node_version
+from src.project_metadata.node.parse_version import (
+    find_matching_version_from_version_string,
+)
 
 POTENTIAL_KEYS = ["engines", "volta", "packageManager"]
 
 logger = logging.getLogger(__name__)
 
 
-def __get_node_version_from_key(key: str, package_json: dict) -> str | None:
-    """
-    Retrieves the Node.js version from a specified key (engines, volta, etc.) in package.json.
-    Package.json specified versions are often open-ended ranges, so we use the first match, not the last (use_first=True).
-    """
-
-    if key in package_json:
-        if "node" in package_json[key]:
-            version = parse_node_version(package_json[key]["node"], use_first=True)
-            if version:
-                return version
-    return None
-
-
 def get_node_version(
-    repo_path: str, revision: str, packagejson_path: str = "package.json"
+    repo_path: str,
+    revision: str,
+    packagejson_path: str = "package.json",
+    before_date: datetime | None = None,
 ) -> str | None:
     """
     Retrieves the Node.js version specified in the package.json file at a given revision.
@@ -32,11 +24,16 @@ def get_node_version(
     if not package_json:
         return None
 
-    node_version = None
+    if revision == "02aada4ae9578896ea3be75cf78298d7959ef2de":
+        print("debug")
 
     for key in POTENTIAL_KEYS:
-        node_version = __get_node_version_from_key(key, package_json)
-        if node_version:
-            break
+        if key in package_json:
+            if "node" in package_json[key]:
+                version = find_matching_version_from_version_string(
+                    package_json[key]["node"], before_date=before_date
+                )
+                if version:
+                    return version
 
-    return node_version
+    return None

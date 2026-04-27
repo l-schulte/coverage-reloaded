@@ -1,7 +1,9 @@
 import re
 
 from src.project_metadata.helper import get_file_content
-from src.project_metadata.node.parse_version import parse_node_version
+from src.project_metadata.node.parse_version import (
+    find_matching_version_from_version_string,
+)
 
 
 def get_node_version(
@@ -24,7 +26,7 @@ def get_node_version(
         re_from_node = re.compile(r"node:(?:v|>=|<=|\^)?([\.(\d+)]+)-")
         version_match = re.findall(re_from_node, content)
         if version_match:
-            version = parse_node_version(version_match[0])
+            version = find_matching_version_from_version_string(version_match[0])
             if version:
                 return version
     return None

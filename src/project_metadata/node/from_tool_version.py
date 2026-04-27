@@ -1,5 +1,7 @@
 from src.project_metadata.helper import get_file_content
-from src.project_metadata.node.parse_version import parse_node_version
+from src.project_metadata.node.parse_version import (
+    find_matching_version_from_version_string,
+)
 
 
 def get_node_version(
@@ -15,7 +17,7 @@ def get_node_version(
         if not node_line:
             return None
         content = node_line[0].split(maxsplit=1)[1]
-        version = parse_node_version(content)
+        version = find_matching_version_from_version_string(content)
         if version:
             return version
     return None

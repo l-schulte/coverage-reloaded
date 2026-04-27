@@ -1,5 +1,7 @@
 from src.project_metadata.helper import get_file_content
-from src.project_metadata.node.parse_version import parse_node_version
+from src.project_metadata.node.parse_version import (
+    find_matching_version_from_version_string,
+)
 
 
 def get_node_version(
@@ -11,7 +13,9 @@ def get_node_version(
 
     content = get_file_content(repo_path, revision, nvmrc_path)
     if content:
-        version = parse_node_version(str(content), use_artificial_minor_version=True)
+        version = find_matching_version_from_version_string(
+            str(content), use_artificial_minor_version=True
+        )
         if version:
             return version
     return None

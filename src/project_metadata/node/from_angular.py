@@ -6,7 +6,7 @@ import pandas as pd
 from src.project_metadata.helper import get_file_content
 from src.project_metadata.node.parse_version import (
     version_satisfies,
-    parse_node_version,
+    find_matching_version_from_version_string,
 )
 
 ANGULAR_VERSIONS_PATH = "src/project_metadata/node/data/angular_releases.csv"
@@ -38,7 +38,7 @@ def get_node_version(
         return None
 
     try:
-        package_json = json.loads(content)
+        package_json = json.loads(str(content))
     except json.JSONDecodeError:
         logger.error(f"Error decoding package.json at revision {revision}")
         return None
@@ -78,7 +78,9 @@ def get_node_version(
             ["Angular", "NodeJS"]
         ].values:
             if version_satisfies(angular_version, angular_version_range):
-                node_version = parse_node_version(node_version_range, use_first=True)
+                node_version = find_matching_version_from_version_string(
+                    node_version_range, use_first=True
+                )
                 break
 
         return node_version

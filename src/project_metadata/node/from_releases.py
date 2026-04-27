@@ -1,7 +1,9 @@
 import datetime
 import json
 
-from src.project_metadata.node.parse_version import parse_node_version
+from src.project_metadata.node.parse_version import (
+    find_matching_version_from_version_string,
+)
 
 NODE_RELEASES_PATH = "src/project_metadata/node/data/node_releases.json"
 NODE_RELEASES = json.load(open(NODE_RELEASES_PATH, "r"))
@@ -43,7 +45,9 @@ def get_node_version(
             and version_was_available(data["start"], timestamp, offset_months)
         )
     ]
-    latest_node_release = parse_node_version(latest_node_releases[-1].replace("v", ""))
+    latest_node_release = find_matching_version_from_version_string(
+        latest_node_releases[-1].replace("v", "")
+    )
 
     if not latest_node_release:
         raise ValueError("No valid Node.js version found for the given timestamp.")

@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 import re
 import semantic_version
@@ -40,10 +41,11 @@ def sanitize_node_version(version: str) -> str:
     return version.strip()
 
 
-def parse_node_version(
+def find_matching_version_from_version_string(
     version_string: str,
     use_first: bool = False,
     use_artificial_minor_version: bool = True,
+    before_date: datetime | None = None,
 ) -> str | None:
     """
     Parses a Node.js version string to extract the version.
@@ -53,6 +55,7 @@ def parse_node_version(
     - use_first: If True, returns the first matching version instead of the last.
     - use_artificial_minor_version: If True, we upgrade each node release version to an artificially high minor version.
                                     This is usefull because the containers download the latest version anyways.
+    - before_date: If provided, only considers versions released before this date.
     """
     version_string = sanitize_node_version(version_string)
 
@@ -64,8 +67,12 @@ def parse_node_version(
         return version_string
 
     last_ok = None
-    for major in NODE_RELEASES.keys():
-        major = major.removeprefix("v")
+    for major, meta_data in NODE_RELEASES.items():
+        version_release_date = datetime.strptime(meta_data["start"], "%Y-%m-%d")
+        if before_date and version_release_date.timestamp() > before_date.timestamp():
+            continue
+
+        major: str = major.removeprefix("v")
 
         version = major
         if use_artificial_minor_version:
