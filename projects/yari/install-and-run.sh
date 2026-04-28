@@ -37,6 +37,10 @@ workspace_has_script() {
     [ -f "$workspace/package.json" ] && has_script "$workspace/package.json" "$script"
 }
 
+
+echo "We need to make sure that the coverage dirs are correct. I think we can remove them and just run find-and-move-lcov with the prepending of paths"
+exit 1
+
 # --- Workspace era: yarn workspace ssr test ---
 if has_workspace "ssr" && workspace_has_script "ssr" "test"; then
     run_suite "ssr" "cd ssr && yarn jest \

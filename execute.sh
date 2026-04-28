@@ -190,23 +190,14 @@ process_files "$execute_function"
 # execute_function='sed -i "/^[[:space:]]*integrity /d" {}'
 # process_files "$execute_function"
 
-echo ""
+# pnpm-lock.yaml files also contain resolved URLs to central repositories.
+# Workaround: replace URLs with waypack URL (https://registry.npmjs.org/)
+match_patterns=('pnpm-lock.yaml' '*/pnpm-lock.yaml')
+ignore_patterns=('*/node_modules/*')
+execute_function='sed -i "s|https://registry.npmjs.org/|'"$WAYPACK_NPM_REGISTRY"'|g" {}'
+process_files "$execute_function"
 
-# echo "=== Setting up nyc ==="
-# # Install nyc globally if not already installed
-# if ! npx nyc --version >/dev/null 2>&1; then
-#     echo " --> Installing nyc globally"
-#     if [ "$IS_NPM_MAIN_PM" = "true" ] || [ "$package_manager" == "" ]; then
-#         npm install --no-fund -g nyc
-#     elif [ "$IS_YARN_MAIN_PM" = "true" ]; then
-#         yarn global add nyc
-#     elif [ "$IS_PNPM_MAIN_PM" = "true" ]; then
-#         pnpm add -g nyc
-#     fi
-# else
-#     echo " --> nyc is already installed"
-# fi
-# echo ""
+echo ""
 
 
 
@@ -223,8 +214,8 @@ echo "=== Counting coverage reports ==="
 
 
 # Find all lcov.info files in the coverage directory
-lcov_count=$(find "$COVERAGE_REPORT_PATH" -name "lcov.info" | wc -l)
-lcov_count_valid=$(find "$COVERAGE_REPORT_PATH" -name "lcov.info" -size +0 | wc -l)
+lcov_count=$(find "$COVERAGE_REPORT_PATH" -name "*.lcov.info" -o -name "lcov.info" | wc -l)
+lcov_count_valid=$(find "$COVERAGE_REPORT_PATH" -name "*.lcov.info" -o -name "lcov.info" -size +0 | wc -l)
 if [ "$lcov_count" -eq 0 ]; then
     echo "Error: No lcov.info files found in $COVERAGE_REPORT_PATH"
     exit 1
@@ -233,47 +224,10 @@ else
 fi
 
 
-
-echo "=== Prepending full path to coverage files ==="
-
-
-
-find "$COVERAGE_REPORT_PATH" -name "lcov.info" -size +0 -print0 | while IFS= read -r -d '' lcov_file; do
-    # Replace all occurrences of $REPOPATH with an empty string
-    sed -i "s|$REPOPATH||g" "$lcov_file"
-
-    # Get the relative path of the file's directory, stripping $COVERAGE_REPORT_PATH
-    rel_path="${lcov_file#$COVERAGE_REPORT_PATH}"
-    rel_path="${rel_path%/*}"
-    rel_path="${rel_path#/}"
-
-    # If rel_path is empty, set it to "."
-    [ -z "$rel_path" ] && rel_path="."
-
-    # Prepend the relative path to each SF: line in the file
-    awk -v path="$rel_path/" '{
-        if ($0 ~ /^SF:/) {
-            if (path != "./") {
-                sub(/^SF:/, "SF:" path)
-            }
-        }
-        print
-    }' "$lcov_file" > "$lcov_file.tmp" && mv "$lcov_file.tmp" "$lcov_file"
-
-    # Remove special folder prefixes (co_re_*) from paths
-    sed -i 's|co_re_[^/]*\/||g' "$lcov_file"
-
-    echo "--> Processed and cleaned $lcov_file"
-done
-
-
-
 echo "=== Merging coverage reports ==="
 
-
-
 # Merge all found lcov.info files into a single output file
-mapfile -t lcov_files < <(find "$COVERAGE_REPORT_PATH" -name "lcov.info" -size +0)
+mapfile -t lcov_files < <(find "$COVERAGE_REPORT_PATH" \( -name "*.lcov.info" -o -name "lcov.info" \) -size +0)
 lcov_args=()
 for f in "${lcov_files[@]}"; do
     lcov_args+=(--add-tracefile "$f")
@@ -282,16 +236,6 @@ lcov "${lcov_args[@]}" \
     --output-file "$COVERAGE_REPORT_PATH/merged.lcov" \
     --rc lcov_branch_coverage=1
 ls -lh "$COVERAGE_REPORT_PATH"
-
-
-
-# echo "=== Zipping coverage reports ==="
-
-
-
-# zip_file="$BASEDIR/coverage/$(date -d @$timestamp '+%Y-%m-%d')-$revision.zip"
-# zip -r "$zip_file" "$COVERAGE_REPORT_PATH"
-
 
 
 echo "=== Reporting coverage to coverageSHARK ==="

@@ -35,52 +35,51 @@ npm install @babel/register --no-fund
 npm install source-map-support --no-fund
 
 if [[ "$TEST_SCRIPT" == *"mocha"* ]]; then
-    MOCHA_COVERAGE_REPORT_PATH="$COVERAGE_REPORT_PATH/co_re_mocha"
-    echo "Running tests with mocha enabled (coverage report will be saved to $MOCHA_COVERAGE_REPORT_PATH)"
+    echo "Running tests with mocha enabled"
     npx --registry=$WAYPACK_NPM_REGISTRY c8 \
         --require source-map-support/register \
         --require @babel/register \
         --reporter=lcov \
-        --report-dir="$MOCHA_COVERAGE_REPORT_PATH" \
         mocha \
             --no-bail \
             --expose-gc \
             --config "$MOCHA_CONFIG" \
             ./test_tmp/unit.test.js
+
+    bash ../find-and-move-lcov.sh mocha
 fi
 if [[ "$TEST_SCRIPT" == *"test:node:lokijs"* ]]; then
-    LOKIJS_COVERAGE_REPORT_PATH="$COVERAGE_REPORT_PATH/co_re_lokijs"
-    echo "Running tests with lokijs enabled (coverage report will be saved to $LOKIJS_COVERAGE_REPORT_PATH)"
+    echo "Running tests with lokijs enabled"
     DEFAULT_STORAGE=lokijs \
     npx --registry=$WAYPACK_NPM_REGISTRY c8 \
         --require source-map-support/register \
         --require @babel/register \
         --reporter=lcov \
-        --report-dir="$LOKIJS_COVERAGE_REPORT_PATH" \
         mocha \
             --no-bail \
             --expose-gc \
             --config "$MOCHA_CONFIG" \
             ./test_tmp/unit.test.js
+
+    bash ../find-and-move-lcov.sh lokijs
 fi
 if [[ "$TEST_SCRIPT" == *"test:node:pouchdb"* ]]; then
-    POUCHDB_COVERAGE_REPORT_PATH="$COVERAGE_REPORT_PATH/co_re_pouchdb"
-    echo "Running tests with pouchdb enabled (coverage report will be saved to $POUCHDB_COVERAGE_REPORT_PATH)"
+    echo "Running tests with pouchdb enabled"
     DEFAULT_STORAGE=pouchdb \
     npx --registry=$WAYPACK_NPM_REGISTRY c8 \
         --require source-map-support/register \
         --require @babel/register \
         --reporter=lcov \
-        --report-dir="$POUCHDB_COVERAGE_REPORT_PATH" \
         mocha \
             --no-bail \
             --expose-gc \
             --config "$MOCHA_CONFIG" \
             ./test_tmp/unit.test.js
+
+    bash ../find-and-move-lcov.sh pouchdb
 fi
 if [[ "$TEST_SCRIPT" == *"test:node:dexie"* ]]; then
-    DEXIE_COVERAGE_REPORT_PATH="$COVERAGE_REPORT_PATH/co_re_dexie"
-    echo "Running tests with dexie enabled (coverage report will be saved to $DEXIE_COVERAGE_REPORT_PATH)"
+    echo "Running tests with dexie enabled"
     DEFAULT_STORAGE=dexie \
     npx --registry=$WAYPACK_NPM_REGISTRY c8 \
         --require source-map-support/register \
@@ -92,5 +91,7 @@ if [[ "$TEST_SCRIPT" == *"test:node:dexie"* ]]; then
             --expose-gc \
             --config "$MOCHA_CONFIG" \
             ./test_tmp/unit.test.js
+
+    bash ../find-and-move-lcov.sh dexie
 fi
 set -e
