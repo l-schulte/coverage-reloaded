@@ -1,9 +1,6 @@
 #!/bin/bash
 
-# -------------------------------------------------------------
-# ATTENTION! ONLY MODIFY THE ORIGINAL
-# THIS WILL BE COPIED TO EACH PROJECT'S FOLDER AUTOMATICALLY
-# -------------------------------------------------------------
+source "$(dirname "${BASH_SOURCE[0]}")/logging.sh"
 
 starttime=$(date +%s)
 BASEDIR="/coverage_reloaded"
@@ -56,45 +53,41 @@ export IS_YARN_MAIN_PM
 IS_PNPM_MAIN_PM=$([[ "$package_manager" == pnpm* ]] && echo "true" || echo "false")
 export IS_PNPM_MAIN_PM
 
-echo " "
-echo " "
-echo "=== Starting run-coverage.sh ==="
-echo "Revision: $revision"
+print_header 1 "Starting run-coverage.sh" "Revision: $revision"
 echo "Commit date: $(date -d @$timestamp)"
 echo "Current date: $(date)"
 echo "Timestamp: $timestamp"
 echo "Package Manager: $package_manager"
-echo ""
-echo "=== System Information ==="
-uname -a
-echo ""
-echo "=== Linux Distribution ==="
-cat /etc/os-release
-echo ""
-echo "=== Git Version ==="
-git --version
-echo ""
-echo "=== CPU Information ==="
-nproc
-echo ""
-echo "=== Memory Information ==="
-free -h
-echo ""
-echo "=== Disk Information ==="
-df -h
-echo ""
-set -e
-echo "=== Current Folder ==="
-pwd
-echo ""
-echo "=== Git Checkout ==="
-git checkout "$revision"
-echo ""
-echo "=== Node Version ==="
-node --version
-echo ""
 
-echo "=== Setting up Package Managers ==="
+print_header 2 "System Information"
+uname -a
+
+print_header 2 "Linux Distribution"
+cat /etc/os-release
+
+print_header 2 "Git Version"
+git --version
+
+print_header 2 "CPU Information"
+nproc
+
+print_header 2 "Memory Information"
+free -h
+
+print_header 2 "Disk Information"
+df -h
+
+set -e
+print_header 2 "Current Folder"
+pwd
+
+print_header 2 "Git Checkout"
+git checkout "$revision"
+
+print_header 2 "Node Version"
+node --version
+
+print_header 2 "Setting up Package Managers"
 
 WAYPACK_NPM_REGISTRY="http://waypack:3000/npm/$timestamp/"
 export WAYPACK_NPM_REGISTRY
@@ -109,7 +102,7 @@ if [ -x "$(command -v corepack)" ] && grep -q '"packageManager"' package.json; t
     corepack enable
     corepack prepare "$package_manager" --activate
 # Otherwise, setup manually.
-else 
+else
     echo " --> Manual setup for $package_manager"
     if [ "$IS_NPM_MAIN_PM" = "true" ]; then
         # if npm is the main pm and there is a version specified in $package_manager (npm@x.x.x), install that version globally
@@ -134,7 +127,7 @@ else
 fi
 
 if [ "$IS_YARN_MAIN_PM" = "true" ]; then
-    echo "=== Yarn Version After Setup ==="
+    print_header 3 "Yarn Version After Setup"
     yarn --version
     IS_YARN_LEGACY=$(yarn --version | grep -q "^1\." && echo "true" || echo "false")
     echo "Legacy Yarn: $IS_YARN_LEGACY"
@@ -151,7 +144,7 @@ if [ "$IS_YARN_MAIN_PM" = "true" ]; then
 fi
 
 if [ "$IS_NPM_MAIN_PM" = "true" ]; then
-    echo "=== NPM Version After Setup ==="
+    print_header 3 "NPM Version After Setup"
     npm --version
     npm config set registry "$WAYPACK_NPM_REGISTRY"
     npm config get registry
@@ -159,14 +152,14 @@ if [ "$IS_NPM_MAIN_PM" = "true" ]; then
 fi
 
 if [ "$IS_PNPM_MAIN_PM" = "true" ]; then
-    echo "=== PNPM Version After Setup ==="
+    print_header 3 "PNPM Version After Setup"
     pnpm --version
     pnpm config set registry "$WAYPACK_NPM_REGISTRY"
     pnpm config get registry
     echo ""
 fi
 
-echo "=== Cleaning package manager lock files ==="
+print_header 2 "Cleaning package manager lock files"
 
 # There may be a package-lock.json file with resolved URLs hardcoded to npmjs.org. Slow and potentially rate limited.
 # Workaround 1: remove URLs
@@ -201,7 +194,7 @@ echo ""
 
 
 
-echo "=== Calling install-and-run.sh ==="
+print_header 1 "Calling install-and-run.sh"
 
 
 
@@ -210,7 +203,7 @@ timeout 5400s bash ../install-and-run.sh
 
 
 
-echo "=== Counting coverage reports ==="
+print_header 2 "Counting coverage reports"
 
 
 # Find all lcov.info files in the coverage directory
@@ -224,7 +217,7 @@ else
 fi
 
 
-echo "=== Merging coverage reports ==="
+print_header 2 "Merging coverage reports"
 
 # Merge all found lcov.info files into a single output file
 mapfile -t lcov_files < <(find "$COVERAGE_REPORT_PATH" \( -name "*.lcov.info" -o -name "lcov.info" \) -size +0)
@@ -238,7 +231,7 @@ lcov "${lcov_args[@]}" \
 ls -lh "$COVERAGE_REPORT_PATH"
 
 
-echo "=== Reporting coverage to coverageSHARK ==="
+print_header 2 "Reporting coverage to coverageSHARK"
 
 
 # mv "$COVERAGE_REPORT_PATH/lcov.info" "$OUTPUT_PATH/$revision.lcov"
@@ -246,8 +239,6 @@ mv "$COVERAGE_REPORT_PATH/merged.lcov" "$OUTPUT_PATH/$revision.lcov"
 
 
 
-echo "=== Coverage run completed ==="
 endtime=$(date +%s)
 elapsed=$((endtime - starttime))
-echo "Total time: $elapsed seconds"
-
+print_header 1 "Coverage run completed" "Total time: $elapsed seconds"
