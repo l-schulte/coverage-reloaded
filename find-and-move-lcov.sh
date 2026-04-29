@@ -28,6 +28,9 @@ while IFS= read -r -d '' lcov_file; do
     dest_dir="$COVERAGE_REPORT_PATH/$rel_path"
     mkdir -p "$dest_dir"
 
+    echo "--> Found $lcov_file"
+    lcov --summary "$lcov_file"
+
     # Always strip absolute repo path and co_re_ prefixes
     sed -i "s|$REPOPATH||g" "$lcov_file"
     sed -i 's|co_re_[^/]*\/||g' "$lcov_file"

@@ -43,8 +43,10 @@
             "url": "https://github.com/alphagov/govuk-frontend"
         },
         "linode-manager": {
-            "url": "https://github.com/linode/manager",
-            "alternate_project_root": "linode-manager"
+            "url": "https://github.com/linode/manager"
+        },
+        "metamask-extension": {
+            "url": "https://github.com/MetaMask/metamask-extension"
         }
     }
 }
