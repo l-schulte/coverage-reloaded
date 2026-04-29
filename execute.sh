@@ -68,6 +68,9 @@ cat /etc/os-release
 print_header 2 "Git Version"
 git --version
 
+print_header 2 "Python Version"
+python --version
+
 print_header 2 "CPU Information"
 nproc
 
@@ -104,17 +107,24 @@ if [ -x "$(command -v corepack)" ] && grep -q '"packageManager"' package.json; t
 # Otherwise, setup manually.
 else
     echo " --> Manual setup for $package_manager"
+    # Disable corepack so it doesn't intercept package manager binaries
+    corepack disable 2>/dev/null || true
+
     if [ "$IS_NPM_MAIN_PM" = "true" ]; then
-        # if npm is the main pm and there is a version specified in $package_manager (npm@x.x.x), install that version globally
         if [[ "$package_manager" == npm@* ]]; then
             specified_version="${package_manager#npm@}"
             npm install --no-fund -g "npm@$specified_version"
         fi
     elif [ "$IS_YARN_MAIN_PM" = "true" ]; then
-        # if yarn is the main pm and there is a version specified in $package_manager (yarn@x.x.x), run yarn set version on that version
         if [[ "$package_manager" == yarn@* ]]; then
             specified_version="${package_manager#yarn@}"
-            yarn set version "$specified_version"
+            major="${specified_version%%.*}"
+            if [ "$major" -eq 1 ]; then
+                npm uninstall -g yarn 2>/dev/null || true
+                npm install --no-fund -g "yarn@$specified_version"
+            else
+                yarn set version "$specified_version"
+            fi
         elif yarn --version | grep -q "rc"; then
             set +e
             yarn set version latest
@@ -219,26 +229,30 @@ fi
 
 print_header 2 "Merging coverage reports"
 
-# Merge all found lcov.info files into a single output file
 mapfile -t lcov_files < <(find "$COVERAGE_REPORT_PATH" \( -name "*.lcov.info" -o -name "lcov.info" \) -size +0)
-lcov_args=()
-for f in "${lcov_files[@]}"; do
-    lcov_args+=(--add-tracefile "$f")
-done
-lcov "${lcov_args[@]}" \
-    --output-file "$COVERAGE_REPORT_PATH/merged.lcov" \
-    --rc lcov_branch_coverage=1
-ls -lh "$COVERAGE_REPORT_PATH"
+
+if [[ ${#lcov_files[@]} -eq 1 ]]; then
+    echo "Single lcov file found, copying directly to merged.lcov"
+    cp "${lcov_files[0]}" "$COVERAGE_REPORT_PATH/merged.lcov"
+else
+    echo "Merging ${#lcov_files[@]} lcov files"
+    lcov_args=()
+    for f in "${lcov_files[@]}"; do
+        lcov_args+=(--add-tracefile "$f")
+    done
+    lcov "${lcov_args[@]}" \
+        --output-file "$COVERAGE_REPORT_PATH/merged.lcov" \
+        --rc lcov_branch_coverage=1
+fi
 
 
 print_header 2 "Reporting coverage to coverageSHARK"
 
 
-# mv "$COVERAGE_REPORT_PATH/lcov.info" "$OUTPUT_PATH/$revision.lcov"
 mv "$COVERAGE_REPORT_PATH/merged.lcov" "$OUTPUT_PATH/$revision.lcov"
 
 
 
 endtime=$(date +%s)
 elapsed=$((endtime - starttime))
-print_header 1 "Coverage run completed" "Total time: $elapsed seconds"
+print_header 1 "Coverage run completed" "Revision: $revision" "Total time: $elapsed seconds"
