@@ -7,6 +7,9 @@
 *.lcov
 *.error
 
+projects/**/additional_information.csv
+projects/**/commits.csv
+projects/**/command_changes.csv
 projects/**/old_commits.csv
 **/tmp/
 **/debug/
