@@ -75,7 +75,7 @@ def find_node_version(
 
     # Last: Check node_releases.json based on commit date
     node_version = from_releases.get_node_version(
-        committer_date.timestamp(), offset_months=12
+        committer_date.timestamp(), offset_months=12, lts_only=True
     )
 
-    return node_version, "node_releases.json (12 months offset)"
+    return node_version, "node_releases.json (LTS, 12 months offset)"

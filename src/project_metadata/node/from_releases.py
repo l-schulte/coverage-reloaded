@@ -13,6 +13,7 @@ def get_node_version(
     timestamp: float,
     offset_months: int = 12,
     skip_versions: list[str] = [],
+    lts_only: bool = True,
 ) -> str:
     """
     Retrieves the latest Node.js version applicable at a given timestamp plus a offset (defaut 12 months).
@@ -36,6 +37,11 @@ def get_node_version(
         (str(release).removeprefix("v"), data)
         for release, data in NODE_RELEASES.items()
     ]
+
+    if lts_only:
+        node_releases = [
+            (release, data) for release, data in node_releases if "lts" in data
+        ]
 
     latest_node_releases = [
         release
