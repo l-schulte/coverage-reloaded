@@ -8,6 +8,7 @@ import pydriller
 import json
 import tqdm
 import pandas as pd
+import numpy as np
 
 from src.project_metadata.project_metadata import extract_project_metadata
 
@@ -37,6 +38,25 @@ def parse_args():
         help="End date for commit collection in ISO format (YYYY-MM-DD).",
     )
     return parser.parse_args()
+
+
+def get_command_changes(df: pd.DataFrame):
+    df_long = df.drop("timestamp", axis=1).melt(
+        id_vars=["commit_hash"],
+        var_name="script_name",
+        value_name="script_definition",
+    )
+
+    df_long["script_definition"] = (
+        df_long["script_definition"].str.strip().replace("", np.nan)
+    )
+
+    return (
+        df_long.dropna(subset=["script_definition"])
+        .drop_duplicates(subset=["script_name", "script_definition"])
+        .sort_values("script_name")
+        .reset_index(drop=True)
+    )
 
 
 def execute(project: str, start_date: datetime, end_date: datetime):
@@ -102,6 +122,13 @@ def execute(project: str, start_date: datetime, end_date: datetime):
     commits.sort(key=lambda c: c["timestamp"])
     additional_information.sort(key=lambda a: a["timestamp"])
 
+    df_additional_info = pd.DataFrame(additional_information)
+    df_additional_info.to_csv(f"{project_path}/additional_information.csv", index=False)
+
+    pd.DataFrame(get_command_changes(df_additional_info)).to_csv(
+        f"{project_path}/command_changes.csv", index=False
+    )
+
     pd.DataFrame(commits).to_csv(project_commits_file, index=False)
     if os.path.exists(os.path.join(project_path, "commits_postprocess.py")):
         subprocess.run(
@@ -109,9 +136,6 @@ def execute(project: str, start_date: datetime, end_date: datetime):
         )
     logger.info(f"Collected {len(commits)} commits for project {project}.")
     logger.debug(f"Saved commits to {project_commits_file}")
-    pd.DataFrame(additional_information).to_csv(
-        f"{project_path}/additional_information.csv", index=False
-    )
 
 
 def __main():
