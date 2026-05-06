@@ -1,37 +1,27 @@
 from datetime import datetime
-import os
 
-
-from src.project_metadata.helper import file_existed_at_commit
 from src.project_metadata.lock_files.find_lock_files import find_lock_files
 from src.project_metadata.node.find_node_version import find_node_version
 from src.project_metadata.package_manager.find_package_manager import (
     find_package_manager,
 )
-from src.project_metadata.test_commands.find_test_commands import find_test_commands
+from src.project_metadata.commands.find_commands import find_commands
 from src.project_metadata.coverage_tools.find_coverage_tools import find_coverage_tools
+from src.project_metadata.workspaces.find_workspaces import find_workspaces
 
-
-def get_project_root_at_commit(
-    repo_path: str, project_config: dict, commit_hash: str
-) -> str:
-    """
-    Determines the project root at a specific commit by checking for the existence of package.json in the current and alternate paths.
-    """
-
-    alternate_project_roots = project_config.get("alternate_project_roots", [])
-    for alternate_project_root in alternate_project_roots:
-        alternate_package_json_path = os.path.join(
-            alternate_project_root, "package.json"
-        )
-        if file_existed_at_commit(
-            repo_path,
-            commit_hash,
-            alternate_package_json_path,
-        ):
-            return os.path.join(repo_path, alternate_project_root)
-
-    return repo_path  # Default to original repo path if no package.json found
+TEST_KEYWORDS = [
+    "test",
+    "jest",
+    "mocha",
+    "ava",
+    "tap",
+    "ci",
+    "coverage",
+    "unit",
+    "integration",
+    "e2e",
+    "browser",
+]
 
 
 def extract_project_metadata(
@@ -55,13 +45,9 @@ def extract_project_metadata(
     use_exact_version = project_config.get("use_exact_node_version", False)
     package_manager_priority = project_config.get("package_manager_priority", None)
 
-    repo_path_at_commit = get_project_root_at_commit(
-        repo_path, project_config, commit_hash
-    )
+    workspaces = find_workspaces(repo_path, commit_hash)
 
-    node, node_source = find_node_version(
-        commit_hash, committer_date, repo_path_at_commit
-    )
+    node, node_source = find_node_version(commit_hash, committer_date, repo_path)
     if not node:
         raise ValueError(
             f"Could not determine Node.js version for commit {commit_hash} in project {project}. Likely the parsing failed. Please check the commit and the parsing logic."
@@ -71,12 +57,12 @@ def extract_project_metadata(
         node = node.split(".")[0]  # Use major version only
 
     pm_version, pm_source = find_package_manager(
-        commit_hash, repo_path_at_commit, node, package_manager_priority
+        commit_hash, repo_path, node, package_manager_priority
     )
 
-    test_commands = find_test_commands(commit_hash, repo_path_at_commit)
-    coverage_tools = find_coverage_tools(commit_hash, repo_path_at_commit)
-    lock_files = find_lock_files(commit_hash, repo_path_at_commit)
+    commands = find_commands(commit_hash, repo_path, workspaces)
+    coverage_tools = find_coverage_tools(commit_hash, repo_path)
+    lock_files = find_lock_files(commit_hash, repo_path)
 
     timestamp = int(committer_date.timestamp())
 
@@ -89,14 +75,14 @@ def extract_project_metadata(
             "pm_version": pm_version if pm_version else "npm",
             "pm_version_source": pm_source if pm_source else "default (npm)",
             "coverage_tools": coverage_tools,
-            "repo_root": repo_path_at_commit,
+            "repo_root": repo_path,
         },
         "additional": (
             {
                 "commit_hash": commit_hash,
                 "timestamp": timestamp,
             }
-            | test_commands
+            | commands
             | lock_files
         ),
     }

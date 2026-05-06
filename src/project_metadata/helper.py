@@ -22,8 +22,22 @@ def get_file_at_commit(repo_path, commit_hash, file_path):
     return result.stdout
 
 
+def resolve_wildcard_at_commit(repo_path, commit_hash, wildcard_path) -> list[str]:
+    parent = wildcard_path.rsplit("/*", 1)[0]  # e.g. "samples/msal-react-samples"
+    cmd = ["git", "-C", repo_path, "ls-tree", "--name-only", commit_hash, parent + "/"]
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    return result.stdout.splitlines()
+
+
 def get_file_json_content(repo_path, commit_hash, file_path) -> dict | None:
     content = get_file_at_commit(repo_path, commit_hash, file_path)
+
+    if not content:
+        # logger.info(
+        #     f"File {file_path} at revision {commit_hash} in {repo_path} does not exist or is empty."
+        # )
+        return None
+
     try:
         return json.loads(content)
     except json.JSONDecodeError as e:
