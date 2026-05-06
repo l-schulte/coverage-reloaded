@@ -7,10 +7,11 @@
 *.lcov
 *.error
 
-projects/**/additional_information.csv
-projects/**/commits.csv
-projects/**/command_changes.csv
-projects/**/old_commits.csv
+*additional_information.csv
+*commits.csv
+*command_changes.csv
+*old_commits.csv
+
 **/tmp/
 **/debug/
 **/coverage/
