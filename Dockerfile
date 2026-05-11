@@ -27,13 +27,13 @@ RUN apt-get update && apt-get install -y python2.7 && \
 # uv for Python 3
 RUN curl -Ls https://astral.sh/uv/install.sh | sh
 ENV PATH="/root/.local/bin:$PATH"
-RUN uv python install 3.11 3.8
+RUN uv python install 3.10 3.8
 
 RUN NODE_MAJOR=$(echo "$NODE_VERSION" | cut -d. -f1) && \
     if [ "$NODE_MAJOR" -le 12 ]; then \
         PYTHON_BIN=$(uv python find 3.8); \
     else \
-        PYTHON_BIN=$(uv python find 3.11); \
+        PYTHON_BIN=$(uv python find 3.10); \
     fi && \
     ln -sf "$PYTHON_BIN" /usr/local/bin/python && \
     ln -sf "$PYTHON_BIN" /usr/local/bin/python3 && \

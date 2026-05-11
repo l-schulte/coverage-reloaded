@@ -16,6 +16,7 @@
 **/debug/
 **/coverage/
 **/logs/
+**/logs_*/
 **/repo/
 
 node_modules/
