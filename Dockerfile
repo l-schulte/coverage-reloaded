@@ -13,7 +13,7 @@ RUN apt-get update && \
         bash \
         make \
         build-essential \
-        cmake-latest \
+        cmake \
         zip \
         nano \
         lcov=1.14-2 \
