@@ -5,9 +5,7 @@ import pandas as pd
 def postprocess():
     parent_dir = os.path.dirname(__file__)
     commits_file = os.path.join(parent_dir, "commits.csv")
-    additional_info_file = os.path.join(
-        parent_dir, "commits_additional_information.csv"
-    )
+    additional_info_file = os.path.join(parent_dir, "additional_information.csv")
 
     commits = pd.read_csv(commits_file, low_memory=False)
     additional_info = pd.read_csv(additional_info_file, low_memory=False)
