@@ -1,4 +1,5 @@
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 from src.project_metadata.node import (
     from_angular,
@@ -22,6 +23,8 @@ def find_node_version(
     3. Check dockerfiles
     """
 
+    before_date = committer_date - relativedelta(months=3)
+
     # 1. Check .nvmrc
     node_version = nvmrc.get_node_version(repo_path, commit_hash, nvmrc_path=".nvmrc")
     if node_version:
@@ -32,7 +35,7 @@ def find_node_version(
         repo_path,
         commit_hash,
         packagejson_path="package.json",
-        before_date=committer_date,
+        before_date=before_date,
     )
     if node_version:
         return node_version, "package.json"
@@ -42,7 +45,7 @@ def find_node_version(
         repo_path,
         commit_hash,
         pnpm_lock_path="pnpm-lock.yaml",
-        before_date=committer_date,
+        before_date=before_date,
     )
     if node_version:
         return node_version, "pnpm-lock.yaml"

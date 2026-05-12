@@ -1,5 +1,8 @@
 from src.project_metadata import PACKAGE_JSON
-from src.project_metadata.helper import get_file_json_content
+from src.project_metadata.helper import (
+    get_file_json_content,
+    resolve_wildcard_at_commit,
+)
 
 
 def get_workspaces(repo_path: str, revision: str) -> list[str] | None:
@@ -11,4 +14,10 @@ def get_workspaces(repo_path: str, revision: str) -> list[str] | None:
     if not package_json:
         return None
 
-    return package_json.get("workspaces", [])
+    workspaces = []
+    for workspace_package_path in package_json.get("workspaces", []):
+        workspaces += resolve_wildcard_at_commit(
+            repo_path, revision, workspace_package_path
+        )
+
+    return workspaces

@@ -44,7 +44,6 @@ def extract_project_metadata(
 
     use_exact_version = project_config.get("use_exact_node_version", False)
     package_manager_priority = project_config.get("package_manager_priority", None)
-
     workspaces = find_workspaces(repo_path, commit_hash)
 
     node, node_source = find_node_version(commit_hash, committer_date, repo_path)

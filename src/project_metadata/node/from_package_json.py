@@ -16,6 +16,7 @@ def get_node_version(
     revision: str,
     packagejson_path: str = "package.json",
     before_date: datetime | None = None,
+    use_first: bool = False,
 ) -> str | None:
     """
     Retrieves the Node.js version specified in the package.json file at a given revision.
@@ -24,14 +25,13 @@ def get_node_version(
     if not package_json:
         return None
 
-    if revision == "02aada4ae9578896ea3be75cf78298d7959ef2de":
-        print("debug")
-
     for key in POTENTIAL_KEYS:
         if key in package_json:
             if "node" in package_json[key]:
                 version = find_matching_version_from_version_string(
-                    package_json[key]["node"], before_date=before_date
+                    package_json[key]["node"],
+                    before_date=before_date,
+                    use_first=use_first,
                 )
                 if version:
                     return version
