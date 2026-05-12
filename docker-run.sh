@@ -7,7 +7,7 @@
 # $6: node version for base image (e.g., "16")
 # $7: (optional) project_id to use inside the container, e.g., for reporting to coverageSHARK
 
-echo "Script called as: \n bash $(basename "$0") $@ \n"
+echo "Script called as: \nbash $(basename "$0") $@ \n"
 
 # Change to "docker" if necessary
 EXECUTOR="podman"
@@ -16,9 +16,17 @@ BASE_CONTAINER_NAME=core_node"$6"_base
 CONTAINER_NAME=core_node"$6"_"$1"
 CONTAINER_DIR=/coverage_reloaded
 
-$EXECUTOR build --build-arg NODE_VERSION=$6 -t $BASE_CONTAINER_NAME .
+if ! $EXECUTOR image exists $BASE_CONTAINER_NAME; then
+    flock /tmp/lock-$BASE_CONTAINER_NAME.lock \
+        sh -c "! $EXECUTOR image exists $BASE_CONTAINER_NAME && \
+               $EXECUTOR build --build-arg NODE_VERSION=$6 -t $BASE_CONTAINER_NAME ."
+fi
 
-$EXECUTOR build --build-arg NODE_VERSION=$6 -t $CONTAINER_NAME ./projects/$1 
+if ! $EXECUTOR image exists $CONTAINER_NAME; then
+    flock /tmp/lock-$CONTAINER_NAME.lock \
+        sh -c "! $EXECUTOR image exists $CONTAINER_NAME && \
+               $EXECUTOR build --build-arg NODE_VERSION=$6 -t $CONTAINER_NAME ./projects/$1"
+fi
 
 mkdir -p projects/$1/output
 
