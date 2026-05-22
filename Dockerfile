@@ -49,13 +49,15 @@ ENV PATH="$N_PREFIX/bin:${PATH}"
 
 RUN n "$NODE_VERSION"
 RUN node --version
-RUN npm install -g yarn
 
 # Problem: test runner starts in watch mode, expecting user input
 # Solution: set CI=true to disable watch mode and run tests once
 ENV CI=true
 
+RUN apt-get install -y libfaketime
+
 COPY ./execute.sh /coverage_reloaded/execute.sh
 COPY find-and-move-lcov.sh /coverage_reloaded/find-and-move-lcov.sh
 COPY logging.sh /coverage_reloaded/logging.sh
-RUN chmod +x /coverage_reloaded/execute.sh /coverage_reloaded/find-and-move-lcov.sh /coverage_reloaded/logging.sh
+COPY fake-time.sh /coverage_reloaded/fake-time.sh
+RUN chmod +x /coverage_reloaded/execute.sh /coverage_reloaded/find-and-move-lcov.sh /coverage_reloaded/logging.sh /coverage_reloaded/fake-time.sh
