@@ -14,7 +14,10 @@ from src.project_metadata.node import from_releases
 
 
 def find_node_version(
-    commit_hash: str, committer_date: datetime, repo_path: str
+    commit_hash: str,
+    committer_date: datetime,
+    repo_path: str,
+    before_date_offset_months: int = 3,
 ) -> tuple[str, str | None]:
     """
     Attempts to retrieve the Node.js version for a given commit hash.
@@ -23,7 +26,7 @@ def find_node_version(
     3. Check dockerfiles
     """
 
-    before_date = committer_date - relativedelta(months=3)
+    before_date = committer_date - relativedelta(months=before_date_offset_months)
 
     # 1. Check .nvmrc
     node_version = nvmrc.get_node_version(repo_path, commit_hash, nvmrc_path=".nvmrc")

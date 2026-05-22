@@ -3,12 +3,10 @@ import json
 import yaml
 
 from src.project_metadata.helper import get_file_content, version_satisfies
+from src.project_metadata.node import get_node_releases
 from src.project_metadata.node.parse_version import (
     find_matching_version_from_version_string,
 )
-
-NODE_RELEASES_PATH = "src/project_metadata/node/data/node_releases.json"
-NODE_RELEASES = json.load(open(NODE_RELEASES_PATH, "r"))
 
 
 def __get_unique_node_version_strings(content: str) -> set[str]:
@@ -34,7 +32,9 @@ def __get_unique_node_version_strings(content: str) -> set[str]:
 
 
 def __get_first_compatible_node_version(
-    node_version_strings: set[str], before_date: datetime | None = None
+    node_version_strings: set[str],
+    before_date: datetime | None = None,
+    lts_only: bool = True,
 ) -> str | None:
     """
     Given a set of node version strings, finds the first compatible Node.js version from the NODE_RELEASES.
@@ -43,7 +43,8 @@ def __get_first_compatible_node_version(
     potential_node_versions = set(
         [
             (key.removeprefix("v"), datetime.strptime(value["start"], "%Y-%m-%d"))
-            for (key, value) in NODE_RELEASES.items()
+            for (key, value) in get_node_releases(lts_only=lts_only).items()
+            if (not lts_only or value.get("lts"))
         ]
     )
 
@@ -67,6 +68,7 @@ def get_node_version(
     revision: str,
     pnpm_lock_path: str = "pnpm-lock.yaml",
     before_date: datetime | None = None,
+    lts_only: bool = True,
 ) -> str | None:
     """
     Retrieves the Node.js version specified in the pnpm-lock.yaml file at a given revision.

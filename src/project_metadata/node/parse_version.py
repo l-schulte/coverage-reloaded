@@ -4,10 +4,7 @@ import re
 import semantic_version
 
 from src.project_metadata.helper import version_satisfies
-
-
-NODE_RELEASES_PATH = "src/project_metadata/node/data/node_releases.json"
-NODE_RELEASES = json.load(open(NODE_RELEASES_PATH, "r"))
+from src.project_metadata.node import get_node_releases
 
 
 def validate_node_version(version_string: str) -> bool:
@@ -67,7 +64,7 @@ def find_matching_version_from_version_string(
         return version_string
 
     last_ok = None
-    for major, meta_data in NODE_RELEASES.items():
+    for major, meta_data in get_node_releases(lts_only=False).items():
         version_release_date = datetime.strptime(meta_data["start"], "%Y-%m-%d")
         if before_date and version_release_date.timestamp() > before_date.timestamp():
             continue

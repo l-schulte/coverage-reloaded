@@ -1,12 +1,10 @@
 import datetime
 import json
 
+from src.project_metadata.node import get_node_releases
 from src.project_metadata.node.parse_version import (
     find_matching_version_from_version_string,
 )
-
-NODE_RELEASES_PATH = "src/project_metadata/node/data/node_releases.json"
-NODE_RELEASES = json.load(open(NODE_RELEASES_PATH, "r"))
 
 
 def get_node_version(
@@ -35,7 +33,7 @@ def get_node_version(
 
     node_releases = [
         (str(release).removeprefix("v"), data)
-        for release, data in NODE_RELEASES.items()
+        for release, data in get_node_releases(lts_only=lts_only).items()
     ]
 
     if lts_only:
@@ -48,7 +46,9 @@ def get_node_version(
         for release, data in node_releases
         if (
             release not in skip_versions
-            and version_was_available(data["start"], timestamp, offset_months)
+            and version_was_available(
+                data["lts" if lts_only else "start"], timestamp, offset_months
+            )
         )
     ]
     latest_node_release = find_matching_version_from_version_string(
