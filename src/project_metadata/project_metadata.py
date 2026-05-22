@@ -1,4 +1,5 @@
 from datetime import datetime
+import logging
 
 from src.project_metadata.lock_files.find_lock_files import find_lock_files
 from src.project_metadata.node.find_node_version import find_node_version
@@ -8,6 +9,8 @@ from src.project_metadata.package_manager.find_package_manager import (
 from src.project_metadata.commands.find_commands import find_commands
 from src.project_metadata.coverage_tools.find_coverage_tools import find_coverage_tools
 from src.project_metadata.workspaces.find_workspaces import find_workspaces
+
+logger = logging.getLogger(__name__)
 
 TEST_KEYWORDS = [
     "test",
@@ -45,8 +48,13 @@ def extract_project_metadata(
     use_exact_version = project_config.get("use_exact_node_version", False)
     package_manager_priority = project_config.get("package_manager_priority", None)
     workspaces = find_workspaces(repo_path, commit_hash)
+    workspaces["config"] = project_config.get("workspaces", [])
+    before_date_offset_months = project_config.get("before_date_offset_months", 3)
+    min_node_version = project_config.get("min_node_version", 0)
 
-    node, node_source = find_node_version(commit_hash, committer_date, repo_path)
+    node, node_source = find_node_version(
+        commit_hash, committer_date, repo_path, before_date_offset_months
+    )
     if not node:
         raise ValueError(
             f"Could not determine Node.js version for commit {commit_hash} in project {project}. Likely the parsing failed. Please check the commit and the parsing logic."
@@ -54,6 +62,12 @@ def extract_project_metadata(
 
     if not use_exact_version:
         node = node.split(".")[0]  # Use major version only
+
+    if min_node_version and int(node) < min_node_version:
+        logger.warning(
+            f"Node.js version {node} for commit {commit_hash} is below the minimum required version {min_node_version}. Setting to minimum version."
+        )
+        node = str(min_node_version)
 
     pm_version, pm_source = find_package_manager(
         commit_hash, repo_path, node, package_manager_priority
