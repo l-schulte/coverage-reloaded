@@ -54,10 +54,11 @@ IS_PNPM_MAIN_PM=$([[ "$package_manager" == pnpm* ]] && echo "true" || echo "fals
 export IS_PNPM_MAIN_PM
 
 print_header 1 "Starting run-coverage.sh" "Revision: $revision"
-echo "Commit date: $(date -d @$timestamp)"
+echo "Commit date: $(date -d @$timestamp '+%Y-%m-%d %H:%M:%S')"
 echo "Current date: $(date)"
 echo "Timestamp: $timestamp"
 echo "Package Manager: $package_manager"
+
 
 print_header 2 "System Information"
 uname -a
@@ -99,7 +100,6 @@ export WAYPACK_YARN_REGISTRY
 
 npm config set registry "$WAYPACK_NPM_REGISTRY"
 
-
 if [ -x "$(command -v corepack)" ] && grep -q '"packageManager"' package.json; then
     echo " --> Corepack setup for $package_manager"
     corepack enable
@@ -125,7 +125,11 @@ else
             else
                 yarn set version "$specified_version"
             fi
-        elif yarn --version | grep -q "rc"; then
+        else
+            npm install -g yarn
+        fi
+        
+        if yarn --version | grep -q "rc"; then
             set +e
             yarn set version latest
             set -e
