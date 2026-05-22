@@ -31,12 +31,12 @@ def parse_package_manager_version(
     """
 
     re_version_match = re.compile(
-        r"(?:v|>=|>|\^|^)+(\d+)(?:\.(\d+|\*))?(?:\.(\d+|\*))?"
+        r"(?:v|>=|>|\^|^)+ ?(\d+)(?:\.(\d+|\*))?(?:\.(\d+|\*))?"
     )
     version_match = re.findall(re_version_match, version_string)
     if version_match:
         major, minor, patch = version_match[-1]
-        if major_only:
+        if major_only or (minor == "0" and patch in ["0", "*"]):
             return major
 
         return sanitize_package_manager_version(
