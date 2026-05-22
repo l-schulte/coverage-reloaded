@@ -2,7 +2,6 @@ import logging
 import os
 import subprocess
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -49,7 +48,12 @@ def docker_run_script(commit, workspace_path, logs_path, output_path):
     ]
 
     try:
-        result = subprocess.run(command, capture_output=True, text=True)
+        result = subprocess.run(
+            command,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,  # Merge stderr into stdout to preserve ordering
+            text=True,
+        )
         success = result.returncode == 0
 
         log_filename = os.path.join(
@@ -57,11 +61,9 @@ def docker_run_script(commit, workspace_path, logs_path, output_path):
             get_filename(node, timestamp, commit_hash, success),
         )
         with open(log_filename, "w") as f:
-            f.write(
-                result.stdout
-                + "\n----\n\n----\n"
-                + (result.stderr if not success else "Success!")
-            )
+            f.write(result.stdout)
+            if success:
+                f.write("\n----\nSuccess!\n")
 
         if not success:
             logger.debug(f"Commit {commit_hash} failed. See log: {log_filename}")
