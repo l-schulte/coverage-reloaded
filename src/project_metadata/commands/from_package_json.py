@@ -17,8 +17,6 @@ def get_commands(
     Retrieves the test commands specified in the package.json file at a given revision.
     """
 
-    workspaces = find_workspaces(repo_path, revision)
-
     scripts = {}
     for workspace_source, workspace_paths in workspaces.items():
         for workspace_path in workspace_paths:
