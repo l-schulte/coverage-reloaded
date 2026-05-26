@@ -41,8 +41,23 @@ def parse_args():
 
 
 def get_command_changes(df: pd.DataFrame):
-    df_long = df.drop("timestamp", axis=1).melt(
-        id_vars=["commit_hash"],
+    """
+    Derives era-transition records from per-commit additional_information.
+
+    For each script_name, identifies the unique script_definition values across
+    commit history and records the first commit_hash where each definition
+    appeared (i.e., the transition point). Results are sorted chronologically
+    within each script_name so the file can be read as an era timeline.
+
+    Args:
+        df: DataFrame with commit_hash, timestamp, and one column per script_name.
+
+    Returns:
+        DataFrame with columns: commit_hash, timestamp, script_name, script_definition
+        sorted by script_name then timestamp.
+    """
+    df_long = df.melt(
+        id_vars=["commit_hash", "timestamp"],
         var_name="script_name",
         value_name="script_definition",
     )
@@ -51,10 +66,18 @@ def get_command_changes(df: pd.DataFrame):
         df_long["script_definition"].str.strip().replace("", np.nan)
     )
 
+    df_long = df_long.dropna(subset=["script_definition"])
+
+    # Sort by commit time so that drop_duplicates keeps the earliest occurrence
+    df_long = df_long.sort_values(["script_name", "timestamp"])
+
+    # Keep the first commit_hash where each unique script_definition appeared
+    df_changes = df_long.drop_duplicates(
+        subset=["script_name", "script_definition"], keep="first"
+    )
+
     return (
-        df_long.dropna(subset=["script_definition"])
-        .drop_duplicates(subset=["script_name", "script_definition"])
-        .sort_values("script_name")
+        df_changes.sort_values(["script_name", "timestamp"])
         .reset_index(drop=True)
     )
 
