@@ -31,9 +31,14 @@ def sanitize_node_version(version: str) -> str:
     Sanitizes the Node.js version string by removing any prefixes.
     Current cases:
     - "v14.17.0" becomes "14.17.0"
+    - ">= 11.7.1" becomes ">=11.7.1" (removes space between operator and version)
     """
 
     version = version.strip().removeprefix("v")
+
+    # Remove spaces between version operators and the version number
+    # e.g. ">= 11.7.1" -> ">=11.7.1", "~ 1.2" -> "~1.2", "^ 1.2.3" -> "^1.2.3"
+    version = re.sub(r"([<>=~^])\s+(\d)", r"\1\2", version)
 
     return version.strip()
 
