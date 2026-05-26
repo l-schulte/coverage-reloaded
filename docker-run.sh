@@ -7,7 +7,12 @@
 # $6: node version for base image (e.g., "16")
 # $7: (optional) project_id to use inside the container, e.g., for reporting to coverageSHARK
 
-echo "Script called as: \nbash $(basename "$0") $@ \n"
+echo "Script called as:"
+echo "bash $(basename "$0") $@"
+echo ""
+echo "Rerun with:"
+echo 'bash $(basename "$0") $@ 2>&1 | tee projects/$1/logs/node${6}_${4}_${3}_\$(date +\"%Y%m%d_%H%M%S\").rerun'
+echo ""
 
 # Change to "docker" if necessary
 EXECUTOR="podman"
