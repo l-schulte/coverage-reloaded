@@ -1,0 +1,2 @@
+require('./mount')
+import '@cypress/code-coverage/support'

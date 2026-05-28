@@ -57,7 +57,13 @@ ENV CI=true
 RUN apt-get install -y libfaketime
 
 COPY ./execute.sh /coverage_reloaded/execute.sh
-COPY find-and-move-lcov.sh /coverage_reloaded/find-and-move-lcov.sh
-COPY logging.sh /coverage_reloaded/logging.sh
-COPY fake-time.sh /coverage_reloaded/fake-time.sh
-RUN chmod +x /coverage_reloaded/execute.sh /coverage_reloaded/find-and-move-lcov.sh /coverage_reloaded/logging.sh /coverage_reloaded/fake-time.sh
+RUN chmod +x /coverage_reloaded/execute.sh
+
+COPY helper/find-and-move-lcov.sh /coverage_reloaded/find-and-move-lcov.sh
+COPY helper/logging.sh /coverage_reloaded/logging.sh
+COPY helper/fake-time.sh /coverage_reloaded/fake-time.sh
+RUN chmod +x /coverage_reloaded/find-and-move-lcov.sh /coverage_reloaded/logging.sh /coverage_reloaded/fake-time.sh
+
+COPY helper/cypress/cypress-patcher.sh /coverage_reloaded/cypress-patcher.sh
+RUN chmod +x /coverage_reloaded/cypress-patcher.sh
+

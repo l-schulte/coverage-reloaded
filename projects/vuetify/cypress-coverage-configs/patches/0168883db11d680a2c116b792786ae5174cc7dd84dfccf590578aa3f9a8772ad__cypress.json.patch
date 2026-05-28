@@ -1,0 +1,7 @@
+{
+    "baseUrl": "http://localhost:8081/",
+    "eyesTimeout": 180000,
+    "env": {
+        "coverage": true
+    }
+}

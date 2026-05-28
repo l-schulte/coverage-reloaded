@@ -1,0 +1,1881 @@
+Script called as:
+bash docker-run.sh vuetify exec 988fe04792358823301193e573829b49ba65fded 1622634962 yarn@1.12 14 vuetify
+
+Rerun with:
+bash $(basename "$0") $@ 2>&1 | tee projects/$1/logs/node${6}_${4}_${3}_\$(date +\"%Y%m%d_%H%M%S\").rerun
+
+STEP 1/25: FROM debian:bullseye-slim
+STEP 2/25: ARG NODE_VERSION=22
+--> Using cache afc972e2317a17e72573626266faf7a4408ec81b8081349b35d8559ca1277b26
+--> afc972e2317a
+STEP 3/25: WORKDIR /coverage_reloaded
+--> Using cache 637f4aece976524515cb51147466af46059a342cb8844fbf81761f9e0b01c3c3
+--> 637f4aece976
+STEP 4/25: RUN apt-get update &&     apt-get install -y         git         curl         wget         bash         make         build-essential         cmake         zip         nano         lcov=1.14-2         jq
+--> Using cache 1268276c8418a8753502c6915900fd392c8ac96186e2c4a48720aaafcea12c54
+--> 1268276c8418
+STEP 5/25: RUN apt-get update && apt-get install -y python2.7 &&     update-alternatives --install /usr/bin/python2 python2 /usr/bin/python2.7 1
+--> Using cache 3069c727ba72e9ae10c6e659dbb968fb845e7c8a85e6c611920a0b1d5a5d6774
+--> 3069c727ba72
+STEP 6/25: RUN curl -Ls https://astral.sh/uv/install.sh | sh
+--> Using cache 38ca06fdb59cd021df58d80c40a332ff3e2885c2e866a0184b650c94ad568944
+--> 38ca06fdb59c
+STEP 7/25: ENV PATH="/root/.local/bin:$PATH"
+--> Using cache 9963e34ab5617629ffe1d9c197b6cae44ae1b1f5bf2e16bdeb0249f83f8290ac
+--> 9963e34ab561
+STEP 8/25: RUN uv python install 3.10 3.8
+--> Using cache 4ba8cb00a9eea216a877f3de6a08bca31c84884b7f304c0271f0b95ada9aca23
+--> 4ba8cb00a9ee
+STEP 9/25: RUN NODE_MAJOR=$(echo "$NODE_VERSION" | cut -d. -f1) &&     if [ "$NODE_MAJOR" -le 12 ]; then         PYTHON_BIN=$(uv python find 3.8);     else         PYTHON_BIN=$(uv python find 3.10);     fi &&     ln -sf "$PYTHON_BIN" /usr/local/bin/python &&     ln -sf "$PYTHON_BIN" /usr/local/bin/python3 &&     ln -sf "$PYTHON_BIN" /usr/bin/python &&     ln -sf "$PYTHON_BIN" /usr/bin/python3
+--> Using cache 67cdbacda42c73d4de1cc2c4fa45e8b72e54e3ba7d8861104ea77fc3c0ec51b3
+--> 67cdbacda42c
+STEP 10/25: RUN python --version && echo "Python set for Node ${NODE_VERSION}"
+--> Using cache 1371999cb436b1e29528077d2f6885e3d4817357fdd106b54df393912e83af1a
+--> 1371999cb436
+STEP 11/25: RUN curl -L https://bit.ly/n-install | bash -s -- -y
+--> Using cache a0471073f3701d0edc6586e04ab2cdee7b7a9d45314b080eb16bbd5b96434046
+--> a0471073f370
+STEP 12/25: ENV N_PREFIX=/root/n
+--> Using cache f8f7e0c9f1b3a5ef2de2037c2c54a005030fe284194fd29b41d828f6ff006bad
+--> f8f7e0c9f1b3
+STEP 13/25: ENV PATH="$N_PREFIX/bin:${PATH}"
+--> Using cache dbb3a665c6ab92df58ab9f4ff3d23764d01fe1da75a09ddbf4ccf62d101b88ab
+--> dbb3a665c6ab
+STEP 14/25: RUN n "$NODE_VERSION"
+--> Using cache 6314213f532a2c113bc6d0827a18013bbbfcbc6d092f5373e0a195976811370c
+--> 6314213f532a
+STEP 15/25: RUN node --version
+--> Using cache 0a522eea8931a113b8741d9d954a9ba8f5f9b32269c2000c49e4b2f2df5df4ce
+--> 0a522eea8931
+STEP 16/25: ENV CI=true
+--> Using cache 40b4cb13daf60b90e50045abffddadfc49d368597df3590da307387473cc5255
+--> 40b4cb13daf6
+STEP 17/25: RUN apt-get install -y libfaketime
+--> Using cache e97cfa459f2750a87e6928cc93ef1206a79e777e6f44aaf05073b12cad86a892
+--> e97cfa459f27
+STEP 18/25: COPY ./execute.sh /coverage_reloaded/execute.sh
+--> 04ecfbd2fa72
+STEP 19/25: RUN chmod +x /coverage_reloaded/execute.sh
+--> 1ce10b8e9fed
+STEP 20/25: COPY helper/find-and-move-lcov.sh /coverage_reloaded/find-and-move-lcov.sh
+--> 8deeb3dfc4cd
+STEP 21/25: COPY helper/logging.sh /coverage_reloaded/logging.sh
+--> 8fbea4ad6020
+STEP 22/25: COPY helper/fake-time.sh /coverage_reloaded/fake-time.sh
+--> e9c0ee245b8e
+STEP 23/25: RUN chmod +x /coverage_reloaded/find-and-move-lcov.sh /coverage_reloaded/logging.sh /coverage_reloaded/fake-time.sh
+--> b63da0f2665a
+STEP 24/25: COPY helper/cypress/cypress-patcher.sh /coverage_reloaded/cypress-patcher.sh
+--> fce3e9a7a0b5
+STEP 25/25: RUN chmod +x /coverage_reloaded/cypress-patcher.sh
+COMMIT core_node14_base
+--> bd501dcbaa3a
+Successfully tagged localhost/core_node14_base:latest
+bd501dcbaa3af1c861e3f7c3bb644d2a6bae9eda2ca458976e128a2600b29d1e
+STEP 1/7: FROM core_node14_base
+STEP 2/7: WORKDIR /coverage_reloaded
+--> fe6c9d7058dd
+STEP 3/7: RUN apt-get update &&     apt-get install -y --no-install-recommends         xvfb         libglib2.0-0         libgtk-3-0         libgdk-pixbuf2.0-0         libpango-1.0-0         libcairo2         libatk1.0-0         libatk-bridge2.0-0         libasound2         libxss1         libx11-xcb1         libxcomposite1         libxcursor1         libxdamage1         libxi6         libxtst6         libgbm1         libnss3         && rm -rf /var/lib/apt/lists/*
+Hit:1 http://deb.debian.org/debian bullseye InRelease
+Get:2 http://deb.debian.org/debian-security bullseye-security InRelease [27.2 kB]
+Hit:3 http://deb.debian.org/debian bullseye-updates InRelease
+Get:4 http://deb.debian.org/debian-security bullseye-security/main amd64 Packages [457 kB]
+Fetched 484 kB in 0s (1169 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  adwaita-icon-theme dbus dbus-user-session dconf-gsettings-backend
+  dconf-service dmsetup fontconfig glib-networking glib-networking-common
+  glib-networking-services gsettings-desktop-schemas gtk-update-icon-cache
+  hicolor-icon-theme libapparmor1 libargon2-1 libasound2-data libatk1.0-data
+  libatspi2.0-0 libavahi-client3 libavahi-common-data libavahi-common3
+  libcairo-gobject2 libcap2 libcolord2 libcryptsetup12 libcups2 libdatrie1
+  libdbus-1-3 libdconf1 libdevmapper1.02.1 libdrm-amdgpu1 libdrm-common
+  libdrm-intel1 libdrm-nouveau2 libdrm-radeon1 libdrm2 libelf1 libepoxy0
+  libfontenc1 libfribidi0 libgdk-pixbuf-2.0-0 libgdk-pixbuf-xlib-2.0-0
+  libgdk-pixbuf2.0-common libgl1 libgl1-mesa-dri libglapi-mesa libglvnd0
+  libglx-mesa0 libglx0 libgraphite2-3 libgtk-3-common libharfbuzz0b libice6
+  libip4tc2 libjson-c5 libjson-glib-1.0-0 libjson-glib-1.0-common libkmod2
+  liblcms2-2 libllvm11 libnspr4 libpam-systemd libpangocairo-1.0-0
+  libpangoft2-1.0-0 libpciaccess0 libpixman-1-0 libproxy1v5 librest-0.7-0
+  libsensors-config libsensors5 libsm6 libsoup-gnome2.4-1 libsoup2.4-1
+  libsystemd0 libthai-data libthai0 libunwind8 libvulkan1 libwayland-client0
+  libwayland-cursor0 libwayland-egl1 libwayland-server0 libxaw7 libxcb-dri2-0
+  libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-render0 libxcb-shm0
+  libxcb-sync1 libxcb-xfixes0 libxfixes3 libxfont2 libxinerama1 libxkbcommon0
+  libxkbfile1 libxmu6 libxrandr2 libxrender1 libxshmfence1 libxt6 libxxf86vm1
+  libz3-4 shared-mime-info systemd systemd-sysv x11-common x11-xkb-utils
+  xkb-data xserver-common
+Suggested packages:
+  libasound2-plugins alsa-utils colord cups-common gvfs liblcms2-utils
+  pciutils lm-sensors systemd-container policykit-1
+Recommended packages:
+  librsvg2-common alsa-ucm-conf alsa-topology-conf at-spi2-core
+  libgdk-pixbuf2.0-bin libglib2.0-data xdg-user-dirs libgtk-3-bin
+  mesa-vulkan-drivers | vulkan-icd systemd-timesyncd | time-daemon
+  libnss-systemd xfonts-base
+The following NEW packages will be installed:
+  adwaita-icon-theme dbus dbus-user-session dconf-gsettings-backend
+  dconf-service dmsetup fontconfig glib-networking glib-networking-common
+  glib-networking-services gsettings-desktop-schemas gtk-update-icon-cache
+  hicolor-icon-theme libapparmor1 libargon2-1 libasound2 libasound2-data
+  libatk-bridge2.0-0 libatk1.0-0 libatk1.0-data libatspi2.0-0 libavahi-client3
+  libavahi-common-data libavahi-common3 libcairo-gobject2 libcairo2 libcap2
+  libcolord2 libcryptsetup12 libcups2 libdatrie1 libdbus-1-3 libdconf1
+  libdevmapper1.02.1 libdrm-amdgpu1 libdrm-common libdrm-intel1
+  libdrm-nouveau2 libdrm-radeon1 libdrm2 libelf1 libepoxy0 libfontenc1
+  libfribidi0 libgbm1 libgdk-pixbuf-2.0-0 libgdk-pixbuf-xlib-2.0-0
+  libgdk-pixbuf2.0-0 libgdk-pixbuf2.0-common libgl1 libgl1-mesa-dri
+  libglapi-mesa libglib2.0-0 libglvnd0 libglx-mesa0 libglx0 libgraphite2-3
+  libgtk-3-0 libgtk-3-common libharfbuzz0b libice6 libip4tc2 libjson-c5
+  libjson-glib-1.0-0 libjson-glib-1.0-common libkmod2 liblcms2-2 libllvm11
+  libnspr4 libnss3 libpam-systemd libpango-1.0-0 libpangocairo-1.0-0
+  libpangoft2-1.0-0 libpciaccess0 libpixman-1-0 libproxy1v5 librest-0.7-0
+  libsensors-config libsensors5 libsm6 libsoup-gnome2.4-1 libsoup2.4-1
+  libthai-data libthai0 libunwind8 libvulkan1 libwayland-client0
+  libwayland-cursor0 libwayland-egl1 libwayland-server0 libx11-xcb1 libxaw7
+  libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-render0
+  libxcb-shm0 libxcb-sync1 libxcb-xfixes0 libxcomposite1 libxcursor1
+  libxdamage1 libxfixes3 libxfont2 libxi6 libxinerama1 libxkbcommon0
+  libxkbfile1 libxmu6 libxrandr2 libxrender1 libxshmfence1 libxss1 libxt6
+  libxtst6 libxxf86vm1 libz3-4 shared-mime-info systemd systemd-sysv
+  x11-common x11-xkb-utils xkb-data xserver-common xvfb
+The following packages will be upgraded:
+  libsystemd0
+1 upgraded, 127 newly installed, 0 to remove and 13 not upgraded.
+Need to get 79.6 MB of archives.
+After this operation, 289 MB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian-security bullseye-security/main amd64 libsystemd0 amd64 247.3-7+deb11u8 [377 kB]
+Get:2 http://deb.debian.org/debian bullseye/main amd64 libapparmor1 amd64 2.13.6-10 [99.3 kB]
+Get:3 http://deb.debian.org/debian-security bullseye-security/main amd64 libcap2 amd64 1:2.44-1+deb11u1 [24.2 kB]
+Get:4 http://deb.debian.org/debian bullseye/main amd64 libargon2-1 amd64 0~20171227-0.2 [19.6 kB]
+Get:5 http://deb.debian.org/debian bullseye/main amd64 dmsetup amd64 2:1.02.175-2.1 [92.1 kB]
+Get:6 http://deb.debian.org/debian bullseye/main amd64 libdevmapper1.02.1 amd64 2:1.02.175-2.1 [143 kB]
+Get:7 http://deb.debian.org/debian bullseye/main amd64 libjson-c5 amd64 0.15-2+deb11u1 [42.9 kB]
+Get:8 http://deb.debian.org/debian bullseye/main amd64 libcryptsetup12 amd64 2:2.3.7-1+deb11u1 [248 kB]
+Get:9 http://deb.debian.org/debian bullseye/main amd64 libip4tc2 amd64 1.8.7-1 [34.6 kB]
+Get:10 http://deb.debian.org/debian bullseye/main amd64 libkmod2 amd64 28-1 [55.6 kB]
+Get:11 http://deb.debian.org/debian-security bullseye-security/main amd64 systemd amd64 247.3-7+deb11u8 [4502 kB]
+Get:12 http://deb.debian.org/debian-security bullseye-security/main amd64 systemd-sysv amd64 247.3-7+deb11u8 [114 kB]
+Get:13 http://deb.debian.org/debian bullseye/main amd64 libdbus-1-3 amd64 1.12.28-0+deb11u1 [223 kB]
+Get:14 http://deb.debian.org/debian bullseye/main amd64 dbus amd64 1.12.28-0+deb11u1 [244 kB]
+Get:15 http://deb.debian.org/debian-security bullseye-security/main amd64 libpam-systemd amd64 247.3-7+deb11u8 [284 kB]
+Get:16 http://deb.debian.org/debian bullseye/main amd64 hicolor-icon-theme all 0.17-2 [11.4 kB]
+Get:17 http://deb.debian.org/debian-security bullseye-security/main amd64 libgdk-pixbuf2.0-common all 2.42.2+dfsg-1+deb11u5 [321 kB]
+Get:18 http://deb.debian.org/debian-security bullseye-security/main amd64 libglib2.0-0 amd64 2.66.8-1+deb11u8 [1377 kB]
+Get:19 http://deb.debian.org/debian bullseye/main amd64 shared-mime-info amd64 2.0-1 [701 kB]
+Get:20 http://deb.debian.org/debian-security bullseye-security/main amd64 libgdk-pixbuf-2.0-0 amd64 2.42.2+dfsg-1+deb11u5 [148 kB]
+Get:21 http://deb.debian.org/debian bullseye/main amd64 gtk-update-icon-cache amd64 3.24.24-4+deb11u4 [88.4 kB]
+Get:22 http://deb.debian.org/debian bullseye/main amd64 adwaita-icon-theme all 3.38.0-1 [10.9 MB]
+Get:23 http://deb.debian.org/debian bullseye/main amd64 dbus-user-session amd64 1.12.28-0+deb11u1 [100 kB]
+Get:24 http://deb.debian.org/debian bullseye/main amd64 libdconf1 amd64 0.38.0-2 [43.5 kB]
+Get:25 http://deb.debian.org/debian bullseye/main amd64 dconf-service amd64 0.38.0-2 [37.4 kB]
+Get:26 http://deb.debian.org/debian bullseye/main amd64 dconf-gsettings-backend amd64 0.38.0-2 [30.6 kB]
+Get:27 http://deb.debian.org/debian bullseye/main amd64 fontconfig amd64 2.13.1-4.2 [417 kB]
+Get:28 http://deb.debian.org/debian bullseye/main amd64 libproxy1v5 amd64 0.4.17-1 [59.5 kB]
+Get:29 http://deb.debian.org/debian bullseye/main amd64 glib-networking-common all 2.66.0-2 [68.1 kB]
+Get:30 http://deb.debian.org/debian bullseye/main amd64 glib-networking-services amd64 2.66.0-2 [17.5 kB]
+Get:31 http://deb.debian.org/debian bullseye/main amd64 gsettings-desktop-schemas all 3.38.0-2 [588 kB]
+Get:32 http://deb.debian.org/debian bullseye/main amd64 glib-networking amd64 2.66.0-2 [67.6 kB]
+Get:33 http://deb.debian.org/debian-security bullseye-security/main amd64 libasound2-data all 1.2.4-1.1+deb11u1 [38.4 kB]
+Get:34 http://deb.debian.org/debian-security bullseye-security/main amd64 libasound2 amd64 1.2.4-1.1+deb11u1 [357 kB]
+Get:35 http://deb.debian.org/debian bullseye/main amd64 libatk1.0-data all 2.36.0-2 [149 kB]
+Get:36 http://deb.debian.org/debian bullseye/main amd64 libatk1.0-0 amd64 2.36.0-2 [52.2 kB]
+Get:37 http://deb.debian.org/debian bullseye/main amd64 libatspi2.0-0 amd64 2.38.0-4+deb11u1 [72.4 kB]
+Get:38 http://deb.debian.org/debian bullseye/main amd64 libatk-bridge2.0-0 amd64 2.38.0-1 [64.6 kB]
+Get:39 http://deb.debian.org/debian-security bullseye-security/main amd64 libavahi-common-data amd64 0.8-5+deb11u3 [124 kB]
+Get:40 http://deb.debian.org/debian-security bullseye-security/main amd64 libavahi-common3 amd64 0.8-5+deb11u3 [59.0 kB]
+Get:41 http://deb.debian.org/debian-security bullseye-security/main amd64 libavahi-client3 amd64 0.8-5+deb11u3 [62.7 kB]
+Get:42 http://deb.debian.org/debian bullseye/main amd64 libpixman-1-0 amd64 0.40.0-1.1~deb11u1 [543 kB]
+Get:43 http://deb.debian.org/debian bullseye/main amd64 libxcb-render0 amd64 1.14-3 [111 kB]
+Get:44 http://deb.debian.org/debian bullseye/main amd64 libxcb-shm0 amd64 1.14-3 [101 kB]
+Get:45 http://deb.debian.org/debian bullseye/main amd64 libxrender1 amd64 1:0.9.10-1 [33.0 kB]
+Get:46 http://deb.debian.org/debian bullseye/main amd64 libcairo2 amd64 1.16.0-5 [694 kB]
+Get:47 http://deb.debian.org/debian bullseye/main amd64 libcairo-gobject2 amd64 1.16.0-5 [125 kB]
+Get:48 http://deb.debian.org/debian-security bullseye-security/main amd64 liblcms2-2 amd64 2.12~rc1-2+deb11u1 [150 kB]
+Get:49 http://deb.debian.org/debian bullseye/main amd64 libcolord2 amd64 1.4.5-3 [144 kB]
+Get:50 http://deb.debian.org/debian-security bullseye-security/main amd64 libcups2 amd64 2.3.3op2-3+deb11u10 [351 kB]
+Get:51 http://deb.debian.org/debian bullseye/main amd64 libdatrie1 amd64 0.2.13-1 [42.7 kB]
+Get:52 http://deb.debian.org/debian bullseye/main amd64 libdrm-common all 2.4.104-1 [14.9 kB]
+Get:53 http://deb.debian.org/debian bullseye/main amd64 libdrm2 amd64 2.4.104-1 [41.5 kB]
+Get:54 http://deb.debian.org/debian bullseye/main amd64 libdrm-amdgpu1 amd64 2.4.104-1 [28.5 kB]
+Get:55 http://deb.debian.org/debian bullseye/main amd64 libpciaccess0 amd64 0.16-1 [53.6 kB]
+Get:56 http://deb.debian.org/debian bullseye/main amd64 libdrm-intel1 amd64 2.4.104-1 [71.8 kB]
+Get:57 http://deb.debian.org/debian bullseye/main amd64 libdrm-nouveau2 amd64 2.4.104-1 [26.8 kB]
+Get:58 http://deb.debian.org/debian bullseye/main amd64 libdrm-radeon1 amd64 2.4.104-1 [30.2 kB]
+Get:59 http://deb.debian.org/debian bullseye/main amd64 libelf1 amd64 0.183-1 [165 kB]
+Get:60 http://deb.debian.org/debian bullseye/main amd64 libepoxy0 amd64 1.5.5-1 [193 kB]
+Get:61 http://deb.debian.org/debian bullseye/main amd64 libfontenc1 amd64 1:1.1.4-1 [24.3 kB]
+Get:62 http://deb.debian.org/debian bullseye/main amd64 libfribidi0 amd64 1.0.8-2+deb11u1 [64.9 kB]
+Get:63 http://deb.debian.org/debian bullseye/main amd64 libwayland-server0 amd64 1.18.0-2~exp1.1 [34.4 kB]
+Get:64 http://deb.debian.org/debian bullseye/main amd64 libgbm1 amd64 20.3.5-1 [73.5 kB]
+Get:65 http://deb.debian.org/debian bullseye/main amd64 libgdk-pixbuf-xlib-2.0-0 amd64 2.40.2-2 [47.9 kB]
+Get:66 http://deb.debian.org/debian bullseye/main amd64 libgdk-pixbuf2.0-0 amd64 2.40.2-2 [14.1 kB]
+Get:67 http://deb.debian.org/debian bullseye/main amd64 libglapi-mesa amd64 20.3.5-1 [71.7 kB]
+Get:68 http://deb.debian.org/debian bullseye/main amd64 libz3-4 amd64 4.8.10-1 [6949 kB]
+Get:69 http://deb.debian.org/debian bullseye/main amd64 libllvm11 amd64 1:11.0.1-2 [17.9 MB]
+Get:70 http://deb.debian.org/debian bullseye/main amd64 libsensors-config all 1:3.6.0-7 [32.3 kB]
+Get:71 http://deb.debian.org/debian bullseye/main amd64 libsensors5 amd64 1:3.6.0-7 [52.3 kB]
+Get:72 http://deb.debian.org/debian bullseye/main amd64 libvulkan1 amd64 1.2.162.0-1 [103 kB]
+Get:73 http://deb.debian.org/debian bullseye/main amd64 libgl1-mesa-dri amd64 20.3.5-1 [9633 kB]
+Get:74 http://deb.debian.org/debian bullseye/main amd64 libglvnd0 amd64 1.3.2-1 [53.6 kB]
+Get:75 http://deb.debian.org/debian bullseye/main amd64 libx11-xcb1 amd64 2:1.7.2-1+deb11u2 [204 kB]
+Get:76 http://deb.debian.org/debian bullseye/main amd64 libxcb-dri2-0 amd64 1.14-3 [103 kB]
+Get:77 http://deb.debian.org/debian bullseye/main amd64 libxcb-dri3-0 amd64 1.14-3 [102 kB]
+Get:78 http://deb.debian.org/debian bullseye/main amd64 libxcb-glx0 amd64 1.14-3 [118 kB]
+Get:79 http://deb.debian.org/debian bullseye/main amd64 libxcb-present0 amd64 1.14-3 [101 kB]
+Get:80 http://deb.debian.org/debian bullseye/main amd64 libxcb-sync1 amd64 1.14-3 [105 kB]
+Get:81 http://deb.debian.org/debian bullseye/main amd64 libxcb-xfixes0 amd64 1.14-3 [105 kB]
+Get:82 http://deb.debian.org/debian bullseye/main amd64 libxdamage1 amd64 1:1.1.5-2 [15.7 kB]
+Get:83 http://deb.debian.org/debian bullseye/main amd64 libxfixes3 amd64 1:5.0.3-2 [22.1 kB]
+Get:84 http://deb.debian.org/debian bullseye/main amd64 libxshmfence1 amd64 1.3-1 [8820 B]
+Get:85 http://deb.debian.org/debian bullseye/main amd64 libxxf86vm1 amd64 1:1.1.4-1+b2 [20.8 kB]
+Get:86 http://deb.debian.org/debian bullseye/main amd64 libglx-mesa0 amd64 20.3.5-1 [186 kB]
+Get:87 http://deb.debian.org/debian bullseye/main amd64 libgraphite2-3 amd64 1.3.14-1 [81.2 kB]
+Get:88 http://deb.debian.org/debian bullseye/main amd64 libharfbuzz0b amd64 2.7.4-1 [1471 kB]
+Get:89 http://deb.debian.org/debian bullseye/main amd64 libjson-glib-1.0-common all 1.6.2-1 [56.9 kB]
+Get:90 http://deb.debian.org/debian bullseye/main amd64 libjson-glib-1.0-0 amd64 1.6.2-1 [65.4 kB]
+Get:91 http://deb.debian.org/debian bullseye/main amd64 libthai-data all 0.1.28-3 [170 kB]
+Get:92 http://deb.debian.org/debian bullseye/main amd64 libthai0 amd64 0.1.28-3 [54.2 kB]
+Get:93 http://deb.debian.org/debian bullseye/main amd64 libpango-1.0-0 amd64 1.46.2-3 [191 kB]
+Get:94 http://deb.debian.org/debian bullseye/main amd64 libpangoft2-1.0-0 amd64 1.46.2-3 [62.2 kB]
+Get:95 http://deb.debian.org/debian bullseye/main amd64 libpangocairo-1.0-0 amd64 1.46.2-3 [50.6 kB]
+Get:96 http://deb.debian.org/debian-security bullseye-security/main amd64 libsoup2.4-1 amd64 2.72.0-2+deb11u3 [283 kB]
+Get:97 http://deb.debian.org/debian-security bullseye-security/main amd64 libsoup-gnome2.4-1 amd64 2.72.0-2+deb11u3 [24.1 kB]
+Get:98 http://deb.debian.org/debian bullseye/main amd64 librest-0.7-0 amd64 0.8.1-1.1 [33.8 kB]
+Get:99 http://deb.debian.org/debian bullseye/main amd64 libwayland-client0 amd64 1.18.0-2~exp1.1 [26.9 kB]
+Get:100 http://deb.debian.org/debian bullseye/main amd64 libwayland-cursor0 amd64 1.18.0-2~exp1.1 [14.6 kB]
+Get:101 http://deb.debian.org/debian bullseye/main amd64 libwayland-egl1 amd64 1.18.0-2~exp1.1 [8448 B]
+Get:102 http://deb.debian.org/debian bullseye/main amd64 libxcomposite1 amd64 1:0.4.5-1 [16.6 kB]
+Get:103 http://deb.debian.org/debian bullseye/main amd64 libxcursor1 amd64 1:1.2.0-2 [37.3 kB]
+Get:104 http://deb.debian.org/debian bullseye/main amd64 libxi6 amd64 2:1.7.10-1 [83.4 kB]
+Get:105 http://deb.debian.org/debian bullseye/main amd64 libxinerama1 amd64 2:1.1.4-2 [17.7 kB]
+Get:106 http://deb.debian.org/debian bullseye/main amd64 xkb-data all 2.29-2 [655 kB]
+Get:107 http://deb.debian.org/debian bullseye/main amd64 libxkbcommon0 amd64 1.0.3-2 [101 kB]
+Get:108 http://deb.debian.org/debian bullseye/main amd64 libxrandr2 amd64 2:1.5.1-1 [37.5 kB]
+Get:109 http://deb.debian.org/debian bullseye/main amd64 libgtk-3-common all 3.24.24-4+deb11u4 [3757 kB]
+Get:110 http://deb.debian.org/debian bullseye/main amd64 libgtk-3-0 amd64 3.24.24-4+deb11u4 [2715 kB]
+Get:111 http://deb.debian.org/debian bullseye/main amd64 x11-common all 1:7.7+22 [252 kB]
+Get:112 http://deb.debian.org/debian bullseye/main amd64 libice6 amd64 2:1.0.10-1 [58.5 kB]
+Get:113 http://deb.debian.org/debian bullseye/main amd64 libnspr4 amd64 2:4.29-1 [112 kB]
+Get:114 http://deb.debian.org/debian-security bullseye-security/main amd64 libnss3 amd64 2:3.61-1+deb11u5 [1305 kB]
+Get:115 http://deb.debian.org/debian bullseye/main amd64 libsm6 amd64 2:1.2.3-1 [35.1 kB]
+Get:116 http://deb.debian.org/debian bullseye/main amd64 libunwind8 amd64 1.3.2-2 [54.5 kB]
+Get:117 http://deb.debian.org/debian bullseye/main amd64 libxt6 amd64 1:1.2.0-1 [189 kB]
+Get:118 http://deb.debian.org/debian bullseye/main amd64 libxmu6 amd64 2:1.1.2-2+b3 [60.8 kB]
+Get:119 http://deb.debian.org/debian bullseye/main amd64 libxaw7 amd64 2:1.0.13-1.1 [202 kB]
+Get:120 http://deb.debian.org/debian bullseye/main amd64 libxfont2 amd64 1:2.0.4-1 [136 kB]
+Get:121 http://deb.debian.org/debian bullseye/main amd64 libxkbfile1 amd64 1:1.1.0-1 [75.2 kB]
+Get:122 http://deb.debian.org/debian bullseye/main amd64 libxss1 amd64 1:1.2.3-1 [17.8 kB]
+Get:123 http://deb.debian.org/debian bullseye/main amd64 libxtst6 amd64 2:1.2.3-1 [27.8 kB]
+Get:124 http://deb.debian.org/debian bullseye/main amd64 x11-xkb-utils amd64 7.7+5 [163 kB]
+Get:125 http://deb.debian.org/debian-security bullseye-security/main amd64 xserver-common all 2:1.20.11-1+deb11u17 [2285 kB]
+Get:126 http://deb.debian.org/debian bullseye/main amd64 libglx0 amd64 1.3.2-1 [35.7 kB]
+Get:127 http://deb.debian.org/debian bullseye/main amd64 libgl1 amd64 1.3.2-1 [89.5 kB]
+Get:128 http://deb.debian.org/debian-security bullseye-security/main amd64 xvfb amd64 2:1.20.11-1+deb11u17 [3045 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 79.6 MB in 1s (59.7 MB/s)
+(Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 21738 files and directories currently installed.)
+Preparing to unpack .../libsystemd0_247.3-7+deb11u8_amd64.deb ...
+Unpacking libsystemd0:amd64 (247.3-7+deb11u8) over (247.3-7+deb11u7) ...
+Setting up libsystemd0:amd64 (247.3-7+deb11u8) ...
+Selecting previously unselected package libapparmor1:amd64.
+(Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 21738 files and directories currently installed.)
+Preparing to unpack .../0-libapparmor1_2.13.6-10_amd64.deb ...
+Unpacking libapparmor1:amd64 (2.13.6-10) ...
+Selecting previously unselected package libcap2:amd64.
+Preparing to unpack .../1-libcap2_1%3a2.44-1+deb11u1_amd64.deb ...
+Unpacking libcap2:amd64 (1:2.44-1+deb11u1) ...
+Selecting previously unselected package libargon2-1:amd64.
+Preparing to unpack .../2-libargon2-1_0~20171227-0.2_amd64.deb ...
+Unpacking libargon2-1:amd64 (0~20171227-0.2) ...
+Selecting previously unselected package dmsetup.
+Preparing to unpack .../3-dmsetup_2%3a1.02.175-2.1_amd64.deb ...
+Unpacking dmsetup (2:1.02.175-2.1) ...
+Selecting previously unselected package libdevmapper1.02.1:amd64.
+Preparing to unpack .../4-libdevmapper1.02.1_2%3a1.02.175-2.1_amd64.deb ...
+Unpacking libdevmapper1.02.1:amd64 (2:1.02.175-2.1) ...
+Selecting previously unselected package libjson-c5:amd64.
+Preparing to unpack .../5-libjson-c5_0.15-2+deb11u1_amd64.deb ...
+Unpacking libjson-c5:amd64 (0.15-2+deb11u1) ...
+Selecting previously unselected package libcryptsetup12:amd64.
+Preparing to unpack .../6-libcryptsetup12_2%3a2.3.7-1+deb11u1_amd64.deb ...
+Unpacking libcryptsetup12:amd64 (2:2.3.7-1+deb11u1) ...
+Selecting previously unselected package libip4tc2:amd64.
+Preparing to unpack .../7-libip4tc2_1.8.7-1_amd64.deb ...
+Unpacking libip4tc2:amd64 (1.8.7-1) ...
+Selecting previously unselected package libkmod2:amd64.
+Preparing to unpack .../8-libkmod2_28-1_amd64.deb ...
+Unpacking libkmod2:amd64 (28-1) ...
+Selecting previously unselected package systemd.
+Preparing to unpack .../9-systemd_247.3-7+deb11u8_amd64.deb ...
+Unpacking systemd (247.3-7+deb11u8) ...
+Setting up libapparmor1:amd64 (2.13.6-10) ...
+Setting up libcap2:amd64 (1:2.44-1+deb11u1) ...
+Setting up libargon2-1:amd64 (0~20171227-0.2) ...
+Setting up libjson-c5:amd64 (0.15-2+deb11u1) ...
+Setting up libip4tc2:amd64 (1.8.7-1) ...
+Setting up libkmod2:amd64 (28-1) ...
+Setting up libdevmapper1.02.1:amd64 (2:1.02.175-2.1) ...
+Setting up libcryptsetup12:amd64 (2:2.3.7-1+deb11u1) ...
+Setting up systemd (247.3-7+deb11u8) ...
+Created symlink /etc/systemd/system/getty.target.wants/getty@tty1.service → /lib/systemd/system/getty@.service.
+Created symlink /etc/systemd/system/multi-user.target.wants/remote-fs.target → /lib/systemd/system/remote-fs.target.
+Created symlink /etc/systemd/system/sysinit.target.wants/systemd-pstore.service → /lib/systemd/system/systemd-pstore.service.
+Initializing machine ID from random generator.
+Setting up dmsetup (2:1.02.175-2.1) ...
+Selecting previously unselected package systemd-sysv.
+(Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 22588 files and directories currently installed.)
+Preparing to unpack .../000-systemd-sysv_247.3-7+deb11u8_amd64.deb ...
+Unpacking systemd-sysv (247.3-7+deb11u8) ...
+Selecting previously unselected package libdbus-1-3:amd64.
+Preparing to unpack .../001-libdbus-1-3_1.12.28-0+deb11u1_amd64.deb ...
+Unpacking libdbus-1-3:amd64 (1.12.28-0+deb11u1) ...
+Selecting previously unselected package dbus.
+Preparing to unpack .../002-dbus_1.12.28-0+deb11u1_amd64.deb ...
+Unpacking dbus (1.12.28-0+deb11u1) ...
+Selecting previously unselected package libpam-systemd:amd64.
+Preparing to unpack .../003-libpam-systemd_247.3-7+deb11u8_amd64.deb ...
+Unpacking libpam-systemd:amd64 (247.3-7+deb11u8) ...
+Selecting previously unselected package hicolor-icon-theme.
+Preparing to unpack .../004-hicolor-icon-theme_0.17-2_all.deb ...
+Unpacking hicolor-icon-theme (0.17-2) ...
+Selecting previously unselected package libgdk-pixbuf2.0-common.
+Preparing to unpack .../005-libgdk-pixbuf2.0-common_2.42.2+dfsg-1+deb11u5_all.deb ...
+Unpacking libgdk-pixbuf2.0-common (2.42.2+dfsg-1+deb11u5) ...
+Selecting previously unselected package libglib2.0-0:amd64.
+Preparing to unpack .../006-libglib2.0-0_2.66.8-1+deb11u8_amd64.deb ...
+Unpacking libglib2.0-0:amd64 (2.66.8-1+deb11u8) ...
+Selecting previously unselected package shared-mime-info.
+Preparing to unpack .../007-shared-mime-info_2.0-1_amd64.deb ...
+Unpacking shared-mime-info (2.0-1) ...
+Selecting previously unselected package libgdk-pixbuf-2.0-0:amd64.
+Preparing to unpack .../008-libgdk-pixbuf-2.0-0_2.42.2+dfsg-1+deb11u5_amd64.deb ...
+Unpacking libgdk-pixbuf-2.0-0:amd64 (2.42.2+dfsg-1+deb11u5) ...
+Selecting previously unselected package gtk-update-icon-cache.
+Preparing to unpack .../009-gtk-update-icon-cache_3.24.24-4+deb11u4_amd64.deb ...
+Unpacking gtk-update-icon-cache (3.24.24-4+deb11u4) ...
+Selecting previously unselected package adwaita-icon-theme.
+Preparing to unpack .../010-adwaita-icon-theme_3.38.0-1_all.deb ...
+Unpacking adwaita-icon-theme (3.38.0-1) ...
+Selecting previously unselected package dbus-user-session.
+Preparing to unpack .../011-dbus-user-session_1.12.28-0+deb11u1_amd64.deb ...
+Unpacking dbus-user-session (1.12.28-0+deb11u1) ...
+Selecting previously unselected package libdconf1:amd64.
+Preparing to unpack .../012-libdconf1_0.38.0-2_amd64.deb ...
+Unpacking libdconf1:amd64 (0.38.0-2) ...
+Selecting previously unselected package dconf-service.
+Preparing to unpack .../013-dconf-service_0.38.0-2_amd64.deb ...
+Unpacking dconf-service (0.38.0-2) ...
+Selecting previously unselected package dconf-gsettings-backend:amd64.
+Preparing to unpack .../014-dconf-gsettings-backend_0.38.0-2_amd64.deb ...
+Unpacking dconf-gsettings-backend:amd64 (0.38.0-2) ...
+Selecting previously unselected package fontconfig.
+Preparing to unpack .../015-fontconfig_2.13.1-4.2_amd64.deb ...
+Unpacking fontconfig (2.13.1-4.2) ...
+Selecting previously unselected package libproxy1v5:amd64.
+Preparing to unpack .../016-libproxy1v5_0.4.17-1_amd64.deb ...
+Unpacking libproxy1v5:amd64 (0.4.17-1) ...
+Selecting previously unselected package glib-networking-common.
+Preparing to unpack .../017-glib-networking-common_2.66.0-2_all.deb ...
+Unpacking glib-networking-common (2.66.0-2) ...
+Selecting previously unselected package glib-networking-services.
+Preparing to unpack .../018-glib-networking-services_2.66.0-2_amd64.deb ...
+Unpacking glib-networking-services (2.66.0-2) ...
+Selecting previously unselected package gsettings-desktop-schemas.
+Preparing to unpack .../019-gsettings-desktop-schemas_3.38.0-2_all.deb ...
+Unpacking gsettings-desktop-schemas (3.38.0-2) ...
+Selecting previously unselected package glib-networking:amd64.
+Preparing to unpack .../020-glib-networking_2.66.0-2_amd64.deb ...
+Unpacking glib-networking:amd64 (2.66.0-2) ...
+Selecting previously unselected package libasound2-data.
+Preparing to unpack .../021-libasound2-data_1.2.4-1.1+deb11u1_all.deb ...
+Unpacking libasound2-data (1.2.4-1.1+deb11u1) ...
+Selecting previously unselected package libasound2:amd64.
+Preparing to unpack .../022-libasound2_1.2.4-1.1+deb11u1_amd64.deb ...
+Unpacking libasound2:amd64 (1.2.4-1.1+deb11u1) ...
+Selecting previously unselected package libatk1.0-data.
+Preparing to unpack .../023-libatk1.0-data_2.36.0-2_all.deb ...
+Unpacking libatk1.0-data (2.36.0-2) ...
+Selecting previously unselected package libatk1.0-0:amd64.
+Preparing to unpack .../024-libatk1.0-0_2.36.0-2_amd64.deb ...
+Unpacking libatk1.0-0:amd64 (2.36.0-2) ...
+Selecting previously unselected package libatspi2.0-0:amd64.
+Preparing to unpack .../025-libatspi2.0-0_2.38.0-4+deb11u1_amd64.deb ...
+Unpacking libatspi2.0-0:amd64 (2.38.0-4+deb11u1) ...
+Selecting previously unselected package libatk-bridge2.0-0:amd64.
+Preparing to unpack .../026-libatk-bridge2.0-0_2.38.0-1_amd64.deb ...
+Unpacking libatk-bridge2.0-0:amd64 (2.38.0-1) ...
+Selecting previously unselected package libavahi-common-data:amd64.
+Preparing to unpack .../027-libavahi-common-data_0.8-5+deb11u3_amd64.deb ...
+Unpacking libavahi-common-data:amd64 (0.8-5+deb11u3) ...
+Selecting previously unselected package libavahi-common3:amd64.
+Preparing to unpack .../028-libavahi-common3_0.8-5+deb11u3_amd64.deb ...
+Unpacking libavahi-common3:amd64 (0.8-5+deb11u3) ...
+Selecting previously unselected package libavahi-client3:amd64.
+Preparing to unpack .../029-libavahi-client3_0.8-5+deb11u3_amd64.deb ...
+Unpacking libavahi-client3:amd64 (0.8-5+deb11u3) ...
+Selecting previously unselected package libpixman-1-0:amd64.
+Preparing to unpack .../030-libpixman-1-0_0.40.0-1.1~deb11u1_amd64.deb ...
+Unpacking libpixman-1-0:amd64 (0.40.0-1.1~deb11u1) ...
+Selecting previously unselected package libxcb-render0:amd64.
+Preparing to unpack .../031-libxcb-render0_1.14-3_amd64.deb ...
+Unpacking libxcb-render0:amd64 (1.14-3) ...
+Selecting previously unselected package libxcb-shm0:amd64.
+Preparing to unpack .../032-libxcb-shm0_1.14-3_amd64.deb ...
+Unpacking libxcb-shm0:amd64 (1.14-3) ...
+Selecting previously unselected package libxrender1:amd64.
+Preparing to unpack .../033-libxrender1_1%3a0.9.10-1_amd64.deb ...
+Unpacking libxrender1:amd64 (1:0.9.10-1) ...
+Selecting previously unselected package libcairo2:amd64.
+Preparing to unpack .../034-libcairo2_1.16.0-5_amd64.deb ...
+Unpacking libcairo2:amd64 (1.16.0-5) ...
+Selecting previously unselected package libcairo-gobject2:amd64.
+Preparing to unpack .../035-libcairo-gobject2_1.16.0-5_amd64.deb ...
+Unpacking libcairo-gobject2:amd64 (1.16.0-5) ...
+Selecting previously unselected package liblcms2-2:amd64.
+Preparing to unpack .../036-liblcms2-2_2.12~rc1-2+deb11u1_amd64.deb ...
+Unpacking liblcms2-2:amd64 (2.12~rc1-2+deb11u1) ...
+Selecting previously unselected package libcolord2:amd64.
+Preparing to unpack .../037-libcolord2_1.4.5-3_amd64.deb ...
+Unpacking libcolord2:amd64 (1.4.5-3) ...
+Selecting previously unselected package libcups2:amd64.
+Preparing to unpack .../038-libcups2_2.3.3op2-3+deb11u10_amd64.deb ...
+Unpacking libcups2:amd64 (2.3.3op2-3+deb11u10) ...
+Selecting previously unselected package libdatrie1:amd64.
+Preparing to unpack .../039-libdatrie1_0.2.13-1_amd64.deb ...
+Unpacking libdatrie1:amd64 (0.2.13-1) ...
+Selecting previously unselected package libdrm-common.
+Preparing to unpack .../040-libdrm-common_2.4.104-1_all.deb ...
+Unpacking libdrm-common (2.4.104-1) ...
+Selecting previously unselected package libdrm2:amd64.
+Preparing to unpack .../041-libdrm2_2.4.104-1_amd64.deb ...
+Unpacking libdrm2:amd64 (2.4.104-1) ...
+Selecting previously unselected package libdrm-amdgpu1:amd64.
+Preparing to unpack .../042-libdrm-amdgpu1_2.4.104-1_amd64.deb ...
+Unpacking libdrm-amdgpu1:amd64 (2.4.104-1) ...
+Selecting previously unselected package libpciaccess0:amd64.
+Preparing to unpack .../043-libpciaccess0_0.16-1_amd64.deb ...
+Unpacking libpciaccess0:amd64 (0.16-1) ...
+Selecting previously unselected package libdrm-intel1:amd64.
+Preparing to unpack .../044-libdrm-intel1_2.4.104-1_amd64.deb ...
+Unpacking libdrm-intel1:amd64 (2.4.104-1) ...
+Selecting previously unselected package libdrm-nouveau2:amd64.
+Preparing to unpack .../045-libdrm-nouveau2_2.4.104-1_amd64.deb ...
+Unpacking libdrm-nouveau2:amd64 (2.4.104-1) ...
+Selecting previously unselected package libdrm-radeon1:amd64.
+Preparing to unpack .../046-libdrm-radeon1_2.4.104-1_amd64.deb ...
+Unpacking libdrm-radeon1:amd64 (2.4.104-1) ...
+Selecting previously unselected package libelf1:amd64.
+Preparing to unpack .../047-libelf1_0.183-1_amd64.deb ...
+Unpacking libelf1:amd64 (0.183-1) ...
+Selecting previously unselected package libepoxy0:amd64.
+Preparing to unpack .../048-libepoxy0_1.5.5-1_amd64.deb ...
+Unpacking libepoxy0:amd64 (1.5.5-1) ...
+Selecting previously unselected package libfontenc1:amd64.
+Preparing to unpack .../049-libfontenc1_1%3a1.1.4-1_amd64.deb ...
+Unpacking libfontenc1:amd64 (1:1.1.4-1) ...
+Selecting previously unselected package libfribidi0:amd64.
+Preparing to unpack .../050-libfribidi0_1.0.8-2+deb11u1_amd64.deb ...
+Unpacking libfribidi0:amd64 (1.0.8-2+deb11u1) ...
+Selecting previously unselected package libwayland-server0:amd64.
+Preparing to unpack .../051-libwayland-server0_1.18.0-2~exp1.1_amd64.deb ...
+Unpacking libwayland-server0:amd64 (1.18.0-2~exp1.1) ...
+Selecting previously unselected package libgbm1:amd64.
+Preparing to unpack .../052-libgbm1_20.3.5-1_amd64.deb ...
+Unpacking libgbm1:amd64 (20.3.5-1) ...
+Selecting previously unselected package libgdk-pixbuf-xlib-2.0-0:amd64.
+Preparing to unpack .../053-libgdk-pixbuf-xlib-2.0-0_2.40.2-2_amd64.deb ...
+Unpacking libgdk-pixbuf-xlib-2.0-0:amd64 (2.40.2-2) ...
+Selecting previously unselected package libgdk-pixbuf2.0-0:amd64.
+Preparing to unpack .../054-libgdk-pixbuf2.0-0_2.40.2-2_amd64.deb ...
+Unpacking libgdk-pixbuf2.0-0:amd64 (2.40.2-2) ...
+Selecting previously unselected package libglapi-mesa:amd64.
+Preparing to unpack .../055-libglapi-mesa_20.3.5-1_amd64.deb ...
+Unpacking libglapi-mesa:amd64 (20.3.5-1) ...
+Selecting previously unselected package libz3-4:amd64.
+Preparing to unpack .../056-libz3-4_4.8.10-1_amd64.deb ...
+Unpacking libz3-4:amd64 (4.8.10-1) ...
+Selecting previously unselected package libllvm11:amd64.
+Preparing to unpack .../057-libllvm11_1%3a11.0.1-2_amd64.deb ...
+Unpacking libllvm11:amd64 (1:11.0.1-2) ...
+Selecting previously unselected package libsensors-config.
+Preparing to unpack .../058-libsensors-config_1%3a3.6.0-7_all.deb ...
+Unpacking libsensors-config (1:3.6.0-7) ...
+Selecting previously unselected package libsensors5:amd64.
+Preparing to unpack .../059-libsensors5_1%3a3.6.0-7_amd64.deb ...
+Unpacking libsensors5:amd64 (1:3.6.0-7) ...
+Selecting previously unselected package libvulkan1:amd64.
+Preparing to unpack .../060-libvulkan1_1.2.162.0-1_amd64.deb ...
+Unpacking libvulkan1:amd64 (1.2.162.0-1) ...
+Selecting previously unselected package libgl1-mesa-dri:amd64.
+Preparing to unpack .../061-libgl1-mesa-dri_20.3.5-1_amd64.deb ...
+Unpacking libgl1-mesa-dri:amd64 (20.3.5-1) ...
+Selecting previously unselected package libglvnd0:amd64.
+Preparing to unpack .../062-libglvnd0_1.3.2-1_amd64.deb ...
+Unpacking libglvnd0:amd64 (1.3.2-1) ...
+Selecting previously unselected package libx11-xcb1:amd64.
+Preparing to unpack .../063-libx11-xcb1_2%3a1.7.2-1+deb11u2_amd64.deb ...
+Unpacking libx11-xcb1:amd64 (2:1.7.2-1+deb11u2) ...
+Selecting previously unselected package libxcb-dri2-0:amd64.
+Preparing to unpack .../064-libxcb-dri2-0_1.14-3_amd64.deb ...
+Unpacking libxcb-dri2-0:amd64 (1.14-3) ...
+Selecting previously unselected package libxcb-dri3-0:amd64.
+Preparing to unpack .../065-libxcb-dri3-0_1.14-3_amd64.deb ...
+Unpacking libxcb-dri3-0:amd64 (1.14-3) ...
+Selecting previously unselected package libxcb-glx0:amd64.
+Preparing to unpack .../066-libxcb-glx0_1.14-3_amd64.deb ...
+Unpacking libxcb-glx0:amd64 (1.14-3) ...
+Selecting previously unselected package libxcb-present0:amd64.
+Preparing to unpack .../067-libxcb-present0_1.14-3_amd64.deb ...
+Unpacking libxcb-present0:amd64 (1.14-3) ...
+Selecting previously unselected package libxcb-sync1:amd64.
+Preparing to unpack .../068-libxcb-sync1_1.14-3_amd64.deb ...
+Unpacking libxcb-sync1:amd64 (1.14-3) ...
+Selecting previously unselected package libxcb-xfixes0:amd64.
+Preparing to unpack .../069-libxcb-xfixes0_1.14-3_amd64.deb ...
+Unpacking libxcb-xfixes0:amd64 (1.14-3) ...
+Selecting previously unselected package libxdamage1:amd64.
+Preparing to unpack .../070-libxdamage1_1%3a1.1.5-2_amd64.deb ...
+Unpacking libxdamage1:amd64 (1:1.1.5-2) ...
+Selecting previously unselected package libxfixes3:amd64.
+Preparing to unpack .../071-libxfixes3_1%3a5.0.3-2_amd64.deb ...
+Unpacking libxfixes3:amd64 (1:5.0.3-2) ...
+Selecting previously unselected package libxshmfence1:amd64.
+Preparing to unpack .../072-libxshmfence1_1.3-1_amd64.deb ...
+Unpacking libxshmfence1:amd64 (1.3-1) ...
+Selecting previously unselected package libxxf86vm1:amd64.
+Preparing to unpack .../073-libxxf86vm1_1%3a1.1.4-1+b2_amd64.deb ...
+Unpacking libxxf86vm1:amd64 (1:1.1.4-1+b2) ...
+Selecting previously unselected package libglx-mesa0:amd64.
+Preparing to unpack .../074-libglx-mesa0_20.3.5-1_amd64.deb ...
+Unpacking libglx-mesa0:amd64 (20.3.5-1) ...
+Selecting previously unselected package libgraphite2-3:amd64.
+Preparing to unpack .../075-libgraphite2-3_1.3.14-1_amd64.deb ...
+Unpacking libgraphite2-3:amd64 (1.3.14-1) ...
+Selecting previously unselected package libharfbuzz0b:amd64.
+Preparing to unpack .../076-libharfbuzz0b_2.7.4-1_amd64.deb ...
+Unpacking libharfbuzz0b:amd64 (2.7.4-1) ...
+Selecting previously unselected package libjson-glib-1.0-common.
+Preparing to unpack .../077-libjson-glib-1.0-common_1.6.2-1_all.deb ...
+Unpacking libjson-glib-1.0-common (1.6.2-1) ...
+Selecting previously unselected package libjson-glib-1.0-0:amd64.
+Preparing to unpack .../078-libjson-glib-1.0-0_1.6.2-1_amd64.deb ...
+Unpacking libjson-glib-1.0-0:amd64 (1.6.2-1) ...
+Selecting previously unselected package libthai-data.
+Preparing to unpack .../079-libthai-data_0.1.28-3_all.deb ...
+Unpacking libthai-data (0.1.28-3) ...
+Selecting previously unselected package libthai0:amd64.
+Preparing to unpack .../080-libthai0_0.1.28-3_amd64.deb ...
+Unpacking libthai0:amd64 (0.1.28-3) ...
+Selecting previously unselected package libpango-1.0-0:amd64.
+Preparing to unpack .../081-libpango-1.0-0_1.46.2-3_amd64.deb ...
+Unpacking libpango-1.0-0:amd64 (1.46.2-3) ...
+Selecting previously unselected package libpangoft2-1.0-0:amd64.
+Preparing to unpack .../082-libpangoft2-1.0-0_1.46.2-3_amd64.deb ...
+Unpacking libpangoft2-1.0-0:amd64 (1.46.2-3) ...
+Selecting previously unselected package libpangocairo-1.0-0:amd64.
+Preparing to unpack .../083-libpangocairo-1.0-0_1.46.2-3_amd64.deb ...
+Unpacking libpangocairo-1.0-0:amd64 (1.46.2-3) ...
+Selecting previously unselected package libsoup2.4-1:amd64.
+Preparing to unpack .../084-libsoup2.4-1_2.72.0-2+deb11u3_amd64.deb ...
+Unpacking libsoup2.4-1:amd64 (2.72.0-2+deb11u3) ...
+Selecting previously unselected package libsoup-gnome2.4-1:amd64.
+Preparing to unpack .../085-libsoup-gnome2.4-1_2.72.0-2+deb11u3_amd64.deb ...
+Unpacking libsoup-gnome2.4-1:amd64 (2.72.0-2+deb11u3) ...
+Selecting previously unselected package librest-0.7-0:amd64.
+Preparing to unpack .../086-librest-0.7-0_0.8.1-1.1_amd64.deb ...
+Unpacking librest-0.7-0:amd64 (0.8.1-1.1) ...
+Selecting previously unselected package libwayland-client0:amd64.
+Preparing to unpack .../087-libwayland-client0_1.18.0-2~exp1.1_amd64.deb ...
+Unpacking libwayland-client0:amd64 (1.18.0-2~exp1.1) ...
+Selecting previously unselected package libwayland-cursor0:amd64.
+Preparing to unpack .../088-libwayland-cursor0_1.18.0-2~exp1.1_amd64.deb ...
+Unpacking libwayland-cursor0:amd64 (1.18.0-2~exp1.1) ...
+Selecting previously unselected package libwayland-egl1:amd64.
+Preparing to unpack .../089-libwayland-egl1_1.18.0-2~exp1.1_amd64.deb ...
+Unpacking libwayland-egl1:amd64 (1.18.0-2~exp1.1) ...
+Selecting previously unselected package libxcomposite1:amd64.
+Preparing to unpack .../090-libxcomposite1_1%3a0.4.5-1_amd64.deb ...
+Unpacking libxcomposite1:amd64 (1:0.4.5-1) ...
+Selecting previously unselected package libxcursor1:amd64.
+Preparing to unpack .../091-libxcursor1_1%3a1.2.0-2_amd64.deb ...
+Unpacking libxcursor1:amd64 (1:1.2.0-2) ...
+Selecting previously unselected package libxi6:amd64.
+Preparing to unpack .../092-libxi6_2%3a1.7.10-1_amd64.deb ...
+Unpacking libxi6:amd64 (2:1.7.10-1) ...
+Selecting previously unselected package libxinerama1:amd64.
+Preparing to unpack .../093-libxinerama1_2%3a1.1.4-2_amd64.deb ...
+Unpacking libxinerama1:amd64 (2:1.1.4-2) ...
+Selecting previously unselected package xkb-data.
+Preparing to unpack .../094-xkb-data_2.29-2_all.deb ...
+Unpacking xkb-data (2.29-2) ...
+Selecting previously unselected package libxkbcommon0:amd64.
+Preparing to unpack .../095-libxkbcommon0_1.0.3-2_amd64.deb ...
+Unpacking libxkbcommon0:amd64 (1.0.3-2) ...
+Selecting previously unselected package libxrandr2:amd64.
+Preparing to unpack .../096-libxrandr2_2%3a1.5.1-1_amd64.deb ...
+Unpacking libxrandr2:amd64 (2:1.5.1-1) ...
+Selecting previously unselected package libgtk-3-common.
+Preparing to unpack .../097-libgtk-3-common_3.24.24-4+deb11u4_all.deb ...
+Unpacking libgtk-3-common (3.24.24-4+deb11u4) ...
+Selecting previously unselected package libgtk-3-0:amd64.
+Preparing to unpack .../098-libgtk-3-0_3.24.24-4+deb11u4_amd64.deb ...
+Unpacking libgtk-3-0:amd64 (3.24.24-4+deb11u4) ...
+Selecting previously unselected package x11-common.
+Preparing to unpack .../099-x11-common_1%3a7.7+22_all.deb ...
+Unpacking x11-common (1:7.7+22) ...
+Selecting previously unselected package libice6:amd64.
+Preparing to unpack .../100-libice6_2%3a1.0.10-1_amd64.deb ...
+Unpacking libice6:amd64 (2:1.0.10-1) ...
+Selecting previously unselected package libnspr4:amd64.
+Preparing to unpack .../101-libnspr4_2%3a4.29-1_amd64.deb ...
+Unpacking libnspr4:amd64 (2:4.29-1) ...
+Selecting previously unselected package libnss3:amd64.
+Preparing to unpack .../102-libnss3_2%3a3.61-1+deb11u5_amd64.deb ...
+Unpacking libnss3:amd64 (2:3.61-1+deb11u5) ...
+Selecting previously unselected package libsm6:amd64.
+Preparing to unpack .../103-libsm6_2%3a1.2.3-1_amd64.deb ...
+Unpacking libsm6:amd64 (2:1.2.3-1) ...
+Selecting previously unselected package libunwind8:amd64.
+Preparing to unpack .../104-libunwind8_1.3.2-2_amd64.deb ...
+Unpacking libunwind8:amd64 (1.3.2-2) ...
+Selecting previously unselected package libxt6:amd64.
+Preparing to unpack .../105-libxt6_1%3a1.2.0-1_amd64.deb ...
+Unpacking libxt6:amd64 (1:1.2.0-1) ...
+Selecting previously unselected package libxmu6:amd64.
+Preparing to unpack .../106-libxmu6_2%3a1.1.2-2+b3_amd64.deb ...
+Unpacking libxmu6:amd64 (2:1.1.2-2+b3) ...
+Selecting previously unselected package libxaw7:amd64.
+Preparing to unpack .../107-libxaw7_2%3a1.0.13-1.1_amd64.deb ...
+Unpacking libxaw7:amd64 (2:1.0.13-1.1) ...
+Selecting previously unselected package libxfont2:amd64.
+Preparing to unpack .../108-libxfont2_1%3a2.0.4-1_amd64.deb ...
+Unpacking libxfont2:amd64 (1:2.0.4-1) ...
+Selecting previously unselected package libxkbfile1:amd64.
+Preparing to unpack .../109-libxkbfile1_1%3a1.1.0-1_amd64.deb ...
+Unpacking libxkbfile1:amd64 (1:1.1.0-1) ...
+Selecting previously unselected package libxss1:amd64.
+Preparing to unpack .../110-libxss1_1%3a1.2.3-1_amd64.deb ...
+Unpacking libxss1:amd64 (1:1.2.3-1) ...
+Selecting previously unselected package libxtst6:amd64.
+Preparing to unpack .../111-libxtst6_2%3a1.2.3-1_amd64.deb ...
+Unpacking libxtst6:amd64 (2:1.2.3-1) ...
+Selecting previously unselected package x11-xkb-utils.
+Preparing to unpack .../112-x11-xkb-utils_7.7+5_amd64.deb ...
+Unpacking x11-xkb-utils (7.7+5) ...
+Selecting previously unselected package xserver-common.
+Preparing to unpack .../113-xserver-common_2%3a1.20.11-1+deb11u17_all.deb ...
+Unpacking xserver-common (2:1.20.11-1+deb11u17) ...
+Selecting previously unselected package libglx0:amd64.
+Preparing to unpack .../114-libglx0_1.3.2-1_amd64.deb ...
+Unpacking libglx0:amd64 (1.3.2-1) ...
+Selecting previously unselected package libgl1:amd64.
+Preparing to unpack .../115-libgl1_1.3.2-1_amd64.deb ...
+Unpacking libgl1:amd64 (1.3.2-1) ...
+Selecting previously unselected package xvfb.
+Preparing to unpack .../116-xvfb_2%3a1.20.11-1+deb11u17_amd64.deb ...
+Unpacking xvfb (2:1.20.11-1+deb11u17) ...
+Setting up libgraphite2-3:amd64 (1.3.14-1) ...
+Setting up libxcb-dri3-0:amd64 (1.14-3) ...
+Setting up liblcms2-2:amd64 (2.12~rc1-2+deb11u1) ...
+Setting up libpixman-1-0:amd64 (0.40.0-1.1~deb11u1) ...
+Setting up libwayland-server0:amd64 (1.18.0-2~exp1.1) ...
+Setting up libx11-xcb1:amd64 (2:1.7.2-1+deb11u2) ...
+Setting up libpciaccess0:amd64 (0.16-1) ...
+Setting up fontconfig (2.13.1-4.2) ...
+Regenerating fonts cache... done.
+Setting up systemd-sysv (247.3-7+deb11u8) ...
+Setting up libproxy1v5:amd64 (0.4.17-1) ...
+Setting up libxdamage1:amd64 (1:1.1.5-2) ...
+Setting up libxcb-xfixes0:amd64 (1.14-3) ...
+Setting up hicolor-icon-theme (0.17-2) ...
+Setting up libxi6:amd64 (2:1.7.10-1) ...
+Setting up libxrender1:amd64 (1:0.9.10-1) ...
+Setting up libdatrie1:amd64 (0.2.13-1) ...
+Setting up libxcb-render0:amd64 (1.14-3) ...
+Setting up libglib2.0-0:amd64 (2.66.8-1+deb11u8) ...
+Setting up libglvnd0:amd64 (1.3.2-1) ...
+Setting up libxcb-glx0:amd64 (1.14-3) ...
+Setting up libgdk-pixbuf2.0-common (2.42.2+dfsg-1+deb11u5) ...
+Setting up x11-common (1:7.7+22) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+invoke-rc.d: could not determine current runlevel
+invoke-rc.d: policy-rc.d denied execution of start.
+Setting up libsensors-config (1:3.6.0-7) ...
+Setting up xkb-data (2.29-2) ...
+Setting up libxcb-shm0:amd64 (1.14-3) ...
+Setting up libunwind8:amd64 (1.3.2-2) ...
+Setting up libcairo2:amd64 (1.16.0-5) ...
+Setting up libcolord2:amd64 (1.4.5-3) ...
+Setting up libxxf86vm1:amd64 (1:1.1.4-1+b2) ...
+Setting up libxcb-present0:amd64 (1.14-3) ...
+Setting up libdconf1:amd64 (0.38.0-2) ...
+Setting up libasound2-data (1.2.4-1.1+deb11u1) ...
+Setting up libfontenc1:amd64 (1:1.1.4-1) ...
+Setting up libz3-4:amd64 (4.8.10-1) ...
+Setting up libllvm11:amd64 (1:11.0.1-2) ...
+Setting up libepoxy0:amd64 (1.5.5-1) ...
+Setting up libnspr4:amd64 (2:4.29-1) ...
+Setting up libxfixes3:amd64 (1:5.0.3-2) ...
+Setting up libxcb-sync1:amd64 (1.14-3) ...
+Setting up libavahi-common-data:amd64 (0.8-5+deb11u3) ...
+Setting up libdbus-1-3:amd64 (1.12.28-0+deb11u1) ...
+Setting up dbus (1.12.28-0+deb11u1) ...
+invoke-rc.d: could not determine current runlevel
+invoke-rc.d: policy-rc.d denied execution of start.
+Setting up libfribidi0:amd64 (1.0.8-2+deb11u1) ...
+Setting up shared-mime-info (2.0-1) ...
+Setting up libxinerama1:amd64 (2:1.1.4-2) ...
+Setting up libxrandr2:amd64 (2:1.5.1-1) ...
+Setting up libsensors5:amd64 (1:3.6.0-7) ...
+Setting up libglapi-mesa:amd64 (20.3.5-1) ...
+Setting up libvulkan1:amd64 (1.2.162.0-1) ...
+Setting up libxcb-dri2-0:amd64 (1.14-3) ...
+Setting up libatk1.0-data (2.36.0-2) ...
+Setting up libxshmfence1:amd64 (1.3-1) ...
+Setting up libasound2:amd64 (1.2.4-1.1+deb11u1) ...
+Setting up libpam-systemd:amd64 (247.3-7+deb11u8) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+Setting up libharfbuzz0b:amd64 (2.7.4-1) ...
+Setting up libthai-data (0.1.28-3) ...
+Setting up libgdk-pixbuf-2.0-0:amd64 (2.42.2+dfsg-1+deb11u5) ...
+Setting up libjson-glib-1.0-common (1.6.2-1) ...
+Setting up libcairo-gobject2:amd64 (1.16.0-5) ...
+Setting up libatk1.0-0:amd64 (2.36.0-2) ...
+Setting up libwayland-egl1:amd64 (1.18.0-2~exp1.1) ...
+Setting up libxss1:amd64 (1:1.2.3-1) ...
+Setting up libxkbfile1:amd64 (1:1.1.0-1) ...
+Setting up glib-networking-common (2.66.0-2) ...
+Setting up libdrm-common (2.4.104-1) ...
+Setting up libelf1:amd64 (0.183-1) ...
+Setting up libxcomposite1:amd64 (1:0.4.5-1) ...
+Setting up libxfont2:amd64 (1:2.0.4-1) ...
+Setting up libxkbcommon0:amd64 (1.0.3-2) ...
+Setting up libwayland-client0:amd64 (1.18.0-2~exp1.1) ...
+Setting up glib-networking-services (2.66.0-2) ...
+Setting up gtk-update-icon-cache (3.24.24-4+deb11u4) ...
+Setting up libice6:amd64 (2:1.0.10-1) ...
+Setting up libgdk-pixbuf-xlib-2.0-0:amd64 (2.40.2-2) ...
+Setting up libxtst6:amd64 (2:1.2.3-1) ...
+Setting up libxcursor1:amd64 (1:1.2.0-2) ...
+Setting up libavahi-common3:amd64 (0.8-5+deb11u3) ...
+Setting up libnss3:amd64 (2:3.61-1+deb11u5) ...
+Setting up libatspi2.0-0:amd64 (2.38.0-4+deb11u1) ...
+Setting up libjson-glib-1.0-0:amd64 (1.6.2-1) ...
+Setting up libatk-bridge2.0-0:amd64 (2.38.0-1) ...
+Setting up libthai0:amd64 (0.1.28-3) ...
+Setting up dbus-user-session (1.12.28-0+deb11u1) ...
+Setting up adwaita-icon-theme (3.38.0-1) ...
+update-alternatives: using /usr/share/icons/Adwaita/cursor.theme to provide /usr/share/icons/default/index.theme (x-cursor-theme) in auto mode
+Setting up libgdk-pixbuf2.0-0:amd64 (2.40.2-2) ...
+Setting up libdrm2:amd64 (2.4.104-1) ...
+Setting up libwayland-cursor0:amd64 (1.18.0-2~exp1.1) ...
+Setting up libsm6:amd64 (2:1.2.3-1) ...
+Setting up libavahi-client3:amd64 (0.8-5+deb11u3) ...
+Setting up libdrm-amdgpu1:amd64 (2.4.104-1) ...
+Setting up libdrm-nouveau2:amd64 (2.4.104-1) ...
+Setting up libgbm1:amd64 (20.3.5-1) ...
+Setting up libdrm-radeon1:amd64 (2.4.104-1) ...
+Setting up libpango-1.0-0:amd64 (1.46.2-3) ...
+Setting up libdrm-intel1:amd64 (2.4.104-1) ...
+Setting up libgl1-mesa-dri:amd64 (20.3.5-1) ...
+Setting up dconf-service (0.38.0-2) ...
+Setting up libxt6:amd64 (1:1.2.0-1) ...
+Setting up libcups2:amd64 (2.3.3op2-3+deb11u10) ...
+Setting up libpangoft2-1.0-0:amd64 (1.46.2-3) ...
+Setting up libpangocairo-1.0-0:amd64 (1.46.2-3) ...
+Setting up libxmu6:amd64 (2:1.1.2-2+b3) ...
+Setting up libglx-mesa0:amd64 (20.3.5-1) ...
+Setting up libglx0:amd64 (1.3.2-1) ...
+Setting up dconf-gsettings-backend:amd64 (0.38.0-2) ...
+Setting up libxaw7:amd64 (2:1.0.13-1.1) ...
+Setting up libgl1:amd64 (1.3.2-1) ...
+Setting up libgtk-3-common (3.24.24-4+deb11u4) ...
+Setting up gsettings-desktop-schemas (3.38.0-2) ...
+Setting up x11-xkb-utils (7.7+5) ...
+Setting up xserver-common (2:1.20.11-1+deb11u17) ...
+Setting up glib-networking:amd64 (2.66.0-2) ...
+Setting up libsoup2.4-1:amd64 (2.72.0-2+deb11u3) ...
+Setting up xvfb (2:1.20.11-1+deb11u17) ...
+Setting up libsoup-gnome2.4-1:amd64 (2.72.0-2+deb11u3) ...
+Setting up librest-0.7-0:amd64 (0.8.1-1.1) ...
+Setting up libgtk-3-0:amd64 (3.24.24-4+deb11u4) ...
+Processing triggers for libc-bin (2.31-13+deb11u13) ...
+--> d1b86f4dd003
+STEP 4/7: COPY cypress-coverage-configs /coverage_reloaded/cypress-coverage-configs
+--> 1a1e53ea44c0
+STEP 5/7: COPY ./repo /coverage_reloaded/repo
+--> 8e20ac9e0fba
+STEP 6/7: COPY ./install-and-run.sh /coverage_reloaded/install-and-run.sh
+--> 1c5d5d61ecea
+STEP 7/7: RUN chmod +x /coverage_reloaded/install-and-run.sh
+COMMIT core_node14_vuetify
+--> 30a7371257af
+Successfully tagged localhost/core_node14_vuetify:latest
+30a7371257afdc1f5f0e6191035ff0604d226b612bff1f1e68688795083a6461
+
+╔════════════════════════════════════════════════════════════╗
+║  Starting run-coverage.sh                                  ║
+║  Revision: 988fe04792358823301193e573829b49ba65fded        ║
+╚════════════════════════════════════════════════════════════╝
+
+Commit date: 2021-06-02 11:56:02
+Current date: Thu May 28 10:30:24 UTC 2026
+Timestamp: 1622634962
+Package Manager: yarn@1.12
+
+┌────────────────────────────────────────────────────────────┐
+│  System Information                                        │
+└────────────────────────────────────────────────────────────┘
+Linux c507e31f843f 6.8.0-110-generic #110-Ubuntu SMP PREEMPT_DYNAMIC Thu Mar 19 15:09:20 UTC 2026 x86_64 GNU/Linux
+
+┌────────────────────────────────────────────────────────────┐
+│  Linux Distribution                                        │
+└────────────────────────────────────────────────────────────┘
+PRETTY_NAME="Debian GNU/Linux 11 (bullseye)"
+NAME="Debian GNU/Linux"
+VERSION_ID="11"
+VERSION="11 (bullseye)"
+VERSION_CODENAME=bullseye
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+
+┌────────────────────────────────────────────────────────────┐
+│  Git Version                                               │
+└────────────────────────────────────────────────────────────┘
+git version 2.30.2
+
+┌────────────────────────────────────────────────────────────┐
+│  Python Version                                            │
+└────────────────────────────────────────────────────────────┘
+Python 3.10.20
+
+┌────────────────────────────────────────────────────────────┐
+│  CPU Information                                           │
+└────────────────────────────────────────────────────────────┘
+256
+
+┌────────────────────────────────────────────────────────────┐
+│  Memory Information                                        │
+└────────────────────────────────────────────────────────────┘
+               total        used        free      shared  buff/cache   available
+Mem:           2.2Ti        48Gi       1.9Ti        12Mi       227Gi       2.2Ti
+Swap:          8.0Gi          0B       8.0Gi
+
+┌────────────────────────────────────────────────────────────┐
+│  Disk Information                                          │
+└────────────────────────────────────────────────────────────┘
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/md0         18T  542G   16T   4% /coverage_reloaded/coverage
+tmpfs           227G  516K  227G   1% /etc/hosts
+shm              63M     0   63M   0% /dev/shm
+overlay          18T  542G   16T   4% /
+tmpfs            64M     0   64M   0% /dev
+udev            1.2T     0  1.2T   0% /dev/tty
+
+┌────────────────────────────────────────────────────────────┐
+│  Current Folder                                            │
+└────────────────────────────────────────────────────────────┘
+/coverage_reloaded/repo
+
+┌────────────────────────────────────────────────────────────┐
+│  Git Checkout                                              │
+└────────────────────────────────────────────────────────────┘
+Note: switching to '988fe04792358823301193e573829b49ba65fded'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 988fe0479 chore(release): publish v2.5.3
+
+┌────────────────────────────────────────────────────────────┐
+│  Node Version                                              │
+└────────────────────────────────────────────────────────────┘
+v14.21.3
+
+┌────────────────────────────────────────────────────────────┐
+│  Setting up Package Managers                               │
+└────────────────────────────────────────────────────────────┘
+ --> Manual setup for yarn@1.12
+up to date in 0.016s
+/root/n/bin/yarn -> /root/n/lib/node_modules/yarn/bin/yarn.js
+/root/n/bin/yarnpkg -> /root/n/lib/node_modules/yarn/bin/yarn.js
++ yarn@1.12.3
+added 1 package in 0.994s
+
+▶ Yarn Version After Setup
+1.12.3
+Legacy Yarn: true
+yarn config v1.12.3
+success Set "registry" to "http://waypack:3000/yarn/1622634962/".
+Done in 0.02s.
+http://waypack:3000/yarn/1622634962/
+
+
+┌────────────────────────────────────────────────────────────┐
+│  Cleaning package manager lock files                       │
+└────────────────────────────────────────────────────────────┘
+Searching for patterns: package-lock.json */package-lock.json
+Ignoring patterns: */node_modules/*
+0 files processed
+Searching for patterns: yarn.lock */yarn.lock
+Ignoring patterns: */node_modules/*
+Found file: ./yarn.lock
+1 files processed
+Searching for patterns: pnpm-lock.yaml */pnpm-lock.yaml
+Ignoring patterns: */node_modules/*
+0 files processed
+
+
+╔════════════════════════════════════════════════════════════╗
+║  Calling install-and-run.sh                                ║
+╚════════════════════════════════════════════════════════════╝
+
+
+┌────────────────────────────────────────────────────────────┐
+│  Applying Cypress coverage patches                         │
+└────────────────────────────────────────────────────────────┘
+==> cypress-patcher.sh — applying coverage patches
+  Found 46 patches available
+==> Done — 0 patches applied, 0 missing
+
+┌────────────────────────────────────────────────────────────┐
+│  Installing dependencies                                   │
+└────────────────────────────────────────────────────────────┘
+
+▶  Installing dependencies with yarn...
+yarn cache v1.12.3
+success Cleared cache.
+Done in 0.02s.
+yarn install v1.12.3
+[1/5] Validating package.json...
+[2/5] Resolving packages...
+[3/5] Fetching packages...
+info fsevents@1.2.9: The platform "linux" is incompatible with this module.
+info "fsevents@1.2.9" is an optional dependency and failed compatibility check. Excluding it from installation.
+info fsevents@2.1.3: The platform "linux" is incompatible with this module.
+info "fsevents@2.1.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info fsevents@2.3.2: The platform "linux" is incompatible with this module.
+info "fsevents@2.3.2" is an optional dependency and failed compatibility check. Excluding it from installation.
+[4/5] Linking dependencies...
+warning " > eslint-plugin-sonarjs@0.5.0" has incorrect peer dependency "eslint@^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0".
+warning "jest > @jest/core > jest-config@26.6.0" has unmet peer dependency "ts-node@>=9.0.0".
+warning "jest > @jest/core > jest-config > jest-environment-jsdom > jsdom@16.4.0" has unmet peer dependency "canvas@^2.5.0".
+warning "jest > @jest/core > jest-config > jest-environment-jsdom > jsdom > ws@7.3.1" has unmet peer dependency "bufferutil@^4.0.1".
+warning "jest > @jest/core > jest-config > jest-environment-jsdom > jsdom > ws@7.3.1" has unmet peer dependency "utf-8-validate@^5.0.2".
+warning "workspace-aggregator-e83feac7-130c-463e-90c2-e3cb0635053d > vuetifyjs.com > @vue/cli-service@4.5.4" has unmet peer dependency "@vue/compiler-sfc@^3.0.0-beta.14".
+warning "workspace-aggregator-e83feac7-130c-463e-90c2-e3cb0635053d > vuetifyjs.com > sass-loader@10.2.0" has unmet peer dependency "fibers@>= 3.1.0".
+warning "workspace-aggregator-e83feac7-130c-463e-90c2-e3cb0635053d > vuetifyjs.com > sass-loader@10.2.0" has unmet peer dependency "node-sass@^4.0.0 || ^5.0.0 || ^6.0.0".
+warning "workspace-aggregator-e83feac7-130c-463e-90c2-e3cb0635053d > vuetifyjs.com > @vue/cli-plugin-eslint > eslint-loader@2.2.1" has incorrect peer dependency "eslint@>=1.6.0 <7.0.0".
+[5/5] Building fresh packages...
+$ node scripts/post-install.js
+Done in 50.70s.
+
+▶  Bootstrapping with lerna...
+lerna notice cli v3.16.2
+lerna info ci enabled
+lerna info bootstrap root only
+yarn install v1.12.3
+[1/5] Validating package.json...
+[2/5] Resolving packages...
+success Already up-to-date.
+$ node scripts/post-install.js
+Done in 0.64s.
+
+┌────────────────────────────────────────────────────────────┐
+│  Ensuring cross-env availability                           │
+└────────────────────────────────────────────────────────────┘
+
+▶  cross-env not found globally, installing...
+added 7 packages from 5 contributors in 0.694s
+
+┌────────────────────────────────────────────────────────────┐
+│  Ensuring @cypress/code-coverage availability              │
+└────────────────────────────────────────────────────────────┘
+
+▶   @cypress/code-coverage not found, installing...
+├─ umd@3.0.3
+├─ undeclared-identifiers@1.1.3
+└─ watchify@3.11.1
+$ node scripts/post-install.js
+Done in 17.52s.
+
+┌────────────────────────────────────────────────────────────┐
+│  Ensuring vite-plugin-istanbul availability                │
+└────────────────────────────────────────────────────────────┘
+
+▶   vite-plugin-istanbul not found, installing...
+├─ source-map-js@0.6.2
+├─ vite-plugin-istanbul@2.1.0
+└─ vite@2.3.6
+$ node scripts/post-install.js
+Done in 18.64s.
+
+┌────────────────────────────────────────────────────────────┐
+│  Detecting test infrastructure era                         │
+└────────────────────────────────────────────────────────────┘
+IS_JEST:                    true
+HAS_TEST_COVERAGE_SCRIPT:   true
+
+┌────────────────────────────────────────────────────────────┐
+│  Using test:coverage script                                │
+└────────────────────────────────────────────────────────────┘
+yarn run v1.12.3
+$ yarn test --coverage
+$ node build/run-tests.js --coverage
+$ cross-env NODE_ENV=test jest --coverage
+PASS Vuetify src/util/__tests__/dateTimeUtils.spec.ts
+PASS Vuetify src/components/VApp/__tests__/VApp.spec.ts
+PASS Vuetify src/components/VGrid/__tests__/VLayout.spec.ts
+PASS Vuetify src/directives/intersect/__tests__/intersect.spec.ts
+PASS Vuetify src/components/VDatePicker/util/__tests__/sanitizeDateString.spec.ts
+PASS Vuetify src/components/VThemeProvider/__tests__/VThemeProvider.spec.ts
+PASS Vuetify src/components/VList/__tests__/VListItemAction.spec.ts
+PASS Vuetify src/locale/__tests__/index.spec.ts
+PASS Vuetify src/directives/mutate/__tests__/mutate.spec.ts
+PASS Vuetify src/components/VCalendar/mixins/__tests__/times.spec.ts
+PASS Vuetify src/components/VDatePicker/util/__tests__/pad.spec.ts
+PASS Vuetify src/services/goto/__tests__/easing-patterns.spec.ts
+PASS Vuetify src/components/VMain/__tests__/VMain.spec.ts
+PASS Vuetify src/directives/click-outside/__tests__/click-outside.spec.ts
+PASS Vuetify src/components/VDataTable/__tests__/RowGroup.spec.ts
+PASS Vuetify src/components/VGrid/__tests__/VFlex.spec.ts
+PASS Vuetify src/mixins/roundable/__tests__/roundable.spec.ts
+PASS Vuetify src/services/application/__tests__/application.spec.ts
+PASS Vuetify src/components/VDatePicker/util/__tests__/createNativeLocaleFormatter.spec.ts
+PASS Vuetify src/components/VGrid/__tests__/VGrid.spec.ts
+PASS Vuetify src/components/VCalendar/mixins/__tests__/mouse.spec.ts
+PASS Vuetify src/directives/resize/__tests__/resize.spec.ts
+PASS Vuetify src/directives/click-outside/__tests__/click-outside-shadow-dom.spec.ts
+PASS Vuetify src/components/VTreeview/util/__tests__/filterTreeItems.spec.ts
+PASS Vuetify src/components/VDatePicker/util/__tests__/monthChange.spec.ts
+PASS Vuetify src/components/VTimeline/__tests__/VTimeline.spec.ts
+PASS Vuetify src/components/VSubheader/__tests__/VSubheader.spec.ts
+PASS Vuetify src/mixins/proxyable/__tests__/proxyable.spec.ts
+PASS Vuetify src/mixins/elevatable/__tests__/elevatable.spec.ts
+PASS Vuetify src/components/VDataTable/__tests__/VSimpleTable.spec.ts
+PASS Vuetify src/util/__tests__/dom.spec.ts
+PASS Vuetify src/components/VCounter/__tests__/VCounter.spec.ts
+PASS Vuetify src/components/VCalendar/util/__tests__/props.spec.ts
+PASS Vuetify src/components/VData/__tests__/VData.spec.ts
+PASS Vuetify src/services/icons/__tests__/icons.spec.ts
+PASS Vuetify src/mixins/dependent/__tests__/dependent.spec.ts
+PASS Vuetify src/components/VDivider/__tests__/VDivider.spec.ts
+PASS Vuetify src/util/__tests__/mergeData.spec.ts
+PASS Vuetify src/directives/scroll/__tests__/scroll.spec.ts
+PASS Vuetify src/components/VParallax/__tests__/VParallax.spec.ts
+PASS Vuetify src/util/__tests__/console.spec.ts
+PASS Vuetify src/components/VCalendar/util/__tests__/events.spec.ts
+PASS Vuetify src/components/VDataTable/__tests__/MobileRow.spec.ts
+PASS Vuetify src/components/VCalendar/modes/__tests__/common.spec.ts
+PASS Vuetify src/components/VAvatar/__tests__/VAvatar.spec.ts
+PASS Vuetify src/components/VGrid/__tests__/VCol.spec.ts
+PASS Vuetify src/services/theme/__tests__/theme-utils.spec.ts
+PASS Vuetify src/components/VCalendar/util/__tests__/timestamp.spec.ts
+PASS Vuetify src/components/VBreadcrumbs/__tests__/VBreadcrumbsItem.spec.ts
+PASS Vuetify src/components/VBtnToggle/__tests__/VBtnToggle.spec.ts
+PASS Vuetify src/components/VItemGroup/__tests__/VItem.spec.ts
+PASS Vuetify src/mixins/menuable/__tests__/menuable.spec.ts
+PASS Vuetify src/components/VResponsive/__tests__/VResponsive.spec.ts
+PASS Vuetify src/mixins/activatable/__tests__/activatable.spec.ts
+PASS Vuetify src/components/VList/__tests__/VList.spec.ts
+PASS Vuetify src/components/VVirtualScroll/__tests__/VVirtualScroll.spec.ts
+PASS Vuetify src/directives/color/__tests__/color.spec.ts
+PASS Vuetify src/util/__tests__/helpers.spec.ts
+PASS Vuetify src/mixins/routable/__tests__/routable.spec.ts
+PASS Vuetify src/components/VPicker/__tests__/VPicker.spec.ts
+PASS Vuetify src/components/VSnackbar/__tests__/VSnackbar.spec.ts
+PASS Vuetify src/components/VGrid/__tests__/VContainer.spec.ts
+PASS Vuetify src/components/VTabs/__tests__/VTab.spec.ts
+PASS Vuetify src/directives/ripple/__tests__/ripple.spec.ts
+PASS Vuetify src/components/VExpansionPanel/__tests__/VExpansionPanels.spec.ts
+PASS Vuetify src/mixins/validatable/__tests__/validatable.spec.ts
+PASS Vuetify src/components/VDatePicker/__tests__/VDatePickerTitle.spec.ts
+PASS Vuetify src/components/VProgressCircular/__tests__/VProgressCircular.spec.ts
+PASS Vuetify src/components/VDataTable/__tests__/Row.spec.ts
+PASS Vuetify src/components/VTreeview/__tests__/VTreeviewNode.spec.ts
+PASS Vuetify src/mixins/applicationable/__tests__/applicationable.spec.ts
+PASS Vuetify src/components/VExpansionPanel/__tests__/VExpansionPanelHeader.spec.ts
+PASS Vuetify src/components/VCalendar/mixins/__tests__/calendar-base.spec.ts
+PASS Vuetify src/components/VExpansionPanel/__tests__/VExpansionPanel.spec.ts
+PASS Vuetify src/components/VSkeletonLoader/__tests__/VSkeletonLoader.spec.ts
+PASS Vuetify src/components/VDataTable/__tests__/VVirtualTable.spec.ts
+PASS Vuetify src/components/VList/__tests__/VListItemGroup.spec.ts
+PASS Vuetify src/components/VSystemBar/__tests__/VSystemBar.spec.ts
+PASS Vuetify src/services/presets/__tests__/presets.spec.ts
+PASS Vuetify src/mixins/intersectable/__tests__/intersectable.spec.ts
+PASS Vuetify src/components/VFooter/__tests__/VFooter.spec.ts
+PASS Vuetify src/components/VList/__tests__/VListItemAvatar.spec.ts
+PASS Vuetify src/components/VLazy/__tests__/VLazy.spec.ts
+PASS Vuetify src/util/__tests__/colorUtils.spec.ts
+PASS Vuetify src/components/VStepper/__tests__/VStepperStep.spec.ts
+PASS Vuetify src/components/VChip/__tests__/VChip.spec.ts
+PASS Vuetify src/components/VCalendar/mixins/__tests__/calendar-with-events.spec.ts
+PASS Vuetify src/components/VBadge/__tests__/VBadge.spec.ts
+PASS Vuetify src/mixins/rippleable/__tests__/rippleable.spec.ts
+PASS Vuetify src/components/VBanner/__tests__/VBanner.spec.ts
+PASS Vuetify src/directives/touch/__tests__/touch.spec.ts
+PASS Vuetify src/components/VToolbar/__tests__/VToolbar.spec.ts
+PASS Vuetify src/components/VStepper/__tests__/VStepper.spec.ts
+PASS Vuetify src/components/VLabel/__tests__/VLabel.spec.ts
+PASS Vuetify src/services/lang/__tests__/lang.spec.ts
+PASS Vuetify src/components/VDataTable/mixins/__tests__/header.spec.ts
+PASS Vuetify src/mixins/colorable/__tests__/colorable.spec.ts
+PASS Vuetify src/components/VCheckbox/__tests__/VSimpleCheckbox.spec.ts
+PASS Vuetify src/components/VTimeline/__tests__/VTimelineItem.spec.ts
+PASS Vuetify src/components/VRadioGroup/__tests__/VRadioGroup.spec.ts
+PASS Vuetify src/components/VProgressLinear/__tests__/VProgressLinear.spec.ts
+PASS Vuetify src/mixins/detachable/__tests__/detachable.spec.ts
+PASS Vuetify src/components/VMessages/__tests__/VMessages.spec.ts
+PASS Vuetify src/components/VIcon/__tests__/VIcon.spec.ts
+PASS Vuetify src/components/VTabs/__tests__/VTabsBar.spec.ts
+PASS Vuetify src/components/VChipGroup/__tests__/VChipGroup.spec.ts
+PASS Vuetify src/components/VAppBar/__tests__/VAppBarNavIcon.spec.ts
+PASS Vuetify src/components/VColorPicker/util/__tests__/index.spec.ts
+PASS Vuetify src/components/VTabs/__tests__/VTabsSlider.spec.ts
+PASS Vuetify src/components/VAlert/__tests__/VAlert.spec.ts
+PASS Vuetify src/mixins/overlayable/__tests__/overlayable.spec.ts
+PASS Vuetify src/components/VInput/__tests__/VInput.spec.ts
+PASS Vuetify src/components/VOverlay/__tests__/VOverlay.spec.ts
+PASS Vuetify src/components/VRadioGroup/__tests__/VRadio.spec.ts
+PASS Vuetify src/components/VCard/__tests__/VCard.spec.ts
+PASS Vuetify src/components/VImg/__tests__/VImg.spec.ts
+PASS Vuetify src/components/VBtn/__tests__/VBtn.spec.ts
+PASS Vuetify src/components/VColorPicker/__tests__/VColorPickerCanvas.spec.ts
+PASS Vuetify src/services/goto/__tests__/goto.spec.ts
+PASS Vuetify src/components/VPagination/__tests__/VPagination.spec.ts
+PASS Vuetify src/components/VColorPicker/__tests__/VColorPickerEdit.spec.ts
+PASS Vuetify src/components/VTooltip/__tests__/VTooltip.spec.ts
+PASS Vuetify src/components/VCalendar/mixins/__tests__/calendar-with-intervals.spec.ts
+PASS Vuetify src/components/VRating/__tests__/VRating.spec.ts
+PASS Vuetify src/mixins/selectable/__tests__/selectable.spec.ts
+PASS Vuetify src/components/VBreadcrumbs/__tests__/VBreadcrumbs.spec.ts
+PASS Vuetify src/components/VDatePicker/__tests__/VDatePickerMonthTable.spec.ts
+PASS Vuetify src/components/VSlideGroup/__tests__/VSlideGroup.spec.ts
+PASS Vuetify src/components/VList/__tests__/VListItem.spec.ts
+PASS Vuetify src/components/VSparkline/__tests__/VSparkline.spec.ts
+PASS Vuetify src/mixins/bootable/__tests__/bootable.spec.ts
+PASS Vuetify src/components/VSheet/__tests__/VSheet.spec.ts
+PASS Vuetify src/components/VDatePicker/__tests__/VDatePickerHeader.spec.ts
+PASS Vuetify src/components/VSelect/__tests__/VSelectList.spec.ts
+PASS Vuetify src/components/VSpeedDial/__tests__/VSpeedDial.spec.ts
+PASS Vuetify src/components/VCarousel/__tests__/VCarouselItem.spec.ts
+PASS Vuetify src/components/VItemGroup/__tests__/VItemGroup.spec.ts
+PASS Vuetify src/components/VBottomNavigation/__tests__/VBottomNavigation.spec.ts
+PASS Vuetify src/components/VDatePicker/__tests__/VDatePickerYears.spec.ts
+PASS Vuetify src/components/VList/__tests__/VListGroup.spec.ts
+PASS Vuetify src/services/theme/__tests__/theme.spec.ts
+PASS Vuetify src/components/VWindow/__tests__/VWindowItem.spec.ts
+PASS Vuetify src/components/VTimePicker/__tests__/VTimePickerClock.spec.ts
+PASS Vuetify src/components/VColorPicker/__tests__/VColorPickerPreview.spec.ts
+PASS Vuetify src/components/VTabs/__tests__/VTabs.spec.ts
+PASS Vuetify src/components/VTimePicker/__tests__/VTimePickerTitle.spec.ts
+PASS Vuetify src/components/VSwitch/__tests__/VSwitch.spec.ts
+PASS Vuetify src/components/VWindow/__tests__/VWindow.spec.ts
+PASS Vuetify src/components/VForm/__tests__/VForm.spec.ts
+PASS Vuetify src/components/VDialog/__tests__/VDialog.spec.ts
+PASS Vuetify src/components/VOverflowBtn/__tests__/VOverflowBtn.spec.ts
+PASS Vuetify src/components/VDatePicker/__tests__/VDatePickerDateTable.spec.ts
+PASS Vuetify src/components/VDataTable/__tests__/VEditDialog.spec.ts
+PASS Vuetify src/components/VCheckbox/__tests__/VCheckbox.spec.ts
+PASS Vuetify src/components/VCarousel/__tests__/VCarousel.spec.ts
+PASS Vuetify src/components/VHover/__tests__/VHover.spec.ts
+PASS Vuetify src/components/VDataIterator/__tests__/VDataFooter.spec.ts
+PASS Vuetify src/components/VTextarea/__tests__/VTextarea.spec.ts
+PASS Vuetify src/components/VMenu/__tests__/VMenu.spec.ts
+PASS Vuetify src/components/VCalendar/__tests__/VCalendarCategory.spec.ts
+PASS Vuetify src/components/VColorPicker/__tests__/VColorPicker.spec.ts
+PASS Vuetify src/components/VCalendar/__tests__/VCalendarDaily.spec.ts
+PASS Vuetify src/components/VRangeSlider/__tests__/VRangeSlider.spec.ts
+PASS Vuetify src/components/VFileInput/__tests__/VFileInput.spec.ts
+PASS Vuetify src/components/VTextField/__tests__/VTextField.spec.ts
+PASS Vuetify src/components/VDataTable/__tests__/VDataTableHeader.spec.ts
+PASS Vuetify src/components/VDataIterator/__tests__/VDataIterator.spec.ts
+PASS Vuetify src/components/VAutocomplete/__tests__/VAutocomplete.spec.ts
+PASS Vuetify src/components/VTreeview/__tests__/VTreeview.spec.ts
+PASS Vuetify src/components/VCombobox/__tests__/VCombobox.spec.ts
+PASS Vuetify src/components/VDatePicker/__tests__/VDatePicker.month.spec.ts
+PASS Vuetify src/components/VSelect/__tests__/VSelect4.spec.ts
+PASS Vuetify src/components/VCalendar/__tests__/VCalendar.spec.ts
+PASS Vuetify src/components/VSelect/__tests__/VSelect3.spec.ts
+PASS Vuetify src/components/VAutocomplete/__tests__/VAutocomplete2.spec.ts
+PASS Vuetify src/components/VSelect/__tests__/VSelect.spec.ts
+PASS Vuetify src/components/VAutocomplete/__tests__/VAutocomplete3.spec.ts
+PASS Vuetify src/components/VCombobox/__tests__/VCombobox-multiple.spec.ts
+PASS Vuetify src/components/VSlider/__tests__/VSlider.spec.ts
+PASS Vuetify src/components/VStepper/__tests__/VStepperContent.spec.ts
+PASS Vuetify src/mixins/scrollable/__tests__/scrollable.spec.ts
+PASS Vuetify src/components/VSelect/__tests__/VSelect2.spec.ts
+PASS Vuetify src/components/VTimePicker/__tests__/VTimePicker.spec.ts
+PASS Vuetify src/mixins/mobile/__tests__/mobile.spec.ts
+PASS Vuetify src/components/VDatePicker/__tests__/VDatePicker.date.spec.ts
+PASS Vuetify src/services/breakpoint/__tests__/breakpoint.spec.ts (5.322 s)
+PASS Vuetify src/components/VAppBar/__tests__/VAppBar.spec.ts (7.212 s)
+PASS Vuetify src/components/VNavigationDrawer/__tests__/VNavigationDrawer.spec.ts (10.926 s)
+PASS Vuetify src/components/VDataTable/__tests__/VDataTable.spec.ts (15.092 s)
+A worker process has failed to exit gracefully and has been force exited. This is likely caused by tests leaking due to improper teardown. Try running with --runInBand --detectOpenHandles to find leaks.
+-----------------------------------|---------|----------|---------|---------|---------------------------------------------------------------------------------
+File                               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                                                               
+-----------------------------------|---------|----------|---------|---------|---------------------------------------------------------------------------------
+All files                          |   86.02 |    80.41 |   90.29 |   87.52 |                                                                                 
+ src                               |   31.25 |     2.63 |      20 |   32.79 |                                                                                 
+  entry-lib.ts                     |       0 |        0 |       0 |       0 |                                                                                 
+  framework.ts                     |   76.92 |    33.33 |      50 |      80 | 54-65                                                                           
+  index.ts                         |       0 |        0 |       0 |       0 | 7-18                                                                            
+  install.ts                       |       0 |        0 |       0 |       0 | 6-70                                                                            
+ src/components                    |       0 |        0 |       0 |       0 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VAlert             |      96 |    84.09 |     100 |   97.67 |                                                                                 
+  VAlert.ts                        |      96 |    84.09 |     100 |   97.67 | 244                                                                             
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VApp               |      80 |       75 |     100 |      80 |                                                                                 
+  VApp.ts                          |      80 |       75 |     100 |      80 | 39                                                                              
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VAppBar            |   84.04 |    88.46 |   84.38 |   82.93 |                                                                                 
+  VAppBar.ts                       |    98.7 |    93.62 |     100 |   98.48 | 223                                                                             
+  VAppBarNavIcon.ts                |     100 |      100 |     100 |     100 |                                                                                 
+  VAppBarTitle.ts                  |       0 |        0 |       0 |       0 | 13-63                                                                           
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VAutocomplete      |   95.74 |    91.85 |   96.15 |   96.88 |                                                                                 
+  VAutocomplete.ts                 |   95.74 |    91.85 |   96.15 |   96.88 | 83-85,197,211                                                                   
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VAvatar            |     100 |      100 |     100 |     100 |                                                                                 
+  VAvatar.ts                       |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VBadge             |   84.09 |    70.83 |     100 |   94.44 |                                                                                 
+  VBadge.ts                        |   84.09 |    70.83 |     100 |   94.44 | 80,87                                                                           
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VBanner            |     100 |      100 |     100 |     100 |                                                                                 
+  VBanner.ts                       |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VBottomNavigation  |     100 |      100 |     100 |     100 |                                                                                 
+  VBottomNavigation.ts             |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VBottomSheet       |       0 |      100 |       0 |       0 |                                                                                 
+  VBottomSheet.ts                  |       0 |      100 |       0 |       0 | 24                                                                              
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VBreadcrumbs       |     100 |      100 |     100 |     100 |                                                                                 
+  VBreadcrumbs.ts                  |     100 |      100 |     100 |     100 |                                                                                 
+  VBreadcrumbsDivider.ts           |       0 |        0 |       0 |       0 |                                                                                 
+  VBreadcrumbsItem.ts              |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VBtn               |     100 |      100 |     100 |     100 |                                                                                 
+  VBtn.ts                          |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VBtnToggle         |     100 |      100 |     100 |     100 |                                                                                 
+  VBtnToggle.ts                    |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VCalendar          |   73.44 |    58.43 |   74.11 |   73.72 |                                                                                 
+  VCalendar.ts                     |   63.46 |    46.46 |   64.29 |   62.75 | 113-121,138,150-170,214-219,224-228,237,239,253-292,309,313,318-319,341,372-376 
+  VCalendarCategory.ts             |   89.74 |       80 |   80.95 |   88.89 | 62,90,114,132                                                                   
+  VCalendarDaily.ts                |   83.02 |     87.5 |   77.14 |    89.8 | 86,124,171,209,246                                                              
+  VCalendarMonthly.ts              |     100 |      100 |     100 |     100 |                                                                                 
+  VCalendarWeekly.ts               |   79.63 |    64.29 |      72 |   78.85 | 32,70,99,131,149,162-165,187-196,208                                            
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VCalendar/mixins   |   76.21 |    61.93 |   86.17 |    77.3 |                                                                                 
+  calendar-base.ts                 |   85.19 |    70.59 |    87.5 |   85.19 | 46,52-54                                                                        
+  calendar-with-events.ts          |   60.23 |    50.42 |    76.6 |   61.99 | 173-195,204,238-245,271-283,305-313,334,355-402,462,482-492,498-500,514-516     
+  calendar-with-intervals.ts       |     100 |    88.24 |     100 |     100 | 44,80                                                                           
+  mouse.ts                         |     100 |    63.16 |     100 |     100 | 50-55,68                                                                        
+  times.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/components/VCalendar/modes    |   32.09 |    20.83 |   45.71 |    32.4 |                                                                                 
+  column.ts                        |      20 |        0 |       0 |      20 | 7-19                                                                            
+  common.ts                        |    67.8 |    51.43 |   86.67 |   67.86 | 44,52,57-73,101-102,124-125,132                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+  stack.ts                         |   14.53 |     3.39 |   17.65 |   15.18 | 55-98,108-196,203-216,224-254                                                   
+ src/components/VCalendar/util     |   87.63 |    73.37 |   90.57 |   87.77 |                                                                                 
+  events.ts                        |     100 |       95 |     100 |     100 | 25                                                                              
+  parser.ts                        |      90 |    86.67 |     100 |    87.5 | 29                                                                              
+  props.ts                         |   12.12 |        0 |      50 |    12.9 | 145,192,218-260                                                                 
+  timestamp.ts                     |    97.4 |    84.43 |    97.3 |    97.3 | 76,116,123,133,141,234                                                          
+ src/components/VCard              |   78.95 |     87.5 |     100 |   77.78 |                                                                                 
+  VCard.ts                         |     100 |     87.5 |     100 |     100 | 83                                                                              
+  index.ts                         |       0 |      100 |     100 |       0 | 4-7                                                                             
+ src/components/VCarousel          |   89.36 |    76.92 |   95.24 |   88.37 |                                                                                 
+  VCarousel.ts                     |    87.5 |    76.92 |   94.44 |   86.11 | 102-106,191                                                                     
+  VCarouselItem.ts                 |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VCheckbox          |    92.5 |    88.57 |     100 |   96.77 |                                                                                 
+  VCheckbox.ts                     |      88 |       80 |     100 |   94.74 | 78                                                                              
+  VSimpleCheckbox.ts               |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VChip              |     100 |    90.48 |     100 |     100 |                                                                                 
+  VChip.ts                         |     100 |    90.48 |     100 |     100 | 135,184                                                                         
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VChipGroup         |     100 |       50 |     100 |     100 |                                                                                 
+  VChipGroup.ts                    |     100 |       50 |     100 |     100 | 42                                                                              
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VColorPicker       |   93.39 |    72.73 |   94.64 |   95.45 |                                                                                 
+  VColorPicker.ts                  |   94.44 |      100 |   91.67 |   94.12 | 125                                                                             
+  VColorPickerCanvas.ts            |   91.11 |       75 |   92.31 |   97.44 | 17                                                                              
+  VColorPickerEdit.ts              |   94.59 |       75 |     100 |   93.94 | 88,93                                                                           
+  VColorPickerPreview.ts           |     100 |       80 |     100 |     100 | 36-38                                                                           
+  VColorPickerSwatches.ts          |   92.31 |       25 |    87.5 |   92.31 | 77                                                                              
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VColorPicker/util  |      90 |    82.26 |     100 |   98.25 |                                                                                 
+  index.ts                         |      90 |    82.26 |     100 |   98.25 | 167                                                                             
+ src/components/VCombobox          |   88.04 |    83.33 |   92.31 |   91.57 |                                                                                 
+  VCombobox.ts                     |   88.04 |    83.33 |   92.31 |   91.57 | 35,43,114,151-154,162                                                           
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VContent           |       0 |      100 |       0 |       0 |                                                                                 
+  VContent.ts                      |       0 |      100 |       0 |       0 | 13-23                                                                           
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VCounter           |     100 |      100 |     100 |     100 |                                                                                 
+  VCounter.ts                      |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VData              |   91.23 |    86.81 |    90.2 |   92.38 |                                                                                 
+  VData.ts                         |   91.23 |    86.81 |    90.2 |   92.38 | 211,235,247-250,295-299                                                         
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VDataIterator      |   80.57 |    73.81 |   85.51 |   83.11 |                                                                                 
+  VDataFooter.ts                   |   97.62 |    94.87 |     100 |   97.37 | 149                                                                             
+  VDataIterator.ts                 |   75.19 |    64.37 |   80.77 |   78.18 | 158-169,200,204,216-223,234,272,301,336,338-341                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VDataTable         |   88.79 |    84.47 |    85.4 |   90.97 |                                                                                 
+  MobileRow.ts                     |     100 |      100 |     100 |     100 |                                                                                 
+  Row.ts                           |   86.67 |       80 |     100 |   86.67 | 32,40                                                                           
+  RowGroup.ts                      |     100 |      100 |     100 |     100 |                                                                                 
+  VDataTable.ts                    |   86.59 |    78.35 |      84 |   90.21 | 139,145,206-219,340,418,552,630-631,633-634                                     
+  VDataTableHeader.ts              |     100 |      100 |     100 |     100 |                                                                                 
+  VDataTableHeaderDesktop.ts       |   88.64 |    79.49 |   77.78 |   92.31 | 16-17,72                                                                        
+  VDataTableHeaderMobile.ts        |      92 |      100 |      90 |    91.3 | 40-41                                                                           
+  VEditDialog.ts                   |     100 |       90 |     100 |     100 | 136                                                                             
+  VSimpleTable.ts                  |     100 |      100 |     100 |     100 |                                                                                 
+  VVirtualTable.ts                 |   79.31 |      100 |   77.27 |   79.31 | 38,58,82,101,126-127                                                            
+  index.ts                         |       0 |      100 |     100 |       0 | 9                                                                               
+ src/components/VDataTable/mixins  |    87.5 |      100 |      80 |    87.5 |                                                                                 
+  header.ts                        |    87.5 |      100 |      80 |    87.5 | 26                                                                              
+ src/components/VDatePicker        |   93.09 |     85.6 |   94.79 |   93.33 |                                                                                 
+  VDatePicker.ts                   |    93.7 |    87.65 |   94.23 |   94.35 | 174,242,257,268,271-272,336                                                     
+  VDatePickerDateTable.ts          |   97.96 |     87.1 |   92.86 |   97.92 | 46                                                                              
+  VDatePickerHeader.ts             |     100 |    96.15 |     100 |     100 | 78                                                                              
+  VDatePickerMonthTable.ts         |     100 |       75 |     100 |     100 | 26                                                                              
+  VDatePickerTitle.ts              |     100 |      100 |     100 |     100 |                                                                                 
+  VDatePickerYears.ts              |      68 |    52.38 |    87.5 |   66.67 | 59-67                                                                           
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VDatePicker/mixins |   95.38 |    91.46 |     100 |      95 |                                                                                 
+  date-picker-table.ts             |   95.38 |    91.46 |     100 |      95 | 152,160,166                                                                     
+ src/components/VDatePicker/util   |     100 |    94.12 |     100 |     100 |                                                                                 
+  createNativeLocaleFormatter.ts   |     100 |      100 |     100 |     100 |                                                                                 
+  eventHelpers.ts                  |     100 |       75 |     100 |     100 | 15                                                                              
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+  isDateAllowed.ts                 |     100 |    83.33 |     100 |     100 | 4                                                                               
+  monthChange.ts                   |     100 |      100 |     100 |     100 |                                                                                 
+  pad.ts                           |     100 |      100 |     100 |     100 |                                                                                 
+  sanitizeDateString.ts            |     100 |      100 |     100 |     100 |                                                                                 
+ src/components/VDialog            |      72 |    47.69 |   77.42 |   77.61 |                                                                                 
+  VDialog.ts                       |      72 |    47.69 |   77.42 |   77.61 | 105,130-131,151,166-171,217-218,226-245                                         
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VDivider           |     100 |      100 |     100 |     100 |                                                                                 
+  VDivider.ts                      |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VExpansionPanel    |   97.73 |    93.75 |   96.97 |    97.5 |                                                                                 
+  VExpansionPanel.ts               |     100 |      100 |     100 |     100 |                                                                                 
+  VExpansionPanelContent.ts        |     100 |      100 |     100 |     100 |                                                                                 
+  VExpansionPanelHeader.ts         |   92.86 |    83.33 |   91.67 |   92.86 | 66                                                                              
+  VExpansionPanels.ts              |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VFileInput         |   87.34 |    77.14 |   94.12 |   91.18 |                                                                                 
+  VFileInput.ts                    |   87.34 |    77.14 |   94.12 |   91.18 | 178-180,234-237                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VFooter            |     100 |    96.67 |     100 |     100 |                                                                                 
+  VFooter.ts                       |     100 |    96.67 |     100 |     100 | 58                                                                              
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VForm              |   93.48 |       75 |      92 |   97.22 |                                                                                 
+  VForm.ts                         |   93.48 |       75 |      92 |   97.22 | 140                                                                             
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VGrid              |   56.67 |    61.82 |   55.56 |   59.26 |                                                                                 
+  VCol.ts                          |     100 |    94.12 |     100 |     100 | 51                                                                              
+  VContainer.ts                    |      40 |    21.43 |      50 |   42.86 | 32-43,48-49                                                                     
+  VFlex.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+  VLayout.ts                       |       0 |        0 |       0 |       0 |                                                                                 
+  VRow.ts                          |       0 |        0 |       0 |       0 | 8-129                                                                           
+  VSpacer.ts                       |       0 |        0 |       0 |       0 |                                                                                 
+  grid.ts                          |     100 |    93.75 |     100 |     100 | 23                                                                              
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VHover             |     100 |    94.44 |     100 |     100 |                                                                                 
+  VHover.ts                        |     100 |    94.44 |     100 |     100 | 64                                                                              
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VIcon              |     100 |    93.02 |     100 |     100 |                                                                                 
+  VIcon.ts                         |     100 |    93.02 |     100 |     100 | 70,175,242                                                                      
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VImg               |   91.89 |    86.25 |     100 |   94.03 |                                                                                 
+  VImg.ts                          |   91.89 |    86.25 |     100 |   94.03 | 182-186                                                                         
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VInput             |    94.2 |    92.73 |   96.97 |   93.65 |                                                                                 
+  VInput.ts                        |    94.2 |    92.73 |   96.97 |   93.65 | 124-126,199-200                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VItemGroup         |   97.94 |    96.51 |   96.97 |   98.78 |                                                                                 
+  VItem.ts                         |   93.33 |    92.86 |   66.67 |   93.33 | 27                                                                              
+  VItemGroup.ts                    |   98.78 |    97.22 |     100 |     100 | 65-68                                                                           
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VLabel             |     100 |      100 |     100 |     100 |                                                                                 
+  VLabel.ts                        |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VLazy              |     100 |    83.33 |     100 |     100 |                                                                                 
+  VLazy.ts                         |     100 |    83.33 |     100 |     100 | 57                                                                              
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VList              |   87.96 |    87.04 |   90.48 |    91.4 |                                                                                 
+  VList.ts                         |   35.71 |       50 |      50 |   45.45 | 72-83                                                                           
+  VListGroup.ts                    |   97.37 |    86.36 |     100 |     100 | 127-129,176,185                                                                 
+  VListItem.ts                     |   94.44 |    97.67 |     100 |   93.75 | 174-175                                                                         
+  VListItemAction.ts               |   83.33 |    85.71 |     100 |     100 | 15                                                                              
+  VListItemAvatar.ts               |     100 |       75 |     100 |     100 | 32                                                                              
+  VListItemGroup.ts                |     100 |      100 |     100 |     100 |                                                                                 
+  VListItemIcon.ts                 |     100 |       50 |     100 |     100 | 11                                                                              
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/components/VMain              |     100 |      100 |     100 |     100 |                                                                                 
+  VMain.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VMenu              |   79.29 |    69.23 |   77.55 |   83.78 |                                                                                 
+  VMenu.ts                         |   79.29 |    69.23 |   77.55 |   83.78 | 113,127,225,253-254,270-272,320-322,364-365,369-370,381-394,449-451             
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VMessages          |     100 |      100 |     100 |     100 |                                                                                 
+  VMessages.ts                     |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VNavigationDrawer  |    87.5 |    90.91 |   93.88 |   88.57 |                                                                                 
+  VNavigationDrawer.ts             |    87.5 |    90.91 |   93.88 |   88.57 | 279-280,315-325,333,355-361,381                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VOverflowBtn       |   68.75 |    53.33 |   91.67 |   68.97 |                                                                                 
+  VOverflowBtn.ts                  |   68.75 |    53.33 |   91.67 |   68.97 | 72-77,84-85,99-102                                                              
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VOverlay           |     100 |      100 |     100 |     100 |                                                                                 
+  VOverlay.ts                      |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VPagination        |   91.38 |    92.68 |     100 |   91.07 |                                                                                 
+  VPagination.ts                   |   91.38 |    92.68 |     100 |   91.07 | 93,120-121,123-124                                                              
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VParallax          |   68.42 |    66.67 |   71.43 |   72.22 |                                                                                 
+  VParallax.ts                     |   68.42 |    66.67 |   71.43 |   72.22 | 62-63,66-67,74                                                                  
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VPicker            |     100 |    91.67 |     100 |     100 |                                                                                 
+  VPicker.ts                       |     100 |    91.67 |     100 |     100 | 69                                                                              
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VProgressCircular  |     100 |      100 |     100 |     100 |                                                                                 
+  VProgressCircular.ts             |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VProgressLinear    |   97.83 |     92.5 |     100 |     100 |                                                                                 
+  VProgressLinear.ts               |   97.83 |     92.5 |     100 |     100 | 213,244,246                                                                     
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VRadioGroup        |   83.72 |    77.14 |   95.83 |      85 |                                                                                 
+  VRadio.ts                        |   89.66 |    77.42 |   94.74 |   92.59 | 89,128                                                                          
+  VRadioGroup.ts                   |   71.43 |       75 |     100 |   69.23 | 83-88                                                                           
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VRangeSlider       |   85.86 |    71.43 |   92.31 |   86.67 |                                                                                 
+  VRangeSlider.ts                  |   85.86 |    71.43 |   92.31 |   86.67 | 186-188,204-216,223                                                             
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VRating            |     100 |    98.28 |     100 |     100 |                                                                                 
+  VRating.ts                       |     100 |    98.28 |     100 |     100 | 180                                                                             
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VResponsive        |     100 |      100 |     100 |     100 |                                                                                 
+  VResponsive.ts                   |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VSelect            |   89.24 |    85.31 |   93.52 |   91.21 |                                                                                 
+  VSelect.ts                       |   89.32 |    86.27 |   95.24 |   91.67 | 179,223,330-331,572-573,596,600,705,713-715,737-749,770-773                     
+  VSelectList.ts                   |   88.89 |    81.13 |    87.5 |   89.09 | 85,168,189-200,217                                                              
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VSheet             |     100 |      100 |     100 |     100 |                                                                                 
+  VSheet.ts                        |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VSkeletonLoader    |   97.83 |    97.06 |     100 |     100 |                                                                                 
+  VSkeletonLoader.ts               |   97.83 |    97.06 |     100 |     100 | 173                                                                             
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VSlideGroup        |   67.65 |    73.49 |   81.58 |   68.37 |                                                                                 
+  VSlideGroup.ts                   |   67.65 |    73.49 |   81.58 |   68.37 | 105,178,263-265,289-342,400                                                     
+  VSlideItem.ts                    |       0 |        0 |       0 |       0 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VSlider            |   92.18 |    85.16 |   97.92 |   95.12 |                                                                                 
+  VSlider.ts                       |   92.18 |    85.16 |   97.92 |   95.12 | 463-465,488-489,496,516-517                                                     
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VSnackbar          |      96 |    96.15 |   93.75 |   95.65 |                                                                                 
+  VSnackbar.ts                     |      96 |    96.15 |   93.75 |   95.65 | 176                                                                             
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VSparkline         |   79.57 |    67.95 |   97.22 |   79.76 |                                                                                 
+  VSparkline.ts                    |   79.57 |    67.95 |   97.22 |   79.76 | 122,240-258                                                                     
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VSparkline/helpers |     100 |    80.77 |     100 |     100 |                                                                                 
+  core.ts                          |     100 |      100 |     100 |     100 |                                                                                 
+  math.ts                          |     100 |      100 |     100 |     100 |                                                                                 
+  path.ts                          |     100 |    68.75 |     100 |     100 | 7-12,28-36                                                                      
+ src/components/VSpeedDial         |   95.24 |      100 |    87.5 |   94.74 |                                                                                 
+  VSpeedDial.ts                    |   95.24 |      100 |    87.5 |   94.74 | 60                                                                              
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VStepper           |   77.45 |    70.49 |   79.07 |   79.12 |                                                                                 
+  VStepper.ts                      |   40.63 |     6.25 |   53.33 |   40.74 | 84-88,105-121,125,128                                                           
+  VStepperContent.ts               |     100 |      100 |     100 |     100 |                                                                                 
+  VStepperStep.ts                  |   92.86 |    82.35 |   85.71 |    96.3 | 89                                                                              
+  index.ts                         |       0 |      100 |     100 |       0 | 6-7                                                                             
+ src/components/VSubheader         |     100 |      100 |     100 |     100 |                                                                                 
+  VSubheader.ts                    |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VSwitch            |      85 |       80 |     100 |   93.33 |                                                                                 
+  VSwitch.ts                       |      85 |       80 |     100 |   93.33 | 63                                                                              
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VSystemBar         |     100 |    90.91 |     100 |     100 |                                                                                 
+  VSystemBar.ts                    |     100 |    90.91 |     100 |     100 | 38                                                                              
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VTabs              |   86.55 |     80.9 |   91.43 |   89.52 |                                                                                 
+  VTab.ts                          |   95.45 |    94.12 |     100 |     100 | 83                                                                              
+  VTabItem.ts                      |       0 |        0 |       0 |       0 | 14-19                                                                           
+  VTabs.ts                         |   84.13 |       80 |   88.24 |   89.29 | 156-157,202,231,271-272                                                         
+  VTabsBar.ts                      |   96.15 |     87.5 |     100 |   95.24 | 57                                                                              
+  VTabsItems.ts                    |     100 |      100 |     100 |     100 |                                                                                 
+  VTabsSlider.ts                   |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VTextField         |   94.74 |     85.8 |     100 |   95.45 |                                                                                 
+  VTextField.ts                    |   94.74 |     85.8 |     100 |   95.45 | 261,272,283,497,504,509                                                         
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VTextarea          |   96.15 |    93.75 |     100 |     100 |                                                                                 
+  VTextarea.ts                     |   96.15 |    93.75 |     100 |     100 | 76                                                                              
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VThemeProvider     |     100 |      100 |     100 |     100 |                                                                                 
+  VThemeProvider.ts                |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VTimePicker        |   96.36 |    88.93 |   95.83 |   98.52 |                                                                                 
+  SelectingTimes.ts                |       0 |        0 |       0 |       0 |                                                                                 
+  VTimePicker.ts                   |   94.21 |    86.11 |   92.68 |   97.27 | 273-283                                                                         
+  VTimePickerClock.ts              |    98.8 |     91.8 |     100 |     100 | 115,186-196                                                                     
+  VTimePickerTitle.ts              |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VTimeline          |     100 |    85.71 |     100 |     100 |                                                                                 
+  VTimeline.ts                     |     100 |      100 |     100 |     100 |                                                                                 
+  VTimelineItem.ts                 |     100 |    85.71 |     100 |     100 | 115-116                                                                         
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VToolbar           |   89.74 |    85.29 |     100 |   93.33 |                                                                                 
+  VToolbar.ts                      |   94.59 |    85.29 |     100 |     100 | 57-59,63-64,125                                                                 
+  index.ts                         |       0 |      100 |     100 |       0 | 7-8                                                                             
+ src/components/VTooltip           |   88.33 |    82.81 |     100 |   98.15 |                                                                                 
+  VTooltip.ts                      |   88.33 |    82.81 |     100 |   98.15 | 146                                                                             
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VTreeview          |   94.22 |    88.46 |   97.65 |   98.29 |                                                                                 
+  VTreeview.ts                     |   93.12 |    86.27 |   95.83 |   97.52 | 367-369,387                                                                     
+  VTreeviewNode.ts                 |   96.59 |    92.59 |     100 |     100 | 124,171,233,251                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VTreeview/util     |     100 |      100 |     100 |     100 |                                                                                 
+  filterTreeItems.ts               |     100 |      100 |     100 |     100 |                                                                                 
+ src/components/VVirtualScroll     |   94.74 |       50 |   92.31 |   94.74 |                                                                                 
+  VVirtualScroll.ts                |   94.74 |       50 |   92.31 |   94.74 | 36                                                                              
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/VWindow            |   97.22 |       90 |     100 |   97.09 |                                                                                 
+  VWindow.ts                       |     100 |    92.19 |     100 |     100 | 105,175,189,265-268                                                             
+  VWindowItem.ts                   |      90 |    84.62 |     100 |      90 | 93,109,125                                                                      
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/components/transitions        |   37.65 |    21.95 |   27.78 |   39.02 |                                                                                 
+  createTransition.ts              |   23.53 |    18.52 |      40 |   24.24 | 9,54-55,61-84,89-94                                                             
+  expand-transition.ts             |      10 |    28.57 |    12.5 |   10.71 | 19-82                                                                           
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/directives                    |       0 |        0 |       0 |       0 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/directives/click-outside      |   91.89 |    86.67 |     100 |     100 |                                                                                 
+  index.ts                         |   91.89 |    86.67 |     100 |     100 | 29,52,94-97                                                                     
+ src/directives/color              |   84.38 |    71.43 |   83.33 |   88.89 |                                                                                 
+  index.ts                         |   84.38 |    71.43 |   83.33 |   88.89 | 66,84-85                                                                        
+ src/directives/intersect          |      95 |     91.3 |     100 |     100 |                                                                                 
+  index.ts                         |      95 |     91.3 |     100 |     100 | 18,26                                                                           
+ src/directives/mutate             |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/directives/resize             |   91.67 |     87.5 |     100 |     100 |                                                                                 
+  index.ts                         |   91.67 |     87.5 |     100 |     100 | 24                                                                              
+ src/directives/ripple             |   78.45 |    66.12 |   81.48 |   79.77 |                                                                                 
+  index.ts                         |   78.45 |    66.12 |   81.48 |   79.77 | 59-61,83,93,107-108,147-148,171-172,182,187-195,212-219,231-239,275,321-325     
+ src/directives/scroll             |     100 |    95.24 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |    95.24 |     100 |     100 | 15                                                                              
+ src/directives/touch              |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/locale                        |       0 |        0 |       0 |       0 |                                                                                 
+  af.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  ar.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  az.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  bg.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  ca.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  ckb.ts                           |       0 |        0 |       0 |       0 |                                                                                 
+  cs.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  de.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  el.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  en.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  es.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  et.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  fa.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  fi.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  fr.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  he.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  hr.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  hu.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  id.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+  it.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  ja.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  ko.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  lt.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  lv.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  nl.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  no.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  pl.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  pt.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  ro.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  ru.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  sk.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  sl.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  sr-Cyrl.ts                       |       0 |        0 |       0 |       0 |                                                                                 
+  sr-Latn.ts                       |       0 |        0 |       0 |       0 |                                                                                 
+  sv.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  th.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  tr.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  uk.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  vi.ts                            |       0 |        0 |       0 |       0 |                                                                                 
+  zh-Hans.ts                       |       0 |        0 |       0 |       0 |                                                                                 
+  zh-Hant.ts                       |       0 |        0 |       0 |       0 |                                                                                 
+ src/mixins/activatable            |   90.67 |    81.63 |      90 |   90.28 |                                                                                 
+  index.ts                         |   90.67 |    81.63 |      90 |   90.28 | 123-128,148,161-164                                                             
+ src/mixins/applicationable        |      85 |       90 |   83.33 |    87.5 |                                                                                 
+  index.ts                         |      85 |       90 |   83.33 |    87.5 | 36,51                                                                           
+ src/mixins/binds-attrs            |   88.89 |       50 |     100 |   88.89 |                                                                                 
+  index.ts                         |   88.89 |       50 |     100 |   88.89 | 12                                                                              
+ src/mixins/bootable               |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/mixins/button-group           |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/mixins/colorable              |     100 |       80 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |       80 |     100 |     100 | 15-21,44-50                                                                     
+ src/mixins/comparable             |       0 |        0 |       0 |       0 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/mixins/delayable              |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/mixins/dependent              |   96.77 |    91.67 |     100 |     100 |                                                                                 
+  index.ts                         |   96.77 |    91.67 |     100 |     100 | 75                                                                              
+ src/mixins/detachable             |   80.95 |    73.33 |   84.62 |   82.05 |                                                                                 
+  index.ts                         |   80.95 |    73.33 |   84.62 |   82.05 | 71-75,86,100-107                                                                
+ src/mixins/elevatable             |   85.71 |       75 |     100 |     100 |                                                                                 
+  index.ts                         |   85.71 |       75 |     100 |     100 | 18                                                                              
+ src/mixins/filterable             |       0 |        0 |       0 |       0 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/mixins/groupable              |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/mixins/intersectable          |   84.62 |       75 |      75 |      80 |                                                                                 
+  index.ts                         |   84.62 |       75 |      75 |      80 | 22,37                                                                           
+ src/mixins/loadable               |     100 |       80 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |       80 |     100 |     100 | 39                                                                              
+ src/mixins/localable              |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/mixins/measurable             |      90 |    83.33 |     100 |     100 |                                                                                 
+  index.ts                         |      90 |    83.33 |     100 |     100 | 34,37                                                                           
+ src/mixins/menuable               |   84.51 |    76.23 |   91.18 |   91.27 |                                                                                 
+  index.ts                         |   84.51 |    76.23 |   91.18 |   91.27 | 180,200-201,257,260,288-289,409-413                                             
+ src/mixins/mobile                 |     100 |     87.5 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |     87.5 |     100 |     100 | 16                                                                              
+ src/mixins/overlayable            |   46.46 |    36.36 |    62.5 |      50 |                                                                                 
+  index.ts                         |   46.46 |    36.36 |    62.5 |      50 | 58,93,135,141,143,149-219                                                       
+ src/mixins/picker                 |   81.82 |      100 |      50 |   81.82 |                                                                                 
+  index.ts                         |   81.82 |      100 |      50 |   81.82 | 37-40                                                                           
+ src/mixins/picker-button          |     100 |     87.5 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |     87.5 |     100 |     100 | 20                                                                              
+ src/mixins/positionable           |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/mixins/proxyable              |   88.89 |       75 |     100 |     100 |                                                                                 
+  index.ts                         |   88.89 |       75 |     100 |     100 | 39                                                                              
+ src/mixins/registrable            |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/mixins/returnable             |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/mixins/rippleable             |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/mixins/roundable              |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/mixins/routable               |   95.12 |    92.45 |   81.82 |   97.06 |                                                                                 
+  index.ts                         |   95.12 |    92.45 |   81.82 |   97.06 | 79                                                                              
+ src/mixins/scrollable             |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/mixins/selectable             |   88.89 |    86.67 |   88.24 |   95.65 |                                                                                 
+  index.ts                         |   88.89 |    86.67 |   88.24 |   95.65 | 129,143                                                                         
+ src/mixins/sizeable               |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/mixins/ssr-bootable           |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/mixins/stackable              |      75 |    61.54 |     100 |   84.62 |                                                                                 
+  index.ts                         |      75 |    61.54 |     100 |   84.62 | 57-58                                                                           
+ src/mixins/themeable              |   90.48 |    83.33 |     100 |   90.48 |                                                                                 
+  index.ts                         |   90.48 |    83.33 |     100 |   90.48 | 73,76                                                                           
+ src/mixins/toggleable             |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/mixins/transitionable         |       0 |        0 |       0 |       0 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/mixins/translatable           |    6.25 |      100 |   14.29 |    6.25 |                                                                                 
+  index.ts                         |    6.25 |      100 |   14.29 |    6.25 | 22-57                                                                           
+ src/mixins/validatable            |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/presets/default               |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/services                      |       0 |        0 |       0 |       0 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+ src/services/application          |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/services/breakpoint           |     100 |    93.75 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |    93.75 |     100 |     100 | 92-93,177,186                                                                   
+ src/services/goto                 |     100 |    93.33 |      95 |     100 |                                                                                 
+  easing-patterns.ts               |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |    82.35 |   66.67 |     100 | 21,38,53                                                                        
+  util.ts                          |     100 |      100 |     100 |     100 |                                                                                 
+ src/services/icons                |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |     100 |     100 |                                                                                 
+ src/services/icons/presets        |     100 |      100 |     100 |     100 |                                                                                 
+  fa-svg.ts                        |     100 |      100 |     100 |     100 |                                                                                 
+  fa.ts                            |     100 |      100 |     100 |     100 |                                                                                 
+  fa4.ts                           |     100 |      100 |     100 |     100 |                                                                                 
+  index.ts                         |       0 |        0 |       0 |       0 |                                                                                 
+  md.ts                            |     100 |      100 |     100 |     100 |                                                                                 
+  mdi-svg.ts                       |     100 |      100 |     100 |     100 |                                                                                 
+  mdi.ts                           |     100 |      100 |     100 |     100 |                                                                                 
+ src/services/lang                 |     100 |    88.89 |     100 |     100 |                                                                                 
+  index.ts                         |     100 |    88.89 |     100 |     100 | 21                                                                              
+ src/services/presets              |    87.5 |    66.67 |     100 |    87.5 |                                                                                 
+  index.ts                         |    87.5 |    66.67 |     100 |    87.5 | 36                                                                              
+ src/services/service              |     100 |      100 |       0 |     100 |                                                                                 
+  index.ts                         |     100 |      100 |       0 |     100 |                                                                                 
+ src/services/theme                |   97.55 |    92.39 |   97.14 |   99.32 |                                                                                 
+  index.ts                         |   96.77 |    88.46 |   96.15 |   98.85 | 198                                                                             
+  utils.ts                         |   98.57 |     97.5 |     100 |     100 | 23                                                                              
+ src/util                          |   90.57 |    80.41 |   90.91 |   91.42 |                                                                                 
+  colorUtils.ts                    |    94.9 |    93.94 |   92.59 |    95.6 | 235-248                                                                         
+  colors.ts                        |     100 |      100 |     100 |     100 |                                                                                 
+  component.ts                     |       0 |      100 |       0 |       0 | 20                                                                              
+  console.ts                       |      74 |    63.79 |      75 |   74.47 | 8,28-29,46-49,73-74,91-93,95-96                                                 
+  dateTimeUtils.ts                 |      84 |    66.67 |     100 |      84 | 4-6,25                                                                          
+  dedupeModelListeners.ts          |   16.67 |    22.22 |     100 |      20 | 11-15                                                                           
+  dom.ts                           |     100 |      100 |     100 |     100 |                                                                                 
+  helpers.ts                       |   94.29 |    84.57 |   92.73 |   95.95 | 26,60,245,339,386-387,413                                                       
+  mergeData.ts                     |   94.12 |    84.48 |     100 |      95 | 22,66,97                                                                        
+  mixins.ts                        |     100 |      100 |     100 |     100 |                                                                                 
+  rebuildFunctionalSlots.ts        |      60 |        0 |     100 |      60 | 7-8                                                                             
+ src/util/color                    |     100 |      100 |     100 |     100 |                                                                                 
+  transformCIELAB.ts               |     100 |      100 |     100 |     100 |                                                                                 
+  transformSRGB.ts                 |     100 |      100 |     100 |     100 |                                                                                 
+-----------------------------------|---------|----------|---------|---------|---------------------------------------------------------------------------------
+
+Test Suites: 189 passed, 189 total
+Tests:       60 skipped, 1609 passed, 1669 total
+Snapshots:   641 passed, 641 total
+Time:        23.992 s
+Ran all test suites.
+Done in 26.27s.
+
+┌────────────────────────────────────────────────────────────┐
+│  Looking for lcov files...                                 │
+│  TEST_TYPE=test_coverage PREPEND_PATHS=true                │
+└────────────────────────────────────────────────────────────┘
+
+▶ Found ./packages/vuetify/coverage/lcov.info
+Reading tracefile ./packages/vuetify/coverage/lcov.info
+Summary coverage rate:
+  lines......: 87.5% (6951 of 7942 lines)
+  functions..: 90.3% (2577 of 2854 functions)
+  branches...: no data found
+
+▶ Moved and prepended packages/vuetify to SF: paths in ./packages/vuetify/coverage/lcov.info
+
+┌────────────────────────────────────────────────────────────┐
+│  Checking for Cypress tests                                │
+└────────────────────────────────────────────────────────────┘
+
+▶   No cy:run script found — skipping Cypress tests
+
+┌────────────────────────────────────────────────────────────┐
+│  Counting coverage reports                                 │
+└────────────────────────────────────────────────────────────┘
+--> Found 1 lcov.info files in /coverage_reloaded/exported (1 with size > 0)
+
+┌────────────────────────────────────────────────────────────┐
+│  Collecting individual coverage reports                    │
+└────────────────────────────────────────────────────────────┘
+  [OK]  test_coverage.lcov.info → 988fe04792358823301193e573829b49ba65fded__packages_vuetify_test_coverage.lcov
+
+╔════════════════════════════════════════════════════════════╗
+║  Coverage run completed                                    ║
+║  Revision: 988fe04792358823301193e573829b49ba65fded        ║
+╚════════════════════════════════════════════════════════════╝
+
+
+----
+Success!

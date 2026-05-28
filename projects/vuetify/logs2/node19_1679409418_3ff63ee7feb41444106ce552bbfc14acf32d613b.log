@@ -1,0 +1,1514 @@
+Script called as:
+bash docker-run.sh vuetify exec 3ff63ee7feb41444106ce552bbfc14acf32d613b 1679409418 yarn@1.19 19 vuetify
+
+Rerun with:
+bash $(basename "$0") $@ 2>&1 | tee projects/$1/logs/node${6}_${4}_${3}_\$(date +\"%Y%m%d_%H%M%S\").rerun
+
+STEP 1/25: FROM debian:bullseye-slim
+STEP 2/25: ARG NODE_VERSION=22
+--> Using cache afc972e2317a17e72573626266faf7a4408ec81b8081349b35d8559ca1277b26
+--> afc972e2317a
+STEP 3/25: WORKDIR /coverage_reloaded
+--> Using cache 637f4aece976524515cb51147466af46059a342cb8844fbf81761f9e0b01c3c3
+--> 637f4aece976
+STEP 4/25: RUN apt-get update &&     apt-get install -y         git         curl         wget         bash         make         build-essential         cmake         zip         nano         lcov=1.14-2         jq
+--> Using cache db743f14e75bd4a0419ce8f1e572a4a60db4054163401efe7f30b78b35039363
+--> db743f14e75b
+STEP 5/25: RUN apt-get update && apt-get install -y python2.7 &&     update-alternatives --install /usr/bin/python2 python2 /usr/bin/python2.7 1
+--> Using cache e64b81716c52bc18ae77fa3c63347a6671b26246c1c5c75a096ffb2bd910bf0b
+--> e64b81716c52
+STEP 6/25: RUN curl -Ls https://astral.sh/uv/install.sh | sh
+--> Using cache 0e3e1a3c61a81f2e7ea9348c9aeb32aec6f30d8690727803a5ac5ff06222e492
+--> 0e3e1a3c61a8
+STEP 7/25: ENV PATH="/root/.local/bin:$PATH"
+--> Using cache 595a380f9691b2264df1b332f22793c3d54d796543bbcfbf285ec265530fdce1
+--> 595a380f9691
+STEP 8/25: RUN uv python install 3.10 3.8
+--> Using cache c5da602b622b2cb0be3f23eb936511dac1a4bd4f184808946b55975d1e1d70e7
+--> c5da602b622b
+STEP 9/25: RUN NODE_MAJOR=$(echo "$NODE_VERSION" | cut -d. -f1) &&     if [ "$NODE_MAJOR" -le 12 ]; then         PYTHON_BIN=$(uv python find 3.8);     else         PYTHON_BIN=$(uv python find 3.10);     fi &&     ln -sf "$PYTHON_BIN" /usr/local/bin/python &&     ln -sf "$PYTHON_BIN" /usr/local/bin/python3 &&     ln -sf "$PYTHON_BIN" /usr/bin/python &&     ln -sf "$PYTHON_BIN" /usr/bin/python3
+--> Using cache ec0340f937b7c445d2fe222b7066c068602ae57d12a7a50f5809e0621182c1c8
+--> ec0340f937b7
+STEP 10/25: RUN python --version && echo "Python set for Node ${NODE_VERSION}"
+--> Using cache 6e78e840a920609fe44d391d9558767de22d9f23b34e7dc75315ae6b4d2061f4
+--> 6e78e840a920
+STEP 11/25: RUN curl -L https://bit.ly/n-install | bash -s -- -y
+--> Using cache bc29b563d751f7e12356b32834bcb5a8e5ff4b7d1159289385cd8a0daeb014cd
+--> bc29b563d751
+STEP 12/25: ENV N_PREFIX=/root/n
+--> Using cache b75c8ebf783d3e36bfc1dbb3fe294a122fc00597a3b240e8d168048b197db4a3
+--> b75c8ebf783d
+STEP 13/25: ENV PATH="$N_PREFIX/bin:${PATH}"
+--> Using cache 82584e516a8d6daec18dbd7aef43b8695188b98c96ac34ad9e9b1fc7eeded9dc
+--> 82584e516a8d
+STEP 14/25: RUN n "$NODE_VERSION"
+--> Using cache 5aa20bd9a4bfe1db343f5a44f827648160dec817b9866322022fb9bfae84cf70
+--> 5aa20bd9a4bf
+STEP 15/25: RUN node --version
+--> Using cache 6995c6c051c132bc4336b5518199ceaac40c194a2db5663c97770712d15a4117
+--> 6995c6c051c1
+STEP 16/25: ENV CI=true
+--> Using cache cc93265707a40d9f6c69c2dd254f29e8cb2d6a10027fc689b4121fd137c927ba
+--> cc93265707a4
+STEP 17/25: RUN apt-get install -y libfaketime
+--> Using cache 6a79f333e77b59bc6783c396a94f80ea97586c8c78cbaba55069c47bb8ab0240
+--> 6a79f333e77b
+STEP 18/25: COPY ./execute.sh /coverage_reloaded/execute.sh
+--> Using cache 41cecb37918a62f3afe009663ff20363efddaa85611ac71039a8840491cb1c74
+--> 41cecb37918a
+STEP 19/25: RUN chmod +x /coverage_reloaded/execute.sh
+--> Using cache f800402adc19e6f24d24e0c7f489395849f5abbff31bebd5873d9ec5c9e03968
+--> f800402adc19
+STEP 20/25: COPY helper/find-and-move-lcov.sh /coverage_reloaded/find-and-move-lcov.sh
+--> Using cache ca671096f950f89f691bf0d904a72849cfd5601f65a59789e6e5b573aaf0345e
+--> ca671096f950
+STEP 21/25: COPY helper/logging.sh /coverage_reloaded/logging.sh
+--> Using cache 170e82ca0dc1d499557c31ea30c0c851949ab3596d8dddbb23022eddc2cb77b5
+--> 170e82ca0dc1
+STEP 22/25: COPY helper/fake-time.sh /coverage_reloaded/fake-time.sh
+--> Using cache 0655c26bc37e472d11ab8ef7e1125dbf0ba7dc670f32b58ca371d1a5ea7734f9
+--> 0655c26bc37e
+STEP 23/25: RUN chmod +x /coverage_reloaded/find-and-move-lcov.sh /coverage_reloaded/logging.sh /coverage_reloaded/fake-time.sh
+--> Using cache 86c0eac83125d4054f97cd4c989431fe92950bce9cf51f7d883b39418c17aa06
+--> 86c0eac83125
+STEP 24/25: COPY helper/cypress/cypress-patcher.sh /coverage_reloaded/cypress-patcher.sh
+--> Using cache c6cdff7de9035bbe47117fe955351646e9db957d1c172595016679a9ea9bef17
+--> c6cdff7de903
+STEP 25/25: RUN chmod +x /coverage_reloaded/cypress-patcher.sh
+--> Using cache a044c21a8e231df92d5d10c65baeb18fcf793c4d0112c896b4479cef90f767e5
+COMMIT core_node19_base
+--> a044c21a8e23
+Successfully tagged localhost/core_node19_base:latest
+a044c21a8e231df92d5d10c65baeb18fcf793c4d0112c896b4479cef90f767e5
+STEP 1/7: FROM core_node19_base
+STEP 2/7: WORKDIR /coverage_reloaded
+--> Using cache dc46084b11e95284e2a03b381553649a329400c3abc75aca7327211958003a22
+--> dc46084b11e9
+STEP 3/7: RUN apt-get update &&     apt-get install -y --no-install-recommends         xvfb         libglib2.0-0         libgtk-3-0         libgdk-pixbuf2.0-0         libpango-1.0-0         libcairo2         libatk1.0-0         libatk-bridge2.0-0         libasound2         libxss1         libx11-xcb1         libxcomposite1         libxcursor1         libxdamage1         libxi6         libxtst6         libgbm1         libnss3         && rm -rf /var/lib/apt/lists/*
+--> Using cache b191f73109456475c47d492a7063248321ae8f99b99415d68a564049b32bd7e8
+--> b191f7310945
+STEP 4/7: COPY cypress-coverage-configs /coverage_reloaded/cypress-coverage-configs
+--> 092667e43698
+STEP 5/7: COPY ./repo /coverage_reloaded/repo
+--> 8026531367f4
+STEP 6/7: COPY ./install-and-run.sh /coverage_reloaded/install-and-run.sh
+--> 83f529a9ebcb
+STEP 7/7: RUN chmod +x /coverage_reloaded/install-and-run.sh
+COMMIT core_node19_vuetify
+--> a466480096f4
+Successfully tagged localhost/core_node19_vuetify:latest
+a466480096f4b66aeffff9260f531b84d3e584832415523f2b55af8c81536815
+
+╔════════════════════════════════════════════════════════════╗
+║  Starting run-coverage.sh                                  ║
+║  Revision: 3ff63ee7feb41444106ce552bbfc14acf32d613b        ║
+╚════════════════════════════════════════════════════════════╝
+
+Commit date: 2023-03-21 14:36:58
+Current date: Thu May 28 10:29:43 UTC 2026
+Timestamp: 1679409418
+Package Manager: yarn@1.19
+
+┌────────────────────────────────────────────────────────────┐
+│  System Information                                        │
+└────────────────────────────────────────────────────────────┘
+Linux 51619464dc4f 6.8.0-110-generic #110-Ubuntu SMP PREEMPT_DYNAMIC Thu Mar 19 15:09:20 UTC 2026 x86_64 GNU/Linux
+
+┌────────────────────────────────────────────────────────────┐
+│  Linux Distribution                                        │
+└────────────────────────────────────────────────────────────┘
+PRETTY_NAME="Debian GNU/Linux 11 (bullseye)"
+NAME="Debian GNU/Linux"
+VERSION_ID="11"
+VERSION="11 (bullseye)"
+VERSION_CODENAME=bullseye
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+
+┌────────────────────────────────────────────────────────────┐
+│  Git Version                                               │
+└────────────────────────────────────────────────────────────┘
+git version 2.30.2
+
+┌────────────────────────────────────────────────────────────┐
+│  Python Version                                            │
+└────────────────────────────────────────────────────────────┘
+Python 3.10.20
+
+┌────────────────────────────────────────────────────────────┐
+│  CPU Information                                           │
+└────────────────────────────────────────────────────────────┘
+256
+
+┌────────────────────────────────────────────────────────────┐
+│  Memory Information                                        │
+└────────────────────────────────────────────────────────────┘
+               total        used        free      shared  buff/cache   available
+Mem:           2.2Ti        48Gi       1.9Ti        12Mi       223Gi       2.2Ti
+Swap:          8.0Gi          0B       8.0Gi
+
+┌────────────────────────────────────────────────────────────┐
+│  Disk Information                                          │
+└────────────────────────────────────────────────────────────┘
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/md0         18T  539G   16T   4% /coverage_reloaded/coverage
+tmpfs           227G  472K  227G   1% /etc/hosts
+shm              63M     0   63M   0% /dev/shm
+overlay          18T  539G   16T   4% /
+tmpfs            64M     0   64M   0% /dev
+udev            1.2T     0  1.2T   0% /dev/tty
+
+┌────────────────────────────────────────────────────────────┐
+│  Current Folder                                            │
+└────────────────────────────────────────────────────────────┘
+/coverage_reloaded/repo
+
+┌────────────────────────────────────────────────────────────┐
+│  Git Checkout                                              │
+└────────────────────────────────────────────────────────────┘
+Note: switching to '3ff63ee7feb41444106ce552bbfc14acf32d613b'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 3ff63ee7f docs(VDataTable): fix typo (#16962)
+
+┌────────────────────────────────────────────────────────────┐
+│  Node Version                                              │
+└────────────────────────────────────────────────────────────┘
+v19.9.0
+
+┌────────────────────────────────────────────────────────────┐
+│  Setting up Package Managers                               │
+└────────────────────────────────────────────────────────────┘
+ --> Manual setup for yarn@1.19
+
+up to date in 40ms
+
+added 1 package in 351ms
+
+▶ Yarn Version After Setup
+1.19.0
+Legacy Yarn: true
+yarn config v1.19.0
+success Set "registry" to "http://waypack:3000/yarn/1679409418/".
+Done in 0.03s.
+http://waypack:3000/yarn/1679409418/
+
+
+┌────────────────────────────────────────────────────────────┐
+│  Cleaning package manager lock files                       │
+└────────────────────────────────────────────────────────────┘
+Searching for patterns: package-lock.json */package-lock.json
+Ignoring patterns: */node_modules/*
+0 files processed
+Searching for patterns: yarn.lock */yarn.lock
+Ignoring patterns: */node_modules/*
+Found file: ./yarn.lock
+1 files processed
+Searching for patterns: pnpm-lock.yaml */pnpm-lock.yaml
+Ignoring patterns: */node_modules/*
+0 files processed
+
+
+╔════════════════════════════════════════════════════════════╗
+║  Calling install-and-run.sh                                ║
+╚════════════════════════════════════════════════════════════╝
+
+
+┌────────────────────────────────────────────────────────────┐
+│  Applying Cypress coverage patches                         │
+└────────────────────────────────────────────────────────────┘
+==> cypress-patcher.sh — applying coverage patches
+  Found 46 patches available
+  [MISS] packages/docs/vite.config.ts — no patch for hash 8b551c6e16147121b573cafb02d72c9092d4ffa24ac6c82fcadcd9a67897a4ca
+  [PATCH] 32b0d0d90aae81553e6d7189043e1c31453a6b7a7d0072dc50d2317666b1e7fe packages/vuetify/vite.config.mjs
+  [PATCH] a7c99388c4922f27474d576355d99701604462cbf724231ab444c058eaa951d2 packages/vuetify/cypress.config.ts
+  [PATCH] e7ad009cf3ecf9b20d9310e8fe6cf1f72cac2e064a8cc7a9f3e78ec0a4dd8dd2 packages/vuetify/cypress/support/index.ts
+==> Done — 3 patches applied, 1 missing
+
+┌────────────────────────────────────────────────────────────┐
+│  Installing dependencies                                   │
+└────────────────────────────────────────────────────────────┘
+
+▶  Installing dependencies with yarn...
+yarn cache v1.19.0
+success Cleared cache.
+Done in 0.03s.
+yarn install v1.19.0
+[1/5] Validating package.json...
+[2/5] Resolving packages...
+[3/5] Fetching packages...
+info fsevents@2.3.2: The platform "linux" is incompatible with this module.
+info "fsevents@2.3.2" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/android-arm@0.15.18: The platform "linux" is incompatible with this module.
+info "@esbuild/android-arm@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/android-arm@0.15.18: The CPU architecture "x64" is incompatible with this module.
+info @esbuild/linux-loong64@0.15.18: The CPU architecture "x64" is incompatible with this module.
+info "@esbuild/linux-loong64@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info esbuild-android-64@0.15.18: The platform "linux" is incompatible with this module.
+info "esbuild-android-64@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info esbuild-android-arm64@0.15.18: The platform "linux" is incompatible with this module.
+info "esbuild-android-arm64@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info esbuild-android-arm64@0.15.18: The CPU architecture "x64" is incompatible with this module.
+info esbuild-darwin-64@0.15.18: The platform "linux" is incompatible with this module.
+info "esbuild-darwin-64@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info esbuild-darwin-arm64@0.15.18: The platform "linux" is incompatible with this module.
+info "esbuild-darwin-arm64@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info esbuild-darwin-arm64@0.15.18: The CPU architecture "x64" is incompatible with this module.
+info esbuild-freebsd-64@0.15.18: The platform "linux" is incompatible with this module.
+info "esbuild-freebsd-64@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info esbuild-freebsd-arm64@0.15.18: The platform "linux" is incompatible with this module.
+info "esbuild-freebsd-arm64@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info esbuild-freebsd-arm64@0.15.18: The CPU architecture "x64" is incompatible with this module.
+info esbuild-linux-32@0.15.18: The CPU architecture "x64" is incompatible with this module.
+info "esbuild-linux-32@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info esbuild-linux-arm@0.15.18: The CPU architecture "x64" is incompatible with this module.
+info "esbuild-linux-arm@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info esbuild-linux-arm64@0.15.18: The CPU architecture "x64" is incompatible with this module.
+info "esbuild-linux-arm64@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info esbuild-linux-mips64le@0.15.18: The CPU architecture "x64" is incompatible with this module.
+info "esbuild-linux-mips64le@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info esbuild-linux-ppc64le@0.15.18: The CPU architecture "x64" is incompatible with this module.
+info "esbuild-linux-ppc64le@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info esbuild-linux-riscv64@0.15.18: The CPU architecture "x64" is incompatible with this module.
+info "esbuild-linux-riscv64@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info esbuild-linux-s390x@0.15.18: The CPU architecture "x64" is incompatible with this module.
+info "esbuild-linux-s390x@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info esbuild-netbsd-64@0.15.18: The platform "linux" is incompatible with this module.
+info "esbuild-netbsd-64@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info esbuild-openbsd-64@0.15.18: The platform "linux" is incompatible with this module.
+info "esbuild-openbsd-64@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info esbuild-sunos-64@0.15.18: The platform "linux" is incompatible with this module.
+info "esbuild-sunos-64@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info esbuild-windows-32@0.15.18: The platform "linux" is incompatible with this module.
+info "esbuild-windows-32@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info esbuild-windows-32@0.15.18: The CPU architecture "x64" is incompatible with this module.
+info esbuild-windows-64@0.15.18: The platform "linux" is incompatible with this module.
+info "esbuild-windows-64@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info esbuild-windows-arm64@0.15.18: The platform "linux" is incompatible with this module.
+info "esbuild-windows-arm64@0.15.18" is an optional dependency and failed compatibility check. Excluding it from installation.
+info esbuild-windows-arm64@0.15.18: The CPU architecture "x64" is incompatible with this module.
+[4/5] Linking dependencies...
+warning " > vite-plugin-inspect@0.6.1" has unmet peer dependency "vite@^3.0.0".
+warning "workspace-aggregator-28357645-50cc-41d7-b191-396f4aaaec01 > vuetifyjs.com > @vuetify/vite-ssg@0.20.2" has incorrect peer dependency "@vueuse/head@^0.5.1".
+warning "workspace-aggregator-28357645-50cc-41d7-b191-396f4aaaec01 > vuetifyjs.com > @vuetify/vite-ssg@0.20.2" has incorrect peer dependency "vite@^2.0.0".
+warning "workspace-aggregator-28357645-50cc-41d7-b191-396f4aaaec01 > vuetifyjs.com > vite-plugin-md@0.20.2" has unmet peer dependency "@rollup/pluginutils@^4.2.1".
+warning "workspace-aggregator-28357645-50cc-41d7-b191-396f4aaaec01 > vuetifyjs.com > vite-plugin-md@0.20.2" has unmet peer dependency "rollup@^2.77.0".
+warning "workspace-aggregator-28357645-50cc-41d7-b191-396f4aaaec01 > vuetifyjs.com > vite-plugin-pwa@0.12.8" has unmet peer dependency "workbox-build@^6.4.0".
+warning "workspace-aggregator-28357645-50cc-41d7-b191-396f4aaaec01 > vuetify > @rollup/plugin-typescript@8.3.2" has unmet peer dependency "tslib@*".
+warning "workspace-aggregator-28357645-50cc-41d7-b191-396f4aaaec01 > vuetify > vite-ssr@0.16.0" has incorrect peer dependency "vite@^2.7.7".
+warning "workspace-aggregator-28357645-50cc-41d7-b191-396f4aaaec01 > vuetifyjs.com > vite-plugin-md > @yankeeinlondon/builder-api@0.4.1" has unmet peer dependency "fp-ts@^2.12.1".
+warning "workspace-aggregator-28357645-50cc-41d7-b191-396f4aaaec01 > vuetifyjs.com > vite-plugin-md > @yankeeinlondon/builder-api@0.4.1" has unmet peer dependency "inferred-types@^0.22.0".
+warning "workspace-aggregator-28357645-50cc-41d7-b191-396f4aaaec01 > vuetify > vite-ssr > react-router-dom@6.3.0" has unmet peer dependency "react@>=16.8".
+warning "workspace-aggregator-28357645-50cc-41d7-b191-396f4aaaec01 > vuetify > vite-ssr > react-router-dom@6.3.0" has unmet peer dependency "react-dom@>=16.8".
+warning "workspace-aggregator-28357645-50cc-41d7-b191-396f4aaaec01 > vuetify > vite-ssr > react-ssr-prepass@1.4.0" has unmet peer dependency "react@^16.8.0 || ^17.0.0".
+warning "workspace-aggregator-28357645-50cc-41d7-b191-396f4aaaec01 > vuetify > vite-ssr > react-router-dom > react-router@6.3.0" has unmet peer dependency "react@>=16.8".
+warning Workspaces can only be enabled in private projects.
+[5/5] Building fresh packages...
+$ patch-package
+patch-package 6.5.1
+Applying patches...
+workbox-window@6.5.4 ✔
+$ node scripts/post-install.js
+Done in 34.00s.
+
+▶  Bootstrapping with lerna...
+lerna notice cli v3.22.1
+lerna info ci enabled
+lerna info bootstrap root only
+yarn install v1.19.0
+[1/5] Validating package.json...
+[2/5] Resolving packages...
+success Already up-to-date.
+$ patch-package
+patch-package 6.5.1
+Applying patches...
+workbox-window@6.5.4 ✔
+$ node scripts/post-install.js
+Done in 0.67s.
+
+┌────────────────────────────────────────────────────────────┐
+│  Ensuring cross-env availability                           │
+└────────────────────────────────────────────────────────────┘
+
+▶  cross-env not found globally, installing...
+added 7 packages in 11s
+
+┌────────────────────────────────────────────────────────────┐
+│  Ensuring @cypress/code-coverage availability              │
+└────────────────────────────────────────────────────────────┘
+
+▶   @cypress/code-coverage not found, installing...
+patch-package 6.5.1
+Applying patches...
+workbox-window@6.5.4 ✔
+$ node scripts/post-install.js
+Done in 8.45s.
+
+┌────────────────────────────────────────────────────────────┐
+│  Ensuring vite-plugin-istanbul availability                │
+└────────────────────────────────────────────────────────────┘
+
+▶   vite-plugin-istanbul not found, installing...
+patch-package 6.5.1
+Applying patches...
+workbox-window@6.5.4 ✔
+$ node scripts/post-install.js
+Done in 5.73s.
+
+┌────────────────────────────────────────────────────────────┐
+│  Detecting test infrastructure era                         │
+└────────────────────────────────────────────────────────────┘
+IS_JEST:                    true
+HAS_TEST_COVERAGE_SCRIPT:   true
+
+┌────────────────────────────────────────────────────────────┐
+│  Using test:coverage script                                │
+└────────────────────────────────────────────────────────────┘
+yarn run v1.19.0
+$ yarn test --coverage
+$ node build/run-tests.js --coverage
+$ cross-env NODE_ENV=test jest --coverage
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+PASS Vuetify src/util/__tests__/propsFactory.spec.ts
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+PASS Vuetify src/directives/resize/__tests__/resize.spec.ts
+PASS Vuetify src/util/__tests__/console.spec.ts
+PASS Vuetify src/util/__tests__/dateTimeUtils.spec.ts
+PASS Vuetify src/directives/mutate/__tests__/mutate.spec.ts
+PASS Vuetify src/util/__tests__/dom.spec.ts
+PASS Vuetify src/components/VDatePicker/util/__tests__/sanitizeDateString.spec.ts
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+PASS Vuetify src/composables/__tests__/resizeObserver.spec.ts
+PASS Vuetify src/directives/scroll/__tests__/scroll.spec.ts
+PASS Vuetify src/composables/nested/__tests__/selectStrategies.spec.ts
+PASS Vuetify src/components/VColorPicker/util/__tests__/index.spec.ts
+PASS Vuetify src/util/__tests__/getCurrentInstance.spec.tsx
+PASS Vuetify src/locale/__tests__/index.spec.ts
+PASS Vuetify src/composables/__tests__/position.spec.ts
+PASS Vuetify src/composables/__tests__/elevation.spec.ts
+PASS Vuetify src/composables/__tests__/items.spec.ts
+PASS Vuetify src/composables/__tests__/color.spec.ts
+PASS Vuetify src/directives/click-outside/__tests__/click-outside.spec.ts
+PASS Vuetify src/composables/__tests__/tag.spec.ts
+PASS Vuetify src/composables/__tests__/rounded.spec.ts
+PASS Vuetify src/composables/__tests__/mutationObserver.spec.ts
+PASS Vuetify src/directives/click-outside/__tests__/click-outside-shadow-dom.spec.ts
+PASS Vuetify src/labs/VDataTable/__tests__/sort.spec.ts
+PASS Vuetify src/composables/__tests__/border.spec.ts
+PASS Vuetify src/composables/__tests__/forwardRefs.spec.tsx
+PASS Vuetify src/directives/touch/__tests__/touch.spec.ts
+PASS Vuetify src/util/__tests__/helpers.spec.ts
+PASS Vuetify src/directives/ripple/__tests__/ripple.spec.ts
+PASS Vuetify src/composables/__tests__/variant.spec.ts
+PASS Vuetify src/composables/__tests__/proxiedModel.spec.ts
+PASS Vuetify src/composables/__tests__/size.spec.ts
+PASS Vuetify src/directives/intersect/__tests__/intersect.spec.ts
+PASS Vuetify src/composables/__tests__/dimensions.spec.ts
+PASS Vuetify src/util/__tests__/colorUtils.spec.ts
+PASS Vuetify src/composables/__tests__/group.spec.ts
+PASS Vuetify src/composables/__tests__/loader.spec.ts
+PASS Vuetify src/composables/__tests__/theme.spec.ts
+PASS Vuetify src/composables/__tests__/validation.spec.ts
+PASS Vuetify src/composables/__tests__/filter.spec.ts
+PASS Vuetify src/composables/__tests__/icons.spec.ts
+PASS Vuetify src/components/VGrid/__tests__/VContainer.spec.ts
+PASS Vuetify src/components/VGrid/__tests__/VCol.spec.ts
+PASS Vuetify src/composables/__tests__/location.spec.ts
+PASS Vuetify src/__tests__/framework.spec.ts
+PASS Vuetify src/components/VSelectionControl/__tests__/VSelectionControl.spec.tsx
+PASS Vuetify src/components/VResponsive/__tests__/VResponsive.spec.ts
+PASS Vuetify src/composables/__tests__/delay.spec.ts
+PASS Vuetify src/components/VItemGroup/__tests__/VItemGroup.spec.ts
+PASS Vuetify src/components/VTextarea/__tests__/VTextarea.spec.tsx
+PASS Vuetify src/components/VTextField/__tests__/VTextField.spec.tsx
+PASS Vuetify src/components/VList/__tests__/VList.spec.ts
+PASS Vuetify src/components/VFileInput/__tests__/VFileInput.spec.tsx
+PASS Vuetify src/components/VList/__tests__/VListItemMedia.spec.ts
+PASS Vuetify src/components/VList/__tests__/VListItem.spec.ts
+PASS Vuetify src/composables/__tests__/scroll.spec.ts
+PASS Vuetify src/composables/__tests__/display.spec.ts (5.404 s)
+--------------------------------------------|---------|----------|---------|---------|----------------------------------------------------------------------------------------------------
+File                                        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                                                                                  
+--------------------------------------------|---------|----------|---------|---------|----------------------------------------------------------------------------------------------------
+All files                                   |   18.99 |    18.19 |    13.5 |   19.15 |                                                                                                    
+ src                                        |   57.44 |    42.85 |      25 |   58.69 |                                                                                                    
+  entry-bundler.ts                          |       0 |        0 |       0 |       0 | 7-12                                                                                               
+  framework.ts                              |   62.79 |       45 |   28.57 |   64.28 | 62,78-88,99,127-132                                                                                
+ src/blueprints                             |       0 |      100 |     100 |       0 |                                                                                                    
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+  md1.ts                                    |       0 |      100 |     100 |       0 | 7                                                                                                  
+  md2.ts                                    |       0 |      100 |     100 |       0 | 7                                                                                                  
+  md3.ts                                    |       0 |      100 |     100 |       0 | 7                                                                                                  
+ src/components                             |       0 |        0 |       0 |       0 |                                                                                                    
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VAlert                      |       0 |        0 |       0 |       0 |                                                                                                    
+  VAlert.tsx                                |       0 |        0 |       0 |       0 | 33-142                                                                                             
+  VAlertTitle.ts                            |       0 |      100 |     100 |       0 | 4                                                                                                  
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VAlert/__tests__            |       0 |      100 |       0 |       0 |                                                                                                    
+  VAlert.spec.cy.tsx                        |       0 |      100 |       0 |       0 | 6-43                                                                                               
+ src/components/VApp                        |       0 |      100 |       0 |       0 |                                                                                                    
+  VApp.tsx                                  |       0 |      100 |       0 |       0 | 12-42                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VAppBar                     |       0 |        0 |       0 |       0 |                                                                                                    
+  VAppBar.tsx                               |       0 |        0 |       0 |       0 | 20-97                                                                                              
+  VAppBarNavIcon.tsx                        |       0 |      100 |       0 |       0 | 13-32                                                                                              
+  VAppBarTitle.tsx                          |       0 |      100 |       0 |       0 | 11-25                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VAppBar/__tests__           |       0 |      100 |       0 |       0 |                                                                                                    
+  VAppBar.spec.cy.tsx                       |       0 |      100 |       0 |       0 | 6-24                                                                                               
+ src/components/VAutocomplete               |       0 |        0 |       0 |       0 |                                                                                                    
+  VAutocomplete.tsx                         |       0 |        0 |       0 |       0 | 35-409                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VAutocomplete/__tests__     |       0 |      100 |       0 |       0 |                                                                                                    
+  VAutocomplete.spec.cy.tsx                 |       0 |      100 |       0 |       0 | 7-174                                                                                              
+ src/components/VAvatar                     |      20 |        0 |       0 |      20 |                                                                                                    
+  VAvatar.tsx                               |      20 |        0 |       0 |      20 | 40-77                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VBadge                      |       0 |        0 |       0 |       0 |                                                                                                    
+  VBadge.tsx                                |       0 |        0 |       0 |       0 | 29-145                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VBadge/__tests__            |       0 |      100 |       0 |       0 |                                                                                                    
+  VBadge.spec.cy.tsx                        |       0 |      100 |       0 |       0 | 7-117                                                                                              
+ src/components/VBanner                     |       0 |        0 |       0 |       0 |                                                                                                    
+  VBanner.tsx                               |       0 |        0 |       0 |       0 | 39-84                                                                                              
+  VBannerActions.tsx                        |       0 |      100 |       0 |       0 | 7-30                                                                                               
+  VBannerText.ts                            |       0 |      100 |     100 |       0 | 3                                                                                                  
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VBottomNavigation           |       0 |        0 |       0 |       0 |                                                                                                    
+  VBottomNavigation.tsx                     |       0 |        0 |       0 |       0 | 24-132                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VBottomNavigation/__tests__ |       0 |      100 |       0 |       0 |                                                                                                    
+  VBottomNavigation.spec.cy.tsx             |       0 |      100 |       0 |       0 | 6-24                                                                                               
+ src/components/VBottomSheet                |       0 |      100 |       0 |       0 |                                                                                                    
+  VBottomSheet.ts                           |       0 |      100 |       0 |       0 | 24                                                                                                 
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VBreadcrumbs                |       0 |        0 |       0 |       0 |                                                                                                    
+  VBreadcrumbs.tsx                          |       0 |        0 |       0 |       0 | 32-145                                                                                             
+  VBreadcrumbsDivider.tsx                   |       0 |        0 |       0 |       0 | 4-18                                                                                               
+  VBreadcrumbsItem.tsx                      |       0 |        0 |       0 |       0 | 10-59                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VBreadcrumbs/__tests__      |       0 |      100 |       0 |       0 |                                                                                                    
+  VBreadcrumbs.spec.cy.tsx                  |       0 |      100 |       0 |       0 | 9-182                                                                                              
+ src/components/VBtn                        |       0 |        0 |       0 |       0 |                                                                                                    
+  VBtn.tsx                                  |       0 |        0 |       0 |       0 | 46-274                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VBtn/__tests__              |       0 |      100 |       0 |       0 |                                                                                                    
+  VBtn.spec.cy.tsx                          |       0 |      100 |       0 |       0 | 7-296                                                                                              
+ src/components/VBtnGroup                   |       0 |      100 |       0 |       0 |                                                                                                    
+  VBtnGroup.tsx                             |       0 |      100 |       0 |       0 | 18-53                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VBtnGroup/__tests__         |       0 |      100 |       0 |       0 |                                                                                                    
+  VBtnGroup.spec.cy.tsx                     |       0 |      100 |       0 |       0 | 7-54                                                                                               
+ src/components/VBtnToggle                  |       0 |      100 |       0 |       0 |                                                                                                    
+  VBtnToggle.tsx                            |       0 |      100 |       0 |       0 | 20-60                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VCalendar                   |       0 |        0 |       0 |       0 |                                                                                                    
+  VCalendar.ts                              |       0 |        0 |       0 |       0 | 64-383                                                                                             
+  VCalendarCategory.ts                      |       0 |        0 |       0 |       0 | 27-141                                                                                             
+  VCalendarDaily.ts                         |       0 |        0 |       0 |       0 | 29-250                                                                                             
+  VCalendarMonthly.ts                       |       0 |      100 |       0 |       0 | 20-26                                                                                              
+  VCalendarWeekly.ts                        |       0 |        0 |       0 |       0 | 35-225                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VCalendar/mixins            |       0 |        0 |       0 |       0 |                                                                                                    
+  calendar-base.ts                          |       0 |        0 |       0 |       0 | 47-121                                                                                             
+  calendar-with-events.ts                   |       0 |        0 |       0 |       0 | 73-526                                                                                             
+  calendar-with-intervals.ts                |       0 |        0 |       0 |       0 | 30-162                                                                                             
+  mouse.ts                                  |       0 |        0 |       0 |       0 | 30-109                                                                                             
+  times.ts                                  |       0 |        0 |       0 |       0 | 23-73                                                                                              
+ src/components/VCalendar/modes             |    0.53 |        0 |       0 |    0.55 |                                                                                                    
+  column.ts                                 |       0 |        0 |       0 |       0 | 7-22                                                                                               
+  common.ts                                 |    1.69 |        0 |       0 |    1.78 | 12-142                                                                                             
+  index.ts                                  |       0 |      100 |     100 |       0 | 8                                                                                                  
+  stack.ts                                  |       0 |        0 |       0 |       0 | 24-257                                                                                             
+ src/components/VCalendar/util              |    6.87 |        0 |       0 |    7.19 |                                                                                                    
+  events.ts                                 |       0 |        0 |       0 |       0 | 21-54                                                                                              
+  parser.ts                                 |       0 |        0 |       0 |       0 | 10-32                                                                                              
+  props.ts                                  |       0 |        0 |       0 |       0 | 16-263                                                                                             
+  timestamp.ts                              |    8.65 |        0 |       0 |       9 | 39-480                                                                                             
+ src/components/VCard                       |       0 |        0 |       0 |       0 |                                                                                                    
+  VCard.tsx                                 |       0 |        0 |       0 |       0 | 50-219                                                                                             
+  VCardActions.tsx                          |       0 |      100 |       0 |       0 | 10-26                                                                                              
+  VCardItem.tsx                             |       0 |        0 |       0 |       0 | 25-125                                                                                             
+  VCardSubtitle.ts                          |       0 |      100 |     100 |       0 | 3                                                                                                  
+  VCardText.ts                              |       0 |      100 |     100 |       0 | 3                                                                                                  
+  VCardTitle.ts                             |       0 |      100 |     100 |       0 | 3                                                                                                  
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VCarousel                   |       0 |        0 |       0 |       0 |                                                                                                    
+  VCarousel.tsx                             |       0 |        0 |       0 |       0 | 24-156                                                                                             
+  VCarouselItem.tsx                         |       0 |      100 |       0 |       0 | 11-22                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VCheckbox                   |       0 |        0 |       0 |       0 |                                                                                                    
+  VCheckbox.tsx                             |       0 |        0 |       0 |       0 | 21-79                                                                                              
+  VCheckboxBtn.tsx                          |       0 |        0 |       0 |       0 | 13-73                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VCheckbox/__tests__         |       0 |      100 |       0 |       0 |                                                                                                    
+  VCheckboxBtn.spec.cy.tsx                  |       0 |      100 |       0 |       0 | 6-45                                                                                               
+ src/components/VChip                       |    2.38 |        0 |       0 |    2.56 |                                                                                                    
+  VChip.tsx                                 |    2.38 |        0 |       0 |    2.56 | 102-162                                                                                            
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VChip/__tests__             |       0 |      100 |       0 |       0 |                                                                                                    
+  VChip.spec.cy.tsx                         |       0 |      100 |       0 |       0 | 5-25                                                                                               
+ src/components/VChipGroup                  |   22.22 |      100 |       0 |   22.22 |                                                                                                    
+  VChipGroup.tsx                            |   22.22 |      100 |       0 |   22.22 | 38-74                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VCode                       |       0 |      100 |     100 |       0 |                                                                                                    
+  index.ts                                  |       0 |      100 |     100 |       0 | 5                                                                                                  
+ src/components/VColorPicker                |       0 |        0 |       0 |       0 |                                                                                                    
+  VColorPicker.tsx                          |       0 |        0 |       0 |       0 | 27-184                                                                                             
+  VColorPickerCanvas.tsx                    |       0 |        0 |       0 |       0 | 15-206                                                                                             
+  VColorPickerEdit.tsx                      |       0 |        0 |       0 |       0 | 16-101                                                                                             
+  VColorPickerPreview.tsx                   |       0 |        0 |       0 |       0 | 15-78                                                                                              
+  VColorPickerSwatches.tsx                  |       0 |        0 |       0 |       0 | 17-89                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VColorPicker/__tests__      |       0 |        0 |       0 |       0 |                                                                                                    
+  VColorPicker.spec.cy.tsx                  |       0 |        0 |       0 |       0 | 7-307                                                                                              
+ src/components/VColorPicker/util           |   59.42 |    64.28 |   19.23 |   56.45 |                                                                                                    
+  index.ts                                  |   59.42 |    64.28 |   19.23 |   56.45 | 71-85,111-133,155-177,196-197,209-210                                                              
+ src/components/VCombobox                   |       0 |        0 |       0 |       0 |                                                                                                    
+  VCombobox.tsx                             |       0 |        0 |       0 |       0 | 37-499                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VCombobox/__tests__         |       0 |      100 |       0 |       0 |                                                                                                    
+  VCombobox.spec.cy.tsx                     |       0 |      100 |       0 |       0 | 7-409                                                                                              
+ src/components/VCounter                    |   16.66 |        0 |       0 |   16.66 |                                                                                                    
+  VCounter.tsx                              |   16.66 |        0 |       0 |   16.66 | 33-55                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VData                       |       0 |        0 |       0 |       0 |                                                                                                    
+  VData.ts                                  |       0 |        0 |       0 |       0 | 28-382                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VDataIterator               |       0 |        0 |       0 |       0 |                                                                                                    
+  VDataFooter.ts                            |       0 |        0 |       0 |       0 | 31-223                                                                                             
+  VDataIterator.ts                          |       0 |        0 |       0 |       0 | 37-354                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VDatePicker                 |       0 |        0 |       0 |       0 |                                                                                                    
+  VDatePicker.ts                            |       0 |        0 |       0 |       0 | 66-535                                                                                             
+  VDatePickerDateTable.ts                   |       0 |        0 |       0 |       0 | 39-152                                                                                             
+  VDatePickerHeader.ts                      |       0 |        0 |       0 |       0 | 54-141                                                                                             
+  VDatePickerMonthTable.ts                  |       0 |        0 |       0 |       0 | 23-57                                                                                              
+  VDatePickerTitle.ts                       |       0 |        0 |       0 |       0 | 44-92                                                                                              
+  VDatePickerYears.ts                       |       0 |        0 |       0 |       0 | 49-105                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VDatePicker/mixins          |       0 |        0 |       0 |       0 |                                                                                                    
+  date-picker-table.ts                      |       0 |        0 |       0 |       0 | 53-258                                                                                             
+ src/components/VDatePicker/util            |   31.57 |    11.76 |   21.42 |   33.33 |                                                                                                    
+  createNativeLocaleFormatter.ts            |       0 |        0 |       0 |       0 | 28-38                                                                                              
+  eventHelpers.ts                           |       0 |        0 |       0 |       0 | 7-22                                                                                               
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+  isDateAllowed.ts                          |       0 |        0 |       0 |       0 | 7                                                                                                  
+  monthChange.ts                            |       0 |        0 |       0 |       0 | 11-18                                                                                              
+  pad.ts                                    |    90.9 |       80 |     100 |    90.9 | 14                                                                                                 
+  sanitizeDateString.ts                     |     100 |        0 |     100 |     100 | 6                                                                                                  
+ src/components/VDefaultsProvider           |      20 |      100 |       0 |      25 |                                                                                                    
+  VDefaultsProvider.tsx                     |      20 |      100 |       0 |      25 | 24-33                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VDefaultsProvider/__tests__ |       0 |      100 |       0 |       0 |                                                                                                    
+  VDefaultsProvider.spec.cy.tsx             |       0 |      100 |       0 |       0 | 7-10                                                                                               
+ src/components/VDialog                     |       0 |        0 |       0 |       0 |                                                                                                    
+  VDialog.tsx                               |       0 |        0 |       0 |       0 | 22-137                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VDivider                    |    7.69 |        0 |       0 |    7.69 |                                                                                                    
+  VDivider.tsx                              |    7.69 |        0 |       0 |    7.69 | 29-69                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VExpansionPanel             |       0 |        0 |       0 |       0 |                                                                                                    
+  VExpansionPanel.tsx                       |       0 |        0 |       0 |       0 | 24-121                                                                                             
+  VExpansionPanelText.tsx                   |       0 |        0 |       0 |       0 | 12-41                                                                                              
+  VExpansionPanelTitle.tsx                  |       0 |        0 |       0 |       0 | 29-103                                                                                             
+  VExpansionPanels.tsx                      |       0 |        0 |       0 |       0 | 18-72                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VExpansionPanel/__tests__   |       0 |      100 |       0 |       0 |                                                                                                    
+  VExpansionPanels.spec.cy.tsx              |       0 |      100 |       0 |       0 | 7-139                                                                                              
+ src/components/VField                      |   67.69 |    69.49 |   78.94 |    64.4 |                                                                                                    
+  VField.tsx                                |   65.57 |    68.42 |   76.47 |   61.81 | 112-113,145-179                                                                                    
+  VFieldLabel.tsx                           |     100 |      100 |     100 |     100 |                                                                                                    
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VFileInput                  |   56.52 |    26.41 |   41.93 |   63.93 |                                                                                                    
+  VFileInput.tsx                            |   56.52 |    26.41 |   41.93 |   63.93 | 83-84,95-97,103-105,130,138-145,150-153,220-254                                                    
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VFileInput/__tests__        |       0 |      100 |       0 |       0 |                                                                                                    
+  VFileInput.spec.cy.tsx                    |       0 |      100 |       0 |       0 | 7-189                                                                                              
+ src/components/VFooter                     |       0 |        0 |       0 |       0 |                                                                                                    
+  VFooter.tsx                               |       0 |        0 |       0 |       0 | 18-79                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VForm                       |       0 |        0 |       0 |       0 |                                                                                                    
+  VForm.tsx                                 |       0 |        0 |       0 |       0 | 12-66                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VForm/__tests__             |       0 |        0 |       0 |       0 |                                                                                                    
+  VForm.spec.cy.tsx                         |       0 |        0 |       0 |       0 | 11-198                                                                                             
+ src/components/VGrid                       |   51.08 |    69.56 |   53.57 |   54.32 |                                                                                                    
+  VCol.ts                                   |     100 |    94.11 |     100 |     100 | 57                                                                                                 
+  VContainer.tsx                            |     100 |      100 |     100 |     100 |                                                                                                    
+  VRow.ts                                   |       0 |        0 |       0 |       0 | 14-131                                                                                             
+  VSpacer.ts                                |       0 |      100 |     100 |       0 | 3                                                                                                  
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VHover                      |       0 |        0 |       0 |       0 |                                                                                                    
+  VHover.tsx                                |       0 |        0 |       0 |       0 | 15-36                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VHover/__tests__            |       0 |        0 |       0 |       0 |                                                                                                    
+  VHover.spec.cy.tsx                        |       0 |        0 |       0 |       0 | 6-47                                                                                               
+ src/components/VIcon                       |    62.5 |    46.15 |      50 |   66.66 |                                                                                                    
+  VIcon.tsx                                 |    62.5 |    46.15 |      50 |   66.66 | 37-42                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VIcon/__tests__             |       0 |      100 |       0 |       0 |                                                                                                    
+  VIcon.spec.cy.tsx                         |       0 |      100 |       0 |       0 | 7-118                                                                                              
+ src/components/VImg                        |       1 |        0 |       0 |    1.14 |                                                                                                    
+  VImg.tsx                                  |       1 |        0 |       0 |    1.14 | 63-319                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VInput                      |   96.77 |     87.5 |   91.66 |   96.29 |                                                                                                    
+  InputIcon.tsx                             |     100 |      100 |     100 |     100 |                                                                                                    
+  VInput.tsx                                |      96 |    84.61 |      90 |   95.23 | 72                                                                                                 
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VInput/__tests__            |       0 |      100 |       0 |       0 |                                                                                                    
+  VInput.spec.cy.tsx                        |       0 |      100 |       0 |       0 | 7-29                                                                                               
+ src/components/VItemGroup                  |     100 |      100 |     100 |     100 |                                                                                                    
+  VItem.tsx                                 |     100 |      100 |     100 |     100 |                                                                                                    
+  VItemGroup.tsx                            |     100 |      100 |     100 |     100 |                                                                                                    
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VItemGroup/__tests__        |       0 |      100 |       0 |       0 |                                                                                                    
+  VItemGroup.spec.cy.tsx                    |       0 |      100 |       0 |       0 | 6-25                                                                                               
+ src/components/VKbd                        |       0 |      100 |     100 |       0 |                                                                                                    
+  index.ts                                  |       0 |      100 |     100 |       0 | 5                                                                                                  
+ src/components/VLabel                      |     100 |      100 |     100 |     100 |                                                                                                    
+  VLabel.tsx                                |     100 |      100 |     100 |     100 |                                                                                                    
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VLayout                     |       0 |      100 |       0 |       0 |                                                                                                    
+  VLayout.tsx                               |       0 |      100 |       0 |       0 | 10-24                                                                                              
+  VLayoutItem.tsx                           |       0 |      100 |       0 |       0 | 14-42                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VLayout/__tests__           |       0 |      100 |       0 |       0 |                                                                                                    
+  VLayout.spec.cy.tsx                       |       0 |      100 |       0 |       0 | 9-80                                                                                               
+ src/components/VLazy                       |       0 |        0 |       0 |       0 |                                                                                                    
+  VLazy.tsx                                 |       0 |        0 |       0 |       0 | 16-75                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VList                       |   46.46 |    28.79 |    36.5 |   46.89 |                                                                                                    
+  VList.tsx                                 |   35.52 |     2.04 |   33.33 |   35.21 | 36-52,66,120-123,162-219                                                                           
+  VListChildren.tsx                         |   22.22 |     7.69 |      20 |   17.64 | 38-73                                                                                              
+  VListGroup.tsx                            |   16.66 |        0 |       0 |   21.42 | 24-26,60-116                                                                                       
+  VListImg.ts                               |     100 |      100 |     100 |     100 |                                                                                                    
+  VListItem.tsx                             |   77.77 |    54.16 |   73.33 |   78.26 | 104,131,135,156-167                                                                                
+  VListItemAction.tsx                       |      25 |      100 |       0 |      25 | 18-31                                                                                              
+  VListItemMedia.tsx                        |     100 |      100 |     100 |     100 |                                                                                                    
+  VListItemSubtitle.ts                      |     100 |      100 |     100 |     100 |                                                                                                    
+  VListItemTitle.ts                         |     100 |      100 |     100 |     100 |                                                                                                    
+  VListSubheader.tsx                        |   16.66 |        0 |       0 |   16.66 | 22-48                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+  list.ts                                   |   46.66 |        0 |   33.33 |   58.33 | 11-17,32                                                                                           
+ src/components/VList/__tests__             |       0 |      100 |       0 |       0 |                                                                                                    
+  VList.spec.cy.tsx                         |       0 |      100 |       0 |       0 | 8-230                                                                                              
+  VListGroup.spec.cy.tsx                    |       0 |      100 |       0 |       0 | 8-50                                                                                               
+  VListItem.spec.cy.tsx                     |       0 |      100 |       0 |       0 | 6-47                                                                                               
+ src/components/VLocaleProvider             |       0 |      100 |       0 |       0 |                                                                                                    
+  VLocaleProvider.tsx                       |       0 |      100 |       0 |       0 | 10-37                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VMain                       |       0 |        0 |       0 |       0 |                                                                                                    
+  VMain.tsx                                 |       0 |        0 |       0 |       0 | 12-47                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VMain/__tests__             |       0 |      100 |       0 |       0 |                                                                                                    
+  VMain.spec.cy.tsx                         |       0 |      100 |       0 |       0 | 6-14                                                                                               
+ src/components/VMenu                       |       0 |        0 |       0 |       0 |                                                                                                    
+  VMenu.tsx                                 |       0 |        0 |       0 |       0 | 23-118                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+  shared.ts                                 |       0 |      100 |     100 |       0 | 9                                                                                                  
+ src/components/VMessages                   |      70 |       25 |      50 |      75 |                                                                                                    
+  VMessages.tsx                             |      70 |       25 |      50 |      75 | 34,64                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VNavigationDrawer           |       0 |        0 |       0 |       0 |                                                                                                    
+  VNavigationDrawer.tsx                     |       0 |        0 |       0 |       0 | 39-276                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+  sticky.ts                                 |       0 |        0 |       0 |       0 | 12-71                                                                                              
+  touch.ts                                  |       0 |        0 |       0 |       0 | 17-185                                                                                             
+ src/components/VNavigationDrawer/__tests__ |       0 |      100 |       0 |       0 |                                                                                                    
+  VNavigationDrawer.spec.cy.tsx             |       0 |      100 |       0 |       0 | 8-139                                                                                              
+ src/components/VNoSsr                      |       0 |        0 |       0 |       0 |                                                                                                    
+  VNoSsr.tsx                                |       0 |        0 |       0 |       0 | 8-14                                                                                               
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VOtpInput                   |       0 |        0 |       0 |       0 |                                                                                                    
+  VOtpInput.ts                              |       0 |        0 |       0 |       0 | 22-302                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VOverflowBtn                |       0 |        0 |       0 |       0 |                                                                                                    
+  VOverflowBtn.ts                           |       0 |        0 |       0 |       0 | 29-108                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VOverlay                    |       0 |        0 |       0 |       0 |                                                                                                    
+  VOverlay.tsx                              |       0 |        0 |       0 |       0 | 58-304                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+  locationStrategies.ts                     |       0 |        0 |       0 |       0 | 42-441                                                                                             
+  requestNewFrame.ts                        |       0 |        0 |       0 |       0 | 1-27                                                                                               
+  scrollStrategies.ts                       |       0 |        0 |       0 |       0 | 19-164                                                                                             
+  useActivator.tsx                          |       0 |        0 |       0 |       0 | 39-299                                                                                             
+ src/components/VOverlay/__tests__          |       0 |      100 |       0 |       0 |                                                                                                    
+  VOverlay.spec.cy.tsx                      |       0 |      100 |       0 |       0 | 10-85                                                                                              
+ src/components/VOverlay/util               |       0 |        0 |       0 |       0 |                                                                                                    
+  point.ts                                  |       0 |        0 |       0 |       0 | 14-68                                                                                              
+ src/components/VPagination                 |       0 |        0 |       0 |       0 |                                                                                                    
+  VPagination.tsx                           |       0 |        0 |       0 |       0 | 39-376                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VPagination/__tests__       |       0 |      100 |       0 |       0 |                                                                                                    
+  VPagination.spec.cy.tsx                   |       0 |      100 |       0 |       0 | 11-210                                                                                             
+ src/components/VParallax                   |       0 |        0 |       0 |       0 |                                                                                                    
+  VParallax.tsx                             |       0 |        0 |       0 |       0 | 20-103                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VPicker                     |       0 |        0 |       0 |       0 |                                                                                                    
+  VPicker.ts                                |       0 |        0 |       0 |       0 | 44-90                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VProgressCircular           |       0 |        0 |       0 |       0 |                                                                                                    
+  VProgressCircular.tsx                     |       0 |        0 |       0 |       0 | 19-141                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VProgressLinear             |   74.28 |    41.66 |   61.53 |   81.48 |                                                                                                    
+  VProgressLinear.tsx                       |   74.28 |    41.66 |   61.53 |   81.48 | 64,91-96                                                                                           
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VProgressLinear/__tests__   |       0 |      100 |       0 |       0 |                                                                                                    
+  VProgressLinear.spec.cy.tsx               |       0 |      100 |       0 |       0 | 8-129                                                                                              
+ src/components/VRadio                      |       0 |      100 |       0 |       0 |                                                                                                    
+  VRadio.tsx                                |       0 |      100 |       0 |       0 | 10-30                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VRadioGroup                 |       0 |        0 |       0 |       0 |                                                                                                    
+  VRadioGroup.tsx                           |       0 |        0 |       0 |       0 | 24-118                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VRangeSlider                |       0 |        0 |       0 |       0 |                                                                                                    
+  VRangeSlider.tsx                          |       0 |        0 |       0 |       0 | 23-253                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VRating                     |       0 |        0 |       0 |       0 |                                                                                                    
+  VRating.tsx                               |       0 |        0 |       0 |       0 | 45-284                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VRating/__tests__           |       0 |      100 |       0 |       0 |                                                                                                    
+  VRating.spec.cy.tsx                       |       0 |      100 |       0 |       0 | 6-134                                                                                              
+ src/components/VResponsive                 |     100 |      100 |     100 |     100 |                                                                                                    
+  VResponsive.tsx                           |     100 |      100 |     100 |     100 |                                                                                                    
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VSelect                     |       0 |        0 |       0 |       0 |                                                                                                    
+  VSelect.tsx                               |       0 |        0 |       0 |       0 | 34-363                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VSelect/__tests__           |       0 |      100 |       0 |       0 |                                                                                                    
+  VSelect.spec.cy.tsx                       |       0 |      100 |       0 |       0 | 8-263                                                                                              
+ src/components/VSelectionControl           |   43.63 |    34.54 |   36.84 |      46 |                                                                                                    
+  VSelectionControl.tsx                     |   43.63 |    34.54 |   36.84 |      46 | 82,93-95,99,141-272                                                                                
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VSelectionControl/__tests__ |       0 |      100 |       0 |       0 |                                                                                                    
+  VSelectionControl.spec.cy.tsx             |       0 |      100 |       0 |       0 | 5-25                                                                                               
+ src/components/VSelectionControlGroup      |   13.63 |        0 |       0 |   15.78 |                                                                                                    
+  VSelectionControlGroup.tsx                |   13.63 |        0 |       0 |   15.78 | 68-122                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VSheet                      |       0 |      100 |       0 |       0 |                                                                                                    
+  VSheet.tsx                                |       0 |      100 |       0 |       0 | 19-69                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VSkeletonLoader             |       0 |        0 |       0 |       0 |                                                                                                    
+  VSkeletonLoader.ts                        |       0 |        0 |       0 |       0 | 43-199                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VSlideGroup                 |       0 |        0 |       0 |       0 |                                                                                                    
+  VSlideGroup.tsx                           |       0 |        0 |       0 |       0 | 25-411                                                                                             
+  VSlideGroupItem.tsx                       |       0 |      100 |       0 |       0 | 21-35                                                                                              
+  helpers.ts                                |       0 |        0 |       0 |       0 | 2-59                                                                                               
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VSlideGroup/__tests__       |       0 |      100 |       0 |       0 |                                                                                                    
+  VSlideGroup.spec.cy.tsx                   |       0 |      100 |       0 |       0 | 9-247                                                                                              
+ src/components/VSlider                     |       0 |        0 |       0 |       0 |                                                                                                    
+  VSlider.tsx                               |       0 |        0 |       0 |       0 | 28-164                                                                                             
+  VSliderThumb.tsx                          |       0 |        0 |       0 |       0 | 23-182                                                                                             
+  VSliderTrack.tsx                          |       0 |        0 |       0 |       0 | 19-173                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+  slider.ts                                 |       0 |        0 |       0 |       0 | 58-346                                                                                             
+ src/components/VSlider/__tests__           |       0 |      100 |       0 |       0 |                                                                                                    
+  VSlider.spec.cy.tsx                       |       0 |      100 |       0 |       0 | 7-204                                                                                              
+ src/components/VSnackbar                   |       0 |        0 |       0 |       0 |                                                                                                    
+  VSnackbar.tsx                             |       0 |        0 |       0 |       0 | 29-158                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VSparkline                  |       0 |        0 |       0 |       0 |                                                                                                    
+  VSparkline.ts                             |       0 |        0 |       0 |       0 | 86-422                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VSparkline/helpers          |       0 |        0 |       0 |       0 |                                                                                                    
+  core.ts                                   |       0 |        0 |       0 |       0 | 10-46                                                                                              
+  math.ts                                   |       0 |        0 |       0 |       0 | 7-30                                                                                               
+  path.ts                                   |       0 |        0 |       0 |       0 | 11-36                                                                                              
+ src/components/VSpeedDial                  |       0 |        0 |       0 |       0 |                                                                                                    
+  VSpeedDial.ts                             |       0 |        0 |       0 |       0 | 31-103                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VStepper                    |       0 |        0 |       0 |       0 |                                                                                                    
+  VStepper.ts                               |       0 |        0 |       0 |       0 | 25-137                                                                                             
+  VStepperContent.ts                        |       0 |        0 |       0 |       0 | 22-164                                                                                             
+  VStepperStep.ts                           |       0 |        0 |       0 |       0 | 24-150                                                                                             
+  index.ts                                  |       0 |      100 |     100 |       0 | 6-7                                                                                                
+ src/components/VSwitch                     |       0 |        0 |       0 |       0 |                                                                                                    
+  VSwitch.tsx                               |       0 |        0 |       0 |       0 | 24-158                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VSystemBar                  |       0 |        0 |       0 |       0 |                                                                                                    
+  VSystemBar.tsx                            |       0 |        0 |       0 |       0 | 17-68                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VSystemBar/__tests__        |       0 |      100 |       0 |       0 |                                                                                                    
+  VSystemBar.spec.cy.tsx                    |       0 |      100 |       0 |       0 | 7-10                                                                                               
+ src/components/VTable                      |       0 |        0 |       0 |       0 |                                                                                                    
+  VTable.tsx                                |       0 |        0 |       0 |       0 | 19-70                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VTabs                       |       0 |        0 |       0 |       0 |                                                                                                    
+  VTab.tsx                                  |       0 |        0 |       0 |       0 | 19-140                                                                                             
+  VTabs.tsx                                 |       0 |        0 |       0 |       0 | 26-123                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+  shared.ts                                 |       0 |      100 |     100 |       0 | 4                                                                                                  
+ src/components/VTabs/__tests__             |       0 |        0 |       0 |       0 |                                                                                                    
+  VTabs.spec.cy.tsx                         |       0 |        0 |       0 |       0 | 7-142                                                                                              
+ src/components/VTextField                  |   54.83 |    47.05 |   47.61 |   56.89 |                                                                                                    
+  VTextField.tsx                            |   54.83 |    47.05 |   47.61 |   56.89 | 65,67,74,79-96,120-125,133-149,261                                                                 
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VTextField/__tests__        |       0 |        0 |       0 |       0 |                                                                                                    
+  VTextField.spec.cy.tsx                    |       0 |        0 |       0 |       0 | 7-52                                                                                               
+ src/components/VTextarea                   |   52.32 |    41.93 |      50 |   51.28 |                                                                                                    
+  VTextarea.tsx                             |   52.32 |    41.93 |      50 |   51.28 | 54,64,66,73,78-95,126-145,153-171,183-187,191,306                                                  
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VTextarea/__tests__         |       0 |      100 |       0 |       0 |                                                                                                    
+  VTextarea.spec.cy.tsx                     |       0 |      100 |       0 |       0 | 6-30                                                                                               
+ src/components/VThemeProvider              |       0 |        0 |       0 |       0 |                                                                                                    
+  VThemeProvider.tsx                        |       0 |        0 |       0 |       0 | 11-27                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VThemeProvider/__tests__    |       0 |      100 |       0 |       0 |                                                                                                    
+  VThemeProvider.spec.cy.tsx                |       0 |      100 |       0 |       0 | 8-37                                                                                               
+ src/components/VTimePicker                 |       0 |        0 |       0 |       0 |                                                                                                    
+  SelectingTimes.ts                         |       0 |        0 |       0 |       0 |                                                                                                    
+  VTimePicker.ts                            |       0 |        0 |       0 |       0 | 21-366                                                                                             
+  VTimePickerClock.ts                       |       0 |        0 |       0 |       0 | 48-275                                                                                             
+  VTimePickerTitle.ts                       |       0 |        0 |       0 |       0 | 31-80                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VTimeline                   |       0 |        0 |       0 |       0 |                                                                                                    
+  VTimeline.tsx                             |       0 |        0 |       0 |       0 | 22-120                                                                                             
+  VTimelineDivider.tsx                      |       0 |        0 |       0 |       0 | 16-113                                                                                             
+  VTimelineItem.tsx                         |       0 |        0 |       0 |       0 | 26-102                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VTimeline/__tests__         |       0 |      100 |       0 |       0 |                                                                                                    
+  VTimeline.spec.cy.tsx                     |       0 |      100 |       0 |       0 | 17-319                                                                                             
+ src/components/VToolbar                    |       0 |        0 |       0 |       0 |                                                                                                    
+  VToolbar.tsx                              |       0 |        0 |       0 |       0 | 27-212                                                                                             
+  VToolbarItems.tsx                         |       0 |      100 |       0 |       0 | 9-29                                                                                               
+  VToolbarTitle.tsx                         |       0 |        0 |       0 |       0 | 10-43                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VToolbar/__tests__          |       0 |      100 |       0 |       0 |                                                                                                    
+  VToolbar.spec.cy.tsx                      |       0 |      100 |       0 |       0 | 8-53                                                                                               
+ src/components/VTooltip                    |       0 |        0 |       0 |       0 |                                                                                                    
+  VTooltip.tsx                              |       0 |        0 |       0 |       0 | 21-118                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VTreeview                   |       0 |        0 |       0 |       0 |                                                                                                    
+  VTreeview.ts                              |       0 |        0 |       0 |       0 | 56-432                                                                                             
+  VTreeviewNode.ts                          |       0 |        0 |       0 |       0 | 23-359                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VTreeview/util              |       0 |        0 |       0 |       0 |                                                                                                    
+  filterTreeItems.ts                        |       0 |        0 |       0 |       0 | 8-41                                                                                               
+ src/components/VValidation                 |       0 |      100 |       0 |       0 |                                                                                                    
+  VValidation.tsx                           |       0 |      100 |       0 |       0 | 7-21                                                                                               
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VWindow                     |       0 |        0 |       0 |       0 |                                                                                                    
+  VWindow.tsx                               |       0 |        0 |       0 |       0 | 48-245                                                                                             
+  VWindowItem.tsx                           |       0 |        0 |       0 |       0 | 17-138                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/components/VWindow/__tests__           |       0 |      100 |       0 |       0 |                                                                                                    
+  VWindow.spec.cy.tsx                       |       0 |      100 |       0 |       0 | 5-233                                                                                              
+ src/components/transitions                 |   20.96 |    11.29 |      20 |   22.41 |                                                                                                    
+  createTransition.ts                       |   26.92 |    13.63 |   66.66 |   26.92 | 38-69                                                                                              
+  dialog-transition.tsx                     |    1.88 |        0 |       0 |    2.12 | 25-145                                                                                             
+  expand-transition.ts                      |      10 |    28.57 |    12.5 |   10.71 | 20-83                                                                                              
+  index.ts                                  |     100 |      100 |     100 |     100 |                                                                                                    
+
+Test Suites: 54 skipped, 56 passed, 56 of 110 total
+Tests:       632 skipped, 413 passed, 1045 total
+Snapshots:   16 passed, 16 total
+Time:        13.69 s
+Ran all test suites.
+ src/composables                            |   61.87 |    59.32 |   55.42 |   64.81 |                                                                                                    
+  border.ts                                 |     100 |     90.9 |     100 |     100 | 20                                                                                                 
+  color.ts                                  |     100 |     87.5 |     100 |     100 | 54-72                                                                                              
+  defaults.ts                               |   65.51 |     37.5 |     100 |      76 | 56-66                                                                                              
+  delay.ts                                  |     100 |    66.66 |     100 |     100 | 24,31                                                                                              
+  density.ts                                |     100 |      100 |     100 |     100 |                                                                                                    
+  dimensions.ts                             |     100 |      100 |     100 |     100 |                                                                                                    
+  display.ts                                |   91.04 |    89.06 |      80 |   92.42 | 158-159,211-215                                                                                    
+  elevation.ts                              |     100 |    85.71 |     100 |     100 | 35                                                                                                 
+  filter.ts                                 |   91.52 |    88.88 |   85.71 |   92.45 | 97-99,170                                                                                          
+  focus.ts                                  |   85.71 |      100 |      75 |   85.71 | 35                                                                                                 
+  form.ts                                   |    5.17 |        0 |    6.25 |    6.12 | 73-177                                                                                             
+  forwardRefs.ts                            |   86.66 |    78.94 |     100 |   91.66 | 66-70                                                                                              
+  group.ts                                  |   79.84 |    76.25 |   77.14 |   82.24 | 97,109-111,141,184,195-198,234,261-262,271-272,287,291-292,301-305                                 
+  hydration.ts                              |       0 |        0 |       0 |       0 | 7-18                                                                                               
+  icons.tsx                                 |      75 |    63.63 |      50 |   81.08 | 94-95,113-114,138-139,202                                                                          
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+  intersectionObserver.ts                   |      75 |       50 |      60 |   78.57 | 17,22-23                                                                                           
+  items.ts                                  |   89.47 |       40 |   77.77 |   93.75 | 96                                                                                                 
+  layout.ts                                 |    4.25 |        0 |       0 |    5.17 | 71,89-135,144-357                                                                                  
+  lazy.ts                                   |       0 |        0 |       0 |       0 | 8-22                                                                                               
+  loader.tsx                                |     100 |      100 |     100 |     100 |                                                                                                    
+  locale.ts                                 |   48.38 |    33.33 |   45.45 |   53.84 | 31,50-61,89-99                                                                                     
+  location.ts                               |    82.6 |    70.58 |   66.66 |   94.73 | 42                                                                                                 
+  mutationObserver.ts                       |   71.42 |       75 |      60 |   82.35 | 29-31,41                                                                                           
+  position.ts                               |     100 |    66.66 |     100 |     100 | 26                                                                                                 
+  proxiedModel.ts                           |   92.59 |    86.36 |   91.66 |      92 | 55,63                                                                                              
+  refs.ts                                   |       0 |      100 |       0 |       0 | 6-14                                                                                               
+  resizeObserver.ts                         |   76.47 |       50 |      75 |   73.33 | 23,27,32-33                                                                                        
+  rounded.ts                                |     100 |      100 |     100 |     100 |                                                                                                    
+  router.tsx                                |   23.68 |       24 |   18.75 |   24.24 | 25-31,68-76,89-119                                                                                 
+  scopeId.ts                                |       0 |        0 |       0 |       0 | 4-8                                                                                                
+  scroll.ts                                 |   95.23 |       96 |    90.9 |   97.43 | 97                                                                                                 
+  selectLink.ts                             |       0 |        0 |       0 |       0 | 8-11                                                                                               
+  size.ts                                   |     100 |      100 |     100 |     100 |                                                                                                    
+  ssrBoot.ts                                |       0 |        0 |       0 |       0 | 6-18                                                                                               
+  stack.ts                                  |       0 |        0 |       0 |       0 | 9-65                                                                                               
+  tag.ts                                    |     100 |      100 |     100 |     100 |                                                                                                    
+  teleport.ts                               |       0 |        0 |       0 |       0 | 9-35                                                                                               
+  theme.ts                                  |   85.47 |       80 |      75 |   88.23 | 300,312-320,391-397                                                                                
+  toggleScope.ts                            |   84.61 |       75 |   83.33 |    90.9 | 9                                                                                                  
+  touch.ts                                  |       0 |        0 |       0 |       0 | 3-109                                                                                              
+  transition.ts                             |     100 |       40 |     100 |     100 | 23-27                                                                                              
+  validation.ts                             |   85.89 |    74.46 |   75.86 |   90.16 | 112,125-128,135-136                                                                                
+  variant.tsx                               |     100 |      100 |     100 |     100 |                                                                                                    
+ src/composables/nested                     |    43.6 |    36.63 |   32.75 |   43.22 |                                                                                                    
+  nested.ts                                 |    30.2 |    11.11 |   15.15 |   31.81 | 54-59,82-90,95-101,109-110,114-126,137-205,226-230,232-233,240,249-251                             
+  openStrategies.ts                         |    9.37 |        0 |       0 |    9.67 | 27-44,49-64,70-81                                                                                  
+  selectStrategies.ts                       |   72.28 |    66.66 |      70 |   71.23 | 48-69,86-95,176-197                                                                                
+ src/directives                             |       0 |        0 |       0 |       0 |                                                                                                    
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/directives/click-outside               |    92.5 |    85.71 |     100 |   97.05 |                                                                                                    
+  index.ts                                  |    92.5 |    85.71 |     100 |   97.05 | 33                                                                                                 
+ src/directives/color                       |       0 |        0 |       0 |       0 |                                                                                                    
+  index.ts                                  |       0 |        0 |       0 |       0 | 28-102                                                                                             
+ src/directives/intersect                   |      88 |    78.26 |     100 |     100 |                                                                                                    
+  index.ts                                  |      88 |    78.26 |     100 |     100 | 24-26,33-37,68                                                                                     
+ src/directives/mutate                      |   94.73 |    73.68 |     100 |     100 |                                                                                                    
+  index.ts                                  |   94.73 |    73.68 |     100 |     100 | 11-16,29-34,46                                                                                     
+ src/directives/resize                      |    92.3 |       75 |     100 |     100 |                                                                                                    
+  index.ts                                  |    92.3 |       75 |     100 |     100 | 31                                                                                                 
+ src/directives/ripple                      |   77.14 |    65.95 |   76.92 |   78.31 |                                                                                                    
+  index.ts                                  |   77.14 |    65.95 |   76.92 |   78.31 | 65-67,89,99,113-114,150-151,174-175,186,191-199,208,220-227,239-247,283,288-290,333-334            
+ src/directives/scroll                      |      90 |    65.21 |     100 |     100 |                                                                                                    
+  index.ts                                  |      90 |    65.21 |     100 |     100 | 16-19,25-34,41-48                                                                                  
+ src/directives/touch                       |      96 |    84.84 |     100 |     100 |                                                                                                    
+  index.ts                                  |      96 |    84.84 |     100 |     100 | 91-119,123,136-139                                                                                 
+ src/iconsets                               |   16.66 |        0 |      25 |   16.66 |                                                                                                    
+  fa-svg.ts                                 |       0 |        0 |       0 |       0 | 8-14                                                                                               
+  fa.ts                                     |       0 |      100 |     100 |       0 | 7-45                                                                                               
+  fa4.ts                                    |       0 |      100 |       0 |       0 | 10-50                                                                                              
+  md.ts                                     |       0 |      100 |       0 |       0 | 10-50                                                                                              
+  mdi-svg.ts                                |       0 |      100 |     100 |       0 | 9-47                                                                                               
+  mdi.ts                                    |     100 |      100 |     100 |     100 |                                                                                                    
+ src/labs                                   |       0 |        0 |       0 |       0 |                                                                                                    
+  allComponents.ts                          |       0 |        0 |       0 |       0 |                                                                                                    
+  components.ts                             |       0 |        0 |       0 |       0 |                                                                                                    
+  entry-bundler.ts                          |       0 |        0 |       0 |       0 | 9-10                                                                                               
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/labs/VDataTable                        |       0 |        0 |       0 |       0 |                                                                                                    
+  VDataTable.tsx                            |       0 |        0 |       0 |       0 | 42-181                                                                                             
+  VDataTableColumn.tsx                      |       0 |        0 |       0 |       0 | 4-18                                                                                               
+  VDataTableFooter.tsx                      |       0 |        0 |       0 |       0 | 20-137                                                                                             
+  VDataTableGroupHeaderRow.tsx              |       0 |        0 |       0 |       0 | 24-84                                                                                              
+  VDataTableHeaders.tsx                     |       0 |        0 |       0 |       0 | 27-155                                                                                             
+  VDataTableRow.tsx                         |       0 |        0 |       0 |       0 | 18-94                                                                                              
+  VDataTableRows.tsx                        |       0 |        0 |       0 |       0 | 52-160                                                                                             
+  VDataTableServer.tsx                      |       0 |        0 |       0 |       0 | 27-151                                                                                             
+  VDataTableVirtual.tsx                     |       0 |      100 |       0 |       0 | 33-150                                                                                             
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+  types.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/labs/VDataTable/__tests__              |       0 |      100 |       0 |       0 |                                                                                                    
+  VDataTable.spec.cy.tsx                    |       0 |      100 |       0 |       0 | 6-106                                                                                              
+  VDataTableServer.spec.cy.tsx              |       0 |      100 |       0 |       0 | 7-217                                                                                              
+  VDataTableVirtual.spec.cy.tsx             |       0 |      100 |       0 |       0 | 6-101                                                                                              
+ src/labs/VDataTable/composables            |     7.4 |    12.83 |    3.06 |     7.5 |                                                                                                    
+  expand.ts                                 |       0 |        0 |       0 |       0 | 12-75                                                                                              
+  group.ts                                  |       0 |        0 |       0 |       0 | 11-167                                                                                             
+  headers.ts                                |       0 |        0 |       0 |       0 | 10-125                                                                                             
+  items.ts                                  |       0 |        0 |       0 |       0 | 13-35                                                                                              
+  options.ts                                |       0 |        0 |       0 |       0 | 22-40                                                                                              
+  paginate.ts                               |       0 |        0 |       0 |       0 | 11-104                                                                                             
+  select.ts                                 |       0 |        0 |       0 |       0 | 13-82                                                                                              
+  sort.ts                                   |   36.61 |    45.23 |      20 |   37.93 | 16,37-104,139,144,155                                                                              
+  virtual.ts                                |       0 |        0 |       0 |       0 | 8-89                                                                                               
+ src/labs/VVirtualScroll                    |       0 |        0 |       0 |       0 |                                                                                                    
+  VVirtualScroll.tsx                        |       0 |        0 |       0 |       0 | 25-188                                                                                             
+  VVirtualScrollItem.tsx                    |       0 |        0 |       0 |       0 | 9-38                                                                                               
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+ src/labs/VVirtualScroll/__tests__          |       0 |        0 |       0 |       0 |                                                                                                    
+  VVirtualScroll.spec.cy.tsx                |       0 |        0 |       0 |       0 | 6-20                                                                                               
+ src/locale                                 |     100 |      100 |     100 |     100 |                                                                                                    
+  af.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  ar.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  az.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  bg.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  ca.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  ckb.ts                                    |       0 |        0 |       0 |       0 |                                                                                                    
+  cs.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  da.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  de.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  el.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  en.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  es.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  et.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  fa.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  fi.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  fr.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  he.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  hr.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  hu.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  id.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  index.ts                                  |     100 |      100 |     100 |     100 |                                                                                                    
+  it.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  ja.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  ko.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  lt.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  lv.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  nl.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  no.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  pl.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  pt.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  ro.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  ru.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  sk.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  sl.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  sr-Cyrl.ts                                |       0 |        0 |       0 |       0 |                                                                                                    
+  sr-Latn.ts                                |       0 |        0 |       0 |       0 |                                                                                                    
+  sv.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  th.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  tr.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  uk.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  vi.ts                                     |       0 |        0 |       0 |       0 |                                                                                                    
+  zh-Hans.ts                                |       0 |        0 |       0 |       0 |                                                                                                    
+  zh-Hant.ts                                |       0 |        0 |       0 |       0 |                                                                                                    
+ src/locale/adapters                        |      35 |    46.15 |   36.84 |      35 |                                                                                                    
+  vue-i18n.ts                               |       0 |        0 |       0 |       0 | 14-74                                                                                              
+  vuetify.ts                                |    52.5 |    54.54 |   63.63 |    52.5 | 24,34-35,39-40,44-45,54-72,77-81                                                                   
+ src/services/goto                          |    19.4 |        0 |       0 |      26 |                                                                                                    
+  easing-patterns.ts                        |      50 |        0 |       0 |     100 | 10-28                                                                                              
+  index.ts                                  |       0 |        0 |       0 |       0 | 23-60                                                                                              
+  util.ts                                   |       0 |        0 |       0 |       0 | 8-50                                                                                               
+ src/util                                   |   59.89 |    63.46 |   56.41 |   60.82 |                                                                                                    
+  anchor.ts                                 |   66.66 |    43.75 |   33.33 |   61.53 | 23,42-75                                                                                           
+  animation.ts                              |       0 |        0 |       0 |       0 | 5-61                                                                                               
+  box.ts                                    |       0 |      100 |       0 |       0 | 13-26                                                                                              
+  colorUtils.ts                             |   95.04 |    85.13 |   89.28 |   95.78 | 54,108,143-147                                                                                     
+  colors.ts                                 |       0 |      100 |     100 |       0 | 1-312                                                                                              
+  console.ts                                |   45.83 |     57.4 |   58.33 |   45.65 | 8,28-29,43-49,63,73-74,85-103                                                                      
+  createSimpleFunctional.ts                 |   33.33 |      100 |   33.33 |      50 | 20                                                                                                 
+  dateTimeUtils.ts                          |      84 |    66.66 |     100 |      84 | 4-6,25                                                                                             
+  defineComponent.tsx                       |   71.79 |       60 |   66.66 |   73.52 | 107-109,116,132,141-142,152,267-268                                                                
+  dom.ts                                    |     100 |      100 |     100 |     100 |                                                                                                    
+  easing.ts                                 |     100 |      100 |     100 |     100 |                                                                                                    
+  getCurrentInstance.ts                     |   94.11 |    88.88 |     100 |     100 | 27                                                                                                 
+  getScrollParent.ts                        |       0 |        0 |       0 |       0 | 2-28                                                                                               
+  globals.ts                                |     100 |     87.5 |     100 |     100 | 4                                                                                                  
+  helpers.ts                                |   59.55 |     65.6 |   46.15 |   60.82 | 25,108-113,124,225-229,262-277,288-333,342-343,377-381,424-432,438-439,456-476,486,501-524,565-566 
+  index.ts                                  |       0 |        0 |       0 |       0 |                                                                                                    
+  injectSelf.ts                             |       0 |        0 |       0 |       0 | 6-10                                                                                               
+  isFixedPosition.ts                        |       0 |        0 |       0 |       0 | 2-8                                                                                                
+  propsFactory.ts                           |     100 |      100 |     100 |     100 |                                                                                                    
+  useRender.ts                              |     100 |      100 |     100 |     100 |                                                                                                    
+ src/util/color                             |     100 |     87.5 |     100 |     100 |                                                                                                    
+  APCA.ts                                   |     100 |    81.25 |     100 |     100 | 81,91-92                                                                                           
+  transformCIELAB.ts                        |     100 |      100 |     100 |     100 |                                                                                                    
+  transformSRGB.ts                          |     100 |      100 |     100 |     100 |                                                                                                    
+--------------------------------------------|---------|----------|---------|---------|----------------------------------------------------------------------------------------------------
+Done in 16.59s.
+
+┌────────────────────────────────────────────────────────────┐
+│  Looking for lcov files...                                 │
+│  TEST_TYPE=test_coverage PREPEND_PATHS=true                │
+└────────────────────────────────────────────────────────────┘
+
+▶ Found ./packages/vuetify/coverage/lcov.info
+Reading tracefile ./packages/vuetify/coverage/lcov.info
+Summary coverage rate:
+  lines......: 19.2% (2040 of 10650 lines)
+  functions..: 13.5% (520 of 3848 functions)
+  branches...: no data found
+
+▶ Moved and prepended packages/vuetify to SF: paths in ./packages/vuetify/coverage/lcov.info
+
+┌────────────────────────────────────────────────────────────┐
+│  Checking for Cypress tests                                │
+└────────────────────────────────────────────────────────────┘
+
+▶   Found cy:run: percy exec -- cypress run --component  (in packages/vuetify)
+
+▶   Running: xvfb-run npx cypress run --component
+It looks like this is your first time using Cypress: 12.7.0
+
+[STARTED] Task without title.
+[SUCCESS] Task without title.
+
+Opening Cypress...
+[31mBuild failed with 1 error:[39m
+[31mvite.config.mjs:60:6: ERROR: Unexpected "..."[39m
+[31mError: Build failed with 1 error:[39m
+[31mvite.config.mjs:60:6: ERROR: Unexpected "..."[39m
+[31m    at failureErrorWithLog (/coverage_reloaded/repo/node_modules/esbuild/lib/main.js:1575:15)[39m
+[31m    at /coverage_reloaded/repo/node_modules/esbuild/lib/main.js:1033:28[39m
+[31m    at runOnEndCallbacks (/coverage_reloaded/repo/node_modules/esbuild/lib/main.js:1447:61)[39m
+[31m    at buildResponseToResult (/coverage_reloaded/repo/node_modules/esbuild/lib/main.js:1031:7)[39m
+[31m    at /coverage_reloaded/repo/node_modules/esbuild/lib/main.js:1143:14[39m
+[31m    at responseCallbacks.<computed> (/coverage_reloaded/repo/node_modules/esbuild/lib/main.js:680:9)[39m
+[31m    at handleIncomingPacket (/coverage_reloaded/repo/node_modules/esbuild/lib/main.js:735:9)[39m
+[31m    at Socket.readFromStdout (/coverage_reloaded/repo/node_modules/esbuild/lib/main.js:656:7)[39m
+[31m    at Socket.emit (node:events:513:28)[39m
+[31m    at Socket.emit (node:domain:489:12)[39m
+[31m    at addChunk (node:internal/streams/readable:324:12)[39m
+[31m    at readableAddChunk (node:internal/streams/readable:297:9)[39m
+[31m    at Socket.Readable.push (node:internal/streams/readable:234:10)[39m
+[31m    at Pipe.onStreamRead (node:internal/stream_base_commons:190:23)[39m
+
+▶   Cypress exit code: 1
+
+┌────────────────────────────────────────────────────────────┐
+│  Looking for lcov files...                                 │
+│  TEST_TYPE=cypress PREPEND_PATHS=true                      │
+└────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────┐
+│  Counting coverage reports                                 │
+└────────────────────────────────────────────────────────────┘
+--> Found 1 lcov.info files in /coverage_reloaded/exported (1 with size > 0)
+
+┌────────────────────────────────────────────────────────────┐
+│  Collecting individual coverage reports                    │
+└────────────────────────────────────────────────────────────┘
+  [OK]  test_coverage.lcov.info → 3ff63ee7feb41444106ce552bbfc14acf32d613b__packages_vuetify_test_coverage.lcov
+
+╔════════════════════════════════════════════════════════════╗
+║  Coverage run completed                                    ║
+║  Revision: 3ff63ee7feb41444106ce552bbfc14acf32d613b        ║
+╚════════════════════════════════════════════════════════════╝
+
+
+----
+Success!

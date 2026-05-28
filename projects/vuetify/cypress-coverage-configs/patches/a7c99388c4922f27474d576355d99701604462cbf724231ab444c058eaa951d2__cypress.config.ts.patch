@@ -1,0 +1,30 @@
+import { defineConfig } from 'cypress'
+
+export default defineConfig({
+  projectId: '5w5r1i',
+  component: {
+    devServer: {
+      framework: 'vue',
+      bundler: 'vite',
+    },
+    specPattern: './src/**/*.spec.cy.{js,jsx,ts,tsx}',
+    supportFile: './cypress/support/index.ts',
+    video: false,
+
+    /**
+     * Register @cypress/code-coverage task.
+     * Collects window.__coverage__ from the browser after each test
+     * and writes lcov.info files via nyc/istanbul.
+     */
+    setupNodeEvents(on, config) {
+      require('@cypress/code-coverage/task')(on, config)
+      return config
+    },
+  },
+  viewportWidth: 1075,
+  viewportHeight: 825,
+
+  env: {
+    coverage: true,
+  },
+})

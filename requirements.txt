@@ -9,6 +9,7 @@ pathspec==1.0.4
 pluggy==1.6.0
 PyDriller==2.9
 Pygments==2.19.2
+PyYAML==6.0.1
 pytest==9.0.2
 python-dateutil==2.9.0.post0
 pytz==2025.2

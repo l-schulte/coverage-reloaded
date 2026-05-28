@@ -231,29 +231,39 @@ else
 fi
 
 
-print_header 2 "Merging coverage reports"
+print_header 2 "Collecting individual coverage reports"
+
+# Instead of merging (which causes function data mismatch warnings when
+# combining coverage from different instrumenters like Jest and Cypress),
+# we copy each lcov file to the output with a unique name.
+#
+# Naming: {revision}__{test_type}__{subdir}.lcov
+#
+# Examples:
+#   80af8e6c__test_coverage__packages_vuetify.lcov   (Jest test:coverage)
+#   80af8e6c__cypress__packages_vuetify_coverage_cypress.lcov  (Cypress)
 
 mapfile -t lcov_files < <(find "$COVERAGE_REPORT_PATH" \( -name "*.lcov.info" -o -name "lcov.info" \) -size +0)
 
-if [[ ${#lcov_files[@]} -eq 1 ]]; then
-    echo "Single lcov file found, copying directly to merged.lcov"
-    cp "${lcov_files[0]}" "$COVERAGE_REPORT_PATH/merged.lcov"
-else
-    echo "Merging ${#lcov_files[@]} lcov files"
-    lcov_args=()
-    for f in "${lcov_files[@]}"; do
-        lcov_args+=(--add-tracefile "$f")
-    done
-    lcov "${lcov_args[@]}" \
-        --output-file "$COVERAGE_REPORT_PATH/merged.lcov" \
-        --rc lcov_branch_coverage=1
+if [[ ${#lcov_files[@]} -eq 0 ]]; then
+    echo "Error: No lcov files found in $COVERAGE_REPORT_PATH"
+    exit 1
 fi
 
+for f in "${lcov_files[@]}"; do
+    # Get the relative path within COVERAGE_REPORT_PATH
+    rel="${f#$COVERAGE_REPORT_PATH/}"
+    # Remove .lcov.info or .info suffix
+    stem="${rel%.lcov.info}"
+    stem="${stem%.info}"
+    # Sanitize: replace / and - with _
+    safe_stem="${stem//\//_}"
+    safe_stem="${safe_stem//-/_}"
 
-print_header 2 "Reporting coverage to coverageSHARK"
-
-
-mv "$COVERAGE_REPORT_PATH/merged.lcov" "$OUTPUT_PATH/$revision.lcov"
+    dest="$OUTPUT_PATH/${revision}__${safe_stem}.lcov"
+    cp "$f" "$dest"
+    echo "  [OK]  $(basename "$f") → $(basename "$dest")"
+done
 
 
 
