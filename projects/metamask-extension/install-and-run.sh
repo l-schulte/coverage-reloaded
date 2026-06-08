@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 set -euo pipefail
 
 . /coverage_reloaded/logging.sh

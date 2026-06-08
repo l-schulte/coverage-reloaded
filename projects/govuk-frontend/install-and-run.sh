@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 cd /coverage_reloaded/repo
 
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 source /coverage_reloaded/logging.sh
 
 cd /coverage_reloaded/repo

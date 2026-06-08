@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 cd /coverage_reloaded/repo
 
 TEST_SCRIPT=$(node -p "require('./package.json').scripts['test'] || ''")
