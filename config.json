@@ -54,8 +54,8 @@
         "bhima": {
             "url": "https://github.com/third-culture-software/bhima"
         },
-        "vuetify": {
-            "url": "https://github.com/vuetifyjs/vuetify"
+        "gatsby": {
+            "url": "https://github.com/gatsbyjs/gatsby"
         }
     }
 }
