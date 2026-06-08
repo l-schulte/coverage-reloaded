@@ -10,7 +10,12 @@ cd /coverage_reloaded/repo
 
 print_header 2 "Installing dependencies"
 
+# Some yarn.lock entries have resolved URLs pointing to a now-defunct internal
+# nexus registry (nexus.stackline.com). Rewrite them to the WayPack npm registry
+# so yarn can fetch them through the local cache/proxy.
 if $IS_YARN_MAIN_PM; then
+    print_header 3 "Patching nexus.stackline.com URLs in yarn.lock → WayPack"
+    sed -i "s|https://nexus.stackline.com/repository/npm-group/|${WAYPACK_NPM_REGISTRY}|g" yarn.lock
     yarn install --frozen-lockfile 2>&1 || yarn install 2>&1
     PM_RUN="yarn run"
 elif $IS_NPM_MAIN_PM; then
