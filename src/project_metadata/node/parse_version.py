@@ -4,7 +4,7 @@ import re
 import semantic_version
 
 from src.project_metadata.helper import version_satisfies
-from src.project_metadata.node import get_node_releases
+from src.project_metadata.node.releases_data import get_node_releases
 
 
 def validate_node_version(version_string: str) -> bool:

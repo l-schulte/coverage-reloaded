@@ -1,16 +1,7 @@
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
-from src.project_metadata.node import (
-    from_angular,
-    from_docker as docker,
-    from_pnpm_lock,
-)
-from src.project_metadata.node import from_package_json as package_json
-from src.project_metadata.node import from_nvmrc as nvmrc
-from src.project_metadata.node import from_preinstall as preinstall
-from src.project_metadata.node import from_tool_version as tool_version
-from src.project_metadata.node import from_releases
+from src.project_metadata.node.strategies import STRATEGIES
 
 
 def find_node_version(
@@ -20,73 +11,27 @@ def find_node_version(
     node_version_delay_months: int = 3,
 ) -> tuple[str, str | None]:
     """
-    Attempts to retrieve the Node.js version for a given commit hash.
-    1. Check .nvmrc
-    2. Check package.json
-    3. Check dockerfiles
+    Attempts to retrieve the Node.js version for a given commit hash by trying
+    each registered strategy in priority order.
 
     Args:
+        commit_hash: The commit hash to inspect.
+        committer_date: The committer date of the commit.
+        repo_path: Path to the local git repository.
         node_version_delay_months: Minimum months a Node release must have been
             available before the commit date to be considered a valid match
             (stabilisation delay).
+
+    Returns:
+        Tuple of ``(version, source_name)`` where *source_name* identifies
+        which strategy succeeded, or ``(None, None)`` if no strategy matched.
     """
 
     release_cutoff = committer_date - relativedelta(months=node_version_delay_months)
 
-    # 1. Check .nvmrc
-    node_version = nvmrc.get_node_version(repo_path, commit_hash, nvmrc_path=".nvmrc")
-    if node_version:
-        return node_version, ".nvmrc"
+    for source_name, strategy in STRATEGIES:
+        node_version = strategy(repo_path, commit_hash, release_cutoff)
+        if node_version:
+            return node_version, source_name
 
-    # 3. Check package.json
-    node_version = package_json.get_node_version(
-        repo_path,
-        commit_hash,
-        packagejson_path="package.json",
-        release_cutoff=release_cutoff,
-    )
-    if node_version:
-        return node_version, "package.json"
-
-    # 2. Check pnpm-lock.yaml
-    node_version = from_pnpm_lock.get_node_version(
-        repo_path,
-        commit_hash,
-        pnpm_lock_path="pnpm-lock.yaml",
-        release_cutoff=release_cutoff,
-    )
-    if node_version:
-        return node_version, "pnpm-lock.yaml"
-
-    # 4. Check .tool-version
-    node_version = tool_version.get_node_version(
-        repo_path, commit_hash, tool_version_path=".tool-version"
-    )
-    if node_version:
-        return node_version, ".tool-version"
-
-    # 5. Check dockerfiles
-    node_version = docker.get_node_version(
-        repo_path, commit_hash, dockerfile_paths=["Dockerfile", "docker/Dockerfile"]
-    )
-    if node_version:
-        return node_version, "Dockerfile"
-
-    # 6. Check build/npm/preinstall.js
-    node_version = preinstall.get_node_version(
-        repo_path, commit_hash, preinstall_path="build/npm/preinstall.js"
-    )
-    if node_version:
-        return node_version, "build/npm/preinstall.js"
-
-    # 7. Check Angular compatibility (if applicable)
-    node_version = from_angular.get_node_version(repo_path, commit_hash)
-    if node_version:
-        return node_version, "Angular compatibility"
-
-    # Last: Check node_releases.json based on commit date
-    node_version = from_releases.get_node_version(
-        committer_date.timestamp(), offset_months=12, lts_only=True
-    )
-
-    return node_version, "node_releases.json (LTS, 12 months offset)"
+    return None, None

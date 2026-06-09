@@ -1,5 +1,5 @@
 from datetime import datetime
-import logging
+from typing import Optional
 
 from src.project_metadata.helper import get_file_json_content
 from src.project_metadata.node.parse_version import (
@@ -8,20 +8,17 @@ from src.project_metadata.node.parse_version import (
 
 POTENTIAL_KEYS = ["engines", "volta", "packageManager"]
 
-logger = logging.getLogger(__name__)
-
 
 def get_node_version(
     repo_path: str,
-    revision: str,
-    packagejson_path: str = "package.json",
-    release_cutoff: datetime | None = None,
-    use_first: bool = False,
-) -> str | None:
+    commit_hash: str,
+    release_cutoff: Optional[datetime] = None,
+) -> Optional[str]:
     """
-    Retrieves the Node.js version specified in the package.json file at a given revision.
+    Check ``package.json`` (``engines.node``, ``volta.node``, ``packageManager``)
+    at the given commit.
     """
-    package_json = get_file_json_content(repo_path, revision, packagejson_path)
+    package_json = get_file_json_content(repo_path, commit_hash, "package.json")
     if not package_json:
         return None
 
@@ -31,7 +28,6 @@ def get_node_version(
                 version = find_matching_version_from_version_string(
                     package_json[key]["node"],
                     release_cutoff=release_cutoff,
-                    use_first=use_first,
                 )
                 if version:
                     return version

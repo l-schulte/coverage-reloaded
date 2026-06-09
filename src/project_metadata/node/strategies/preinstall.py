@@ -1,3 +1,6 @@
+from datetime import datetime
+from typing import Optional
+
 from src.project_metadata.helper import get_file_content
 from src.project_metadata.node.parse_version import (
     find_matching_version_from_version_string,
@@ -5,13 +8,14 @@ from src.project_metadata.node.parse_version import (
 
 
 def get_node_version(
-    repo_path: str, revision: str, preinstall_path: str = "build/npm/preinstall.js"
-) -> str | None:
+    repo_path: str,
+    commit_hash: str,
+    release_cutoff: Optional[datetime] = None,
+) -> Optional[str]:
     """
-    Retrieves the Node.js version specified in the build/npm/preinstall.js file at a given revision.
+    Check ``build/npm/preinstall.js`` at the given commit.
     """
-
-    content = get_file_content(repo_path, revision, preinstall_path)
+    content = get_file_content(repo_path, commit_hash, "build/npm/preinstall.js")
     if content:
         node_line = [
             line
@@ -20,8 +24,8 @@ def get_node_version(
         ]
         if not node_line:
             return None
-        content = node_line[0].split(maxsplit=1)[1]
-        version = find_matching_version_from_version_string(content)
+        version_str = node_line[0].split(maxsplit=1)[1]
+        version = find_matching_version_from_version_string(version_str)
         if version:
             return version
     return None

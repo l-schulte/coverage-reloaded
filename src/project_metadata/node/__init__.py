@@ -1,14 +1,11 @@
-from datetime import datetime
-import json
+"""
+Node.js version resolution.
 
-NODE_RELEASES_PATH = "src/project_metadata/node/data/node_releases.json"
-NODE_RELEASES = json.load(open(NODE_RELEASES_PATH, "r"))
+Provides :func:`find_node_version` (strategy-based orchestrator) and
+:func:`get_node_releases` (release data lookup).
+"""
 
+from src.project_metadata.node.find_node_version import find_node_version
+from src.project_metadata.node.releases_data import get_node_releases
 
-def get_node_releases(lts_only: bool = True) -> dict[str, dict[str, str]]:
-    """
-    Retrieves the Node.js releases from the data file, optionally filtering for LTS versions only.
-    """
-    if lts_only:
-        return {key: value for key, value in NODE_RELEASES.items() if value.get("lts")}
-    return NODE_RELEASES
+__all__ = ["find_node_version", "get_node_releases"]
