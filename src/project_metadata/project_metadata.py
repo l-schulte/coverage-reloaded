@@ -50,11 +50,10 @@ def extract_project_metadata(
     package_manager_priority = project_config.package_manager_priority
     workspaces = find_workspaces(repo_path, commit_hash)
     workspaces["config"] = project_config.workspaces
-    before_date_offset_months = project_config.node_version_delay_months
     min_node_version = project_config.min_node_version
 
     node, node_source = find_node_version(
-        commit_hash, committer_date, repo_path, before_date_offset_months
+        commit_hash, committer_date, repo_path, project_config.node_version_delay_months
     )
     if not node:
         raise ValueError(

@@ -17,16 +17,21 @@ def find_node_version(
     commit_hash: str,
     committer_date: datetime,
     repo_path: str,
-    before_date_offset_months: int = 3,
+    node_version_delay_months: int = 3,
 ) -> tuple[str, str | None]:
     """
     Attempts to retrieve the Node.js version for a given commit hash.
     1. Check .nvmrc
     2. Check package.json
     3. Check dockerfiles
+
+    Args:
+        node_version_delay_months: Minimum months a Node release must have been
+            available before the commit date to be considered a valid match
+            (stabilisation delay).
     """
 
-    before_date = committer_date - relativedelta(months=before_date_offset_months)
+    release_cutoff = committer_date - relativedelta(months=node_version_delay_months)
 
     # 1. Check .nvmrc
     node_version = nvmrc.get_node_version(repo_path, commit_hash, nvmrc_path=".nvmrc")
@@ -38,7 +43,7 @@ def find_node_version(
         repo_path,
         commit_hash,
         packagejson_path="package.json",
-        before_date=before_date,
+        release_cutoff=release_cutoff,
     )
     if node_version:
         return node_version, "package.json"
@@ -48,7 +53,7 @@ def find_node_version(
         repo_path,
         commit_hash,
         pnpm_lock_path="pnpm-lock.yaml",
-        before_date=before_date,
+        release_cutoff=release_cutoff,
     )
     if node_version:
         return node_version, "pnpm-lock.yaml"

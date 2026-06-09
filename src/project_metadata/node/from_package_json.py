@@ -15,7 +15,7 @@ def get_node_version(
     repo_path: str,
     revision: str,
     packagejson_path: str = "package.json",
-    before_date: datetime | None = None,
+    release_cutoff: datetime | None = None,
     use_first: bool = False,
 ) -> str | None:
     """
@@ -30,7 +30,7 @@ def get_node_version(
             if "node" in package_json[key]:
                 version = find_matching_version_from_version_string(
                     package_json[key]["node"],
-                    before_date=before_date,
+                    release_cutoff=release_cutoff,
                     use_first=use_first,
                 )
                 if version:

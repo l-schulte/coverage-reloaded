@@ -33,7 +33,7 @@ def __get_unique_node_version_strings(content: str) -> set[str]:
 
 def __get_first_compatible_node_version(
     node_version_strings: set[str],
-    before_date: datetime | None = None,
+    release_cutoff: datetime | None = None,
     lts_only: bool = True,
 ) -> str | None:
     """
@@ -49,7 +49,7 @@ def __get_first_compatible_node_version(
     )
 
     for potential_node_version, release_date in potential_node_versions:
-        if before_date and release_date.timestamp() >= before_date.timestamp():
+        if release_cutoff and release_date.timestamp() >= release_cutoff.timestamp():
             continue
 
         compatible = False
@@ -67,7 +67,7 @@ def get_node_version(
     repo_path: str,
     revision: str,
     pnpm_lock_path: str = "pnpm-lock.yaml",
-    before_date: datetime | None = None,
+    release_cutoff: datetime | None = None,
     lts_only: bool = True,
 ) -> str | None:
     """
@@ -78,5 +78,5 @@ def get_node_version(
     if content:
         node_version_strings = __get_unique_node_version_strings(str(content))
 
-        return __get_first_compatible_node_version(node_version_strings, before_date)
+        return __get_first_compatible_node_version(node_version_strings, release_cutoff)
     return None
