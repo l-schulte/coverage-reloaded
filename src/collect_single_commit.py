@@ -1,12 +1,11 @@
-import json
 import logging
 import os
 import pydriller
 
+from src.config import get_config
 from src.project_metadata.project_metadata import extract_project_metadata
 from src.docker.docker_run import docker_run_script
 
-CONFIG = json.load(open("config.json"))
 WORKSPACE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 logger = logging.getLogger(__name__)
@@ -27,8 +26,9 @@ def execute(project, commit_hash, base_path=None):
     repo = pydriller.Repository(repo_path, single=commit_hash)
     commit_data = next(repo.traverse_commits())
 
-    project_config = CONFIG["projects"][project]
-    project_id = project_config.get("projectID", project)
+    cfg = get_config()
+    project_config = cfg.projects[project]
+    project_id = project_config.projectID or project
 
     output_path = os.path.join(base_path, "output")
     os.makedirs(output_path, exist_ok=True)
@@ -40,15 +40,11 @@ def execute(project, commit_hash, base_path=None):
         commit_hash, commit_data.committer_date, repo_path, project, project_config
     )
 
-    commit_information.get("commit", {})
-    package_manager = commit_information.get("commit", {}).get("pm_version")
-    package_manager_source = commit_information.get("commit", {}).get(
-        "pm_version_source"
-    )
-    node_version = commit_information.get("commit", {}).get("node_version")
-    node_version_source = commit_information.get("commit", {}).get(
-        "node_version_source"
-    )
+    commit_info = commit_information["commit"]
+    package_manager = commit_info["pm_version"]
+    package_manager_source = commit_info["pm_version_source"]
+    node_version = commit_info["node_version"]
+    node_version_source = commit_info["node_version_source"]
 
     if not package_manager or not node_version:
         logger.error(

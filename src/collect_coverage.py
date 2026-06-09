@@ -1,5 +1,4 @@
 import csv
-import json
 import logging
 import concurrent.futures
 import time
@@ -9,9 +8,8 @@ import random
 import tqdm
 import argparse
 
+from src.config import get_config
 from src.docker.docker_run import docker_run_script
-
-CONFIG = json.load(open("config.json"))
 
 logger = logging.getLogger(__name__)
 
@@ -66,12 +64,13 @@ def execute(project, max_workers, max_commits=None):
     global next_worker_id
     next_worker_id = 1  # Reset worker ID counter
 
-    project_config = CONFIG["projects"].get(project, {})
+    cfg = get_config()
+    project_config = cfg.projects.get(project)
     if not project_config:
         logger.error(f"No configuration found for project: {project}")
         return
 
-    project_id = project_config.get("projectID", project)
+    project_id = project_config.projectID or project
 
     commits_csv = f"projects/{project}/" + COMMITS_CSV_FILE
 

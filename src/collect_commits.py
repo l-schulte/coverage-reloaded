@@ -5,19 +5,18 @@ import logging
 import os
 import subprocess
 import pydriller
-import json
 import tqdm
 import pandas as pd
 import numpy as np
 
+from src.config import get_config
 from src.project_metadata.project_metadata import extract_project_metadata
-
-CONFIG = json.load(open("config.json"))
 
 logger = logging.getLogger(__name__)
 
 
 def parse_args():
+    cfg = get_config()
     parser = argparse.ArgumentParser(description="Process project parameters.")
     parser.add_argument(
         "--project",
@@ -28,13 +27,13 @@ def parse_args():
     parser.add_argument(
         "--start-date",
         type=str,
-        default=CONFIG.get("startdate", "1970-01-01"),
+        default=cfg.start_date,
         help="Start date for commit collection in ISO format (YYYY-MM-DD).",
     )
     parser.add_argument(
         "--end-date",
         type=str,
-        default=CONFIG.get("enddate", "2100-01-01"),
+        default=cfg.end_date,
         help="End date for commit collection in ISO format (YYYY-MM-DD).",
     )
     return parser.parse_args()
@@ -46,15 +45,20 @@ def get_command_changes(df: pd.DataFrame):
 
     For each script_name, identifies the unique script_definition values across
     commit history and records the first commit_hash where each definition
-    appeared (i.e., the transition point). Results are sorted chronologically
-    within each script_name so the file can be read as an era timeline.
+    appeared (i.e., the transition point). Also records the last commit where
+    a script was present before it disappeared (script_definition="") so the
+    full lifecycle is visible.
+
+    Results are sorted chronologically within each script_name so the file
+    can be read as an era timeline.
 
     Args:
         df: DataFrame with commit_hash, timestamp, and one column per script_name.
 
     Returns:
         DataFrame with columns: commit_hash, timestamp, script_name, script_definition
-        sorted by script_name then timestamp.
+        sorted by script_name then timestamp. A blank script_definition marks
+        the commit where the script was last seen before removal.
     """
     df_long = df.melt(
         id_vars=["commit_hash", "timestamp"],
@@ -66,20 +70,49 @@ def get_command_changes(df: pd.DataFrame):
         df_long["script_definition"].str.strip().replace("", np.nan)
     )
 
-    df_long = df_long.dropna(subset=["script_definition"])
+    # ── Track appearances ─────────────────────────────────────────────────
+    df_present = df_long.dropna(subset=["script_definition"])
 
     # Sort by commit time so that drop_duplicates keeps the earliest occurrence
-    df_long = df_long.sort_values(["script_name", "timestamp"])
+    df_present = df_present.sort_values(["script_name", "timestamp"])
 
     # Keep the first commit_hash where each unique script_definition appeared
-    df_changes = df_long.drop_duplicates(
+    df_appearances = df_present.drop_duplicates(
         subset=["script_name", "script_definition"], keep="first"
     )
 
-    return (
-        df_changes.sort_values(["script_name", "timestamp"])
-        .reset_index(drop=True)
+    # ── Track removals ─────────────────────────────────────────────────────
+    # For each script_name, find the last commit where it was present.
+    # If that's not the last commit overall for that script, it was removed.
+    df_present_sorted = df_present.sort_values(["script_name", "timestamp"])
+    df_last_present = df_present_sorted.groupby("script_name").last().reset_index()
+
+    # Get the last commit overall for each script_name (including NaN rows)
+    df_full_sorted = df_long.sort_values(["script_name", "timestamp"])
+    df_last_overall = df_full_sorted.groupby("script_name").last().reset_index()
+
+    # A removal occurred if the last present commit differs from the last overall commit
+    df_removals = df_last_present.merge(
+        df_last_overall[["script_name", "commit_hash"]],
+        on="script_name",
+        suffixes=("_present", "_overall"),
     )
+    df_removals = df_removals[
+        df_removals["commit_hash_present"] != df_removals["commit_hash_overall"]
+    ].copy()
+    df_removals["script_definition"] = ""
+    df_removals = df_removals.rename(columns={"commit_hash_present": "commit_hash"})
+    df_removals = df_removals[
+        ["commit_hash", "timestamp", "script_name", "script_definition"]
+    ]
+
+    # ── Combine and sort ───────────────────────────────────────────────────
+    df_changes = pd.concat(
+        [df_appearances, df_removals],
+        ignore_index=True,
+    )
+
+    return df_changes.sort_values(["script_name", "timestamp"]).reset_index(drop=True)
 
 
 def execute(project: str, start_date: datetime, end_date: datetime):
@@ -95,10 +128,10 @@ def execute(project: str, start_date: datetime, end_date: datetime):
     logger.info(f"Collecting commits for {project} from {start_date} to {end_date}.")
 
     project_path = f"projects/{project}"
-    project_url = CONFIG["projects"].get(project, {}).get("url", None)
+    cfg = get_config()
+    project_cfg = cfg.projects.get(project)
+    project_url = project_cfg.url if project_cfg else None
     repo_path = f"{project_path}/repo"
-
-    project_config = CONFIG["projects"].get(project, {})
 
     os.makedirs(project_path, exist_ok=True)
 
@@ -128,7 +161,7 @@ def execute(project: str, start_date: datetime, end_date: datetime):
                 c["committer_date"],
                 repo_path,
                 project,
-                project_config,
+                project_cfg,
             ): c["hash"]
             for c in tasks
         }
@@ -175,7 +208,8 @@ def __main():
     if args.project:
         execute(args.project, start_date, end_date)
     else:
-        for project in CONFIG.get("projects", {}).keys():
+        cfg = get_config()
+        for project in cfg.projects:
             execute(project, start_date, end_date)
 
 

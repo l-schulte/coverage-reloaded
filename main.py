@@ -1,34 +1,17 @@
 import argparse
 from datetime import datetime, timezone
-import json
 import logging
 import os
 
 from src import collect_commits, collect_coverage, collect_single_commit
+from src.config import get_config
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def get_defaults_from_config():
-    CONFIG = json.load(open("config.json"))
-    defaults = {
-        "start_date": CONFIG.get("start_date", "1970-01-01"),
-        "end_date": CONFIG.get("end_date", "2100-01-01"),
-        "max_workers": CONFIG.get("max_workers", 4),
-    }
-    return defaults
-
-
-def get_all_projects_from_config():
-    CONFIG = json.load(open("config.json"))
-    return CONFIG.get("projects", [])
-
-
-DEFAULTS = get_defaults_from_config()
-
-
 def parse_args():
+    cfg = get_config()
 
     parser = argparse.ArgumentParser(
         description="Collect repository coverage through a projects commit history."
@@ -42,13 +25,13 @@ def parse_args():
     parser.add_argument(
         "--start-date",
         type=str,
-        default=DEFAULTS["start_date"],
+        default=cfg.start_date,
         help="Start date for commit collection in ISO format (YYYY-MM-DD).",
     )
     parser.add_argument(
         "--end-date",
         type=str,
-        default=DEFAULTS["end_date"],
+        default=cfg.end_date,
         help="End date for commit collection in ISO format (YYYY-MM-DD).",
     )
     parser.add_argument(
@@ -89,13 +72,17 @@ def parse_args():
 def execute(
     project,
     mode,
-    start_date=DEFAULTS["start_date"],
-    end_date=DEFAULTS["end_date"],
-    max_workers=DEFAULTS["max_workers"],
+    start_date=None,
+    end_date=None,
+    max_workers=None,
     max_commits=None,
     commit_hash=None,
     base_path=None,
 ):
+    cfg = get_config()
+    start_date = start_date or cfg.start_date
+    end_date = end_date or cfg.end_date
+    max_workers = max_workers or cfg.max_workers
     start_date = datetime.fromisoformat(start_date).replace(tzinfo=timezone.utc)
     end_date = datetime.fromisoformat(end_date).replace(tzinfo=timezone.utc)
 
@@ -118,8 +105,8 @@ def main():
     args = parse_args()
 
     if args.project == "all":
-        projects = get_all_projects_from_config()
-        for project in projects:
+        cfg = get_config()
+        for project in cfg.projects:
             logger.info(f"Processing project: {project}")
             execute(
                 project,

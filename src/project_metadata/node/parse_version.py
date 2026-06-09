@@ -69,7 +69,7 @@ def find_matching_version_from_version_string(
         return version_string
 
     last_ok = None
-    for major, meta_data in get_node_releases(lts_only=False).items():
+    for major, meta_data in get_node_releases(lts_only=True).items():
         version_release_date = datetime.strptime(meta_data["start"], "%Y-%m-%d")
         if before_date and version_release_date.timestamp() > before_date.timestamp():
             continue

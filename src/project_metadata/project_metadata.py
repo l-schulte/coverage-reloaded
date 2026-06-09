@@ -1,6 +1,7 @@
 from datetime import datetime
 import logging
 
+from src.config import ProjectConfig
 from src.project_metadata.lock_files.find_lock_files import find_lock_files
 from src.project_metadata.node.find_node_version import find_node_version
 from src.project_metadata.package_manager.find_package_manager import (
@@ -32,7 +33,7 @@ def extract_project_metadata(
     committer_date: datetime,
     repo_path: str,
     project: str,
-    project_config: dict,
+    project_config: ProjectConfig,
 ) -> dict:
     """
     Process a single commit to extract relevant information such as Node.js version, package manager version, test commands, coverage tools, and lock files.
@@ -42,15 +43,15 @@ def extract_project_metadata(
         committer_date (datetime): The committer date of the commit.
         repo_path (str): The path to the local repository.
         project (str): The name of the project being processed.
-        project_config (dict): The configuration dictionary for the project.
+        project_config (ProjectConfig): The typed configuration for the project.
     """
 
-    use_exact_version = project_config.get("use_exact_node_version", False)
-    package_manager_priority = project_config.get("package_manager_priority", None)
+    use_exact_version = project_config.use_exact_node_version
+    package_manager_priority = project_config.package_manager_priority
     workspaces = find_workspaces(repo_path, commit_hash)
-    workspaces["config"] = project_config.get("workspaces", [])
-    before_date_offset_months = project_config.get("before_date_offset_months", 3)
-    min_node_version = project_config.get("min_node_version", 0)
+    workspaces["config"] = project_config.workspaces
+    before_date_offset_months = project_config.node_version_delay_months
+    min_node_version = project_config.min_node_version
 
     node, node_source = find_node_version(
         commit_hash, committer_date, repo_path, before_date_offset_months
