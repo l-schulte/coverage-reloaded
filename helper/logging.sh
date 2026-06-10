@@ -15,9 +15,10 @@ if [[ ! -t 1 ]]; then
 fi
 
 # print_header <level> <title> [subtitle]
-#   level 1 → full-width banner  (major phase)
-#   level 2 → section divider    (sub-phase)
-#   level 3 → inline label       (step)
+#   level 1 → double-line box   (major phase)
+#   level 2 → single-line box   (sub-phase)
+#   level 3 → dashed box        (step)
+#   level 4 → bracketed inline  (detail / status)
 print_header() {
     local level="$1"
     local title="$2"
@@ -43,10 +44,27 @@ print_header() {
             if [[ -n "$subtitle" ]]; then
                 printf "${DIM}│  %-*s  │${RESET}\n" "$((width - 4))" "$subtitle"
             fi
-            echo -e "${BOLD}└${bar}┘${RESET}"
+            echo -e "${BOLD}└${bar}┘${RESET}\n"
             ;;
         3)
-            echo -e "\n${BOLD}▶ ${title}${RESET}${DIM}${subtitle:+  — $subtitle}${RESET}"
+            local bar
+            bar=$(printf '╌%.0s' $(seq 1 $width))
+            echo -e "\n${DIM}╌${bar}╌${RESET}"
+            printf "  ${BOLD}%-*s${RESET}\n" "$((width - 4))" "$title"
+            if [[ -n "$subtitle" ]]; then
+                printf "  ${DIM}%-*s${RESET}\n" "$((width - 4))" "$subtitle"
+            fi
+            echo -e "${DIM}╌${bar}╌${RESET}\n"
+            ;;
+        4)
+            local prefix color
+            case "$title" in
+                WARNING:*) prefix="WRN" color="$YELLOW" ;;
+                NOTICE:*)  prefix="NFO" color="$CYAN"   ;;
+                ERROR:*)   prefix="ERR" color="$RED"    ;;
+                *)         prefix="---" color="$DIM"    ;;
+            esac
+            echo -e "  ${color}${BOLD}[${prefix}]${RESET} ${title}${subtitle:+  ${DIM}— $subtitle${RESET}}"
             ;;
         *)
             echo -e "${RED}print_header: unknown level '$level'${RESET}" >&2
