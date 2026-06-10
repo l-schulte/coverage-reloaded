@@ -6,6 +6,8 @@
 *.tar.gz
 *.lcov
 *.error
+*.exit_code
+*.not_applicable
 
 *additional_information.csv
 *commits.csv
