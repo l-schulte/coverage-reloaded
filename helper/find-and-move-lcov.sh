@@ -2,10 +2,11 @@
 
 TEST_TYPE="${1:-}"
 PREPEND_PATHS="${2:-false}"  # Pass "true" for workspace monorepos
+TEST_EXIT_CODE="${3:-}"      # Exit code from the test suite (0=all passed, >0=number of failures)
 
 source "$(dirname "${BASH_SOURCE[0]}")/logging.sh"
 
-print_header 2 "Looking for lcov files..." "TEST_TYPE=$TEST_TYPE PREPEND_PATHS=$PREPEND_PATHS"
+print_header 2 "Looking for lcov files..." "TEST_TYPE=$TEST_TYPE PREPEND_PATHS=$PREPEND_PATHS TEST_EXIT_CODE=$TEST_EXIT_CODE"
 
 cd /coverage_reloaded/repo
 
@@ -19,9 +20,13 @@ mkdir -p "$COVERAGE_REPORT_PATH"
 
 if [ -n "$TEST_TYPE" ]; then
     dest_filename="${TEST_TYPE}.lcov.info"
+    exit_code_filename="${TEST_TYPE}.exit_code"
 else
     dest_filename="lcov.info"
+    exit_code_filename="exit_code"
 fi
+
+FILES_MOVED=0
 
 while IFS= read -r -d '' lcov_file; do
     dir=$(dirname "$lcov_file")
@@ -46,15 +51,22 @@ while IFS= read -r -d '' lcov_file; do
             print
         }' "$lcov_file" > "$dest_dir/$dest_filename"
         rm "$lcov_file"
-        print_header 3 "Moved and prepended $rel_path to SF: paths in $lcov_file"
+        print_header 3 "Moved and prepended $rel_path to SF: as $dest_filename"
     else
         mv "$lcov_file" "$dest_dir/$dest_filename"
-        print_header 3 "Moved $lcov_file"
+        print_header 3 "Moved as $dest_filename"
     fi
+
+    # Store the test exit code alongside the coverage file
+    if [ -n "$TEST_EXIT_CODE" ]; then
+        echo "$TEST_EXIT_CODE" > "$dest_dir/$exit_code_filename"
+        print_header 3 "Stored exit code $TEST_EXIT_CODE in $exit_code_filename"
+    fi
+
+    FILES_MOVED=$((FILES_MOVED + 1))
 done < <(find . -type f -name "lcov.info" "${ignore_args[@]}" -print0)
 
-lcov_count=$(find "$COVERAGE_REPORT_PATH" -name "*.lcov.info" -o -name "lcov.info" | wc -l)
-if [ "$lcov_count" -eq 0 ]; then
-    print_header 3 "Error: No lcov.info files found in any of the specified paths"
+if [ "$FILES_MOVED" -eq 0 ]; then
+    print_header 3 "Error: No lcov.info files found — no coverage was produced for this suite"
     exit 1
 fi
