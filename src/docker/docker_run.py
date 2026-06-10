@@ -2,6 +2,8 @@ import logging
 import os
 import subprocess
 
+from strip_ansi import strip_ansi
+
 logger = logging.getLogger(__name__)
 
 
@@ -54,18 +56,36 @@ def docker_run_script(commit, workspace_path, logs_path, output_path):
             stderr=subprocess.STDOUT,  # Merge stderr into stdout to preserve ordering
             text=True,
         )
-        success = result.returncode == 0
+        exit_code = result.returncode
+        is_not_applicable = exit_code == 2
+        success = exit_code == 0 or is_not_applicable
 
         log_filename = os.path.join(
             logs_path,
             get_filename(node, timestamp, commit_hash, success),
         )
-        with open(log_filename, "w") as f:
-            f.write(result.stdout)
-            if success:
-                f.write("\n----\nSuccess!\n")
+        clean_output = strip_ansi(result.stdout)
 
-        if not success:
+        with open(log_filename, "w") as f:
+            f.write(clean_output)
+            if exit_code == 0:
+                f.write("\n----\nSuccess!\n")
+            elif is_not_applicable:
+                f.write("\n----\nNot applicable (exit code 2)\n")
+
+        if exit_code == 2:
+            logger.debug(
+                f"Commit {commit_hash} not applicable. See log: {log_filename}"
+            )
+            not_applicable_file = os.path.join(
+                output_path, f"{commit_hash}.not_applicable"
+            )
+            with open(not_applicable_file, "w") as f:
+                f.write(f"Commit: {commit_hash}\n")
+                f.write(f"Timestamp: {timestamp}\n")
+                f.write(f"Exit code: 2\n")
+                f.write(f"Log: {log_filename}\n")
+        elif not success:
             logger.debug(f"Commit {commit_hash} failed. See log: {log_filename}")
             error_lcov = os.path.join(output_path, f"{commit_hash}.error")
             with open(error_lcov, "w") as f:

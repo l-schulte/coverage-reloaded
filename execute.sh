@@ -210,26 +210,47 @@ echo ""
 
 print_header 1 "Calling install-and-run.sh"
 
-
-
 (sleep 5220s && echo "WARNING: 90 minute timeout for install-and-run.sh about to apply") &
+TIMEOUT_PID=$!
+
+set +e
 timeout 5400s bash ../install-and-run.sh
+INSTALL_AND_RUN_EXIT=$?
+set -e
 
+# Kill the background warning process if it's still running
+kill $TIMEOUT_PID 2>/dev/null || true
 
+if [ $INSTALL_AND_RUN_EXIT -eq 2 ]; then
+    print_header 4 "NOT APPLICABLE: install-and-run.sh exited with code 2 — no test infrastructure at this commit"
 
-print_header 2 "Counting coverage reports"
+    # Write a .not_applicable marker file with commit info and full log
+    not_applicable_file="$OUTPUT_PATH/${revision}.not_applicable"
+    {
+        echo "Commit: $revision"
+        echo "Timestamp: $timestamp"
+        echo "Exit code: 2"
+        echo "---"
+        # Capture the full log from the install-and-run run (replay from log if available)
+        # The log is already captured by the docker_run infrastructure; write a summary here.
+    } > "$not_applicable_file"
 
-
-# Find all lcov.info files in the coverage directory
-lcov_count=$(find "$COVERAGE_REPORT_PATH" -name "*.lcov.info" -o -name "lcov.info" | wc -l)
-lcov_count_valid=$(find "$COVERAGE_REPORT_PATH" -name "*.lcov.info" -o -name "lcov.info" -size +0 | wc -l)
-if [ "$lcov_count" -eq 0 ]; then
-    echo "Error: No lcov.info files found in $COVERAGE_REPORT_PATH"
-    exit 1
-else
-    echo "--> Found $lcov_count lcov.info files in $COVERAGE_REPORT_PATH ($lcov_count_valid with size > 0)"
+    # Also capture the full output by re-running with logging, but since we're in the
+    # docker container, we can write what we know and let the Python side append the log.
+    print_header 4 "Wrote .not_applicable marker: $not_applicable_file"
+    exit 2
 fi
 
+if [ $INSTALL_AND_RUN_EXIT -ne 0 ]; then
+    if [ $INSTALL_AND_RUN_EXIT -eq 124 ]; then
+        print_header 4 "ERROR: install-and-run.sh timed out after 5400s (90 minutes)"
+    else
+        print_header 4 "ERROR: install-and-run.sh failed with exit code $INSTALL_AND_RUN_EXIT"
+    fi
+    exit $INSTALL_AND_RUN_EXIT
+fi
+
+print_header 4 "install-and-run.sh completed successfully"
 
 print_header 2 "Collecting individual coverage reports"
 
@@ -263,6 +284,19 @@ for f in "${lcov_files[@]}"; do
     dest="$OUTPUT_PATH/${revision}__${safe_stem}.lcov"
     cp "$f" "$dest"
     echo "  [OK]  $(basename "$f") → $(basename "$dest")"
+
+    # Also copy the corresponding exit code file if it exists
+    # The exit code file has the same stem as the lcov file but with .exit_code extension
+    exit_code_file="$(dirname "$f")/$(basename "${rel%.lcov.info}").exit_code"
+    if [ ! -f "$exit_code_file" ]; then
+        # Fallback: try the stem without .info suffix
+        exit_code_file="$(dirname "$f")/$(basename "${rel%.info}").exit_code"
+    fi
+    if [ -f "$exit_code_file" ]; then
+        dest_exit="$OUTPUT_PATH/${revision}__${safe_stem}.exit_code"
+        cp "$exit_code_file" "$dest_exit"
+        echo "  [OK]  exit_code → $(basename "$dest_exit")"
+    fi
 done
 
 
