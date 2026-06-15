@@ -56,6 +56,11 @@
         },
         "gatsby": {
             "url": "https://github.com/gatsbyjs/gatsby"
+        },
+        "flowfuse": {
+            "url": "https://github.com/FlowFuse/flowfuse",
+            "node_version_delay_months": 24,
+            "min_node_version": 14
         }
     }
 }
