@@ -95,4 +95,4 @@ def find_matching_version_from_version_string(
                 f"npm satisfies check failed for version '{version}' and range '{version_string}'"
             )
 
-    return str(last_ok)
+    return str(last_ok) if last_ok is not None else None

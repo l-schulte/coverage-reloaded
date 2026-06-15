@@ -65,8 +65,9 @@ def extract_project_metadata(
 
     if min_node_version and int(node) < min_node_version:
         logger.warning(
-            f"Node.js version {node} for commit {commit_hash} is below the minimum required version {min_node_version}. Setting to minimum version."
+            f"Node.js version {node} from {node_source} for commit {commit_hash} is below the minimum required version {min_node_version}. Setting to minimum version."
         )
+        node_source = f"enforced minimum version {min_node_version} (originally {node} from {node_source})"
         node = str(min_node_version)
 
     pm_version, pm_source = find_package_manager(
