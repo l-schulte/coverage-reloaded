@@ -70,12 +70,12 @@ def get_node_version(
         return None
 
     node_version_row = ANGULAR_MATRIX[
-        ANGULAR_MATRIX["Angular version"].astype(str).str.startswith(angular_major)
+        ANGULAR_MATRIX["Angular"].astype(str).str.startswith(angular_major)
     ]
     if node_version_row.empty:
         return None
 
-    node_version_str = str(node_version_row.iloc[0]["Node.js version"])
+    node_version_str = str(node_version_row.iloc[0]["NodeJS"])
     node_version = find_matching_version_from_version_string(
         node_version_str, use_artificial_minor_version=True
     )

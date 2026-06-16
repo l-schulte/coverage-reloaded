@@ -77,7 +77,11 @@ def execute(project, max_workers, max_commits=None):
     os.makedirs(output_path, exist_ok=True)
 
     # Read existing logs to skip commits that already succeeded
-    # Logs are named node{node}_{timestamp}_{commit_hash}.log (success) or .error (failure)
+    # Logs are named {timestamp}_{commit_hash}.log (success) or .error (failure)
+    # Error markers are named {timestamp}_{commit_hash}.error
+    # Not-applicable markers are named {timestamp}_{commit_hash}.not_applicable
+    # Coverage files are named {timestamp}_{commit_hash}__{test_type}__{subdir}.lcov
+    # Exit code files are named {timestamp}_{commit_hash}__{test_type}__{subdir}__exit{code}.exit_code
     # We use logs instead of .lcov output files so we can support multiple
     # coverage artifacts per commit (e.g. separate Jest and Cypress lcov files).
     logger.info("Checking for already completed commits and cleaning up errors...")
@@ -85,10 +89,10 @@ def execute(project, max_workers, max_commits=None):
     if os.path.exists(logs_path):
         for filename in os.listdir(logs_path):
             if filename.endswith(".log"):
-                # Parse: node{node}_{timestamp}_{commit_hash}.log
-                parts = filename.rsplit("_", 2)
-                if len(parts) == 3:
-                    commit_hash = parts[2].split(".")[0]
+                # Parse: {timestamp}_{commit_hash}.log
+                parts = filename.rsplit("_", 1)
+                if len(parts) == 2:
+                    commit_hash = parts[1].split(".")[0]
                     completed_commits.add(commit_hash)
     if os.path.exists(output_path):
         for filename in os.listdir(output_path):

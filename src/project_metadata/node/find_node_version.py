@@ -9,6 +9,7 @@ def find_node_version(
     committer_date: datetime,
     repo_path: str,
     node_version_delay_months: int = 3,
+    disabled_strategies: list[str] | None = None,
 ) -> tuple[str, str | None]:
     """
     Attempts to retrieve the Node.js version for a given commit hash by trying
@@ -21,6 +22,9 @@ def find_node_version(
         node_version_delay_months: Minimum months a Node release must have been
             available before the commit date to be considered a valid match
             (stabilisation delay).
+        disabled_strategies: Optional set of strategy source names to skip.
+            Source names are the first element of each ``STRATEGIES`` tuple
+            (e.g. ``"Dockerfile"``, ``".nvmrc"``).
 
     Returns:
         Tuple of ``(version, source_name)`` where *source_name* identifies
@@ -28,8 +32,11 @@ def find_node_version(
     """
 
     release_cutoff = committer_date - relativedelta(months=node_version_delay_months)
+    disabled = set(disabled_strategies or [])
 
     for source_name, strategy in STRATEGIES:
+        if source_name in disabled:
+            continue
         node_version = strategy(repo_path, commit_hash, release_cutoff)
         if node_version:
             return node_version, source_name

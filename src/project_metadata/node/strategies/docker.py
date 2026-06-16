@@ -7,7 +7,12 @@ from src.project_metadata.node.parse_version import (
     find_matching_version_from_version_string,
 )
 
-DOCKERFILE_PATHS = ["Dockerfile", "docker/Dockerfile"]
+DOCKERFILE_PATHS = [
+    "Dockerfile",
+    "docker/Dockerfile",
+    "Dockerfile.dev",
+    "docker/Dockerfile.dev",
+]
 
 
 def get_node_version(
@@ -21,16 +26,15 @@ def get_node_version(
     content: Optional[str] = None
     for dockerfile_path in DOCKERFILE_PATHS:
         content = get_file_content(repo_path, commit_hash, dockerfile_path)
-        if content:
-            break
 
-    if not content:
-        return None
+        if not content:
+            continue
 
-    re_from_node = re.compile(r"node:(?:v|>=|<=|\^)?([\.(\d+)]+)-")
-    version_match = re.findall(re_from_node, content)
-    if version_match:
-        version = find_matching_version_from_version_string(version_match[0])
-        if version:
-            return version
+        re_from_node = re.compile(r"node:(?:v|>=|<=|\^)?([\.(\d+)]+)-")
+        version_match = re.findall(re_from_node, content)
+        if version_match:
+            version = find_matching_version_from_version_string(version_match[0])
+            if version:
+                return version
+
     return None

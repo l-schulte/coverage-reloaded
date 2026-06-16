@@ -65,6 +65,15 @@ class ProjectConfig:
     #: Example: ``16``
     min_node_version: int = 0
 
+    #: Node version strategy source names to skip for this project.
+    #: The source name is the first element of each tuple in
+    #: ``STRATEGIES`` (e.g. ``"Dockerfile"``, ``".nvmrc"``).
+    #: Use when a strategy returns a version that is known to be
+    #: incorrect or outdated for the project's actual needs.
+    #: Default: ``[]`` (no strategies disabled).
+    #: Example: ``["Dockerfile"]``
+    disabled_node_strategies: list[str] = field(default_factory=list)
+
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Top-level config

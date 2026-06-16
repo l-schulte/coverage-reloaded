@@ -128,6 +128,11 @@ else
         else
             npm install -g yarn
         fi
+        # Always serialize fetching. Required for yarn 1 git-URL deps, which recurse
+        # into per-clone installs that race on the shared cache (yarnpkg/yarn#8032);
+        # harmless elsewhere, and gentler on verdaccio than dozens of concurrent
+        # requests per container when many builds run in parallel.
+        export YARN_NETWORK_CONCURRENCY=1
         
         if yarn --version | grep -q "rc"; then
             set +e
@@ -225,7 +230,7 @@ if [ $INSTALL_AND_RUN_EXIT -eq 2 ]; then
     print_header 4 "NOT APPLICABLE: install-and-run.sh exited with code 2 — no test infrastructure at this commit"
 
     # Write a .not_applicable marker file with commit info and full log
-    not_applicable_file="$OUTPUT_PATH/${revision}.not_applicable"
+    not_applicable_file="$OUTPUT_PATH/${timestamp}_${revision}.not_applicable"
     {
         echo "Commit: $revision"
         echo "Timestamp: $timestamp"
@@ -258,11 +263,15 @@ print_header 2 "Collecting individual coverage reports"
 # combining coverage from different instrumenters like Jest and Cypress),
 # we copy each lcov file to the output with a unique name.
 #
-# Naming: {revision}__{test_type}__{subdir}.lcov
+# Naming: {timestamp}_{revision}__{test_type}__{subdir}.lcov
+#         {timestamp}_{revision}__{test_type}__{subdir}__exit{code}.exit_code
 #
 # Examples:
-#   80af8e6c__test_coverage__packages_vuetify.lcov   (Jest test:coverage)
-#   80af8e6c__cypress__packages_vuetify_coverage_cypress.lcov  (Cypress)
+#   1700000000_80af8e6c__test_coverage__packages_vuetify.lcov
+#   1700000000_80af8e6c__cypress__packages_vuetify_coverage_cypress.lcov
+#   1700000000_80af8e6c__test_coverage__packages_vuetify__exit0.exit_code
+
+prefix="${timestamp}_${revision}"
 
 mapfile -t lcov_files < <(find "$COVERAGE_REPORT_PATH" \( -name "*.lcov.info" -o -name "lcov.info" \) -size +0)
 
@@ -281,19 +290,21 @@ for f in "${lcov_files[@]}"; do
     safe_stem="${stem//\//_}"
     safe_stem="${safe_stem//-/_}"
 
-    dest="$OUTPUT_PATH/${revision}__${safe_stem}.lcov"
+    dest="$OUTPUT_PATH/${prefix}__${safe_stem}.lcov"
     cp "$f" "$dest"
     echo "  [OK]  $(basename "$f") → $(basename "$dest")"
 
     # Also copy the corresponding exit code file if it exists
-    # The exit code file has the same stem as the lcov file but with .exit_code extension
+    # The exit code file has the same stem as the lcov file but with .exit_code extension.
+    # Include the exit code value in the filename for clarity.
     exit_code_file="$(dirname "$f")/$(basename "${rel%.lcov.info}").exit_code"
     if [ ! -f "$exit_code_file" ]; then
         # Fallback: try the stem without .info suffix
         exit_code_file="$(dirname "$f")/$(basename "${rel%.info}").exit_code"
     fi
     if [ -f "$exit_code_file" ]; then
-        dest_exit="$OUTPUT_PATH/${revision}__${safe_stem}.exit_code"
+        exit_code_value=$(cat "$exit_code_file")
+        dest_exit="$OUTPUT_PATH/${prefix}__${safe_stem}__exit${exit_code_value}.exit_code"
         cp "$exit_code_file" "$dest_exit"
         echo "  [OK]  exit_code → $(basename "$dest_exit")"
     fi

@@ -11,7 +11,7 @@ echo "Script called as:"
 echo "bash $(basename "$0") $*"
 echo ""
 echo "Rerun with:"
-echo "bash $(basename "$0") $* 2>&1 | tee projects/$1/logs/node${6}_${4}_${3}_\$(date +\"%Y%m%d_%H%M%S\").rerun"
+echo "bash $(basename "$0") $* 2>&1 | tee projects/$1/logs/${4}_${3}_\$(date +\"%Y%m%d_%H%M%S\").log"
 echo ""
 
 # Change to "docker" if necessary

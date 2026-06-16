@@ -53,7 +53,11 @@ def extract_project_metadata(
     min_node_version = project_config.min_node_version
 
     node, node_source = find_node_version(
-        commit_hash, committer_date, repo_path, project_config.node_version_delay_months
+        commit_hash,
+        committer_date,
+        repo_path,
+        node_version_delay_months=project_config.node_version_delay_months,
+        disabled_strategies=project_config.disabled_node_strategies,
     )
     if not node:
         raise ValueError(

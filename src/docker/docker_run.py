@@ -8,18 +8,17 @@ logger = logging.getLogger(__name__)
 
 
 def parse_filename(filename) -> tuple[str, str, str]:
-    """Parse log filename to extract node, timestamp, commit hash, and job ID."""
-    parts = filename.rsplit("_", 3)
-    node = parts[0].replace("node", "")
-    timestamp = parts[1]
-    commit_hash = parts[2].split(".")[0]  # Remove file extension
-    return node, timestamp, commit_hash
+    """Parse log filename to extract timestamp, commit hash, and node."""
+    parts = filename.rsplit("_", 2)
+    timestamp = parts[0]
+    commit_hash = parts[1].split(".")[0]  # Remove file extension
+    return timestamp, commit_hash
 
 
-def get_filename(node, timestamp, commit_hash, success=True):
+def get_filename(timestamp, commit_hash, success=True):
     """Generate log filename based on parameters."""
     ext = "log" if success else "error"
-    return f"node{node}_{timestamp}_{commit_hash}.{ext}"
+    return f"{timestamp}_{commit_hash}.{ext}"
 
 
 def docker_run_script(commit, workspace_path, logs_path, output_path):
@@ -62,7 +61,7 @@ def docker_run_script(commit, workspace_path, logs_path, output_path):
 
         log_filename = os.path.join(
             logs_path,
-            get_filename(node, timestamp, commit_hash, success),
+            get_filename(timestamp, commit_hash, success),
         )
         clean_output = strip_ansi(result.stdout)
 
@@ -78,7 +77,7 @@ def docker_run_script(commit, workspace_path, logs_path, output_path):
                 f"Commit {commit_hash} not applicable. See log: {log_filename}"
             )
             not_applicable_file = os.path.join(
-                output_path, f"{commit_hash}.not_applicable"
+                output_path, f"{timestamp}_{commit_hash}.not_applicable"
             )
             with open(not_applicable_file, "w") as f:
                 f.write(f"Commit: {commit_hash}\n")
@@ -87,7 +86,7 @@ def docker_run_script(commit, workspace_path, logs_path, output_path):
                 f.write(f"Log: {log_filename}\n")
         elif not success:
             logger.debug(f"Commit {commit_hash} failed. See log: {log_filename}")
-            error_lcov = os.path.join(output_path, f"{commit_hash}.error")
+            error_lcov = os.path.join(output_path, f"{timestamp}_{commit_hash}.error")
             with open(error_lcov, "w") as f:
                 f.write(f"Execution failed. See log for details.\n{log_filename}\n")
 
