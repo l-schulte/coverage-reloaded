@@ -18,7 +18,8 @@ echo ""
 EXECUTOR="podman"
 
 BASE_CONTAINER_NAME=core_node"$6"_base
-CONTAINER_NAME=core_node"$6"_"$1"
+PROJECT_TAG=$(echo "$1" | tr '[:upper:]' '[:lower:]')
+CONTAINER_NAME=core_node"$6"_"$PROJECT_TAG"
 CONTAINER_DIR=/coverage_reloaded
 
 ENV_CONFIG="--env-file .env --env revision=$3 --env timestamp=$4 --env package_manager=$5 --env project_id=$7"

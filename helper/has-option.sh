@@ -1,19 +1,20 @@
 #!/usr/bin/env bash
 #
-# has-option.sh — Check if a CLI executable supports a given option flag.
+# has-option.sh — Check if a CLI command supports a given option flag.
 #
 # SYNOPSIS
 #   source has-option.sh
-#   has_option <executable> <option> [--help-arg=<arg>]
+#   has_option <option> <command...>
 #
 # DESCRIPTION
-#   Runs `<executable> --help` (or a custom help arg) and checks whether
+#   Runs `<command...> --help` (or a custom help arg) and checks whether
 #   the given option appears in the output.  Returns 0 (true) if found,
 #   1 (false) if not, and 2 if the help command itself fails.
 #
-#   This is useful for conditionally passing flags that only exist in
-#   certain versions of a tool — e.g. `--bail` in vitest, `--changed`
-#   in jest, etc.
+#   The command is whatever you would type at the shell — a simple binary,
+#   a path, or a compound command like `npx --registry=... vitest`.
+#   This makes it easy to check tools that are resolved by npx, or that
+#   need specific flags to run correctly.
 #
 #   Matching is done via a word-boundary grep on the option name so
 #   that `--bail` does not falsely match `--bail=0` or `--no-bail`.
@@ -22,11 +23,14 @@
 # USAGE
 #   source /coverage_reloaded/has-option.sh
 #
-#   if has_option vitest --bail; then
-#       VITEST_BAIL="--bail=0"
-#   else
-#       VITEST_BAIL=""
-#   fi
+#   # Simple binary
+#   if has_option --bail vitest; then ...
+#
+#   # Compound command (npx, docker, etc.)
+#   if has_option --bail npx --registry=$WAYPACK_NPM_REGISTRY vitest; then ...
+#
+#   # Full path
+#   if has_option --bail ./node_modules/.bin/vitest; then ...
 #
 #   npx vitest run ${VITEST_BAIL:+"$VITEST_BAIL"}
 #
@@ -42,54 +46,45 @@
 #                     command (default: 0).
 
 has_option() {
-    local executable="$1"
-    local option="$2"
+    local option=""
     local help_arg="--help"
     local exact=0
 
-    # Parse optional flags
-    shift 2
+    # Parse leading flags (--help-arg=, --exact) and extract <option>
     while [[ $# -gt 0 ]]; do
         case "$1" in
-            --help-arg=*) help_arg="${1#*=}" ;;
-            --exact)      exact=1 ;;
-            *)            echo "has_option: unknown argument '$1'" >&2; return 2 ;;
+            --help-arg=*) help_arg="${1#*=}"; shift ;;
+            --exact)      exact=1; shift ;;
+            --*)          option="$1"; shift; break ;;
+            *)            echo "has_option: expected an option (--xxx) as first argument, got '$1'" >&2; return 2 ;;
         esac
-        shift
     done
 
-    # Validate inputs
-    if [[ -z "$executable" ]] || [[ -z "$option" ]]; then
-        echo "has_option: usage: has_option <executable> <option> [--help-arg=<arg>] [--exact]" >&2
+    # Remaining args are the command
+    local -a cmd=("$@")
+
+    # Validate
+    if [[ -z "$option" ]] || [[ ${#cmd[@]} -eq 0 ]]; then
+        echo "has_option: usage: has_option [--help-arg=<arg>] [--exact] <option> <command...>" >&2
         return 2
     fi
 
-    # Resolve the executable path
-    local exe_path
-    exe_path="$(command -v "$executable" 2>/dev/null)" || {
-        [[ "${HAS_OPTION_QUIET:-0}" -eq 0 ]] && echo "has_option: '$executable' not found" >&2
-        return 2
-    }
-
-    # Get help text
+    # Get help text by running: <command...> <help_arg>
     local help_text
-    help_text="$("$exe_path" "$help_arg" 2>/dev/null)" || {
-        [[ "${HAS_OPTION_QUIET:-0}" -eq 0 ]] && echo "has_option: '$executable $help_arg' exited with code $?" >&2
+    help_text="$("${cmd[@]}" "$help_arg" 2>/dev/null)" || {
+        [[ "${HAS_OPTION_QUIET:-0}" -eq 0 ]] && echo "has_option: '${cmd[*]} $help_arg' exited with code $?" >&2
         return 2
     }
 
     if [[ -z "$help_text" ]]; then
-        [[ "${HAS_OPTION_QUIET:-0}" -eq 0 ]] && echo "has_option: '$executable $help_arg' produced no output" >&2
+        [[ "${HAS_OPTION_QUIET:-0}" -eq 0 ]] && echo "has_option: '${cmd[*]} $help_arg' produced no output" >&2
         return 2
     fi
 
     # Match
     if [[ "$exact" -eq 1 ]]; then
-        # Line-level match: the option appears as a whole line (possibly indented)
         echo "$help_text" | grep -q "^[[:space:]]*${option}[[:space:]]"
     else
-        # Word-boundary match: the option appears as a distinct word
-        # Escape special regex chars in the option name
         local escaped_option
         escaped_option="$(sed 's/[^^]/[&]/g; s/\^/\\^/g' <<<"$option")"
         echo "$help_text" | grep -qi "${escaped_option}"

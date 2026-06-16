@@ -62,7 +62,8 @@ RUN chmod +x /coverage_reloaded/execute.sh
 COPY helper/find-and-move-lcov.sh /coverage_reloaded/find-and-move-lcov.sh
 COPY helper/logging.sh /coverage_reloaded/logging.sh
 COPY helper/fake-time.sh /coverage_reloaded/fake-time.sh
-RUN chmod +x /coverage_reloaded/find-and-move-lcov.sh /coverage_reloaded/logging.sh /coverage_reloaded/fake-time.sh
+COPY helper/has-option.sh /coverage_reloaded/has-option.sh
+RUN chmod +x /coverage_reloaded/find-and-move-lcov.sh /coverage_reloaded/logging.sh /coverage_reloaded/fake-time.sh /coverage_reloaded/has-option.sh
 
 COPY helper/cypress/cypress-patcher.sh /coverage_reloaded/cypress-patcher.sh
 RUN chmod +x /coverage_reloaded/cypress-patcher.sh
