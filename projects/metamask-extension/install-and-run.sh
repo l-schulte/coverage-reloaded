@@ -72,7 +72,7 @@ else
 fi
 
 print_header 3 "Collecting unit lcov output"
-bash ../find-and-move-lcov.sh unit
+bash ../find-and-move-lcov.sh unit "false" "$TEST_EXIT_CODE"
 
 # ── Integration coverage ──────────────────────────────────────
 print_header 1 "Integration Coverage Collection"
@@ -87,6 +87,6 @@ else
 fi
 
 print_header 3 "Collecting integration lcov output"
-bash ../find-and-move-lcov.sh integration
+bash ../find-and-move-lcov.sh integration "false" "$TEST_EXIT_CODE"
 
 set -e

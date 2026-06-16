@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# TODO: Fix set +e scope + capture exit code + pass as 3rd arg to find-and-move-lcov.sh
+#       Issues:
+#       - set +e is too broad — wraps the entire multi-branch test block AND find-and-move-lcov.sh
+#       - No exit code captured after the test command
+#       - No warning/error handling for exit codes 0/1 vs >1
+#       Fix: narrow set +e to just the test command / TEST_EXIT_CODE=$? / set -e / warning handling / bash ../find-and-move-lcov.sh "unit" "false" "$TEST_EXIT_CODE"
+
 set -e
 
 set -euo pipefail

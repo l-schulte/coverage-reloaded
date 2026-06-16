@@ -113,7 +113,7 @@ if [ $JEST_EXIT -ne 0 ]; then
 fi
 
 print_header 2 "Collecting unit test coverage reports"
-bash /coverage_reloaded/find-and-move-lcov.sh "unit"
+bash /coverage_reloaded/find-and-move-lcov.sh "unit" "false" "$JEST_EXIT"
 
 # ── Integration tests ─────────────────────────────────────────────────────────
 
@@ -134,7 +134,7 @@ if [ -f integration-tests/jest.config.js ]; then
     fi
 
     print_header 2 "Collecting integration test coverage reports"
-    bash /coverage_reloaded/find-and-move-lcov.sh "integration"
+    bash /coverage_reloaded/find-and-move-lcov.sh "integration" "false" "$INTEGRATION_EXIT"
 else
     echo "NOTICE: integration-tests/jest.config.js not found at this commit — skipping integration tests"
 fi

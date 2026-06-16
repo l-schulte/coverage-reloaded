@@ -196,7 +196,7 @@ if [ $SERVER_EXIT -ne 0 ]; then
     echo "WARNING: server-unit tests exited with code $SERVER_EXIT — coverage data preserved but may be partial"
 fi
 
-bash /coverage_reloaded/find-and-move-lcov.sh "server"
+bash /coverage_reloaded/find-and-move-lcov.sh "server" "false" "$SERVER_EXIT"
 
 # ── Client-unit tests with karma coverage ─────────────────────────────────────
 
@@ -254,7 +254,7 @@ set -e
 if [ "$CLIENT_ERA" = "project_coverage" ] || [ "$CLIENT_ERA" = "sourcemap" ]; then
     [ $KARMA_EXIT -ne 0 ] && \
         echo "WARNING: client-unit tests exited with code $KARMA_EXIT — coverage data preserved but may be partial"
-    bash /coverage_reloaded/find-and-move-lcov.sh "client"
+    bash /coverage_reloaded/find-and-move-lcov.sh "client" "false" "$KARMA_EXIT"
 else
     echo "Client coverage skipped (era: $CLIENT_ERA) — server coverage is the sole source for this commit"
 fi

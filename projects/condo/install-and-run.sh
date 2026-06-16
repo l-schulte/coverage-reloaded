@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# TODO: Add set +e + capture exit code + pass as 3rd arg to find-and-move-lcov.sh
+#       Issues:
+#       - No set +e at all — tests run under set -e, so a failure aborts the script
+#       - No exit code captured
+#       - No warning/error handling for exit codes 0/1 vs >1
+#       Fix: set +e before test / TEST_EXIT_CODE=$? / set -e / warning handling / bash ../find-and-move-lcov.sh "unit" "false" "$TEST_EXIT_CODE"
+
 set -e
 cd /coverage_reloaded/repo
 

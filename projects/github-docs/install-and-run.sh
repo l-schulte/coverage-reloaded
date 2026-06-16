@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# TODO: Fix set +e scope + capture exit code + pass as 3rd arg to find-and-move-lcov.sh
+#       Issues:
+#       - set +e is too broad — wraps the jest branch including find-and-move-lcov.sh
+#       - Vitest branch doesn't call find-and-move-lcov.sh at all
+#       - No warning/error handling for exit codes 0/1 vs >1
+#       Fix: narrow set +e / TEST_EXIT_CODE=$? / set -e / warning handling / bash ../find-and-move-lcov.sh "unit" "false" "$TEST_EXIT_CODE"
+
 set -e
 
 cd /coverage_reloaded/repo

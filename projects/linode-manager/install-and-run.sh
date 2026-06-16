@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# TODO: Pass exit code as 3rd arg to find-and-move-lcov.sh
+#       TEST_EXIT_CODE is captured below but not forwarded.
+#       Change: bash ../find-and-move-lcov.sh "unit" "false" "$TEST_EXIT_CODE"
+
 set -e
 
 cd /coverage_reloaded/repo
