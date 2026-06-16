@@ -71,6 +71,12 @@
                 "Dockerfile"
             ],
             "min_node_version": 12
+        },
+        "moodleapp": {
+            "url": "https://github.com/moodlehq/moodleapp",
+            "disabled_node_strategies": [
+                "Angular compatibility"
+            ]
         }
     }
 }
