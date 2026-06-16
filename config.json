@@ -61,6 +61,16 @@
             "url": "https://github.com/FlowFuse/flowfuse",
             "node_version_delay_months": 24,
             "min_node_version": 14
+        },
+        "edge-react-gui": {
+            "url": "https://github.com/EdgeApp/edge-react-gui"
+        },
+        "wowanalyzer": {
+            "url": "https://github.com/wowanalyzer/wowanalyzer",
+            "disabled_node_strategies": [
+                "Dockerfile"
+            ],
+            "min_node_version": 12
         }
     }
 }
