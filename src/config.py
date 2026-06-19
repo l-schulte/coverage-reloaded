@@ -46,6 +46,12 @@ class ProjectConfig:
     #: Example: ``["pnpm", "yarn", "npm"]``
     package_manager_priority: Optional[List[str]] = None
 
+    #: Specific version of the package manager to use (e.g., ``"npm@latest"``,
+    #: ``"yarn@1.22.19"``).  When set, this overrides the auto-detected
+    #: version.  Default: ``None`` (auto-detect).
+    #: Example: ``"npm@latest"``
+    package_manager_version_overwrite: Optional[str] = None
+
     #: List of workspace glob patterns to merge into the auto-detected
     #: workspace list.  Useful when the project's workspace config is not
     #: discoverable from the root ``package.json`` or ``pnpm-workspace.yaml``.

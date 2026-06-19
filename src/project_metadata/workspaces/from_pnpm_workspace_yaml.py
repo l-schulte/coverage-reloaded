@@ -3,21 +3,35 @@ import logging
 import yaml
 
 from src.project_metadata.helper import (
+    file_existed_at_commit,
     get_file_content,
-    resolve_wildcard_at_commit,
+    resolve_workspace_globs,
 )
 
 logger = logging.getLogger(__name__)
 
-PNPM_WORKSPACE_YAML = "pnpm-workspace.yaml"
+PNPM_WORKSPACE_YAML_FILENAMES = ["pnpm-workspace.yaml", "pnpm-workspace.yml"]
+
+
+def _find_workspace_file(repo_path: str, revision: str) -> str | None:
+    """Returns the first pnpm workspace filename that exists at the given revision."""
+    for filename in PNPM_WORKSPACE_YAML_FILENAMES:
+        if file_existed_at_commit(repo_path, revision, filename):
+            return filename
+    return None
 
 
 def get_workspaces(repo_path: str, revision: str) -> list[str] | None:
     """
-    Retrieves the workspaces specified in the pnpm-workspace.yaml file at a given revision.
+    Retrieves the workspaces specified in the pnpm-workspace.yaml (or .yml) file
+    at a given revision.
     """
 
-    content = get_file_content(repo_path, revision, PNPM_WORKSPACE_YAML)
+    filename = _find_workspace_file(repo_path, revision)
+    if not filename:
+        return None
+
+    content = get_file_content(repo_path, revision, filename)
     if not content:
         return None
 
@@ -25,7 +39,7 @@ def get_workspaces(repo_path: str, revision: str) -> list[str] | None:
         workspace_config = yaml.safe_load(content)
     except yaml.YAMLError as e:
         logger.error(
-            f"Failed to parse {PNPM_WORKSPACE_YAML} at revision {revision} in {repo_path}: {e}"
+            f"Failed to parse {filename} at revision {revision} in {repo_path}: {e}"
         )
         return None
 
@@ -36,12 +50,4 @@ def get_workspaces(repo_path: str, revision: str) -> list[str] | None:
     if not isinstance(packages, list):
         return None
 
-    workspaces = []
-    for workspace_package_path in packages:
-        if not isinstance(workspace_package_path, str):
-            continue
-        workspaces += resolve_wildcard_at_commit(
-            repo_path, revision, workspace_package_path
-        )
-
-    return workspaces
+    return resolve_workspace_globs(repo_path, revision, packages)

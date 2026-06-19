@@ -29,6 +29,73 @@ def resolve_wildcard_at_commit(repo_path, commit_hash, wildcard_path) -> list[st
     return result.stdout.splitlines()
 
 
+def resolve_workspace_globs(
+    repo_path: str, commit_hash: str, glob_patterns: list[str]
+) -> list[str]:
+    """
+    Given raw workspace glob patterns (e.g. "packages/*", "samples/**", "lib/foo"),
+    find all package.json files within the scope of each pattern and return the
+    unique parent directories as workspace paths.
+
+    This is more efficient than first resolving wildcards and then searching for
+    package.json, because it uses a single recursive ls-tree per unique parent
+    directory rather than one ls-tree per resolved subdirectory.
+    """
+    workspaces: list[str] = []
+
+    for pattern in glob_patterns:
+        if not isinstance(pattern, str) or not pattern:
+            continue
+
+        # Strip trailing wildcards like /*, /** to get the search root
+        search_root = pattern
+        while search_root.endswith("/*") or search_root.endswith("/**"):
+            search_root = search_root.rsplit("/", 1)[0]
+
+        # Run a single recursive ls-tree on the search root
+        cmd = [
+            "git",
+            "-C",
+            repo_path,
+            "ls-tree",
+            "-r",
+            "--name-only",
+            commit_hash,
+            f"{search_root}/",
+        ]
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        if result.returncode != 0:
+            continue
+
+        for file_path in result.stdout.splitlines():
+            if not file_path.endswith("/package.json"):
+                continue
+            parent = file_path.rsplit("/", 1)[0]
+
+            # Check if this package.json is within the original pattern's scope.
+            # For a pattern like "packages/*", a package.json at "packages/foo/package.json"
+            # is in scope, but "packages/foo/bar/package.json" is not (too deep).
+            # For "samples/**", any depth is fine.
+            if "**" in pattern:
+                # ** matches any depth — accept all
+                if parent not in workspaces:
+                    workspaces.append(parent)
+            elif "/*" in pattern:
+                # Single-level wildcard: parent must be a direct child of search_root
+                # e.g. pattern "packages/*" → parent "packages/foo" is valid,
+                # but "packages/foo/bar" is not.
+                if "/" not in parent[len(search_root) + 1 :]:
+                    if parent not in workspaces:
+                        workspaces.append(parent)
+            else:
+                # Literal path — only accept if it matches exactly or is a subdirectory
+                if parent == pattern or parent.startswith(pattern + "/"):
+                    if parent not in workspaces:
+                        workspaces.append(parent)
+
+    return workspaces
+
+
 def get_file_json_content(repo_path, commit_hash, file_path) -> dict | None:
     content = get_file_at_commit(repo_path, commit_hash, file_path)
 

@@ -46,6 +46,9 @@ def extract_project_metadata(
         project_config (ProjectConfig): The typed configuration for the project.
     """
 
+    if commit_hash == "30c223874831e0fdb7629498e56b800a8ca6b0da":
+        print("DEBUG")
+
     use_exact_version = project_config.use_exact_node_version
     package_manager_priority = project_config.package_manager_priority
     workspaces = find_workspaces(repo_path, commit_hash)
@@ -74,9 +77,14 @@ def extract_project_metadata(
         node_source = f"enforced minimum version {min_node_version} (originally {node} from {node_source})"
         node = str(min_node_version)
 
-    pm_version, pm_source = find_package_manager(
-        commit_hash, repo_path, node, package_manager_priority
-    )
+    # Check if a package manager version override is specified in the config
+    if project_config.package_manager_version_overwrite:
+        pm_version = project_config.package_manager_version_overwrite
+        pm_source = "config override"
+    else:
+        pm_version, pm_source = find_package_manager(
+            commit_hash, repo_path, node, package_manager_priority
+        )
 
     commands = find_commands(commit_hash, repo_path, workspaces)
     coverage_tools = find_coverage_tools(commit_hash, repo_path)
