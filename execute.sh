@@ -40,6 +40,29 @@ process_files() {
     set -e
 }
 
+resolve_and_pin() {
+    local hostname="$1"
+    local max_attempts="${2:-8}"
+    local backoff="${3:-2}"
+    local ip=""
+
+    for i in $(seq 1 $max_attempts); do
+        ip=$(getent hosts "$hostname" | awk '{ print $1 }' | head -1)
+        if [ -n "$ip" ]; then
+            echo "$hostname resolved to $ip after $i attempt(s)"
+            echo "$ip $hostname" >> /etc/hosts
+            echo "$hostname pinned in /etc/hosts"
+            return 0
+        fi
+        local wait=$(( backoff ** (i - 1) ))
+        echo "DNS resolution attempt $i/$max_attempts for $hostname failed — retrying in ${wait}s"
+        sleep $wait
+    done
+
+    echo "FATAL: cannot resolve $hostname after $max_attempts attempts"
+    return 1
+}
+
 # GitHub is deprecating the git:// protocol.
 # Workaround: configure git to use https:// instead of git:// for github.com.
 git config --global url."https://github.com/".insteadOf "git://github.com/"
@@ -90,6 +113,13 @@ git checkout "$revision"
 
 print_header 2 "Node Version"
 node --version
+
+print_header 2 "Pinning registry hostnames"
+
+resolve_and_pin "waypack"
+resolve_and_pin "verdaccio"
+resolve_and_pin "registry.npmjs.org"
+resolve_and_pin "registry.yarnpkg.com"
 
 print_header 2 "Setting up Package Managers"
 
