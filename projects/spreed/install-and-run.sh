@@ -1,17 +1,15 @@
 #!/bin/bash
 
-# TODO: Fix set +e scope + capture exit code + pass as 3rd arg to find-and-move-lcov.sh
-#       Issues:
-#       - set +e is too broad — wraps the entire multi-branch test block
-#       - No exit code captured within the set +e block (TEST_EXIT_CODE not set)
-#       - No warning/error handling for exit codes 0/1 vs >1
-#       Fix: narrow set +e / TEST_EXIT_CODE=$? / set -e / warning handling / bash ../find-and-move-lcov.sh "unit" "false" "$TEST_EXIT_CODE"
-
 set -e
 
 source /coverage_reloaded/logging.sh
 
 cd /coverage_reloaded/repo
+
+if [ ! -f package.json ]; then
+    print_header 2 "NOT APPLICABLE" "No package.json at this commit, no test infrastructure to run"
+    exit 2
+fi
 
 print_header 2 "Installing dependencies"
 
@@ -26,12 +24,12 @@ print_header 2 "Detecting test infrastructure era"
 TEST_SCRIPT=$(node -p "require('./package.json').scripts.test || ''")
 TEST_COVERAGE_SCRIPT=$(node -p "require('./package.json').scripts['test:coverage'] || ''")
 
-echo "test script:       $TEST_SCRIPT"
-echo "test:coverage:     $TEST_COVERAGE_SCRIPT"
-
-set +e
+print_header 4 "test script:       $TEST_SCRIPT"
+print_header 4 "test:coverage:     $TEST_COVERAGE_SCRIPT"
 
 # ── Run tests with coverage ─────────────────────────────────────────────────────
+
+set +e
 
 if [ -n "$TEST_COVERAGE_SCRIPT" ]; then
     print_header 2 "Running tests with test:coverage script"
@@ -56,8 +54,11 @@ else
     npm run test -- --coverage.enabled=true --coverage.reporter=lcov
 fi
 
+TEST_EXIT=$?
 set -e
 
 print_header 2 "Collecting coverage reports"
-bash ../find-and-move-lcov.sh
+bash /coverage_reloaded/find-and-move-lcov.sh "unit" "false" "$TEST_EXIT"
+
+print_header 1 "spreed coverage run complete"
 
