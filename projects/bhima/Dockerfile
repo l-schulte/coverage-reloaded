@@ -6,6 +6,7 @@ WORKDIR /coverage_reloaded
 RUN apt-get update && apt-get install -y \
   chromium \
   default-mysql-server \
+  redis-server \
   --no-install-recommends \
   && rm -rf /var/lib/apt/lists/*
 

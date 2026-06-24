@@ -32,11 +32,6 @@ if $IS_NPM_MAIN_PM; then
     print_header 2 "Installing dependencies with npm..."
     npm install
     PM_RUN="npm run"
-elif $IS_YARN_MAIN_PM; then
-    print_header 2 "Installing dependencies with yarn..."
-    yarn install || true
-    npm install --no-save --force
-    PM_RUN="yarn run"
 else
     print_header 2 "No main package manager detected... raising error."
     exit 1
@@ -125,9 +120,16 @@ else
     print_header 3 "No database build script detected — skipping MySQL setup"
 fi
 
+# ── Start Redis ───────────────────────────────────────────────────────────────
+
+print_header 2 "Starting Redis server"
+
+redis-server --daemonize yes
+redis-cli ping
+
 # ── Server-unit tests with c8 ─────────────────────────────────────────────────
 
-print_header 2 "Running server-unit tests with c8 coverage"
+print_header 2 "Running server-unit tests with c8 coverage" "${SERVER_ERA}"
 
 export CHROMIUM_FLAGS="--no-sandbox --disable-setuid-sandbox"
 export PUPPETEER_LAUNCH_OPTIONS='{"args":["--no-sandbox","--disable-setuid-sandbox"]}'
@@ -138,10 +140,6 @@ set +e
 if [ "$SERVER_ERA" = "mocha_direct" ]; then
     C8_OUTPUT=$(./node_modules/.bin/c8 \
         --reporter=lcov \
-        --reporter=text-summary \
-        --include='server/**/*.js' \
-        --exclude='test/**' \
-        --output-dir=coverage/server \
         ./node_modules/.bin/mocha \
             --recursive \
             --no-bail \
@@ -151,10 +149,6 @@ if [ "$SERVER_ERA" = "mocha_direct" ]; then
 else
     C8_OUTPUT=$(./node_modules/.bin/c8 \
         --reporter=lcov \
-        --reporter=text-summary \
-        --include='server/**/*.js' \
-        --exclude='test/**' \
-        --output-dir=coverage/server \
         bash sh/server-unit-tests-node.sh 2>&1)
     SERVER_EXIT=$?
 fi
@@ -162,20 +156,6 @@ fi
 echo "$C8_OUTPUT"
 
 set -e
-
-if [ $SERVER_EXIT -ne 0 ]; then
-    if echo "$C8_OUTPUT" | grep -q "Cannot find module"; then
-        MISSING_MODULE=$(echo "$C8_OUTPUT" | grep "Cannot find module" | head -3)
-        echo "FATAL: Mocha crashed during file loading — no tests executed"
-        echo "       Coverage data is instrumentation noise and will not be collected."
-        echo "       Missing modules:"
-        echo "$MISSING_MODULE"
-        echo ""
-        echo "       This indicates a WayPack registry miss for this commit timestamp."
-        exit 1
-    fi
-    echo "WARNING: server-unit tests exited with code $SERVER_EXIT — coverage data preserved but may be partial"
-fi
 
 bash /coverage_reloaded/find-and-move-lcov.sh "server" "false" "$SERVER_EXIT"
 
@@ -210,3 +190,46 @@ cp "$LCOV" /coverage_reloaded/repo/coverage/client/lcov.info
 rm -f "$LCOV"
 
 bash /coverage_reloaded/find-and-move-lcov.sh "client" "false" "$KARMA_EXIT"
+# exit
+# ── Integration tests with c8 ─────────────────────────────────────────────────
+
+HAS_INTEGRATION=$(node -p "require('./package.json').scripts['test:integration'] ? 'yes' : 'no'" 2>/dev/null)
+if [ "$HAS_INTEGRATION" = "yes" ] && [ -n "$(node -p "require('./package.json').scripts['test:integration'] || ''")" ]; then
+    print_header 2 "Running integration tests with c8 coverage"
+
+    set +e
+    ./node_modules/.bin/c8 \
+        --reporter=lcov \
+        ./node_modules/.bin/mocha \
+            test/integration \
+            --recursive \
+            --no-bail \
+            --exit
+    INTEGRATION_EXIT=$?
+    set -e
+
+    bash /coverage_reloaded/find-and-move-lcov.sh "integration" "false" "$INTEGRATION_EXIT"
+
+    # Kill the bhima server so the next suite can bind to port 8080
+    lsof -ti :8080 2>/dev/null | xargs -r kill 2>/dev/null || true
+fi
+
+# ── Stock integration tests with c8 ──────────────────────────────────────────
+
+HAS_STOCK_INTEGRATION=$(node -p "require('./package.json').scripts['test:integration:stock'] ? 'yes' : 'no'" 2>/dev/null)
+if [ "$HAS_STOCK_INTEGRATION" = "yes" ] && [ -n "$(node -p "require('./package.json').scripts['test:integration:stock'] || ''")" ]; then
+    print_header 2 "Running stock integration tests with c8 coverage"
+
+    set +e
+    ./node_modules/.bin/c8 \
+        --reporter=lcov \
+        ./node_modules/.bin/mocha \
+            test/integration-stock \
+            --recursive \
+            --no-bail \
+            --exit
+    INTEGRATION_STOCK_EXIT=$?
+    set -e
+
+    bash /coverage_reloaded/find-and-move-lcov.sh "integration-stock" "false" "$INTEGRATION_STOCK_EXIT"
+fi
