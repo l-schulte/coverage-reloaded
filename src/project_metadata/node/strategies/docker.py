@@ -19,6 +19,7 @@ def get_node_version(
     repo_path: str,
     commit_hash: str,
     release_cutoff: Optional[datetime] = None,
+    use_first: bool = False,
 ) -> Optional[str]:
     """
     Check ``Dockerfile`` / ``docker/Dockerfile`` at the given commit.
@@ -33,7 +34,9 @@ def get_node_version(
         re_from_node = re.compile(r"node:(?:v|>=|<=|\^)?([\.(\d+)]+)-")
         version_match = re.findall(re_from_node, content)
         if version_match:
-            version = find_matching_version_from_version_string(version_match[0])
+            version = find_matching_version_from_version_string(
+                version_match[0], use_first=use_first
+            )
             if version:
                 return version
 

@@ -1,6 +1,7 @@
 import src.project_metadata.workspaces.from_package_json as package
 import src.project_metadata.workspaces.from_lerna_json as lerna
 import src.project_metadata.workspaces.from_pnpm_workspace_yaml as pnpm
+import src.project_metadata.workspaces.from_rush_json as rush
 
 
 def find_workspaces(repo_path: str, revision: str) -> dict[str, list[str]]:
@@ -12,5 +13,6 @@ def find_workspaces(repo_path: str, revision: str) -> dict[str, list[str]]:
     workspaces["workspaces_package"] = package.get_workspaces(repo_path, revision) or []
     workspaces["workspaces_lerna"] = lerna.get_workspaces(repo_path, revision) or []
     workspaces["workspaces_pnpm"] = pnpm.get_workspaces(repo_path, revision) or []
+    workspaces["workspaces_rush"] = rush.get_workspaces(repo_path, revision) or []
 
     return workspaces

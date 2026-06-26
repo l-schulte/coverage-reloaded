@@ -11,6 +11,7 @@ def get_node_version(
     repo_path: str,
     commit_hash: str,
     release_cutoff: Optional[datetime] = None,
+    use_first: bool = False,
 ) -> Optional[str]:
     """
     Fallback: pick the latest LTS Node version that was released at least
@@ -42,5 +43,6 @@ def get_node_version(
     if not available:
         return None
 
-    latest = find_matching_version_from_version_string(available[-1])
+    idx = 0 if use_first else -1
+    latest = find_matching_version_from_version_string(available[idx])
     return latest

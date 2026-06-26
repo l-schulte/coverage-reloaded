@@ -47,6 +47,7 @@ def get_node_version(
     repo_path: str,
     commit_hash: str,
     release_cutoff: Optional[datetime] = None,
+    use_first: bool = False,
 ) -> Optional[str]:
     """
     Check ``pnpm-lock.yaml`` at the given commit.

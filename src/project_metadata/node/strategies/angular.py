@@ -29,6 +29,7 @@ def get_node_version(
     repo_path: str,
     commit_hash: str,
     release_cutoff: Optional[datetime] = None,
+    use_first: bool = False,
 ) -> Optional[str]:
     """
     Infer Node.js version from Angular compatibility matrix.
@@ -51,7 +52,7 @@ def get_node_version(
 
     angular_version_range = package_json["dependencies"]["@angular/core"]
     angular_version = find_matching_version_from_version_string(
-        angular_version_range, use_artificial_minor_version=True
+        angular_version_range, use_first=use_first, use_artificial_minor_version=True
     )
     if not angular_version:
         return None
@@ -77,6 +78,6 @@ def get_node_version(
 
     node_version_str = str(node_version_row.iloc[0]["NodeJS"])
     node_version = find_matching_version_from_version_string(
-        node_version_str, use_artificial_minor_version=True
+        node_version_str, use_first=use_first, use_artificial_minor_version=True
     )
     return node_version

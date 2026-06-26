@@ -13,6 +13,7 @@ def get_node_version(
     repo_path: str,
     commit_hash: str,
     release_cutoff: Optional[datetime] = None,
+    use_first: bool = False,
 ) -> Optional[str]:
     """
     Check ``package.json`` (``engines.node``, ``volta.node``, ``packageManager``)
@@ -27,6 +28,7 @@ def get_node_version(
             if "node" in package_json[key]:
                 version = find_matching_version_from_version_string(
                     package_json[key]["node"],
+                    use_first=use_first,
                     release_cutoff=release_cutoff,
                 )
                 if version:

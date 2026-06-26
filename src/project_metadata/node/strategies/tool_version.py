@@ -11,6 +11,7 @@ def get_node_version(
     repo_path: str,
     commit_hash: str,
     release_cutoff: Optional[datetime] = None,
+    use_first: bool = False,
 ) -> Optional[str]:
     """
     Check ``.tool-version`` at the given commit.
@@ -21,7 +22,9 @@ def get_node_version(
         if not node_line:
             return None
         version_str = node_line[0].split(maxsplit=1)[1]
-        version = find_matching_version_from_version_string(version_str)
+        version = find_matching_version_from_version_string(
+            version_str, use_first=use_first
+        )
         if version:
             return version
     return None

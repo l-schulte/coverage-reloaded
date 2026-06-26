@@ -61,6 +61,7 @@ def extract_project_metadata(
         repo_path,
         node_version_delay_months=project_config.node_version_delay_months,
         disabled_strategies=project_config.disabled_node_strategies,
+        use_first=project_config.use_first_node_version,
     )
     if not node:
         raise ValueError(
@@ -85,6 +86,10 @@ def extract_project_metadata(
         pm_version, pm_source = find_package_manager(
             commit_hash, repo_path, node, package_manager_priority
         )
+        # Fall back to the configured default if auto-detection found nothing
+        if not pm_version:
+            pm_version = project_config.package_manager_default
+            pm_source = f"config default ({project_config.package_manager_default})"
 
     commands = find_commands(commit_hash, repo_path, workspaces)
     coverage_tools = find_coverage_tools(commit_hash, repo_path)
@@ -98,8 +103,8 @@ def extract_project_metadata(
             "timestamp": timestamp,
             "node_version": node,
             "node_version_source": node_source,
-            "pm_version": pm_version if pm_version else "npm",
-            "pm_version_source": pm_source if pm_source else "default (npm)",
+            "pm_version": pm_version,
+            "pm_version_source": pm_source,
             "coverage_tools": coverage_tools,
             "repo_root": repo_path,
         },

@@ -11,6 +11,7 @@ def get_node_version(
     repo_path: str,
     commit_hash: str,
     release_cutoff: Optional[datetime] = None,
+    use_first: bool = False,
 ) -> Optional[str]:
     """
     Check ``.nvmrc`` at the given commit.
@@ -18,7 +19,7 @@ def get_node_version(
     content = get_file_content(repo_path, commit_hash, ".nvmrc")
     if content:
         version = find_matching_version_from_version_string(
-            str(content), use_artificial_minor_version=True
+            str(content), use_first=use_first, use_artificial_minor_version=True
         )
         if version:
             return version

@@ -17,7 +17,7 @@ from datetime import datetime
 from typing import Callable, Optional
 
 # Common protocol for all strategies
-NodeVersionStrategy = Callable[[str, str, Optional[datetime]], Optional[str]]
+NodeVersionStrategy = Callable[[str, str, Optional[datetime], bool], Optional[str]]
 
 from src.project_metadata.node.strategies import (
     nvmrc,

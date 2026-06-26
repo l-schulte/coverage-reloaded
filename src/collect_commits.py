@@ -39,15 +39,24 @@ def parse_args():
     return parser.parse_args()
 
 
+REMOVAL_ABSENT_THRESHOLD = 25
+
+
 def get_command_changes(df: pd.DataFrame):
     """
     Derives era-transition records from per-commit additional_information.
 
     For each script_name, identifies the unique script_definition values across
     commit history and records the first commit_hash where each definition
-    appeared (i.e., the transition point). Also records the last commit where
-    a script was present before it disappeared (script_definition="") so the
-    full lifecycle is visible.
+    appeared (i.e., the transition point). Also records the commit where a
+    script was last seen before it disappeared (script_definition="") so the
+    full lifecycle is visible. Handles scripts that are removed and later
+    re-added (non-contiguous presence).
+
+    Because commit history is not strictly linear (branches, merges), we
+    avoid recording every absent/present flicker. A removal is only recorded
+    when a script has been absent for at least REMOVAL_ABSENT_THRESHOLD
+    consecutive commits (in timestamp order) before a new definition appears.
 
     Results are sorted chronologically within each script_name so the file
     can be read as an era timeline.
@@ -70,11 +79,11 @@ def get_command_changes(df: pd.DataFrame):
         df_long["script_definition"].str.strip().replace("", np.nan)
     )
 
+    # Sort globally by timestamp so iteration order is chronological
+    df_long = df_long.sort_values(["script_name", "timestamp"])
+
     # ── Track appearances ─────────────────────────────────────────────────
     df_present = df_long.dropna(subset=["script_definition"])
-
-    # Sort by commit time so that drop_duplicates keeps the earliest occurrence
-    df_present = df_present.sort_values(["script_name", "timestamp"])
 
     # Keep the first commit_hash where each unique script_definition appeared
     df_appearances = df_present.drop_duplicates(
@@ -82,29 +91,78 @@ def get_command_changes(df: pd.DataFrame):
     )
 
     # ── Track removals ─────────────────────────────────────────────────────
-    # For each script_name, find the last commit where it was present.
-    # If that's not the last commit overall for that script, it was removed.
-    df_present_sorted = df_present.sort_values(["script_name", "timestamp"])
-    df_last_present = df_present_sorted.groupby("script_name").last().reset_index()
+    # Walk through each script_name's timeline and detect transitions from
+    # present → absent. Only record a removal if the script stays absent for
+    # at least REMOVAL_ABSENT_THRESHOLD consecutive commits before a new
+    # definition appears (or the timeline ends).
+    records = []
 
-    # Get the last commit overall for each script_name (including NaN rows)
-    df_full_sorted = df_long.sort_values(["script_name", "timestamp"])
-    df_last_overall = df_full_sorted.groupby("script_name").last().reset_index()
+    for script_name, group in df_long.groupby("script_name"):
+        group = group.reset_index(drop=True)
+        was_present = False
+        last_present_hash = None
+        last_present_ts = None
+        absent_count = 0
 
-    # A removal occurred if the last present commit differs from the last overall commit
-    df_removals = df_last_present.merge(
-        df_last_overall[["script_name", "commit_hash"]],
-        on="script_name",
-        suffixes=("_present", "_overall"),
+        for _, row in group.iterrows():
+            is_present = pd.notna(row["script_definition"])
+
+            if is_present and not was_present:
+                # Transition: absent → present (appearance).
+                # If we had crossed the threshold before this reappearance,
+                # record the removal at the last present commit.
+                if (
+                    absent_count >= REMOVAL_ABSENT_THRESHOLD
+                    and last_present_hash is not None
+                ):
+                    records.append(
+                        {
+                            "commit_hash": last_present_hash,
+                            "timestamp": last_present_ts,
+                            "script_name": script_name,
+                            "script_definition": "",
+                        }
+                    )
+                was_present = True
+                absent_count = 0
+
+            elif is_present and was_present:
+                # Still present — update the "last seen" anchor
+                last_present_hash = row["commit_hash"]
+                last_present_ts = row["timestamp"]
+
+            elif not is_present and was_present:
+                # Transition: present → absent — start counting
+                was_present = False
+                absent_count = 1
+
+            elif not is_present and not was_present:
+                # Still absent — increment counter
+                absent_count += 1
+
+        # End of timeline: if the script was removed and stayed absent past
+        # the threshold, record the removal.
+        if (
+            not was_present
+            and absent_count >= REMOVAL_ABSENT_THRESHOLD
+            and last_present_hash is not None
+        ):
+            records.append(
+                {
+                    "commit_hash": last_present_hash,
+                    "timestamp": last_present_ts,
+                    "script_name": script_name,
+                    "script_definition": "",
+                }
+            )
+
+    df_removals = (
+        pd.DataFrame(records)
+        if records
+        else pd.DataFrame(
+            columns=["commit_hash", "timestamp", "script_name", "script_definition"]
+        )
     )
-    df_removals = df_removals[
-        df_removals["commit_hash_present"] != df_removals["commit_hash_overall"]
-    ].copy()
-    df_removals["script_definition"] = ""
-    df_removals = df_removals.rename(columns={"commit_hash_present": "commit_hash"})
-    df_removals = df_removals[
-        ["commit_hash", "timestamp", "script_name", "script_definition"]
-    ]
 
     # ── Combine and sort ───────────────────────────────────────────────────
     df_changes = pd.concat(

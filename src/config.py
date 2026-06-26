@@ -52,6 +52,12 @@ class ProjectConfig:
     #: Example: ``"npm@latest"``
     package_manager_version_overwrite: Optional[str] = None
 
+    #: Default package manager to use when auto-detection (lock file analysis)
+    #: fails to find any package manager.  Defaults to ``"npm"``.
+    #: Only applies when ``package_manager_version_overwrite`` is not set.
+    #: Example: ``"yarn"``
+    package_manager_default: str = "npm"
+
     #: List of workspace glob patterns to merge into the auto-detected
     #: workspace list.  Useful when the project's workspace config is not
     #: discoverable from the root ``package.json`` or ``pnpm-workspace.yaml``.
@@ -79,6 +85,13 @@ class ProjectConfig:
     #: Default: ``[]`` (no strategies disabled).
     #: Example: ``["Dockerfile"]``
     disabled_node_strategies: list[str] = field(default_factory=list)
+
+    #: If ``True``, returns the first matching Node version from the
+    #: release list instead of the last (most recent) one.  This is
+    #: useful when a version range like ``">=14"`` should resolve to
+    #: ``14`` rather than ``22`` (the latest LTS).
+    #: Default: ``False``.
+    use_first_node_version: bool = False
 
 
 # ──────────────────────────────────────────────────────────────────────────────
