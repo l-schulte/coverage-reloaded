@@ -10,7 +10,9 @@
             "url": "https://github.com/npm/cli"
         },
         "condo": {
-            "url": "https://github.com/open-condo-software/condo"
+            "url": "https://github.com/open-condo-software/condo",
+            "package_manager_default": "yarn",
+            "use_first_node_version": true
         },
         "spreed": {
             "url": "https://github.com/nextcloud/spreed"
@@ -52,7 +54,8 @@
             "url": "https://github.com/foundryvtt/pf2e"
         },
         "bhima": {
-            "url": "https://github.com/third-culture-software/bhima"
+            "url": "https://github.com/third-culture-software/bhima",
+            "package_manager_version_overwrite": "npm"
         },
         "gatsby": {
             "url": "https://github.com/gatsbyjs/gatsby"
@@ -77,6 +80,9 @@
             "disabled_node_strategies": [
                 "Angular compatibility"
             ]
+        },
+        "uwazi": {
+            "url": "https://github.com/huridocs/uwazi"
         }
     }
 }
