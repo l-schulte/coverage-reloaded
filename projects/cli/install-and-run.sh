@@ -36,7 +36,7 @@ if [ "$HAS_TEST_COVERAGE" = "true" ]; then
     nyc report --reporter=lcov --report-dir="$COVERAGE_REPORT_PATH"
 else
     print_header 3 "No test-coverage script, wrapping npm test with nyc"
-    npx --registry="$WAYPACK_NPM_REGISTRY" nyc \
+    npx --registry="$VERDACCIO_REGISTRY" nyc \
         --reporter=lcov \
         --report-dir="$COVERAGE_REPORT_PATH" \
         --force \

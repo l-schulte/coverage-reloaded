@@ -37,7 +37,7 @@ if [ "$HAS_WORKSPACES" = "false" ]; then
     # Run it directly rather than relying on the script name.
     # Mocha does not bail by default, so no --no-bail needed.
     set +e
-    npx --registry=$WAYPACK_NPM_REGISTRY nyc --reporter=lcov npm test
+    npx --registry=$VERDACCIO_REGISTRY nyc --reporter=lcov npm test
     TEST_EXIT=$?
     set -e
 

@@ -13,45 +13,39 @@ fi
 
 print_header 2 "Installing dependencies"
 
-npm ci --no-fund
+npm install --legacy-peer-deps --no-fund
+
+set +e
+if node -p "require('./node_modules/vue/package.json').version" > /dev/null 2>&1; then
+    VUE_VERSION=$(node -p "require('./node_modules/vue/package.json').version")
+    if [ ! -d "node_modules/vue-template-compiler" ]; then
+        npm install --no-save --legacy-peer-deps vue-template-compiler@"$VUE_VERSION"
+    fi
+fi
+set -e
 
 npm install -g nyc --no-fund
-
-# ── Detect test infrastructure era ─────────────────────────────────────────────
-
-print_header 2 "Detecting test infrastructure era"
-
-TEST_SCRIPT=$(node -p "require('./package.json').scripts.test || ''")
-TEST_COVERAGE_SCRIPT=$(node -p "require('./package.json').scripts['test:coverage'] || ''")
-
-print_header 4 "test script:       $TEST_SCRIPT"
-print_header 4 "test:coverage:     $TEST_COVERAGE_SCRIPT"
 
 # ── Run tests with coverage ─────────────────────────────────────────────────────
 
 set +e
 
-if [ -n "$TEST_COVERAGE_SCRIPT" ]; then
-    print_header 2 "Running tests with test:coverage script"
+TEST_UNIT_SCRIPT=$(node -p "require('./package.json').scripts['test:unit'] || ''")
+TEST_SCRIPT=$(node -p "require('./package.json').scripts.test || ''")
+TEST_COVERAGE_SCRIPT=$(node -p "require('./package.json').scripts['test:coverage'] || ''")
 
-    if echo "$TEST_COVERAGE_SCRIPT" | grep -q "vitest"; then
-        npm run test:coverage -- --coverage.reporter=lcov --coverage.reportOnFailure=true
-    elif echo "$TEST_COVERAGE_SCRIPT" | grep -q "jest"; then
-        npm run test:coverage -- --coverageReporters=lcov
-    else
-        npm run test:coverage
-    fi
-elif echo "$TEST_SCRIPT" | grep -q "vitest"; then
-    print_header 2 "Injecting coverage flags for vitest"
-    npx vitest run --coverage --coverage.reporter=lcov --coverage.reportOnFailure=true
-elif echo "$TEST_SCRIPT" | grep -q "jest"; then
-    print_header 2 "Injecting coverage flags for jest"
-    npx jest --coverage --coverageReporters=lcov
-elif echo "$TEST_SCRIPT" | grep -q "Error: no test specified"; then
-    print_header 2 "Skipping tests" "No test infrastructure configured"
+if echo "$TEST_UNIT_SCRIPT $TEST_SCRIPT $TEST_COVERAGE_SCRIPT" | grep -q "vitest"; then
+    print_header 2 "Running vitest tests with coverage"
+    npx vitest run --coverage --coverage.reporter=lcov --coverage.reportOnFailure=true --bail=0
+elif echo "$TEST_UNIT_SCRIPT $TEST_SCRIPT $TEST_COVERAGE_SCRIPT" | grep -q "jest"; then
+    print_header 2 "Running jest tests with coverage"
+    npx jest --coverage --coverageReporters=lcov --no-cache --bail=false
+elif echo "$TEST_UNIT_SCRIPT $TEST_SCRIPT $TEST_COVERAGE_SCRIPT" | grep -q "vue-cli-service"; then
+    print_header 2 "Running vue-cli-service tests with coverage"
+    npx vue-cli-service test:unit --coverage --coverageReporters lcov --no-cache --bail=false
 else
-    print_header 2 "Running tests" "unknown test runner — passing flags directly"
-    npm run test -- --coverage.enabled=true --coverage.reporter=lcov
+    print_header 2 "ERROR" "Unknown test infrastructure, cannot inject coverage flags"
+    exit 1
 fi
 
 TEST_EXIT=$?

@@ -45,6 +45,6 @@ else
     echo "No test script found in package.json, skipping tests."
 fi  
 
-npx --registry=$WAYPACK_NPM_REGISTRY nyc report --reporter=lcov --report-dir="$COVERAGE_REPORT_PATH"
+npx --registry=$VERDACCIO_REGISTRY nyc report --reporter=lcov --report-dir="$COVERAGE_REPORT_PATH"
     
 set -e

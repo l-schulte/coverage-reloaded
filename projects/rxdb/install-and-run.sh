@@ -45,7 +45,7 @@ npm install source-map-support --no-fund
 
 if [[ "$TEST_SCRIPT" == *"mocha"* ]]; then
     echo "Running tests with mocha enabled"
-    npx --registry=$WAYPACK_NPM_REGISTRY c8 \
+    npx --registry=$VERDACCIO_REGISTRY c8 \
         --require source-map-support/register \
         --require @babel/register \
         --reporter=lcov \
@@ -60,7 +60,7 @@ fi
 if [[ "$TEST_SCRIPT" == *"test:node:lokijs"* ]]; then
     echo "Running tests with lokijs enabled"
     DEFAULT_STORAGE=lokijs \
-    npx --registry=$WAYPACK_NPM_REGISTRY c8 \
+    npx --registry=$VERDACCIO_REGISTRY c8 \
         --require source-map-support/register \
         --require @babel/register \
         --reporter=lcov \
@@ -75,7 +75,7 @@ fi
 if [[ "$TEST_SCRIPT" == *"test:node:pouchdb"* ]]; then
     echo "Running tests with pouchdb enabled"
     DEFAULT_STORAGE=pouchdb \
-    npx --registry=$WAYPACK_NPM_REGISTRY c8 \
+    npx --registry=$VERDACCIO_REGISTRY c8 \
         --require source-map-support/register \
         --require @babel/register \
         --reporter=lcov \
@@ -90,7 +90,7 @@ fi
 if [[ "$TEST_SCRIPT" == *"test:node:dexie"* ]]; then
     echo "Running tests with dexie enabled"
     DEFAULT_STORAGE=dexie \
-    npx --registry=$WAYPACK_NPM_REGISTRY c8 \
+    npx --registry=$VERDACCIO_REGISTRY c8 \
         --require source-map-support/register \
         --require @babel/register \
         --reporter=lcov \

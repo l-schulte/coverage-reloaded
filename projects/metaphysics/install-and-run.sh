@@ -16,6 +16,13 @@ print_header 2 "Installing dependencies"
 
 yarn install --frozen-lockfile --ignore-scripts
 
+# The project uses patch-package (via "prepare": "patch-package" in package.json)
+# to add PageInfoType and other extensions to graphql-relay@0.5.4.
+# --ignore-scripts above skips the prepare hook, so we must run patch-package
+# explicitly here.
+print_header 4 "Applying patches with patch-package"
+npx --registry=$WAYPACK_NPM_REGISTRY patch-package
+
 # Metaphysics uses jest with --coverage (no c8/nyc). The `ci` script exists across
 # the entire history and always runs the test suite (usually "yarn test", briefly
 # "USE_UNSTITCHED_VIEWING_ROOM_SCHEMA=true yarn test"). Jest's built-in coverage
