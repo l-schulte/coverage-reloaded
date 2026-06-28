@@ -43,14 +43,24 @@ $EXECUTOR build --build-arg NODE_VERSION=$6 -t $CONTAINER_NAME ./projects/$1
 
 mkdir -p projects/$1/output
 
+# Some projects (e.g. condo) need Docker-in-Docker for their docker-compose-based
+# test infrastructure (postgresdb, redis). Add --privileged when the project's
+# Dockerfile sets the DIND_PROJECT label.
+DIND=$($EXECUTOR image inspect $CONTAINER_NAME --format '{{ index .Config.Labels "dind.project" }}' 2>/dev/null || echo "")
+if [ "$DIND" = "true" ]; then
+    EXTRA_FLAGS="--privileged"
+else
+    EXTRA_FLAGS=""
+fi
+
 if [ "$2" = "shell" ]; then
     # Run an interactive container for testing, executes bash on start
-    $EXECUTOR run --rm -it --network mining-net --cap-add=NET_ADMIN $ENV_CONFIG $DNS_CONFIG -v "$(pwd)/projects/$1/output:$CONTAINER_DIR/coverage" --pids-limit 10000 $CONTAINER_NAME bash
+    $EXECUTOR run --rm -it --network mining-net --cap-add=NET_ADMIN $ENV_CONFIG $DNS_CONFIG $EXTRA_FLAGS -v "$(pwd)/projects/$1/output:$CONTAINER_DIR/coverage" --pids-limit 10000 $CONTAINER_NAME bash
 elif [ "$2" = "debug" ]; then
     # Run an interactive container for debugging, executes bash and mounts the debug folder
     mkdir -p projects/$1/debug
-    $EXECUTOR run --rm -it --network mining-net --cap-add=NET_ADMIN $ENV_CONFIG $DNS_CONFIG -v "$(pwd)/projects/$1/output:$CONTAINER_DIR/coverage" -v "$(pwd)/projects/$1/debug:$CONTAINER_DIR" --pids-limit 10000 $CONTAINER_NAME bash
+    $EXECUTOR run --rm -it --network mining-net --cap-add=NET_ADMIN $ENV_CONFIG $DNS_CONFIG $EXTRA_FLAGS -v "$(pwd)/projects/$1/output:$CONTAINER_DIR/coverage" -v "$(pwd)/projects/$1/debug:$CONTAINER_DIR" --pids-limit 10000 $CONTAINER_NAME bash
 elif [ "$2" = "exec" ]; then
     # Run the full process non-interactively
-    $EXECUTOR run --rm --network mining-net --cap-add=NET_ADMIN $ENV_CONFIG $DNS_CONFIG -v "$(pwd)/projects/$1/output:$CONTAINER_DIR/coverage" --pids-limit 10000 $CONTAINER_NAME bash execute.sh
+    $EXECUTOR run --rm --network mining-net --cap-add=NET_ADMIN $ENV_CONFIG $DNS_CONFIG $EXTRA_FLAGS -v "$(pwd)/projects/$1/output:$CONTAINER_DIR/coverage" --pids-limit 10000 $CONTAINER_NAME bash execute.sh
 fi

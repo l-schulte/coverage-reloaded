@@ -2,6 +2,12 @@
 
 source "$(dirname "${BASH_SOURCE[0]}")/logging.sh"
 
+# Disable IPv6 resolution — the host and containers lack IPv6 routing.
+# This makes getent, curl, node, yarn, etc. all prefer IPv4 by default.
+# The sysctl disables IPv6 on loopback and physical interfaces inside the
+# container (harmless — no IPv6 connectivity anyway).
+sysctl -w net.ipv6.conf.all.disable_ipv6=1 &>/dev/null || true
+
 starttime=$(date +%s)
 BASEDIR="/coverage_reloaded"
 REPOPATH="$BASEDIR/repo"
@@ -47,9 +53,12 @@ resolve_and_pin() {
     local ip=""
 
     for i in $(seq 1 $max_attempts); do
-        ip=$(getent hosts "$hostname" | awk '{ print $1 }' | head -1)
+        ip=$(getent ahostsv4 "$hostname" 2>/dev/null | awk '/STREAM/ { print $1; exit }')
         if [ -n "$ip" ]; then
             echo "$hostname resolved to $ip after $i attempt(s)"
+            grep -v " $hostname$" /etc/hosts > /tmp/hosts.tmp \
+                && cp /tmp/hosts.tmp /etc/hosts \
+                && rm -f /tmp/hosts.tmp
             echo "$ip $hostname" >> /etc/hosts
             echo "$hostname pinned in /etc/hosts"
             return 0
@@ -120,6 +129,8 @@ resolve_and_pin "waypack"
 resolve_and_pin "verdaccio"
 resolve_and_pin "registry.npmjs.org"
 resolve_and_pin "registry.yarnpkg.com"
+resolve_and_pin "github.com"
+resolve_and_pin "repo.yarnpkg.com"
 
 print_header 2 "Setting up Package Managers"
 
@@ -127,10 +138,17 @@ WAYPACK_NPM_REGISTRY="http://waypack:3000/npm/$timestamp/"
 export WAYPACK_NPM_REGISTRY
 WAYPACK_YARN_REGISTRY="http://waypack:3000/yarn/$timestamp/"
 export WAYPACK_YARN_REGISTRY
+VERDACCIO_REGISTRY="http://verdaccio:4873/"
+export VERDACCIO_REGISTRY
 
-npm config set registry "$WAYPACK_NPM_REGISTRY"
+# Use Verdaccio directly for PM self-installs — WayPack is timestamp-scoped
+# and won't have arbitrary PM versions like npm@8.0.0 cached.
+npm config set registry "$VERDACCIO_REGISTRY"
 
-if [ -x "$(command -v corepack)" ] && grep -q '"packageManager"' package.json; then
+# Corepack requires Node.js >= 16 (it uses ??= syntax). If Node is older,
+# skip corepack and fall through to manual setup.
+NODE_MAJOR=$(node --version | sed 's/v//' | cut -d. -f1)
+if [ -x "$(command -v corepack)" ] && [ "$NODE_MAJOR" -ge 16 ] && grep -q '"packageManager"' package.json; then
     echo " --> Corepack setup for $package_manager"
     corepack enable
     corepack prepare "$package_manager" --activate
@@ -153,18 +171,26 @@ else
                 npm uninstall -g yarn 2>/dev/null || true
                 npm install --no-fund -g "yarn@$specified_version"
             else
-                yarn set version "$specified_version"
+                # For Yarn Berry (2+), try to use the repo's bundled yarn if available
+                if [ -f ".yarnrc.yml" ]; then
+                    BUNDLED_YARN=$(grep '^yarnPath:' .yarnrc.yml | awk '{print $2}')
+                    if [ -n "$BUNDLED_YARN" ] && [ -f "$BUNDLED_YARN" ]; then
+                        echo " --> Using repo-bundled yarn: $BUNDLED_YARN"
+                        # Symlink the bundled yarn so 'yarn' command works globally
+                        ln -sf "$(pwd)/$BUNDLED_YARN" /usr/local/bin/yarn
+                        chmod +x /usr/local/bin/yarn
+                    else
+                        npm install --no-fund -g "yarn@$specified_version"
+                    fi
+                else
+                    npm install --no-fund -g "yarn@$specified_version"
+                fi
             fi
         else
             npm install -g yarn
         fi
-        # Always serialize fetching. Required for yarn 1 git-URL deps, which recurse
-        # into per-clone installs that race on the shared cache (yarnpkg/yarn#8032);
-        # harmless elsewhere, and gentler on verdaccio than dozens of concurrent
-        # requests per container when many builds run in parallel.
-        export YARN_NETWORK_CONCURRENCY=1
         
-        if yarn --version | grep -q "rc"; then
+        if command -v yarn &>/dev/null && yarn --version | grep -q "rc"; then
             set +e
             yarn set version latest
             set -e
@@ -174,6 +200,15 @@ else
         npm install --no-fund -g pnpm
     fi
 fi
+
+
+if [[ "$IS_YARN_MAIN_PM" = "true" ]] && yarn --version | grep -q "^1\."; then
+    export YARN_NETWORK_CONCURRENCY=1
+fi
+export npm_config_maxsockets=1
+
+# Switch back to WayPack for project dependency installs
+npm config set registry "$WAYPACK_NPM_REGISTRY"
 
 if [ "$IS_YARN_MAIN_PM" = "true" ]; then
     print_header 3 "Yarn Version After Setup"
