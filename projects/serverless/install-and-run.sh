@@ -21,6 +21,14 @@ HAS_WORKSPACES=$(node -p "typeof require('./package.json').workspaces !== 'undef
 
 print_header 4 "workspaces: $HAS_WORKSPACES"
 
+# Problem: @serverlessinc/sf-core is closed source and a required dependency in certain eras
+# Solution: Skip those commits, since they cannot be tested without access to the private package. 
+HAS_CLOSED_SOURCE_DEPENDENCY=$(node -p "typeof require('./package.json').dependencies['@serverlessinc/sf-core'] !== 'undefined'")
+if [ "$HAS_CLOSED_SOURCE_DEPENDENCY" = "true" ]; then
+    print_header 2 "NOT APPLICABLE: This commit depends on @serverlessinc/sf-core, which is closed source and cannot be tested in this environment."
+    exit 2
+fi
+
 # NOTE: Both eras have integration/e2e test suites that deploy real AWS
 # infrastructure (CloudFormation stacks, Lambda functions, S3 buckets, etc.).
 # These require valid AWS credentials and network access to AWS APIs, neither
@@ -50,47 +58,49 @@ if [ "$HAS_WORKSPACES" = "false" ]; then
 elif [ "$HAS_WORKSPACES" = "true" ]; then
     print_header 2 "Running tests with coverage (jest --coverage)"
 
+    # Less than 20 commits actually fall into this era.
+
     # The root test script runs: npm run test:unit -w @serverlessinc/sf-core -w @serverless/framework
     # These invoke jest with --experimental-vm-modules.
     # No coverage tooling is present natively — use jest's built-in --coverage.
     # Use --runInBand to avoid parallelism issues.
 
-    print_header 3 "Running sf-core + serverless unit tests"
+    # Worspace names:
+    # mcp -> @serverless/mcp: test:unit, test
+    # serverless -> @serverless/framework: test:unit, test
+    # sf-core -> @serverlessinc/sf-core: test:unit, test
+    # engine -> @serverless/engine: test, test:integration
+
+    print_header 3 "Running mcp + serverless + sf-core command 'test:unit'"
     set +e
-    npm run test:unit -w @serverlessinc/sf-core -w @serverless/framework -- --coverage --coverage-reporters=lcov --runInBand
+    npm run test:unit \
+        -w @serverless/mcp \
+        -w @serverless/framework \
+        -w @serverlessinc/sf-core \
+        -- --coverage --coverage-reporters=lcov --runInBand
     TEST_EXIT=$?
     set -e
-
-    print_header 2 "Collecting coverage reports"
     bash /coverage_reloaded/find-and-move-lcov.sh "unit" "true" "$TEST_EXIT"
 
-    # Also run engine tests if they exist
-    if node -e "process.exit(require('fs').existsSync('packages/engine/package.json') ? 0 : 1)" 2>/dev/null; then
-        HAS_ENGINE_TEST=$(node -p "!!(require('./packages/engine/package.json').scripts || {}).test")
-        if [ "$HAS_ENGINE_TEST" = "true" ]; then
-            print_header 3 "Running engine tests"
-            set +e
-            npm run test -w packages/engine -- --coverage --coverage-reporters=lcov --runInBand
-            ENGINE_EXIT=$?
-            set -e
+    print_header 3 "Running engine + mcp + sf-core command 'test'"
 
-            print_header 2 "Collecting engine coverage reports"
-            bash /coverage_reloaded/find-and-move-lcov.sh "engine" "true" "$ENGINE_EXIT"
-        fi
-    fi
+    set +e
+    npm run test \
+        -w @serverless/engine \
+        -w @serverless/mcp \
+        -w @serverlessinc/sf-core \
+        -- --coverage --coverage-reporters=lcov --runInBand
+    TEST_EXIT=$?
+    set -e
+    bash /coverage_reloaded/find-and-move-lcov.sh "test" "true" "$TEST_EXIT"
 
-    # Run MCP tests if they exist
-    if node -e "process.exit(require('fs').existsSync('packages/mcp/package.json') ? 0 : 1)" 2>/dev/null; then
-        HAS_MCP_TEST=$(node -p "!!(require('./packages/mcp/package.json').scripts || {}).test")
-        if [ "$HAS_MCP_TEST" = "true" ]; then
-            print_header 3 "Running MCP tests"
-            set +e
-            npm run test -w packages/mcp -- --coverage --coverage-reporters=lcov --runInBand
-            MCP_EXIT=$?
-            set -e
+    print_header 3 "Running engine command 'test:integration'"
 
-            print_header 2 "Collecting MCP coverage reports"
-            bash /coverage_reloaded/find-and-move-lcov.sh "mcp" "true" "$MCP_EXIT"
-        fi
-    fi
+    set +e
+    npm run test:integration \
+        -w @serverless/engine \
+        -- --coverage --coverage-reporters=lcov --runInBand
+    TEST_EXIT=$?
+    set -e
+    bash /coverage_reloaded/find-and-move-lcov.sh "integration" "true" "$TEST_EXIT"
 fi
