@@ -91,6 +91,33 @@ def extract_project_metadata(
             pm_version = project_config.package_manager_default
             pm_source = f"config default ({project_config.package_manager_default})"
 
+    # Enforce minimum package manager version per manager
+    min_pm_version = project_config.min_pm_version
+    if min_pm_version and "@" in pm_version:
+        pm_name = pm_version.split("@")[0]
+        pm_requirement = min_pm_version.get(pm_name)
+        if pm_requirement:
+            pm_ver_only = pm_version.split("@")[1]
+            # Simple major-version comparison (like min_node_version)
+            pm_major = int(pm_ver_only.split(".")[0])
+            min_major = int(pm_requirement.split(".")[0])
+            if pm_major < min_major:
+                # Ensure the requirement is a valid semver (e.g. "8" → "8.0.0")
+                # so that downstream "npm install -g npm@8.0.0" works.
+                parts = pm_requirement.split(".")
+                parts += ["0"] * (3 - len(parts))
+                pm_requirement_semver = ".".join(parts)
+                logger.warning(
+                    f"Package manager version {pm_version} for commit {commit_hash} "
+                    f"does not satisfy minimum requirement {pm_name}@{pm_requirement}. "
+                    f"Setting to minimum version."
+                )
+                pm_source = (
+                    f"enforced minimum version {pm_name}@{pm_requirement_semver} "
+                    f"(originally {pm_version} from {pm_source})"
+                )
+                pm_version = f"{pm_name}@{pm_requirement_semver}"
+
     commands = find_commands(commit_hash, repo_path, workspaces)
     coverage_tools = find_coverage_tools(commit_hash, repo_path)
     lock_files = find_lock_files(commit_hash, repo_path)

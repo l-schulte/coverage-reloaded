@@ -93,6 +93,14 @@ class ProjectConfig:
     #: Default: ``False``.
     use_first_node_version: bool = False
 
+    #: Minimum package manager versions keyed by manager name.
+    #: When set, the detected package manager version must satisfy the
+    #: given semver range for that manager; otherwise it is bumped to
+    #: the minimum.  Only applies to managers explicitly listed.
+    #: Example: ``{"npm": "8", "pnpm": "6", "yarn": "1"}``
+    #: Default: ``{}`` (no minimum enforced).
+    min_pm_version: Dict[str, str] = field(default_factory=dict)
+
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Top-level config

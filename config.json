@@ -9,13 +9,11 @@
         "cli": {
             "url": "https://github.com/npm/cli"
         },
-        "condo": {
-            "url": "https://github.com/open-condo-software/condo",
-            "package_manager_default": "yarn",
-            "use_first_node_version": true
-        },
         "spreed": {
-            "url": "https://github.com/nextcloud/spreed"
+            "url": "https://github.com/nextcloud/spreed",
+            "min_pm_version": {
+                "npm": "8"
+            }
         },
         "metaphysics": {
             "url": "https://github.com/artsy/metaphysics"
