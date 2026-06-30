@@ -15,6 +15,7 @@ python-dateutil==2.9.0.post0
 pytz==2025.2
 semantic-version==2.10.0
 six==1.17.0
+strip-ansi==0.1.1
 smmap==5.0.2
 tqdm==4.67.3
 types-pytz==2025.2.0.20251108
