@@ -1,6 +1,7 @@
 import logging
 import os
 import subprocess
+import shutil
 
 from strip_ansi import strip_ansi
 
@@ -86,6 +87,13 @@ def docker_run_script(commit, workspace_path, logs_path, output_path):
                 f.write(f"Log: {log_filename}\n")
         elif not success:
             logger.debug(f"Commit {commit_hash} failed. See log: {log_filename}")
+            # Clean up any stale per-commit directory from a previous re-run
+            commit_dir = os.path.join(output_path, f"{timestamp}_{commit_hash}")
+            if os.path.isdir(commit_dir):
+                logger.debug(
+                    f"Removing stale output directory for failed re-run: {commit_dir}"
+                )
+                shutil.rmtree(commit_dir, ignore_errors=True)
             error_lcov = os.path.join(output_path, f"{timestamp}_{commit_hash}.error")
             with open(error_lcov, "w") as f:
                 f.write(f"Execution failed. See log for details.\n{log_filename}\n")

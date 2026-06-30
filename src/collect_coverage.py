@@ -80,8 +80,9 @@ def execute(project, max_workers, max_commits=None):
     # Logs are named {timestamp}_{commit_hash}.log (success) or .error (failure)
     # Error markers are named {timestamp}_{commit_hash}.error
     # Not-applicable markers are named {timestamp}_{commit_hash}.not_applicable
-    # Coverage files are named {timestamp}_{commit_hash}__{test_type}__{subdir}.lcov
-    # Exit code files are named {timestamp}_{commit_hash}__{test_type}__{subdir}__exit{code}.exit_code
+    # Coverage files live in per-commit directories: {timestamp}_{commit_hash}/
+    #   {test_type}__{subdir}.lcov
+    #   {test_type}__{subdir}.exit_code
     # We use logs instead of .lcov output files so we can support multiple
     # coverage artifacts per commit (e.g. separate Jest and Cypress lcov files).
     logger.info("Checking for already completed commits and cleaning up errors...")

@@ -333,15 +333,28 @@ print_header 2 "Collecting individual coverage reports"
 # combining coverage from different instrumenters like Jest and Cypress),
 # we copy each lcov file to the output with a unique name.
 #
-# Naming: {timestamp}_{revision}__{test_type}__{subdir}.lcov
-#         {timestamp}_{revision}__{test_type}__{subdir}__exit{code}.exit_code
+# Each commit gets its own directory: {timestamp}_{revision}/
+# Inside: {test_type}__{subdir}.lcov and {test_type}__{subdir}.exit_code
 #
 # Examples:
-#   1700000000_80af8e6c__test_coverage__packages_vuetify.lcov
-#   1700000000_80af8e6c__cypress__packages_vuetify_coverage_cypress.lcov
-#   1700000000_80af8e6c__test_coverage__packages_vuetify__exit0.exit_code
+#   1700000000_80af8e6c/
+#     ├── test_coverage__packages_vuetify.lcov
+#     ├── test_coverage__packages_vuetify.exit_code
+#     ├── cypress__packages_vuetify_coverage_cypress.lcov
+#     └── cypress__packages_vuetify_coverage_cypress.exit_code
 
 prefix="${timestamp}_${revision}"
+
+# ── Re-run safety: clean up any stale directory or files for this commit ──
+if [ -d "$OUTPUT_PATH/$prefix" ]; then
+    print_header 4 "NOTICE: Removing stale output directory for re-run: $prefix"
+    rm -rf "$OUTPUT_PATH/$prefix"
+fi
+# Also remove any stale flat files from a previous naming convention
+rm -f "$OUTPUT_PATH/${prefix}"__*.lcov "$OUTPUT_PATH/${prefix}"__*.exit_code
+
+commit_dir="$OUTPUT_PATH/$prefix"
+mkdir -p "$commit_dir"
 
 mapfile -t lcov_files < <(find "$COVERAGE_REPORT_PATH" \( -name "*.lcov.info" -o -name "lcov.info" \) -size +0)
 
@@ -360,13 +373,11 @@ for f in "${lcov_files[@]}"; do
     safe_stem="${stem//\//_}"
     safe_stem="${safe_stem//-/_}"
 
-    dest="$OUTPUT_PATH/${prefix}__${safe_stem}.lcov"
+    dest="$commit_dir/${safe_stem}.lcov"
     cp "$f" "$dest"
-    echo "  [OK]  $(basename "$f") → $(basename "$dest")"
+    echo "  [OK]  $(basename "$f") → $prefix/${safe_stem}.lcov"
 
     # Also copy the corresponding exit code file if it exists
-    # The exit code file has the same stem as the lcov file but with .exit_code extension.
-    # Include the exit code value in the filename for clarity.
     exit_code_file="$(dirname "$f")/$(basename "${rel%.lcov.info}").exit_code"
     if [ ! -f "$exit_code_file" ]; then
         # Fallback: try the stem without .info suffix
@@ -374,9 +385,8 @@ for f in "${lcov_files[@]}"; do
     fi
     if [ -f "$exit_code_file" ]; then
         exit_code_value=$(cat "$exit_code_file")
-        dest_exit="$OUTPUT_PATH/${prefix}__${safe_stem}__exit${exit_code_value}.exit_code"
-        cp "$exit_code_file" "$dest_exit"
-        echo "  [OK]  exit_code → $(basename "$dest_exit")"
+        cp "$exit_code_file" "$commit_dir/${safe_stem}.exit_code"
+        echo "  [OK]  exit_code → $prefix/${safe_stem}.exit_code (value: $exit_code_value)"
     fi
 done
 
