@@ -12,6 +12,38 @@ if [ ! -f package.json ]; then
     exit 2
 fi
 
+print_header 2 "Removing edge-plugin-wyre (private repo, not needed for tests)"
+
+# edge-plugin-wyre is now a private repo. It's a buy/sell plugin that isn't
+# needed for running the unit tests, so we remove it from package.json and
+# yarn.lock to let yarn install succeed.
+
+if $IS_YARN_MAIN_PM && [ -f yarn.lock ]; then
+    print_header 3 "Removing edge-plugin-wyre from package.json and yarn.lock"
+
+    # Remove from package.json (both dependencies and plugins array)
+    sed -i '/"edge-plugin-wyre"/d' package.json
+
+    # Remove from yarn.lock — delete the entire entry block
+    # The entry spans multiple lines starting with the quoted name
+    python3 -c "
+import re
+with open('yarn.lock', 'r') as f:
+    content = f.read()
+# Remove the edge-plugin-wyre entry block
+content = re.sub(
+    r'\"edge-plugin-wyre@https://github.com/EdgeApp/edge-plugin-wyre\.git#[^\"]+\":\n(  .*\n?)*',
+    '',
+    content
+)
+with open('yarn.lock', 'w') as f:
+    f.write(content)
+"
+    print_header 4 "Removal complete"
+else
+    print_header 4 "Not a yarn project or no yarn.lock — skipping"
+fi
+
 print_header 2 "Installing dependencies"
 
 if $IS_YARN_MAIN_PM; then
@@ -34,23 +66,38 @@ print_header 4 "Created empty env.json"
 print_header 2 "Detecting test infrastructure"
 
 # Determine jest config: prefer standalone jest.config.js, otherwise use defaults
-if [ -f jest.config.js ]; then
-    JEST_CONFIG="--config jest.config.js"
-    print_header 4 "Using jest.config.js"
-else
-    JEST_CONFIG=""
-    print_header 4 "No jest.config.js — using jest defaults (config from package.json)"
-fi
 
-print_header 2 "Running tests with coverage"
+
+print_header 2 "Running tests with coverage" "jest.config.js? >$JEST_CONFIG<, jest.async.config.js? >$JEST_ASYNC_CONFIG<"
 
 set +e
-TZ=America/Los_Angeles npx --registry="$WAYPACK_NPM_REGISTRY" jest $JEST_CONFIG \
-    --coverage --coverageReporters=lcov --runInBand
-TEST_EXIT=$?
-set -e
 
-print_header 2 "Collecting coverage reports"
-bash /coverage_reloaded/find-and-move-lcov.sh "unit" "false" "$TEST_EXIT"
+if [ -f jest.config.js ]; then
+    print_header 3 "Using jest.config.js"
+    JEST_CONFIG="--config jest.config.js"
+    TZ=America/Los_Angeles npx --registry="$WAYPACK_NPM_REGISTRY" jest $JEST_CONFIG \
+        --coverage --coverageReporters=lcov --runInBand
+    EXIT_CODE=$?
+    bash /coverage_reloaded/find-and-move-lcov.sh "config" "false" "$EXIT_CODE"
+fi
+
+if [ -f jest.async.config.js ]; then
+    print_header 3 "Using jest.async.config.js"
+    JEST_ASYNC_CONFIG="--config jest.async.config.js"
+    TZ=America/Los_Angeles npx --registry="$WAYPACK_NPM_REGISTRY" jest $JEST_ASYNC_CONFIG \
+        --coverage --coverageReporters=lcov --runInBand
+    EXIT_CODE=$?
+    bash /coverage_reloaded/find-and-move-lcov.sh "async_config" "false" "$EXIT_CODE"
+fi
+
+if [ ! -f jest.config.js ] && [ ! -f jest.async.config.js ]; then
+    print_header 3 "Using jest without config file"
+    TZ=America/Los_Angeles npx --registry="$WAYPACK_NPM_REGISTRY" jest \
+        --coverage --coverageReporters=lcov --runInBand
+    TEST_EXIT=$?
+    bash /coverage_reloaded/find-and-move-lcov.sh "default" "false" "$TEST_EXIT"
+fi
+
+set -e
 
 print_header 1 "Edge React GUI coverage run complete"
