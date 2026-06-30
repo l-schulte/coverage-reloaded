@@ -27,26 +27,14 @@ npm install --no-fund --include=dev
 
 print_header 2 "Running tests with coverage"
 
-HAS_TEST_COVERAGE=$(grep -q '"test-coverage":' package.json && echo "true" || echo "false")
-
 set +e
-if [ "$HAS_TEST_COVERAGE" = "true" ]; then
-    print_header 3 "Detected test-coverage script"
-    npm run test-coverage
-    nyc report --reporter=lcov --report-dir="$COVERAGE_REPORT_PATH"
-else
-    print_header 3 "No test-coverage script, wrapping npm test with nyc"
-    npx --registry="$VERDACCIO_REGISTRY" nyc \
-        --reporter=lcov \
-        --report-dir="$COVERAGE_REPORT_PATH" \
-        --force \
-        -- npm run test
-fi
+print_header 4 "Wrapping npm test with nyc"
+npx --registry="$VERDACCIO_REGISTRY" tap \
+    --nyc-arg=--reporter=lcov
 
 TEST_EXIT=$?
 set -e
 
-print_header 2 "Collecting coverage reports"
 bash /coverage_reloaded/find-and-move-lcov.sh "unit" "false" "$TEST_EXIT"
 
 print_header 1 "npm/cli coverage run complete"
