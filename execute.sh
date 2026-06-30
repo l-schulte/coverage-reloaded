@@ -202,9 +202,14 @@ else
 fi
 
 
-if [[ "$IS_YARN_MAIN_PM" = "true" ]] && yarn --version | grep -q "^1\."; then
+if command -v yarn &>/dev/null; then
     export YARN_NETWORK_CONCURRENCY=1
 fi
+
+if command -v pnpm &>/dev/null; then
+    export npm_config_network_concurrency=1
+fi
+
 export npm_config_maxsockets=1
 
 # Switch back to WayPack for project dependency installs
