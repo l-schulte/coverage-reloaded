@@ -118,10 +118,18 @@ def scan_output_dir(output_dir: Path, project_name: str = "") -> list:
             status = "fail" if any_fail else "pass"
 
             # Build log URL: projects/<name>/logs/<timestamp>_<hash>.log
+            # (or .error if the commit failed)
             ts_hash = entry.name  # e.g. "1612290272_0126ccbcf8..."
+            log_path = Path(str(output_dir.parent / "logs")) / f"{ts_hash}.log"
+            log_ext = ".log" if log_path.is_file() else ".error"
             log_url = (
-                f"projects/{project_name}/logs/{ts_hash}.log" if project_name else ""
+                f"projects/{project_name}/logs/{ts_hash}{log_ext}"
+                if project_name
+                else ""
             )
+
+            # Get log file mtime for sorting by latest run
+            log_mtime = log_path.stat().st_mtime if log_path.is_file() else 0
 
             commits.append(
                 {
@@ -131,15 +139,21 @@ def scan_output_dir(output_dir: Path, project_name: str = "") -> list:
                     "status": status,
                     "suites": suites,
                     "logUrl": log_url,
+                    "mtime": log_mtime,
                 }
             )
 
         elif entry.suffix == ".error":
             # Error marker
             hash_val = entry.stem
+            log_path = Path(str(output_dir.parent / "logs")) / f"{hash_val}.error"
+            log_ext = ".error" if log_path.is_file() else ".log"
             log_url = (
-                f"projects/{project_name}/logs/{hash_val}.log" if project_name else ""
+                f"projects/{project_name}/logs/{hash_val}{log_ext}"
+                if project_name
+                else ""
             )
+            log_mtime = log_path.stat().st_mtime if log_path.is_file() else 0
             commits.append(
                 {
                     "prefix": hash_val,
@@ -148,6 +162,7 @@ def scan_output_dir(output_dir: Path, project_name: str = "") -> list:
                     "status": "error",
                     "suites": [],
                     "logUrl": log_url,
+                    "mtime": log_mtime,
                 }
             )
 
@@ -200,6 +215,9 @@ def scan_all_projects() -> list:
             failed = sum(1 for c in commits if c["status"] == "fail")
             errors = sum(1 for c in commits if c["status"] == "error")
 
+            # Latest run = max mtime across all commits' log files
+            last_run = max((c["mtime"] for c in commits), default=0)
+
             projects.append(
                 {
                     "name": proj_dir.name,
@@ -209,9 +227,12 @@ def scan_all_projects() -> list:
                     "passed": passed,
                     "failed": failed,
                     "errors": errors,
+                    "lastRun": last_run,
                 }
             )
 
+    # Sort projects by lastRun descending (most recently run first)
+    projects.sort(key=lambda p: p["lastRun"], reverse=True)
     return projects
 
 
@@ -226,9 +247,9 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.end_headers()
             data = scan_all_projects()
             self.wfile.write(json.dumps(data).encode())
-        elif self.path.endswith(".log"):
-            # Serve log files as text/plain so they display in the browser
-            # instead of being downloaded.
+        elif self.path.endswith((".log", ".error")):
+            # Serve log and error files as text/plain so they display in the
+            # browser instead of being downloaded.
             file_path = BASE_DIR / self.path.lstrip("/")
             if file_path.is_file():
                 self.send_response(200)
@@ -240,7 +261,7 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             else:
                 self.send_response(404)
                 self.end_headers()
-                self.wfile.write(b"Log not found")
+                self.wfile.write(b"File not found")
         else:
             super().do_GET()
 
