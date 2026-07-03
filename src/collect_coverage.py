@@ -95,10 +95,8 @@ def execute(project, max_workers, max_commits=None):
                 if len(parts) == 2:
                     commit_hash = parts[1].split(".")[0]
                     completed_commits.add(commit_hash)
-    if os.path.exists(output_path):
-        for filename in os.listdir(output_path):
-            if filename.endswith(".error"):
-                os.remove(os.path.join(output_path, filename))
+    # Keep existing .error files — they represent historical failed attempts
+    # and should not be deleted to preserve statistics.
 
     # Read valid commits
     commits = []

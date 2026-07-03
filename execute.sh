@@ -187,7 +187,8 @@ else
                 fi
             fi
         else
-            npm install -g yarn
+            # make sure yarn version matches commit time
+            npm --registry=$WAYPACK_NPM_REGISTRY install -g yarn
         fi
         
         if command -v yarn &>/dev/null && yarn --version | grep -q "rc"; then
@@ -197,7 +198,8 @@ else
         fi
     fi
     if [ "$IS_PNPM_MAIN_PM" = "true" ]; then
-        npm install --no-fund -g pnpm
+        # make sure pnpm version matches commit time
+        npm --registry=$WAYPACK_NPM_REGISTRY install --no-fund -g pnpm
     fi
 fi
 
@@ -352,6 +354,8 @@ if [ -d "$OUTPUT_PATH/$prefix" ]; then
 fi
 # Also remove any stale flat files from a previous naming convention
 rm -f "$OUTPUT_PATH/${prefix}"__*.lcov "$OUTPUT_PATH/${prefix}"__*.exit_code
+# Remove any stale .error marker so a successful re-run doesn't show twice
+rm -f "$OUTPUT_PATH/${prefix}.error"
 
 commit_dir="$OUTPUT_PATH/$prefix"
 mkdir -p "$commit_dir"
