@@ -23,6 +23,11 @@ yarn install --frozen-lockfile --ignore-scripts
 print_header 4 "Applying patches with patch-package"
 npx --registry=$WAYPACK_NPM_REGISTRY patch-package
 
+# NOTE: --ignore-scripts also skips postinstall scripts from dependencies like
+# vue-demi. If you see "vueDemi.hasInjectionContext is not a function" errors
+# in test output, remove --ignore-scripts above (or run the relevant postinstall
+# scripts manually).
+
 # Metaphysics uses jest with --coverage (no c8/nyc). The `ci` script exists across
 # the entire history and always runs the test suite (usually "yarn test", briefly
 # "USE_UNSTITCHED_VIEWING_ROOM_SCHEMA=true yarn test"). Jest's built-in coverage
