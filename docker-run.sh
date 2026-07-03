@@ -25,21 +25,16 @@ CONTAINER_DIR=/coverage_reloaded
 ENV_CONFIG="--env-file .env --env revision=$3 --env timestamp=$4 --env package_manager=$5 --env project_id=$7"
 DNS_CONFIG="--dns 1.1.1.1 --dns 8.8.8.8"
 
-$EXECUTOR build --build-arg NODE_VERSION=$6 -t $BASE_CONTAINER_NAME .
+# Unconditional builds removed — the flock-guarded blocks below handle
+# concurrent-safe image building.
+# $EXECUTOR build --build-arg NODE_VERSION=$6 -t $BASE_CONTAINER_NAME .
+# $EXECUTOR build --build-arg NODE_VERSION=$6 -t $CONTAINER_NAME ./projects/$1
 
-$EXECUTOR build --build-arg NODE_VERSION=$6 -t $CONTAINER_NAME ./projects/$1 
+flock /tmp/lock-$BASE_CONTAINER_NAME.lock \
+    $EXECUTOR build --build-arg NODE_VERSION=$6 -t $BASE_CONTAINER_NAME .
 
-# if ! $EXECUTOR image exists $BASE_CONTAINER_NAME; then
-#     flock /tmp/lock-$BASE_CONTAINER_NAME.lock \
-#         sh -c "! $EXECUTOR image exists $BASE_CONTAINER_NAME && \
-#                $EXECUTOR build --build-arg NODE_VERSION=$6 -t $BASE_CONTAINER_NAME ."
-# fi
-
-# if ! $EXECUTOR image exists $CONTAINER_NAME; then
-#     flock /tmp/lock-$CONTAINER_NAME.lock \
-#         sh -c "! $EXECUTOR image exists $CONTAINER_NAME && \
-#                $EXECUTOR build --build-arg NODE_VERSION=$6 -t $CONTAINER_NAME ./projects/$1"
-# fi
+flock /tmp/lock-$CONTAINER_NAME.lock \
+    $EXECUTOR build --build-arg NODE_VERSION=$6 -t $CONTAINER_NAME ./projects/$1
 
 mkdir -p projects/$1/output
 
