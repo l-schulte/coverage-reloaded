@@ -2,6 +2,9 @@
 
 set -e
 
+# Increase Node.js heap size to avoid WebAssembly out-of-memory errors in worker threads (vitest/tinypool).
+export NODE_OPTIONS="--max-old-space-size=4096"
+
 source /coverage_reloaded/logging.sh
 source /coverage_reloaded/has-option.sh
 
@@ -110,16 +113,31 @@ fi
 if [ $HAS_FRONTEND -eq 1 ]; then
     print_header 3 "Running test:unit:frontend (vitest)"
 
-    # Coverage provider c8 is missing for some commits — check if it exists in the registry first.
+    # Coverage provider changed from c8 to v8 — try whichever is available.
     C8_VERSION=$(npm view @vitest/coverage-c8 version 2>/dev/null || true)
-    if [ -n "$C8_VERSION" ]; then
+    V8_VERSION=$(npm view @vitest/coverage-v8 version 2>/dev/null || true)
+    if [ -n "$V8_VERSION" ]; then
+        print_header 4 "Installing @vitest/coverage-v8..."
+        npm install --no-save --legacy-peer-deps @vitest/coverage-v8
+    elif [ -n "$C8_VERSION" ]; then
         print_header 4 "Installing @vitest/coverage-c8..."
         npm install --no-save --legacy-peer-deps @vitest/coverage-c8
     fi
 
+    # Disable worker threads to avoid WebAssembly out-of-memory in tinypool.
+    # The flag name changed across vitest versions: --threads (old) vs --poolOptions.threads.singleThread (new).
+    VITEST_SINGLE_THREAD=""
+    if has_option --threads npx --registry=$WAYPACK_NPM_REGISTRY vitest; then
+        VITEST_SINGLE_THREAD="--threads=false"
+    elif has_option --poolOptions npx --registry=$WAYPACK_NPM_REGISTRY vitest; then
+        VITEST_SINGLE_THREAD="--poolOptions.threads.singleThread"
+    fi
+
     set +e
     npx --registry=$WAYPACK_NPM_REGISTRY vitest run --config ./config/vitest.config.ts \
-        --coverage.enabled --coverage.reporter=lcov --reporter=verbose
+        --coverage.enabled --coverage.reporter=lcov --reporter=verbose \
+        --coverage.include='frontend/src/**' \
+        $VITEST_SINGLE_THREAD
     FRONTEND_EXIT=$?
     set -e
 
