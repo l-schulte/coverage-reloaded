@@ -48,7 +48,7 @@ print_header 2 "Installing dependencies"
 
 if $IS_YARN_MAIN_PM; then
     yarn cache clean
-    yarn install
+    yarn install --ignore-engines
 elif $IS_NPM_MAIN_PM; then
     npm install
 else
