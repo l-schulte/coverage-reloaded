@@ -191,11 +191,10 @@ else
             npm --registry=$WAYPACK_NPM_REGISTRY install -g yarn
         fi
         
-        if command -v yarn &>/dev/null && yarn --version | grep -q "rc"; then
-            set +e
-            yarn set version latest
-            set -e
-        fi
+        # NOTE: we do NOT attempt to "fix" an RC yarn here. Some repos bundle
+        # a Berry RC in .yarnrc.yml (yarnPath). Running `yarn set version latest`
+        # would download a fresh berry into the repo, which often fails and
+        # corrupts the repo's yarn SDK. The repo's bundled yarn is what it is.
     fi
     if [ "$IS_PNPM_MAIN_PM" = "true" ]; then
         # make sure pnpm version matches commit time
@@ -204,7 +203,7 @@ else
 fi
 
 
-if command -v yarn &>/dev/null; then
+if command -v yarn &>/dev/null && yarn config -v 2>&1 | grep -qE '"network-?[cC]oncurrency"'; then
     export YARN_NETWORK_CONCURRENCY=1
 fi
 
