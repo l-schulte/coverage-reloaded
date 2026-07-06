@@ -77,6 +77,15 @@ class ProjectConfig:
     #: Example: ``16``
     min_node_version: int = 0
 
+    #: List of Node.js major versions to skip during resolution.  If the
+    #: resolved Node version (after applying ``min_node_version``) matches
+    #: any entry in this list, it is bumped up (or down) to the nearest
+    #: version that is not in the skip list.  Useful when a Node version
+    #: is known to be broken or unsupported for the project.
+    #: Default: ``[]`` (no versions skipped).
+    #: Example: ``[13, 17]``
+    skip_node_version: list[int] = field(default_factory=list)
+
     #: Node version strategy source names to skip for this project.
     #: The source name is the first element of each tuple in
     #: ``STRATEGIES`` (e.g. ``"Dockerfile"``, ``".nvmrc"``).
@@ -100,6 +109,40 @@ class ProjectConfig:
     #: Example: ``{"npm": "8", "pnpm": "6", "yarn": "1"}``
     #: Default: ``{}`` (no minimum enforced).
     min_pm_version: Dict[str, str] = field(default_factory=dict)
+
+    #: Timestamp-based Node.js version overrides.  Each entry defines a time
+    #: range ``[start_ts, end_ts]`` (inclusive on both ends) and a condition:
+    #: if the extracted ``node_version`` (as int) equals ``old_version``, it
+    #: is replaced with ``new_version``.  Useful when a project's config file
+    #: (e.g. ``.nvmrc``) specifies a version that doesn't actually work for
+    #: the test suite during a specific historical period.
+    #: Overrides are applied after ``min_node_version`` and ``skip_node_version``.
+    #: Default: ``[]`` (no overrides).
+    #: Example:
+    #: ``[{"start_ts": 1676043161, "end_ts": 1692619152, "old_version": 18, "new_version": "18.17"}]``
+    node_version_overrides: list[NodeVersionOverride] = field(default_factory=list)
+
+
+@dataclass
+class NodeVersionOverride:
+    """A single timestamp-based Node.js version override rule.
+
+    When a commit's Unix timestamp falls within ``[start_ts, end_ts]``
+    (inclusive) and its extracted ``node_version`` (parsed as int) equals
+    ``old_version``, the version is replaced with ``new_version``.
+    """
+
+    #: Start of the timestamp range (inclusive).
+    start_ts: int
+
+    #: End of the timestamp range (inclusive).
+    end_ts: int
+
+    #: The extracted node version (as int) to match.
+    old_version: int
+
+    #: The replacement version string (e.g. ``"18.17"``).
+    new_version: str
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -176,6 +219,12 @@ def load_config(path: str = "config.json") -> CoverageReloadedConfig:
     projects: Dict[str, ProjectConfig] = {}
     for name, pconf in projects_raw.items():
         if isinstance(pconf, dict):
+            # Convert node_version_overrides from list-of-dicts to list-of-NodeVersionOverride
+            overrides_raw = pconf.pop("node_version_overrides", None)
+            if overrides_raw:
+                pconf["node_version_overrides"] = [
+                    NodeVersionOverride(**o) for o in overrides_raw
+                ]
             projects[name] = ProjectConfig(**pconf)
         else:
             projects[name] = ProjectConfig()

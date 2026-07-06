@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 import json
 import re
@@ -5,6 +6,8 @@ import semantic_version
 
 from src.project_metadata.helper import version_satisfies
 from src.project_metadata.node.releases_data import get_node_releases
+
+logger = logging.getLogger(__name__)
 
 
 def validate_node_version(version_string: str) -> bool:
@@ -70,13 +73,6 @@ def find_matching_version_from_version_string(
 
     last_ok = None
     for major, meta_data in get_node_releases(lts_only=True).items():
-        version_release_date = datetime.strptime(meta_data["start"], "%Y-%m-%d")
-        if (
-            release_cutoff
-            and version_release_date.timestamp() > release_cutoff.timestamp()
-        ):
-            continue
-
         major: str = major.removeprefix("v")
 
         version = major
@@ -84,15 +80,68 @@ def find_matching_version_from_version_string(
             version = f"{major}.9999"
 
         try:
-            if version_satisfies(version, version_string):
-                last_ok = major
-
-                if use_first:
-                    return str(major)
-
+            satisfies = version_satisfies(version, version_string)
         except Exception:
             raise ValueError(
                 f"npm satisfies check failed for version '{version}' and range '{version_string}'"
             )
 
+        if not satisfies:
+            continue
+
+        # The first (minimum) version that satisfies the spec is always
+        # accepted — the cutoff caps the upper end but must not eliminate
+        # the floor that the project explicitly requires.
+        if last_ok is None:
+            last_ok = major
+            if use_first:
+                return str(major)
+            continue
+
+        # For versions above the minimum, the cutoff prevents picking a
+        # version that hadn't been released yet at the commit's time.
+        version_release_date = datetime.strptime(meta_data["start"], "%Y-%m-%d")
+        if (
+            release_cutoff
+            and version_release_date.timestamp() > release_cutoff.timestamp()
+        ):
+            continue
+
+        last_ok = major
+
     return str(last_ok) if last_ok is not None else None
+
+
+def resolve_skip_node_version(
+    node_version: str,
+    skip_list: list[int],
+    lts_only: bool = True,
+) -> str:
+    """If *node_version* (a major version string) is in *skip_list*, bump down
+    to the nearest available LTS version not in the list.
+
+    Returns the (possibly bumped) version string.
+    """
+    node_int = int(node_version)
+    if node_int not in skip_list:
+        return node_version
+
+    available = sorted(
+        int(k.removeprefix("v")) for k in get_node_releases(lts_only=lts_only).keys()
+    )
+    candidate = node_int - 1
+    while candidate >= min(available) and (
+        candidate in skip_list or candidate not in available
+    ):
+        candidate -= 1
+        logger.warning(
+            f"Node.js version {node_version} is in the skip list {skip_list}. "
+            f"Bumping down to {candidate}."
+        )
+        return str(candidate)
+    else:
+        logger.warning(
+            f"Node.js version {node_version} is in the skip list {skip_list}, "
+            f"but no lower LTS version is available. Keeping version {node_version}."
+        )
+        return node_version

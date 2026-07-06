@@ -4,6 +4,7 @@ import logging
 from src.config import ProjectConfig
 from src.project_metadata.lock_files.find_lock_files import find_lock_files
 from src.project_metadata.node.find_node_version import find_node_version
+from src.project_metadata.node.parse_version import resolve_skip_node_version
 from src.project_metadata.package_manager.find_package_manager import (
     find_package_manager,
 )
@@ -77,6 +78,31 @@ def extract_project_metadata(
         )
         node_source = f"enforced minimum version {min_node_version} (originally {node} from {node_source})"
         node = str(min_node_version)
+
+    # Bump down if the resolved Node version is in the skip list, respecting
+    # available LTS releases so we don't pick a version that didn't exist.
+    if project_config.skip_node_version:
+        resolved = resolve_skip_node_version(node, project_config.skip_node_version)
+        if resolved != node:
+            node_source = f"{node_source}, bumped down from {node}"
+            node = resolved
+
+    # Apply timestamp-based node version overrides
+    if project_config.node_version_overrides:
+        ts = int(committer_date.timestamp())
+        for override in project_config.node_version_overrides:
+            if (
+                override.start_ts <= ts <= override.end_ts
+                and int(node) == override.old_version
+            ):
+                logger.info(
+                    f"Overriding node version {node} -> {override.new_version} "
+                    f"for commit {commit_hash} (timestamp {ts} in "
+                    f"[{override.start_ts}, {override.end_ts}])"
+                )
+                node_source = f"config override (was {node_source})"
+                node = override.new_version
+                break
 
     # Check if a package manager version override is specified in the config
     if project_config.package_manager_version_overwrite:

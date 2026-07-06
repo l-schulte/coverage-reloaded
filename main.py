@@ -49,9 +49,15 @@ def parse_args():
     parser.add_argument(
         "--mode",
         type=str,
-        choices=["full", "commits-only", "coverage-only", "single-commit"],
+        choices=[
+            "full",
+            "commits-only",
+            "coverage-only",
+            "single-commit",
+            "retry-failed",
+        ],
         default="full",
-        help="Mode of operation:\n - 'full' to collect commits and coverage\n - 'commits-only' to collect only commits\n - 'coverage-only' to collect only coverage\n - 'single-commit' to collect data for a single commit.",
+        help="Mode of operation:\n - 'full' to collect commits and coverage\n - 'commits-only' to collect only commits\n - 'coverage-only' to collect only coverage\n - 'single-commit' to collect data for a single commit\n - 'retry-failed' to re-run only previously failed commits.",
     )
     parser.add_argument(
         "--commit-hash",
@@ -99,6 +105,8 @@ def execute(
             logger.error("Commit hash is required for 'single-commit' mode.")
             return
         collect_single_commit.execute(project, commit_hash, base_path)
+    if mode == "retry-failed":
+        collect_coverage.execute_failed(project, max_workers, max_commits)
 
 
 def main():
