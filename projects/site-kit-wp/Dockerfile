@@ -4,7 +4,9 @@ FROM core_node${NODE_VERSION}_base
 WORKDIR /coverage_reloaded
 
 RUN apt-get update && apt-get install -y \
-    autoconf
+    autoconf \
+    --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY ./repo /coverage_reloaded/repo
 COPY ./install-and-run.sh /coverage_reloaded/install-and-run.sh

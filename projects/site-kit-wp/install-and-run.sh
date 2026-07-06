@@ -1,41 +1,68 @@
 #!/bin/bash
 
+source /coverage_reloaded/logging.sh
+
 set -e
 
 cd /coverage_reloaded/repo
 
-npm install --no-fund
+print_header 2 "Installing dependencies"
+
+# Use npm 8+ for workspace (-w) support if required and current npm is too old.
+TEST_SCRIPT=$(node -p "require('./package.json').scripts['test:js']")
+TEST_ESLINT_SCRIPT=$(node -p "require('./package.json').scripts['test:js:eslint-plugin'] || ''")
+
+NPM_MAJOR=$(npm --version | cut -d. -f1)
+if [ "$NPM_MAJOR" -lt 7 ] && [[ "$TEST_SCRIPT" == *"-w"* ]]; then
+    print_header 3 "Using npm 8+ for workspace support"
+    npm_use() { npx --package=npm@8 npm "$@"; }
+else
+    npm_use() { npm "$@"; }
+fi
+
+npm_use install --no-fund --ignore-engines --legacy-peer-deps --ignore-scripts
+
+
+print_header 2 "Running tests" "test:js: >$TEST_SCRIPT<; test:js:eslint-plugin: >$TEST_ESLINT_SCRIPT<"
+
+print_header 3 "Running test:js tests"
 
 set +e
 
-
-
-# Problem: test:js uses npm workspaces (-w) in some versions, which requires an extra -- to pass arguments.
-TEST_SCRIPT=$(node -p "require('./package.json').scripts['test:js']")
-
-# check if TEST_SCRIPT is a variation of ["npm run test:js -w tests/js", "npm run -w tests/js test:js", "npm run test:js -w ./tests/js"]
-if [[ "$TEST_SCRIPT" == *"-w ./tests/js"* ]] || [[ "$TEST_SCRIPT" == *"-w tests/js"* ]]; then
-    echo "Running tests with workspaces enabled"
-    npm run -w tests/js test:js -- \
+if [[ "$TEST_SCRIPT" == *"-w"* ]]; then
+    # Workspace era: root test:js delegates via -w (may self-reference).
+    # Run the workspace's test:js directly to avoid recursion.
+    npm_use run -w tests/js test:js -- \
         --coverage \
-        --coverageDirectory="$COVERAGE_REPORT_PATH" \
         --coverageReporters=lcov \
         --runInBand
+    EXIT_CODE=$?
 else
-    echo "Running tests without workspaces"
-    npm run test:js -- \
+    # Pre-workspace era: test:js runs jest/wp-scripts directly.
+    npm_use run test:js -- \
         --coverage \
-        --coverageDirectory="$COVERAGE_REPORT_PATH" \
         --coverageReporters=lcov \
-        --runInBand 
+        --runInBand
+    EXIT_CODE=$?
 fi
-
-TEST_EXIT_CODE=$?
 set -e
+bash /coverage_reloaded/find-and-move-lcov.sh "js" "true" "$EXIT_CODE"
 
-if [ "$TEST_EXIT_CODE" -eq 1 ]; then
-    echo "WARNING: Tests exited with code $TEST_EXIT_CODE. Coverage may still be collected. Please check test logs for details." >&2
-elif [ "$TEST_EXIT_CODE" -gt 1 ]; then
-    echo "ERROR: Test runner exited with code $TEST_EXIT_CODE, indicating a possible setup issue" >&2
-    exit "$TEST_EXIT_CODE"
+set +e
+
+if [[ -n "$TEST_ESLINT_SCRIPT" ]]; then
+
+    print_header 2 "Running eslint-plugin tests"
+
+    # test:js:eslint-plugin runs jest with a separate config for the eslint-plugin package.
+    TEST_ESLINT_SCRIPT=$(node -p "require('./package.json').scripts['test:js:eslint-plugin'] || ''")
+    print_header 3 "test:js:eslint-plugin script: $TEST_ESLINT_SCRIPT"
+
+    npm_use run test:js:eslint-plugin -- \
+        --coverage \
+        --coverageReporters=lcov \
+        --runInBand
+    EXIT_CODE=$?
+    set -e
+    bash /coverage_reloaded/find-and-move-lcov.sh "eslint-plugin" "true" "$EXIT_CODE"
 fi
