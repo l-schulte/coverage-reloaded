@@ -25,10 +25,22 @@
             "url": "https://github.com/serverless/serverless"
         },
         "material-ui": {
-            "url": "https://github.com/mui/material-ui"
+            "url": "https://github.com/mui/material-ui",
+            "disabled_node_strategies": [
+                "pnpm-lock.yaml"
+            ]
         },
         "yari": {
-            "url": "https://github.com/mdn/yari"
+            "url": "https://github.com/mdn/yari",
+            "use_exact_node_version": true,
+            "node_version_overrides": [
+                {
+                    "start_ts": 1676043161,
+                    "end_ts": 1692619152,
+                    "old_version": 18,
+                    "new_version": "18.17"
+                }
+            ]
         },
         "site-kit-wp": {
             "url": "https://github.com/google/site-kit-wp"
