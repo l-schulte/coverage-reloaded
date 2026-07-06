@@ -78,9 +78,20 @@ def parse_lcov(text: str) -> dict:
 
 
 def scan_output_dir(output_dir: Path, project_name: str = "") -> list:
-    """Scan a project's output directory and return commit data."""
+    """Scan a project's output directory and return commit data.
+
+    When a commit appears both as a directory (retried with suites) and as
+    a flat ``.error`` marker (original failure), the directory is preferred
+    — the retry produced newer coverage data.
+    """
     if not output_dir.is_dir():
         return []
+
+    # Collect all directory prefixes first so we can skip stale error markers.
+    dir_prefixes = set()
+    for entry in output_dir.iterdir():
+        if entry.is_dir():
+            dir_prefixes.add(entry.name)
 
     commits = []
     for entry in sorted(output_dir.iterdir(), key=lambda p: p.name, reverse=True):
@@ -144,8 +155,12 @@ def scan_output_dir(output_dir: Path, project_name: str = "") -> list:
             )
 
         elif entry.suffix == ".error":
-            # Error marker
+            # Error marker — skip if a directory (newer retry) already exists
+            # for the same commit prefix.
             hash_val = entry.stem
+            prefix = hash_val  # e.g. "1612290272_0126ccbcf8..."
+            if prefix in dir_prefixes:
+                continue
             log_path = Path(str(output_dir.parent / "logs")) / f"{hash_val}.error"
             log_ext = ".error" if log_path.is_file() else ".log"
             log_url = (
