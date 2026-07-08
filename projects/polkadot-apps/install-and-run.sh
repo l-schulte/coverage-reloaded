@@ -57,7 +57,7 @@ fi
 
 # --- test ---
 if [ -n "$TEST_SCRIPT" ]; then
-    print_header 3 "Running test suite"
+    suite_start "unit" "Running test suite with coverage"
 
     set +e
     if [ "$TEST_RUNNER" = "jest" ]; then
@@ -68,15 +68,15 @@ if [ -n "$TEST_SCRIPT" ]; then
     TEST_EXIT=$?
     set -e
 
-    print_header 4 "test exit code: $TEST_EXIT"
     bash /coverage_reloaded/find-and-move-lcov.sh "unit" "false" "$TEST_EXIT"
+    suite_end "unit" "$TEST_EXIT"
 else
     print_header 4 "NOTICE: No test script found"
 fi
 
 # --- test:all (slow tests, merges coverage) ---
 if [ -n "$TEST_ALL_SCRIPT" ] && [ "$TEST_ALL_SCRIPT" != "$TEST_SCRIPT" ]; then
-    print_header 3 "Running test:all suite"
+    suite_start "unit_slow" "Running test:all suite with coverage"
 
     # The test:all suite uses testcontainers to spin up a parity/substrate
     # Docker container. Start the Docker daemon (DinD with --privileged) and
@@ -108,12 +108,59 @@ EOF
         exit 1
     fi
 
-    # Patch globalSetup.cjs to use the current parity/substrate CLI flags.
-    # The image was updated and --ws-port / --unsafe-ws-external were renamed
-    # to --rpc-port / --unsafe-rpc-external.
-    if [ -f jest/globalSetup.cjs ]; then
-        print_header 4 "Patching jest/globalSetup.cjs for parity/substrate CLI changes..."
-        sed -i 's/--ws-port=9944/--rpc-port=9944/g; s/--unsafe-ws-external/--unsafe-rpc-external/g' jest/globalSetup.cjs
+    # Look up the closest substrate release ≤ commit timestamp in the lookup CSV.
+    # If found, pull that tagged image, retag as :latest, and remove AlwaysPullPolicy
+    # so Docker uses the local cache instead of pulling the latest from Hub.
+    LOOKUP_CSV="/coverage_reloaded/substrate_lookup.csv"
+    SUBSTRATE_TAG=""
+    if [ -f "$LOOKUP_CSV" ]; then
+        # Read CSV, find the row with the largest epoch ≤ $timestamp
+        # Format: epoch,docker_tag  (empty docker_tag means "use :latest")
+        BEST_EPOCH=0
+        while IFS=',' read -r epoch tag; do
+            # Skip header
+            if [ "$epoch" = "epoch" ]; then continue; fi
+            # Remove trailing \r from Windows-style line endings
+            epoch="${epoch//$'\r'/}"
+            tag="${tag//$'\r'/}"
+            if [ -n "$epoch" ] && [ "$epoch" -le "$timestamp" ] 2>/dev/null; then
+                if [ "$epoch" -gt "$BEST_EPOCH" ]; then
+                    BEST_EPOCH="$epoch"
+                    SUBSTRATE_TAG="$tag"
+                fi
+            fi
+        done < "$LOOKUP_CSV"
+    fi
+
+    if [ -n "$SUBSTRATE_TAG" ]; then
+        print_header 4 "Pulling parity/substrate:${SUBSTRATE_TAG} (matched at epoch ${BEST_EPOCH}) and retagging as :latest..."
+        docker pull "parity/substrate:${SUBSTRATE_TAG}"
+        docker tag "parity/substrate:${SUBSTRATE_TAG}" "parity/substrate:latest"
+        if [ -f jest/globalSetup.cjs ]; then
+            sed -i '/\.withPullPolicy(new AlwaysPullPolicy())/d' jest/globalSetup.cjs
+        fi
+        if [ -f jest/globalSetup.ts ]; then
+            sed -i '/\.withPullPolicy(new AlwaysPullPolicy())/d' jest/globalSetup.ts
+        fi
+        # NOTE: Likely not needed, since change of parameters was only implemented March 3rd 2023 (71d749c74e43c7a840c94fcbbdd2b0172a21d473)
+        #       which is after the last lookup entry in substrate_lookup.csv (2023-02-28 00:00:00 UTC, 1677542400).
+        # Patch CLI flags only for 3.0.0-dev images (which renamed --ws-port / --unsafe-ws-external
+        # to --rpc-port / --unsafe-rpc-external). Older 2.0.0 images use the original flag names.
+        # if echo "$SUBSTRATE_TAG" | grep -q "^3.0.0-dev"; then
+        #     print_header 4 "Patching CLI flags for 3.0.0-dev substrate image..."
+        #     if [ -f jest/globalSetup.cjs ]; then
+        #         cp jest/globalSetup.cjs jest/globalSetup.cjs.bak
+        #         sed -i 's/--ws-port=9944/--rpc-port=9944/g; s/--unsafe-ws-external/--unsafe-rpc-external/g' jest/globalSetup.cjs
+        #     fi
+        #     if [ -f jest/globalSetup.ts ]; then
+        #         cp jest/globalSetup.ts jest/globalSetup.ts.bak
+        #         sed -i 's/--ws-port=9944/--rpc-port=9944/g; s/--unsafe-ws-external/--unsafe-rpc-external/g' jest/globalSetup.ts
+        #     fi
+        # fi
+    else
+        print_header 4 "No substrate release found ≤ timestamp $timestamp. PANIC!"
+        # This should not happen, oldest substrate release in lookup CSV is 2.0.0-c6fc2e6 at epoch 1576247273 (2019-12-13 00:01:13 UTC)
+        exit 1
     fi
 
     print_header 3 "Running test:all suite with coverage"
@@ -123,8 +170,8 @@ EOF
     TEST_ALL_EXIT=$?
     set -e
 
-    print_header 4 "test:all exit code: $TEST_ALL_EXIT"
     bash /coverage_reloaded/find-and-move-lcov.sh "unit_slow" "false" "$TEST_ALL_EXIT"
+    suite_end "unit_slow" "$TEST_ALL_EXIT"
 
     # Clean up the timestamp proxy
     kill $PROXY_PID 2>/dev/null || true
