@@ -19,7 +19,15 @@
             "url": "https://github.com/artsy/metaphysics"
         },
         "polkadot-apps": {
-            "url": "https://github.com/polkadot-js/apps"
+            "url": "https://github.com/polkadot-js/apps",
+            "node_version_overrides": [
+                {
+                    "start_ts": 1628856104,
+                    "end_ts": 1657386674,
+                    "old_version": 12,
+                    "new_version": "14"
+                }
+            ]
         },
         "serverless": {
             "url": "https://github.com/serverless/serverless"
@@ -28,7 +36,8 @@
             "url": "https://github.com/mui/material-ui",
             "disabled_node_strategies": [
                 "pnpm-lock.yaml"
-            ]
+            ],
+            "use_exact_node_version": true
         },
         "yari": {
             "url": "https://github.com/mdn/yari",
@@ -46,7 +55,9 @@
             "url": "https://github.com/google/site-kit-wp"
         },
         "github-docs": {
-            "url": "https://github.com/github/docs"
+            "url": "https://github.com/github/docs",
+            "use_first_node_version": true,
+            "min_node_version": 12
         },
         "rxdb": {
             "url": "https://github.com/pubkey/rxdb"
