@@ -33,24 +33,27 @@ NUM_RUNNER_RAN=0
 
 if echo "$TEST_UNIT_SCRIPT $TEST_SCRIPT $TEST_COVERAGE_SCRIPT" | grep -q "vitest"; then
     NUM_RUNNER_RAN=$((NUM_RUNNER_RAN + 1))
-    print_header 2 "Running vitest tests with coverage"
+    suite_start "vitest" "Running vitest tests with coverage"
     npx vitest run --coverage --coverage.reporter=lcov --coverage.reportOnFailure=true --bail=0
     TEST_EXIT=$?
     bash /coverage_reloaded/find-and-move-lcov.sh "vitest" "false" "$TEST_EXIT"
+    suite_end "vitest" "$TEST_EXIT"
 fi
 if echo "$TEST_UNIT_SCRIPT $TEST_SCRIPT $TEST_COVERAGE_SCRIPT" | grep -q "jest"; then
     NUM_RUNNER_RAN=$((NUM_RUNNER_RAN + 1))
-    print_header 2 "Running jest tests with coverage"
+    suite_start "jest" "Running jest tests with coverage"
     npx jest --coverage --coverageReporters=lcov --no-cache --bail=false
     TEST_EXIT=$?
     bash /coverage_reloaded/find-and-move-lcov.sh "jest" "false" "$TEST_EXIT"
+    suite_end "jest" "$TEST_EXIT"
 fi
 if echo "$TEST_UNIT_SCRIPT $TEST_SCRIPT $TEST_COVERAGE_SCRIPT" | grep -q "vue-cli-service"; then
     NUM_RUNNER_RAN=$((NUM_RUNNER_RAN + 1))
-    print_header 2 "Running vue-cli-service tests with coverage"
+    suite_start "vue-cli-service" "Running vue-cli-service tests with coverage"
     npx vue-cli-service test:unit --coverage --coverageReporters lcov --no-cache --bail=false
     TEST_EXIT=$?
     bash /coverage_reloaded/find-and-move-lcov.sh "vue-cli-service" "false" "$TEST_EXIT"
+    suite_end "vue-cli-service" "$TEST_EXIT"
 fi
 
 if [ "$NUM_RUNNER_RAN" -eq 0 ]; then
