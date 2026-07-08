@@ -97,21 +97,21 @@ print_header 2 "Running tests with coverage"
 
 # --- test:unit:forge (mocha/nyc or mocha/c8) ---
 if [ $HAS_FORGE -eq 1 ]; then
-    print_header 3 "Running test:unit:forge"
+    suite_start "forge-unit" "Running test:unit:forge"
     set +e
     "${COVER_TOOL[@]}" npm run test:unit:forge -- --exit
     FORGE_EXIT=$?
     set -e
 
-    print_header 2 "Collecting forge unit coverage reports"
     bash /coverage_reloaded/find-and-move-lcov.sh "forge-unit" "false" "$FORGE_EXIT"
+    suite_end "forge-unit" "$FORGE_EXIT"
 else
     print_header 4 "NOTICE: No test:unit:forge script found — skipping forge unit tests"
 fi
 
 # --- test:unit:frontend (vitest) ---
 if [ $HAS_FRONTEND -eq 1 ]; then
-    print_header 3 "Running test:unit:frontend (vitest)"
+    suite_start "frontend-unit" "Running test:unit:frontend (vitest)"
 
     # Coverage provider changed from c8 to v8 — try whichever is available.
     C8_VERSION=$(npm view @vitest/coverage-c8 version 2>/dev/null || true)
@@ -141,8 +141,8 @@ if [ $HAS_FRONTEND -eq 1 ]; then
     FRONTEND_EXIT=$?
     set -e
 
-    print_header 2 "Collecting frontend coverage reports"
     bash /coverage_reloaded/find-and-move-lcov.sh "frontend-unit" "false" "$FRONTEND_EXIT"
+    suite_end "frontend-unit" "$FRONTEND_EXIT"
 else
     print_header 4 "NOTICE: No test:unit:frontend script found — skipping frontend tests"
 fi
@@ -152,14 +152,14 @@ if [ $HAS_UNIT -eq 1 ]; then
     if [ $HAS_FORGE -eq 1 ] || [ $HAS_FRONTEND -eq 1 ]; then
         print_header 4 "NOTICE: test:unit skipped because test:unit:forge or test:unit:frontend already covers unit tests"
     else
-        print_header 3 "Running test:unit"
+        suite_start "unit" "Running test:unit"
         set +e
         "${COVER_TOOL[@]}" npm run test:unit -- --exit
         UNIT_EXIT=$?
         set -e
 
-        print_header 2 "Collecting unit test coverage reports"
         bash /coverage_reloaded/find-and-move-lcov.sh "unit" "false" "$UNIT_EXIT"
+        suite_end "unit" "$UNIT_EXIT"
     fi
 else
     print_header 4 "NOTICE: No test:unit script found — skipping unit tests"
@@ -167,21 +167,21 @@ fi
 
 # --- test:system (mocha/nyc or mocha/c8) ---
 if [ $HAS_SYSTEM -eq 1 ]; then
-    print_header 3 "Running test:system"
+    suite_start "system" "Running test:system"
     set +e
     "${COVER_TOOL[@]}" npm run test:system -- --exit
     SYSTEM_EXIT=$?
     set -e
 
-    print_header 2 "Collecting system test coverage reports"
     bash /coverage_reloaded/find-and-move-lcov.sh "system" "false" "$SYSTEM_EXIT"
+    suite_end "system" "$SYSTEM_EXIT"
 else
     print_header 4 "NOTICE: No test:system script found — skipping system tests"
 fi
 
 # --- test fallback — only when no per-suite scripts exist ---
 if [ $HAS_FORGE -eq 0 ] && [ $HAS_FRONTEND -eq 0 ] && [ $HAS_UNIT -eq 0 ] && [ $HAS_SYSTEM -eq 0 ] && [ $HAS_TEST -eq 1 ]; then
-    print_header 3 "No per-suite scripts found — falling back to c8 on test script"
+    suite_start "unit" "Falling back to c8 on test script"
 
     print_header 4 "Installing c8 locally for fallback..."
     npm install --no-save c8@7
@@ -191,8 +191,8 @@ if [ $HAS_FORGE -eq 0 ] && [ $HAS_FRONTEND -eq 0 ] && [ $HAS_UNIT -eq 0 ] && [ $
     TEST_EXIT=$?
     set -e
 
-    print_header 2 "Collecting coverage reports"
     bash /coverage_reloaded/find-and-move-lcov.sh "unit" "false" "$TEST_EXIT"
+    suite_end "unit" "$TEST_EXIT"
 fi
 
 print_header 1 "FlowFuse coverage run complete"
