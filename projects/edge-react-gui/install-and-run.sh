@@ -2,6 +2,8 @@
 
 set -e
 
+export NODE_OPTIONS="--max-old-space-size=4096"
+
 source /coverage_reloaded/logging.sh
 source /coverage_reloaded/has-option.sh
 
@@ -93,7 +95,7 @@ if [ -f jest.config.js ]; then
     suite_start "config" "Running jest with jest.config.js"
     JEST_CONFIG="--config jest.config.js"
     TZ=America/Los_Angeles npx --registry="$WAYPACK_NPM_REGISTRY" jest $JEST_CONFIG \
-        --coverage --coverageReporters=lcov --runInBand
+        --coverage --coverageReporters=lcov --runInBand --forceExit
     EXIT_CODE=$?
     bash /coverage_reloaded/find-and-move-lcov.sh "config" "false" "$EXIT_CODE"
     suite_end "config" "$EXIT_CODE"
@@ -103,7 +105,7 @@ if [ -f jest.async.config.js ]; then
     suite_start "async_config" "Running jest with jest.async.config.js"
     JEST_ASYNC_CONFIG="--config jest.async.config.js"
     TZ=America/Los_Angeles npx --registry="$WAYPACK_NPM_REGISTRY" jest $JEST_ASYNC_CONFIG \
-        --coverage --coverageReporters=lcov --runInBand
+        --coverage --coverageReporters=lcov --runInBand --forceExit
     EXIT_CODE=$?
     bash /coverage_reloaded/find-and-move-lcov.sh "async_config" "false" "$EXIT_CODE"
     suite_end "async_config" "$EXIT_CODE"
@@ -112,7 +114,7 @@ fi
 if [ ! -f jest.config.js ] && [ ! -f jest.async.config.js ]; then
     suite_start "default" "Running jest without config file"
     TZ=America/Los_Angeles npx --registry="$WAYPACK_NPM_REGISTRY" jest \
-        --coverage --coverageReporters=lcov --runInBand
+        --coverage --coverageReporters=lcov --runInBand --forceExit
     TEST_EXIT=$?
     bash /coverage_reloaded/find-and-move-lcov.sh "default" "false" "$TEST_EXIT"
     suite_end "default" "$TEST_EXIT"
