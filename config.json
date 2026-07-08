@@ -54,11 +54,6 @@
         "site-kit-wp": {
             "url": "https://github.com/google/site-kit-wp"
         },
-        "github-docs": {
-            "url": "https://github.com/github/docs",
-            "use_first_node_version": true,
-            "min_node_version": 12
-        },
         "rxdb": {
             "url": "https://github.com/pubkey/rxdb"
         },
