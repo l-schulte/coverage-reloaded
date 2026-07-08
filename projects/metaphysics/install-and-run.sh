@@ -33,7 +33,7 @@ npx --registry=$WAYPACK_NPM_REGISTRY patch-package
 # "USE_UNSTITCHED_VIEWING_ROOM_SCHEMA=true yarn test"). Jest's built-in coverage
 # reporter produces lcov.info in coverage/ by default.
 
-print_header 2 "Running tests with coverage"
+suite_start "unit" "Running tests with jest --coverage"
 
 set +e
 if [ -f jest.config.js ]; then
@@ -46,8 +46,7 @@ fi
 JEST_EXIT=$?
 set -e
 
-
-print_header 2 "Collecting coverage reports"
 bash /coverage_reloaded/find-and-move-lcov.sh "unit" "false" "$JEST_EXIT"
+suite_end "unit" "$JEST_EXIT"
 
 print_header 1 "Metaphysics coverage run complete"
