@@ -4,14 +4,14 @@ FROM core_node${NODE_VERSION}_base
 WORKDIR /coverage_reloaded
 
 # gifsicle and other native modules need autotools to compile from source
-# Puppeteer tests need system Chromium (only for test:testing - e2e test)
-# RUN apt-get update && apt-get install -y \
-#     autoconf \
-#     automake \
-#     libtool \
-#     chromium \
-#     --no-install-recommends \
-#     && rm -rf /var/lib/apt/lists/*
+# vnu-jar (HTML validator used in kumascript tests) needs Java
+RUN apt-get update && apt-get install -y \
+    autoconf \
+    automake \
+    libtool \
+    default-jre-headless \
+    --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
 
 # ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 # ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
