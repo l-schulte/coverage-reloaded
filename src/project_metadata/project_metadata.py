@@ -63,6 +63,7 @@ def extract_project_metadata(
         node_version_delay_months=project_config.node_version_delay_months,
         disabled_strategies=project_config.disabled_node_strategies,
         use_first=project_config.use_first_node_version,
+        node_version_lts_offset_months=project_config.node_version_lts_offset_months,
     )
     if not node:
         raise ValueError(

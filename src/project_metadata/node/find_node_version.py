@@ -11,6 +11,7 @@ def find_node_version(
     node_version_delay_months: int = 3,
     disabled_strategies: list[str] | None = None,
     use_first: bool = False,
+    node_version_lts_offset_months: int = 12,
 ) -> tuple[str, str | None]:
     """
     Attempts to retrieve the Node.js version for a given commit hash by trying
@@ -28,6 +29,10 @@ def find_node_version(
             (e.g. ``"Dockerfile"``, ``".nvmrc"``).
         use_first: If ``True``, returns the first matching Node version from
             the release list instead of the last (most recent) one.
+        node_version_lts_offset_months: Additional offset (in months) applied
+            inside the releases.py fallback strategy.  A Node LTS release must
+            have been out for at least this many months past the cutoff to be
+            selected.  Default 12 (original behaviour).
 
     Returns:
         Tuple of ``(version, source_name)`` where *source_name* identifies
@@ -37,10 +42,20 @@ def find_node_version(
     release_cutoff = committer_date - relativedelta(months=node_version_delay_months)
     disabled = set(disabled_strategies or [])
 
+    extra_kwargs = {
+        "lts_offset_months": node_version_lts_offset_months,  # passed to releases.py strategy
+    }
+
     for source_name, strategy in STRATEGIES:
         if source_name in disabled:
             continue
-        node_version = strategy(repo_path, commit_hash, release_cutoff, use_first)
+        node_version = strategy(
+            repo_path,
+            commit_hash,
+            release_cutoff,
+            use_first,
+            **extra_kwargs,
+        )
         if node_version:
             return node_version, source_name
 

@@ -29,6 +29,7 @@ def get_node_version(
     commit_hash: str,
     release_cutoff: Optional[datetime] = None,
     use_first: bool = False,
+    **kwargs,
 ) -> Optional[str]:
     """
     Check ``.travis.yml`` at the given commit for Node.js version hints.

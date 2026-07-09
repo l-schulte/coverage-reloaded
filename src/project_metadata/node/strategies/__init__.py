@@ -1,23 +1,27 @@
 """
 Strategy registry for Node.js version resolution.
 
-Each strategy module exposes a ``get_node_version`` function with the signature::
+Each strategy module exposes a ``get_node_version`` function::
 
     def get_node_version(
         repo_path: str,
         commit_hash: str,
         release_cutoff: datetime | None = None,
+        use_first: bool = False,
+        **kwargs,
     ) -> str | None: ...
+
+Extra kwargs (e.g. ``lts_offset_months``) are passed through from
+:func:`find_node_version` and ignored by strategies that don't need them.
 
 The registry ``STRATEGIES`` is an ordered list of ``(source_name, callable)``
 pairs tried in sequence by :func:`find_node_version`.
 """
 
-from datetime import datetime
 from typing import Callable, Optional
 
 # Common protocol for all strategies
-NodeVersionStrategy = Callable[[str, str, Optional[datetime], bool], Optional[str]]
+NodeVersionStrategy = Callable[..., Optional[str]]
 
 from src.project_metadata.node.strategies import (
     nvmrc,
@@ -42,7 +46,7 @@ STRATEGIES: list[tuple[str, NodeVersionStrategy]] = [
     ("Dockerfile", docker.get_node_version),
     ("build/npm/preinstall.js", preinstall.get_node_version),
     ("Angular compatibility", angular.get_node_version),
-    ("node_releases.json (LTS, 12 months offset)", releases.get_node_version),
+    ("node_releases.json (LTS, offset applies)", releases.get_node_version),
 ]
 
 __all__ = ["STRATEGIES", "NodeVersionStrategy"]

@@ -72,6 +72,14 @@ class ProjectConfig:
     #: Default: ``3``.
     node_version_delay_months: int = 3
 
+    #: Additional offset (in months) applied inside the ``releases.py``
+    #: fallback strategy.  A Node LTS release must have been out for at least
+    #: this many months *past* the ``release_cutoff`` date to be selected.
+    #: Default: ``12`` (the original behaviour).  Set lower (e.g. ``3`` or
+    #: ``0``) for projects that adopt new Node versions quickly.
+    #: Example: ``3``
+    node_version_lts_offset_months: int = 12
+
     #: Minimum Node.js major version to enforce.  If the detected version is
     #: lower, it is bumped to this value.  Default: ``0`` (no minimum).
     #: Example: ``16``

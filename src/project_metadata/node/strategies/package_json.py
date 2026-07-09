@@ -14,6 +14,7 @@ def get_node_version(
     commit_hash: str,
     release_cutoff: Optional[datetime] = None,
     use_first: bool = False,
+    **kwargs,
 ) -> Optional[str]:
     """
     Check ``package.json`` (``engines.node``, ``volta.node``, ``packageManager``)
