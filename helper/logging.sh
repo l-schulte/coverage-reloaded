@@ -72,3 +72,33 @@ print_header() {
             ;;
     esac
 }
+
+# ── Suite start/end markers (machine-parseable) ──────────────
+#
+# These emit a universal format that can be reliably extracted from logs.
+# Format:
+#   [SUITE_START] <suite_name> [description]
+#   [SUITE_END]   <suite_name> [exit_code=<N>]
+#
+# The <suite_name> is a short kebab-case identifier (e.g. "unit", "integration",
+# "client-unit", "server-unit"). The description is optional human-readable text.
+#
+# Usage:
+#   suite_start "unit" "Running unit tests with jest --coverage"
+#   suite_end "unit" "$EXIT_CODE"
+
+suite_start() {
+    local name="$1"
+    local description="${2:-}"
+    echo ""
+    echo "[SUITE_START] ${name}${description:+  — ${description}}"
+    echo ""
+}
+
+suite_end() {
+    local name="$1"
+    local exit_code="${2:-}"
+    echo ""
+    echo "[SUITE_END] ${name}${exit_code:+  exit_code=${exit_code}}"
+    echo ""
+}
