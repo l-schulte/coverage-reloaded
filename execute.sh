@@ -130,7 +130,7 @@ resolve_and_pin "verdaccio"
 resolve_and_pin "registry.npmjs.org"
 resolve_and_pin "registry.yarnpkg.com"
 resolve_and_pin "github.com"
-resolve_and_pin "repo.yarnpkg.com"
+resolve_and_pin "yarnpkg.com"
 
 print_header 2 "Setting up Package Managers"
 
@@ -150,6 +150,9 @@ npm config set registry "$VERDACCIO_REGISTRY"
 NODE_MAJOR=$(node --version | sed 's/v//' | cut -d. -f1)
 if [ -x "$(command -v corepack)" ] && [ "$NODE_MAJOR" -ge 16 ] && grep -q '"packageManager"' package.json; then
     echo " --> Corepack setup for $package_manager"
+    # Disable integrity key verification: Corepack's built-in keyring may not
+    # contain signing keys for very recent PM releases, causing hard failures.
+    export COREPACK_INTEGRITY_KEYS=0
     corepack enable
     corepack prepare "$package_manager" --activate
 # Otherwise, setup manually.
@@ -191,11 +194,7 @@ else
             npm --registry=$WAYPACK_NPM_REGISTRY install -g yarn
         fi
         
-        # NOTE: we do NOT attempt to "fix" an RC yarn here. Some repos bundle
-        # a Berry RC in .yarnrc.yml (yarnPath). Running `yarn set version latest`
-        # would download a fresh berry into the repo, which often fails and
-        # corrupts the repo's yarn SDK. The repo's bundled yarn is what it is.
-    fi
+        fi
     if [ "$IS_PNPM_MAIN_PM" = "true" ]; then
         # make sure pnpm version matches commit time
         npm --registry=$WAYPACK_NPM_REGISTRY install --no-fund -g pnpm
@@ -219,17 +218,42 @@ npm config set registry "$WAYPACK_NPM_REGISTRY"
 if [ "$IS_YARN_MAIN_PM" = "true" ]; then
     print_header 3 "Yarn Version After Setup"
     yarn --version
-    IS_YARN_LEGACY=$(yarn --version | grep -q "^1\." && echo "true" || echo "false")
-    echo "Legacy Yarn: $IS_YARN_LEGACY"
 
-    if [ "$IS_YARN_LEGACY" = "true" ]; then
+    # 3 IFs: yarn v1, v2...-rc, v2+ (berry)
+    if [[ "$(yarn --version)" == 1.* ]]; then
+        print_header 4 "Yarn v1 detected"
         yarn config set registry "$WAYPACK_YARN_REGISTRY"
         yarn config get registry
+    # elif [[ "$(yarn --version)" == *2.0.0-rc* ]]; then
+    #     print_header 4 "Yarn 2.0.0-rc detected — upgrading to v3.0.0 stable"
+    #     # RCs have unstable CLI flags (e.g. missing --force, --update-checksums).
+    #     # The first stable Berry was 3.0.0 (2.0.0 never shipped as stable).
+    #     yarn set version 3.0.0
+    #     yarn config set unsafeHttpWhitelist --json '["waypack", "verdaccio"]'
+    #     yarn config set npmRegistryServer "$WAYPACK_YARN_REGISTRY"
+    #     yarn config get npmRegistryServer
+    elif [[ "$(yarn --version)" == *-rc* ]]; then
+        print_header 4 "Yarn v2+ RC detected"
+        yarn config set unsafeHttpWhitelist 'waypack, verdaccio'
+        yarn config set npmRegistryServer "$WAYPACK_YARN_REGISTRY"
+        yarn config get npmRegistryServer
     else
+        print_header 4 "Yarn v2+ (Berry) detected"
         yarn config set unsafeHttpWhitelist --json '["waypack", "verdaccio"]'
         yarn config set npmRegistryServer "$WAYPACK_YARN_REGISTRY"
         yarn config get npmRegistryServer
     fi
+
+    # IS_YARN_LEGACY=$(yarn --version | grep -q "^1\." && echo "true" || echo "false")
+    # echo "Legacy Yarn: $IS_YARN_LEGACY"
+    # if [ "$IS_YARN_LEGACY" = "true" ]; then
+    #     yarn config set registry "$WAYPACK_YARN_REGISTRY"
+    #     yarn config get registry
+    # else
+    #     yarn config set unsafeHttpWhitelist --json '["waypack", "verdaccio"]'
+    #     yarn config set npmRegistryServer "$WAYPACK_YARN_REGISTRY"
+    #     yarn config get npmRegistryServer
+    # fi
     echo ""
 fi
 
