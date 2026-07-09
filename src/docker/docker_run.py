@@ -49,9 +49,15 @@ def docker_run_script(commit, workspace_path, logs_path, output_path):
         project_id,
     ]
 
+    # Automated collection uses 4 CPUs to keep resource usage predictable.
+    # Override by setting CONTAINER_CPUS in .env for manual runs.
+    env = os.environ.copy()
+    env["CONTAINER_CPUS"] = "4"
+
     try:
         result = subprocess.run(
             command,
+            env=env,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,  # Merge stderr into stdout to preserve ordering
             text=True,
