@@ -89,6 +89,13 @@ function coverageBar(pct) {
   return `<span class="coverage-bar"><span class="bar"><span class="bar-fill" style="width:${Math.min(pct,100)}%;background:${color}"></span></span><span class="pct" style="color:${color}">${pct.toFixed(1)}%</span></span>`;
 }
 
+// ── Lines covered display (hit / total) ─────────────────────────────────────
+function linesCovered(hit, total) {
+  if (hit === undefined || total === undefined) return '<span style="color:var(--text-muted)">—</span>';
+  const color = total > 0 ? 'var(--text-muted)' : 'var(--text-muted)';
+  return `<span style="font-family:'SF Mono','Fira Code',monospace;font-size:12px;color:var(--text-muted)">${hit.toLocaleString()} / ${total.toLocaleString()}</span>`;
+}
+
 // ── Main ────────────────────────────────────────────────────────────────────
 async function loadDashboard() {
   const content = document.getElementById('dashboard-content');
@@ -170,7 +177,8 @@ function renderProject(p) {
               <th>Date</th>
               <th>Suite</th>
               <th>Exit</th>
-              <th>Lines</th>
+              <th>Lines %</th>
+              <th>Lines Cov'd</th>
               <th>Functions</th>
               <th>Branches</th>
               <th>Log</th>
@@ -194,7 +202,7 @@ function renderCommit(c, repoUrl) {
       <tr>
         <td class="commit-hash">${c.hash.length > 16 ? c.hash.substring(0,16)+'…' : c.hash}</td>
         <td class="commit-date">${c.date}</td>
-        <td colspan="5"><span class="badge badge-error" style="background:rgba(248,81,73,.15);color:var(--red)">ERROR — no coverage produced</span></td>
+        <td colspan="6"><span class="badge badge-error" style="background:rgba(248,81,73,.15);color:var(--red)">ERROR — no coverage produced</span></td>
         <td>${logLink(c.logUrl)}</td>
         <td>${ghLink(c.hash, c.repoUrl)}</td>
       </tr>`;
@@ -205,15 +213,11 @@ function renderCommit(c, repoUrl) {
       <tr>
         <td class="commit-hash">${c.prefix.length > 16 ? c.prefix.substring(0,16)+'…' : c.prefix}</td>
         <td class="commit-date">${c.date}</td>
-        <td colspan="5"><span class="badge badge-error">No suites</span></td>
+        <td colspan="6"><span class="badge badge-error">No suites</span></td>
         <td>${logLink(c.logUrl)}</td>
         <td>${ghLink(c.hash, c.repoUrl)}</td>
       </tr>`;
   }
-
-  const statusBadge = c.status === 'pass'
-    ? '<span class="badge badge-pass">PASS</span>'
-    : '<span class="badge" style="background:rgba(210,153,34,.15);color:var(--orange)">FAIL</span>';
 
   // First row includes commit info + status badge
   const first = c.suites[0];
@@ -226,6 +230,7 @@ function renderCommit(c, repoUrl) {
       <td class="suite-name">${escHtml(first.name)}</td>
       <td>${first.exitCode !== null ? exitBadge(first.exitCode) : '<span class="badge badge-error">—</span>'}</td>
       <td>${first.coverage ? coverageBar(first.coverage.lines.pct) : '<span class="pct" style="color:var(--text-muted)">—</span>'}</td>
+      <td>${first.coverage ? linesCovered(first.coverage.lines.hit, first.coverage.lines.total) : '<span style="color:var(--text-muted)">—</span>'}</td>
       <td>${first.coverage ? coverageBar(first.coverage.functions.pct) : '<span class="pct" style="color:var(--text-muted)">—</span>'}</td>
       <td>${first.coverage ? coverageBar(first.coverage.branches.pct) : '<span class="pct" style="color:var(--text-muted)">—</span>'}</td>
       <td class="commit-date" rowspan="${c.suites.length}">${logLink(c.logUrl)}</td>
@@ -239,6 +244,7 @@ function renderCommit(c, repoUrl) {
         <td class="suite-name">${escHtml(s.name)}</td>
         <td>${s.exitCode !== null ? exitBadge(s.exitCode) : '<span class="badge badge-error">—</span>'}</td>
         <td>${s.coverage ? coverageBar(s.coverage.lines.pct) : '<span class="pct" style="color:var(--text-muted)">—</span>'}</td>
+        <td>${s.coverage ? linesCovered(s.coverage.lines.hit, s.coverage.lines.total) : '<span style="color:var(--text-muted)">—</span>'}</td>
         <td>${s.coverage ? coverageBar(s.coverage.functions.pct) : '<span class="pct" style="color:var(--text-muted)">—</span>'}</td>
         <td>${s.coverage ? coverageBar(s.coverage.branches.pct) : '<span class="pct" style="color:var(--text-muted)">—</span>'}</td>
       </tr>`);
