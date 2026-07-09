@@ -22,10 +22,11 @@ fi
 
 npm_use install --no-fund --ignore-engines --legacy-peer-deps --ignore-scripts
 
+npx --registry=$WAYPACK_NPM_REGISTRY update-browserslist-db@latest || true
 
 print_header 2 "Running tests" "test:js: >$TEST_SCRIPT<; test:js:eslint-plugin: >$TEST_ESLINT_SCRIPT<"
 
-print_header 3 "Running test:js tests"
+suite_start "js" "Running test:js tests"
 
 set +e
 
@@ -34,25 +35,27 @@ if [[ "$TEST_SCRIPT" == *"-w"* ]]; then
     # Run the workspace's test:js directly to avoid recursion.
     npm_use run -w tests/js test:js -- \
         --coverage \
-        --coverageReporters=lcov \
-        --runInBand
+        --coverageReporters=lcov
+        # --runInBand # Causes issues with timesensitive tests
     EXIT_CODE=$?
+    bash /coverage_reloaded/find-and-move-lcov.sh "workspace_js" "true" "$EXIT_CODE"
+    suite_end "js" "$EXIT_CODE"
 else
     # Pre-workspace era: test:js runs jest/wp-scripts directly.
     npm_use run test:js -- \
         --coverage \
-        --coverageReporters=lcov \
-        --runInBand
+        --coverageReporters=lcov
+        # --runInBand # Causes issues with timesensitive tests
     EXIT_CODE=$?
+    bash /coverage_reloaded/find-and-move-lcov.sh "js" "true" "$EXIT_CODE"
+    suite_end "js" "$EXIT_CODE"
 fi
 set -e
-bash /coverage_reloaded/find-and-move-lcov.sh "js" "true" "$EXIT_CODE"
 
 set +e
 
 if [[ -n "$TEST_ESLINT_SCRIPT" ]]; then
-
-    print_header 2 "Running eslint-plugin tests"
+    suite_start "eslint-plugin" "Running eslint-plugin tests"
 
     # test:js:eslint-plugin runs jest with a separate config for the eslint-plugin package.
     TEST_ESLINT_SCRIPT=$(node -p "require('./package.json').scripts['test:js:eslint-plugin'] || ''")
@@ -60,9 +63,10 @@ if [[ -n "$TEST_ESLINT_SCRIPT" ]]; then
 
     npm_use run test:js:eslint-plugin -- \
         --coverage \
-        --coverageReporters=lcov \
-        --runInBand
+        --coverageReporters=lcov
+        # --runInBand # Causes issues with timesensitive tests
     EXIT_CODE=$?
     set -e
     bash /coverage_reloaded/find-and-move-lcov.sh "eslint-plugin" "true" "$EXIT_CODE"
+    suite_end "eslint-plugin" "$EXIT_CODE"
 fi
