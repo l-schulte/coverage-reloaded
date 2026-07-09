@@ -1,11 +1,16 @@
 #!/bin/bash
 
 source /coverage_reloaded/logging.sh
+source /coverage_reloaded/has-option.sh
 
 set -e
 
 cd /coverage_reloaded/repo
 
+# The test scripts/listChangedFiles.test.js calls git rev-parse next to determine
+# the merge-base, but we checkout commits in detached HEAD with no branches.
+# Create a local 'next' branch pointing at HEAD so the test doesn't crash.
+git branch next HEAD 2>/dev/null || true
 
 if $IS_NPM_MAIN_PM; then
     print_header 2 "Installing dependencies with npm..."
@@ -18,8 +23,17 @@ elif $IS_YARN_MAIN_PM; then
     # Integrity checks fail for this file.
     # Workaround: clean cache with yarn cache clean disable integrity checks for yarn installs by adding --update-checksums
     print_header 2 "Installing dependencies with yarn..."
-    yarn cache clean --force
-    yarn install --update-checksums --ignore-engines
+
+    # if yarn is legacy
+    if [[ "$(yarn --version)" == 1* ]]; then
+        print_header 4 "Yarn v1 detected"
+        yarn cache clean --force
+        yarn install --update-checksums --ignore-engines
+    else 
+        print_header 4 "Yarn v2+ detected"
+        yarn cache clean
+        yarn install
+    fi
 
     COMMAND="yarn run"
 elif $IS_PNPM_MAIN_PM; then
@@ -32,40 +46,58 @@ else
     exit 1
 fi
 
-set +e
+# The test @material-ui/codemod v4.0.0 optimal-imports expects no console.warn() calls,
+# but browserslist emits a warning if caniuse-lite is outdated. Update it to silence the warning.
+# This goes through waypack so subsequent commits reuse the cached version.
+npx --registry=$WAYPACK_NPM_REGISTRY browserslist@latest --update-db 2>/dev/null || true
 
-print_header 2 "Running tests with coverage"
+TEST_SCRIPT=$(node -p "require('./package.json').scripts['test'] || ''")
+TEST_COVERAGE_SCRIPT=$(node -p "require('./package.json').scripts['test:coverage'] || ''")
 
-# Prevent Node.js from reparsing ambiguous .js files as ESM (which breaks __dirname usage)
-# Only needed on Node >=20 where --experimental-detect-module is default
-if [ "$(node -e "console.log(process.version.substring(1).split('.')[0])")" -ge 20 ] 2>/dev/null; then
-    print_header 4 "Node.js version is >=20, setting NODE_OPTIONS"
-    if ! grep -q "no-experimental-detect-module" .mocharc.js 2>/dev/null; then
-        print_header 4 "...adding --no-experimental-detect-module to NODE_OPTIONS (not in .mocharc.js file)"
-        export NODE_OPTIONS="$NODE_OPTIONS --no-experimental-detect-module"
+if [ -n "$TEST_COVERAGE_SCRIPT" ]; then
+    suite_start "test_coverage" "Running tests with coverage"
+
+    set +e
+
+    # Prevent Node.js from reparsing ambiguous .js files as ESM (which breaks __dirname usage)
+    # Only needed on Node >=20 where --experimental-detect-module is default
+    if [ "$(node -e "console.log(process.version.substring(1).split('.')[0])")" -ge 20 ] 2>/dev/null; then
+        print_header 4 "Node.js version is >=20, setting NODE_OPTIONS"
+        if ! grep -q "no-experimental-detect-module" .mocharc.js 2>/dev/null; then
+            print_header 4 "...adding --no-experimental-detect-module to NODE_OPTIONS (not in .mocharc.js file)"
+            export NODE_OPTIONS="$NODE_OPTIONS --no-experimental-detect-module"
+        fi
     fi
 
-    # print_header 4 "...adding --no-experimental-require-module to NODE_OPTIONS"
-    # export NODE_OPTIONS="$NODE_OPTIONS --no-experimental-require-module"
-fi
+    HAS_COVERAGE_SCRIPT=$(jq -r '.scripts["test:coverage"] // empty' package.json)
+    if [ -z "$HAS_COVERAGE_SCRIPT" ]; then
+        print_header 2 "NOT APPLICABLE: No test:coverage script found in package.json. Skipping coverage collection."
+        exit 2
+    fi
 
-HAS_COVERAGE_SCRIPT=$(jq -r '.scripts["test:coverage"] // empty' package.json)
-if [ -z "$HAS_COVERAGE_SCRIPT" ]; then
-    print_header 2 "NOT APPLICABLE: No test:coverage script found in package.json. Skipping coverage collection."
-    exit 2
-fi
+    set -o pipefail
+    OUTPUT=$($COMMAND test:coverage 2>&1 | tee /dev/stderr)
+    EXIT_CODE=${PIPESTATUS[0]}
+    set -e
 
-set -o pipefail
-OUTPUT=$($COMMAND test:coverage 2>&1 | tee /dev/stderr)
-EXIT_CODE=${PIPESTATUS[0]}
-set -e
+    if echo "$OUTPUT" | grep -q 'Exception during run:'; then
+        print_header 4 "ERROR: Mocha aborted mid-run (Exception during run:) — coverage is partial, not generating lcov"
+        rm -rf .nyc_output
+        EXIT_CODE=1
+    else
+        npx --registry=$VERDACCIO_REGISTRY nyc report --reporter=lcov
+    fi
 
-if echo "$OUTPUT" | grep -q 'Exception during run:'; then
-    print_header 4 "ERROR: Mocha aborted mid-run (Exception during run:) — coverage is partial, not generating lcov"
-    rm -rf .nyc_output
-    EXIT_CODE=1
+    bash /coverage_reloaded/find-and-move-lcov.sh "test_coverage" "false" "$EXIT_CODE"
+    suite_end "test_coverage" "$EXIT_CODE"
+elif [[ "$TEST_SCRIPT" == *"jest"* ]]; then
+    suite_start "jest" "Running tests with jest enabled"
+    set +e
+    $COMMAND test --coverage --coverageReporters=lcov
+    EXIT_CODE=$?
+    bash /coverage_reloaded/find-and-move-lcov.sh "jest" "true" "$EXIT_CODE"
+    suite_end "jest" "$EXIT_CODE"
 else
-    npx --registry=$VERDACCIO_REGISTRY nyc report --reporter=lcov
+    print_header 2 "Unknown test scripts: >$TEST_SCRIPT<; test:coverage: >$TEST_COVERAGE_SCRIPT<. Skipping coverage collection."
+    exit 1
 fi
-
-bash /coverage_reloaded/find-and-move-lcov.sh "unit" "false" "$EXIT_CODE"
