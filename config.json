@@ -55,7 +55,10 @@
             "url": "https://github.com/google/site-kit-wp"
         },
         "rxdb": {
-            "url": "https://github.com/pubkey/rxdb"
+            "url": "https://github.com/pubkey/rxdb",
+            "node_version_lts_offset_months": 0,
+            "node_version_delay_months": 0,
+            "use_exact_node_version": true
         },
         "govuk-frontend": {
             "url": "https://github.com/alphagov/govuk-frontend"
