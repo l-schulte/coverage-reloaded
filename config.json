@@ -66,9 +66,6 @@
         "linode-manager": {
             "url": "https://github.com/linode/manager"
         },
-        "metamask-extension": {
-            "url": "https://github.com/MetaMask/metamask-extension"
-        },
         "pf2e": {
             "url": "https://github.com/foundryvtt/pf2e"
         },
