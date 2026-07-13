@@ -92,3 +92,8 @@ has_option() {
 
     return $?
 }
+
+
+has_script() {
+    node -e "const p=require('./package.json'); process.exit((p.scripts && p.scripts['$1']) ? 0 : 1)"
+}

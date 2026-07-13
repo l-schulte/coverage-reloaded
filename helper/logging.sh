@@ -73,12 +73,16 @@ print_header() {
     esac
 }
 
-# ── Suite start/end markers (machine-parseable) ──────────────
+# ── Suite start/end markers (level-2 boxed) ───────────────────
 #
-# These emit a universal format that can be reliably extracted from logs.
+# These emit a single-line box (same visual level as print_header level 2)
+# with machine-parseable markers inside. The box makes suite boundaries
+# clearly visible in logs while the [SUITE_START]/[SUITE_END] tokens
+# remain extractable by automated tools.
+#
 # Format:
-#   [SUITE_START] <suite_name> [description]
-#   [SUITE_END]   <suite_name> [exit_code=<N>]
+#   [SUITE_START] <suite_name>
+#   [SUITE_END]   <suite_name>
 #
 # The <suite_name> is a short kebab-case identifier (e.g. "unit", "integration",
 # "client-unit", "server-unit"). The description is optional human-readable text.
@@ -90,15 +94,33 @@ print_header() {
 suite_start() {
     local name="$1"
     local description="${2:-}"
+    local width=60
+    local bar
+    bar=$(printf '─%.0s' $(seq 1 $width))
     echo ""
-    echo "[SUITE_START] ${name}${description:+  — ${description}}"
+    echo -e "${BOLD}╭${bar}╮${RESET}"
+    printf "${BOLD}│  [SUITE_START] %-*s  │${RESET}\n" "$((width - 18))" "$name"
+    if [[ -n "$description" ]]; then
+        printf "${DIM}│  %-*s  │${RESET}\n" "$((width - 5))" "$description"
+    fi
+    echo -e "${BOLD}╰${bar}╯${RESET}"
     echo ""
 }
 
 suite_end() {
     local name="$1"
     local exit_code="${2:-}"
+    local width=60
+    local bar
+    bar=$(printf '─%.0s' $(seq 1 $width))
     echo ""
-    echo "[SUITE_END] ${name}${exit_code:+  exit_code=${exit_code}}"
+    echo -e "${BOLD}╭${bar}╮${RESET}"
+    printf "${BOLD}│  [SUITE_END]   %-*s  │${RESET}\n" "$((width - 18))" "$name"
+    if [[ -n "$exit_code" ]]; then
+        local color="$GREEN"
+        [[ "$exit_code" != "0" ]] && color="$RED"
+        printf "${color}│  %-*s  │${RESET}\n" "$((width - 5))" "exit_code=${exit_code}"
+    fi
+    echo -e "${BOLD}╰${bar}╯${RESET}"
     echo ""
 }
