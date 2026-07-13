@@ -6,9 +6,6 @@
         "sentry-javascript": {
             "url": "https://github.com/getsentry/sentry-javascript"
         },
-        "cli": {
-            "url": "https://github.com/npm/cli"
-        },
         "spreed": {
             "url": "https://github.com/nextcloud/spreed",
             "min_pm_version": {
@@ -67,7 +64,8 @@
             "url": "https://github.com/linode/manager"
         },
         "pf2e": {
-            "url": "https://github.com/foundryvtt/pf2e"
+            "url": "https://github.com/foundryvtt/pf2e",
+            "node_version_lts_offset_months": 1
         },
         "bhima": {
             "url": "https://github.com/third-culture-software/bhima",

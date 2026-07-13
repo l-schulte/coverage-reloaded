@@ -25,7 +25,7 @@ print_header 2 "Installing dependencies"
 # Workaround: add --include=dev to install dev dependencies as well
 npm install --no-fund --include=dev
 
-print_header 2 "Running tests with coverage"
+suite_start "unit" "Running tests with nyc/tap"
 
 set +e
 print_header 4 "Wrapping npm test with nyc"
@@ -36,5 +36,6 @@ TEST_EXIT=$?
 set -e
 
 bash /coverage_reloaded/find-and-move-lcov.sh "unit" "false" "$TEST_EXIT"
+suite_end "unit" "$TEST_EXIT"
 
 print_header 1 "npm/cli coverage run complete"
