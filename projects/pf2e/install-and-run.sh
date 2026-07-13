@@ -2,6 +2,7 @@
 set -e
 
 source "$(dirname "${BASH_SOURCE[0]}")/logging.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/has-option.sh"
 
 cd /coverage_reloaded/repo
 

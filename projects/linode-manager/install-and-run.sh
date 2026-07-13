@@ -2,6 +2,7 @@
 set -euo pipefail
 
 source /coverage_reloaded/logging.sh
+source /coverage_reloaded/has-option.sh
 
 cd /coverage_reloaded/repo
 REPO_ROOT="$(pwd)"
@@ -157,10 +158,6 @@ fi
 # 8. HELPERS
 # =============================================================================
 print_header 2 "Defining helper functions"
-
-has_script() {
-    node -e "const p=require('./package.json'); process.exit((p.scripts && p.scripts['$1']) ? 0 : 1)"
-}
 
 get_root_script() {
     node -p "((require('./package.json').scripts || {})['$1']) || ''"
