@@ -33,7 +33,7 @@ else
     exit 1
 fi
 
-print_header 2 "Running tests with coverage"
+suite_start "unit" "Running tests with coverage"
 
 set +e
 
@@ -42,6 +42,7 @@ if [ "$HAS_NG_TEST" -gt 0 ]; then
     print_header 3 "Running ng test with coverage"
     npx --registry="$WAYPACK_NPM_REGISTRY" ng test --no-watch --code-coverage --reporters=progress --reporters=coverage-istanbul
     TEST_EXIT=$?
+    bash /coverage_reloaded/find-and-move-lcov.sh "ng_test" "false" "$TEST_EXIT"
 elif [ -n "$HAS_JEST" ]; then
     # Jest era — the dominant test runner for this project
     if [ -n "$HAS_GULP" ]; then
@@ -49,9 +50,19 @@ elif [ -n "$HAS_JEST" ]; then
         print_header 3 "Running gulp to build lang/env files"
         NODE_ENV=testing npx --registry="$WAYPACK_NPM_REGISTRY" gulp
     fi
+
     print_header 3 "Running jest with lcov coverage"
-    npx --registry="$WAYPACK_NPM_REGISTRY" jest --coverage --coverageReporters=lcov --runInBand
+    # FIX: Use V8 coverage provider instead of the default "babel" provider.
+    #
+    # The default babel-based Istanbul instrumentation crashes silently (jest
+    # exits 1 with zero error output, no coverage directory created).  V8's
+    # native coverage API works reliably and produces identical lcov output.
+    #
+    # Why developers never hit this: npm test runs without --coverage, so
+    # the babel provider is never exercised during normal development.
+    npx --registry="$WAYPACK_NPM_REGISTRY" jest --verbose --coverage --coverageProvider=v8 --coverageReporters=lcov --runInBand
     TEST_EXIT=$?
+    bash /coverage_reloaded/find-and-move-lcov.sh "jest" "false" "$TEST_EXIT"
 else
     print_header 2 "NOT APPLICABLE" "No recognized test runner at this commit"
     exit 2
@@ -59,7 +70,6 @@ fi
 
 set -e
 
-print_header 2 "Collecting coverage reports"
-bash /coverage_reloaded/find-and-move-lcov.sh "unit" "false" "$TEST_EXIT"
+suite_end "unit" "$TEST_EXIT"
 
 print_header 1 "MoodleApp coverage run complete"
