@@ -115,6 +115,8 @@ if node -e "require('./package.json').scripts['build:db'] || process.exit(1)" 2>
     mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO '$DB_USER'@'$DB_HOST' WITH GRANT OPTION;"
     mysql -u root -e "FLUSH PRIVILEGES;"
 
+    NODE_OPTIONS="-r /coverage_reloaded/fake-time-node.js $NODE_OPTIONS" \
+    TIMESTAMP_EPOCH="$timestamp" \
     $PM_RUN build:db || { echo "ERROR: database build failed" >&2; exit 1; }
 else
     print_header 3 "No database build script detected — skipping MySQL setup"
@@ -129,7 +131,7 @@ redis-cli ping
 
 # ── Server-unit tests with c8 ─────────────────────────────────────────────────
 
-print_header 2 "Running server-unit tests with c8 coverage" "${SERVER_ERA}"
+suite_start "server-unit" "Running server-unit tests with c8 coverage (${SERVER_ERA})"
 
 export CHROMIUM_FLAGS="--no-sandbox --disable-setuid-sandbox"
 export PUPPETEER_LAUNCH_OPTIONS='{"args":["--no-sandbox","--disable-setuid-sandbox"]}'
@@ -158,10 +160,11 @@ echo "$C8_OUTPUT"
 set -e
 
 bash /coverage_reloaded/find-and-move-lcov.sh "server" "false" "$SERVER_EXIT"
+suite_end "server-unit" "$SERVER_EXIT"
 
 # ── Client-unit tests with karma-coverage ─────────────────────────────────────
 
-print_header 2 "Running client-unit tests with karma-coverage"
+suite_start "client-unit" "Running client-unit tests with karma-coverage"
 
 test -f /coverage_reloaded/repo/bin/client/js/bhima/bhima.min.js \
     || { echo "FATAL: bhima.min.js not found — build did not produce expected output"; exit 1; }
@@ -190,14 +193,17 @@ cp "$LCOV" /coverage_reloaded/repo/coverage/client/lcov.info
 rm -f "$LCOV"
 
 bash /coverage_reloaded/find-and-move-lcov.sh "client" "false" "$KARMA_EXIT"
+suite_end "client-unit" "$KARMA_EXIT"
 # exit
 # ── Integration tests with c8 ─────────────────────────────────────────────────
 
 HAS_INTEGRATION=$(node -p "require('./package.json').scripts['test:integration'] ? 'yes' : 'no'" 2>/dev/null)
 if [ "$HAS_INTEGRATION" = "yes" ] && [ -n "$(node -p "require('./package.json').scripts['test:integration'] || ''")" ]; then
-    print_header 2 "Running integration tests with c8 coverage"
+    suite_start "integration" "Running integration tests with c8 coverage"
 
     set +e
+    NODE_OPTIONS="-r /coverage_reloaded/fake-time-node.js $NODE_OPTIONS" \
+    TIMESTAMP_EPOCH="$timestamp" \
     ./node_modules/.bin/c8 \
         --reporter=lcov \
         ./node_modules/.bin/mocha \
@@ -209,6 +215,7 @@ if [ "$HAS_INTEGRATION" = "yes" ] && [ -n "$(node -p "require('./package.json').
     set -e
 
     bash /coverage_reloaded/find-and-move-lcov.sh "integration" "false" "$INTEGRATION_EXIT"
+    suite_end "integration" "$INTEGRATION_EXIT"
 
     # Kill the bhima server so the next suite can bind to port 8080
     lsof -ti :8080 2>/dev/null | xargs -r kill 2>/dev/null || true
@@ -218,9 +225,26 @@ fi
 
 HAS_STOCK_INTEGRATION=$(node -p "require('./package.json').scripts['test:integration:stock'] ? 'yes' : 'no'" 2>/dev/null)
 if [ "$HAS_STOCK_INTEGRATION" = "yes" ] && [ -n "$(node -p "require('./package.json').scripts['test:integration:stock'] || ''")" ]; then
-    print_header 2 "Running stock integration tests with c8 coverage"
+    # Stock integration tests require a different database build
+    # (sh/build-stock-database.sh) that loads test/data/service-stock.sql
+    # containing the depot UUIDs (e.g. 4341f89c...) expected by the stock tests.
+    print_header 3 "Rebuilding database with stock-specific seed data"
+    HAS_BUILD_STOCK=$(node -p "require('./package.json').scripts['build:stock'] ? 'yes' : 'no'" 2>/dev/null)
+    if [ "$HAS_BUILD_STOCK" = "yes" ]; then
+        NODE_OPTIONS="-r /coverage_reloaded/fake-time-node.js $NODE_OPTIONS" \
+        TIMESTAMP_EPOCH="$timestamp" \
+        $PM_RUN build:stock
+    else
+        print_header 4 "ERROR: expected build:stock script, but none found. Panic!"
+        exit 1
+    fi
+    echo "Database rebuild completed"
+
+    suite_start "integration-stock" "Running stock integration tests with c8 coverage"
 
     set +e
+    NODE_OPTIONS="-r /coverage_reloaded/fake-time-node.js $NODE_OPTIONS" \
+    TIMESTAMP_EPOCH="$timestamp" \
     ./node_modules/.bin/c8 \
         --reporter=lcov \
         ./node_modules/.bin/mocha \
@@ -232,4 +256,5 @@ if [ "$HAS_STOCK_INTEGRATION" = "yes" ] && [ -n "$(node -p "require('./package.j
     set -e
 
     bash /coverage_reloaded/find-and-move-lcov.sh "integration-stock" "false" "$INTEGRATION_STOCK_EXIT"
+    suite_end "integration-stock" "$INTEGRATION_STOCK_EXIT"
 fi
