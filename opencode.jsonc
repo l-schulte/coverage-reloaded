@@ -1,0 +1,30 @@
+{
+  "instructions": ["AGENTS.md", "ref/*.md"],
+
+  "command": {
+    "debug-shell": {
+      "template": "Drop into a container to debug project $1 at commit $2. Use: bash docker-run.sh <project> shell <hash> <timestamp> <pm> <node> — look up the missing params from the project's commits.csv.",
+      "description": "Drop into container shell for debugging a commit"
+    },
+    "single-commit": {
+      "template": "Run coverage collection for a single commit. Project: $1, commit: $2. Use: python main.py --project $1 --mode single-commit --commit-hash $2",
+      "description": "Run coverage for a single commit"
+    },
+    "coverage-collect": {
+      "template": "Run coverage collection for all pending commits of project $1. Use: python main.py --project $1 --mode coverage-only",
+      "description": "Run coverage collection for pending commits"
+    },
+    "commits-scan": {
+      "template": "Generate commits.csv and command_changes.csv for project $1. Use: python main.py --project $1 --mode commits-only",
+      "description": "Scan commits for a new project"
+    },
+    "inspect-commit": {
+      "template": "Show me the contents of file $3 in project $1 at commit $2. Use: git -C projects/$1/repo show $2:$3",
+      "description": "Inspect a file at a specific commit"
+    },
+    "validate-tests": {
+      "template": "Run the Python unit tests in tests/ with pytest --project is not needed, these are tests for our own tooling.",
+      "description": "Run Python unit tests"
+    }
+  }
+}
