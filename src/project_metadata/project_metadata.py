@@ -94,7 +94,7 @@ def extract_project_metadata(
         for override in project_config.node_version_overrides:
             if (
                 override.start_ts <= ts <= override.end_ts
-                and int(node) == override.old_version
+                and (override.old_version is None or int(node) == override.old_version)
             ):
                 logger.info(
                     f"Overriding node version {node} -> {override.new_version} "

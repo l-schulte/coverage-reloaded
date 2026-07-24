@@ -120,14 +120,16 @@ class ProjectConfig:
 
     #: Timestamp-based Node.js version overrides.  Each entry defines a time
     #: range ``[start_ts, end_ts]`` (inclusive on both ends) and a condition:
-    #: if the extracted ``node_version`` (as int) equals ``old_version``, it
-    #: is replaced with ``new_version``.  Useful when a project's config file
+    #: if ``old_version`` is set and the extracted ``node_version`` (as int)
+    #: equals it, or if ``old_version`` is omitted, the version is replaced
+    #: with ``new_version``.  Useful when a project's config file
     #: (e.g. ``.nvmrc``) specifies a version that doesn't actually work for
     #: the test suite during a specific historical period.
     #: Overrides are applied after ``min_node_version`` and ``skip_node_version``.
     #: Default: ``[]`` (no overrides).
-    #: Example:
+    #: Examples:
     #: ``[{"start_ts": 1676043161, "end_ts": 1692619152, "old_version": 18, "new_version": "18.17"}]``
+    #: ``[{"start_ts": 1754389274, "end_ts": 1757319331, "new_version": "20.18"}]``
     node_version_overrides: list[NodeVersionOverride] = field(default_factory=list)
 
 
@@ -137,7 +139,8 @@ class NodeVersionOverride:
 
     When a commit's Unix timestamp falls within ``[start_ts, end_ts]``
     (inclusive) and its extracted ``node_version`` (parsed as int) equals
-    ``old_version``, the version is replaced with ``new_version``.
+    ``old_version`` (or ``old_version`` is ``None``, meaning match any),
+    the version is replaced with ``new_version``.
     """
 
     #: Start of the timestamp range (inclusive).
@@ -146,11 +149,11 @@ class NodeVersionOverride:
     #: End of the timestamp range (inclusive).
     end_ts: int
 
-    #: The extracted node version (as int) to match.
-    old_version: int
-
     #: The replacement version string (e.g. ``"18.17"``).
     new_version: str
+
+    #: The extracted node version (as int) to match, or ``None`` to match any.
+    old_version: int | None = None
 
 
 # ──────────────────────────────────────────────────────────────────────────────
