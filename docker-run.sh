@@ -25,8 +25,13 @@ CONTAINER_DIR=/coverage_reloaded
 ENV_CONFIG="--env-file .env --env revision=$3 --env timestamp=$4 --env package_manager=$5 --env project_id=$7"
 DNS_CONFIG="--dns 1.1.1.1 --dns 8.8.8.8"
 
-# CONTAINER_CPUS limits parallel processes inside the container (e.g. Babel).
-# docker_run.py sets this to 4; default is 10 for manual runs.
+# CONTAINER_CPUS caps the CPU *quota* the container may consume (N CPU-seconds
+# per real second), i.e. it throttles aggregate CPU time — it does NOT change
+# the number of cores the container SEES via os.cpus()/nproc. That's fine: a
+# 264-core host running many containers in parallel is bounded by the quota per
+# container, and the actual worker parallelism is capped explicitly in
+# install-and-run.sh (--maxWorkers=1 / --runInBand, per AGENTS.md §7.1), not by
+# core-count detection. docker_run.py sets this to 4; default 10 for manual runs.
 CONTAINER_CPUS=${CONTAINER_CPUS:-10}
 CPU_CONFIG="--cpus=$CONTAINER_CPUS"
 

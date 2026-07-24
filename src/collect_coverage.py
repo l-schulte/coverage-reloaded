@@ -2,7 +2,6 @@ import csv
 import logging
 import concurrent.futures
 import time
-import threading
 import os
 import random
 import tqdm
@@ -16,23 +15,6 @@ logger = logging.getLogger(__name__)
 COMMITS_CSV_FILE = "commits.csv"
 WORKSPACE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Thread-local storage to assign worker IDs
-worker_ids = threading.local()
-worker_id_counter = threading.Lock()
-next_worker_id = 1
-
-
-def get_worker_id():
-    """Get or assign a worker ID for the current thread."""
-    global next_worker_id
-
-    if not hasattr(worker_ids, "id"):
-        with worker_id_counter:
-            worker_ids.id = next_worker_id
-            next_worker_id += 1
-
-    return worker_ids.id
-
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Process project parameters.")
@@ -40,8 +22,8 @@ def parse_args():
         "--max-workers",
         type=int,
         required=False,
-        help="Maximum number of workers to use.",
-        default=(os.cpu_count() or 2) - 1,
+        help="Maximum number of workers to use. Defaults to config.json max_workers.",
+        default=None,
     )
     parser.add_argument(
         "--max-commits",
@@ -64,9 +46,6 @@ def _setup_project(project):
     logs_path = os.path.join(WORKSPACE_PATH, "projects", project, "logs")
     os.makedirs(logs_path, exist_ok=True)
     os.makedirs(output_path, exist_ok=True)
-
-    global next_worker_id
-    next_worker_id = 1  # Reset worker ID counter
 
     cfg = get_config()
     project_config = cfg.projects.get(project)

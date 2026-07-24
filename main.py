@@ -1,7 +1,6 @@
 import argparse
 from datetime import datetime, timezone
 import logging
-import os
 
 from src import collect_commits, collect_coverage, collect_single_commit
 from src.config import get_config
@@ -37,8 +36,8 @@ def parse_args():
     parser.add_argument(
         "--max-workers",
         type=int,
-        default=(os.cpu_count() or 2) - 1,
-        help=f"Maximum number of worker threads to use. (Defaults to number of CPU cores ({os.cpu_count()}) minus one.)",
+        default=None,
+        help="Maximum number of worker threads to use. Defaults to config.json max_workers.",
     )
     parser.add_argument(
         "--max-commits",

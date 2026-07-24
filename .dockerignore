@@ -1,0 +1,15 @@
+# Exclude everything except what the base Dockerfile needs:
+#   COPY ./execute.sh
+#   COPY helper/*
+#
+# The base image build context must be tiny (<100KB). Without this,
+# podman tar+transfer processes the entire 44GB workspace on every
+# base-image build, creating a multi-hour bottleneck behind flock.
+
+# --- exclude everything ---
+*
+
+# --- then whitelist only what the base Dockerfile COPYs ---
+!Dockerfile
+!execute.sh
+!helper/
