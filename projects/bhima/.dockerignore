@@ -1,0 +1,5 @@
+*
+!Dockerfile
+!repo/
+!install-and-run.sh
+!harness/
