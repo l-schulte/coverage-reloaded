@@ -92,19 +92,20 @@ function coverageBar(pct) {
 // ── Lines covered display (hit / total) ─────────────────────────────────────
 function linesCovered(hit, total) {
   if (hit === undefined || total === undefined) return '<span style="color:var(--text-muted)">—</span>';
-  const color = total > 0 ? 'var(--text-muted)' : 'var(--text-muted)';
   return `<span style="font-family:'SF Mono','Fira Code',monospace;font-size:12px;color:var(--text-muted)">${hit.toLocaleString()} / ${total.toLocaleString()}</span>`;
 }
+
+// ── In-memory cache for fetched project details ─────────────────────────────
+const detailCache = {};
 
 // ── Main ────────────────────────────────────────────────────────────────────
 async function loadDashboard() {
   const content = document.getElementById('dashboard-content');
-  const summaryBar = document.getElementById('summary-bar');
   const lastUpdated = document.getElementById('last-updated');
   lastUpdated.textContent = new Date().toISOString().replace('T', ' ').substring(0, 19);
 
   try {
-    const resp = await fetch('/api/data');
+    const resp = await fetch('/api/projects');
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     const projects = await resp.json();
     renderDashboard(projects);
@@ -118,7 +119,6 @@ function renderDashboard(projects) {
   const content = document.getElementById('dashboard-content');
   const summaryBar = document.getElementById('summary-bar');
 
-  // Summary
   let totalCommits = 0, totalPassed = 0, totalFailed = 0, totalErrors = 0;
   for (const p of projects) {
     totalCommits += p.totalCommits || 0;
@@ -135,28 +135,25 @@ function renderDashboard(projects) {
     <div class="summary-card"><div class="num" style="color:var(--red)">${totalErrors}</div><div class="label">No Coverage</div></div>
   `;
 
-  // Project list
-  content.innerHTML = projects.map(p => renderProject(p)).join('');
+  content.innerHTML = projects.map(p => renderProjectSummary(p)).join('');
 
-  // Attach click handlers
   document.querySelectorAll('.project-header').forEach(h => {
     h.addEventListener('click', () => {
       const body = h.nextElementSibling;
       const arrow = h.querySelector('.arrow');
-      body.classList.toggle('open');
+      const isOpen = body.classList.toggle('open');
       arrow.classList.toggle('open');
+      if (isOpen && !body.dataset.loaded) {
+        loadProjectDetail(h.dataset.name, body);
+      }
     });
   });
 }
 
-function renderProject(p) {
-  const passPct = p.totalCommits > 0 ? (p.passed / p.totalCommits * 100).toFixed(0) : 0;
-  const failPct = p.totalCommits > 0 ? (p.failed / p.totalCommits * 100).toFixed(0) : 0;
-  const errPct = p.totalCommits > 0 ? (p.errors / p.totalCommits * 100).toFixed(0) : 0;
-
+function renderProjectSummary(p) {
   return `
     <div class="project" data-project="${p.name.toLowerCase()}">
-      <div class="project-header">
+      <div class="project-header" data-name="${p.name}">
         <div>
           <span class="arrow">▶</span>
           <span class="project-name">${p.name}</span>
@@ -168,34 +165,54 @@ function renderProject(p) {
           <span class="total">${p.totalCommits} total</span>
         </div>
       </div>
-      <div class="project-body">
-        ${p.error ? `<div style="padding:16px;color:var(--red)">${p.error}</div>` : ''}
-        <table>
-          <thead>
-            <tr>
-              <th>Commit</th>
-              <th>Date</th>
-              <th>Suite</th>
-              <th>Exit</th>
-              <th>Lines %</th>
-              <th>Lines Cov'd</th>
-              <th>Functions</th>
-              <th>Branches</th>
-              <th>Log</th>
-              <th>Git</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${p.commits.map(c => renderCommit(c, p.repoUrl)).join('')}
-          </tbody>
-        </table>
-      </div>
+      <div class="project-body"></div>
     </div>
   `;
 }
 
+async function loadProjectDetail(name, bodyEl) {
+  bodyEl.dataset.loaded = '1';
+  bodyEl.innerHTML = '<div class="loading">Loading commits...</div>';
+  try {
+    if (detailCache[name]) {
+      renderProjectBody(name, detailCache[name], bodyEl);
+      return;
+    }
+    const resp = await fetch(`/api/project/${encodeURIComponent(name)}`);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const data = await resp.json();
+    detailCache[name] = data;
+    renderProjectBody(name, data, bodyEl);
+  } catch (e) {
+    bodyEl.innerHTML = `<div class="error-msg">Failed to load: ${e.message}</div>`;
+  }
+}
+
+function renderProjectBody(name, p, bodyEl) {
+  bodyEl.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>Commit</th>
+          <th>Date</th>
+          <th>Suite</th>
+          <th>Exit</th>
+          <th>Lines %</th>
+          <th>Lines Cov'd</th>
+          <th>Functions</th>
+          <th>Branches</th>
+          <th>Log</th>
+          <th>Git</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${p.commits.map(c => renderCommit(c, p.repoUrl)).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
 function renderCommit(c, repoUrl) {
-  // Attach repoUrl to the commit object for use in ghLink
   c.repoUrl = repoUrl;
   if (c.status === 'error') {
     return `
@@ -219,7 +236,6 @@ function renderCommit(c, repoUrl) {
       </tr>`;
   }
 
-  // First row includes commit info + status badge
   const first = c.suites[0];
   const rows = [];
 
@@ -265,7 +281,6 @@ function logLink(url) {
 
 function ghLink(hash, repoUrl) {
   if (!repoUrl) return '<span class="pct" style="color:var(--text-muted)">—</span>';
-  // Extract the commit hash from the prefix (strip timestamp_ prefix if present)
   const parts = hash.split('_');
   const commitHash = parts[parts.length - 1];
   const url = `${repoUrl}/tree/${commitHash}`;

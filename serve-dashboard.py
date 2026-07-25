@@ -1,25 +1,41 @@
 #!/usr/bin/env python3
-"""Tiny HTTP server that serves the dashboard and provides a /api/data endpoint.
+"""HTTP server that serves the dashboard and provides a /api/data endpoint.
 
-The API endpoint scans all projects/*/output/ directories once per request and
-returns structured JSON. The dashboard HTML fetches this single endpoint instead
-of making hundreds of individual file requests.
+The API endpoint scans all projects/*/output/ directories and returns structured
+JSON.  Results are cached both on-disk (per-project .dashboard-index.json) and
+in-memory so that repeated requests are near-instant.
 
 Usage:
     python3 serve-dashboard.py          # port 8000
     python3 serve-dashboard.py 8080     # custom port
 """
 
+import hashlib
 import json
 import os
 import re
 import sys
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+import time
+from datetime import datetime, timezone
+from http.server import SimpleHTTPRequestHandler
 from pathlib import Path
+from socketserver import ThreadingMixIn
+from http.server import HTTPServer
 
 BASE_DIR = Path(__file__).resolve().parent
 PROJECTS_DIR = BASE_DIR / "projects"
 ARCHIVE_DIR = BASE_DIR / "archive"
+INDEX_FILENAME = ".dashboard-index.json"
+
+# ---------------------------------------------------------------------------
+# In-memory cache
+# ---------------------------------------------------------------------------
+# _cache = { project_name: { "mtime": float, "data": list_of_commits } }
+_cache: dict = {}
+# _project_mtimes = { project_name: float }  — latest output-dir mtime per project
+_project_mtimes: dict = {}
+# _full_data_cache = { "data": list, "etag": str, "last_modified": str }
+_full_data_cache: dict = {}
 
 
 def parse_lcov(text: str) -> dict:
@@ -210,88 +226,248 @@ def _load_repo_urls() -> dict:
         return {}
 
 
-def scan_all_projects() -> list:
-    """Scan all projects and return the full dataset."""
+# ---------------------------------------------------------------------------
+# Disk-backed index cache
+# ---------------------------------------------------------------------------
+
+def _output_dir_mtime(output_dir: Path) -> float:
+    """Return the newest mtime across all direct children of output_dir."""
+    newest = 0.0
+    try:
+        for entry in output_dir.iterdir():
+            try:
+                m = entry.stat().st_mtime
+                if m > newest:
+                    newest = m
+            except OSError:
+                pass
+    except OSError:
+        pass
+    return newest
+
+
+def _load_index(index_path: Path) -> list | None:
+    """Load a .dashboard-index.json if it exists and is valid."""
+    try:
+        return json.loads(index_path.read_text())
+    except (OSError, json.JSONDecodeError):
+        return None
+
+
+def _write_index(index_path: Path, commits: list) -> None:
+    """Write commits list to .dashboard-index.json."""
+    try:
+        index_path.write_text(json.dumps(commits))
+    except OSError:
+        pass
+
+
+# ---------------------------------------------------------------------------
+# Project scanning with caching
+# ---------------------------------------------------------------------------
+
+def _scan_project(proj_dir: Path, repo_urls: dict) -> dict | None:
+    """Scan a single project, using disk+memory caches when possible."""
+    output_dir = proj_dir / "output"
+    if not output_dir.is_dir():
+        return None
+
+    proj_name = proj_dir.name
+    current_mtime = _output_dir_mtime(output_dir)
+
+    # Check in-memory cache
+    cached = _cache.get(proj_name)
+    if cached and cached["mtime"] == current_mtime:
+        commits = cached["data"]
+    else:
+        # Try disk index
+        index_path = output_dir / INDEX_FILENAME
+        disk_index_mtime = 0.0
+        try:
+            disk_index_mtime = index_path.stat().st_mtime
+        except OSError:
+            pass
+
+        if disk_index_mtime >= current_mtime and current_mtime > 0:
+            # Disk index is up to date
+            commits = _load_index(index_path)
+            if commits is None:
+                # Corrupt index — full rescan
+                commits = scan_output_dir(output_dir, proj_name)
+                _write_index(index_path, commits)
+        else:
+            # Full scan needed
+            commits = scan_output_dir(output_dir, proj_name)
+            _write_index(index_path, commits)
+
+        # Update in-memory cache
+        _cache[proj_name] = {"mtime": current_mtime, "data": commits}
+
+    _project_mtimes[proj_name] = current_mtime
+
+    passed = sum(1 for c in commits if c["status"] == "pass")
+    failed = sum(1 for c in commits if c["status"] == "fail")
+    errors = sum(1 for c in commits if c["status"] == "error")
+    last_run = max((c["mtime"] for c in commits), default=0)
+
+    return {
+        "name": proj_name,
+        "repoUrl": repo_urls.get(proj_name, ""),
+        "commits": commits,
+        "totalCommits": len(commits),
+        "passed": passed,
+        "failed": failed,
+        "errors": errors,
+        "lastRun": last_run,
+    }
+
+
+def scan_all_projects(full: bool = True) -> list:
+    """Scan all projects and return the full dataset.
+
+    When *full* is False, return project summaries without commit details
+    (for the /api/projects endpoint).
+    """
     projects = []
     repo_urls = _load_repo_urls()
 
-    for base_dir in (PROJECTS_DIR,):
-        if not base_dir.is_dir():
+    if not PROJECTS_DIR.is_dir():
+        return projects
+
+    for proj_dir in sorted(PROJECTS_DIR.iterdir()):
+        if not proj_dir.is_dir():
             continue
-        for proj_dir in sorted(base_dir.iterdir()):
-            if not proj_dir.is_dir():
-                continue
-            output_dir = proj_dir / "output"
-            if not output_dir.is_dir():
-                continue
+        result = _scan_project(proj_dir, repo_urls)
+        if result is None:
+            continue
 
-            commits = scan_output_dir(output_dir, proj_dir.name)
-            passed = sum(1 for c in commits if c["status"] == "pass")
-            failed = sum(1 for c in commits if c["status"] == "fail")
-            errors = sum(1 for c in commits if c["status"] == "error")
+        if not full:
+            # Strip commit details for the lightweight summary endpoint
+            result = {
+                "name": result["name"],
+                "repoUrl": result["repoUrl"],
+                "totalCommits": result["totalCommits"],
+                "passed": result["passed"],
+                "failed": result["failed"],
+                "errors": result["errors"],
+                "lastRun": result["lastRun"],
+            }
 
-            # Latest run = max mtime across all commits' log files
-            last_run = max((c["mtime"] for c in commits), default=0)
+        projects.append(result)
 
-            projects.append(
-                {
-                    "name": proj_dir.name,
-                    "repoUrl": repo_urls.get(proj_dir.name, ""),
-                    "commits": commits,
-                    "totalCommits": len(commits),
-                    "passed": passed,
-                    "failed": failed,
-                    "errors": errors,
-                    "lastRun": last_run,
-                }
-            )
-
-    # Sort projects by lastRun descending (most recently run first)
     projects.sort(key=lambda p: p["lastRun"], reverse=True)
     return projects
 
+
+def _compute_etag() -> str:
+    """Compute an ETag from project mtimes."""
+    parts = []
+    for name in sorted(_project_mtimes):
+        parts.append(f"{name}:{_project_mtimes[name]}")
+    return hashlib.md5("|".join(parts).encode()).hexdigest()
+
+
+def _http_date(ts: float) -> str:
+    """Convert a UNIX timestamp to an HTTP-date string."""
+    return datetime.fromtimestamp(ts, tz=timezone.utc).strftime(
+        "%a, %d %b %Y %H:%M:%S GMT"
+    )
+
+
+# ---------------------------------------------------------------------------
+# HTTP handler
+# ---------------------------------------------------------------------------
 
 class DashboardHandler(SimpleHTTPRequestHandler):
     """HTTP handler that serves static files and the API endpoint."""
 
     def do_GET(self):
         if self.path == "/api/data":
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json")
-            self.send_header("Access-Control-Allow-Origin", "*")
-            self.end_headers()
-            data = scan_all_projects()
-            self.wfile.write(json.dumps(data).encode())
+            self._serve_api_data(full=True)
+        elif self.path == "/api/projects":
+            self._serve_api_data(full=False)
+        elif self.path.startswith("/api/project/"):
+            # /api/project/<name> — single project detail
+            proj_name = self.path[len("/api/project/") :].rstrip("/")
+            self._serve_project_detail(proj_name)
         elif self.path.endswith((".log", ".error")):
-            # Serve log and error files as text/plain so they display in the
-            # browser instead of being downloaded.
-            file_path = BASE_DIR / self.path.lstrip("/")
-            if file_path.is_file():
-                self.send_response(200)
-                self.send_header("Content-Type", "text/plain; charset=utf-8")
-                self.send_header("Content-Length", str(file_path.stat().st_size))
-                self.end_headers()
-                with open(file_path, "rb") as f:
-                    self.wfile.write(f.read())
-            else:
-                self.send_response(404)
-                self.end_headers()
-                self.wfile.write(b"File not found")
+            self._serve_log_file()
         else:
             super().do_GET()
 
+    def _serve_api_data(self, full: bool = True) -> None:
+        global _full_data_cache
+        data = scan_all_projects(full=full)
+        body = json.dumps(data).encode()
+        etag = _compute_etag()
+
+        # Check If-None-Match
+        client_etag = self.headers.get("If-None-Match", "")
+        if client_etag and client_etag == etag:
+            self.send_response(304)
+            self.end_headers()
+            return
+
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("ETag", etag)
+        self.send_header("Cache-Control", "public, max-age=5")
+        self.end_headers()
+        self.wfile.write(body)
+
+    def _serve_project_detail(self, proj_name: str) -> None:
+        """Return full commit data for a single project."""
+        repo_urls = _load_repo_urls()
+        proj_dir = PROJECTS_DIR / proj_name
+        result = _scan_project(proj_dir, repo_urls)
+        if result is None:
+            self.send_response(404)
+            self.end_headers()
+            self.wfile.write(b'{"error": "project not found"}')
+            return
+        body = json.dumps(result).encode()
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Cache-Control", "public, max-age=5")
+        self.end_headers()
+        self.wfile.write(body)
+
+    def _serve_log_file(self) -> None:
+        file_path = BASE_DIR / self.path.lstrip("/")
+        if file_path.is_file():
+            self.send_response(200)
+            self.send_header("Content-Type", "text/plain; charset=utf-8")
+            self.send_header("Content-Length", str(file_path.stat().st_size))
+            self.end_headers()
+            with open(file_path, "rb") as f:
+                self.wfile.write(f.read())
+        else:
+            self.send_response(404)
+            self.end_headers()
+            self.wfile.write(b"File not found")
+
     def log_message(self, format, *args):
-        # Quieter logging — skip API calls, log everything else normally
-        if self.path == "/api/data":
+        if self.path.startswith("/api/"):
             return
         super().log_message(format, *args)
 
 
+# ---------------------------------------------------------------------------
+# Threading server
+# ---------------------------------------------------------------------------
+
+class ThreadingHTTPServer(ThreadingMixIn, HTTPServer):
+    daemon_threads = True
+
+
 def main():
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
-    server = HTTPServer(("0.0.0.0", port), DashboardHandler)
+    server = ThreadingHTTPServer(("0.0.0.0", port), DashboardHandler)
     print(f"CoverageReloaded Dashboard: http://localhost:{port}/dashboard.html")
     print(f"API: http://localhost:{port}/api/data")
+    print(f"API (summaries): http://localhost:{port}/api/projects")
     print("Press Ctrl+C to stop.")
     try:
         server.serve_forever()

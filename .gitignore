@@ -13,6 +13,7 @@
 *commits.csv
 *command_changes.csv
 *old_commits.csv
+*dashboard-index.json
 
 **/tmp/
 **/debug/
