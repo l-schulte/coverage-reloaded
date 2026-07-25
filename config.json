@@ -34,7 +34,14 @@
             "disabled_node_strategies": [
                 "pnpm-lock.yaml"
             ],
-            "use_exact_node_version": true
+            "use_exact_node_version": true,
+            "node_version_overrides": [
+                {
+                    "start_ts": 1754389274,
+                    "end_ts": 1757319331,
+                    "new_version": "20.18"
+                }
+            ]
         },
         "yari": {
             "url": "https://github.com/mdn/yari",

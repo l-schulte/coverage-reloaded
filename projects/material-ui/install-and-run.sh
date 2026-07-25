@@ -61,12 +61,11 @@ if [ -n "$TEST_COVERAGE_SCRIPT" ]; then
 
     # Prevent Node.js from reparsing ambiguous .js files as ESM (which breaks __dirname usage)
     # Only needed on Node >=20 where --experimental-detect-module is default
+    # Must be set via NODE_OPTIONS (not just .mocharc.js) because nyc wraps mocha and
+    # nyc needs to receive the flag before it spawns mocha.
     if [ "$(node -e "console.log(process.version.substring(1).split('.')[0])")" -ge 20 ] 2>/dev/null; then
         print_header 4 "Node.js version is >=20, setting NODE_OPTIONS"
-        if ! grep -q "no-experimental-detect-module" .mocharc.js 2>/dev/null; then
-            print_header 4 "...adding --no-experimental-detect-module to NODE_OPTIONS (not in .mocharc.js file)"
-            export NODE_OPTIONS="$NODE_OPTIONS --no-experimental-detect-module"
-        fi
+        export NODE_OPTIONS="$NODE_OPTIONS --no-experimental-detect-module"
     fi
 
     HAS_COVERAGE_SCRIPT=$(jq -r '.scripts["test:coverage"] // empty' package.json)
@@ -74,6 +73,13 @@ if [ -n "$TEST_COVERAGE_SCRIPT" ]; then
         print_header 2 "NOT APPLICABLE: No test:coverage script found in package.json. Skipping coverage collection."
         exit 2
     fi
+
+    # Patch nyc command to include @babel/register for TypeScript support.
+    # nyc wraps mocha and doesn't inherit mocha's require config, so nyc needs
+    # its own babel registration to load .ts/.tsx files.
+    # Use the project's setupBabel which configures babel-register with TS extensions.
+    jq '.scripts.nx_test_coverage |= gsub("nyc "; "nyc --require @mui/internal-test-utils/setupBabel ")' package.json > package.json.tmp
+    mv package.json.tmp package.json
 
     set -o pipefail
     OUTPUT=$($COMMAND test:coverage 2>&1 | tee /dev/stderr)
