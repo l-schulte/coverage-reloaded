@@ -7,6 +7,48 @@ from strip_ansi import strip_ansi
 
 logger = logging.getLogger(__name__)
 
+# Must match EXECUTOR in docker-run.sh
+EXECUTOR = "podman"
+
+
+def _build_base_image(node, workspace_path):
+    """Build the base Docker image for a given Node version."""
+    tag = f"core_node{node}_base"
+    logger.info(f"Building base image {tag}")
+    subprocess.run(
+        [EXECUTOR, "build", "--build-arg", f"NODE_VERSION={node}", "-t", tag, "."],
+        cwd=workspace_path,
+        check=True,
+    )
+
+
+def _build_project_image(node, project, workspace_path):
+    """Build the project Docker image for a given Node version."""
+    tag = f"core_node{node}_{project.lower()}"
+    project_dir = os.path.join(workspace_path, "projects", project)
+    logger.info(f"Building project image {tag}")
+    subprocess.run(
+        [EXECUTOR, "build", "--build-arg", f"NODE_VERSION={node}", "-t", tag, "."],
+        cwd=project_dir,
+        check=True,
+    )
+
+
+def pre_build_images(commits, project, workspace_path):
+    """Pre-build base and project Docker images for all commits.
+
+    Collects unique Node versions from the commit list and builds one base
+    image per version plus one project image per version.  Must be called
+    before the thread pool so that docker-run.sh can skip redundant builds.
+    """
+    unique_nodes = {commit[4] for commit in commits}  # node is index 4
+    logger.info(
+        f"Pre-building Docker images for project {project} with {len(unique_nodes)} nodes: {unique_nodes}"
+    )
+    for node in unique_nodes:
+        _build_base_image(node, workspace_path)
+        _build_project_image(node, project, workspace_path)
+
 
 def parse_filename(filename) -> tuple[str, str, str]:
     """Parse log filename to extract timestamp, commit hash, and node."""
@@ -53,6 +95,7 @@ def docker_run_script(commit, workspace_path, logs_path, output_path):
     # Override by setting CONTAINER_CPUS in .env for manual runs.
     env = os.environ.copy()
     env["CONTAINER_CPUS"] = "4"
+    env["SKIP_BUILD"] = "true"
 
     try:
         result = subprocess.run(

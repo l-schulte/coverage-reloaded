@@ -35,16 +35,13 @@ DNS_CONFIG="--dns 1.1.1.1 --dns 8.8.8.8"
 CONTAINER_CPUS=${CONTAINER_CPUS:-10}
 CPU_CONFIG="--cpus=$CONTAINER_CPUS"
 
-# Unconditional builds removed — the flock-guarded blocks below handle
-# concurrent-safe image building.
-# $EXECUTOR build --build-arg NODE_VERSION=$6 -t $BASE_CONTAINER_NAME .
-# $EXECUTOR build --build-arg NODE_VERSION=$6 -t $CONTAINER_NAME ./projects/$1
-
-flock /tmp/lock-$BASE_CONTAINER_NAME.lock \
+# When SKIP_BUILD is set (e.g. from docker_run.py), images were already
+# pre-built — skip redundant rebuilds.  Manual CLI invocations never set
+# this, so builds always happen in shell/debug/exec mode.
+if [ "${SKIP_BUILD:-false}" != "true" ]; then
     $EXECUTOR build --build-arg NODE_VERSION=$6 -t $BASE_CONTAINER_NAME .
-
-flock /tmp/lock-$CONTAINER_NAME.lock \
     $EXECUTOR build --build-arg NODE_VERSION=$6 -t $CONTAINER_NAME ./projects/$1
+fi
 
 mkdir -p projects/$1/output
 

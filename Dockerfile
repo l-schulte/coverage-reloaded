@@ -54,6 +54,11 @@ RUN node --version
 # Solution: set CI=true to disable watch mode and run tests once
 ENV CI=true
 
+# We install dependencies at historical timestamps, so caniuse-lite data
+# will always be "old" relative to the container clock. Suppress the
+# browserslist warning that leaks into stderr and causes false test failures.
+ENV BROWSERSLIST_IGNORE_OLD_DATA=1
+
 RUN apt-get install -y libfaketime
 
 COPY ./execute.sh /coverage_reloaded/execute.sh

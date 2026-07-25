@@ -8,7 +8,7 @@ import tqdm
 import argparse
 
 from src.config import get_config
-from src.docker.docker_run import docker_run_script
+from src.docker.docker_run import docker_run_script, pre_build_images
 
 logger = logging.getLogger(__name__)
 
@@ -63,6 +63,10 @@ def _run_commits(commits, max_workers, output_path, logs_path, desc):
     """
     if not commits:
         return 0
+
+    # Pre-build Docker images once so docker-run.sh can skip redundant builds.
+    project = commits[0][0]  # project is index 0 in the commit tuple
+    pre_build_images(commits, project, WORKSPACE_PATH)
 
     start = time.time()
     logger.info(
