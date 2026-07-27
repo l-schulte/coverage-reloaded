@@ -11,6 +11,8 @@ set -e
 
 set -euo pipefail
 
+source /coverage_reloaded/logging.sh
+
 cd /coverage_reloaded/repo
 
 if $IS_NPM_MAIN_PM; then
@@ -51,6 +53,8 @@ if echo "$TEST_SCRIPT" | grep -q "lerna" && [ -n "$PROBLEMATIC_FILES" ]; then
   exit 1
 fi
 
+suite_start "unit" "Running tests with coverage"
+
 set +e
 if echo "$TEST_SCRIPT" | grep -q "^lerna"; then
     # Append -- --coverage to the lerna call directly
@@ -59,6 +63,8 @@ else
     # Direct jest variants
     $PKG_MANAGER run test -- --coverage
 fi
+TEST_EXIT=$?
 set -e
 
-bash ../find-and-move-lcov.sh
+bash ../find-and-move-lcov.sh "unit" "false" "$TEST_EXIT"
+suite_end "unit" "$TEST_EXIT"
