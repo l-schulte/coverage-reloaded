@@ -42,6 +42,94 @@ with open('yarn.lock', 'w') as f:
     f.write(content)
 "
     print_header 4 "Removal complete"
+fi
+
+print_header 2 "Fixing broken @fioprotocol/fiosdk git URL"
+
+# edge-currency-accountbased has a hardcoded dependency on @fioprotocol/fiosdk
+# from a private/broken git URL (jon-edge/fiosdk_typescript.git) that no longer
+# exists (returns 404). We use yarn's resolutions to override it with the
+# official working repository (fioprotocol/fiosdk_typescript).
+# Only fix the broken jon-edge URL; leave working peachbits URL untouched.
+
+if $IS_YARN_MAIN_PM && [ -f yarn.lock ]; then
+    if grep -q "jon-edge/fiosdk_typescript" yarn.lock; then
+        print_header 3 "Detected broken jon-edge/fiosdk_typescript URL, fixing..."
+
+        # Extract version from yarn.lock and add resolution to package.json
+        # This tells yarn to use the official repo with the same version
+        python3 -c "
+import json
+import re
+import sys
+
+try:
+    # Read yarn.lock to extract the version from the broken entry
+    with open('yarn.lock', 'r') as f:
+        yarn_lock = f.read()
+    
+    # Find the broken jon-edge entry and extract the version
+    # Pattern: \"@fioprotocol/fiosdk@https://github.com/jon-edge/...\":\n  version \"X.Y.Z\"
+    match = re.search(
+        r'\"@fioprotocol/fiosdk@https://github\.com/jon-edge/[^\"]+\":\n\s+version \"([^\"]+)\"',
+        yarn_lock
+    )
+    
+    if not match:
+        print('Could not find @fioprotocol/fiosdk version in yarn.lock', file=sys.stderr)
+        sys.exit(1)
+    
+    version = match.group(1)
+    print(f'Found @fioprotocol/fiosdk version: {version}')
+    
+    # Read package.json
+    with open('package.json', 'r') as f:
+        pkg = json.load(f)
+    
+    # Add or update resolutions field
+    if 'resolutions' not in pkg:
+        pkg['resolutions'] = {}
+    
+    # Use the official repo with the extracted version tag
+    resolution_url = f'https://github.com/fioprotocol/fiosdk_typescript#v{version}'
+    pkg['resolutions']['@fioprotocol/fiosdk'] = resolution_url
+    
+    with open('package.json', 'w') as f:
+        json.dump(pkg, f, indent=2)
+        f.write('\n')
+    
+    print(f'Added @fioprotocol/fiosdk resolution: {resolution_url}')
+except Exception as e:
+    print(f'Error modifying package.json: {e}', file=sys.stderr)
+    sys.exit(1)
+"
+
+        # Remove the broken entry from yarn.lock so yarn resolves it fresh
+        # using the resolution we just added
+        python3 -c "
+import re
+
+with open('yarn.lock', 'r') as f:
+    content = f.read()
+
+# Remove the @fioprotocol/fiosdk entry block that references jon-edge
+# The entry starts with the quoted package name and includes all indented lines
+content = re.sub(
+    r'\"@fioprotocol/fiosdk@https://github\.com/jon-edge/[^\"]+\":\n(  [^\n]*\n)*',
+    '',
+    content
+)
+
+with open('yarn.lock', 'w') as f:
+    f.write(content)
+
+print('Removed broken @fioprotocol/fiosdk entry from yarn.lock')
+"
+
+        print_header 4 "Fixed @fioprotocol/fiosdk URL"
+    else
+        print_header 4 "No broken jon-edge URL found, skipping"
+    fi
 else
     print_header 4 "Not a yarn project or no yarn.lock — skipping"
 fi
