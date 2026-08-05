@@ -18,6 +18,6 @@ RUN apt-get update && \
 RUN apt-get update && apt-get install -y docker.io
 
 COPY ./substrate_lookup.csv /coverage_reloaded/substrate_lookup.csv
-COPY ./repo /coverage_reloaded/repo
+COPY ./repo /coverage_reloaded/repo_disk
 COPY ./install-and-run.sh /coverage_reloaded/install-and-run.sh
 RUN chmod +x /coverage_reloaded/install-and-run.sh

@@ -84,6 +84,24 @@ if [ "$FILES_MOVED" -eq 0 ]; then
     exit 1
 fi
 
+# ── Test results (optional) ─────────────────────────────────
+# Suites that use mocha-multi / jest --outputFile write a flat
+# .test_results.json at the repo root. Move it out of the repo
+# (not copy) so the next suite starts clean. Optional: no such
+# file is not an error, unlike lcov.info.
+TEST_RESULTS_MOVED=0
+while IFS= read -r -d '' tr_file; do
+    tr_dest="$COVERAGE_REPORT_PATH/${TEST_TYPE}.test_results.json"
+    [ -n "$TEST_TYPE" ] || tr_dest="$COVERAGE_REPORT_PATH/test_results.json"
+    mv "$tr_file" "$tr_dest"
+    print_header 4 "NOTICE: Moved test results as $(basename "$tr_dest")"
+    TEST_RESULTS_MOVED=$((TEST_RESULTS_MOVED + 1))
+done < <(find . -type f -name ".test_results.json" "${ignore_args[@]}" -print0)
+
+if [ "$TEST_RESULTS_MOVED" -gt 0 ]; then
+    echo "  Test results moved: $TEST_RESULTS_MOVED"
+fi
+
 # ── Summary ─────────────────────────────────────────────────
 print_header 2 "Coverage summary for: $TEST_TYPE"
 echo "  Valid (moved): $FILES_MOVED  Empty (deleted): $EMPTY_FILES"

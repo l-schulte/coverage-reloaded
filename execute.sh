@@ -1,5 +1,9 @@
 #!/bin/bash
 
+mount -t tmpfs -o size=20G tmpfs /coverage_reloaded/repo
+cp -a /coverage_reloaded/repo_disk/. /coverage_reloaded/repo/
+echo "Mounted /coverage_reloaded/repo as tmpfs (20GB) and copied repo_disk contents"
+
 source "$(dirname "${BASH_SOURCE[0]}")/logging.sh"
 
 # Disable IPv6 resolution — the host and containers lack IPv6 routing.
@@ -414,8 +418,20 @@ for f in "${lcov_files[@]}"; do
     fi
 done
 
+# Copy any test result JSON files produced by suites (mocha-multi / jest --outputFile)
+while IFS= read -r -d '' tr; do
+    rel="${tr#$COVERAGE_REPORT_PATH/}"
+    stem="${rel%.test_results.json}"
+    safe_stem="${stem//\//_}"
+    safe_stem="${safe_stem//-/_}"
+    dest="$commit_dir/${safe_stem}.test_results.json"
+    cp "$tr" "$dest"
+    echo "  [OK]  $(basename "$tr") → $prefix/${safe_stem}.test_results.json"
+done < <(find "$COVERAGE_REPORT_PATH" -name "*.test_results.json" -print0)
+
 
 
 endtime=$(date +%s)
 elapsed=$((endtime - starttime))
-print_header 1 "Coverage run completed" "Revision: $revision" "Total time: $elapsed seconds"
+elapsed_minutes=$((elapsed / 60))
+print_header 1 "Coverage run completed ($elapsed_minutes minutes)" "Revision: $revision"

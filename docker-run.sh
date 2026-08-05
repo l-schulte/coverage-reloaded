@@ -31,8 +31,8 @@ DNS_CONFIG="--dns 1.1.1.1 --dns 8.8.8.8"
 # 264-core host running many containers in parallel is bounded by the quota per
 # container, and the actual worker parallelism is capped explicitly in
 # install-and-run.sh (--maxWorkers=1 / --runInBand, per AGENTS.md §7.1), not by
-# core-count detection. docker_run.py sets this to 4; default 10 for manual runs.
-CONTAINER_CPUS=${CONTAINER_CPUS:-10}
+# core-count detection. docker_run.py sets this to 4; default 20 for manual runs.
+CONTAINER_CPUS=${CONTAINER_CPUS:-20}
 CPU_CONFIG="--cpus=$CONTAINER_CPUS"
 
 # When SKIP_BUILD is set (e.g. from docker_run.py), images were already

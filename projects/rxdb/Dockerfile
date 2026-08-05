@@ -21,6 +21,6 @@ RUN wget -O /opt/fdb6-clients.deb https://github.com/apple/foundationdb/releases
     wget -O /opt/fdb7-clients.deb https://github.com/apple/foundationdb/releases/download/7.3.77/foundationdb-clients_7.3.77-1_amd64.deb && \
     wget -O /opt/fdb7-server.deb https://github.com/apple/foundationdb/releases/download/7.3.77/foundationdb-server_7.3.77-1_amd64.deb
 
-COPY ./repo /coverage_reloaded/repo
+COPY ./repo /coverage_reloaded/repo_disk
 COPY ./install-and-run.sh /coverage_reloaded/install-and-run.sh
 RUN chmod +x /coverage_reloaded/install-and-run.sh
