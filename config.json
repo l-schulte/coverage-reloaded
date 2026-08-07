@@ -100,7 +100,15 @@
             ]
         },
         "uwazi": {
-            "url": "https://github.com/huridocs/uwazi"
+            "url": "https://github.com/huridocs/uwazi",
+            "node_version_overrides": [
+                {
+                    "start_ts": 1626742218,
+                    "end_ts": 1659708655,
+                    "old_version": 16,
+                    "new_version": "14"
+                }
+            ]
         }
     }
 }
