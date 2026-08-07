@@ -109,6 +109,9 @@
                     "new_version": "14"
                 }
             ]
+        },
+        "vega-lite": {
+            "url": "https://github.com/vega/vega-lite"
         }
     }
 }
