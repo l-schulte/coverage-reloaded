@@ -64,9 +64,6 @@
             "node_version_delay_months": 0,
             "use_exact_node_version": true
         },
-        "govuk-frontend": {
-            "url": "https://github.com/alphagov/govuk-frontend"
-        },
         "linode-manager": {
             "url": "https://github.com/linode/manager"
         },

@@ -17,6 +17,15 @@ export PUPPETEER_CHROME_EXECUTABLE_PATH=/usr/bin/chromium
 export CHROMIUM_FLAGS="--no-sandbox --disable-setuid-sandbox"
 export PUPPETEER_ARGS='--no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage'
 
+# Jest-puppeteer preset runs component code inside a browser process, which
+# Jest's coverage collector cannot instrument. Only the lib/* test helpers get
+# measured, so coverage is meaningless. Flag such commits as not_applicable.
+JEST_PRESET=$(node -p "const j = require('./package.json').jest || {}; j.preset || ''" 2>/dev/null || echo "")
+if [ "$JEST_PRESET" = "jest-puppeteer" ]; then
+    print_header 2 "NOT APPLICABLE: jest-puppeteer preset detected — tests run in a browser, coverage not collectable"
+    exit 2
+fi
+
 # Replace GitHub URLs in source files so tests route through WayPack cache.
 # Exclude package.json files — they contain repository.url which is read at
 # build time (e.g. govuk-prototype-kit validate-plugin) and must remain valid
@@ -33,11 +42,8 @@ if [ -n "$PRETEST_SCRIPT" ]; then
 fi
 
 TEST_SCRIPT=$(node -p "require('./package.json').scripts['test']")
-TEST_SCRIPT=$(echo "$TEST_SCRIPT" | sed 's/--maxWorkers=[^ ]*/--maxWorkers=2/g')
-
-if echo "$TEST_SCRIPT" | grep -q '\bjest\b'; then
-    TEST_SCRIPT=$(echo "$TEST_SCRIPT" | sed 's/\bjest\b/jest --coverage --coverageReporters=lcov/g')
-fi
+TEST_SCRIPT=$(echo "$TEST_SCRIPT" | sed 's/--maxWorkers=[^ ]*//g; s/--maxWorkers [0-9]*//g')
+TEST_SCRIPT="$TEST_SCRIPT --coverage --coverageReporters=lcov --maxWorkers=2"
 
 print_header 2 "Running tests with coverage"
 suite_start "test" "Running tests with coverage"
