@@ -15,17 +15,6 @@
         "metaphysics": {
             "url": "https://github.com/artsy/metaphysics"
         },
-        "polkadot-apps": {
-            "url": "https://github.com/polkadot-js/apps",
-            "node_version_overrides": [
-                {
-                    "start_ts": 1628856104,
-                    "end_ts": 1657386674,
-                    "old_version": 12,
-                    "new_version": "14"
-                }
-            ]
-        },
         "serverless": {
             "url": "https://github.com/serverless/serverless"
         },

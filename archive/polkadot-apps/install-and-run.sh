@@ -43,14 +43,32 @@ else
     TEST_RUNNER="polkadot"
 fi
 
-print_header 2 "Running tests with coverage ($TEST_RUNNER)"
+# Determine the test ERA. The node:test era (newer @polkadot/dev, ~2023+) invokes
+# `polkadot-dev-run-test --env …`, which wraps polkadot-exec-node-test.mjs. That
+# runner REJECTS jest flags (--runInBand/--coverage/--coverageReporters/--testPathIgnorePatterns)
+# and crashes ("Unknown flag --runInBand" / treats them as test files -> EPIPE).
+# The jest era uses `jest …` or `polkadot-dev-run-test --selectProjects=…`.
+ERA="jest"
+if echo "$TEST_SCRIPT" | grep -qE 'polkadot-dev-run-test .*--env |polkadot-exec-node-test'; then
+    ERA="node-test"
+fi
+
+print_header 2 "Running tests with coverage ($TEST_RUNNER, era=$ERA)"
 
 # --- test ---
 if [ -n "$TEST_SCRIPT" ]; then
     suite_start "unit" "Running test suite with coverage"
 
     set +e
-    if [ "$TEST_RUNNER" = "jest" ]; then
+    if [ "$ERA" = "node-test" ]; then
+        # node:test era (@polkadot/dev >=0.83) does NOT emit lcov itself — its
+        # runner invokes node:test via worker threads and rejects jest flags.
+        # @polkadot/dev@0.83 has no c8/coverage wiring, so wrap with c8 (our
+        # tooling, via Verdaccio) per AGENTS.md §6 to produce lcov.
+        npx --registry=$VERDACCIO_REGISTRY c8 --reporter=lcov $PM_RUN test
+        TEST_EXIT=$?
+        bash /coverage_reloaded/find-and-move-lcov.sh "unit_polkadot" "false" "$TEST_EXIT"
+    elif [ "$TEST_RUNNER" = "jest" ]; then
         $PM_RUN test --runInBand --coverage --coverageReporters=lcov
         TEST_EXIT=$?
         bash /coverage_reloaded/find-and-move-lcov.sh "unit_jest" "false" "$TEST_EXIT"
@@ -210,14 +228,24 @@ EOF
     # but the test was never updated. It fails immediately on findByText and
     # contributes no unique coverage beyond what the fast suite already provides.
     set +e
-    # Force JEST_WORKER_ID so @polkadot/dev's babel-plugin-module-extension-resolver
-    # does NOT rewrite relative imports './foo' -> './foo.cjs'. Under --runInBand
-    # jest runs in-process and leaves JEST_WORKER_ID unset, which trips the plugin's
-    # gate (`!process.env.JEST_WORKER_ID ...`) and mass-breaks test:all with
-    # "Cannot find module './Backend.cjs'" (Group 2 failures). Setting it here is
-    # inert for jest/@polkadot/dev versions that lack the gate.
-    JEST_WORKER_ID=1 $PM_RUN test:all --runInBand --coverage --coverageReporters=lcov --testPathIgnorePatterns 'chainEndpoints|chainTypes|CreateAccount.slow'
-    TEST_ALL_EXIT=$?
+    if [ "$ERA" = "node-test" ]; then
+        # node:test era: run the project's own test:all wrapped with c8 (no c8
+        # wiring in @polkadot/dev). Exclude CreateAccount.slow (stale "Add account"
+        # label). We do not start the substrate container ourselves here — if
+        # local-chain specs need it and it is unavailable, they fail softly and the
+        # rest of the suite still produces valid partial coverage (AGENTS.md §7).
+        npx --registry=$VERDACCIO_REGISTRY c8 --reporter=lcov $PM_RUN test:all ^CreateAccount.slow
+        TEST_ALL_EXIT=$?
+    else
+        # Force JEST_WORKER_ID so @polkadot/dev's babel-plugin-module-extension-resolver
+        # does NOT rewrite relative imports './foo' -> './foo.cjs'. Under --runInBand
+        # jest runs in-process and leaves JEST_WORKER_ID unset, which trips the plugin's
+        # gate (`!process.env.JEST_WORKER_ID ...`) and mass-breaks test:all with
+        # "Cannot find module './Backend.cjs'" (Group 2 failures). Setting it here is
+        # inert for jest/@polkadot/dev versions that lack the gate.
+        JEST_WORKER_ID=1 $PM_RUN test:all --runInBand --coverage --coverageReporters=lcov --testPathIgnorePatterns 'chainEndpoints|chainTypes|CreateAccount.slow'
+        TEST_ALL_EXIT=$?
+    fi
     set -e
 
     bash /coverage_reloaded/find-and-move-lcov.sh "unit_slow" "false" "$TEST_ALL_EXIT"
