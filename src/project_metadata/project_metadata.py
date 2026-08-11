@@ -73,7 +73,9 @@ def extract_project_metadata(
     if not use_exact_version:
         node = node.split(".")[0]  # Use major version only
 
-    if min_node_version and int(node) < min_node_version:
+    node_major = int(node.split(".")[0])
+
+    if min_node_version and node_major < min_node_version:
         logger.warning(
             f"Node.js version {node} from {node_source} for commit {commit_hash} is below the minimum required version {min_node_version}. Setting to minimum version."
         )
@@ -94,7 +96,7 @@ def extract_project_metadata(
         for override in project_config.node_version_overrides:
             if (
                 override.start_ts <= ts <= override.end_ts
-                and (override.old_version is None or int(node) == override.old_version)
+                and (override.old_version is None or node_major == override.old_version)
             ):
                 logger.info(
                     f"Overriding node version {node} -> {override.new_version} "
@@ -111,7 +113,8 @@ def extract_project_metadata(
         pm_source = "config override"
     else:
         pm_version, pm_source = find_package_manager(
-            commit_hash, repo_path, node, package_manager_priority
+            commit_hash, repo_path, node, package_manager_priority,
+            skip_engines=project_config.package_manager_skip_engines,
         )
         # Fall back to the configured default if auto-detection found nothing
         if not pm_version:
@@ -120,20 +123,22 @@ def extract_project_metadata(
 
     # Enforce minimum package manager version per manager
     min_pm_version = project_config.min_pm_version
-    if min_pm_version and "@" in pm_version:
-        pm_name = pm_version.split("@")[0]
+    if min_pm_version:
+        pm_name, pm_ver_only = (
+            pm_version.split("@", 1) if "@" in pm_version else (pm_version, "")
+        )
         pm_requirement = min_pm_version.get(pm_name)
         if pm_requirement:
-            pm_ver_only = pm_version.split("@")[1]
-            # Simple major-version comparison (like min_node_version)
-            pm_major = int(pm_ver_only.split(".")[0])
-            min_major = int(pm_requirement.split(".")[0])
-            if pm_major < min_major:
-                # Ensure the requirement is a valid semver (e.g. "8" → "8.0.0")
-                # so that downstream "npm install -g npm@8.0.0" works.
-                parts = pm_requirement.split(".")
-                parts += ["0"] * (3 - len(parts))
-                pm_requirement_semver = ".".join(parts)
+
+            def _ver_tuple(v: str) -> tuple[int, int, int]:
+                parts = v.split(".")
+                parts = (parts + ["0", "0", "0"])[:3]
+                return tuple(int(p) for p in parts)
+
+            detected = _ver_tuple(pm_ver_only) if pm_ver_only else (0, 0, 0)
+            required = _ver_tuple(pm_requirement)
+            if detected < required:
+                pm_requirement_semver = ".".join(str(p) for p in required)
                 logger.warning(
                     f"Package manager version {pm_version} for commit {commit_hash} "
                     f"does not satisfy minimum requirement {pm_name}@{pm_requirement}. "

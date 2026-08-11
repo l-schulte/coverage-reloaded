@@ -52,6 +52,13 @@ class ProjectConfig:
     #: Example: ``"npm@latest"``
     package_manager_version_overwrite: Optional[str] = None
 
+    #: If ``True``, skip the ``engines`` field in ``package.json`` when
+    #: detecting the package manager version.  Useful when ``engines``
+    #: contains semver ranges (e.g. ``">=1.3.2"``) that are misinterpreted
+    #: as actual versions.  Only the ``packageManager`` and ``volta`` fields
+    #: are checked.  Default: ``False``.
+    package_manager_skip_engines: bool = False
+
     #: Default package manager to use when auto-detection (lock file analysis)
     #: fails to find any package manager.  Defaults to ``"npm"``.
     #: Only applies when ``package_manager_version_overwrite`` is not set.

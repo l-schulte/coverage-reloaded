@@ -91,10 +91,10 @@ def docker_run_script(commit, workspace_path, logs_path, output_path):
         project_id,
     ]
 
-    # Automated collection uses 4 CPUs to keep resource usage predictable.
+    # Automated collection uses 6 CPUs to keep resource usage predictable.
     # Override by setting CONTAINER_CPUS in .env for manual runs.
     env = os.environ.copy()
-    env["CONTAINER_CPUS"] = "4"
+    env["CONTAINER_CPUS"] = "6"
     env["SKIP_BUILD"] = "true"
 
     try:

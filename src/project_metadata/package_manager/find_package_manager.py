@@ -11,6 +11,7 @@ def find_package_manager(
     repo_path: str,
     node_version: str,
     priority: list[str] | None,
+    skip_engines: bool = False,
 ) -> tuple[str | None, str | None]:
     """
     Attempts to identify the package manager used in a given commit by checking for the presence of lock files.
@@ -47,7 +48,8 @@ def find_package_manager(
                 # If the package manager has a specific function to extract the version, try to use it
                 if pm_info["runnable"]:
                     pm_version, pm_source = pm_info["runnable"](
-                        commit_hash, node_version, repo_path
+                        commit_hash, node_version, repo_path,
+                        skip_engines=skip_engines,
                     )
                 # If we couldn't extract a version but found the lock file, we can at least return the package manager name
                 if not pm_version:

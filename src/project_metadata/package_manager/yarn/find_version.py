@@ -7,7 +7,8 @@ YARN_LOCKFILE_V1_HEADER = "# yarn lockfile v1"
 
 
 def get_yarn_version(
-    commit_hash: str, node_version: str, repo_path: str
+    commit_hash: str, node_version: str, repo_path: str,
+    skip_engines: bool = False,
 ) -> tuple[str | None, str | None]:
     """
     Attempts to retrieve the package manager version for a given commit hash.
@@ -17,7 +18,7 @@ def get_yarn_version(
 
     # 1. Check package.json
     package_manager_version = from_package_json.get_package_manager_version(
-        "yarn", repo_path, commit_hash
+        "yarn", repo_path, commit_hash, skip_engines=skip_engines
     )
     if package_manager_version:
         return package_manager_version, "package.json"

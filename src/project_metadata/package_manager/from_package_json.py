@@ -6,7 +6,7 @@ from src.project_metadata.package_manager.parse_version import (
 
 logger = logging.getLogger(__name__)
 
-POTENTIAL_KEYS = ["engines", "volta", "packageManager"]
+DEFAULT_POTENTIAL_KEYS = ["engines", "volta", "packageManager"]
 
 
 def __get_package_manager_version_from_key(
@@ -33,18 +33,27 @@ def __get_package_manager_version_from_key(
     return None
 
 
-def get_package_manager_version(pm: str, repo_path: str, revision: str) -> str | None:
+def get_package_manager_version(
+    pm: str, repo_path: str, revision: str, skip_engines: bool = False
+) -> str | None:
     """
     Retrieves the package manager version specified in the package.json file at a given revision.
+
+    Args:
+        skip_engines: If True, skip the ``engines`` field during detection.
+            Useful when ``engines`` contains semver ranges (e.g. ``>=1.3.2``)
+            that are misinterpreted as actual versions.
     """
 
     package_json = get_file_json_content(repo_path, revision, "package.json")
     if not package_json:
         return None
 
+    potential_keys = [k for k in DEFAULT_POTENTIAL_KEYS if not (skip_engines and k == "engines")]
+
     package_manager_version = None
 
-    for key in POTENTIAL_KEYS:
+    for key in potential_keys:
         if not package_manager_version:
             package_manager_version = __get_package_manager_version_from_key(
                 pm, key, package_json
