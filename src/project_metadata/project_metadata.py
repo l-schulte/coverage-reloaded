@@ -150,6 +150,23 @@ def extract_project_metadata(
                 )
                 pm_version = f"{pm_name}@{pm_requirement_semver}"
 
+    # Apply timestamp-based package manager version overrides
+    if project_config.package_manager_version_overrides:
+        ts = int(committer_date.timestamp())
+        for override in project_config.package_manager_version_overrides:
+            if (
+                override.start_ts <= ts <= override.end_ts
+                and (override.old_version is None or pm_version == override.old_version)
+            ):
+                logger.info(
+                    f"Overriding package manager version {pm_version} -> "
+                    f"{override.new_version} for commit {commit_hash} "
+                    f"(timestamp {ts} in [{override.start_ts}, {override.end_ts}])"
+                )
+                pm_source = f"config override (was {pm_source})"
+                pm_version = override.new_version
+                break
+
     commands = find_commands(commit_hash, repo_path, workspaces)
     coverage_tools = find_coverage_tools(commit_hash, repo_path)
     lock_files = find_lock_files(commit_hash, repo_path)

@@ -125,6 +125,23 @@ class ProjectConfig:
     #: Default: ``{}`` (no minimum enforced).
     min_pm_version: Dict[str, str] = field(default_factory=dict)
 
+    #: Timestamp-based package manager version overrides.  Each entry defines
+    #: a time range ``[start_ts, end_ts]`` (inclusive on both ends) and a
+    #: condition: if ``old_version`` is set and the detected package manager
+    #: version (e.g. ``"npm@7.20.3"``) equals it, or if ``old_version`` is
+    #: omitted, the version is replaced with ``new_version``.  Useful when a
+    #: detected package manager version is known to break dependency installs
+    #: during a specific historical period.
+    #: Overrides are applied after ``package_manager_version_overwrite`` and
+    #: ``min_pm_version``.
+    #: Default: ``[]`` (no overrides).
+    #: Examples:
+    #: ``[{"start_ts": 1627914966, "end_ts": 1636403951, "old_version": "npm@7.20.3", "new_version": "npm@8"}]``
+    #: ``[{"start_ts": 1627914966, "end_ts": 1636403951, "new_version": "npm@8"}]``
+    package_manager_version_overrides: list[PackageManagerVersionOverride] = field(
+        default_factory=list
+    )
+
     #: Timestamp-based Node.js version overrides.  Each entry defines a time
     #: range ``[start_ts, end_ts]`` (inclusive on both ends) and a condition:
     #: if ``old_version`` is set and the extracted ``node_version`` (as int)
@@ -161,6 +178,30 @@ class NodeVersionOverride:
 
     #: The extracted node version (as int) to match, or ``None`` to match any.
     old_version: int | None = None
+
+
+@dataclass
+class PackageManagerVersionOverride:
+    """A single timestamp-based package manager version override rule.
+
+    When a commit's Unix timestamp falls within ``[start_ts, end_ts]``
+    (inclusive) and its detected package manager version (e.g.
+    ``"npm@7.20.3"``) equals ``old_version`` (or ``old_version`` is ``None``,
+    meaning match any), the version is replaced with ``new_version``.
+    """
+
+    #: Start of the timestamp range (inclusive).
+    start_ts: int
+
+    #: End of the timestamp range (inclusive).
+    end_ts: int
+
+    #: The replacement package manager version string (e.g. ``"npm@8"``).
+    new_version: str
+
+    #: The detected package manager version (e.g. ``"npm@7.20.3"``) to match,
+    #: or ``None`` to match any.
+    old_version: str | None = None
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -242,6 +283,13 @@ def load_config(path: str = "config.json") -> CoverageReloadedConfig:
             if overrides_raw:
                 pconf["node_version_overrides"] = [
                     NodeVersionOverride(**o) for o in overrides_raw
+                ]
+            # Convert package_manager_version_overrides from list-of-dicts to
+            # list-of-PackageManagerVersionOverride
+            pm_overrides_raw = pconf.pop("package_manager_version_overrides", None)
+            if pm_overrides_raw:
+                pconf["package_manager_version_overrides"] = [
+                    PackageManagerVersionOverride(**o) for o in pm_overrides_raw
                 ]
             projects[name] = ProjectConfig(**pconf)
         else:
