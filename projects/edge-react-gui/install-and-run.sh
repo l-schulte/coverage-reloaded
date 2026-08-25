@@ -53,7 +53,7 @@ print_header 2 "Fixing broken @fioprotocol/fiosdk git URL"
 # Only fix the broken jon-edge URL; leave working peachbits URL untouched.
 
 if $IS_YARN_MAIN_PM && [ -f yarn.lock ]; then
-    if grep -q "jon-edge/fiosdk_typescript" yarn.lock; then
+    if grep -qE '@fioprotocol/fiosdk@(git\+)?https://github\.com/jon-edge/' yarn.lock; then
         print_header 3 "Detected broken jon-edge/fiosdk_typescript URL, fixing..."
 
         # Extract version from yarn.lock and add resolution to package.json
@@ -71,7 +71,7 @@ try:
     # Find the broken jon-edge entry and extract the version
     # Pattern: \"@fioprotocol/fiosdk@https://github.com/jon-edge/...\":\n  version \"X.Y.Z\"
     match = re.search(
-        r'\"@fioprotocol/fiosdk@https://github\.com/jon-edge/[^\"]+\":\n\s+version \"([^\"]+)\"',
+        r'\"@fioprotocol/fiosdk@(git\+)?https://github\.com/jon-edge/[^\"]+\":\n\s+version \"([^\"]+)\"',
         yarn_lock
     )
     
@@ -79,7 +79,7 @@ try:
         print('Could not find @fioprotocol/fiosdk version in yarn.lock', file=sys.stderr)
         sys.exit(1)
     
-    version = match.group(1)
+    version = match.group(2)
     print(f'Found @fioprotocol/fiosdk version: {version}')
     
     # Read package.json
@@ -115,7 +115,7 @@ with open('yarn.lock', 'r') as f:
 # Remove the @fioprotocol/fiosdk entry block that references jon-edge
 # The entry starts with the quoted package name and includes all indented lines
 content = re.sub(
-    r'\"@fioprotocol/fiosdk@https://github\.com/jon-edge/[^\"]+\":\n(  [^\n]*\n)*',
+    r'\"@fioprotocol/fiosdk@(git\+)?https://github\.com/jon-edge/[^\"]+\":\n(  [^\n]*\n)*',
     '',
     content
 )
