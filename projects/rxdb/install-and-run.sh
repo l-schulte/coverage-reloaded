@@ -110,7 +110,7 @@ fi
 # ── Verify transpile output ───────────────────────────────────
 print_header 2 "Verifying transpile output"
 echo "  Node version: $(node -v)"
-echo "  c8 version: $(npx --registry=$VERDACCIO_REGISTRY c8 --version 2>&1 || echo 'unknown')"
+echo "  c8 version: $(npx --registry=$WAYPACK_REGISTRY_CURRENT c8 --version 2>&1 || echo 'unknown')"
 if [ -d "./test_tmp" ]; then
     FILE_COUNT=$(find ./test_tmp -type f | wc -l)
     echo "  test_tmp/ EXISTS — $FILE_COUNT files"
@@ -238,13 +238,13 @@ run_variant() {
     suite_start "$variant" "Running tests with DEFAULT_STORAGE=$storage"
 
     local mocha_bin="./node_modules/.bin/mocha"
-    local json_out="./test_tmp/.mocha-stats.json"
+    local json_out="./$variant"_testrun/.mocha-stats.json
 
     rm -f "$json_out"
 
     set +e
     DEFAULT_STORAGE="$storage" \
-    npx --registry="$VERDACCIO_REGISTRY" c8 \
+    npx --registry="$WAYPACK_REGISTRY_CURRENT" c8 \
     --require source-map-support/register \
     --require @babel/register \
     --reporter=lcov \

@@ -91,7 +91,7 @@ if [ -n "$TEST_COVERAGE_SCRIPT" ]; then
         rm -rf .nyc_output
         EXIT_CODE=1
     else
-        npx --registry=$VERDACCIO_REGISTRY nyc report --reporter=lcov
+        npx --registry=$WAYPACK_REGISTRY_CURRENT nyc report --reporter=lcov
     fi
 
     bash /coverage_reloaded/find-and-move-lcov.sh "test_coverage" "false" "$EXIT_CODE"

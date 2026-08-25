@@ -141,6 +141,9 @@ print_header 2 "Setting up Package Managers"
 export WAYPACK_NPM_REGISTRY="http://waypack:3000/npm/$timestamp/"
 export WAYPACK_YARN_REGISTRY="http://waypack:3000/yarn/$timestamp/"
 export VERDACCIO_REGISTRY="http://verdaccio:4873/"
+# Temporal snapshot pinned to 2026-06-01 for tools that must not float
+# to latest (e.g. c8@12 pulls ESM-only yargs, breaks Node <20).
+export WAYPACK_REGISTRY_CURRENT="http://waypack:3000/npm/1780272000/"
 
 # Use Verdaccio directly for PM self-installs — WayPack is timestamp-scoped
 # and won't have arbitrary PM versions like npm@8.0.0 cached.

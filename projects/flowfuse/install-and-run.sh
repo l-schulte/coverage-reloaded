@@ -79,10 +79,10 @@ if [ $HAS_FORGE -eq 0 ] && [ $HAS_FRONTEND -eq 0 ] && [ $HAS_UNIT -eq 0 ] && [ $
 fi
 
 if [ $HAS_NYC -eq 1 ]; then
-    COVER_TOOL=(npx --registry="$VERDACCIO_REGISTRY" nyc --reporter=lcov)
+    COVER_TOOL=(npx --registry="$WAYPACK_REGISTRY_CURRENT" nyc --reporter=lcov)
     print_header 4 "Coverage tool: nyc"
 else
-    COVER_TOOL=(npx --registry="$VERDACCIO_REGISTRY" c8 --reporter=lcov --)
+    COVER_TOOL=(npx --registry="$WAYPACK_REGISTRY_CURRENT" c8 --reporter=lcov --)
     print_header 4 "Coverage tool: c8"
 fi
 
@@ -187,7 +187,7 @@ if [ $HAS_FORGE -eq 0 ] && [ $HAS_FRONTEND -eq 0 ] && [ $HAS_UNIT -eq 0 ] && [ $
     npm install --no-save c8@7
 
     set +e
-    npx --registry=$VERDACCIO_REGISTRY c8 --reporter=lcov -- npm run test
+    npx --registry=$WAYPACK_REGISTRY_CURRENT c8 --reporter=lcov -- npm run test
     TEST_EXIT=$?
     set -e
 
