@@ -21,6 +21,9 @@
 **/logs/
 **/logs_*/
 **/repo/
+**/output*/
+**/results*/
+**/stats_output/
 
 node_modules/
 **/node_modules/
