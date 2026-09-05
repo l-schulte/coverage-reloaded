@@ -5,10 +5,21 @@ ARG NODE_VERSION=22
 
 WORKDIR /coverage_reloaded
 
-RUN apt-get update && \
-    apt-get install -y \
+# Bullseye is oldstable: its debian-security pool has been drained, so the
+# +deb11uN packages now live in the main suite. Source from there and retry
+# on flaky mirrors. (python2.7 at line 22 still resolves from bullseye main.)
+RUN rm -f /etc/apt/sources.list /etc/apt/sources.list.d/* && \
+    printf '%s\n' \
+      'deb http://deb.debian.org/debian bullseye main' \
+      > /etc/apt/sources.list && \
+    echo 'Acquire::Retries "5";' > /etc/apt/apt.conf.d/99retries && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends --allow-downgrades \
+        libc6=2.31-13+deb11u11 libc6-dev=2.31-13+deb11u11 \
+        perl-base=5.32.1-4+deb11u3 perl=5.32.1-4+deb11u3 \
         git \
         curl \
+        ca-certificates \
         wget \
         bash \
         make \
@@ -25,7 +36,7 @@ RUN apt-get update && apt-get install -y python2.7 && \
 # RUN ln -s /usr/bin/python2 /usr/local/bin/python
 
 # uv for Python 3
-RUN curl -Ls https://astral.sh/uv/install.sh | sh
+RUN curl -L https://astral.sh/uv/install.sh | sh
 ENV PATH="/root/.local/bin:$PATH"
 RUN uv python install 3.10 3.8
 
@@ -68,7 +79,8 @@ COPY helper/find-and-move-lcov.sh /coverage_reloaded/find-and-move-lcov.sh
 COPY helper/logging.sh /coverage_reloaded/logging.sh
 COPY helper/fake-time.sh /coverage_reloaded/fake-time.sh
 COPY helper/has-option.sh /coverage_reloaded/has-option.sh
-RUN chmod +x /coverage_reloaded/find-and-move-lcov.sh /coverage_reloaded/logging.sh /coverage_reloaded/fake-time.sh /coverage_reloaded/has-option.sh
+COPY helper/resolve-and-pin.sh /coverage_reloaded/resolve-and-pin.sh
+RUN chmod +x /coverage_reloaded/find-and-move-lcov.sh /coverage_reloaded/logging.sh /coverage_reloaded/fake-time.sh /coverage_reloaded/has-option.sh /coverage_reloaded/resolve-and-pin.sh
 
 COPY helper/fake-time-node.js /coverage_reloaded/fake-time-node.js
 RUN chmod +x /coverage_reloaded/fake-time-node.js

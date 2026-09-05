@@ -86,6 +86,13 @@
         },
         "vega-lite": {
             "url": "https://github.com/vega/vega-lite"
+        },
+        "openneuro": {
+            "url": "https://github.com/openneuroorg/openneuro",
+            "min_node_version": 12,
+            "node_version_overrides": [
+                { "start_ts": 0, "end_ts": 1579737759, "new_version": "10" }
+            ]
         }
     }
 }

@@ -536,6 +536,38 @@ All exit code 1 with valid (partial) coverage — never bails.
 
 ---
 
+# openneuro/openneuro
+
+Yarn-workspaces monorepo (`packages/*`, `services/*`). Package manager evolves npm/yarn@1 (early) → yarn berry/PnP (~2021+). Runners: `jest` (dominant all eras), `vitest` (newer packages from ~2023), some `mocha`. Root `test` dispatches per-package suites; we run the root `jest`/`vitest` directly with coverage.
+
+`yarn build` (`tsc -b`) emits each workspace package's `dist/` — required for PnP import resolution of `@openneuro/*`. Run **non-fatal**: pre-existing type errors are logged and ignored so tests still run and dist is emitted.
+
+## Config
+
+```json
+"openneuro": {
+    "url": "https://github.com/openneuroorg/openneuro"
+}
+```
+
+## Checklist
+- [x] 100 done (99/100)
+- [x] failed tests doublechecked (env vs test-code classified across 100-log review)
+- [ ] complete run 
+
+## Known Test Failures
+
+All non-bail; exit 1 → valid (partial) coverage. A failing test still executes the code under test, so it counts toward line coverage — only "suite failed to run" cases lose coverage for that file.
+
+**Environment fixes applied (no longer failures):** `tsc -b` build made non-fatal (dist still emitted, ~10 commits); `bids-validator` local `file:` dep rewritten to published `1.6.2` (2 commits); `ELASTICSEARCH_CONNECTION`/`JWT_SECRET` exported (`71eff390…`, `2cc91510…`); vitest `../libs/*` resolution fixed by always building first (`1ca85116…`).
+
+**Pre-existing test-code (accept as valid partial, do NOT fix):**
+- jest `moduleNameMapper` maps `@openneuro/components/search-page` to a nonexistent path (`8cd69392…`); 1 suite fails, 387 pass.
+- `enzyme@3.9.0` + `react@17` `mount()` crash (`89e21602…`); snapshot mismatches in `*.spec` suites (`8719e33…`, `0915c6c…`, `9396eb9…`).
+- Recent 100-commit review: 12 exit-code-1 soft failures, all genuine dev-faced issues (assertion/snapshot mismatches + transitional commits with missing modules / empty suites): `2da0686`, `561557a`, `60139d3`, `ea1fc065`, `6c325812`, `979433a`, `ddbf1138`, `1ab46e07`, plus time-relative snapshot drifts `280f862`, `9b4898db`. `49aea993` (vite-node `.js`→`.ts`, fixup commit follows) and `1ecc8b11` cli `npm:` Deno-specifier imports unresolved by vitest (toolchain gap — accept no cli coverage).
+
+---
+
 # Instrumentation issues
 
 # alphagov/govuk-frontend
