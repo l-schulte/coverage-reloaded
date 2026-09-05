@@ -105,5 +105,17 @@ See `@ref/agents-design-guide.md` for full contract, suite markers, era detectio
 - Detect what to run by inspecting the **checked-out commit** — not dates
 - Wrap every suite with `suite_start` / `suite_end`
 - Pin registries: project deps → `$WAYPACK_NPM_REGISTRY`, our tooling → `$VERDACCIO_REGISTRY`
-- `--maxWorkers=1` / `--runInBand` to avoid parallelism failures
+- `--maxWorkers=1` / `--runInBand` preferred; `--maxWorkers=2` acceptable to prevent timeout errors in slow suites
 - Use `command_changes.csv` during design, not at runtime
+
+---
+
+## 7. Debugging methodology
+
+When asked to investigate a failing test or error:
+
+1. **Read the error log first** — extract the exact test name, error type, and line numbers.
+2. **Trace the config chain** — follow imports/configs to identify the root subsystem (DB, network, build tool).
+3. **Report findings with ONE actionable next step** — a single command the user can run to confirm or eliminate the primary hypothesis.
+
+**Do not** produce long hypothetical reasoning trees. Lead with a 3-sentence summary of what you found and what to run next. Hypotheses are useful only when paired with a concrete verification step.

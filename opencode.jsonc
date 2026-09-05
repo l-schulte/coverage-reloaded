@@ -1,30 +1,19 @@
 {
+  "$schema": "https://opencode.ai/config.json",
   "instructions": ["AGENTS.md", "ref/*.md"],
 
   "command": {
-    "debug-shell": {
-      "template": "Drop into a container to debug project $1 at commit $2. Use: bash docker-run.sh <project> shell <hash> <timestamp> <pm> <node> — look up the missing params from the project's commits.csv.",
-      "description": "Drop into container shell for debugging a commit"
+    "container-debug": {
+      "template": "Project $1 at commit $2: debug the test environment. Use the container-debug skill: read projects/$1/commits.csv to find timestamp, package_manager, and node_version for commit $2, then run bash docker-run.sh $1 shell $2 <timestamp> <pm> <node>. Inside the container, modify install-and-run.sh to interrupt at the desired point with 'exit 0', then run bash execute.sh to set up the environment and debug interactively. See .opencode/skills/container-debug.md for details.",
+      "description": "Debug environment setup for a specific commit in a container"
     },
-    "single-commit": {
-      "template": "Run coverage collection for a single commit. Project: $1, commit: $2. Use: python main.py --project $1 --mode single-commit --commit-hash $2",
-      "description": "Run coverage for a single commit"
+    "log-review": {
+      "template": "Review the most recent log files for project $1. Use the log-review skill: read projects/$1/logs/*.log and projects/$1/logs/*.error, then group and summarize hard failures (coverage collection aborted) and soft failures (test failures) by commit. Analyze which failures are due to environment setup issues (we fix those) versus test code issues (if the developers faced these too, we do not fix them).",
+      "description": "Analyze and summarize log files for a project to identify failures"
     },
-    "coverage-collect": {
-      "template": "Run coverage collection for all pending commits of project $1. Use: python main.py --project $1 --mode coverage-only",
-      "description": "Run coverage collection for pending commits"
-    },
-    "commits-scan": {
-      "template": "Generate commits.csv and command_changes.csv for project $1. Use: python main.py --project $1 --mode commits-only",
-      "description": "Scan commits for a new project"
-    },
-    "inspect-commit": {
-      "template": "Show me the contents of file $3 in project $1 at commit $2. Use: git -C projects/$1/repo show $2:$3",
-      "description": "Inspect a file at a specific commit"
-    },
-    "validate-tests": {
-      "template": "Run the Python unit tests in tests/ with pytest --project is not needed, these are tests for our own tooling.",
-      "description": "Run Python unit tests"
+    "new-project": {
+      "template": "Project $1 was just added. Conduct a preliminary feasibility assessment. Use the new-project skill: read projects/$1/command_changes.csv to understand how commands progressed troughout the relevant timeframe (01-2020 to 12-2025). Group commands by type (unit test, integration tests, e2e test, important setup). Propose how coverage can be collected for unit and integration tests.",
+      "description": "Assess the feasibility of a new project for coverage analysis"
     }
   }
 }
