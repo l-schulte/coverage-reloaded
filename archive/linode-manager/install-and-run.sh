@@ -372,13 +372,13 @@ run_native_command() {
         vitest)
             full_cmd="$base_cmd"
             [ -n "$passthrough" ] && full_cmd="$full_cmd $passthrough"
-            full_cmd="$full_cmd --run --coverage.enabled --coverage.reporter=lcov --coverage.provider=istanbul --coverage.reportsDirectory=$COVERAGE_DIR --coverage.reportOnFailure --bail=0"
+            full_cmd="$full_cmd --run --coverage.enabled --coverage.reporter=lcov --coverage.provider=istanbul --coverage.reportsDirectory=$COVERAGE_DIR --coverage.reportOnFailure --bail=0 --maxWorkers=2"
             suite_start "$label" "Running $label (vitest native coverage)"
             ;;
         jest|jest-wrapper)
             full_cmd="$base_cmd"
             [ -n "$passthrough" ] && full_cmd="$full_cmd $passthrough"
-            full_cmd="$full_cmd --coverage --coverageReporters=lcov --coverageDirectory=$COVERAGE_DIR --watchAll=false --bail=0"
+            full_cmd="$full_cmd --coverage --coverageReporters=lcov --coverageDirectory=$COVERAGE_DIR --watchAll=false --bail=0 --maxWorkers=2"
             suite_start "$label" "Running $label (jest native coverage)"
             ;;
     esac

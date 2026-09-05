@@ -340,15 +340,28 @@ if [ "$HAS_NODE_FOUNDATIONDB" = "true" ]; then
             > /tmp/fdb-start.log 2>&1 &
     fi
     # Wait for FDB to be ready
+    FDB_READY=false
     for i in $(seq 1 30); do
         if fdbcli --exec "status" > /dev/null 2>&1; then
             print_header 4 "FoundationDB ready (attempt $i)"
+            FDB_READY=true
             break
         fi
         sleep 1
     done
-    echo "  FoundationDB startup log:"
-    head -50 /tmp/fdb-start.log 2>/dev/null || echo "  (no log output)"
+
+    if [ "$FDB_READY" = "false" ]; then
+        print_header 4 "ERROR: FoundationDB did not become ready within 30s"
+        echo "  Full FoundationDB startup log:"
+        cat /tmp/fdb-start.log 2>/dev/null || echo "  (no log output)"
+        echo ""
+        echo "  FoundationDB config:"
+        cat /etc/foundationdb/foundationdb.conf 2>/dev/null || echo "  (no config found)"
+        exit 1
+    fi
+
+    echo "  FoundationDB startup log (last 50 lines):"
+    tail -50 /tmp/fdb-start.log 2>/dev/null || echo "  (no log output)"
     run_variant "foundationdb" "foundationdb" "$EXPOSE_GC_FLAG"
     # Stop FDB server
     if [ -f /usr/lib/foundationdb/fdbmonitor ]; then
@@ -364,16 +377,63 @@ fi
 if [ "$HAS_NODE_MONGODB" = "true" ]; then
     print_header 2 "Starting MongoDB container via npm run mongodb:start"
     npm run mongodb:start > /tmp/mongodb-start.log 2>&1 &
-    # Wait for MongoDB to be ready
-    for i in $(seq 1 30); do
+    MONGODB_PID=$!
+
+    # Wait for MongoDB to be ready (90s — image pull can be slow on cold cache)
+    MONGODB_READY=false
+    for i in $(seq 1 90); do
         if docker exec rxdb-mongodb mongosh --eval "db.runCommand({ ping: 1 })" > /dev/null 2>&1; then
             print_header 4 "MongoDB ready (attempt $i)"
+            MONGODB_READY=true
             break
         fi
         sleep 1
     done
-    echo "  MongoDB startup log (first 100 lines):"
-    head -100 /tmp/mongodb-start.log 2>/dev/null || echo "  (no log output)"
+
+    if [ "$MONGODB_READY" = "false" ]; then
+        print_header 4 "ERROR: MongoDB did not become ready within 90s"
+        echo "  Full MongoDB startup log:"
+        cat /tmp/mongodb-start.log 2>/dev/null || echo "  (no log output)"
+        echo ""
+        echo "  Container status:"
+        docker ps -a --filter name=rxdb-mongodb 2>/dev/null || echo "  (docker ps failed)"
+        echo ""
+        echo "  Docker daemon log (last 30 lines):"
+        tail -30 /var/log/dockerd.log 2>/dev/null || echo "  (no docker daemon log)"
+        exit 1
+    fi
+
+    echo "  MongoDB startup log (last 50 lines):"
+    tail -50 /tmp/mongodb-start.log 2>/dev/null || echo "  (no log output)"
+
+    # Map container hostname to localhost so the driver can resolve it.
+    # rs.initiate() uses the container hostname (e.g. 6d523ca560ff) as the
+    # member host. The driver tries to connect to that hostname on reconnect,
+    # but it's not resolvable from the main container. Mapping it to 127.0.0.1
+    # makes it resolve to localhost where the port-forwarded MongoDB is reachable.
+    MDB_HOSTNAME=$(docker inspect -f '{{.Config.Hostname}}' rxdb-mongodb 2>/dev/null)
+    if [ -n "$MDB_HOSTNAME" ]; then
+        echo "  Mapping $MDB_HOSTNAME -> 127.0.0.1 in /etc/hosts"
+        echo "127.0.0.1 $MDB_HOSTNAME" >> /etc/hosts
+    fi
+
+    # Initialize replica set — matches CI flow (main.yml line 354).
+    # mongod --replSet rs0 starts uninitialized; the tester calls
+    # replSetInitiate (idempotent) and waits for PRIMARY election.
+    if [ -f "./config/mongodb-connection-tester.js" ]; then
+        print_header 3 "Initializing MongoDB replica set via connection tester"
+        MONGODB_INIT_RETRIES=3
+        for attempt in $(seq 1 $MONGODB_INIT_RETRIES); do
+            if node ./config/mongodb-connection-tester.js; then
+                break
+            fi
+            print_header 4 "WARNING: Connection tester failed (attempt $attempt/$MONGODB_INIT_RETRIES), retrying in 5s"
+            sleep 5
+        done
+    else
+        print_header 4 "WARNING: mongodb-connection-tester.js not found, skipping replica set init"
+    fi
+
     run_variant "mongodb" "mongodb" "$EXPOSE_GC_FLAG"
     npm run mongodb:stop > /dev/null 2>&1 || true
 fi
