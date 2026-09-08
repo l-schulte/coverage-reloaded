@@ -1,0 +1,34 @@
+{
+  "general": {
+    "patterns": [
+      "FAIL\\s",
+      "✕",
+      "✗",
+      "●",
+      "\\bAssertionError",
+      "Error:",
+      "\\bfailed\\b"
+    ],
+    "exclude": [
+      "●\\s*Console",
+      "Test Suites:",
+      "Tests:",
+      "Snapshots:"
+    ]
+  },
+  "suites": {
+    "_example_suite_": {
+      "remove_patterns": ["Error:", "\\bfailed\\b"],
+      "add_exclude": ["snapshots failed", "worker process has failed"]
+    }
+  },
+  "auto_classify": [
+    {
+      "match": "REPLACE_ME_with_a_regex_matching_the_normalized_error_body",
+      "label": "problematic",
+      "note": "jsdom not configured for suite",
+      "lines": 5,
+      "id": "auto-assigned-when-the-rule-is-created"
+    }
+  ]
+}
