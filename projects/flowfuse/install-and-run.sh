@@ -3,12 +3,61 @@
 set -e
 
 # Increase Node.js heap size to avoid WebAssembly out-of-memory errors in worker threads (vitest/tinypool).
-export NODE_OPTIONS="--max-old-space-size=4096"
+export NODE_OPTIONS="--max-old-space-size=8192 --require /coverage_reloaded/pool-shim.js"
 
 source /coverage_reloaded/logging.sh
 source /coverage_reloaded/has-option.sh
 
+# mocha_check_passing
+# Reads a mocha run's output from stdin, streams it through live (so it still reaches
+# the run log), and checks for an "N passing" summary. Returns 0 if the run completed
+# and 1 if it did NOT (heap OOM, suite-aborting TypeError, worker death, etc.) — on an
+# incomplete run it discards any partial lcov.info so find-and-move-lcov.sh fails hard
+# instead of emitting misleading partial coverage. Reusable across mocha-based suites:
+#   npm run test:unit:forge -- --exit --no-bail 2>&1 | mocha_check_passing
+mocha_check_passing() {
+    local out_file
+    out_file=$(mktemp)
+    tee "$out_file"
+    if ! grep -qE '^[[:space:]]*[0-9]+ passing' "$out_file" 2>/dev/null; then
+        echo "  [NFO] mocha run did not complete (no passing-summary) — discarding partial coverage and failing hard"
+        find "$REPOPATH" -name lcov.info -not -path '*/node_modules/*' -delete
+        rm -f "$out_file"
+        return 1
+    fi
+    rm -f "$out_file"
+    return 0
+}
+
 cd /coverage_reloaded/repo
+
+# --- License fix (coverage_reloaded) ----------------------------------------
+# 2022-era history ships EE test suites that supply a license (e.g. "Ben Hardill")
+# signed by the project's CI dev key, which does NOT match the dev key committed
+# to the repo. In our env applyLicense() therefore throws "Failed to apply license:
+# invalid signature" and the app crashes at startup, aborting the whole forge suite.
+# The repo's own commented-out developer license ("devLicense", FlowForge Inc.
+# Development) IS signed by the committed key and verifies at every affected commit.
+#
+# Fix = FALLBACK (not force): when a suite supplies a license that fails to validate,
+# substitute the valid bundled devLicense so the app starts with an active license
+# (matching the project's real CI, where that supplied license is valid). When a
+# suite supplies NO license we leave it unlicensed (CE mode), so CE auth-ACL tests
+# still expect 401 and test:system's "First run setup" (body.license === false) stays
+# green. This resolves all three failure modes (startup crash; EE tests getting 401;
+# CE tests getting 200). Applied to every forge suite; never reverted. Verified
+# uniform across all 869 affected commits (devLicense verifies against the committed
+# dev key at each; the only license-rejection test, loader_spec, checks verifyLicense
+# directly and is untouched).
+apply_license_fix() {
+    if [ -f forge/licensing/index.js ] && grep -q "let userLicense = await app.settings.get('license')" forge/licensing/index.js; then
+        print_header 4 "License fix: fall back to bundled devLicense when a supplied license is invalid (forge/licensing/index.js)"
+        # 1) make the bundled devLicense available in module scope
+        sed -i "s|^    // const devLicense = |    const devLicense = |" forge/licensing/index.js
+        # 2) in the startup apply, fall back to devLicense instead of throwing
+        sed -i "s|throw new Error('Failed to apply license: ' + err.toString())|app.log.warn('Failed to apply supplied license: ' + err.toString() + '; falling back to bundled devLicense'); await applyLicense(devLicense)|" forge/licensing/index.js
+    fi
+}
 
 if [ ! -f package.json ]; then
     print_header 2 "NOT APPLICABLE" "No package.json at this commit, no test infrastructure to run"
@@ -26,6 +75,27 @@ elif $IS_NPM_MAIN_PM; then
 else
     print_header 2 "No main package manager detected... raising error."
     exit 1
+fi
+
+# --- Native module rebuild (sqlite3) -----------------------------------------
+# In our sandbox the prebuilt native addon for sqlite3 is sometimes missing or
+# built against an incompatible glibc / Node-ABI, surfacing as
+# "Could not locate the bindings file" or "GLIBC_2.x not found" and crashing the
+# forge/system suites (lost coverage). Rebuild affected native modules from
+# source *only when their binding fails to load*, so the ~tens of thousands of
+# runs that already work are not recompiled.
+if [ -d node_modules/sqlite3 ]; then
+    print_header 2 "Verifying sqlite3 native binding"
+    if ! node -e "require('sqlite3')" >/dev/null 2>&1; then
+        print_header 4 "sqlite3 binding unloadable — rebuilding from source"
+        # Force node-pre-gyp to compile from source instead of re-downloading a
+        # prebuilt binary. Prebuilts are often built against a newer glibc than
+        # our base image (bullseye, glibc 2.31) and fail to load with
+        # "GLIBC_2.x not found". A source build links against the image's glibc.
+        npm_config_build_from_source=true npm rebuild sqlite3
+    else
+        print_header 4 "sqlite3 binding OK — no rebuild needed"
+    fi
 fi
 
 print_header 2 "Detecting test scripts and infrastructure"
@@ -97,10 +167,11 @@ print_header 2 "Running tests with coverage"
 
 # --- test:unit:forge (mocha/nyc or mocha/c8) ---
 if [ $HAS_FORGE -eq 1 ]; then
+    apply_license_fix
     suite_start "forge-unit" "Running test:unit:forge"
     set +e
-    "${COVER_TOOL[@]}" npm run test:unit:forge -- --exit
-    FORGE_EXIT=$?
+    "${COVER_TOOL[@]}" npm run test:unit:forge -- --exit --no-bail 2>&1 | mocha_check_passing
+    FORGE_EXIT=${PIPESTATUS[0]}
     set -e
 
     bash /coverage_reloaded/find-and-move-lcov.sh "forge-unit" "false" "$FORGE_EXIT"
@@ -153,6 +224,7 @@ if [ $HAS_UNIT -eq 1 ]; then
         print_header 4 "NOTICE: test:unit skipped because test:unit:forge or test:unit:frontend already covers unit tests"
     else
         suite_start "unit" "Running test:unit"
+        apply_license_fix
         set +e
         "${COVER_TOOL[@]}" npm run test:unit -- --exit
         UNIT_EXIT=$?
@@ -169,8 +241,8 @@ fi
 if [ $HAS_SYSTEM -eq 1 ]; then
     suite_start "system" "Running test:system"
     set +e
-    "${COVER_TOOL[@]}" npm run test:system -- --exit
-    SYSTEM_EXIT=$?
+    "${COVER_TOOL[@]}" npm run test:system -- --exit --no-bail 2>&1 | mocha_check_passing
+    SYSTEM_EXIT=${PIPESTATUS[0]}
     set -e
 
     bash /coverage_reloaded/find-and-move-lcov.sh "system" "false" "$SYSTEM_EXIT"

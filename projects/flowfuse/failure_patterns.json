@@ -1,0 +1,1274 @@
+{
+  "general": {
+    "patterns": [
+      "FAIL\\s",
+      "\u2715",
+      "\u2717",
+      "\u25cf",
+      "\\bAssertionError",
+      "Error:",
+      "\\bfailed\\b"
+    ],
+    "exclude": [
+      "\u25cf\\s*Console",
+      "Test Suites:",
+      "Tests:",
+      "Snapshots:"
+    ]
+  },
+  "suites": {
+    "_example_suite_": {
+      "remove_patterns": [
+        "Error:",
+        "\\bfailed\\b"
+      ],
+      "add_exclude": [
+        "snapshots failed",
+        "worker process has failed"
+      ]
+    }
+  },
+  "auto_classify": [
+    {
+      "match": "Error:\\ Timeout\\ of\\ \\d+ms\\ exceeded\\.\\ For\\ async\\ tests\\ and\\ hooks,\\ ensure\\ \"done\\(\\)\"\\ is\\ called;",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "ef08aa509c80"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ undefined\\ to\\ exist",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "0b2b827ecf34"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ propert",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "7d497e83efe1"
+    },
+    {
+      "match": "Error:\\ Failed\\ to\\ apply\\ license:\\ JsonWebTokenError:\\ invalid\\ signature",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "167327ed2117"
+    },
+    {
+      "match": "ERROR:\\ Failed\\ to\\ start\\ container\\ .*:\\ Error:\\ failing\\ to\\ start\\ project",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "5eeffb7432e8"
+    },
+    {
+      "match": "\"after\\ each\"\\ hook\\ for\\ \"Receive\\ charge\\.failed\\ callback\"",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "94a4472e957c"
+    },
+    {
+      "match": "Error:\\ ERR_AVVIO_PLUGIN_TIMEOUT:\\ plugin\\ did\\ not\\ start\\ in\\ time",
+      "label": "acceptable",
+      "note": "Benign wall-clock flake: cold-start exceeds the default 10s avvio + 2s/5s/10s mocha timeouts under nyc instrumentation + parallel-worker contention. No missing service (sqlite in-memory, no network). Non-deterministic; same commit self-heals on re-run (proven for 63410127). Upstream later raised both timeouts. Not a code defect. Reevaluated 2026-09-08.",
+      "lines": 1,
+      "id": "a3bb51c92e01"
+    },
+    {
+      "match": "\\+\\ expected\\ \\-\\ actual",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "6905805292f1"
+    },
+    {
+      "match": "message:\\ 'Route\\ POST:/api/v1/devices\\ not\\ found',\\\nerror:\\ 'Not\\ Found',\\\nstatusCode:\\ 404\\\n\\}\\ to\\ have\\ property\\ id",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "8740bb1b8b17"
+    },
+    {
+      "match": "Error:\\ The\\ content\\-type\\ of\\ the\\ response\\ is\\ not\\ application/json",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "ba212b75bc8e"
+    },
+    {
+      "match": "message:\\ 'Route\\ PUT:/api/v1/devices/undefined\\ not\\ found',\\\nerror:\\ 'Not\\ Found',\\\nstatusCode:\\ 404\\\n\\}\\ to\\ have\\ property\\ project",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "39f7b11ea9f2"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ Object\\ \\{",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "7d078d925707"
+    },
+    {
+      "match": "SequelizeValidationError:\\ notNull\\ Violation:\\ Device\\.credentialSecret\\ cannot\\ be\\ null",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "201e345b39e5"
+    },
+    {
+      "match": "ERROR:\\ Failed\\ to\\ start:\\ SequelizeDatabaseError:\\ SQLITE_ERROR:\\ no\\ such\\ table:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "62e44e7e2ac1"
+    },
+    {
+      "match": "parent:\\ \\[Error:\\ SQLITE_ERROR:\\ no\\ such\\ table:\\ .*\\]\\ \\{",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "1fddcc17074a"
+    },
+    {
+      "match": "FastifyError:\\ Reply\\ was\\ already\\ sent\\.",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "bd0cf8390c23"
+    },
+    {
+      "match": "Error:\\ SQLITE_MISUSE:\\ Database\\ handle\\ is\\ closed",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "c9a9584289d0"
+    },
+    {
+      "match": "Error:\\ WHERE\\ parameter\\ \"id\"\\ has\\ invalid\\ \"undefined\"\\ value",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "e94ff45e8860"
+    },
+    {
+      "match": "FastifyError:\\ Promise\\ may\\ not\\ be\\ fulfilled\\ with\\ 'undefined'\\ when\\ statusCode\\ is\\ not\\ 204",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "3e0871d92e8e"
+    },
+    {
+      "match": "ERROR:\\ Failed\\ to\\ start:\\ Error:\\ Unrecognised\\ scope\\ requested:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "35a7d2a43d78"
+    },
+    {
+      "match": "\u2714\\ Receive\\ charge\\.failed\\ callback",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "2e8142553880"
+    },
+    {
+      "match": "ERROR:\\ Failed\\ to\\ start:\\ SequelizeUniqueConstraintError:\\ Validation\\ error",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "5eeff154d3b4"
+    },
+    {
+      "match": "Error:\\ Cannot\\ create\\ team\\ without\\ TeamTypeId",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "07a0eeb557df"
+    },
+    {
+      "match": "SyntaxError:\\ Unexpected\\ identifier",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "8244e6fcef8c"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ '.*'\\ to\\ match",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "9a306751a140"
+    },
+    {
+      "match": "Error:\\ allowed\\ team\\ user\\ limit\\ to\\ be\\ exceeded",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "52a50ebe386a"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ Array\\ \\[",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "cfeecd4a86b1"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ set\\ properties\\ of\\ undefined\\ \\(setting\\ '.*'\\)",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "73d5004445a0"
+    },
+    {
+      "match": "SequelizeValidationError:\\ notNull\\ Violation:\\ AccessToken\\.scope\\ cannot\\ be\\ null",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "fb001e4cadf3"
+    },
+    {
+      "match": "\\[2026\\-08\\-03T17:31:13\\.495Z\\]\\ ERROR:\\ Failed\\ to\\ start\\ container\\ .*:\\ Error:\\ Name\\ already\\ exists",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "5b1d18ba1132"
+    },
+    {
+      "match": "message:\\ 'password\\ change\\ failed'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "2b787708188f"
+    },
+    {
+      "match": "TypeError:\\ The\\ \"data\"\\ argument\\ must\\ be\\ of\\ type\\ string\\ or\\ an\\ instance\\ of\\ Buffer,\\ TypedArray,\\ or\\ DataView\\.\\ Received\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "68c26f45af5c"
+    },
+    {
+      "match": "TypeError:\\ app\\..*\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "4434ced52916"
+    },
+    {
+      "match": "\u2714\\ Provides\\ a\\ logger\\ for\\ a\\ failed\\ login\\ attempt",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "4eef0dd95f69"
+    },
+    {
+      "match": "ERROR:\\ Failed\\ to\\ start\\ project\\ .*:\\ Error:\\ failing\\ to\\ start\\ project",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "5ce277380de6"
+    },
+    {
+      "match": "SQLITE_CONSTRAINT:\\ FOREIGN\\ KEY\\ constraint\\ failed",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "7c9003c82875"
+    },
+    {
+      "match": "46\\)\\ Provides\\ a\\ logger\\ for\\ a\\ failed\\ login\\ attempt",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "be72999887d8"
+    },
+    {
+      "match": "Failed\\ to\\ log\\ project\\ scope\\ audit\\ event\\ project\\.start\\-failed\\ Error:\\ ConnectionManager\\.getConnection\\ was\\ called\\ after\\ the\\ connection\\ manager\\ was\\ closed!",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "f8a67deb7c59"
+    },
+    {
+      "match": "ERROR:\\ Failed\\ to\\ start:\\ Error:\\ /lib/x86_64\\-linux\\-gnu/libc\\.so\\.6:\\ version\\ `GLIBC_2\\.33'\\ not\\ found",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "62e98d789375"
+    },
+    {
+      "match": "Error:\\ /lib/x86_64\\-linux\\-gnu/libc\\.so\\.6:\\ version\\ `GLIBC_2\\.33'\\ not\\ found\\ \\(required\\ by\\ node_modules/sqlite3/lib/binding/napi\\-v6\\-linux\\-glibc\\-x64/node_sqlite3\\.node\\)",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "623390cf2a41"
+    },
+    {
+      "match": "SyntaxError:\\ Unexpected\\ token\\ '\\}'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "71c4f6b564be"
+    },
+    {
+      "match": "charge\\.failed",
+      "label": "acceptable",
+      "note": "The 'before each' hook for 'Receive charge.failed callback' is a label artifact: the webhook test needs no Stripe key/mock and passes at healthy commits. At the failing commits the app fails to boot for unrelated commit-inherent reasons (e.g. 'device:edit-env' scope error / User.js SyntaxError), which cascade into this hook. Genuine historic failure, not env-caused. Reevaluated 2026-09-08.",
+      "lines": 0,
+      "id": "13508439e73f"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\[Promise\\]\\ to\\ be\\ rejected\\ with\\ a\\ message\\ matching\\ /Problem\\ with\\ setting\\ up\\ Billing/,\\ but\\ got\\ 'Problem\\ adding\\ project\\ to\\ subscription'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "0f843fd72c14"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\[Promise\\]\\ to\\ be\\ rejected",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "11cdfe009378"
+    },
+    {
+      "match": "SequelizeValidationError:\\ notNull\\ Violation:\\ Subscription\\.status\\ cannot\\ be\\ null",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "da9689fed0bc"
+    },
+    {
+      "match": "TypeError:\\ user\\.teamCount\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "e0999b0a18b6"
+    },
+    {
+      "match": "TypeError:\\ app\\.db\\.controllers\\.Subscription\\.freeTrialsEnabled\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "890d8c319754"
+    },
+    {
+      "match": "ERROR:\\ AUDIT:\\ event:\\ .*,",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "3fa420b31870"
+    },
+    {
+      "match": "RangeError:\\ Invalid\\ string\\ length",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "8153a5f056b9"
+    },
+    {
+      "match": "SQLITE_MISUSE:\\ Database\\ is\\ closed",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "e18f6bda8718"
+    },
+    {
+      "match": "Error:\\ 5f21c2e6\\-a01b\\-4b07\\-ae79\\-85d052c2d4ee\\ not\\ found",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "2aa3790bda2e"
+    },
+    {
+      "match": "Error:\\ Cannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./db/models/ProjectSettings'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "c014ae8c7efc"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ undefined\\ to\\ be\\ 'billed'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "94b2e58830d0"
+    },
+    {
+      "match": "Error:\\ Cannot\\ delete\\ team\\ that\\ owns\\ projects",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "8b6124e28397"
+    },
+    {
+      "match": "Uncaught\\ TypeError:\\ Cannot\\ set\\ properties\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "3958895d1e22"
+    },
+    {
+      "match": "done\\(\\)\\ called\\ multiple\\ times",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "0d2e4a9fef23"
+    },
+    {
+      "match": "SyntaxError:\\ Unexpected\\ token\\ '\\?'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "b148cc9cff17"
+    },
+    {
+      "match": "TypeError:\\ project\\.updateSetting\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "10b7336b26fd"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ true\\ to\\ be\\ false",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "e98269d0c88c"
+    },
+    {
+      "match": "Error:\\ able\\ to\\ create\\ .*\\ that\\ exceeds\\ limit",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "e9c03abe5897"
+    },
+    {
+      "match": "TypeError:\\ licenseDetails\\.should\\.have\\.property\\(\\.\\.\\.\\)\\.and\\.be\\.a\\.string\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "ae21470a68df"
+    },
+    {
+      "match": "Error:\\ ConnectionManager\\.getConnection\\ was\\ called\\ after\\ the\\ connection\\ manager\\ was\\ closed!",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "0845a5f0f3c3"
+    },
+    {
+      "match": "JavaScript\\ heap\\ out\\ of\\ memory",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "5dd28a050785"
+    },
+    {
+      "match": "SyntaxError:\\ Identifier\\ 'billingUrl'\\ has\\ already\\ been\\ declared",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "ead70ebb4ef7"
+    },
+    {
+      "match": "ReferenceError:\\ changes\\ is\\ not\\ defined",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "fbc9f9636bd7"
+    },
+    {
+      "match": "SQLITE_ERROR:\\ index\\ .*\\ already\\ exists",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "99c8ebae4fe5"
+    },
+    {
+      "match": "parent:\\ \\[Error:\\ SQLITE_ERROR:\\ no\\ such\\ table:\\ TeamTypes\\]\\ \\{",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "e26c96736cec"
+    },
+    {
+      "match": "TypeError:\\ LRU\\ is\\ not\\ a\\ constructor",
+      "label": "acceptable",
+      "note": "Genuine 1-commit regression: Dependabot bumped lru-cache 8->9 (v9 dropped the default export, so 'new LRU()' throws). Fixed next commit (78638027) by using the named export. Deterministic, commit-intrinsic; patching would mask a bug-introducing commit and bias the exposure variable. Not env-caused. Reevaluated 2026-09-08.",
+      "lines": 0,
+      "id": "3ab695a205c4"
+    },
+    {
+      "match": "parent:\\ \\[Error:\\ SQLITE_ERROR:\\ no\\ such\\ table:\\ MetaVersions\\]\\ \\{",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "8e721bb0bceb"
+    },
+    {
+      "match": "Error:\\ Param\\ instanceId\\ is\\ required\\ when\\ creating\\ a\\ new\\ pipeline\\ stage",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "22e0b6113ace"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ undefined\\ to\\ be\\ \\d+",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "0f975ac22b6e"
+    },
+    {
+      "match": "ReferenceError:\\ accepts\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "a34b54458ece"
+    },
+    {
+      "match": "Error:\\ SQLITE_ERROR:\\ no\\ such\\ table:\\ .*d",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "3cf569a28ec2"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ User\\ \\{",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "2f45b583cfa7"
+    },
+    {
+      "match": "TypeError:\\ app\\.db\\.controllers\\.Project\\.reEncryptCredentials\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "7821203622bd"
+    },
+    {
+      "match": "RangeError:\\ Invalid\\ key\\ length",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "e845bdd01ee2"
+    },
+    {
+      "match": "Error:\\ Cannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./lib/decryptCreds'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "fd437dcc8e70"
+    },
+    {
+      "match": "SQLITE_ERROR:\\ table\\ .*\\ has\\ no\\ column\\ named\\ enabled",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "7adb682909c2"
+    },
+    {
+      "match": "Error:\\ Unrecognised\\ scope\\ requested:\\ '.*'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "44b8b7e3d413"
+    },
+    {
+      "match": "Error:\\ Unrecognised\\ scope\\ requested:\\ 'device:edit-env'",
+      "label": "acceptable",
+      "note": "Genuine transient RBAC defect (Aug 2022): route requires a scope not yet present in forge/routes/auth/permissions.js registry at that commit. Not env-caused. Reevaluated 2026-09-08.",
+      "lines": 0,
+      "id": "5c0ffee001"
+    },
+    {
+      "match": "Error:\\ Unrecognised\\ scope\\ requested:\\ 'device:edit-env-only'",
+      "label": "acceptable",
+      "note": "Genuine transient RBAC defect (Aug 2022): route requires a scope not yet present in forge/routes/auth/permissions.js registry at that commit. Not env-caused. Reevaluated 2026-09-08.",
+      "lines": 0,
+      "id": "5c0ffee002"
+    },
+    {
+      "match": "Error:\\ Unrecognised\\ scope\\ requested:\\ 'project:member'",
+      "label": "acceptable",
+      "note": "Genuine transient RBAC defect (Aug 2022): route requires a scope not yet present in forge/routes/auth/permissions.js registry at that commit. Not env-caused. Reevaluated 2026-09-08.",
+      "lines": 0,
+      "id": "5c0ffee003"
+    },
+    {
+      "match": "Error:\\ WHERE\\ parameter\\ \"key\"\\ has\\ invalid\\ \"undefined\"\\ value",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "5da0a5507a50"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ null\\ to\\ exist",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "1bb730029ed9"
+    },
+    {
+      "match": "SyntaxError:\\ Unexpected\\ token\\ <\\ in\\ JSON\\ at\\ position\\ 0",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "b7e6ac574c41"
+    },
+    {
+      "match": "TypeError:\\ device\\.toJSON\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "de6dcaf74ae2"
+    },
+    {
+      "match": "ReferenceError:\\ body\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "95f80b57fc87"
+    },
+    {
+      "match": "SyntaxError:\\ Unexpected\\ end\\ of\\ input",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "3789d812870a"
+    },
+    {
+      "match": "Error:\\ A\\ metric\\ with\\ the\\ name\\ process_cpu_user_seconds_total\\ has\\ already\\ been\\ registered\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "b1355794f3ad"
+    },
+
+    {
+      "match": "Error:\\ SQLITE_ERROR:\\ no\\ such\\ table:\\ .*",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "75103714f7ff"
+    },
+    {
+      "match": "Uncaught\\ FastifyError:\\ Fastify\\ instance\\ is\\ already\\ listening\\.\\ Cannot\\ call\\ \"addSchema\"!",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "18fb44de3d9f"
+    },
+    {
+      "match": "SequelizeValidationError:\\ instanceId\\ .*\\ is\\ already\\ in\\ use\\ in\\ this\\ pipeline",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "79856df522c1"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ ProjectSnapshot\\ \\{",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "a5b87c0557ef"
+    },
+    {
+      "match": "ReferenceError:\\ t\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "aeb7bfb77ea1"
+    },
+    {
+      "match": "Error:\\ Cannot\\ find\\ module\\ '\\./DeviceGroup'",
+      "label": "acceptable",
+      "note": "Genuine historic commit defect (missing/renamed/mis-pathed source in git tree), not caused by install-and-run.sh env. Reevaluated 2026-09-08.",
+      "lines": 0,
+      "id": "9b390171898e"
+    },
+    {
+      "match": "SequelizeValidationError:\\ Can't\\ add\\ device\\ as\\ current\\ action\\ is\\ create_snapshot\\ and\\ device\\ stages\\ only\\ support\\ the\\ following\\ actions:\\ use_active_snapshot,\\ use_latest_snapshot,\\ prompt\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "d8be6e43d9fc"
+    },
+    {
+      "match": "TypeError:\\ password\\.toLowerCase\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "02ce0deb54dc"
+    },
+    {
+      "match": "Error:\\ Password\\ Too\\ Weak",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "1f95555ba73e"
+    },
+    {
+      "match": "ERROR:\\ Problem\\ adding\\ project\\ to\\ subscription:\\ Error:\\ Billing\\ add\\ error",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "ff72443449fc"
+    },
+    {
+      "match": "SyntaxError:\\ await\\ is\\ only\\ valid\\ in\\ async\\ functions\\ and\\ the\\ top\\ level\\ bodies\\ of\\ modules",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "008632032c7c"
+    },
+    {
+      "match": "SyntaxError:\\ Unexpected\\ token\\ '\\)'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "f7282909ec85"
+    },
+    {
+      "match": "Error:\\ SQLITE_ERROR:\\ no\\ such\\ column:\\ .*",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "7afa8dd3bde4"
+    },
+    {
+      "match": "FastifyError:\\ Fastify\\ has\\ already\\ been\\ closed\\ and\\ cannot\\ be\\ reopened",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "f9659864b368"
+    },
+    {
+      "match": "Error:\\ Invalid\\ API\\ Key\\ provided:\\ 1234",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "e89af4c7d7cf"
+    },
+    {
+      "match": "Provides\\ a\\ logger\\ for\\ device\\ start\\ failed\\ action",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "cc009c776a72"
+    },
+    {
+      "match": "PipelineControllerError:\\ Invalid\\ instance",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "491a22f7a1ac"
+    },
+    {
+      "match": "Error:\\ license\\ limit\\ reached",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "97a8840af4f2"
+    },
+    {
+      "match": "ERROR:\\ Failed\\ to\\ start:\\ SequelizeDatabaseError:\\ SQLITE_ERROR:\\ duplicate\\ column\\ name:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "f09f904b49aa"
+    },
+    {
+      "match": "ReferenceError:\\ SNAPSHOT\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "72eb98202469"
+    },
+    {
+      "match": "ERROR:\\ Failed\\ to\\ start:\\ ReferenceError:\\ app\\ is\\ not\\ defined",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "1e87af208564"
+    },
+    {
+      "match": "ReferenceError:\\ app\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "Genuine source bug: forge/ee/routes/customHostnames/index.js uses a free 'app' (its param is actually 'add'); it only loads under the enterprise license tier where the EE unit-tests run. Fixed later (2eb344973) by renaming the param. Developer under enterprise tier would witness the ReferenceError. Not env-caused. Reevaluated 2026-09-08.",
+      "lines": 0,
+      "id": "34cde3740cb2"
+    },
+    {
+      "match": "TypeError:\\ The\\ value\\ of\\ .*\\ does\\ not\\ match\\ schema\\ definition\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "3595247b3e72"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ set\\ properties\\ of\\ undefined\\ \\(setting\\ 'title'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "7b14b922630a"
+    },
+    {
+      "match": "4\\)\\ \"after\\ all\"\\ hook\\ for\\ \"Provides\\ a\\ logger\\ for\\ device\\ suspend\\ failed\\ action\"",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "b9181095dc1e"
+    },
+    {
+      "match": "TypeError:\\ The\\ \"data\"\\ argument\\ must\\ be\\ of\\ type\\ string\\ or\\ an\\ instance\\ of\\ Buffer,\\ TypedArray,\\ or\\ DataView\\.\\ Received\\ an\\ instance\\ of\\ Object",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "c97676d54915"
+    },
+    {
+      "match": "Uncaught\\ Error:\\ WHERE\\ parameter\\ .* has\\ invalid\\ \"undefined\"\\ value",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "fd48fcab7a73"
+    },
+    {
+      "match": "Error:\\ Cannot\\ remove\\ last\\ Admin\\ user",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "63bcfaa57ec1"
+    },
+    {
+      "match": "TypeError:\\ this\\._app\\.license\\.isActive\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "058bea8e554d"
+    },
+    {
+      "match": "Error:\\ Cannot\\ find\\ module\\ '\\.\\./\\.\\./services/product\\.js'",
+      "label": "acceptable",
+      "note": "Genuine historic commit defect (missing/renamed/mis-pathed source in git tree), not caused by install-and-run.sh env. Reevaluated 2026-09-08.",
+      "lines": 0,
+      "id": "d214b2d3fbad"
+    },
+    {
+      "match": "ERROR:\\ Failed\\ to\\ start:\\ Error:\\ You\\ must\\ pass\\ your\\ PostHog\\ project's\\ api\\ key\\.",
+      "label": "acceptable",
+      "note": "Genuine commit-inherent code defect: forge/product/index.js builds the PostHog client from a keyless telemetry config and throws (guard lacks an apikey check). Upstream fixed it next commit (495a7a6c6: 'if (_opts && _opts.apikey)'). The project's own intent is keyless = no-op, so a developer at that commit would witness the crash. Not env-caused. Reevaluated 2026-09-08.",
+      "lines": 0,
+      "id": "88a4234068d7"
+    },
+    {
+      "match": "Provides\\ a\\ logger\\ for\\ a\\ failed\\ login\\ attempt",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "add5a36d7bd2"
+    },
+    {
+      "match": "error:\\ Object\\ \\{\\ code:\\ 'something_happened',\\ message:\\ 'Project\\ start\\ failed'\\ \\}",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "82c98f3c03d1"
+    },
+    {
+      "match": "body:\\ '\\{\"error\":\\{\"code\":\"unexpected_error\",\"message\":\"Error:\\ WHERE\\ ",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "228709314cd2"
+    },
+    {
+      "match": "Error:\\ Name\\ can\\ only\\ be\\ changed\\ when\\ suspended",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "0e528526bab0"
+    },
+    {
+      "match": "SyntaxError:\\ Unexpected\\ token\\ '<<'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "030cbe977542"
+    },
+    {
+      "match": "SyntaxError:\\ Unexpected\\ token\\ 'else'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "8e8ea2a7827c"
+    },
+    {
+      "match": "TypeError:\\ AuditLog\\.buildScopeClause\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "b39eb9299904"
+    },
+    {
+      "match": "SyntaxError:\\ Invalid\\ or\\ unexpected\\ token",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "0da1080f4d3c"
+    },
+    {
+      "match": "err:\\ \\{\\\n\"type\":\\ \"SyntaxError\",\\\n\"message\":\\ \"Unexpected\\ token\\ u\\ in\\ JSON\\ at\\ position\\ 0\",\\\n\"stack\":",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "606aee31d643"
+    },
+    {
+      "match": "FastifyError:\\ Plugin\\ did\\ not\\ start\\ in\\ time:\\ 'app\\..*'\\.\\ You\\ may\\ have\\ forgotten\\ to\\ call\\ 'done'\\ function\\ or\\ to\\ resolve\\ a\\ Promise",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "cd1aa081f2a2"
+    },
+    {
+      "match": "ReferenceError:\\ Roles\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "4ad09dc5279d"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ false\\ to\\ be\\ true",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "c82a734ab327"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ AccessToken\\ \\{",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "fd68a4e08bef"
+    },
+    {
+      "match": "Exception\\ during\\ run:\\ Error:\\ Cannot\\ find\\ module\\ '\\.\\./setup'",
+      "label": "acceptable",
+      "note": "Genuine transient defect at c08e6046 \u2014 spec requires test/unit/forge/housekeeper/setup.js, added later in a8fc2d546. Not env-caused. Reevaluated 2026-09-08.",
+      "lines": 0,
+      "id": "768a127d3e42"
+    },
+    {
+      "match": "Error:\\ Unrecognised\\ pipeline\\ stage",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "a4d1162d5892"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ Function\\ \\{\\ name:\\ ''\\ \\}\\ to\\ throw\\ exception\\ with\\ a\\ message\\ matching\\ /A\\ Git\\ Repository\\ Pipeline\\ stage\\ .*\\ be\\ the\\ .*\\ stage/,\\ but\\ got\\ 'Unrecognised\\ pipeline\\ stage'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "49d0bb139cf8"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ Function\\ \\{\\ name:\\ ''\\ \\}\\ to\\ throw\\ exception",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "8bf4df95686c"
+    },
+    {
+      "match": "ReferenceError:\\ literal\\ is\\ not\\ defined",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "a76899bd5a63"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ 'starting'\\ to\\ be\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "ddb841010db2"
+    },
+    {
+      "match": "Deploy\\ failed,\\ but\\ response\\ already\\ sent\\ PipelineControllerError:\\ Error\\ during\\ deploy:\\ Error:\\ Invalid\\ module\\ version:\\ custom\\-module",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "aaaca4766ec4"
+    },
+    {
+      "match": "Error:\\ Invalid\\ module\\ version:\\ custom\\-module",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "867cf9bf71cc"
+    },
+    {
+      "match": "Error:\\ Could\\ not\\ locate\\ the\\ bindings\\ file\\.\\ Tried:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "58d8f6ab393a"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ functionStub\\ \\{\\}\\ to\\ be\\ an\\ instance\\ of\\ functionStub",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "49b0a248b367"
+    },
+    {
+      "match": "Error\\ retrieving\\ table:\\ Error:\\ Table\\ table1\\ does\\ not\\ exist\\ in\\ database\\ t1hash\\ for\\ team\\ t1hash",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "f73611269eb9"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ 'foo/bar'\\ to\\ contain\\ 'foo/foo'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "d3d29bc67a5b"
+    },
+    {
+      "match": "TypeError:\\ latestSnapshot\\.toJSON\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "6bb28d97177a"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ stub\\ non\\-existent\\ property\\ buildSnapshot",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "a4cc8fc87593"
+    },
+    {
+      "match": "ReferenceError:\\ user\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "4253761627d8"
+    },
+
+    {
+      "match": "clarifyTimeoutError:\\ false",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "75bdc077aba5"
+    },
+    {
+      "match": "at\\ AssertionError\\.value\\ \\(node_modules/should/cjs/should\\.js:139:20\\)",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "8c542d9ad417"
+    },
+    {
+      "match": "Error:\\ Unknown\\ setting\\ platform:certifiedNodes:npmRegistryURL",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "89361c00ea60"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\[Promise\\]\\ to\\ be",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "8c78306f7578"
+    },
+    {
+      "match": "TypeError:\\ stripe.*\\(.*\\)\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "a4488df4d76d"
+    },
+    {
+      "match": "TypeError:\\ .*.equal\\(\\.\\.\\.\\)\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "7076bce15690"
+    },
+    {
+      "match": "Rolling\\ back\\ transaction\\ .*\\ failed\\ with\\ error\\ \"SQLITE_ERROR:\\ cannot\\ rollback\\ \\-\\ no\\ transaction\\ is\\ active\"\\.\\ We\\ are\\ killing\\ its\\ connection\\ as\\ it\\ is\\ now\\ in\\ an\\ undetermined\\ state\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "fb9a030f69ca"
+    },
+    {
+      "match": "Error:\\ SQLITE_ERROR:\\ cannot\\ rollback\\ \\-\\ no\\ transaction\\ is\\ active",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "049ead912cd9"
+    },
+    {
+      "match": "Error:\\ Simulated\\ error",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "e2b84c0be013"
+    },
+    {
+      "match": "ReferenceError:\\ transaction\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "441ed3d326ba"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ Device\\ \\{",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "737ea3bdb66c"
+    },
+    {
+      "match": "TypeError:\\ user\\.Team\\.TeamType\\.getFeatureProperty\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "8c32f5b3300a"
+    },
+    {
+      "match": "TypeError:\\ teamBrokerClient\\.Team\\.TeamType\\.getFeatureProperty\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "4806ec1acf44"
+    },
+    {
+      "match": "SyntaxError:\\ Unexpected\\ token\\ 'return'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "2b5e824250b8"
+    },
+    {
+      "match": "TypeError:\\ .*TeamType.*\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "9b892f5a4b14"
+    },
+    {
+      "match": "TypeError:\\ Attempted\\ to\\ wrap\\ buildProjectSnapshot\\ which\\ is\\ already\\ wrapped",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "e52a2843bd7f"
+    },
+    {
+      "match": "ControllerError:\\ Invalid\\ template",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "1890d1bd82e4"
+    },
+    {
+      "match": "ControllerError:\\ Invalid\\ stack",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "1be87779efff"
+    },
+    {
+      "match": "ControllerError:",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "1fde4a9bc311"
+    },
+    {
+      "match": "Error:\\ User\\ not\\ in\\ team",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "a7405c514c89"
+    },
+    {
+      "match": "ERROR:\\ register\\ MCP\\ Server\\ SequelizeValidationError:\\ notNull\\ Violation:\\ MCPRegistration\\.mcpName\\ cannot\\ be\\ null,",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "39eb40a64c55"
+    },
+    {
+      "match": "ERROR:\\ register\\ MCP\\ Server\\ SequelizeValidationError:\\ notNull\\ Violation:\\ MCPRegistration\\.mcpName\\ cannot\\ be\\ null,",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "c69a2494b2ce"
+    },
+    {
+      "match": "Error:\\ Transaction\\ ID\\ mismatch",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "f0fa592b50e0"
+    },
+    {
+      "match": "SyntaxError:\\ Unexpected\\ end\\ of\\ input",
+      "label": "acceptable",
+      "note": "Genuine historic code defect: committed test spec test/unit/forge/routes/api/teamDevices_spec.js is truncated (unbalanced braces) at commit 36e6e833 (2023-09-07); fixed in later commits. Developer at that commit would witness. Not env-caused. Reevaluated 2026-09-08.",
+      "lines": 0,
+      "id": "5b111ed2a901"
+    },
+    {
+      "match": "ReferenceError:\\ SemVer\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "Genuine historic code defect: forge/routes/api/deviceLive.js:89 uses SemVer.satisfies() but never requires('semver'); missing import. Developer at that commit would witness. Not env-caused. Reevaluated 2026-09-08.",
+      "lines": 0,
+      "id": "5b111ed2a902"
+    },
+    {
+      "match": "SyntaxError:\\ (Invalid or unexpected token|Unexpected token)",
+      "label": "acceptable",
+      "note": "Genuine historic code defects: committed source has a real syntax break at the failing commit (e.g. unterminated string in forge/routes/api-docs.js:91 at e431d575; '{ type: 'string' )' typo; leftover '<<<<<<< HEAD' merge-conflict marker). Developer at that commit would witness. Not env-caused (error site is the committed file, not coverage instrumentation). Reevaluated 2026-09-08.",
+      "lines": 0,
+      "id": "5b111ed2a903"
+    },
+    {
+      "match": "Error:\\ connect ECONNREFUSED 127\\.0\\.0\\.1:12080",
+      "label": "acceptable",
+      "note": "Genuine commit-state failure: WIP commit a6345d329 'First pass' hardcodes a dev-local telemetry POST to http://127.0.0.1:12080/telemetry (forge/housekeeper/tasks/certifiedNodes.js); no collector listens there, so forge-unit gets ECONNREFUSED. A developer at that commit would witness the same. Not env-caused. Reevaluated 2026-09-08.",
+      "lines": 0,
+      "id": "5b111ed2a904"
+    },
+    {
+      "match": "WARN:\\ Failed\\ to\\ apply\\ supplied\\ license:\\ JsonWebTokenError:\\ invalid\\ signature;\\ falling\\ back\\ to\\ bundled\\ devLicense",
+      "label": "false_positive",
+      "note": "Warning, produced by fix",
+      "lines": 0,
+      "id": "ee776b90960a"
+    },
+    {
+      "match": "parent:\\ \\[Error:\\ SQLITE_CONSTRAINT:\\ UNIQUE\\ constraint\\ failed:\\ BrokerClients\\.username\\]\\ \\{",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "5759ad01c7d8"
+    }
+  ]
+}
