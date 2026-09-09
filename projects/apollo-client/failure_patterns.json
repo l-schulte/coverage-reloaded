@@ -1,0 +1,422 @@
+{
+  "general": {
+    "patterns": [
+      "\u25cf",
+      "\\bAssertionError"
+    ],
+    "exclude": [
+      "\u25cf\\s*Console",
+      "Test Suites:",
+      "Tests:",
+      "Snapshots:"
+    ]
+  },
+  "auto_classify": [
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "7302e05056e0"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "3b48c956d8c7"
+    },
+    {
+      "match": "Unable\\ to\\ find\\ an\\ element\\ with\\ the\\ text:\\ .*\\.\\ This\\ could\\ be\\ because\\ the\\ text\\ is\\ broken\\ up\\ by\\ multiple\\ elements\\.\\ In\\ this\\ case,\\ you\\ can\\ provide\\ a\\ function\\ for\\ your\\ text\\ matcher\\ to\\ make\\ your\\ matcher\\ more\\ flexible\\.\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "d5414eddad83"
+    },
+    {
+      "match": "\\\nConverting\\ circular\\ structure\\ to\\ JSON",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0302427b54f5"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenLastCalledWith\\(\\.\\.\\.expected\\)\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "a188c70daff8"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toThrowError\\(expected\\)\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "b3c0cec5ba84"
+    },
+    {
+      "match": "\\\nFailed:\\ \"should\\ have\\ errored\"\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "979a71ca11ef"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBeFalsy\\(\\)\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "b0f49ea42274"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledTimes\\(expected\\)\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "d82723855f3a"
+    },
+    {
+      "match": "\\\nTimed\\ out\\ in\\ waitForNextUpdate\\ after\\ 1000ms\\.\\\n\\\nat\\ waitForNextUpdate\\ \\(\\.\\./node_modules/@testing\\-library/react\\-hooks/lib/core/asyncUtils\\.js:102:13\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "b15e911da92b"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ convert\\ undefined\\ or\\ null\\ to\\ object\\\nat\\ hasOwnProperty\\ \\(<anonymous>\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "9e38e3fc6d60"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBeUndefined\\(\\)\\\n\\\nReceived:\\ \\{\"people\":\\ \\[\\{\"name\":\\ \"Luke\\ Skywalker\"\\}\\]\\}",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "a280f0aae076"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBeTruthy\\(\\)\\\n\\\nReceived:\\ false",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "8c2a8f1c1bb2"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBeInstanceOf\\(expected\\)\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "1aa2c543d46d"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBeTruthy\\(\\)\\\n\\\nReceived:\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "6949fe435208"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchSnapshot\\(.*\\)\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "b0e89a7de6f5"
+    },
+    {
+      "match": "TS1005:\\ '\\)'\\ expected\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7db0192d9aa9"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBeDefined\\(\\)\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "5684d9235cf3"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ add\\ property\\ .*,\\ object\\ is\\ not\\ extensible\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "378fb5f1c6a6"
+    },
+    {
+      "match": "\\\nInvariant\\ Violation:\\ Missing\\ field\\ .*\\ while\\ extracting\\ keyFields\\ from",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "634d68591e9f"
+    },
+    {
+      "match": "\\\nInfinite\\ rendering\\ detected\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "acaaf9d0aad1"
+    },
+    {
+      "match": "\\\nthrown:\\ MissingFieldError\\ \\{",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "78f20ed9694c"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBeGreaterThan\\(expected\\)\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "6701969c46d9"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'networkError'\\)\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "3e38f89f6c1e"
+    },
+    {
+      "match": "\\\nThe\\ error\\ below\\ may\\ be\\ caused\\ by\\ using\\ the\\ wrong\\ test\\ environment,\\ see\\ https://jestjs\\.io/docs/configuration\\#testenvironment\\-string\\.\\\nConsider\\ using\\ the\\ \"jsdom\"\\ test\\ environment\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 3,
+      "id": "69ee34478976"
+    },
+    {
+      "match": "\\\nJest\\ worker\\ encountered\\ 4\\ child\\ process\\ exceptions,\\ exceeding\\ retry\\ limit\\\n",
+      "label": "problematic",
+      "note": "",
+      "lines": 3,
+      "id": "4ba438342341"
+    },
+    {
+      "match": "\\\nReferenceError:\\ fail\\ is\\ not\\ defined\\\n",
+      "label": "unclear",
+      "note": "",
+      "lines": 3,
+      "id": "bb2b1dc24837"
+    },
+    {
+      "match": "TS2345:\\ Argument\\ of\\ type\\ '\\(done:\\ DoneCallback\\)\\ =>\\ Promise<void>'\\ is\\ not\\ assignable\\ to\\ parameter\\ of\\ type\\ 'ProvidesCallback\\ \\|\\ undefined'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "e5f41769a7ef"
+    },
+    {
+      "match": "\\\nlink/batch/__tests__/batchLink\\.ts:347:12\\ \\-\\ error\\ TS2339:\\ Property\\ 'runTimersToTime'\\ does\\ not\\ exist\\ on\\ type\\ 'typeof\\ jest'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "f121a7a7c694"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'use\\-sync\\-external\\-store/shim'\\ from\\ 'react/hooks/useQuery\\.ts'\\\n",
+      "label": "unclear",
+      "note": "",
+      "lines": 3,
+      "id": "90f536af8e50"
+    },
+    {
+      "match": "\\\nserver\\ returned\\ results\\ with\\ length\\ \\d+,\\ expected\\ length\\ of\\ \\d+\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "046e1aff9aa1"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ \\d+\\ ms\\ for\\ a\\ test\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "68da1bb52127"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.rejects\\.toEqual\\(\\)\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "c4c79758ad35"
+    },
+    {
+      "match": "\\\nNo\\ more\\ mocked\\ responses\\ for\\ the\\ query:\\ \\{",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "481536ebf3ec"
+    },
+    {
+      "match": "\\\nObservable\\ cancelled\\ prematurely\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "a6df942c2627"
+    },
+    {
+      "match": "\\\nMaximum\\ update\\ depth\\ exceeded\\.\\ This\\ can\\ happen\\ when\\ a\\ component\\ repeatedly\\ calls\\ setState\\ inside\\ componentWillUpdate\\ or\\ componentDidUpdate\\.\\ React\\ limits\\ the\\ number\\ of\\ nested\\ updates\\ to\\ prevent\\ infinite\\ loops\\.\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "a016b5c724ef"
+    },
+    {
+      "match": "\\\nlink/subscriptions/__tests__/graphqlWsLink\\.ts:34:3\\ \\-\\ error\\ TS2741:\\ Property\\ 'terminate'\\ is\\ missing\\ in\\ type\\ '\\{\\ subscribe:\\ <Data\\ =\\ Record<string,\\ unknown>,\\ Extensions\\ =\\ unknown>\\(payload:\\ SubscribePayload,\\ sink:\\ Sink<ExecutionResult<Data,\\ Extensions>>\\)\\ =>\\ \\(\\)\\ =>\\ void;\\ on:\\ \\(\\)\\ =>\\ \\(\\)\\ =>\\ void;\\ dispose:\\ \\(\\)\\ =>\\ void;\\ \\}'\\ but\\ required\\ in\\ type\\ 'Client'\\.\\\n",
+      "label": "unclear",
+      "note": "",
+      "lines": 3,
+      "id": "19787f7ec960"
+    },
+    {
+      "match": "\\\ncache/inmemory/__tests__/writeToStore\\.ts:3128:10\\ \\-\\ error\\ TS2345:\\ Argument\\ of\\ type\\ '\\{\\ fragmentMap:\\ FragmentMap;\\ clientOnly:\\ false;\\ deferred:\\ false;\\ flavors:\\ Map<any,\\ any>;\\ variables:\\ \\{\\ true:\\ boolean;\\ false:\\ boolean;\\ \\};\\ \\}'\\ is\\ not\\ assignable\\ to\\ parameter\\ of\\ type\\ 'Pick<WriteContext,\\ \"variables\"\\ \\|\\ \"clientOnly\"\\ \\|\\ \"deferred\"\\ \\|\\ \"flavors\"\\ \\|\\ \"fragmentMap\"\\ \\|\\ \"lookupFragment\">'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "dbb32d579aef"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ null\\ \\(reading\\ 'data'\\)\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "e5a329cfcbe4"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchObject\\(expected\\)\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "73bce11901a4"
+    },
+    {
+      "match": "\\\nExceeded\\ timeout\\ waiting\\ for\\ next\\ render\\.\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "642cb11acaa0"
+    },
+    {
+      "match": "\\\nMocked\\ response\\ should\\ contain\\ either\\ .*\\ or\\ .*\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "5b4457e428ca"
+    },
+    {
+      "match": "\\\nexpect\\(element\\)\\.toHaveAttribute\\(\"aria\\-busy\",\\ \"true\"\\)\\ //\\ element\\.getAttribute\\(\"aria\\-busy\"\\)\\ ===\\ \"true\"\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "379aba042aba"
+    },
+    {
+      "match": "\\\nObservable\\ '.*'\\ method\\ called\\ more\\ than\\ \\d+\\ times\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "4bdf32da016d"
+    },
+    {
+      "match": "\\\nReferenceError:\\ createProfiler\\ is\\ not\\ defined\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "9b1e2a70a1d3"
+    },
+    {
+      "match": "\\\nReferenceError:\\ renderWithClient\\ is\\ not\\ defined\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "1e2e5fb50d61"
+    },
+    {
+      "match": "\\\nReferenceError:\\ profileHook\\ is\\ not\\ defined\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "358ecac7d142"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'takeRender'\\)\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "f12ed81f6b48"
+    },
+    {
+      "match": "\\\nTypeError:\\ \\(0\\ ,\\ internal_1\\.profileHook\\)\\ is\\ not\\ a\\ function\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "d44cc72f6cb9"
+    },
+    {
+      "match": "\\\nTypeError:\\ \\(0\\ ,\\ internal_1\\.createProfiler\\)\\ is\\ not\\ a\\ function\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "4b067f01b63a"
+    },
+    {
+      "match": "\\\nTypeError:\\ \\(0\\ ,\\ internal_1\\.profile\\)\\ is\\ not\\ a\\ function\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "9329e629bbab"
+    },
+    {
+      "match": "\\\nTried\\ to\\ create\\ a\\ React\\ root\\ for\\ a\\ render\\ stream\\ inside\\ a\\ React\\ act\\ environment\\.\\\nThis\\ is\\ not\\ supported\\.\\ Please\\ use\\ `disableActEnvironment`\\ to\\ disable\\ the\\ act\\ environment\\ for\\ this\\ test\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 3,
+      "id": "ca7c2450013e"
+    },
+    {
+      "match": "\\\nWaitForRenderTimeoutError:\\ Exceeded\\ timeout\\ waiting\\ for\\ next\\ render\\.\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "a261d36bc334"
+    },
+    {
+      "match": "\\\nexpect\\(.*\\)\\.toEmit.*\\(.*\\)\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "f2686b58bdab"
+    },
+    {
+      "match": "\\\nexpect\\(.*\\)\\.toThrow\\(expected\\)\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "1f413ecc4907"
+    },
+    {
+      "match": "\\\nexpect\\(.*\\.toEqual.*\\(expected\\)\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "461d55ff9773"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.not\\.toHaveBeenCalled\\(\\)\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "ce4a27857c48"
+    },
+    {
+      "match": "\\\nexpect\\(value\\)\\.toStrictEqualTyped\\(expected\\)\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "7baff60edf41"
+    }
+  ]
+}
