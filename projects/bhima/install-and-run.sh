@@ -101,17 +101,25 @@ print_header 2 "Starting MySQL server"
 if node -e "require('./package.json').scripts['build:db'] || process.exit(1)" 2>/dev/null; then
     print_header 3 "Database build script detected: build:db"
 
+    # BHIMA requires this exact relaxed mode (no ONLY_FULL_GROUP_BY); its CI sets
+    # it globally (.semaphore/semaphore.yml, sh/setup-ci-env.sh, installing-bhima.md).
+    # The MySQL 8.0 default mode (with ONLY_FULL_GROUP_BY) breaks tests with
+    # ER_WRONG_FIELD_WITH_GROUP, so we replicate the project's mandated mode.
     fake_time mysqld_safe \
       --datadir=/var/lib/mysql \
       --sql-mode="STRICT_ALL_TABLES,NO_UNSIGNED_SUBTRACTION" \
       --character-set-server=utf8mb4 \
       --collation-server=utf8mb4_unicode_ci &
 
-    until mysqladmin ping -h 127.0.0.1 --silent 2>/dev/null; do
+    # MySQL 8 sets root to auth_socket (socket only); ping over TCP (-h 127.0.0.1)
+    # would hang, so ping via the default socket instead.
+    until mysqladmin ping --silent 2>/dev/null; do
         sleep 1
     done
 
-    mysql -u root -e "CREATE USER '$DB_USER'@'$DB_HOST' IDENTIFIED BY '$DB_PASS';"
+    # mysql_native_password: the app's mysql@^2.16 node client cannot authenticate
+    # with MySQL 8's default caching_sha2_password over TCP.
+    mysql -u root -e "CREATE USER '$DB_USER'@'$DB_HOST' IDENTIFIED WITH mysql_native_password BY '$DB_PASS';"
     mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO '$DB_USER'@'$DB_HOST' WITH GRANT OPTION;"
     mysql -u root -e "FLUSH PRIVILEGES;"
 
@@ -146,6 +154,7 @@ if [ "$SERVER_ERA" = "mocha_direct" ]; then
             --recursive \
             --no-bail \
             --exit \
+            --timeout 30000 \
             test/server-unit 2>&1)
     SERVER_EXIT=$?
 else
@@ -210,7 +219,8 @@ if [ "$HAS_INTEGRATION" = "yes" ] && [ -n "$(node -p "require('./package.json').
             test/integration \
             --recursive \
             --no-bail \
-            --exit
+            --exit \
+            --timeout 30000
     INTEGRATION_EXIT=$?
     set -e
 
@@ -251,7 +261,8 @@ if [ "$HAS_STOCK_INTEGRATION" = "yes" ] && [ -n "$(node -p "require('./package.j
             test/integration-stock \
             --recursive \
             --no-bail \
-            --exit
+            --exit \
+            --timeout 30000
     INTEGRATION_STOCK_EXIT=$?
     set -e
 
