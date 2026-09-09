@@ -1,6 +1,6 @@
 {
-    "start_date": "2020-01-01",
-    "end_date": "2025-12-31",
+    "start_date": "2021-01-01",
+    "end_date": "2026-01-01",
     "max_workers": 10,
     "projects": {
         "sentry-javascript": {
@@ -92,6 +92,17 @@
             "min_node_version": 12,
             "node_version_overrides": [
                 { "start_ts": 0, "end_ts": 1579737759, "new_version": "10" }
+            ]
+        },
+        "apollo-client": {
+            "url": "https://github.com/apollographql/apollo-client",
+            "package_manager_version_overrides": [
+                {
+                    "start_ts": 1627914966,
+                    "end_ts": 1636403951,
+                    "old_version": "npm@7.20.3",
+                    "new_version": "npm@8"
+                }
             ]
         }
     }
