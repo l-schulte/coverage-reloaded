@@ -68,7 +68,7 @@ Bounded scope: focus **only** on what the user selected. Max 2 passes per group 
 1. Compile all resolved and skipped groups into a concise report mirroring `LOG_FAILURE_ANALYSIS_PROMPT.md § Deliverable`:
    - Success rate and coverage-producing runs total
    - Table: `signature → example log → developer-facing vs setup → coverage impact`
-   - Recommended next steps categorized as: (a) fixes in `install-and-run.sh`, (b) required changes in `Dockerfile` or shared scripts, (c) document-as-known-in-failure in `projects/<name>/Overview.md` under "Known Test Failures"
+   - Recommended next steps categorized as: (a) fixes in `install-and-run.sh`, (b) required changes in `Dockerfile` or shared scripts, (c) document-as-known-in-failure in `projects/<name>/OVERVIEW.md` under "Known Test Failures"
    - Note any deviation from the ≥90% inclusion criterion
 2. If there are remaining unexplored groups, include them separately so the user can choose to continue.
 

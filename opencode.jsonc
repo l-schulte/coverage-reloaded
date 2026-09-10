@@ -16,8 +16,12 @@
       "description": "Assess the feasibility of a new project for coverage analysis"
     },
     "failure-label-review": {
-      "template": "Review the labeled failures for project $1. Use the labeled-failure-analysis skill: confirm projects/$1/failure_labels_project.csv exists (else run python3 check_failures.py --project $1 --dedup project), then run python3 collapse_labels.py $1 to build projects/$1/failure_labels_collapsed_problematic_unclear.csv. Re-assess each problematic/unclear error family one-by-one: decide whether it is really our setup (problematic), actually a dev-facing test failure you mislabeled (acceptable), or still unclear. For genuinely problematic families recommend a commit-era-aware, non-breaking fix located in install-and-run.sh, Dockerfile, or Overview.md. Do not edit files or launch containers without permission.",
+      "template": "Review the labeled failures for project $1. Use the labeled-failure-analysis skill: confirm projects/$1/failure_labels_project.csv exists (else run python3 check_failures.py --project $1 --dedup project), then run python3 collapse_labels.py $1 to build projects/$1/failure_labels_collapsed_problematic_unclear.csv. Re-assess each problematic/unclear error family one-by-one: decide whether it is really our setup (problematic), actually a dev-facing test failure you mislabeled (acceptable), or still unclear. For genuinely problematic families recommend a commit-era-aware, non-breaking fix located in install-and-run.sh, Dockerfile, or OVERVIEW.md. Do not edit files or launch containers without permission.",
       "description": "Re-assess labeled problematic/unclear failures and recommend era-aware fixes"
+    },
+    "generate-failure-patterns": {
+      "template": "Generate failure_patterns.json for project $1. Use the generate-failure-patterns skill: read projects/$1/install-and-run.sh to enumerate suite_start markers and their test runners, then inspect the unsuffixed projects/$1/logs/*.log to learn the project's actual failure-output vocabulary. Propose tight general.patterns/exclude plus per-suite add/remove overrides that anchor on the REAL error (not just the failing test name/file line), self-validate with python3 check_failures.py --project $1 --dry-run and by reading the 40 lines below sampled hits, then present the JSON for approval. Leave auto_classify empty — that is filled manually with check_failures.py.",
+      "description": "Derive and propose a per-project failure_patterns.json for check_failures.py"
     }
   }
 }

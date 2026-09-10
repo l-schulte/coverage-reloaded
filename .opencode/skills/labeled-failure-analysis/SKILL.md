@@ -57,7 +57,7 @@ Process one selected family at a time. For each:
 5. **If problematic, recommend a fix** honoring these hard constraints:
    - **Era/commit-aware & non-breaking:** branch in `install-and-run.sh` on timestamp / pm / node version / files present at the commit (per AGENTS §6). Never a single global change.
    - **Tolerates drift:** if the cause only spans some commits, the branch must activate only for that range and stay inert elsewhere; note where the behavior should flip.
-   - **Locate it:** (a) `install-and-run.sh` conditional edit (preferred), (b) `Dockerfile` system dep, or (c) document as known failure in `projects/<p>/Overview.md` "Known Test Failures" if unfixable.
+   - **Locate it:** (a) `install-and-run.sh` conditional edit (preferred), (b) `Dockerfile` system dep, or (c) document as known failure in `projects/<p>/OVERVIEW.md` "Known Test Failures" if unfixable.
    - **Exposure impact:** note whether it silently under-measures coverage (bail risk) or is an acceptable visible partial result.
 
 **Checkpoint (per family):** Show the verdict + fix recommendation. Ask: *"Accept, modify, or skip this family?"* Always offer these three. Do not move on until answered.
@@ -65,7 +65,7 @@ Process one selected family at a time. For each:
 ### Phase 2 — Roll-up report
 
 1. Compile every family into a table: `family_signature → verdict → root layer → conditional fix summary → fix location → commit time-span (#commits/#runs affected)`.
-2. Group recommendations by action type: (a) `install-and-run.sh` conditional edits, (b) `Dockerfile` changes, (c) document-as-known in `Overview.md`.
+2. Group recommendations by action type: (a) `install-and-run.sh` conditional edits, (b) `Dockerfile` changes, (c) document-as-known in `OVERVIEW.md`.
 3. Flag any coverage-threshold confounds encountered (AGENTS §3) as *not-bugs*.
 4. Note remaining `unclear` families separately so the user can continue later.
 
