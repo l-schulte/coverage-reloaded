@@ -3,6 +3,7 @@ set -e
 source /coverage_reloaded/logging.sh
 source /coverage_reloaded/fake-time.sh
 source /coverage_reloaded/resolve-and-pin.sh
+source /coverage_reloaded/has-option.sh
 cd /coverage_reloaded/repo
 
 # libfaketime deadlocks Node's event loop because an absolute FAKETIME freezes
@@ -111,9 +112,29 @@ if echo "$TEST_SCRIPT" | grep -q vitest; then
     REPORT_ON_FAIL="--coverage.reportOnFailure"
   fi
 
+  # Detect the right parallelism cap for this vitest version to avoid the
+  # WebAssembly.Instance(): Out of memory: wasm memory error. Worker threads
+  # share the main process's virtual address space, so each wasm instance's
+  # large virtual reservation exhausts that shared space once several threads
+  # load wasm in parallel. The fix is to stop using the threads pool:
+  #   - newer vitest: --maxWorkers=1 (bounds the worker-thread pool to one)
+  #   - v0.31..v0.34: --single-thread (run in the main thread, no workers)
+  #   - v0.25..v0.30: --no-threads (switch to child_process fork pool, each
+  #                    child has its own address space -> documented fix)
+  HAS_OPTION_QUIET=1
+  if has_option --maxWorkers yarn vitest; then
+    PARALLEL_FLAG="--maxWorkers=1"
+  elif has_option --single-thread yarn vitest; then
+    PARALLEL_FLAG="--single-thread"
+  elif has_option --threads yarn vitest; then
+    PARALLEL_FLAG="--no-threads"
+  else
+    PARALLEL_FLAG=""
+  fi
+
   suite_start "vitest" "Running vitest with coverage (vitest era)"
   set +e
-  fake_time yarn vitest run --coverage.enabled --coverage.reporter=lcov $REPORT_ON_FAIL
+  fake_time yarn vitest run --coverage.enabled --coverage.reporter=lcov $PARALLEL_FLAG $REPORT_ON_FAIL
   VITEST_EXIT=$?
   set -e
   bash /coverage_reloaded/find-and-move-lcov.sh "vitest" "true" "$VITEST_EXIT"
