@@ -17,6 +17,7 @@ RUN rm -f /etc/apt/sources.list /etc/apt/sources.list.d/* && \
     apt-get install -y --no-install-recommends --allow-downgrades \
         libc6=2.31-13+deb11u11 libc6-dev=2.31-13+deb11u11 \
         perl-base=5.32.1-4+deb11u3 perl=5.32.1-4+deb11u3 \
+        libsepol1=3.1-1 \
         git \
         curl \
         ca-certificates \

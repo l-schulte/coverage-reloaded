@@ -358,9 +358,10 @@ fi
 rm -f "$OUTPUT_PATH/${prefix}"__*.lcov "$OUTPUT_PATH/${prefix}"__*.exit_code
 # Remove any stale .error marker so a successful re-run doesn't show twice
 rm -f "$OUTPUT_PATH/${prefix}.error"
+# Remove any stale .not_applicable marker so a successful re-run doesn't show twice
+rm -f "$OUTPUT_PATH/${prefix}.not_applicable"
 
 commit_dir="$OUTPUT_PATH/$prefix"
-mkdir -p "$commit_dir"
 
 mapfile -t lcov_files < <(find "$COVERAGE_REPORT_PATH" \( -name "*.lcov.info" -o -name "lcov.info" \) -size +0)
 
@@ -368,6 +369,8 @@ if [[ ${#lcov_files[@]} -eq 0 ]]; then
     echo "Error: No lcov files found in $COVERAGE_REPORT_PATH"
     exit 1
 fi
+
+mkdir -p "$commit_dir"
 
 for f in "${lcov_files[@]}"; do
     # Get the relative path within COVERAGE_REPORT_PATH
