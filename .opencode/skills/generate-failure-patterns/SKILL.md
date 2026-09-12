@@ -30,6 +30,12 @@ left untouched if the file already exists). Those rules map an error *body* to a
 interactively, with `check_failures.py` (press `.` on a failure to create a rule). Do not
 attempt to guess labels or seed auto_classify here.
 
+When the user later creates `auto_classify` rules, start unresolved patterns as
+`problematic`/`unclear` so a genuine setup regression is surfaced for review, and
+resolve them to `problematic` or `reevaluated_acceptable` once the detected family
+has been assessed (see the `labeled-failure-analysis` skill). `reevaluated_acceptable`
+and `fix_applied` are valid rule labels.
+
 ## Context (how check_failures.py uses this file)
 
 - `projects/<name>/output/<ts>_<hash>/<suite>.exit_code` (0 = clean, 1 = tests failed but

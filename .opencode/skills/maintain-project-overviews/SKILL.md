@@ -1,6 +1,6 @@
 ---
 name: maintain-project-overviews
-description: Create and update the two-level coverage-collection documentation (root OVERVIEW.md index with a checklist-only status table + projects/<p>/OVERVIEW.md per active project). Enforces a fixed template and technical-English style, sources results from stats_output/report.txt, condenses known failures with classification and links. Active projects only. Draft-and-confirm only.
+description: Create and update the two-level coverage-collection documentation (root OVERVIEW.md index with a checklist-only status table + projects/<p>/OVERVIEW.md per active project). Enforces a fixed template and technical-English style, sources results from stats_output/report.txt (regenerated fresh via `stats.py --report-only` on every invocation), condenses known failures with classification and links. Active projects only. Draft-and-confirm only.
 license: MIT
 metadata:
   audience: developers
@@ -44,7 +44,10 @@ Never invent values. Every number must be traceable to one of these files:
   never copy the JSON block.**
 - `projects/<p>/stats_output/report.txt` — the canonical Results numbers
   (commits processed, without/with test failures, not applicable, hard errors,
-  coverage %). Use the generated date from this file.
+  coverage %). Use the generated date from this file. **Regenerate it fresh on
+  every invocation** by running `python stats.py <p> --report-only` before
+  reading it; this rewrites `report.txt` from the current `output/` state and
+  deletes any stale plots.
 - `projects/<p>/stats_output/` — CSVs and plots; link to the directory.
 - `projects/<p>/failure_labels_project.csv` and
   `projects/<p>/failure_labels_collapsed_problematic_unclear.csv` — failure
@@ -137,13 +140,27 @@ Checklist items (see `AGENTS.md`):
 - **complete run** — the full commit history has been processed.
 - **complete test failure check** — every failing run has been labeled and assessed.
 
+Status symbols (used in the root status table and the per-project checklist):
+
+- `✅` / `- [x]` — done.
+- `🟡` / `- [wip]` — work in progress; a run is actively being processed.
+- `🚧` / `- [paused]` — paused; a run was partially processed and then stopped
+  (for example, awaiting a date-basis switch or a re-run). The Results section
+  shows pending commits.
+- `❌` / `- [ ]` — not done; no work started.
+
 Failure labels (`failure_labels_project.csv`):
 
 - `acceptable` — a genuine developer-facing test failure at that commit.
 - `problematic` — an environment/setup artifact of this pipeline.
 - `unclear` — ambiguous after analysis.
 - `false_positive` — not a real failure (for example, captured console output).
-- `reevaluated_acceptable` / `fix_applied` — documented reclassifications.
+- `reevaluated_acceptable` / `fix_applied` — documented reclassifications stored
+  in the CSV and valid `auto_classify` rule labels (see the
+  `labeled-failure-analysis` skill). They are excluded from `collapse_labels.py`
+  (only `problematic`/`unclear` collapse) and are assignable interactively with
+  the `e` / `f` keys. The Overview's Known-test-failures and
+  Environment/setup-fixes sections record these reclassifications.
 
 ## Protocol
 
@@ -166,7 +183,9 @@ For each active project, build the file from the template:
    most recent logs to confirm it still exists. If the user opts in, inspect
    `projects/<p>/logs/` for each signature and keep, update, or drop rows based on
    the latest evidence.
-4. Pull Results from `stats_output/report.txt`. If it is absent, write
+4. Regenerate `stats_output/report.txt` by running `python stats.py <p> --report-only`
+   (fresh numbers from the current `output/` state; stale plots are deleted).
+   Then pull Results from it. If the command fails, write
    `Results: pending (no stats_output)`.
 5. Link to `config.json` for configuration; do not copy JSON.
 
@@ -175,7 +194,7 @@ For each active project, build the file from the template:
 Assemble `OVERVIEW.md`: purpose/pointers, legend, the checklist-status table
 (one row per active project, linking to its file; columns `100 done`, `failed
 tests doublechecked`, `complete run`, `complete test failure check`, symbols
-`✅`/`🟡`/`❌`; no numeric results), cross-cutting infrastructure notes, and the
+`✅`/`🟡`/`🚧`/`❌`; no numeric results), cross-cutting infrastructure notes, and the
 maintenance section pointing at this skill.
 
 ### Phase 3 — Consistency check
@@ -183,7 +202,7 @@ maintenance section pointing at this skill.
 - Every per-project file exists for every active project.
 - Root table row count equals the active-project count.
 - Root table carries no numeric results (commits, coverage %, hard errors, dates).
-- Every checklist cell is `✅`, `🟡`, or `❌`, taken from the per-project file.
+- Every checklist cell is `✅`, `🟡`, `🚧`, or `❌`, taken from the per-project file.
 - All relative links resolve on disk.
 - No `config.json` JSON block is duplicated.
 - Style guide is respected.

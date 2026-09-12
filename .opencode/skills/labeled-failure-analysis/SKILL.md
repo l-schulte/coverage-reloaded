@@ -19,12 +19,37 @@ For families that are really problematic, I recommend a fix. Every fix must be *
 
 ## Context
 
-- `check_failures.py --project <p> --dedup project` writes `projects/<p>/failure_labels_project.csv` (one row per failure fingerprint across all runs). Columns include `run_id` (`<ts>_<hash>`), `suite`, `exit_code`, `label` (`acceptable|problematic|unclear|false_positive`), `keyword`, `fingerprint`, `occurrences`.
+- `check_failures.py --project <p> --dedup project` writes `projects/<p>/failure_labels_project.csv` (one row per failure fingerprint across all runs). Columns include `run_id` (`<ts>_<hash>`), `suite`, `exit_code`, `label` (`acceptable|problematic|unclear|false_positive`, plus the reclassification labels `reevaluated_acceptable`/`fix_applied`), `keyword`, `fingerprint`, `occurrences`.
 - `collapse_labels.py <p>` reads that CSV and writes `projects/<p>/failure_labels_collapsed_problematic_unclear.csv`, collapsing only `problematic`+`unclear` rows into normalized error *families*. Each family row: `family_signature, label_breakdown, n_fingerprints, total_occurrences, n_runs, first_run, last_run, example_run_ids, example_keyword`.
 - Per commit, a container runs `projects/<p>/install-and-run.sh`; logs at `projects/<p>/logs/<run_id>.log`. Ignore `logs_1/`, `output_1/`.
 - `AGENTS.md §6`: fixes live in `install-and-run.sh` and must *read the commit, not dates* — branch on `$IS_NPM_MAIN_PM`/`$IS_YARN_MAIN_PM`/`$IS_PNPM_MAIN_PM`, on files present at the checked-out commit, and on node/pm versions. A single global change is forbidden.
 - `AGENTS.md §3`: coverage-threshold gates (`--check-coverage`, `coverageThreshold`) are confounds, not bugs — do not recommend "fixing" them.
 - `ENV_PATTERNS` (from `check_failures.py`): `Cannot find module`, `Cannot use import statement outside a module`, `Test suite failed to run`, `SyntaxError`, `EADDRINUSE`, `gyp ERR`, `Killed|out of memory|OOM`, webpack module/loader errors, `timed out|ETIMEDOUT|ECONNREFUSED|ENOTFOUND|EAI_AGAIN`, `node-sass|node-gyp|Missing binding`. A hit strongly implies *problematic* (our setup), not a real test failure.
+
+## Reclassification discipline
+
+`unclear` and `problematic` are **starting** labels. Assessment must resolve them
+to a final label — never leave a family as `unclear` after it has been assessed.
+
+- **Transition model.** After assessing a family, apply exactly one transition:
+  - `unclear` + genuinely problematic (setup artifact) → `problematic`
+  - `unclear` + genuinely dev-facing → `reevaluated_acceptable`
+  - `problematic` + genuinely dev-facing → `reevaluated_acceptable`
+  - `problematic` + confirmed setup artifact → stays `problematic`
+  `acceptable` and `false_positive` are final labels and do not transition.
+- **Apply it everywhere.** The resolved label is written both to the matching rows
+  in `failure_labels_project.csv` AND to the `auto_classify` rule that matches the
+  error body in `failure_patterns.json`. A rule must not stay `unclear`/`problematic`
+  once the family it detects has been resolved.
+- **Regression persistence.** A rule's label is what future occurrences of that
+  error body are auto-labeled with. Resolving a rule to `problematic` keeps a known
+  setup artifact surfacing for review; `reevaluated_acceptable` records that the
+  body was already assessed as dev-facing. Only update a rule when the whole family
+  it detects has been assessed — reclassifying a single instance is not enough.
+- **`reevaluated_acceptable` / `fix_applied` are valid rule labels** (members of
+  `ALL_LABELS`), so `--auto-classify` applies them to new occurrences of the body.
+  `collapse_labels.py` collapses only `problematic|unclear`, so resolved families
+  stay out of the collapsed file.
 
 ## Iterative Protocol
 
@@ -54,6 +79,11 @@ Process one selected family at a time. For each:
    - `really problematic` — our setup; the developer of that era would not have hit it.
    - `actually acceptable` — you mislabeled a genuine dev-facing test failure.
    - `genuinely unclear` — ambiguous even after tracing.
+
+   For `actually acceptable`, record the family's rows and the matching
+   `auto_classify` rule as `reevaluated_acceptable`. For `really problematic`,
+   record both as `problematic`. Never leave the family as `unclear` (see
+   Reclassification discipline).
 5. **If problematic, recommend a fix** honoring these hard constraints:
    - **Era/commit-aware & non-breaking:** branch in `install-and-run.sh` on timestamp / pm / node version / files present at the commit (per AGENTS §6). Never a single global change.
    - **Tolerates drift:** if the cause only spans some commits, the branch must activate only for that range and stay inert elsewhere; note where the behavior should flip.
