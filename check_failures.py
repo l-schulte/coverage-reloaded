@@ -6,16 +6,20 @@ locates the matching run log, extracts failure keywords inside the suite span,
 and lets you label each failure (one classification per failure occurrence).
 
 Definition of labels (per study):
-  acceptable      -> a genuine test failure devs of that era would also have seen
-  problematic     -> an ENVIRONMENT issue in our pipeline that caused the failure
-  unclear         -> ambiguous / could not decide
-  false_positive  -> not a real failure (e.g. jest console-output capture)
+  acceptable               -> a genuine test failure devs of that era would also have seen
+  problematic              -> an ENVIRONMENT issue in our pipeline that caused the failure
+  unclear                  -> ambiguous / could not decide (a starting state, must be resolved)
+  false_positive           -> not a real failure (e.g. jest console-output capture)
+  reevaluated_acceptable   -> was unclear/problematic, assessed as a genuine dev-facing failure
+  fix_applied              -> an environment/setup fix was applied for this failure
 
 Keyboard shortcuts (interactive / review mode):
   ArrowUp    -> acceptable
   ArrowDown  -> problematic
   Space      -> unclear
   ArrowRight -> false_positive
+  e          -> reevaluated_acceptable
+  f          -> fix_applied
   ArrowLeft  -> undo (re-classify the previous failure)
   s          -> skip (do not label, advance)
   .          -> create auto_classify rule from this failure
@@ -201,8 +205,11 @@ LABELS = {
     "DOWN": "problematic",
     " ": "unclear",
     "RIGHT": "false_positive",
+    "e": "reevaluated_acceptable",
+    "f": "fix_applied",
 }
-ALL_LABELS = ["acceptable", "problematic", "unclear", "false_positive"]
+ALL_LABELS = ["acceptable", "problematic", "unclear", "false_positive",
+              "reevaluated_acceptable", "fix_applied"]
 
 
 def clean(line):
@@ -504,7 +511,7 @@ def print_context(item, c_above, c_below):
         else:
             print(f"{marker}  {i:5}: {txt}")
     print("─" * 72)
-    print("↑ acceptable   ↓ problematic   space unclear   → false_positive   . create-rule   r reload-rules   ← undo   s skip   q quit")
+    print("↑ acceptable   ↓ problematic   space unclear   → false_positive   e re-eval   f fix-applied   . create-rule   r reload-rules   ← undo   s skip   q quit")
 
 
 def build_item_from_row(row, project):
@@ -824,7 +831,7 @@ def main():
                 n = 5
             lab = (current.get(key) or {}).get("label")
             if not lab:
-                print("  choose label for rule: ↑ acceptable  ↓ problematic  space unclear  → false_positive")
+                print("  choose label for rule: ↑ acceptable  ↓ problematic  space unclear  → false_positive  e re-eval  f fix-applied")
                 kk = get_key()
                 if kk in LABELS:
                     lab = LABELS[kk]

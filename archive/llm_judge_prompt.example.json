@@ -1,0 +1,18 @@
+{
+  "model": "gpt-4o-mini",
+  "temperature": 0,
+  "max_tokens": 300,
+  "json_mode": true,
+  "labels": [
+    "acceptable",
+    "problematic",
+    "false_positive"
+  ],
+  "label_definitions": {
+    "acceptable": "A genuine test failure developers of that era would also have seen: a real assertion, logic, or behavioral failure in the project's OWN code. It legitimately reduces coverage and is valid signal.",
+    "problematic": "An ENVIRONMENT / pipeline artifact, NOT the code's fault: network isolation, unresolved module/dependency, build/toolchain mismatch, temporal/clock drift, OOM/timeout, or missing system library. When genuinely ambiguous, DEFAULT to this label.",
+    "false_positive": "NOT a real failure: e.g. a passing run aborted by jest console-output capture, benign warnings that fail the run, or a coverage-threshold-only exit. The tests effectively passed."
+  },
+  "system": "You are a judge that classifies a single test-run failure from a longitudinal code-coverage pipeline. Output strict JSON only. You MUST pick exactly one label; never refuse or output 'unclear'.",
+  "user_template": "Project: {project}\nSuite: {suite}\nExit code: {exit_code}\nEnvironment signals: {env_signals}\n\nBelow is the failure context. The line marked '▶' is the detected failure trigger; lines around it form the error body.\n\n{failure_text}\n\nLabel definitions:\n{label_definitions}\n\nYour task:\n1. Pick exactly ONE label from: {labels}.\n   - Only 'acceptable' when there is a clear assertion/logic failure in project code.\n   - Only 'false_positive' when there is clearly NO real failure.\n   - Otherwise, and whenever you are unsure, pick 'problematic' (our environment's fault).\n2. Set 'confidence': 'high' (clear diagnostic signature), 'medium' (likely, minor ambiguity), or 'low' (guessing / defaulting per the rule above).\n3. Write a short 'reason'.\n4. Propose a 'rule_body' as a COMPACT REGEX PATTERN (Python re syntax) matching the failure's ERROR / DIAGNOSTIC signature (exception type, error message, the lines below the '▶' trigger). It must match the CLASS of error, NOT a specific test file path (e.g. 'test/foo.test.ts') or test name/title (e.g. 'should handle X') -- do not build the pattern from file paths or test identifiers. Replace other volatile tokens with placeholders: line numbers, ports, PIDs, hashes, versions, sizes -> '\\d+' / '[0-9a-f]+'; embedded paths/timestamps inside the error text -> '.*'. Keep the stable DIAGNOSTIC CORE literal (e.g. 'TypeError: Cannot read properties of .*', 'Cannot find module .*'). Do NOT escape regex metacharacters yourself -- write a real pattern. Avoid patterns so broad they match unrelated failures (no bare '.*', no single common word). If there is genuinely no stable ERROR pattern (only a test name/path varies), use null.\n\nRespond with exactly this JSON and nothing else:\n{\"label\": <one of labels>, \"confidence\": \"high|medium|low\", \"reason\": <string>, \"rule_body\": <regex string or null>}"
+}

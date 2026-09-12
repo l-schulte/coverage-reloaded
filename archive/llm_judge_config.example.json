@@ -1,0 +1,76 @@
+{
+  "general": {
+    "patterns": [
+      "\u25cf",
+      "\\bAssertionError"
+    ],
+    "exclude": [
+      "\u25cf\\s*Console",
+      "Test Suites:",
+      "Tests:",
+      "Snapshots:"
+    ]
+  },
+  "suites": {
+    "_example_suite_": {
+      "remove_patterns": [
+        "Error:",
+        "\\bfailed\\b"
+      ],
+      "add_exclude": [
+        "snapshots failed",
+        "worker process has failed"
+      ]
+    }
+  },
+  "auto_classify": [
+    {
+      "match": "Cannot find module",
+      "label": "problematic",
+      "note": "module/dependency resolution (environment)",
+      "lines": 12
+    },
+    {
+      "match": "Cannot use import statement outside a module",
+      "label": "problematic",
+      "note": "module/toolchain mismatch (environment)",
+      "lines": 12
+    },
+    {
+      "match": "getaddrinfo ENOTFOUND",
+      "label": "problematic",
+      "note": "network isolation (environment)",
+      "lines": 12
+    },
+    {
+      "match": "connect ECONNREFUSED",
+      "label": "problematic",
+      "note": "network isolation (environment)",
+      "lines": 12
+    },
+    {
+      "match": "Test suite failed to run",
+      "label": "problematic",
+      "note": "suite bootstrap / toolchain (environment)",
+      "lines": 12
+    },
+    {
+      "match": "Jest worker encountered",
+      "label": "problematic",
+      "note": "worker crash / resource limit (environment)",
+      "lines": 12
+    },
+    {
+      "match": "Consider using the \"jsdom\" test environment",
+      "label": "problematic",
+      "note": "test environment misconfig (environment)",
+      "lines": 12
+    },
+    {
+      "match": "ReferenceError: document is not defined",
+      "label": "problematic",
+      "note": "missing jsdom/test environment (environment)",
+      "lines": 12
+    }
+  ]
+}
