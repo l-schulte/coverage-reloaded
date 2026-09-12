@@ -2,20 +2,25 @@
 """Generate CSV statistics and plots for a coverage_reloaded project.
 
 Usage:
-    python stats.py <project_name> [--output-dir <dir>]
+    python stats.py <project_name> [--output-dir <dir>] [--report-only]
 
 Reads projects/<name>/output/ and produces:
   CSVs:  commits_detail.csv, monthly_trend.csv, distribution.csv, summary.csv
   Plots: monthly_trend.png, coverage_distribution.png, pass_fail_timeline.png,
          status_pie.png, monthly_commit_volume.png, per_suite_coverage.png,
          lines_scatter.png, cumulative_progress.png
+
+With --report-only, only report.txt is regenerated; existing plots (.png) are
+deleted because the underlying data may have changed and stale graphs would be
+misleading.
 """
 
 import argparse
+import os
 import statistics
 import sys
-from collections import defaultdict
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from collections import defaultdict, Counter
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from datetime import datetime
 from pathlib import Path
 
@@ -184,6 +189,21 @@ def _process_entry(entry: Path, dir_prefixes: set) -> dict | None:
             "suites": [],
             "aggregate": None,
         }
+    elif entry.suffix == ".not_applicable":
+        hash_val = entry.stem
+        if hash_val in dir_prefixes:
+            return None
+        ts_str = hash_val.split("_")[0]
+        return {
+            "prefix": hash_val,
+            "hash": hash_val,
+            "date": ts_to_date(ts_str),
+            "month": ts_to_month(ts_str),
+            "timestamp": int(ts_str) if ts_str.isdigit() else 0,
+            "status": "not_applicable",
+            "suites": [],
+            "aggregate": None,
+        }
     return None
 
 
@@ -196,7 +216,8 @@ def scan_output(output_dir: Path) -> list[dict]:
     sorted_entries = sorted(entries, key=lambda p: p.name, reverse=True)
 
     commits = []
-    with ThreadPoolExecutor(max_workers=15) as pool:
+    workers = max(1, min(15, os.cpu_count() or 4))
+    with ProcessPoolExecutor(max_workers=workers) as pool:
         futures = {
             pool.submit(_process_entry, e, dir_prefixes): e for e in sorted_entries
         }
@@ -212,6 +233,36 @@ def scan_output(output_dir: Path) -> list[dict]:
 
     commits.sort(key=lambda c: c["prefix"], reverse=True)
     return commits
+
+
+def find_conflicts(output_dir: Path) -> list[dict]:
+    """Return list of conflicting commits with their entry details.
+
+    Each entry: {prefix, files: [{path, type, modified}]}
+    """
+    if not output_dir.is_dir():
+        return []
+    entries_by_prefix: dict[str, list[dict]] = defaultdict(list)
+    for e in output_dir.iterdir():
+        if e.is_dir():
+            entries_by_prefix[e.name].append(
+                {"path": str(e), "type": "dir", "modified": e.stat().st_mtime}
+            )
+        elif e.suffix == ".error":
+            entries_by_prefix[e.stem].append(
+                {"path": str(e), "type": "error", "modified": e.stat().st_mtime}
+            )
+        elif e.suffix == ".not_applicable":
+            entries_by_prefix[e.stem].append(
+                {"path": str(e), "type": "not_applicable", "modified": e.stat().st_mtime}
+            )
+    conflicts = []
+    for prefix, files in entries_by_prefix.items():
+        if len(files) > 1:
+            files.sort(key=lambda f: f["type"])
+            conflicts.append({"prefix": prefix, "files": files})
+    conflicts.sort(key=lambda c: c["prefix"])
+    return conflicts
 
 
 # ── CSV generation ───────────────────────────────────────────────────────────
@@ -275,7 +326,9 @@ def write_monthly_trend_csv(commits: list[dict], out_dir: Path) -> Path:
     monthly_lines = defaultdict(list)
     monthly_functions = defaultdict(list)
     monthly_branches = defaultdict(list)
-    monthly_status = defaultdict(lambda: {"pass": 0, "fail": 0, "error": 0})
+    monthly_status = defaultdict(
+        lambda: {"pass": 0, "fail": 0, "error": 0, "not_applicable": 0}
+    )
 
     for c in commits:
         month = c.get("month")
@@ -325,7 +378,12 @@ def write_monthly_trend_csv(commits: list[dict], out_dir: Path) -> Path:
         fs = _stats(monthly_functions.get(month, []))
         bs = _stats(monthly_branches.get(month, []))
         st = monthly_status.get(month, {})
-        total = st.get("pass", 0) + st.get("fail", 0) + st.get("error", 0)
+        total = (
+            st.get("pass", 0)
+            + st.get("fail", 0)
+            + st.get("error", 0)
+            + st.get("not_applicable", 0)
+        )
         rows.append(
             {
                 "month": month,
@@ -333,6 +391,7 @@ def write_monthly_trend_csv(commits: list[dict], out_dir: Path) -> Path:
                 "passed": st.get("pass", 0),
                 "failed": st.get("fail", 0),
                 "errors": st.get("error", 0),
+                "not_applicable": st.get("not_applicable", 0),
                 "lines_mean": ls["mean"],
                 "lines_median": ls["median"],
                 "lines_stdev": ls["stdev"],
@@ -387,6 +446,7 @@ def write_summary_csv(commits: list[dict], out_dir: Path) -> Path:
     passed = sum(1 for c in commits if c["status"] == "pass")
     failed = sum(1 for c in commits if c["status"] == "fail")
     errors = sum(1 for c in commits if c["status"] == "error")
+    not_applicable = sum(1 for c in commits if c["status"] == "not_applicable")
 
     all_lines = []
     all_functions = []
@@ -423,6 +483,7 @@ def write_summary_csv(commits: list[dict], out_dir: Path) -> Path:
         "passed": passed,
         "failed": failed,
         "errors": errors,
+        "not_applicable": not_applicable,
         "lines_mean": ls["mean"],
         "lines_median": ls["median"],
         "lines_stdev": ls["stdev"],
@@ -630,7 +691,9 @@ def plot_distribution(commits: list[dict], out_dir: Path) -> Path:
 
 
 def plot_pass_fail_timeline(commits: list[dict], out_dir: Path) -> Path:
-    monthly = defaultdict(lambda: {"pass": 0, "fail": 0, "error": 0})
+    monthly = defaultdict(
+        lambda: {"pass": 0, "fail": 0, "error": 0, "not_applicable": 0}
+    )
     for c in commits:
         month = c.get("month")
         if month:
@@ -645,9 +708,10 @@ def plot_pass_fail_timeline(commits: list[dict], out_dir: Path) -> Path:
     pass_vals = [monthly[m]["pass"] for m in months]
     fail_vals = [monthly[m]["fail"] for m in months]
     error_vals = [monthly[m]["error"] for m in months]
+    not_applicable_vals = [monthly[m]["not_applicable"] for m in months]
 
     fig, ax = plt.subplots(figsize=(14, 5))
-    _setup_plot(fig, ax, "Monthly Pass / Fail / Error")
+    _setup_plot(fig, ax, "Monthly Pass / Fail / Error / Not Applicable")
 
     x = np.arange(len(months))
     ax.bar(x, pass_vals, 0.7, label="Passed", color="#2ca02c", alpha=0.7)
@@ -663,6 +727,16 @@ def plot_pass_fail_timeline(commits: list[dict], out_dir: Path) -> Path:
     bottom2 = [p + f for p, f in zip(pass_vals, fail_vals)]
     ax.bar(
         x, error_vals, 0.7, bottom=bottom2, label="Error", color="#d62728", alpha=0.5
+    )
+    bottom3 = [b + e for b, e in zip(bottom2, error_vals)]
+    ax.bar(
+        x,
+        not_applicable_vals,
+        0.7,
+        bottom=bottom3,
+        label="Not applicable",
+        color="#7f7f7f",
+        alpha=0.5,
     )
 
     ax.set_xticks(x)
@@ -684,7 +758,8 @@ def plot_status_pie(commits: list[dict], out_dir: Path) -> Path:
     passed = sum(1 for c in commits if c["status"] == "pass")
     failed = sum(1 for c in commits if c["status"] == "fail")
     errors = sum(1 for c in commits if c["status"] == "error")
-    total = passed + failed + errors
+    not_applicable = sum(1 for c in commits if c["status"] == "not_applicable")
+    total = passed + failed + errors + not_applicable
 
     fig, ax = plt.subplots(figsize=(6, 6))
 
@@ -707,6 +782,10 @@ def plot_status_pie(commits: list[dict], out_dir: Path) -> Path:
             labels.append(f"Error ({errors})")
             sizes.append(errors)
             colors.append("#d62728")
+        if not_applicable:
+            labels.append(f"Not applicable ({not_applicable})")
+            sizes.append(not_applicable)
+            colors.append("#7f7f7f")
 
         wedges, texts, autotexts = ax.pie(
             sizes,
@@ -734,7 +813,9 @@ def plot_status_pie(commits: list[dict], out_dir: Path) -> Path:
 
 
 def plot_monthly_volume(commits: list[dict], out_dir: Path) -> Path:
-    monthly = defaultdict(lambda: {"pass": 0, "fail": 0, "error": 0})
+    monthly = defaultdict(
+        lambda: {"pass": 0, "fail": 0, "error": 0, "not_applicable": 0}
+    )
     for c in commits:
         month = c.get("month")
         if month:
@@ -749,7 +830,11 @@ def plot_monthly_volume(commits: list[dict], out_dir: Path) -> Path:
     pass_vals = [monthly[m]["pass"] for m in months]
     fail_vals = [monthly[m]["fail"] for m in months]
     error_vals = [monthly[m]["error"] for m in months]
-    totals = [p + f + e for p, f, e in zip(pass_vals, fail_vals, error_vals)]
+    not_applicable_vals = [monthly[m]["not_applicable"] for m in months]
+    totals = [
+        p + f + e + na
+        for p, f, e, na in zip(pass_vals, fail_vals, error_vals, not_applicable_vals)
+    ]
 
     fig, ax = plt.subplots(figsize=(14, 5))
     _setup_plot(fig, ax, "Monthly Commit Volume")
@@ -768,6 +853,16 @@ def plot_monthly_volume(commits: list[dict], out_dir: Path) -> Path:
     bottom2 = [p + f for p, f in zip(pass_vals, fail_vals)]
     ax.bar(
         x, error_vals, 0.7, bottom=bottom2, label="Error", color="#d62728", alpha=0.5
+    )
+    bottom3 = [b + e for b, e in zip(bottom2, error_vals)]
+    ax.bar(
+        x,
+        not_applicable_vals,
+        0.7,
+        bottom=bottom3,
+        label="Not applicable",
+        color="#7f7f7f",
+        alpha=0.5,
     )
 
     for i, t in enumerate(totals):
@@ -1088,6 +1183,71 @@ def _write_empty_plot(out_dir: Path, filename: str, title: str) -> Path:
     return path
 
 
+# ── Report ───────────────────────────────────────────────────────────────────
+
+
+def write_report(commits: list[dict], output_dir: Path, proj_dir: Path) -> Path:
+    """Write report.txt (status counts + sanity check) into output_dir."""
+    passed = sum(1 for c in commits if c["status"] == "pass")
+    failed = sum(1 for c in commits if c["status"] == "fail")
+    errors = sum(1 for c in commits if c["status"] == "error")
+    not_applicable = sum(1 for c in commits if c["status"] == "not_applicable")
+
+    commits_csv = proj_dir / "commits.csv"
+    if commits_csv.is_file():
+        with open(commits_csv) as f:
+            total_expected = sum(1 for _ in f) - 1  # subtract header
+        not_processed = max(0, total_expected - len(commits))
+    else:
+        not_processed = None
+
+    total = len(commits)
+    applicable = passed + failed + errors
+    coverage_produced = passed + failed
+    pct_cov = round(coverage_produced / applicable * 100, 1) if applicable else 0.0
+
+    report_lines = [
+        f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}",
+        f"{total} commits processed",
+        f"{passed} without test failures",
+        f"{failed} with test failures",
+        f"{not_applicable} not applicable",
+        f"{errors} hard errors",
+        f"{pct_cov}% of applicable commits produced coverage",
+    ]
+    if not_processed is not None:
+        report_lines.append(f"{not_processed} commits not yet processed")
+
+    report = "\n".join(report_lines)
+    print(f"\n── Coverage Collection Report ─────────────────────────\n{report}\n────────────────────────────────────────────────────────")
+
+    # Sanity check: commits with multiple conflicting output entry types
+    out = proj_dir / "output"
+    conflicts = find_conflicts(out)
+    sanity_lines = []
+    if conflicts:
+        sanity_lines.append(f"{len(conflicts)} conflicting entries found:")
+        for c in conflicts:
+            prefix = c["prefix"]
+            types = "+".join(f["type"] for f in c["files"])
+            sanity_lines.append(f"  {prefix} ({types}):")
+            for f in c["files"]:
+                mtime = datetime.fromtimestamp(f["modified"]).strftime("%Y-%m-%d %H:%M:%S")
+                sanity_lines.append(f"    {f['type']:15s} {mtime}  {f['path']}")
+    else:
+        sanity_lines.append(
+            "No conflicting entries found (each commit has exactly one entry type)."
+        )
+
+    sanity = "\n".join(sanity_lines)
+    print(f"\n── Sanity Check ──────────────────────────────────────\n{sanity}\n────────────────────────────────────────────────────────")
+
+    full_report = report + "\n\n" + sanity
+    report_path = output_dir / "report.txt"
+    report_path.write_text(full_report + "\n")
+    return report_path
+
+
 # ── Main ─────────────────────────────────────────────────────────────────────
 
 
@@ -1100,6 +1260,11 @@ def main():
     )
     parser.add_argument(
         "--output-dir", help="Output directory (default: projects/<name>/stats_output/)"
+    )
+    parser.add_argument(
+        "--report-only",
+        action="store_true",
+        help="Regenerate report.txt only and delete existing plots (they may be stale).",
     )
     args = parser.parse_args()
 
@@ -1127,9 +1292,20 @@ def main():
     passed = sum(1 for c in commits if c["status"] == "pass")
     failed = sum(1 for c in commits if c["status"] == "fail")
     errors = sum(1 for c in commits if c["status"] == "error")
+    not_applicable = sum(1 for c in commits if c["status"] == "not_applicable")
     print(
-        f"Found {len(commits)} commits: {passed} passed, {failed} failed, {errors} errors"
+        f"Found {len(commits)} commits: {passed} passed, {failed} failed, "
+        f"{errors} errors, {not_applicable} not applicable"
     )
+
+    if args.report_only:
+        plots = sorted(output_dir.glob("*.png"))
+        for p in plots:
+            p.unlink()
+        print(f"Report-only: deleted {len(plots)} stale plot file(s).")
+        write_report(commits, output_dir, proj_dir)
+        print(f"Done. Output in {output_dir}")
+        return
 
     print("Generating CSVs...")
     for fn in [
@@ -1157,6 +1333,7 @@ def main():
         p = fn(commits, output_dir)
         print(f"  {p.name}")
 
+    write_report(commits, output_dir, proj_dir)
     print(f"Done. Output in {output_dir}")
 
 
