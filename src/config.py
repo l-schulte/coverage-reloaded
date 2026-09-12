@@ -156,6 +156,12 @@ class ProjectConfig:
     #: ``[{"start_ts": 1754389274, "end_ts": 1757319331, "new_version": "20.18"}]``
     node_version_overrides: list[NodeVersionOverride] = field(default_factory=list)
 
+    #: The source of the timestamp to use for overrides.
+    #: Default: ``"author_timestamp"`` (or "committer_timestamp" or "timestamp_diff").
+    timestamp_source: Optional[str] = (
+        "author_timestamp"  # or "committer_timestamp" or "timestamp_diff"
+    )
+
 
 @dataclass
 class NodeVersionOverride:

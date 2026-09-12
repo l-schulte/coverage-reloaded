@@ -12,7 +12,7 @@ def get_yarn_version(
 ) -> tuple[str | None, str | None]:
     """
     Attempts to retrieve the package manager version for a given commit hash.
-    1. Check package.json (engines, volta, packageManager fields)
+    1. Check package.json (packageManager, volta, engines fields)
     2. Check yarn.lock header for Yarn v1 ("# yarn lockfile v1")
     """
 

@@ -32,6 +32,7 @@ TEST_KEYWORDS = [
 def extract_project_metadata(
     commit_hash: str,
     committer_date: datetime,
+    author_date: datetime,
     repo_path: str,
     project: str,
     project_config: ProjectConfig,
@@ -55,6 +56,7 @@ def extract_project_metadata(
     workspaces = find_workspaces(repo_path, commit_hash)
     workspaces["config"] = project_config.workspaces
     min_node_version = project_config.min_node_version
+    timestamp_source = project_config.timestamp_source
 
     node, node_source = find_node_version(
         commit_hash,
@@ -94,9 +96,8 @@ def extract_project_metadata(
     if project_config.node_version_overrides:
         ts = int(committer_date.timestamp())
         for override in project_config.node_version_overrides:
-            if (
-                override.start_ts <= ts <= override.end_ts
-                and (override.old_version is None or node_major == override.old_version)
+            if override.start_ts <= ts <= override.end_ts and (
+                override.old_version is None or node_major == override.old_version
             ):
                 logger.info(
                     f"Overriding node version {node} -> {override.new_version} "
@@ -113,7 +114,10 @@ def extract_project_metadata(
         pm_source = "config override"
     else:
         pm_version, pm_source = find_package_manager(
-            commit_hash, repo_path, node, package_manager_priority,
+            commit_hash,
+            repo_path,
+            node,
+            package_manager_priority,
             skip_engines=project_config.package_manager_skip_engines,
         )
         # Fall back to the configured default if auto-detection found nothing
@@ -154,9 +158,8 @@ def extract_project_metadata(
     if project_config.package_manager_version_overrides:
         ts = int(committer_date.timestamp())
         for override in project_config.package_manager_version_overrides:
-            if (
-                override.start_ts <= ts <= override.end_ts
-                and (override.old_version is None or pm_version == override.old_version)
+            if override.start_ts <= ts <= override.end_ts and (
+                override.old_version is None or pm_version == override.old_version
             ):
                 logger.info(
                     f"Overriding package manager version {pm_version} -> "
@@ -171,12 +174,15 @@ def extract_project_metadata(
     coverage_tools = find_coverage_tools(commit_hash, repo_path)
     lock_files = find_lock_files(commit_hash, repo_path)
 
-    timestamp = int(committer_date.timestamp())
+    timestamp = (
+        committer_date if timestamp_source == "committer_timestamp" else author_date
+    )
 
     return {
         "commit": {
             "commit_hash": commit_hash,
-            "timestamp": timestamp,
+            "timestamp": int(timestamp.timestamp()),
+            "timestamp_source": timestamp_source,
             "node_version": node,
             "node_version_source": node_source,
             "pm_version": pm_version,
@@ -187,7 +193,8 @@ def extract_project_metadata(
         "additional": (
             {
                 "commit_hash": commit_hash,
-                "timestamp": timestamp,
+                "timestamp": int(timestamp.timestamp()),
+                "timestamp_source": timestamp_source,
             }
             | commands
             | lock_files

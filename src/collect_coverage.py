@@ -121,7 +121,8 @@ def execute(project, max_workers, max_commits=None):
     completed_commits = set()
     if os.path.exists(logs_path):
         for filename in os.listdir(logs_path):
-            if filename.endswith(".log"):
+            # if filename.endswith(".log"):
+            if filename.endswith(".log") or filename.endswith(".error"):
                 # Parse: {timestamp}_{commit_hash}.log
                 parts = filename.rsplit("_", 1)
                 if len(parts) == 2:

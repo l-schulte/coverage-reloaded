@@ -1,4 +1,5 @@
 .vscode/
+.opencode/plans/
 
 .env
 .venv
@@ -8,6 +9,7 @@
 *.error
 *.exit_code
 *.not_applicable
+*.bak
 
 *additional_information.csv
 *commits.csv

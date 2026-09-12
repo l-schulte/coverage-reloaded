@@ -188,6 +188,11 @@ def execute(project: str, start_date: datetime, end_date: datetime):
     project_path = f"projects/{project}"
     cfg = get_config()
     project_cfg = cfg.projects.get(project)
+
+    if not project_cfg:
+        logger.error(f"Project {project} not found in config.json.")
+        return
+
     project_url = project_cfg.url if project_cfg else None
     repo_path = f"{project_path}/repo"
 
@@ -206,7 +211,11 @@ def execute(project: str, start_date: datetime, end_date: datetime):
     logging.getLogger("pydriller").setLevel(logging.WARNING)
 
     tasks = [
-        {"hash": c.hash, "committer_date": c.committer_date}
+        {
+            "hash": c.hash,
+            "committer_date": c.committer_date,
+            "author_date": c.author_date,
+        }
         for c in pydriller.Repository(repo_path).traverse_commits()
         if start_date <= c.committer_date < end_date
     ]
@@ -217,6 +226,7 @@ def execute(project: str, start_date: datetime, end_date: datetime):
                 extract_project_metadata,
                 c["hash"],
                 c["committer_date"],
+                c["author_date"],
                 repo_path,
                 project,
                 project_cfg,

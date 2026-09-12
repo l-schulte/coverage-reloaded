@@ -26,6 +26,7 @@ NodeVersionStrategy = Callable[..., Optional[str]]
 from src.project_metadata.node.strategies import (
     nvmrc,
     package_json,
+    github_actions,
     pnpm_lock,
     tool_version,
     circleci,
@@ -39,6 +40,7 @@ from src.project_metadata.node.strategies import (
 STRATEGIES: list[tuple[str, NodeVersionStrategy]] = [
     (".nvmrc", nvmrc.get_node_version),
     ("package.json", package_json.get_node_version),
+    ("GitHub Actions workflow", github_actions.get_node_version),
     ("pnpm-lock.yaml", pnpm_lock.get_node_version),
     (".tool-version", tool_version.get_node_version),
     (".circleci/config.yml", circleci.get_node_version),

@@ -6,7 +6,11 @@ from src.project_metadata.package_manager.parse_version import (
 
 logger = logging.getLogger(__name__)
 
-DEFAULT_POTENTIAL_KEYS = ["engines", "volta", "packageManager"]
+# `packageManager` is the exact pinned version (what corepack installs), so it
+# must win over `engines` ranges, which only state a floor like `>=8.1` and
+# lose the patch component (`8.1` vs `8.1.0`). Corepack cannot resolve the
+# truncated two-part form on older bundled corepack versions.
+DEFAULT_POTENTIAL_KEYS = ["packageManager", "volta", "engines"]
 
 
 def __get_package_manager_version_from_key(
