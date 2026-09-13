@@ -12,7 +12,7 @@
       "description": "Analyze and summarize log files for a project to identify failures"
     },
     "new-project": {
-      "template": "Project $1 was just added. Conduct a preliminary feasibility assessment. Use the new-project skill: read projects/$1/command_changes.csv to understand how commands progressed troughout the relevant timeframe (01-2020 to 12-2025). Group commands by type (unit test, integration tests, e2e test, important setup). Propose how coverage can be collected for unit and integration tests.",
+      "template": "Project $1 was just added. Conduct a preliminary feasibility assessment. Use the new-project skill: read projects/$1/command_changes.csv to understand how commands progressed troughout the relevant timeframe (01-2021 to 01-2026). Group commands by type (unit test, integration tests, e2e test, important setup). Propose how coverage can be collected for unit and integration tests.",
       "description": "Assess the feasibility of a new project for coverage analysis"
     },
     "failure-label-review": {

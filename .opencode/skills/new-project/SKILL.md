@@ -42,10 +42,10 @@ Bounded scope: read `command_changes.csv` and related files, classify everything
    - `ava` → wrap with `c8`
    - `karma` → `karma-coverage` plugin or wrap with `nyc`
    - Other → assess case by case
-4. **Scan repo for CI configs and documentation** within the relevant timeframe (2020–2025). These are gold mines for understanding how the project actually runs its tests:
+4. **Scan repo for CI configs and documentation** within the relevant timeframe (1–2026). These are gold mines for understanding how the project actually runs its tests:
    ```bash
    # Find CI config files that existed in the repo's history
-   git -C projects/<name>/repo log --after=2020-01-01 --before=2026-01-01 \
+   git -C projects/<name>/repo log --after=2021-01-01 --before=2026-01-01 \
      --name-only --pretty=format: -- \
      '.github/workflows/*.yml' '.circleci/*' '.gitlab-ci.yml' \
      'Jenkinsfile' 'Makefile' 'Dockerfile*' 'docker-compose*.yml' \
@@ -67,7 +67,7 @@ Bounded scope: read `command_changes.csv` and related files, classify everything
 ## Script Groups
 | Type | Script Name | Definition | Commits Affected |
 |------|-------------|------------|-------------------|
-| Unit | test:unit | jest --runInBand | 2020-01 → 2025-12 |
+| Unit | test:unit | jest --runInBand | 2021-01 → 2026-01 |
 | ... | ... | ... | ... |
 
 ## Build/Prep Required Before Tests
