@@ -115,6 +115,16 @@
                     "new_version": "pnpm@10.18.0"
                 }
             ]
+        },
+        "matrix-js-sdk": {
+            "url": "https://github.com/matrix-org/matrix-js-sdk",
+            "node_version_overrides": [
+                {
+                    "start_ts": 1658323000,
+                    "end_ts": 1675957462,
+                    "new_version": "16"
+                }
+            ]
         }
     }
 }

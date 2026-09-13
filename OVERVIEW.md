@@ -64,6 +64,7 @@ dates live in the per-project Results sections, sourced from
 | [flowfuse](projects/flowfuse/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
 | [gatsby](projects/gatsby/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
 | [material-ui](projects/material-ui/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
+| [matrix-js-sdk](projects/matrix-js-sdk/OVERVIEW.md) | 🟡 | ❌ | ❌ | ❌ |
 | [moodleapp](projects/moodleapp/OVERVIEW.md) | ✅ | ✅ | ✅ | 🟡 |
 | [n8n](projects/n8n/OVERVIEW.md) | ✅ | ❌ | ✅ | ❌ |
 | [opencrvs-core](projects/opencrvs-core/OVERVIEW.md) | ❌ | ❌ | ❌ | ❌ |
