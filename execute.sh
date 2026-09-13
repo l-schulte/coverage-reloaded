@@ -54,6 +54,9 @@ process_files() {
 # GitHub is deprecating the git:// protocol.
 # Workaround: configure git to use https:// instead of git:// for github.com.
 git config --global url."https://github.com/".insteadOf "git://github.com/"
+# pnpm/yarn clone git deps over SSH (git@github.com:...); containers have no ssh client.
+# Redirect SSH git URLs to anonymous HTTPS so public git deps resolve.
+git config --global url."https://github.com/".insteadOf "git@github.com:"
 
 IS_NPM_MAIN_PM=$([[ "$package_manager" == npm* ]] && echo "true" || echo "false")
 export IS_NPM_MAIN_PM
