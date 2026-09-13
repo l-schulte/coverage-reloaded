@@ -104,6 +104,17 @@
                     "new_version": "npm@8"
                 }
             ]
+        },
+        "apostrophe": {
+            "url": "https://github.com/apostrophecms/apostrophe",
+            "package_manager_version_overrides": [
+                {
+                    "start_ts": 1764500000,
+                    "end_ts": 4102444800,
+                    "old_version": "npm",
+                    "new_version": "pnpm@10.18.0"
+                }
+            ]
         }
     }
 }

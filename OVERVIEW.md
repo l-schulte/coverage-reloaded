@@ -59,6 +59,7 @@ dates live in the per-project Results sections, sourced from
 | Project | 100 done | failed tests doublechecked | complete run | complete test failure check |
 |---|---|---|---|---|
 | [apollo-client](projects/apollo-client/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
+| [apostrophe](projects/apostrophe/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
 | [bhima](projects/bhima/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
 | [flowfuse](projects/flowfuse/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
 | [gatsby](projects/gatsby/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
