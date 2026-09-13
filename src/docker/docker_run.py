@@ -64,7 +64,9 @@ def get_filename(timestamp, commit_hash, success=True):
     return f"{timestamp}_{commit_hash}.{ext}"
 
 
-def docker_run_script(commit, workspace_path, logs_path, output_path):
+def docker_run_script(
+    commit, workspace_path, logs_path, output_path, skip_build=True
+):
     """
     Run docker container for a single commit.
 
@@ -73,6 +75,10 @@ def docker_run_script(commit, workspace_path, logs_path, output_path):
         workspace_path (str): The base path for the workspace to find the docker_run.sh script.
         logs_path (str): The path where logs should be stored.
         output_path (str): The path where output files should be stored.
+        skip_build (bool): When True (default), images are expected to have been
+            pre-built (see pre_build_images) and docker-run.sh is told to skip
+            rebuilding. Single-commit runs pass False so docker-run.sh builds
+            the base and project images itself.
     """
     DOCKER_RUN_SCRIPT = os.path.join(workspace_path, "docker-run.sh")
 
@@ -95,7 +101,7 @@ def docker_run_script(commit, workspace_path, logs_path, output_path):
     # Override by setting CONTAINER_CPUS in .env for manual runs.
     env = os.environ.copy()
     env["CONTAINER_CPUS"] = "6"
-    env["SKIP_BUILD"] = "true"
+    env["SKIP_BUILD"] = "true" if skip_build else "false"
 
     try:
         result = subprocess.run(

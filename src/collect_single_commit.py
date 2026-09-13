@@ -37,7 +37,12 @@ def execute(project, commit_hash, base_path=None):
     os.makedirs(logs_path, exist_ok=True)
 
     commit_information = extract_project_metadata(
-        commit_hash, commit_data.committer_date, repo_path, project, project_config
+        commit_hash,
+        commit_data.committer_date,
+        commit_data.author_date,
+        repo_path,
+        project,
+        project_config,
     )
 
     commit_info = commit_information["commit"]
@@ -73,6 +78,7 @@ def execute(project, commit_hash, base_path=None):
         WORKSPACE_PATH,
         logs_path,
         output_path,
+        skip_build=False,
     )
 
     logger.info(
