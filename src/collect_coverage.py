@@ -240,6 +240,18 @@ def execute_failed(project, max_workers, max_commits=None):
         "Retrying failed commits...",
     )
 
+    # delete the .error files for successfully retried commits
+    for commit in failed_commits:
+        commit_hash = commit[2]
+        timestamp = commit[3]
+        error_file = os.path.join(logs_path, f"{timestamp}_{commit_hash}.error")
+        log_file = os.path.join(logs_path, f"{timestamp}_{commit_hash}.log")
+        if os.path.exists(log_file) and os.path.exists(error_file):
+            os.remove(error_file)
+            logger.info(
+                f"Removed .error file for successfully retried commit: {commit_hash}"
+            )
+
 
 def main():
     args = parse_args()
