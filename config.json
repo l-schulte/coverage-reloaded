@@ -94,6 +94,9 @@
                 { "start_ts": 0, "end_ts": 1579737759, "new_version": "10" }
             ]
         },
+        "opencrvs-core": {
+            "url": "https://github.com/opencrvs/opencrvs-core"
+        },
         "apollo-client": {
             "url": "https://github.com/apollographql/apollo-client",
             "package_manager_version_overrides": [
