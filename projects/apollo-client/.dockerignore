@@ -2,3 +2,4 @@
 !Dockerfile
 !repo/
 !install-and-run.sh
+!patch-coverage.js

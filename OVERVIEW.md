@@ -7,6 +7,8 @@ approach, checklist, results, and known test failures.
 - Pipeline and design rules: [`AGENTS.md`](AGENTS.md)
 - Collection workflow: [`README.md`](README.md)
 - Detailed pipeline reference: [`ref/`](ref/)
+- Study-level methodology decisions (e.g. author-date dependency snapshots):
+  [`STUDY_DECISIONS.md`](STUDY_DECISIONS.md)
 
 ## How to read this document
 
@@ -21,7 +23,7 @@ Four items, always in this order:
 | **complete run** | The full commit history has been processed. |
 | **complete test failure check** | Every failing run has been labeled and assessed. |
 
-Symbols: ✅ done, 🟡 partial or work in progress, ❌ not done.
+Symbols: ✅ done, 🟡 work in progress, 🚧 paused (partially processed), ❌ not done.
 
 ### Run statuses
 
@@ -64,20 +66,20 @@ dates live in the per-project Results sections, sourced from
 | [flowfuse](projects/flowfuse/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
 | [gatsby](projects/gatsby/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
 | [material-ui](projects/material-ui/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
-| [matrix-js-sdk](projects/matrix-js-sdk/OVERVIEW.md) | 🟡 | ❌ | ❌ | ❌ |
-| [moodleapp](projects/moodleapp/OVERVIEW.md) | ✅ | ✅ | ✅ | 🟡 |
-| [n8n](projects/n8n/OVERVIEW.md) | ✅ | ❌ | ✅ | ❌ |
-| [opencrvs-core](projects/opencrvs-core/OVERVIEW.md) | ❌ | ❌ | ❌ | ❌ |
+| [matrix-js-sdk](projects/matrix-js-sdk/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
+| [moodleapp](projects/moodleapp/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
+| [n8n](projects/n8n/OVERVIEW.md) | ✅ | ❌ | 🟡 | ❌ |
+| [opencrvs-core](projects/opencrvs-core/OVERVIEW.md) | ✅ | 🟡 | ❌ | ❌ |
 | [openneuro](projects/openneuro/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
-| [pf2e](projects/pf2e/OVERVIEW.md) | ✅ | ✅ | ✅ | ❌ |
-| [rxdb](projects/rxdb/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
-| [serverless](projects/serverless/OVERVIEW.md) | ✅ | ✅ | ✅ | ❌ |
+| [pf2e](projects/pf2e/OVERVIEW.md) | ✅ | ✅ | 🚧 | ✅ |
+| [rxdb](projects/rxdb/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
+| [serverless](projects/serverless/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
 | [site-kit-wp](projects/site-kit-wp/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
-| [spreed](projects/spreed/OVERVIEW.md) | ✅ | ✅ | ✅ | ❌ |
-| [uwazi](projects/uwazi/OVERVIEW.md) | ✅ | ✅ | ✅ | ❌ |
-| [vega-lite](projects/vega-lite/OVERVIEW.md) | ✅ | ✅ | ✅ | ❌ |
-| [wowanalyzer](projects/wowanalyzer/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
-| [yari](projects/yari/OVERVIEW.md) | ✅ | ✅ | ✅ | ❌ |
+| [spreed](projects/spreed/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
+| [uwazi](projects/uwazi/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
+| [vega-lite](projects/vega-lite/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
+| [wowanalyzer](projects/wowanalyzer/OVERVIEW.md) | ✅ | ✅ | 🚧 | ✅ |
+| [yari](projects/yari/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
 
 ## Cross-cutting infrastructure
 
