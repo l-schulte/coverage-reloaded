@@ -27,44 +27,93 @@
     is killed between suites.
 - **Suites excluded:** none.
 - **Coverage tool / config:** `c8` (installed as a fallback when absent).
-- **LCOV production:** `c8` `lcov` reporter. Chromium runs with `--no-sandbox`.
+- **LCOV production:** `c8` `lcov` reporter for the mocha suites; the
+  `karma-coverage` sidecar writes the client `lcov`. Chromium runs with
+  `--no-sandbox`.
 
 ## Checklist
 
 - [x] 100 done (96/100)
-- [x] failed tests doublechecked (genuine issues)
-- [x] complete run
-- [x] complete test failure check (DB switch re-run done)
+- [x] failed tests doublechecked (52 `acceptable`; 0 `problematic`/`unclear` —
+  coral-PDF timeout family re-ran clean)
+- [x] complete run (all 4386 commits processed; 298 hard errors, 93.2% coverage)
+- [x] complete test failure check
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-09-10 15:32).
+Source: `stats_output/report.txt` (generated 2026-09-16 08:58).
 
 | Metric | Value |
 |---|---|
 | Commits processed | 4386 |
-| Without test failures | 4087 |
-| With test failures | 230 |
+| Without test failures | 3880 |
+| With test failures | 208 |
 | Not applicable | 0 |
-| Hard errors | 69 |
-| Coverage produced | 98.4% |
+| Hard errors | 298 |
+| Coverage produced | 93.2% |
 
 Full statistics and plots: [`stats_output/`](stats_output/).
 
 ## Known test failures
 
-Example commit `181f69` (`integration` suite, 2 failures):
+52 labeled rows in [`failure_labels_project.csv`](failure_labels_project.csv)
+(all `acceptable`); per-commit logs under [`logs/`](logs/).
+[`failure_labels_collapsed_problematic_unclear.csv`](failure_labels_collapsed_problematic_unclear.csv)
+lists no `problematic`/`unclear` families.
 
 | Signature | Classification | Coverage impact | Action |
 |---|---|---|---|
-| UTF-8 encoding mismatch (`RemunÃ©ration` vs `Remunération`) in `accountFYBalances` and `budget/import` | problematic | valid partial coverage | Likely locale/database collation issue. |
-| `ENOENT: bhima-bootstrap.css` (22 occurrences) | acceptable | valid partial coverage | [`head.handlebars`](https://github.com/third-culture-software/bhima/blob/181f6988df8c50988efa0607a608429ad6f05de5/server/lib/template/partials/head.handlebars#L5) references a CSS build artifact (compiled from `client/src/less/bhima-bootstrap.less` via gulp) that does not exist in source. HTML report tests still pass because they assert on JSON rendering. |
+| `integration` `AssertionError`: HTTP status mismatches (expected 2xx/4xx, got 4xx/5xx) | acceptable | valid partial | none |
+| `integration` `AssertionError`: response key-set mismatches | acceptable | valid partial | none |
+| `integration` `AssertionError`: numeric / array-length / count mismatches (payroll, purchases, `staffingIndices`, inventory) | acceptable | valid partial | partly date-sensitive; none |
+| `integration` UTF-8 mojibake (`RemunÃ©ration` vs `Remunération`) | acceptable | valid partial | locale/DB collation; none |
+| `integration` `SyntaxError: Invalid regular expression: missing /` | acceptable | valid partial | none |
+| `server` `TypeError: job.nextDate(...).format is not a function` | acceptable | valid partial | none |
+| `server` `TypeError: coral is not a function` / `require(...) is not a function` | acceptable | valid partial | none |
+| `server` SQL `Error: ER_*` (e.g. `ER_WRONG_VALUE_COUNT_ON_ROW`) and `Error: A callback is required!` | acceptable | valid partial | none |
 
+**Resolved (2026-09-16):** the earlier `problematic` mocha-timeout family
+(5000 ms `pdf.spec.js` / `account_report.js`, 30000 ms
+`reports/finance/cash.receipt.js`) was a container-contention flake, not a
+deterministic failure. All five affected commits
+(`1691933532_d9238c94`, `1707063237_2f77b170`, `1709541076_55f1ecae`,
+`1715548551_bdc18457`, `1718473127_39ada258`) were re-run and every suite passed
+(`exit_code=0`, zero timeout lines); the old logs are archived under
+`archive/pre_pdf_timeout_retry/`. The `439ec8f6ef51` auto-classify rule is
+retained as `problematic` as a regression tripwire.
 
 ## Environment / setup fixes
 
-None.
+- MySQL 8.0 from the official APT repo (MariaDB 10.5's stored-procedure and
+  charset behaviour breaks `build:db`).
+- MySQL server started with
+  `--sql-mode="STRICT_ALL_TABLES,NO_UNSIGNED_SUBTRACTION"` and a
+  `mysql_native_password` user, replicating bhima's CI.
+- Redis daemon and Chromium `--no-sandbox`.
+- `karma-coverage` / babel harness symlinked into `node_modules` for the client
+  sidecar config.
+- Timeouts are contention-sensitive: the `integration` suite drives
+  `@ima-worldhealth/coral` PDF rendering, which is CPU-bound. Re-running the
+  five affected commits with `--max-workers 1` cleared every timeout, so lower
+  worker counts are preferred for this project.
 
 ## Known gaps
 
-None. The `integration` suite's database switch and re-run are complete.
+298 commits hard-errored (exit code > 1 or no `lcov.info`), so their coverage is
+missing. Causes, from the `.error` logs:
+
+| Cause | Commits |
+|---|---|
+| `ETARGET` — declared dependency range unresolvable in the author-date WayPack snapshot | 242 |
+| Client build produced no `bhima.min.js` | 15 |
+| `build:stock` seed foreign-key constraint failure | 14 |
+| `build:db` failed | 12 |
+| `server` suite emitted empty `lcov.info` | 9 |
+| Redis connection refused | 3 |
+| `karma-coverage` produced no `lcov.info` | 2 |
+| Build DB column-count mismatch | 1 |
+
+The `ETARGET` group is the faithful "un-buildable at author date" reconstruction
+described in [`STUDY_DECISIONS.md`](../../STUDY_DECISIONS.md) §1; the top missing
+packages are `@ima-worldhealth/coral`, `@uirouter/core`, `release-it`, and
+`express-handlebars`.

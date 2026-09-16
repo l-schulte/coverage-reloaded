@@ -1,0 +1,334 @@
+{
+  "general": {
+    "patterns": [
+      "\\bAssertionError\\b",
+      "\\bTypeError\\b",
+      "\\bReferenceError\\b",
+      "\\bRangeError\\b",
+      "\\bSyntaxError\\b",
+      "\\bError\\b:",
+      "\\bFATAL\\b:",
+      "\\bERROR\\b:"
+    ],
+    "exclude": [
+      "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}",
+      "npm ERR!"
+    ]
+  },
+  "suites": {
+    "coverage_client_client": {
+      "add_exclude": [
+        "Chrome Headless",
+        "Connected on socket",
+        "INFO \\[",
+        "Executed [0-9]+ of [0-9]+"
+      ]
+    },
+    "server": {},
+    "integration": {},
+    "integration_stock": {}
+  },
+  "auto_classify": [
+    {
+      "match": "AssertionError:\\ expected\\ (\\+)*\\d+\\ to\\ equal\\ (\\+)*\\d+",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "b0552fa52f65"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\d+(\\.\\d+)?\\ to\\ equal\\ \\d+(\\.\\d+)?",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "c8b1996b9316"
+    },
+    {
+      "match": "Error:\\ Timeout\\ of\\ \\d+ms\\ exceeded\\.\\ For\\ async\\ tests\\ and\\ hooks,\\ ensure\\ \"done\\(\\)\"\\ is\\ called;\\ if\\ returning\\ a\\ Promise,\\ ensure\\ it\\ resolves\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "439ec8f6ef51"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ .*\\ to\\ have\\ status\\ code\\ 200\\ but\\ got\\ 500",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "dc0213cb587a"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ .*\\ to\\ have\\ status\\ code\\ 40\\d\\ but\\ got\\ 500",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "491a331f9bdc"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ .*\\ to\\ have\\ status\\ code\\ 20\\d\\ but\\ got\\ 500",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "ab1bd354d7dd"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ .*\\ to\\ have\\ status\\ code\\ 20\\d\\ but\\ got\\ 40\\d",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "fd3229314e81"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ convert\\ undefined\\ or\\ null\\ to\\ object",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "eae05e1becdb"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ .*\\ to\\ equal\\ '1000012'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "89c3f397b2a5"
+    },
+    {
+      "match": "\\+\\ expected\\ \\-\\ actual\\\n\\\n\\{\\\n\"id\":\\ 4\\\n\\-\\ \\ \"text\":\\ \"\\[Test\\]\\ Article\\ Laboratoire\"\\\n\\+\\ \\ \"text\":\\ \"\\[Test\\]\\ Article\\ Chirurgie\"\\\n\\}",
+      "label": "acceptable",
+      "note": "",
+      "lines": 7,
+      "id": "98ef8c22cb14"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\{\\ Object\\ \\(_events,\\ _eventsCount,\\ \\.\\.\\.\\)\\ \\}\\ to\\ have\\ status\\ code\\ 500\\ but\\ got\\ 400",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "4a8e8738139b"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\[\\ Array\\(\\d+\\)\\ \\]\\ to\\ have\\ a\\ length\\ of\\ \\d+\\ but\\ got\\ \\d+",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "a2768db2aedd"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\{\\ Object\\ \\(items,\\ uuid,\\ \\.\\.\\.\\)\\ \\}\\ to\\ have\\ keys\\ 'uuid',\\ 'requestor_uuid',\\ 'requestor_type_id',\\ 'description',\\ 'date',\\ 'user_id',\\ 'project_id',\\ 'user_display_name',\\ 'depot_uuid',\\ 'depot_text',\\ 'service_requestor',\\ 'depot_requestor',\\ 'reference',\\ 'items',\\ 'status_key',\\ and\\ 'title_key'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "3f0fa4e4a24e"
+    },
+    {
+      "match": "\\+\\ expected\\ \\-\\ actual\\\n\\\n\\{\\\n\\-\\ \\ \"abbr\":\\ \"TC\"\\\n\\+\\ \\ \"abbr\":\\ \"TG\"\\\n\"id\":\\ 19\\\n\\-\\ \\ \"text\":\\ \"\\[Test\\]\\ Comprim\u00e9s\"\\\n\\+\\ \\ \"text\":\\ \"\\[Test\\]\\ Gellule\"\\\n\\}\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 10,
+      "id": "add87a50ff1c"
+    },
+    {
+      "match": "\\+\\ expected\\ \\-\\ actual\\\n\\\n\\[\\\n\\-\\ \\ \"cost_center_id\"\\\n\"created\"\\\n\"enterprise_id\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "36f70e0cb4c1"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\{\\ Object\\ \\(_events,\\ _eventsCount,\\ \\.\\.\\.\\)\\ \\}\\ to\\ have\\ status\\ code\\ 400\\ but\\ got\\ 201",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "40a3c66f013a"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ 'application/json;\\ charset=utf\\-8'\\ to\\ equal\\ 'text/html;\\ charset=utf\\-8'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "78e20713bc52"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\{\\ id:\\ 4,\\ \u2026\\(3\\)\\ \\}\\ to\\ deeply\\ equal\\ \\{\\ \u2026\\(2\\)\\ \\}",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "f0b693977bc3"
+    },
+    {
+      "match": "TypeError:\\ job\\.nextDate\\(\\.\\.\\.\\)\\.format\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "af6c44cf1faa"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\{\\ \u2026\\(\\d+\\)\\ \\}\\ to\\ have\\ keys",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "4e8d2c51d055"
+    },
+    {
+      "match": "Error:\\ ER_WRONG_VALUE_COUNT_ON_ROW:\\ Column\\ count\\ doesn't\\ match",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "21282be45703"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ 'SELECT",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "d44fbeedc605"
+    },
+    {
+      "match": "TypeError:\\ require\\(\\.\\.\\.\\)\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "02cda4f82ebe"
+    },
+    {
+      "match": "Error:\\ ER_DROP_INDEX_FK:\\ Cannot\\ drop\\ index\\ 'constraint2':\\ needed\\ in\\ a\\ foreign\\ key\\ constraint",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "1dc441764985"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\{\\ Object\\ \\(_events,\\ _eventsCount,\\ \\.\\.\\.\\)\\ \\}\\ to\\ have\\ status\\ code\\ 40\\d+\\ but\\ got\\ 40\\d+",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "78264820fbc5"
+    },
+    {
+      "match": "Error:\\ A\\ callback\\ is\\ required!",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "b7b37724a32d"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\[\\]\\ to\\ have\\ a\\ length\\ of\\ 2\\ but\\ got\\ \\+0",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "4739e17b7ae1"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ undefined\\ to\\ be\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "b7fa47735add"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ 'Magnus\\ Carolus\\ Charlemagne'\\ to\\ equal\\ 'Charle\\ Magne\\ De\\ France'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "0008d661895a"
+    },
+    {
+      "match": ":29:54\\.355Z\\ errors\\ \\#interceptor\\(\\)\\ Error:\\ ER_BAD_NULL_ERROR:\\ Column\\ 'number_of_months'\\ cannot\\ be\\ null",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "4f003bbcf6ed"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ undefined\\ to\\ be\\ an\\ array",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "7bcafe635c58"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ ''\\ to\\ have\\ keys\\ 'asset_label',\\ 'asset_uuid',\\ 'assigned_to_name',\\ 'condition_id',\\ 'created_at',\\ 'updated_at',\\ 'depot_text',\\ 'depot_uuid',\\ 'group_name',\\ 'group_uuid',\\ 'inventory_code',\\ 'inventory_text',\\ 'inventory_uuid',\\ 'location_uuid',\\ 'manufacturer_brand',\\ 'manufacturer_model',\\ 'notes',\\ 'scanned_by',\\ 'scanned_by_name',\\ 'serial_number',\\ 'reference_number',\\ 'unit_cost',\\ and\\ 'uuid'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "749db8af42d4"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ Response\\{\\ _events:.*\\}\\ to\\ have\\ status\\ code\\ 40\\d+\\ but\\ got\\ 40\\d+",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "c370c490af76"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\{\\ id:\\ 3,\\ \u2026\\(1\\)\\ \\}\\ to\\ have\\ keys\\ 'id',\\ 'fonction_txt',\\ and\\ 'numEmployees'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "374c4e349c02"
+    },
+    {
+      "match": "SyntaxError:\\ Invalid\\ regular\\ expression:\\ missing\\ /",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "682edd168723"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ '.*\u00c3\u00a9.*'\\ to\\ equal\\ '.*'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "6072d33f1e49"
+    },
+    {
+      "match": "Error:\\ Table\\ 'bhima_test'\\.'my_test_table2'\\ was\\ skipped\\ since\\ its\\ definition\\ is\\ being\\ modified\\ by\\ concurrent\\ DDL\\ statement",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "8f1e06b66a41"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\[\\]\\ to\\ have\\ a\\ length\\ of\\ \\d+\\ but\\ got\\ \\+0",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "b34cd4793801"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\[\\ \\{\\ \u2026\\(11\\)\\ \\}\\ \\]\\ to\\ have\\ a\\ length\\ of\\ 2\\ but\\ got\\ 1",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "b24ef3c141f8"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\+0\\ to\\ equal\\ false",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "1721352f5e81"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'filter'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "97b51d71e6c9"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ 'application/json;\\ charset=utf\\-8'\\ to\\ equal\\ 'application/pdf'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "7384576eae51"
+    },
+    {
+      "match": "TypeError:\\ coral\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "52e2aaec59f2"
+    }
+  ]
+}
