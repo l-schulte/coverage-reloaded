@@ -76,6 +76,7 @@ dates live in the per-project Results sections, sourced from
 | [serverless](projects/serverless/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
 | [site-kit-wp](projects/site-kit-wp/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
 | [spreed](projects/spreed/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
+| [uploader](projects/uploader/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
 | [uwazi](projects/uwazi/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
 | [vega-lite](projects/vega-lite/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
 | [wowanalyzer](projects/wowanalyzer/OVERVIEW.md) | ✅ | ✅ | 🚧 | ✅ |
