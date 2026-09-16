@@ -41,9 +41,6 @@
                 }
             ]
         },
-        "site-kit-wp": {
-            "url": "https://github.com/google/site-kit-wp"
-        },
         "pf2e": {
             "url": "https://github.com/foundryvtt/pf2e",
             "node_version_lts_offset_months": 1
@@ -91,7 +88,18 @@
             "url": "https://github.com/openneuroorg/openneuro",
             "min_node_version": 12,
             "node_version_overrides": [
-                { "start_ts": 0, "end_ts": 1579737759, "new_version": "10" }
+                {
+                    "start_ts": 0,
+                    "end_ts": 1579737759,
+                    "new_version": "10"
+                }
+            ]
+        },
+        "n8n": {
+            "url": "https://github.com/n8n-io/n8n",
+            "node_version_lts_offset_months": 6,
+            "disabled_node_strategies": [
+                "package.json"
             ]
         },
         "opencrvs-core": {
@@ -132,6 +140,12 @@
         "uploader": {
             "url": "https://github.com/tidepool-org/uploader",
             "min_node_version": 12
+        },
+        "rxdb": {
+            "url": "https://github.com/pubkey/rxdb",
+            "node_version_lts_offset_months": 0,
+            "node_version_delay_months": 0,
+            "use_exact_node_version": true
         }
     }
 }
