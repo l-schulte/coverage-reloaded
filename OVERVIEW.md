@@ -44,7 +44,7 @@ Labels in `projects/<p>/failure_labels_project.csv`:
 | `problematic` | An environment/setup artifact of this pipeline. |
 | `unclear` | Ambiguous after analysis. |
 | `false_positive` | Not a real failure (for example, captured console output). |
-| `reevaluated_acceptable` / `fix_applied` | Documented reclassifications. |
+| `reevaluated_acceptable` | Documented reclassifications. |
 
 ### Inclusion criterion
 
@@ -63,23 +63,22 @@ dates live in the per-project Results sections, sourced from
 | [apollo-client](projects/apollo-client/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
 | [apostrophe](projects/apostrophe/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
 | [bhima](projects/bhima/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
-| [flowfuse](projects/flowfuse/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
-| [gatsby](projects/gatsby/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
+| [flowfuse](projects/flowfuse/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
+| [gatsby](projects/gatsby/OVERVIEW.md) | ✅ | ✅ | 🟡 | 🚧 |
 | [material-ui](projects/material-ui/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
 | [matrix-js-sdk](projects/matrix-js-sdk/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
 | [moodleapp](projects/moodleapp/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
 | [n8n](projects/n8n/OVERVIEW.md) | ✅ | ❌ | 🟡 | ❌ |
 | [opencrvs-core](projects/opencrvs-core/OVERVIEW.md) | ✅ | 🟡 | ❌ | ❌ |
 | [openneuro](projects/openneuro/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
-| [pf2e](projects/pf2e/OVERVIEW.md) | ✅ | ✅ | 🚧 | ✅ |
-| [rxdb](projects/rxdb/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
-| [serverless](projects/serverless/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
-| [site-kit-wp](projects/site-kit-wp/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
-| [spreed](projects/spreed/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
+| [pf2e](projects/pf2e/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
+| [rxdb](projects/rxdb/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
+| [serverless](projects/serverless/OVERVIEW.md) | ✅ | ✅ | 🚧 | 🚧 |
+| [spreed](projects/spreed/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
 | [uploader](projects/uploader/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
 | [uwazi](projects/uwazi/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
 | [vega-lite](projects/vega-lite/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
-| [wowanalyzer](projects/wowanalyzer/OVERVIEW.md) | ✅ | ✅ | 🚧 | ✅ |
+| [wowanalyzer](projects/wowanalyzer/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
 | [yari](projects/yari/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
 
 ## Cross-cutting infrastructure
@@ -101,7 +100,7 @@ dates live in the per-project Results sections, sourced from
 ## Maintenance
 
 This document and the per-project files follow the
-[`maintain-project-overviews`](.opencode/skills/maintain-project-overviews/SKILL.md)
+[`maintain-project-overviews`](.agents/skills/maintain-project-overviews/SKILL.md)
 skill, which defines the canonical template, the technical-English style guide, the
 data sources, and the update protocol. Update the per-project files after a
 collection run or a re-labeling pass, then refresh the status table above.
