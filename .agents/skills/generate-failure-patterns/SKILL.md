@@ -34,7 +34,7 @@ When the user later creates `auto_classify` rules, start unresolved patterns as
 `problematic`/`unclear` so a genuine setup regression is surfaced for review, and
 resolve them to `problematic` or `reevaluated_acceptable` once the detected family
 has been assessed (see the `labeled-failure-analysis` skill). `reevaluated_acceptable`
-and `fix_applied` are valid rule labels.
+is a valid rule label.
 
 ## Context (how check_failures.py uses this file)
 

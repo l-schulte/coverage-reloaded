@@ -155,12 +155,12 @@ Failure labels (`failure_labels_project.csv`):
 - `problematic` — an environment/setup artifact of this pipeline.
 - `unclear` — ambiguous after analysis.
 - `false_positive` — not a real failure (for example, captured console output).
-- `reevaluated_acceptable` / `fix_applied` — documented reclassifications stored
-  in the CSV and valid `auto_classify` rule labels (see the
-  `labeled-failure-analysis` skill). They are excluded from `collapse_labels.py`
-  (only `problematic`/`unclear` collapse) and are assignable interactively with
-  the `e` / `f` keys. The Overview's Known-test-failures and
-  Environment/setup-fixes sections record these reclassifications.
+- `reevaluated_acceptable` — documented reclassification for failures initially
+  labeled `unclear`/`problematic` that static analysis confirms are genuine
+  developer-facing failures (see the `labeled-failure-analysis` skill). Excluded
+  from `collapse_labels.py` (only `problematic`/`unclear` collapse) and assignable
+  interactively with the `e` key. Environment/setup artifacts remain labeled
+  `problematic` even after fixes are applied so regressions continue to surface.
 
 ## Protocol
 
