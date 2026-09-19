@@ -1,0 +1,404 @@
+{
+  "general": {
+    "patterns": [
+      "\u25cf",
+      "\\bAssertionError",
+      "\\bTypeError",
+      "\\bReferenceError",
+      "\\bRangeError"
+    ],
+    "exclude": [
+      "\u25cf\\s*Console",
+      "Test Suites:",
+      "Tests:",
+      "Snapshots:",
+      "Ran all test suites",
+      "console\\.",
+      "^\\s+at \\s",
+      "UnhandledPromiseRejectionWarning"
+    ]
+  },
+  "suites": {
+    "vitest": {
+      "add_patterns": [
+        "FAIL\\s+src.*>"
+      ],
+      "add_exclude": [
+        "worker process has failed"
+      ]
+    }
+  },
+  "auto_classify": [
+    {
+      "match": "\\\nTimeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "b38761a8bf6a"
+    },
+    {
+      "match": "\\\ncontributor\\ should\\ only\\ be\\ in\\ an\\ array\\ if\\ there\\ are\\ multiple\\ contributors\\ to\\ a\\ change",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "08be50fb9692"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchSnapshot\\(\\)\\\n\\\nNew\\ snapshot\\ was\\ not\\ written\\.\\ The\\ update\\ flag\\ must\\ be\\ explicitly\\ passed\\ to\\ write\\ a\\ new\\ snapshot\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "da465717f9d1"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchSnapshot\\(\\)\\\n\\\nSnapshot\\ name:\\ `PremiumPage.*`",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "79120a501192"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchSnapshot\\(\\)\\\n\\\nSnapshot\\ name:\\ `Root.*`",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "fe6f0fd85e79"
+    },
+    {
+      "match": "\\\nReferenceError:\\ React\\ is\\ not\\ defined",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "09fdbca83979"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchSnapshot\\(\\)\\\n\\\nSnapshot\\ name:\\ `Brewmaster.*`",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "003bcbbcbde5"
+    },
+    {
+      "match": "\\\nThe\\ spell\\ filter\\ must\\ be\\ a\\ spell\\ object,\\ not\\ a\\ spell\\ id\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "005e5e377d55"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./shared/modules/items/AugmentRuneChecker'\\ from\\ 'CombatLogParser\\.ts'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b5bdf51a1ea6"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'common/SpellLink'\\ from\\ 'CHANGELOG\\.js'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "44fc58a9def3"
+    },
+    {
+      "match": "\\\n:\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "be5662aef22a"
+    },
+    {
+      "match": "\\\nTypeError:\\ Right\\-hand\\ side\\ of\\ 'instanceof'\\ is\\ not\\ an\\ object",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0ab7fdf1aff0"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./mistweaver/constants'\\ from\\ 'GroundingBreath\\.tsx'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b76508872386"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'id'\\ of\\ undefined\\\n\\\n58\\ \\|\\\n59\\ \\|\\ \\ \\ //region\\ Covenants\\\n>\\ 60\\ \\|\\ \\ \\ SPELLS\\.COMBAT_MEDITATION_TRIGGER\\.id,\\ //The\\ Spell\\ ID\\ when\\ Combat\\ Meditation\\ from\\ Kyrian\\ Soulbind\\ triggers,\\ so\\ that\\ there\\ is\\ now\\ a\\ soul\\ ready\\ to\\ pick\\ up",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "47b9fbcd5668"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'includes'\\ of\\ undefined\\\n\\\n48\\ \\|\\ \\ \\ \\ \\ if\\ \\(this\\.selectedCombatant\\.hasTalent\\(SPELLS\\.AVENGING_CRUSADER_TALENT\\.id\\)\\ \\&\\&\\\n49\\ \\|\\ \\ \\ \\ \\ \\ \\ \\ \\ this\\.selectedCombatant\\.hasBuff\\(SPELLS\\.AVENGING_CRUSADER_TALENT\\.id,\\ event\\.timestamp\\)\\ \\&\\&\\\n>\\ 50\\ \\|\\ \\ \\ \\ \\ \\ \\ \\ \\ this\\.AVENGING_CRUSADER_SPELLS\\.includes\\(spellId\\)\\)\\ \\{",
+      "label": "unclear",
+      "note": "",
+      "lines": 6,
+      "id": "178678b36842"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality\\\n\\\nExpected:\\ true\\\nReceived:\\ false\\\n\\\n362\\ \\|\\ \\ \\ \\ \\ \\ \\ expect\\(after\\.map\\(\\(e\\)\\ =>\\ e\\.__testId\\)\\)\\.toEqual\\(test\\.resultOrder\\);\\\n363\\ \\|\\ \\ \\ \\ \\ \\ \\ if\\ \\(test\\.additionalChecks\\)\\ \\{",
+      "label": "acceptable",
+      "note": "",
+      "lines": 8,
+      "id": "4e6986ec6cfc"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'filter'\\ of\\ undefined\\\n\\\n271\\ \\|\\ \\ \\ \\ \\ this\\.report\\ =\\ report;",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "d0aff7cb866e"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 5000\\ ms\\ for\\ a\\ hook\\.\\\nUse\\ jest\\.setTimeout\\(newTimeout\\)\\ to\\ increase\\ the\\ timeout\\ value,\\ if\\ this\\ is\\ a\\ long\\-running\\ test\\.\"",
+      "label": "unclear",
+      "note": "",
+      "lines": 3,
+      "id": "d412afbbed3b"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchSnapshot\\(\\)\\\n\\\nSnapshot\\ name:\\ `Balance\\ Druid\\ integration\\ test:\\ example\\ log\\ FillerUsage\\ matches\\ the\\ suggestions\\ snapshot\\ 1`\\\n\\\nNew\\ snapshot\\ was\\ not\\ written\\.\\ The\\ update\\ flag\\ must\\ be\\ explicitly\\ passed\\ to\\ write\\ a\\ new\\ snapshot\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "06184baff5ec"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer'\\ from\\ 'src/parser/core/CombatLogParser\\.tsx'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "bd8b7f24c7e9"
+    },
+    {
+      "match": "\\\nTypeError:\\ \\(0\\ ,\\ _buffPresent\\.default\\)\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "66599ac18518"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality\\\n\\\n\\-\\ Expected\\ \\ \\-\\ 0\\\n\\+\\ Received\\ \\ \\+\\ 1\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "7a890d443009"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'flatMap'\\ of\\ undefined\\\n\\\n175\\ \\|\\ \\ \\ \\ \\ //\\ rules\\ for\\ spells\\ that\\ aren't\\ known\\ are\\ automatically\\ ignored\\\n176\\ \\|\\ \\ \\ \\ \\ const\\ abilities\\ =\\ new\\ Set\\(\\\n>\\ 177\\ \\|\\ \\ \\ \\ \\ \\ \\ info\\.abilities\\.flatMap\\(\\(ability\\)\\ =>",
+      "label": "acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "b664cc1b627b"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\./images/sanctumofdomination\\.jpg'\\ from\\ 'src/game/raids/sanctumofdomination/index\\.ts'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4477d1a0e22d"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'currentHastePercentage'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c8e6058def9e"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchSnapshot\\(\\)\\\n\\\nSnapshot\\ name:\\ ",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "a5fec9db195e"
+    },
+    {
+      "match": "TypeError:\\ babelJest\\.createTransformer\\ is\\ not\\ a\\ function",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "0e5f85a7314e"
+    },
+    {
+      "match": "\\\nReferenceError:\\ setImmediate\\ is\\ not\\ defined",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "6a9aed4ccf4f"
+    },
+    {
+      "match": "\\\nTypeError:\\ Reduce\\ of\\ empty\\ array\\ with\\ no\\ initial\\ value",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "eb87b623f4da"
+    },
+    {
+      "match": "\\\nTypeError:\\ this\\.selectedCombatant\\.hasLegendaryByBonusID\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "080115ad6c3c"
+    },
+    {
+      "match": "\\\nNo\\ Kyrian\\ ability\\ defined\\ for\\ class\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c957b5dac3eb"
+    },
+    {
+      "match": "\\\nTypeError:\\ Class\\ constructor\\ analyzer\\ cannot\\ be\\ invoked\\ without\\ 'new'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "2c0cc0da0c35"
+    },
+    {
+      "match": "\\\nUnknown\\ event\\ type\\ detected\\ .*\\ if\\ you\\ created\\ a\\ new\\ type\\ you\\ will\\ need\\ to\\ add\\ it\\ to\\ Event\\.ts",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8ff0cc47e805"
+    },
+    {
+      "match": "\\\nTried\\ to\\ retrieve\\ the\\ remaining\\ cooldown\\ of\\ 119582,\\ but\\ it's\\ not\\ on\\ cooldown\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "887e909d89af"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'spec'\\ of\\ null",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0ff33efed351"
+    },
+    {
+      "match": "\\\nJest\\ encountered\\ an\\ unexpected\\ token",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "39e7e1683840"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'analysis/retail/priest\\-discipline/test\\-fixtures/TestingEvents'\\ from\\ 'src/analysis/retail/priest/discipline/normalizers/AtonementSuccessiveDamage\\.test\\.js'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d72b74565a08"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'analysis/.*'\\ from\\ 'src/analysis/.*'",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "3f7af8005e27"
+    },
+    {
+      "match": "\\\nAttempted\\ to\\ retrieve\\ invalid\\ or\\ missing\\ spell\\ from\\ SPELLS:\\ .*\\.\\ If\\ this\\ is\\ expected,\\ use\\ .*",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4995b5b90433"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ src/common/SPELLS/evoker\\.ts:\\ Unexpected\\ token,\\ expected\\ \",\"\\ \\(265:1\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0613b8f558b2"
+    },
+    {
+      "match": "\\\nTypeError:\\ this\\.selectedCombatant\\.has4PieceByTier\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "21c6111ef279"
+    },
+    {
+      "match": "\\\nTestingLibraryElementError:\\ Unable\\ to\\ find\\ an\\ accessible\\ element\\ with\\ the\\ role\\ \"textbox\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5a8c2d6e9380"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'id'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "7aaddf376cc7"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "66da47e80a80"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'actualCast'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "02b275e5455c"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'nickname'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "3a6a2d221ac1"
+    },
+    {
+      "match": "TypeError:\\ window\\.gtag\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "80c454721f31"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\./Arrow'\\ from\\ 'src/interface/icons/index\\.tsx'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ef9c7400bbb6"
+    },
+    {
+      "match": "TestingLibraryElementError:\\ Unable\\ to\\ find\\ role=\"textbox\"\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "2c8fe214954c"
+    },
+    {
+      "match": "\u25cf\\ Mistweaver\\ Monk\\ integration\\ test:\\ example\\ log\\ \u203a\\ ManaLevelChart\\ \u203a\\ matches\\ the\\ suggestions\\ snapshot",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "38fd81c8cc52"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'selectedCombatant'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a4b2216a7f2f"
+    },
+    {
+      "match": "\u25cf\\ Blood\\ Death\\ Knight\\ integration\\ test:\\ example\\ log\\ \u203a\\ WitheringPlague\\ \u203a\\ matches\\ the\\ suggestions\\ snapshot",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "bcded38564a1"
+    },
+    {
+      "match": "\\\nexpected\\ \\d+\\.?\\d*\\ to\\ be\\ within\\ 1\\ of\\ expected\\ \\d+\\.?\\d*",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0970cbf994fa"
+    }
+  ]
+}

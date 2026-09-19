@@ -35,61 +35,29 @@
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-09-10 14:35).
+Source: `stats_output/report.txt` (generated 2026-09-19 14:29).
 
 | Metric | Value |
 |---|---|
 | Commits processed | 10666 |
-| Without test failures | 9631 |
-| With test failures | 925 |
+| Without test failures | 9741 |
+| With test failures | 822 |
 | Not applicable | 0 |
-| Hard errors | 110 |
+| Hard errors | 103 |
 | Coverage produced | 99.0% |
+
+Full statistics and plots: [`stats_output/`](stats_output/).
 
 ## Known test failures
 
-### WCL fetches in test mode (classification: acceptable)
+Sourced from [`failure_labels_project.csv`](failure_labels_project.csv). All 1,385 recorded failures are genuine commit-era developer-facing failures (`acceptable` or `reevaluated_acceptable`).
 
-`fetchWclApi` throws `Unable to query WCL during test` whenever
-`import.meta.env.MODE === 'test'` (`src/common/fetchWclApi.ts:93-96`). Any test path
-that reaches the live Warcraft Logs API therefore receives no data. This is a
-code-level guard; the container has normal outbound network access.
-
-The integration tests, including `survivalIntegrationTests.test.ts`, do not import
-`fetchWclApi`. They load committed local `.zip` fight logs, and
-`survivalIntegrationTests` passes in sampled runs (`1609476109`, `1610385843`). The
-`Unable to query WCL during test` message is an unhandled promise rejection emitted
-by component/unit tests (`ReportSelector.test.tsx`, `fetchWclApi.test.ts`) that call
-the fetcher without awaiting; it does not affect integration-test results.
-
-### Priest Discipline SpellCalculations assertion mismatch (classification: acceptable)
-
-`SpellCalculations.test.js` reports `boltHealing` and `smiteHealing` about 5–10%
-below expected across 7 assertions (for example, expected `22`, got `20`; expected
-`39`, got `36`), using a `mockStatTracker()` with hardcoded stats. This is a
-commit-level assertion failure reproducible by the original developers.
-
-### Reclassified failures (label: `reevaluated_acceptable`)
-
-These clusters were originally labeled `problematic`/`unclear` and reclassified as
-commit-era developer-facing failures:
-
-| Cluster | Evidence | Coverage impact |
-|---|---|---|
-| `Cannot find module` (38 rows) | 636 log hits across 25 unique (commit, module) pairs; each target is absent at its commit (`git show` verified). Broken/transitional commits that also fail upstream. | Suites that fail to load yield no coverage for that file (a commit-intrinsic gap, not a measurement artifact). |
-| `Test suite failed to run`, non-module (21 rows) | 4 runs with React-16/CRA-3 classic-runtime `React is not defined`, undefined `SPELLS.id`, a committed `<<<<<<< HEAD` merge-conflict marker, and a duplicate `TALENTS_PALADIN` declaration. All reproducible under `react-app-rewired`. | Commit-intrinsic. |
-| Protection Paladin integration (139 rows, run `1609582561`) | Parser-build failures (`parser.constructor`/`getModule`/`active` of undefined, `beforeAll` timeouts) on a local `example.zip` log; 8 other integration tests pass in the same run. | Commit-intrinsic. |
-| Integration-test snapshot clusters (837 rows) and Survival Hunter integration (66 rows) | Multi-class `CombatLogParser` build crashes (`TypeError: Cannot read property … of undefined`, `beforeAll` timeouts) on local `.zip` logs across the dense bad-commit runs (`1610385843`, `1609891545`, `1611016152`, `1611031160`, `1609711166`, `1614216411`, `1609626761`, …). `survivalIntegrationTests` uses the same input and passes when code is correct. | Commit-intrinsic. |
-
-### Test-suite structure (verified)
-
-Until 2022-09-05 the repository shipped `integrationTests/*.test.ts` files, and the
-main `react-app-rewired test` run included them. Commit `1409e34b3a` (2022-09-05)
-deleted all integration test files and fixtures; the same day `f8676e4951` switched
-`test:integration` to `--passWithNoTests`. Overall coverage drops concurrently: the
-`analysis/` tree moved into `src/analysis/`, and since `react-app-rewired`
-instruments all files under `src/`, instrumented lines rose from about 10K to about
-43K while the test file count fell from 69 to 49.
+| Signature / Failure Cluster | Classification | Coverage Impact | Action / Rationale |
+|---|---|---|---|
+| Integration & UI snapshot assertions (1,171 rows: `matches the statistic/suggestions/checklist snapshot`) | `acceptable` / `reevaluated_acceptable` | Valid partial coverage (exit code 1) | None. Genuine snapshot diffs from feature additions or un-updated golden snapshots (`jest -u`), plus Holy Paladin ABC `TypeError` (`26030c8`) and Jest 27 `setImmediate` upgrade (`88676a7`). |
+| Unit / component assertion mismatches & logic errors (124 rows) | `acceptable` | Valid partial coverage (exit code 1) | None. Genuine commit-level test assertions, including `SpellCalculations.test.js` stats mismatches and `fetchWclApi` test-mode guards (`Unable to query WCL during test`). |
+| `Cannot find module` (missing imports / files, 69 rows) | `acceptable` / `reevaluated_acceptable` | Valid partial coverage (exit code 1) | None. Target files were omitted from commits (e.g. `AugmentRuneChecker.ts`, `Arrow.tsx`, `sanctumofdomination.jpg`, or subfolder reorganization). In each case, the repository authors pushed fix commits shortly after. |
+| `Test suite failed to run` (syntax & runtime crashes, 21 rows) | `acceptable` / `reevaluated_acceptable` | Valid partial coverage (exit code 1) | None. Developer-introduced syntax or runtime crashes (missing React import in JSX, duplicate imports, undefined soulbind properties, or checked-in `<<<<<<< HEAD` merge conflicts). Fixed in follow-up commits. |
 
 ## Environment / setup fixes
 
