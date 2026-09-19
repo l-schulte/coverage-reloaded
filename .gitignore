@@ -1,5 +1,5 @@
 .vscode/
-.opencode/plans/
+.agents/plans/
 
 .env
 .venv
