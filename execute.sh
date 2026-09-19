@@ -1,8 +1,15 @@
 #!/bin/bash
+set -e
 
-mount -t tmpfs -o size=20G tmpfs /coverage_reloaded/repo
+# The repo lives on a tmpfs provided by docker-run.sh (--tmpfs). The container
+# lacks CAP_SYS_ADMIN and cannot mount tmpfs itself, so fail loudly here if the
+# runtime did not supply the mount instead of silently running on disk.
+if ! grep -q " /coverage_reloaded/repo tmpfs" /proc/mounts; then
+    echo "ERROR: /coverage_reloaded/repo is not mounted as tmpfs" >&2
+    exit 1
+fi
 cp -a /coverage_reloaded/repo_disk/. /coverage_reloaded/repo/
-echo "Mounted /coverage_reloaded/repo as tmpfs (20GB) and copied repo_disk contents"
+echo "Copied repo_disk contents into in-memory /coverage_reloaded/repo"
 
 source "$(dirname "${BASH_SOURCE[0]}")/logging.sh"
 source "$(dirname "${BASH_SOURCE[0]}")/resolve-and-pin.sh"
@@ -113,6 +120,7 @@ resolve_and_pin "registry.npmjs.org"
 resolve_and_pin "registry.yarnpkg.com"
 resolve_and_pin "github.com"
 resolve_and_pin "yarnpkg.com"
+resolve_and_pin "nodejs.org"
 
 print_header 2 "Setting up Package Managers"
 
