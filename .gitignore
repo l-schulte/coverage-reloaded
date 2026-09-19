@@ -16,8 +16,7 @@
 *command_changes.csv
 *old_commits.csv
 *dashboard-index.json
-*failure_labels*.csv
-*failure_patterns*.json
+*failure_labels_collapsed*.csv
 
 **/tmp/
 **/debug/

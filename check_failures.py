@@ -11,7 +11,6 @@ Definition of labels (per study):
   unclear                  -> ambiguous / could not decide (a starting state, must be resolved)
   false_positive           -> not a real failure (e.g. jest console-output capture)
   reevaluated_acceptable   -> was unclear/problematic, assessed as a genuine dev-facing failure
-  fix_applied              -> an environment/setup fix was applied for this failure
 
 Keyboard shortcuts (interactive / review mode):
   ArrowUp    -> acceptable
@@ -19,7 +18,6 @@ Keyboard shortcuts (interactive / review mode):
   Space      -> unclear
   ArrowRight -> false_positive
   e          -> reevaluated_acceptable
-  f          -> fix_applied
   ArrowLeft  -> undo (re-classify the previous failure)
   s          -> skip (do not label, advance)
   .          -> create auto_classify rule from this failure
@@ -206,10 +204,9 @@ LABELS = {
     " ": "unclear",
     "RIGHT": "false_positive",
     "e": "reevaluated_acceptable",
-    "f": "fix_applied",
 }
 ALL_LABELS = ["acceptable", "problematic", "unclear", "false_positive",
-              "reevaluated_acceptable", "fix_applied"]
+              "reevaluated_acceptable"]
 
 
 def clean(line):
