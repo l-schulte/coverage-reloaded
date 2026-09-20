@@ -1,0 +1,222 @@
+{
+  "general": {
+    "patterns": [
+      "^\\s*[A-Za-z0-9_]*Error:",
+      "Exception during run:",
+      "Expected test not to call console",
+      "^\\s*\\+ expected"
+    ],
+    "exclude": [
+      "^\\s*[0-9]+ failing",
+      "^\\s*[0-9]+ passing",
+      "^\\s*[0-9]+ pending",
+      "^\\s*[0-9]+\\) ",
+      "^\\s+at ",
+      "Ran all test suites",
+      "Errors\\s+\\d+\\s+error",
+      "\u23af\u23af\u23af\u23af\u23af\u23af",
+      "FAIL\\s",
+      "Test Suites:",
+      "Tests:"
+    ]
+  },
+  "suites": {
+    "test_coverage": {
+      "remove_patterns": [],
+      "add_patterns": [],
+      "remove_exclude": [],
+      "add_exclude": []
+    }
+  },
+  "auto_classify": [
+    {
+      "match": "Error:\\ Command\\ failed:\\ git\\ rev\\-parse\\ (origin/)?next",
+      "label": "acceptable",
+      "note": "detached HEAD in container lacks remote tracking ref for listChangedFiles; zero coverage impact",
+      "lines": 2,
+      "id": "e8a94b2c1f07"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ redefine\\ property:\\ cardClasses",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "6b2f0d1d6d14"
+    },
+    {
+      "match": "Error:\\ Timeout\\ of\\ \\d+ms\\ exceeded\\.\\ For\\ async\\ tests\\ and\\ hooks,\\ ensure\\ \"done\\(\\)\"\\ is\\ called;\\ if\\ returning\\ a\\ Promise,\\ ensure\\ it\\ resolves\\.\\ \\(packages/mui\\-envinfo/envinfo\\.test\\.js\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "f26937fc120d"
+    },
+    {
+      "match": "TestingLibraryElementError:\\ Unable\\ to\\ find\\ an\\ accessible\\ element\\ with\\ the\\ role\\ \"textbox\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "96a4cf13a4d5"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\{\\ display:\\ 'flex',\\ \u2026\\(5\\)\\ \\}\\ to\\ deeply\\ equal\\ \\{\\ \u2026\\(5\\)\\ \\}",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "c02c76e7c36d"
+    },
+    {
+      "match": "Expected\\ test\\ not\\ to\\ call\\ console\\.error\\(\\)\\ but\\ instead\\ received\\ 2\\ calls\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "421cbab5f601"
+    },
+    {
+      "match": "Error:\\ Cannot\\ find\\ module\\ 'test/utils'",
+      "label": "reevaluated_acceptable",
+      "note": "Author mistakenly imported test/utils instead of @mui-internal/test-utils in #39037; fixed in #39291",
+      "lines": 0,
+      "id": "6bbfe1383cd5"
+    },
+    {
+      "match": "Expected\\ test\\ not\\ to\\ call\\ console\\.error\\(\\)\\ but\\ instead\\ received\\ \\d+\\ calls\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "d46ed19dcef3"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\+*\\d+\\ to\\ equal\\ \\+*\\d+",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "aeca503a344d"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ 'false'\\ to\\ equal\\ 'true'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "4e4c6b86e3d6"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ .*\\ to\\ have\\ class\\ '.*'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "91cc893549ca"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ null\\ to\\ not\\ equal\\ null",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "e827d99fa1bd"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\ to\\ have\\ a\\ length\\ of\\ 1\\ but\\ got\\ \\+0",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "157d50f2f8bc"
+    },
+    {
+      "match": "TestingLibraryElementError:\\ Unable\\ to\\ find\\ an\\ accessible\\ element\\ with\\ the\\ role\\ \"tooltip\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "7404d360005b"
+    },
+    {
+      "match": "\\.MuiTab\\-root\\ \\.MuiTab\\-icon\\ \\{\\\ncolor:\\ red;\\\n\\}",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "b1c67710c834"
+    },
+    {
+      "match": "Exception\\ during\\ run:\\ Error:\\ Cannot\\ find\\ module\\ '.*'",
+      "label": "reevaluated_acceptable",
+      "note": "Broken intermediate refactoring commits moving modules across packages",
+      "lines": 0,
+      "id": "57653cb84ed6"
+    },
+    {
+      "match": "NotFoundError:\\ The\\ child\\ can\\ not\\ be\\ found\\ in\\ the\\ parent\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "40f14ed06883"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ <.*>\\ to\\ have\\ computed\\ style\\ \\{.*\\}",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "c986ecf5fac3"
+    },
+    {
+      "match": "Error:\\ browserType\\.launch:\\ Executable\\ doesn't\\ exist\\ at\\ node_modules/\\.pnpm/playwright\\-core@1\\.57\\.0/node_modules/playwright\\-core/\\.local\\-browsers/chromium_headless_shell\\-1200/chrome\\-headless\\-shell\\-linux64/chrome\\-headless\\-shell",
+      "label": "problematic",
+      "note": "Playwright browser binary not in container; fixed via TEST_SCOPE=node in install-and-run.sh",
+      "lines": 0,
+      "id": "574ab9d5e79a"
+    },
+    {
+      "match": "Error:\\ Timeout\\ of\\ 10000ms\\ exceeded\\.\\ For\\ async\\ tests\\ and\\ hooks,\\ ensure\\ \"done\\(\\)\"\\ is\\ called;\\ if\\ returning\\ a\\ Promise,\\ ensure\\ it\\ resolves\\.\\ \\(packages/material\\-ui\\-envinfo/envinfo\\.test\\.js\\)",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "9ee5b194879f"
+    },
+    {
+      "match": "\\+\\ expected\\ \\-\\ actual\\\n\\\n\\-false\\\n\\+true\\\n\\\nat\\ Context\\.it\\ \\(test/utils/describeConformance\\.js:87:69\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "a9239efe08d7"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\[.*\\]\\ to\\ deeply\\ equal\\ \\[.*\\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "d1e2484f2666"
+    },
+    {
+      "match": "import\\ Button\\ from\\ '@material\\-ui/core/Button';\\\n\\\nexport\\ default\\ function\\ BoxComponent\\(props\\)\\ \\{",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "01e326e04db1"
+    },
+    {
+      "match": "const\\ \\{\\ \\ children,\\ essential,\\ position,\\ user\\ \\}\\ =\\ this\\.props;\\\nconst\\ \\{\\ menuOpen\\ \\}\\ =\\ this\\.state;",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e059064f5161"
+    },
+    {
+      "match": "function\\ AffiliatesHero\\(\\)\\ \\{\\\n\\\n\\\nreturn\\ \\(",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "2aa3c9ce6e92"
+    },
+    {
+      "match": "at\\ aggregateErrors\\ \\(node_modules/\\.pnpm/react@19\\.1\\.0/node_modules/react/cjs/react\\.development\\.js:527:11\\)\\\nat\\ process\\.env\\.NODE_ENV\\.exports\\.act\\ \\(node_modules/\\.pnpm/react@19\\.1\\.0/node_modules/react/cjs/react\\.development\\.js:872:24\\)",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "3f022fb8c10e"
+    },
+    {
+      "match": "\\{\\\n\\-\\ \\ \"margin\\-bottom\":\\ \"\"\\\n\\-\\ \\ \"margin\\-right\":\\ \"\"\\\n\\-\\ \\ \"margin\\-top\":\\ \"\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "23a4cbd5c510"
+    }
+  ]
+}
