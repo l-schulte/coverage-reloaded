@@ -508,7 +508,7 @@ def print_context(item, c_above, c_below):
         else:
             print(f"{marker}  {i:5}: {txt}")
     print("─" * 72)
-    print("↑ acceptable   ↓ problematic   space unclear   → false_positive   e re-eval   f fix-applied   . create-rule   r reload-rules   ← undo   s skip   q quit")
+    print("↑ acceptable   ↓ problematic   space unclear   → false_positive   e re-eval   . create-rule   r reload-rules   ← undo   s skip   q quit")
 
 
 def build_item_from_row(row, project):
@@ -691,9 +691,6 @@ def do_review(args, csv_path, existing_rows):
         elif k in ("q", "ESC"):
             print("  -> quit")
             break
-        else:
-            cur += 1
-            print(f"  -> unknown key {k!r}, skipped")
     print(f"\nreview done. labels changed: {changed}")
 
 
@@ -828,7 +825,7 @@ def main():
                 n = 5
             lab = (current.get(key) or {}).get("label")
             if not lab:
-                print("  choose label for rule: ↑ acceptable  ↓ problematic  space unclear  → false_positive  e re-eval  f fix-applied")
+                print("  choose label for rule: ↑ acceptable  ↓ problematic  space unclear  → false_positive  e re-eval")
                 kk = get_key()
                 if kk in LABELS:
                     lab = LABELS[kk]
@@ -908,11 +905,6 @@ def main():
         elif k in ("q", "ESC"):
             print("  -> quit")
             break
-        else:
-            history.append(("skip", key, None))
-            skipped += 1
-            print(f"  -> unknown key {k!r}, skipped")
-            i += 1
 
     print(f"done. labeled={labeled} auto-labeled={auto_labeled} skipped={skipped}")
 
