@@ -74,7 +74,7 @@ dates live in the per-project Results sections, sourced from
 | [pf2e](projects/pf2e/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
 | [rxdb](projects/rxdb/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
 | [serverless](projects/serverless/OVERVIEW.md) | ✅ | ✅ | 🚧 | 🚧 |
-| [spreed](projects/spreed/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
+| [spreed](projects/spreed/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
 | [uploader](projects/uploader/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
 | [uwazi](projects/uwazi/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
 | [vega-lite](projects/vega-lite/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |

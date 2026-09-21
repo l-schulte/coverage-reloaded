@@ -17,9 +17,7 @@ print_header 2 "Installing dependencies"
 # which is a peer-dep mismatch (npm 8+ ERESOLVE). --legacy-peer-deps skips installing
 # the required peer dep (v4 service), causing runtime failures. --force installs the
 # whole tree, resolving both versions, which matches npm 7's legacy behavior.
-npm install --no-fund --ignore-engine --force
-
-npm install -g nyc --no-fund
+npm install --no-fund --ignore-engine --force --loglevel=error
 
 # ── Run tests with coverage ─────────────────────────────────────────────────────
 

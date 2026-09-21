@@ -1,0 +1,588 @@
+{
+  "general": {
+    "patterns": [
+      "\u25cf",
+      "\u2715"
+    ],
+    "exclude": [
+      "\u25cf\\s*Console",
+      "Test Suites:",
+      "Tests:",
+      "Snapshots:",
+      "Ran all test suites",
+      "^\\s*console\\.",
+      "^\\s+at\\s+\\S"
+    ]
+  },
+  "suites": {
+    "vitest": {
+      "remove_patterns": [
+        "\u25cf",
+        "\u2715"
+      ],
+      "add_patterns": [
+        "^\\s*FAIL\\s+"
+      ],
+      "add_exclude": [
+        "Test Files",
+        "\u23af\u23af\u23af",
+        "^\\s*\u276f\\s+"
+      ]
+    }
+  },
+  "auto_classify": [
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d893c99aab9e"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ '\\$slots'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9cfaf5f0e1fa"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'token'\\ of\\ undefined",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "745618bd6e49"
+    },
+    {
+      "match": "\\\n\\[vue\\-test\\-utils\\]:\\ find\\ did\\ not\\ return\\ a,\\ cannot\\ call\\ trigger\\(\\)\\ on\\ empty\\ Wrapper",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b86ce060e48c"
+    },
+    {
+      "match": "\\\nJest\\ encountered\\ an\\ unexpected\\ token",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f3df147df273"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'id'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "983b701b3d5e"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ src/utils/webrtc/simplewebrtc/peer\\.js:\\ Unexpected\\ reserved\\ word\\ 'await'\\.\\ \\(413:3\\)",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a471a3a7e0c3"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toContain\\(expected\\)\\ //\\ indexOf",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6db34b09ea9b"
+    },
+    {
+      "match": "\\\nutils/media/effects/virtual\\-background/vendor/tflite/tflite\\.wasm:1",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5c29105ccf4a"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledWith\\(\\.\\.\\.expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c132b3f9be5e"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ '.*'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "01410eb4b1f6"
+    },
+    {
+      "match": "\\\nCall\\ retries\\ were\\ exceeded",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "51279d9fe99a"
+    },
+    {
+      "match": "\\\n\\[vue\\-test\\-utils\\]:\\ find\\ did\\ not\\ return",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "22517a6c3e87"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'participantType'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "da23232117d3"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ src/store/messagesStore\\.js:\\ Missing\\ semicolon\\.\\ \\(966:6\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "3205baffb57f"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toStrictEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b52f9b1562d7"
+    },
+    {
+      "match": "\\\nReferenceError:\\ ATTENDEE\\ is\\ not\\ defined",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "3b81ccd718b0"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '.*'\\ from\\ '.*'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f7b45d754f38"
+    },
+    {
+      "match": "\\\nTypeError:\\ store\\.getters\\..*\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ac9795123283"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ null\\ \\(reading\\ 'querySelector'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "789093adb760"
+    },
+    {
+      "match": "\\\nTypeError:\\ undefined\\ is\\ not\\ iterable\\ \\(cannot\\ read\\ property\\ Symbol\\(Symbol\\.iterator\\)\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "cf66920e7040"
+    },
+    {
+      "match": "\\\nTypeError:\\ Axios\\.create\\ is\\ not\\ a\\ function",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "2b9c272a2a68"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalled\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "63732f5bf408"
+    },
+    {
+      "match": "\\\nTypeError:\\ \\(0\\ ,\\ _fileUpload\\.getFileSuffix\\)\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "296542a2b317"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toHaveLength\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9466107efd30"
+    },
+    {
+      "match": "\\\n\\[vue\\-test\\-utils\\]:\\ no\\ item\\ exists\\ at\\ 0",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "93d331047953"
+    },
+    {
+      "match": "\u25cf\\ \\ Cannot\\ log\\ after\\ tests\\ are\\ done\\.\\ Did\\ you\\ forget\\ to\\ wait\\ for\\ something\\ async\\ in\\ your\\ test\\?",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "6572f29cf9db"
+    },
+    {
+      "match": "\\\nTypeError:\\ reactionsStore\\..*\\ is\\ not\\ a\\ function",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "cfb4299b2e5e"
+    },
+    {
+      "match": "\\\nJest\\ worker\\ encountered\\ 4\\ child\\ process\\ exceptions,\\ exceeding\\ retry\\ limit",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "5852fdd2fdf2"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenNthCalledWith\\(n,\\ \\.\\.\\.expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1753d957b951"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBeTruthy\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "31ae7bd6ebbe"
+    },
+    {
+      "match": "error\\ TS2322:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "76280d6861c6"
+    },
+    {
+      "match": "expect\\(received\\)\\.toEqual\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "713a67623bc4"
+    },
+    {
+      "match": "error\\ TS2339:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "124b28060d76"
+    },
+    {
+      "match": "error\\ TS2352:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4d28b6587a6a"
+    },
+    {
+      "match": "\\\nTypeError:\\ Date\\.now\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "605769ef8170"
+    },
+    {
+      "match": "\\\n\\[\ud83c\udf4d\\]:\\ \"getActivePinia\\(\\)\"\\ was\\ called\\ but\\ there\\ was\\ no\\ active\\ Pinia\\.\\ Are\\ you\\ trying\\ to\\ use\\ a\\ store\\ before\\ calling\\ \"app\\.use\\(pinia\\)\"\\?",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "04f3e87dfd76"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchObject\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "73d86fa04964"
+    },
+    {
+      "match": "error\\ (TS|S)?7016:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6057335f9174"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledTimes\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "20cdf91ac1e4"
+    },
+    {
+      "match": "error\\ TS2719:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d5fd8fce5eb3"
+    },
+    {
+      "match": "error\\ TS2741:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d5fd8f23e5eb3"
+    },
+    {
+      "match": "\\\nReferenceError:\\ ResizeObserver\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a201bce7f066"
+    },
+    {
+      "match": "\\\n\\[Vue\\ warn\\]:\\ Error\\ in\\ render:\\ \"Error:\\ You\\ need\\ to\\ fill\\ either\\ the\\ text\\ or\\ the\\ ariaLabel\\ props\\ in\\ the\\ button\\ component\\.\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "165945712fa9"
+    },
+    {
+      "match": "\\\n\\[vuex\\]\\ unknown\\ action\\ type:\\ setCurrentUser",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "573c371f7c3e"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ create\\ property\\ 'value'\\ on\\ string\\ 'Guest'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "3a122a00ee5d"
+    },
+    {
+      "match": "\\\n\\[vuex\\]\\ unknown\\ action\\ type:\\ setCurrentParticipant",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6491e8bcfd17"
+    },
+    {
+      "match": "\\\n\\[vuex\\]\\ unknown\\ mutation\\ type:\\ setUserId",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ea8d63b29a3a"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ create\\ property\\ 'value'\\ on\\ string\\ 'new\\-display\\-name'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7bb5d1fbae49"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ src/stores/actor\\.js:\\ Unexpected\\ token,\\ expected\\ \"from\"\\ \\(18:12\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "71c5dbb604a7"
+    },
+    {
+      "match": "\\\n\\[Vue\\ warn\\]:\\ Error\\ in\\ setup:\\ \"TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'value'\\)\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f0e338f936c9"
+    },
+    {
+      "match": "\\\nTypeError:\\ \\(0\\ ,\\ _testUtils\\.createLocalVue\\)\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "da873f9b7fc9"
+    },
+    {
+      "match": "\\\nTypeError:\\ chatStore\\..*\\ is\\ not\\ a\\ function",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "af6ce2947141"
+    },
+    {
+      "match": "error\\ TS18047:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e19f7b2e4a94"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ false\\ to\\ be\\ truthy",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "d90c266c761e"
+    },
+    {
+      "match": "FAIL\\ \\ src/.*\\ \\[\\ src/.*\\ \\]",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "70d540829e16"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \"spy\"\\ to\\ be\\ called\\ with\\ arguments:\\ \\[.*\\]\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "35b39bfc9214"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\[\\]\\ to\\ have\\ a\\ length\\ of\\ \\d+\\ but\\ got\\ \\+0\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "868cf855a788"
+    },
+    {
+      "match": "Error:\\ \\[Vue\\ warn\\]:\\ injection\\ \"Symbol\\(route\\ location\\)\"\\ not\\ found\\.\\\n\u276f\\ Console\\.console\\.warn\\ src/test\\-setup\\.js:143:46",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "eb9fb225ada2"
+    },
+    {
+      "match": "TypeError:\\ wrapper\\.vm\\.\\$root\\.\\$on\\ is\\ not\\ a\\ function",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "27bda7ee6ed4"
+    },
+    {
+      "match": "Error:\\ \\[Vue\\ warn\\]:\\ inject\\(\\)\\ can\\ only\\ be\\ used\\ inside\\ setup\\(\\)\\ or\\ functional\\ components\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "8426af09a58f"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\{\\ status:\\ 'online',\\ \u2026\\(2\\)\\ \\}\\ to\\ be\\ \\{\\ status:\\ 'online',\\ \u2026\\(2\\)\\ \\}\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "b5d338de27e7"
+    },
+    {
+      "match": "Error:\\ \\[Vue\\ warn\\]:\\ injection\\ \"Symbol\\(GET_MESSAGES_CONTEXT\\)\"\\ not\\ found\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "f5e67b79f4b3"
+    },
+    {
+      "match": "FAIL\\ \\ src/.*\\ >\\ MessagesList\\.vue\\ ",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "bd515f3cc190"
+    },
+    {
+      "match": "Error:\\ Cannot\\ call\\ .*\\ on\\ an\\ empty\\ .*Wrapper\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "5f70de3a8a97"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ .*\\ to\\ be\\ .*\\ //\\ Object\\.is\\ equality\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "aebaf5f01b53"
+    },
+    {
+      "match": "Error:\\ \\[Vue\\ warn\\]:\\ Property\\ \"\\$route\"\\ was\\ accessed\\ during\\ render\\ but\\ is\\ not\\ defined\\ on\\ instance\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "95286940e00e"
+    },
+    {
+      "match": "TypeError:\\ .*\\.exists\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "f7018897147e"
+    },
+    {
+      "match": "TypeError:\\ Invalid\\ value\\ used\\ as\\ weak\\ map\\ key",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "7b8d1f6f30c2"
+    },
+    {
+      "match": "FAIL\\ \\ src/.*\\ >\\ .*\\.vue\\ >.*",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "5da126a75688"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ undefined\\ to\\ strictly\\ equal\\ \\[\\ \\[\\ '123'\\ \\]\\ \\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "720e9ab542bf"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ true\\ to\\ be\\ falsy\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "41dabcbf92c4"
+    },
+    {
+      "match": "Error:\\ Test\\ timed\\ out\\ in\\ 5000ms\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "7291c7d39107"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \"vi\\.fn\\(\\)\"\\ to\\ be\\ called\\ with\\ arguments:\\ \\[\\ \\{\\ token:\\ 'TOKEN',\\ \u2026\\(3\\)\\ \\}\\ \\]\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "fd85b4f4b41e"
+    },
+    {
+      "match": "error\\ TS\\d+:",
+      "label": "reevaluated_acceptable",
+      "note": "TypeScript compiler errors",
+      "lines": 2,
+      "id": "ts_compiler_errors"
+    },
+    {
+      "match": "ReferenceError:\\ jest\\ is\\ not\\ defined",
+      "label": "reevaluated_acceptable",
+      "note": "Vitest migration in progress",
+      "lines": 1,
+      "id": "jest_not_defined_vitest"
+    },
+    {
+      "match": "Error:\\ \\[vitest\\]\\ The\\ vi\\.fn\\(\\)\\ mock\\ did\\ not\\ use",
+      "label": "reevaluated_acceptable",
+      "note": "Vitest mock definition error",
+      "lines": 1,
+      "id": "vitest_vi_fn_mock_error"
+    },
+    {
+      "match": "ReferenceError:\\ Cannot\\ access\\ .*\\ before\\ initialization",
+      "label": "reevaluated_acceptable",
+      "note": "Variable temporal dead zone error in test",
+      "lines": 1,
+      "id": "tdz_reference_error"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ destructure\\ property",
+      "label": "reevaluated_acceptable",
+      "note": "Destructuring type error in test",
+      "lines": 1,
+      "id": "destructure_type_error"
+    }
+  ]
+}
