@@ -21,6 +21,11 @@ if [ "$HAS_VITEST" = "false" ] && [ "$HAS_JEST" = "false" ]; then
     exit 2
 fi
 
+# Puppeteer is an optional devDependency for test-runtime (browser visual tests);
+# skip Chromium download in network-isolated sandbox during install.
+export PUPPETEER_SKIP_DOWNLOAD=true
+export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+
 print_header 2 "Installing dependencies"
 
 if $IS_YARN_MAIN_PM; then
@@ -53,7 +58,7 @@ if [ "$HAS_VITEST" = "true" ]; then
     # ── Unit suite (test/) ──────────────────────────────────────
     suite_start "unit" "vitest unit tests (test/) with coverage"
     set +e
-    $VITEST run test/ --coverage --coverage.reporter=lcov --coverage.reportOnFailure=true --minWorkers=1 --maxWorkers=1
+    $VITEST run test/ --coverage --coverage.reporter=lcov --coverage.reportOnFailure=true --maxWorkers=1
     TEST_EXIT=$?
     set -e
     bash ../find-and-move-lcov.sh "unit" "false" "$TEST_EXIT"
@@ -62,7 +67,7 @@ if [ "$HAS_VITEST" = "true" ]; then
     # ── Examples suite (examples/) ──────────────────────────────
     suite_start "examples" "vitest example spec tests (examples/) with coverage"
     set +e
-    $VITEST run examples/ --coverage --coverage.reporter=lcov --coverage.reportOnFailure=true --minWorkers=1 --maxWorkers=1
+    $VITEST run examples/ --coverage --coverage.reporter=lcov --coverage.reportOnFailure=true --maxWorkers=1
     TEST_EXIT=$?
     set -e
     bash ../find-and-move-lcov.sh "examples" "false" "$TEST_EXIT"

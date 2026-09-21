@@ -1,0 +1,2 @@
+project,run_id,suite,exit_code,failure_index,line_number,keyword,label,labeled_at,fingerprint,occurrences,auto_rule_id
+vega-lite,1609660342_c4b2458b7506ad17e50324be317ac18eafaf377c,examples,1,1,372,  ● examples/specs/bar_negative_horizontal_label.vl.json › should produce valid Vega,acceptable,2026-09-21T10:57:31.636427+00:00,3e4a60419cee72d4,3,

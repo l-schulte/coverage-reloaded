@@ -5,14 +5,19 @@ WORKDIR /coverage_reloaded
 
 # canvas (node-canvas) build deps — prebuilt binaries return 404 for our node
 # versions, forcing source compilation via node-gyp which needs these
-# pkg-config packages (binding.gyp checks for all three).
+# pkg-config packages (binding.gyp checks for cairo, pango, libjpeg, gif).
 RUN apt-get update && apt-get install -y \
       pkg-config \
       libcairo2-dev \
       libpango1.0-dev \
       libpixman-1-dev \
+      libjpeg-dev \
+      libgif-dev \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
+
+ENV PUPPETEER_SKIP_DOWNLOAD=true \
+    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 COPY ./repo /coverage_reloaded/repo_disk
 COPY ./install-and-run.sh /coverage_reloaded/install-and-run.sh

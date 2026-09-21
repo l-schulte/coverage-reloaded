@@ -63,8 +63,8 @@ dates live in the per-project Results sections, sourced from
 | [apollo-client](projects/apollo-client/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
 | [apostrophe](projects/apostrophe/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
 | [bhima](projects/bhima/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
-| [flowfuse](projects/flowfuse/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
-| [gatsby](projects/gatsby/OVERVIEW.md) | ✅ | ✅ | 🟡 | 🚧 |
+| [flowfuse](projects/flowfuse/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
+| [gatsby](projects/gatsby/OVERVIEW.md) | ✅ | ✅ | 🚧 | ✅ |
 | [material-ui](projects/material-ui/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
 | [matrix-js-sdk](projects/matrix-js-sdk/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
 | [moodleapp](projects/moodleapp/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
@@ -77,7 +77,7 @@ dates live in the per-project Results sections, sourced from
 | [spreed](projects/spreed/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
 | [uploader](projects/uploader/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
 | [uwazi](projects/uwazi/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
-| [vega-lite](projects/vega-lite/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
+| [vega-lite](projects/vega-lite/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
 | [wowanalyzer](projects/wowanalyzer/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
 | [yari](projects/yari/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
 

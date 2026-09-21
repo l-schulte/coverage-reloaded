@@ -1,0 +1,24 @@
+{
+  "general": {
+    "patterns": [
+      "●",
+      "✕",
+      "❯",
+      "\\bAssertionError",
+      "\\bTypeError",
+      "\\bReferenceError",
+      "\\bRangeError"
+    ],
+    "exclude": [
+      "●\\s*Console",
+      "Test Suites:",
+      "Tests:",
+      "Snapshots:",
+      "Ran all test suites",
+      "console\\.",
+      "^\\s+at\\s"
+    ]
+  },
+  "suites": {},
+  "auto_classify": []
+}
