@@ -9,15 +9,13 @@ REPO_ROOT="$(pwd)"
 COVERAGE_DIR="$REPO_ROOT/coverage"
 
 if [ ! -f package.json ]; then
-    print_header 2 "NOT APPLICABLE" "No package.json at this commit"
-    exit 2
+    not_applicable "No package.json at this commit"
 fi
 
 ROOT_COVERAGE=$(node -p "((require('./package.json').scripts||{}).coverage) || ''" || true)
 ROOT_TEST=$(node -p "((require('./package.json').scripts||{}).test) || ''" || true)
 if [ -z "$ROOT_COVERAGE" ] && [ -z "$ROOT_TEST" ]; then
-    print_header 2 "NOT APPLICABLE" "No coverage or test script at this commit"
-    exit 2
+    not_applicable "No coverage or test script at this commit"
 fi
 
 print_header 4 "Root coverage script: $ROOT_COVERAGE"

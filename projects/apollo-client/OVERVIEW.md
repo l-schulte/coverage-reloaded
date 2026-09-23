@@ -39,8 +39,8 @@ Source: `stats_output/report.txt` (generated 2026-09-16 07:51).
 | Commits processed | 4462 |
 | Without test failures | 3895 |
 | With test failures | 514 |
-| Not applicable | 10 |
-| Hard errors | 43 |
+| Not applicable | 0 |
+| Hard errors | 53 |
 | Coverage produced | 99.0% |
 
 Full statistics and plots: [`stats_output/`](stats_output/). Failure labels:
@@ -70,6 +70,5 @@ None.
 
 ## Known gaps
 
-The 10 **not applicable** commits predate the test infrastructure. The Playwright
-end-to-end workspace and the `node:test` smoke checks are intentionally not
-collected.
+The Playwright end-to-end workspace and the `node:test` smoke checks are
+intentionally not collected.

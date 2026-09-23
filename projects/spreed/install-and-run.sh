@@ -7,8 +7,7 @@ source /coverage_reloaded/logging.sh
 cd /coverage_reloaded/repo
 
 if [ ! -f package.json ]; then
-    print_header 2 "NOT APPLICABLE" "No package.json at this commit, no test infrastructure to run"
-    exit 2
+    not_applicable "No package.json at this commit, no test infrastructure to run"
 fi
 
 print_header 2 "Installing dependencies"

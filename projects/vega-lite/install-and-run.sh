@@ -7,8 +7,7 @@ source /coverage_reloaded/logging.sh
 cd /coverage_reloaded/repo
 
 if [ ! -f package.json ]; then
-    print_header 2 "NOT APPLICABLE" "No package.json at this commit, no test infrastructure to run"
-    exit 2
+    not_applicable "No package.json at this commit, no test infrastructure to run"
 fi
 
 print_header 2 "Detecting test infrastructure"
@@ -17,8 +16,7 @@ HAS_VITEST=$(node -p "Object.keys(require('./package.json').devDependencies || {
 HAS_JEST=$(node -p "Object.keys(require('./package.json').devDependencies || {}).includes('jest')")
 
 if [ "$HAS_VITEST" = "false" ] && [ "$HAS_JEST" = "false" ]; then
-    print_header 2 "NOT APPLICABLE" "Neither vitest nor jest in devDependencies at this commit"
-    exit 2
+    not_applicable "Neither vitest nor jest in devDependencies at this commit"
 fi
 
 # Puppeteer is an optional devDependency for test-runtime (browser visual tests);
