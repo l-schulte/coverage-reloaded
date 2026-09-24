@@ -1,0 +1,245 @@
+{
+  "general": {
+    "patterns": [
+      "●"
+    ],
+    "exclude": [
+      "●\\s*Console\\s*$",
+      "●\\s*Cannot log after tests are done"
+    ]
+  },
+  "suites": {},
+  "auto_classify": [
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toBeCalledTimes\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e6d2fd64d6e9"
+    },
+    {
+      "match": "\\\n:\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 30000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 30000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f5c9d06918d4"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "81e95cbdb57a"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ set\\ property\\ 'addIceCandidate'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5bd3589844bd"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ '_sessionStore'\\ of\\ null",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7ffd30d6c138"
+    },
+    {
+      "match": "\\\nInvalid\\ EventStatus\\ transition\\ sent\\->sending",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8ff5e13f4fae"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'map'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6ace515b081e"
+    },
+    {
+      "match": "\\\nTypeError:\\ event\\.getType\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "96af043118d5"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8edfc3779941"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ src/sync\\.js:\\ Identifier\\ 'mapper'\\ has\\ already\\ been\\ declared\\ \\(1550:10\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ba8c07223776"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalled\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b9dbc60b2014"
+    },
+    {
+      "match": "\\\nUnknown\\ backup\\ algorithm",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "858b4b1b2bdf"
+    },
+    {
+      "match": "\\\nReferenceError:\\ sleep\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5f9855686db5"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'status'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b8e45bbe1e95"
+    },
+    {
+      "match": "\\\nYour\\ test\\ suite\\ must\\ contain\\ at\\ least\\ one\\ test\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "cf2b5d49b05f"
+    },
+    {
+      "match": "\\\nCaught\\ error\\ after\\ test\\ environment\\ was\\ torn\\ down",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6ace33d2ecc6"
+    },
+    {
+      "match": "\\\nTypeError:\\ Caught\\ error\\ after\\ test\\ environment\\ was\\ torn\\ down",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c1c0176f9049"
+    },
+    {
+      "match": "\\\nTypeError:\\ room\\.currentState\\.getMember\\.mockImplementation\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ce1d6e146b06"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ set\\ property\\ 'invite_room_state'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "bf911674f5de"
+    },
+    {
+      "match": "\\\nTypeError:\\ a\\.toSnapshot\\ is\\ not\\ a\\ function",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "07117b6f5bc0"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ src/@types/event\\.ts:\\ Unexpected\\ token,\\ expected\\ \";\"\\ \\(152:80\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8f12cc724499"
+    },
+    {
+      "match": "\\\nJest\\ encountered\\ an\\ unexpected\\ token",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "da47dfae82ec"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ '.*'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "edae4b6602a1"
+    },
+    {
+      "match": "\\\nThe\\ error\\ below\\ may\\ be\\ caused\\ by\\ using\\ the\\ wrong\\ test\\ environment,\\ see\\ https://jestjs\\.io/docs/en/configuration\\#testenvironment\\-string\\.\\\nConsider\\ using\\ the\\ \"jsdom\"\\ test\\ environment\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "b5b9e1ed7c8c"
+    },
+    {
+      "match": "\\\nTypeError:\\ .*\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "bfa26b33c288"
+    },
+    {
+      "match": "\\\nReferenceError:\\ Cannot\\ access\\ 'requestInstance'\\ before\\ initialization",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "97eb1d94109b"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ '.*'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "aaf42f96f90e"
+    },
+    {
+      "match": "\\\nTypeError:\\ Class\\ extends\\ value\\ undefined\\ is\\ not\\ a\\ constructor\\ or\\ null",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "13a056cca243"
+    },
+    {
+      "match": "\\\nExpected\\ no\\ unresolved\\ request\\ but\\ found\\ unresolved\\ request\\ for\\ http://localhost:8008/_matrix/client/unstable/org\\.matrix\\.msc3575/sync",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c8ec5a7cb763"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toStrictEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e8f908c658be"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBeLessThan\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8b323adc748d"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '@matrix\\-org/olm'\\ from\\ 'spec/.*'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d1200b82d6a4"
+    },
+    {
+      "match": "\\\nEnd\\-to\\-end\\ encryption\\ not\\ supported\\ in\\ this\\ js\\-sdk\\ build:\\ did\\ you\\ remember\\ to\\ load\\ the\\ olm\\ library\\?",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "aa8bd92e0f21"
+    }
+  ]
+}

@@ -2,19 +2,22 @@
 set -euo pipefail
 
 source /coverage_reloaded/logging.sh
+source /coverage_reloaded/resolve-and-pin.sh
 
 cd /coverage_reloaded/repo
 
 if [ ! -f package.json ]; then
-    print_header 2 "NOT APPLICABLE" "No package.json at this commit"
-    exit 2
+    not_applicable "No package.json at this commit"
 fi
 
 ROOT_TEST=$(node -p "((require('./package.json').scripts||{}).test) || ''")
 if [ -z "$ROOT_TEST" ]; then
-    print_header 2 "NOT APPLICABLE" "No test script at this commit"
-    exit 2
+    not_applicable "No test script at this commit"
 fi
+
+resolve_and_pin "gitlab.matrix.org"
+resolve_and_pin "codeload.github.com"
+resolve_and_pin "packages.matrix.org"
 
 TEST_HAS_PATH=$(node -p "/spec\//.test((require('./package.json').scripts||{}).test||'')")
 
