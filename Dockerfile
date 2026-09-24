@@ -80,8 +80,11 @@ COPY helper/find-and-move-lcov.sh /coverage_reloaded/find-and-move-lcov.sh
 COPY helper/logging.sh /coverage_reloaded/logging.sh
 COPY helper/fake-time.sh /coverage_reloaded/fake-time.sh
 COPY helper/has-option.sh /coverage_reloaded/has-option.sh
+COPY helper/na-if-focus-marker.sh /coverage_reloaded/na-if-focus-marker.sh
+COPY helper/assert-suite-ran.sh /coverage_reloaded/assert-suite-ran.sh
 COPY helper/resolve-and-pin.sh /coverage_reloaded/resolve-and-pin.sh
-RUN chmod +x /coverage_reloaded/find-and-move-lcov.sh /coverage_reloaded/logging.sh /coverage_reloaded/fake-time.sh /coverage_reloaded/has-option.sh /coverage_reloaded/resolve-and-pin.sh
+COPY helper/start-dind.sh /coverage_reloaded/start-dind.sh
+RUN chmod +x /coverage_reloaded/find-and-move-lcov.sh /coverage_reloaded/logging.sh /coverage_reloaded/fake-time.sh /coverage_reloaded/has-option.sh /coverage_reloaded/na-if-focus-marker.sh /coverage_reloaded/assert-suite-ran.sh /coverage_reloaded/resolve-and-pin.sh /coverage_reloaded/start-dind.sh
 
 COPY helper/fake-time-node.js /coverage_reloaded/fake-time-node.js
 RUN chmod +x /coverage_reloaded/fake-time-node.js

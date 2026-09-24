@@ -300,6 +300,13 @@ echo ""
 
 print_header 1 "Calling install-and-run.sh"
 
+# Not-applicable is signalled by a marker file, never by an exit code, so an
+# ordinary command failing under `set -e` (npm exits 2 on install errors) can
+# never be misread as "no test infrastructure at this commit". Remove any stale
+# marker from a previous run before invoking install-and-run.sh.
+NOT_APPLICABLE_MARKER="$OUTPUT_PATH/${timestamp}_${revision}.not_applicable"
+rm -f "$NOT_APPLICABLE_MARKER"
+
 (sleep 5220s && echo "WARNING: 90 minute timeout for install-and-run.sh about to apply") &
 TIMEOUT_PID=$!
 
@@ -311,29 +318,19 @@ set -e
 # Kill the background warning process if it's still running
 kill $TIMEOUT_PID 2>/dev/null || true
 
-if [ $INSTALL_AND_RUN_EXIT -eq 2 ]; then
-    print_header 4 "NOT APPLICABLE: install-and-run.sh exited with code 2 — no test infrastructure at this commit"
-
-    # Write a .not_applicable marker file with commit info and full log
-    not_applicable_file="$OUTPUT_PATH/${timestamp}_${revision}.not_applicable"
-    {
-        echo "Commit: $revision"
-        echo "Timestamp: $timestamp"
-        echo "Exit code: 2"
-        echo "---"
-        # Capture the full log from the install-and-run run (replay from log if available)
-        # The log is already captured by the docker_run infrastructure; write a summary here.
-    } > "$not_applicable_file"
-
-    # Also capture the full output by re-running with logging, but since we're in the
-    # docker container, we can write what we know and let the Python side append the log.
-    print_header 4 "Wrote .not_applicable marker: $not_applicable_file"
-    exit 2
+# The marker, not the exit code, decides not-applicable. A non-zero exit that
+# was not accompanied by the marker is a genuine failure.
+if [ -f "$NOT_APPLICABLE_MARKER" ]; then
+    print_header 4 "NOT APPLICABLE: install-and-run.sh signalled no test infrastructure at this commit"
+    print_header 4 "Marker: $NOT_APPLICABLE_MARKER"
+    exit 0
 fi
 
 if [ $INSTALL_AND_RUN_EXIT -ne 0 ]; then
     if [ $INSTALL_AND_RUN_EXIT -eq 124 ]; then
         print_header 4 "ERROR: install-and-run.sh timed out after 5400s (90 minutes)"
+    elif [ $INSTALL_AND_RUN_EXIT -eq 2 ]; then
+        print_header 4 "ERROR: install-and-run.sh exited with code 2 but wrote no not-applicable marker (an install/test command failed); treating as failure"
     else
         print_header 4 "ERROR: install-and-run.sh failed with exit code $INSTALL_AND_RUN_EXIT"
     fi

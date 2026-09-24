@@ -124,3 +124,27 @@ suite_end() {
     echo -e "${BOLD}╰${bar}╯${RESET}"
     echo ""
 }
+
+# ── Not-applicable sentinel ───────────────────────────────────
+#
+# Signals that a commit has no test infrastructure to run. The marker file is
+# the single source of truth: execute.sh and docker_run.py detect it directly
+# instead of interpreting an exit code, so an ordinary command failing with a
+# given code (npm uses 2 for install errors) can never be mistaken for this.
+# The script still exits 0 so that run-level exit codes only distinguish
+# success (0) from failure (non-zero).
+#
+# Usage:
+#   not_applicable "No package.json at this commit"
+not_applicable() {
+    local reason="${1:-no test infrastructure at this commit}"
+    local marker="${OUTPUT_PATH:-/coverage_reloaded/coverage}/${timestamp}_${revision}.not_applicable"
+    {
+        echo "Commit: ${revision}"
+        echo "Timestamp: ${timestamp}"
+        echo "Project: ${project_id:-}"
+        echo "Reason: ${reason}"
+    } > "$marker"
+    print_header 2 "NOT APPLICABLE" "$reason"
+    exit 0
+}

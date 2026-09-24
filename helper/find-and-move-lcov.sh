@@ -3,10 +3,11 @@
 TEST_TYPE="${1:-}"
 PREPEND_PATHS="${2:-false}"  # Pass "true" for workspace monorepos
 TEST_EXIT_CODE="${3:-}"      # Exit code from the test suite (0=all passed, >0=number of failures)
+STRIP_PREFIX="${4:-}"        # Optional prefix to remove from SF: lines (e.g. "bin/")
 
 source "$(dirname "${BASH_SOURCE[0]}")/logging.sh"
 
-print_header 2 "Looking for lcov files..." "TEST_TYPE=$TEST_TYPE PREPEND_PATHS=$PREPEND_PATHS TEST_EXIT_CODE=$TEST_EXIT_CODE"
+print_header 2 "Looking for lcov files..." "TEST_TYPE=$TEST_TYPE PREPEND_PATHS=$PREPEND_PATHS TEST_EXIT_CODE=$TEST_EXIT_CODE STRIP_PREFIX=$STRIP_PREFIX"
 
 cd /coverage_reloaded/repo
 
@@ -54,6 +55,11 @@ while IFS= read -r -d '' lcov_file; do
     # Always strip absolute repo path and co_re_ prefixes
     sed -i "s|$REPOPATH||g" "$lcov_file"
     sed -i 's|co_re_[^/]*\/||g' "$lcov_file"
+
+    # Optionally strip custom prefix from SF: paths (e.g. "bin/")
+    if [ -n "$STRIP_PREFIX" ]; then
+        sed -i "s|^SF:${STRIP_PREFIX}|SF:|g" "$lcov_file"
+    fi
 
     # Optionally prepend rel_path to SF: lines before moving
     if [ "$PREPEND_PATHS" = "true" ] && [ -n "$rel_path" ] && [ "$rel_path" != "." ]; then

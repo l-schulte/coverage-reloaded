@@ -4,6 +4,7 @@ source /coverage_reloaded/logging.sh
 source /coverage_reloaded/fake-time.sh
 source /coverage_reloaded/resolve-and-pin.sh
 source /coverage_reloaded/has-option.sh
+source /coverage_reloaded/assert-suite-ran.sh
 cd /coverage_reloaded/repo
 
 # libfaketime deadlocks Node's event loop because an absolute FAKETIME freezes
@@ -18,8 +19,7 @@ export ELASTICSEARCH_CONNECTION="${ELASTICSEARCH_CONNECTION:-http://localhost:92
 export JWT_SECRET="${JWT_SECRET:-openneuro-test-secret}"
 
 if [ ! -f package.json ]; then
-  print_header 2 "NOT APPLICABLE" "No package.json at this commit, no test infrastructure to run"
-  exit 2
+  not_applicable "No package.json at this commit, no test infrastructure to run"
 fi
 
 # Set javascript heap size to 8GB.
@@ -112,31 +112,31 @@ if echo "$TEST_SCRIPT" | grep -q vitest; then
     REPORT_ON_FAIL="--coverage.reportOnFailure"
   fi
 
-  # Detect the right parallelism cap for this vitest version to avoid the
-  # WebAssembly.Instance(): Out of memory: wasm memory error. Worker threads
-  # share the main process's virtual address space, so each wasm instance's
-  # large virtual reservation exhausts that shared space once several threads
-  # load wasm in parallel. The fix is to stop using the threads pool:
-  #   - newer vitest: --maxWorkers=1 (bounds the worker-thread pool to one)
-  #   - v0.31..v0.34: --single-thread (run in the main thread, no workers)
-  #   - v0.25..v0.30: --no-threads (switch to child_process fork pool, each
-  #                    child has its own address space -> documented fix)
+  # Bound the threads pool for this vitest version: it avoids the wasm OOM
+  # (`--maxWorkers`/`--no-threads`/`--single-thread`) and, on vitest 1.x,
+  # pins the worker-thread floor as well — an unset floor defaults to
+  # cpu_count-1, which conflicts with a maxWorkers cap and aborts the run
+  # before any test is collected. `--single-thread` already sets both bounds.
   HAS_OPTION_QUIET=1
-  if has_option --maxWorkers yarn vitest; then
-    PARALLEL_FLAG="--maxWorkers=1"
-  elif has_option --single-thread yarn vitest; then
+  if has_option --single-thread yarn vitest; then
     PARALLEL_FLAG="--single-thread"
-  elif has_option --threads yarn vitest; then
+  elif has_option --no-threads yarn vitest; then
     PARALLEL_FLAG="--no-threads"
+  elif has_option --maxWorkers yarn vitest && has_option --minWorkers yarn vitest; then
+    PARALLEL_FLAG="--maxWorkers=1 --minWorkers=1"
+  elif has_option --maxWorkers yarn vitest; then
+    PARALLEL_FLAG="--maxWorkers=1"
   else
     PARALLEL_FLAG=""
   fi
 
+  VITEST_LOG="$REPOPATH/vitest_run.log"
   suite_start "vitest" "Running vitest with coverage (vitest era)"
   set +e
-  fake_time yarn vitest run --coverage.enabled --coverage.reporter=lcov $PARALLEL_FLAG $REPORT_ON_FAIL
-  VITEST_EXIT=$?
+  fake_time yarn vitest run --coverage.enabled --coverage.reporter=lcov $PARALLEL_FLAG $REPORT_ON_FAIL 2>&1 | tee "$VITEST_LOG"
+  VITEST_EXIT=${PIPESTATUS[0]}
   set -e
+  assert_suite_ran "vitest" "vitest" "$VITEST_LOG" "$VITEST_EXIT"
   bash /coverage_reloaded/find-and-move-lcov.sh "vitest" "true" "$VITEST_EXIT"
   suite_end "vitest" "$VITEST_EXIT"
 else
