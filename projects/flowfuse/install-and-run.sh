@@ -5,6 +5,9 @@ set -e
 # Increase Node.js heap size to avoid WebAssembly out-of-memory errors in worker threads (vitest/tinypool).
 export NODE_OPTIONS="--max-old-space-size=8192 --require /coverage_reloaded/pool-shim.js"
 
+# Disable Cypress binary download during npm install (e2e suite is excluded, sandbox has no external network)
+export CYPRESS_INSTALL_BINARY=0
+
 source /coverage_reloaded/logging.sh
 source /coverage_reloaded/has-option.sh
 
@@ -60,8 +63,18 @@ apply_license_fix() {
 }
 
 if [ ! -f package.json ]; then
-    print_header 2 "NOT APPLICABLE" "No package.json at this commit, no test infrastructure to run"
-    exit 2
+    not_applicable "No package.json at this commit, no test infrastructure to run"
+fi
+
+# --- Git submodules for local file: dependencies ----------------------------
+# In late 2021 / early 2022 (commits between f4c5a1a5f and 1abc71dfe), package.json
+# declares dependencies on local paths (e.g. "file:sub_modules/flowforge-driver-localfs")
+# tracked as Git submodules. Without initializing them, the directories are empty
+# and npm install fails with ENOLOCAL.
+if [ -f .gitmodules ] && grep -q "file:sub_modules/" package.json; then
+    print_header 2 "Initializing Git submodules for local dependencies"
+    git config --global url."https://github.com/".insteadOf "git@github.com:" 2>/dev/null || true
+    git submodule update --init
 fi
 
 print_header 2 "Installing dependencies"
@@ -144,8 +157,7 @@ print_header 4 "test:system:          $TEST_SYSTEM_SCRIPT"
 print_header 4 "HAS_NYC=$HAS_NYC  HAS_FORGE=$HAS_FORGE  HAS_FRONTEND=$HAS_FRONTEND  HAS_UNIT=$HAS_UNIT  HAS_SYSTEM=$HAS_SYSTEM  HAS_TEST=$HAS_TEST"
 
 if [ $HAS_FORGE -eq 0 ] && [ $HAS_FRONTEND -eq 0 ] && [ $HAS_UNIT -eq 0 ] && [ $HAS_SYSTEM -eq 0 ] && [ $HAS_TEST -eq 0 ]; then
-    print_header 2 "NOT APPLICABLE" "No test scripts found at this commit, no test infrastructure to run"
-    exit 2
+    not_applicable "No test scripts found at this commit, no test infrastructure to run"
 fi
 
 if [ $HAS_NYC -eq 1 ]; then
@@ -184,15 +196,25 @@ fi
 if [ $HAS_FRONTEND -eq 1 ]; then
     suite_start "frontend-unit" "Running test:unit:frontend (vitest)"
 
-    # Coverage provider changed from c8 to v8 — try whichever is available.
-    C8_VERSION=$(npm view @vitest/coverage-c8 version 2>/dev/null || true)
-    V8_VERSION=$(npm view @vitest/coverage-v8 version 2>/dev/null || true)
-    if [ -n "$V8_VERSION" ]; then
-        print_header 4 "Installing @vitest/coverage-v8..."
-        npm install --no-save --legacy-peer-deps @vitest/coverage-v8
-    elif [ -n "$C8_VERSION" ]; then
-        print_header 4 "Installing @vitest/coverage-c8..."
-        npm install --no-save --legacy-peer-deps @vitest/coverage-c8
+    # Ensure a matching vitest coverage package is available.
+    INSTALLED_VITEST=$(node -p "require('./node_modules/vitest/package.json').version" 2>/dev/null || true)
+    if [ -n "$INSTALLED_VITEST" ]; then
+        if [ ! -d node_modules/@vitest/coverage-v8 ] && \
+           [ ! -d node_modules/@vitest/coverage-c8 ] && \
+           [ ! -d node_modules/@vitest/coverage-istanbul ]; then
+            VITEST_MAJOR=$(echo "$INSTALLED_VITEST" | cut -d. -f1)
+            VITEST_MINOR=$(echo "$INSTALLED_VITEST" | cut -d. -f2)
+            # Vitest < 0.32.0 used c8; 0.32.0+ switched to v8.
+            if [ "$VITEST_MAJOR" -eq 0 ] && [ "$VITEST_MINOR" -lt 32 ]; then
+                print_header 4 "Installing @vitest/coverage-c8@$INSTALLED_VITEST..."
+                npm install --no-save --legacy-peer-deps "@vitest/coverage-c8@$INSTALLED_VITEST" 2>/dev/null || \
+                npm install --no-save --legacy-peer-deps "@vitest/coverage-c8"
+            else
+                print_header 4 "Installing @vitest/coverage-v8@$INSTALLED_VITEST..."
+                npm install --no-save --legacy-peer-deps "@vitest/coverage-v8@$INSTALLED_VITEST" 2>/dev/null || \
+                npm install --no-save --legacy-peer-deps "@vitest/coverage-v8"
+            fi
+        fi
     fi
 
     # Disable worker threads to avoid WebAssembly out-of-memory in tinypool.

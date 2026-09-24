@@ -1269,6 +1269,27 @@
       "note": "",
       "lines": 0,
       "id": "5759ad01c7d8"
+    },
+    {
+      "match": "Error:\\ Cannot\\ find\\ module\\ '\\./stack\\.js'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "5720f4159b04"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ LicenseDetails\\ \\{",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "8b26ae386974"
+    },
+    {
+      "match": "Error:\\ Invalid\\ module\\ version:\\ v1",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "0a966fc02145"
     }
   ]
 }
