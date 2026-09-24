@@ -162,6 +162,11 @@ class ProjectConfig:
         "author_timestamp"  # or "committer_timestamp" or "timestamp_diff"
     )
 
+    #: Number of CPUs to allocate to containers for this project via podman --cpus.
+    #: Defaults to 6 (or CONTAINER_CPUS environment variable).
+    #: Example: 12
+    container_cpus: Optional[int] = None
+
 
 @dataclass
 class NodeVersionOverride:

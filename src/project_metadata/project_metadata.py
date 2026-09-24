@@ -142,17 +142,16 @@ def extract_project_metadata(
             detected = _ver_tuple(pm_ver_only) if pm_ver_only else (0, 0, 0)
             required = _ver_tuple(pm_requirement)
             if detected < required:
-                pm_requirement_semver = ".".join(str(p) for p in required)
                 logger.warning(
                     f"Package manager version {pm_version} for commit {commit_hash} "
                     f"does not satisfy minimum requirement {pm_name}@{pm_requirement}. "
                     f"Setting to minimum version."
                 )
                 pm_source = (
-                    f"enforced minimum version {pm_name}@{pm_requirement_semver} "
+                    f"enforced minimum version {pm_name}@{pm_requirement} "
                     f"(originally {pm_version} from {pm_source})"
                 )
-                pm_version = f"{pm_name}@{pm_requirement_semver}"
+                pm_version = f"{pm_name}@{pm_requirement}"
 
     # Apply timestamp-based package manager version overrides
     if project_config.package_manager_version_overrides:

@@ -5,6 +5,8 @@ import shutil
 
 from strip_ansi import strip_ansi
 
+from src.config import get_config
+
 logger = logging.getLogger(__name__)
 
 # Must match EXECUTOR in docker-run.sh
@@ -64,9 +66,7 @@ def get_filename(timestamp, commit_hash, success=True):
     return f"{timestamp}_{commit_hash}.{ext}"
 
 
-def docker_run_script(
-    commit, workspace_path, logs_path, output_path, skip_build=True
-):
+def docker_run_script(commit, workspace_path, logs_path, output_path, skip_build=True):
     """
     Run docker container for a single commit.
 
@@ -97,10 +97,19 @@ def docker_run_script(
         project_id,
     ]
 
-    # Automated collection uses 6 CPUs to keep resource usage predictable.
+    # Use per-project container_cpus from config if set, otherwise default to 6 CPUs.
     # Override by setting CONTAINER_CPUS in .env for manual runs.
+    cfg = get_config()
+    proj_cfg = cfg.projects.get(project)
+    default_cpus = os.environ.get("CONTAINER_CPUS", "6")
+    cpus = (
+        str(proj_cfg.container_cpus)
+        if (proj_cfg and proj_cfg.container_cpus)
+        else default_cpus
+    )
+
     env = os.environ.copy()
-    env["CONTAINER_CPUS"] = "6"
+    env["CONTAINER_CPUS"] = cpus
     env["SKIP_BUILD"] = "true" if skip_build else "false"
 
     try:
@@ -112,8 +121,15 @@ def docker_run_script(
             text=True,
         )
         exit_code = result.returncode
-        is_not_applicable = exit_code == 2
-        success = exit_code == 0 or is_not_applicable
+        not_applicable_file = os.path.join(
+            output_path, f"{timestamp}_{commit_hash}.not_applicable"
+        )
+        # The marker file, not the exit code, decides not-applicable. A nonzero
+        # exit is always a failure (a clean not-applicable run exits 0), so even
+        # a stale marker cannot turn a failed run into a not-applicable one; only
+        # a zero exit is classified by the marker written inside the container.
+        success = exit_code == 0
+        is_not_applicable = success and os.path.exists(not_applicable_file)
 
         log_filename = os.path.join(
             logs_path,
@@ -123,22 +139,18 @@ def docker_run_script(
 
         with open(log_filename, "w") as f:
             f.write(clean_output)
-            if exit_code == 0:
+            if is_not_applicable:
+                f.write("\n----\nNot applicable (marker present)\n")
+            elif success:
                 f.write("\n----\nSuccess!\n")
-            elif is_not_applicable:
-                f.write("\n----\nNot applicable (exit code 2)\n")
 
-        if exit_code == 2:
+        if is_not_applicable:
             logger.debug(
                 f"Commit {commit_hash} not applicable. See log: {log_filename}"
             )
-            not_applicable_file = os.path.join(
-                output_path, f"{timestamp}_{commit_hash}.not_applicable"
-            )
-            with open(not_applicable_file, "w") as f:
-                f.write(f"Commit: {commit_hash}\n")
-                f.write(f"Timestamp: {timestamp}\n")
-                f.write(f"Exit code: 2\n")
+            # The container wrote the marker (including the reason); append the
+            # log path without clobbering it.
+            with open(not_applicable_file, "a") as f:
                 f.write(f"Log: {log_filename}\n")
         elif not success:
             logger.debug(f"Commit {commit_hash} failed. See log: {log_filename}")
