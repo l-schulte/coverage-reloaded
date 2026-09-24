@@ -1,0 +1,90 @@
+{
+  "general": {
+    "patterns": [
+      "\u25cf",
+      "\ud83d\udd25"
+    ],
+    "exclude": [
+      "Test Suites:",
+      "Tests:",
+      "Snapshots:",
+      "Ran all test suites",
+      "\\s+at \\S",
+      "\u25cf\\s*Console",
+      "npm ERR!"
+    ]
+  },
+  "suites": {
+    "unit": {
+      "remove_patterns": [],
+      "add_patterns": [],
+      "remove_exclude": [],
+      "add_exclude": []
+    }
+  },
+  "auto_classify": [
+    {
+      "match": "\ud83d\udd25",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "a4c1634a68ad"
+    },
+    {
+      "match": "\\\nmodule/item/treasure\\.ts:164:34\\ \\-\\ error\\ TS2344:\\ Type\\ 'PF2EPhysicalItem'\\ does\\ not\\ satisfy\\ the\\ constraint\\ 'Compendium<CompendiumEntity>'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "80832491ab10"
+    },
+    {
+      "match": "\\\nTypeError:\\ game\\.actors\\ is\\ not\\ iterable",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "c484eb5fc576"
+    },
+    {
+      "match": "\\\nmodule/migration\\-runner\\.ts:47:29\\ \\-\\ error\\ TS2551:\\ Property\\ 'deleteEmbeddedEntity'\\ does\\ not\\ exist\\ on\\ type\\ 'ActorPF2e'\\.\\ Did\\ you\\ mean\\ 'updateEmbeddedEntity'\\?",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8af04beedabe"
+    },
+    {
+      "match": "\\\nTypeError:\\ actor\\.deleteEmbeddedEntity\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d214378d04f7"
+    },
+    {
+      "match": "\\\ntests/module/item/identification\\.test\\.ts:94:34\\ \\-\\ error\\ TS2345:\\ Argument\\ of\\ type\\ 'ConsumablePF2e'\\ is\\ not\\ assignable\\ to\\ parameter\\ of\\ type\\ 'PhysicalItemPF2e'\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5fca88caa818"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ Unexpected\\ string\\ in\\ JSON\\ at\\ position\\ 59172",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f4127fc8a58f"
+    },
+    {
+      "match": "\\\ntests/fakes/fake\\-token\\.ts:4:14\\ \\-\\ error\\ TS2615:\\ Type\\ of\\ property\\ 'effects'\\ circularly\\ references\\ itself\\ in\\ mapped\\ type\\ 'RawObject<ActorDataPF2e>'\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8001e6f283ef"
+    },
+    {
+      "match": "\\\nReferenceError:\\ .*\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b01f2da6a751"
+    }
+  ]
+}

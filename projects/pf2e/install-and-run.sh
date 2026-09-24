@@ -7,8 +7,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/has-option.sh"
 cd /coverage_reloaded/repo
 
 if ! has_script "test"; then
-    print_header 2 "NOT APPLICABLE: test script not defined"
-    exit 2
+    not_applicable "test script not defined"
 fi
 
 print_header 2 "Installing dependencies"
