@@ -1,0 +1,56 @@
+project,run_id,suite,exit_code,failure_index,line_number,keyword,label,labeled_at,fingerprint,occurrences,auto_rule_id
+moodleapp,1610703141_183a033dc87ab7f22d4c95b3bd344cd3b7d0db87,jest,1,1,248,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:28:44.404170+00:00,92af560a18ce529e,78,cf5609f34cfb
+moodleapp,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,jest,1,2,236,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:29:02.011312+00:00,0b0ab750c75937d7,70,
+moodleapp,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,jest,1,3,476,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:29:02.013264+00:00,c37aa63ed3ee0fa2,60,f24126b50fe7
+moodleapp,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,jest,1,4,493,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:29:02.013653+00:00,61451cd7691f97c2,60,f24126b50fe7
+moodleapp,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,jest,1,5,554,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:29:33.139458+00:00,4d8f91cde483ca24,69,
+moodleapp,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,jest,1,6,659,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.530244+00:00,f4d19ba0bcc82e9f,68,
+moodleapp,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,jest,1,7,836,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.531345+00:00,71f61b70c6d064e7,68,f24126b50fe7
+moodleapp,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,jest,1,8,567,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.531607+00:00,fc9a28ea0d54a3ed,67,4676730a7449
+moodleapp,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,jest,1,9,746,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.531854+00:00,ed0fe52c1f94ea6f,67,4676730a7449
+moodleapp,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,jest,1,10,908,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.532118+00:00,b87f82ed7e978514,67,4676730a7449
+moodleapp,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,jest,1,11,925,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.532360+00:00,aae769d149ac04e4,9,4676730a7449
+moodleapp,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,jest,1,12,983,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.532614+00:00,8b701ab18f202dd4,67,1d7a7edf2d4a
+moodleapp,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,jest,1,13,996,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.532874+00:00,dfd1fe98f16c6887,67,1d7a7edf2d4a
+moodleapp,1643291954_f83c8f4e1aa1190e2742943a8b4cbe79f5a3bf15,jest,1,14,267,  ● CoreNavigator › navigates to site paths using the default tab,acceptable,2026-09-16T07:30:09.533140+00:00,49b0af9e6ada53cd,1,86155647a967
+moodleapp,1646131677_717978388e013e451625e9c518b48e9aca92eb49,jest,1,15,244,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.533380+00:00,ab3ec41463f2cced,70,cf5609f34cfb
+moodleapp,1646131677_717978388e013e451625e9c518b48e9aca92eb49,jest,1,16,333,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.533653+00:00,c3e234b931d37c1a,59,b8559e67f116
+moodleapp,1646131677_717978388e013e451625e9c518b48e9aca92eb49,jest,1,17,549,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.533941+00:00,e63a5a56f073fcc0,59,b8559e67f116
+moodleapp,1646735137_112f00bcb51a73c1113204ae7e95d0e0f7d160a4,jest,1,18,272,  ● CoreFormatTextDirective › should use link directive on anchors,reevaluated_acceptable,2026-09-16T07:30:09.534236+00:00,395150e7a6e2e4c2,5,b672ef8e3c18
+moodleapp,1668169342_8b8719559375ad784ee16be23bbb9fb579e565c7,jest,1,19,389,  ● Credentials page › suggests contacting support after multiple failed attempts,reevaluated_acceptable,2026-09-16T07:30:09.534537+00:00,cce53d0bb526663e,16,fec890d89dae
+moodleapp,1675410932_884827afb6a150438b985530f843daca56f4a713,jest,1,20,256,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.534804+00:00,c26328277cd7970c,60,4676730a7449
+moodleapp,1676977658_ba723dd8990190176dcf21c346b799fa3e63c8f5,jest,1,21,388,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.535136+00:00,457167cb923604dc,65,c5f4d34d106e
+moodleapp,1677149405_7a78bb9375055ef99d3009756f1d06bfddb4f625,jest,1,22,392,  ● Credentials page › renders,reevaluated_acceptable,2026-09-16T07:30:09.535469+00:00,37ee7bb1d540e5ba,4,03ac5ab31d84
+moodleapp,1677149405_7a78bb9375055ef99d3009756f1d06bfddb4f625,jest,1,23,926,  ● Site Home link handlers › Handles links ending with /?redirect=0,reevaluated_acceptable,2026-09-16T07:30:09.535808+00:00,fcb7112cbc2c6189,1,a188c55aa712
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,jest,1,24,352,  ● Test suite failed to run,acceptable,2026-09-16T07:30:09.536180+00:00,6a95fcc299b0934f,58,4d7a4ff53120
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,jest,1,25,424,  ● Test suite failed to run,acceptable,2026-09-16T07:30:09.536533+00:00,84ac99411a290f2c,58,4d7a4ff53120
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,jest,1,26,532,  ● Test suite failed to run,acceptable,2026-09-16T07:30:09.536895+00:00,671ddff4ab2ac9d3,58,4d7a4ff53120
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,jest,1,27,568,  ● Test suite failed to run,acceptable,2026-09-16T07:30:09.537262+00:00,49d0947063fda178,58,4d7a4ff53120
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,jest,1,28,604,  ● Test suite failed to run,acceptable,2026-09-16T07:30:09.537624+00:00,a6ebe6b98be700c1,58,4d7a4ff53120
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,jest,1,29,712,  ● Test suite failed to run,acceptable,2026-09-16T07:30:09.537998+00:00,7a528b3dcb45aca1,58,4d7a4ff53120
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,jest,1,30,748,  ● Test suite failed to run,acceptable,2026-09-16T07:30:09.538376+00:00,9b76315923098f9a,58,4d7a4ff53120
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,jest,1,31,784,  ● Test suite failed to run,acceptable,2026-09-16T07:30:09.538747+00:00,1bacd33ce6004b42,58,4d7a4ff53120
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,jest,1,32,820,  ● Test suite failed to run,acceptable,2026-09-16T07:30:09.539145+00:00,c355b3a98e9427bc,55,4d7a4ff53120
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,jest,1,33,856,  ● Test suite failed to run,acceptable,2026-09-16T07:30:09.539523+00:00,801b9e43a087e94d,58,4d7a4ff53120
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,jest,1,34,892,  ● Test suite failed to run,acceptable,2026-09-16T07:30:09.539911+00:00,9246784fdcb24940,58,4d7a4ff53120
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,jest,1,35,1000,  ● Test suite failed to run,acceptable,2026-09-16T07:30:09.540299+00:00,1a0d1358df564ee1,58,4d7a4ff53120
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,jest,1,36,1108,  ● Test suite failed to run,acceptable,2026-09-16T07:30:09.540693+00:00,094bc4365716f1aa,58,4d7a4ff53120
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,jest,1,37,1216,  ● Test suite failed to run,acceptable,2026-09-16T07:30:09.541095+00:00,9ef586f26073615b,58,4d7a4ff53120
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,jest,1,38,1360,  ● Test suite failed to run,acceptable,2026-09-16T07:30:09.541489+00:00,4ff46f7528b4f794,58,4d7a4ff53120
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,jest,1,39,1396,  ● Test suite failed to run,acceptable,2026-09-16T07:30:09.542096+00:00,d712817dbc2b41ff,58,4d7a4ff53120
+moodleapp,1699544907_22d0d4ece1f8e30384d782ada239c711665a8ed5,jest,1,40,341,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.542437+00:00,5840f338d23bb795,57,cf5609f34cfb
+moodleapp,1699544907_22d0d4ece1f8e30384d782ada239c711665a8ed5,jest,1,41,432,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.542763+00:00,d23e51f249a54cff,57,cf5609f34cfb
+moodleapp,1699544907_22d0d4ece1f8e30384d782ada239c711665a8ed5,jest,1,42,458,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.543109+00:00,5725d36077472b61,57,cf5609f34cfb
+moodleapp,1710751005_6ce688e76ca31eef1ff990583528a8cb9a9d5fa6,jest,1,43,361,  ● Test suite failed to run,acceptable,2026-09-16T07:30:09.543522+00:00,43dce576d75407f0,9,62d4aad80b83
+moodleapp,1710751005_6ce688e76ca31eef1ff990583528a8cb9a9d5fa6,jest,1,44,409,  ● Test suite failed to run,acceptable,2026-09-16T07:30:09.543960+00:00,cce6995e352012f3,9,62d4aad80b83
+moodleapp,1710751005_6ce688e76ca31eef1ff990583528a8cb9a9d5fa6,jest,1,45,481,  ● Test suite failed to run,acceptable,2026-09-16T07:30:09.544399+00:00,0446e01e20623461,9,62d4aad80b83
+moodleapp,1726753080_a2c6a5b5788e7f3e9d5db497a6708eb60c616dfc,jest,1,46,910,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.544854+00:00,3cefde4f2ea92b6b,8,8287911c57fd
+moodleapp,1726753080_a2c6a5b5788e7f3e9d5db497a6708eb60c616dfc,jest,1,47,1210,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.545328+00:00,d8cc940295da4593,8,8287911c57fd
+moodleapp,1726753080_a2c6a5b5788e7f3e9d5db497a6708eb60c616dfc,jest,1,48,1360,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.545786+00:00,e6a7e825bfa0fbff,8,8287911c57fd
+moodleapp,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,jest,1,49,342,  ● CoreFormatTextDirective › should render,acceptable,2026-09-16T07:30:09.546271+00:00,ad8b0a61329d498b,3,e29131c03262
+moodleapp,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,jest,1,50,376,  ● CoreFormatTextDirective › should format text,acceptable,2026-09-16T07:30:09.546741+00:00,79bd36efb74a49d3,3,e29131c03262
+moodleapp,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,jest,1,51,444,  ● CoreFormatTextDirective › should use external-content directive on images,acceptable,2026-09-16T07:30:09.547238+00:00,1fef5543eb8e8a30,3,e29131c03262
+moodleapp,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,jest,1,52,681,  ● CoreLinkDirective › should render,acceptable,2026-09-16T07:30:09.547716+00:00,93cd096aa509f9e4,3,e29131c03262
+moodleapp,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,jest,1,53,715,  ● CoreLinkDirective › should capture clicks,acceptable,2026-09-16T07:30:09.548214+00:00,16703b6d132a8f0c,3,e29131c03262
+moodleapp,1740670691_ce767f621bdbe69fb61e2b3bf913addfdd957224,jest,1,54,482,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.548623+00:00,7b6e4f5881225957,3,4676730a7449
+moodleapp,1740670691_ce767f621bdbe69fb61e2b3bf913addfdd957224,jest,1,55,514,  ● Test suite failed to run,reevaluated_acceptable,2026-09-16T07:30:09.549119+00:00,6ba7c012f3eb1b98,3,4676730a7449

@@ -8,8 +8,7 @@ source /coverage_reloaded/has-option.sh
 cd /coverage_reloaded/repo
 
 if [ ! -f package.json ]; then
-    print_header 2 "NOT APPLICABLE" "No package.json at this commit, no test infrastructure to run"
-    exit 2
+    not_applicable "No package.json at this commit, no test infrastructure to run"
 fi
 
 print_header 2 "Detecting test infrastructure"
@@ -60,12 +59,11 @@ elif [ -n "$HAS_JEST" ]; then
     #
     # Why developers never hit this: npm test runs without --coverage, so
     # the babel provider is never exercised during normal development.
-    npx --registry="$WAYPACK_NPM_REGISTRY" jest --verbose --coverage --coverageProvider=v8 --coverageReporters=lcov --runInBand
+    npx --registry="$WAYPACK_NPM_REGISTRY" jest --verbose --coverage --coverageProvider=v8 --coverageReporters=lcov --runInBand --testTimeout=30000
     TEST_EXIT=$?
     bash /coverage_reloaded/find-and-move-lcov.sh "jest" "false" "$TEST_EXIT"
 else
-    print_header 2 "NOT APPLICABLE" "No recognized test runner at this commit"
-    exit 2
+    not_applicable "No recognized test runner at this commit"
 fi
 
 set -e

@@ -1,0 +1,143 @@
+{
+  "general": {
+    "patterns": [
+      "\u25cf"
+    ],
+    "exclude": [
+      "\u25cf\\s*Console",
+      "Test Suites:",
+      "Tests:",
+      "Snapshots:",
+      "Ran all test suites"
+    ]
+  },
+  "suites": {},
+  "auto_classify": [
+    {
+      "match": "error\\ TS2307:\\ Cannot\\ find\\ module\\ '.*'\\ or\\ its\\ corresponding\\ type\\ declarations\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "cf5609f34cfb"
+    },
+    {
+      "match": "TS2339:\\ Property\\ '.*'\\ does\\ not\\ exist\\ on\\ type\\ '.*'\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f24126b50fe7"
+    },
+    {
+      "match": "TS2304:\\ Cannot\\ find\\ name\\ '.*'\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4676730a7449"
+    },
+    {
+      "match": "TS2593:\\ Cannot\\ find\\ name\\ '.*'\\.\\ Do\\ you\\ need\\ to\\ install\\ type\\ definitions\\ for\\ a\\ test\\ runner\\?\\ Try\\ `npm\\ i\\ \\-\\-save\\-dev\\ @types/jest`\\ or\\ `npm\\ i\\ \\-\\-save\\-dev\\ @types/mocha`\\ and\\ then\\ add\\ `jest`\\ or\\ `mocha`\\ to\\ the\\ types\\ field\\ in\\ your\\ tsconfig\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1d7a7edf2d4a"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledWith\\(\\.\\.\\.expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "86155647a967"
+    },
+    {
+      "match": "\\\nConfiguration\\ error:\\\n\\\nCould\\ not\\ locate\\ module\\ .*\\ mapped\\ as:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "b8559e67f116"
+    },
+    {
+      "match": "\\\nUncaught\\ \\(in\\ promise\\):\\ CoreError:\\ You\\ aren't\\ authenticated\\ in\\ any\\ site\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b672ef8e3c18"
+    },
+    {
+      "match": "\\\nTypeError:\\ this\\.translate\\.get\\ is\\ not\\ a\\ function",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "fec890d89dae"
+    },
+    {
+      "match": "TS2305:\\ Module\\ '.*'\\ has\\ no\\ exported\\ member\\ 'Constructor'\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c5f4d34d106e"
+    },
+    {
+      "match": "\\\nUncaught\\ \\(in\\ promise\\):\\ NullInjectorError:\\ StaticInjectorError\\[HttpClient\\]:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "03ac5ab31d84"
+    },
+    {
+      "match": "\\\n:\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 30000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 30000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a188c55aa712"
+    },
+    {
+      "match": "\\\nJest\\ encountered\\ an\\ unexpected\\ token",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4d7a4ff53120"
+    },
+    {
+      "match": "\\\ncore/services/sites\\.ts:503:17\\ \\-\\ error\\ TS2353:\\ Object\\ literal\\ may\\ only\\ specify\\ known\\ properties,\\ and\\ 'debug'\\ does\\ not\\ exist\\ in\\ type\\ 'Partial<CoreLoginErrorOptions>'\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "62d4aad80b83"
+    },
+    {
+      "match": "TS2345:\\ Argument\\ of\\ type\\ '\\(CoreCourseModuleData\\ \\|\\ CoreCourseSection\\)\\[\\]'\\ is\\ not\\ assignable\\ to\\ parameter\\ of\\ type\\ 'CoreCourseModuleData\\[\\]'\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8287911c57fd"
+    },
+    {
+      "match": "\\\nUnexpected\\ \".*\"\\ found\\ in\\ the\\ \"declarations\"\\ array\\ of\\ the",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e29131c03262"
+    },
+    {
+      "match": "TS2740:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6a2377d3c9f0"
+    },
+    {
+      "match": "TS2769:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f8b9168a9df8"
+    },
+    {
+      "match": "TS2507:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8ec39fc4b33e"
+    }
+  ]
+}
