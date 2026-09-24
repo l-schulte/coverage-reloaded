@@ -126,7 +126,7 @@ Link to `logs/`, `failure_labels_project.csv`, or the collapsed CSV for depth.>
 - Define acronyms on first use (CI, PM, LCOV, DB, DI, OOM).
 - One idea per sentence; prefer short sentences.
 - Use tables for enumerable facts; use prose only for rationale.
-- Use consistent terms: **commit**, **suite**, **run**, **exit code 1**,
+- Use consistent terms: **commit**, **suite**, **run**, **exit code (failing-test count)**,
   **hard error**, **coverage gate**, **not applicable**.
 - Attribute every number to its source file.
 - Do not use emojis.

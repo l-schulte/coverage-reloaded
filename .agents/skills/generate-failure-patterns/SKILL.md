@@ -38,8 +38,7 @@ is a valid rule label.
 
 ## Context (how check_failures.py uses this file)
 
-- `projects/<name>/output/<ts>_<hash>/<suite>.exit_code` (0 = clean, 1 = tests failed but
-  coverage valid, >1 = runner crashed) drives which run logs are scanned.
+- `projects/<name>/output/<ts>_<hash>/<suite>.exit_code` records the test runner's exit code. For mocha this is the number of failing tests (capped at 255), so any value `> 0` is a failing suite (not a crash); those runs drive which logs are scanned.
 - For each such run, the matching log is `projects/<name>/logs/<ts>_<hash>.log`.
 - Inside that log, `check_failures.py` finds `[SUITE_START] <suite>` … `[SUITE_END] <suite>`
   spans and, within each span, flags a line as a failure if it matches any `patterns` regex

@@ -49,7 +49,9 @@ set -e
 bash ../find-and-move-lcov.sh "unit" "false" "$UNIT_EXIT"
 ```
 
-`set +e` wraps **only the test command**, not `find-and-move-lcov.sh`. Exit codes: 0/1 → coverage valid (WARNING on 1); >1 → runner crashed (ERROR, exit >1).
+`set +e` wraps **only the test command**, not `find-and-move-lcov.sh`. The captured exit code is runner-specific; for mocha it is the **number of failing tests** (capped at 255 by the shell), so `0` means all passed and `>=1` means that many failures, and either still yields valid coverage because bail is disabled. It is **not** a crash indicator: a crash surfaces as a signal-derived code (`>=128`) or, far more commonly, as no lcov produced (→ `find-and-move-lcov.sh` exits 1 → `install-and-run.sh` aborts → `.error`).
+
+Not-applicable is signalled by a **marker file**, never by an exit code. The shared `not_applicable "<reason>"` helper (`logging.sh`) writes `${OUTPUT_PATH}/${timestamp}_${revision}.not_applicable` and exits `0`; `execute.sh` and `docker_run.py` treat a run as not-applicable only when that marker exists. A non-zero exit is always a failure, so an ordinary command that happens to exit `2` (npm uses `2` for install errors) can never be mistaken for not-applicable.
 
 **Checklist:**
 - [ ] No bail flags anywhere (CLI, config objects, npm scripts, config files)
@@ -57,9 +59,27 @@ bash ../find-and-move-lcov.sh "unit" "false" "$UNIT_EXIT"
 - [ ] `set +e` wraps only test command, not `find-and-move-lcov.sh`
 - [ ] `set -e` restored immediately after capture
 - [ ] Exit code captured immediately after command
-- [ ] 0/1 = warning; >1 = error + exit
+- [ ] Run-level exit: `0` = success, non-zero = failure; not-applicable is signalled by the marker file, not an exit code
 - [ ] `set -e` at script top
 - [ ] `find-and-move-lcov.sh` always called with exit code as 3rd arg
+- [ ] `na_if_focus_marker` called with the collected-suite roots (see below)
+
+### Focus markers (`.only`) — the other silent partial
+
+A committed `describe.only` / `it.only` makes mocha/vitest execute only the marked
+subset. The run exits 0 and emits a structurally valid `lcov.info`, so it passes
+every check above while measuring a handful of tests — the same silent-partial
+danger as a bail. Do **not** strip the marker (we cannot know whether the rest of
+the suite was healthy or broken). Mark the commit not-applicable with the shared
+helper, scoped to the *collected* suites only:
+
+```bash
+source /coverage_reloaded/na-if-focus-marker.sh
+na_if_focus_marker test/unit test/system     # flowfuse; paths = collected suites
+```
+
+Excluded suites (e.g. Cypress specs under `test/e2e`) must be left out of the
+pathspec so they cannot trigger it. See `STUDY_DECISIONS.md` §2.
 
 ---
 

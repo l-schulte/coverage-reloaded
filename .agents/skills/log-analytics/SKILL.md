@@ -15,7 +15,8 @@ Systematically triage test failures and hard errors in logs produced by the `cov
 
 - Per commit, a container runs `projects/<name>/install-and-run.sh`, which runs the project's behavioral test suite with coverage and emits `lcov.info`.
 - Logs live at `projects/<name>/logs/` — `<ts>_<hash>.log` (run produced coverage) or `<ts>_<hash>.error` (run failed entirely). Every log's first line is the exact `docker-run.sh` reproduce command.
-- Output sidecars at `projects/<name>/output/*/unit.exit_code` indicate exit codes: 0 = clean, 1 = tests failed but coverage valid, >1 = runner crashed.
+- Output sidecars at `projects/<name>/output/*/<suite>.exit_code` record the test runner's exit code. For mocha this is the **number of failing tests** (capped at 255 by the shell), so `0` = clean and `>=1` = that many failures; both still produce valid coverage because bail is disabled. It is **not** a crash indicator — a genuine crash shows up as a signal-derived code (`>=128`) or, more commonly, as no lcov produced, i.e. a `<ts>_<hash>.error`.
+- Not-applicable commits carry `output/<ts>_<hash>.not_applicable` (written inside the container when there is no test infrastructure). These are not test failures.
 - Ignore `logs_1/` and `output_1/` (outdated snapshots). See `AGENTS.md §7` for coverage-validity rules.
 - `AGENTS.md §4`: Coverage-threshold gates (§3 `--check-coverage`) are not bugs — they are confounds of the exposure variable. Do not attempt to "fix" them.
 
@@ -28,11 +29,11 @@ Run phases sequentially. Stop after each phase. Present your summary table or gr
 Bounded scope: only gather high-level numbers, no deep tracing yet.
 
 1. Count `.log` vs `.error` runs in `projects/<name>/logs/`.
-2. For every `output/*/unit.exit_code`, tally 0 / 1 / >1.
+2. For every `output/*/<suite>.exit_code`, tally `0` vs `>=1` (a `>=1` value is the number of failing tests, not a crash).
 3. Read each error log once. Extract the top 3–5 most common failure signatures from Docker build output (truncated steps like `STEP N/26`, empty/header-only logs, package-manager version mismatches like yarn Berry rejecting classic flags such as `--ignore-scripts`).
 4. Report the success rate relative to the ≥90%-of-last-5-years inclusion criterion.
 
-**Checkpoint 0:** Present a summary table (`total_runs | .log | .error | 0 | 1 | >1 | success_rate`) plus the most common `.error` patterns. Ask: *"Inventory complete — does this match what you expect? Proceed to classification?"*
+**Checkpoint 0:** Present a summary table (`total_runs | .log | .error | exit_0 | exit_>=1 | success_rate`) plus the most common `.error` patterns. Ask: *"Inventory complete — does this match what you expect? Proceed to classification?"*
 
 ### Phase 1 — Group & Classify
 
