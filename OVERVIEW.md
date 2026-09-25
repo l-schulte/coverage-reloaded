@@ -64,22 +64,22 @@ dates live in the per-project Results sections, sourced from
 | [apostrophe](projects/apostrophe/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
 | [bhima](projects/bhima/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
 | [flowfuse](projects/flowfuse/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
-| [gatsby](projects/gatsby/OVERVIEW.md) | ✅ | ✅ | ✅ | 🚧 |
+| [gatsby](projects/gatsby/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
 | [material-ui](projects/material-ui/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
 | [matrix-js-sdk](projects/matrix-js-sdk/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
 | [moodleapp](projects/moodleapp/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
 | [n8n](projects/n8n/OVERVIEW.md) | ✅ | ❌ | 🟡 | ❌ |
 | [opencrvs-core](projects/opencrvs-core/OVERVIEW.md) | ✅ | 🟡 | ❌ | ❌ |
-| [openneuro](projects/openneuro/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
+| [openneuro](projects/openneuro/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
 | [pf2e](projects/pf2e/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
-| [rxdb](projects/rxdb/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
-| [serverless](projects/serverless/OVERVIEW.md) | ✅ | ✅ | 🚧 | 🚧 |
+| [rxdb](projects/rxdb/OVERVIEW.md) | ✅ | ✅ | ✅ | ❌ |
+| [serverless](projects/serverless/OVERVIEW.md) | ✅ | ✅ | 🆘 | 🚧 |
 | [spreed](projects/spreed/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
 | [uploader](projects/uploader/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
 | [uwazi](projects/uwazi/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
 | [vega-lite](projects/vega-lite/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
 | [wowanalyzer](projects/wowanalyzer/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
-| [yari](projects/yari/OVERVIEW.md) | ✅ | ✅ | 🚧 | ❌ |
+| [yari](projects/yari/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
 
 ## Cross-cutting infrastructure
 

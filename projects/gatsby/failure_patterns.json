@@ -1,0 +1,296 @@
+{
+  "general": {
+    "patterns": [
+      "\u25cf"
+    ],
+    "exclude": [
+      "\u25cf\\s*Console",
+      "Test Suites:",
+      "Tests:",
+      "Snapshots:",
+      "Ran all test suites"
+    ]
+  },
+  "auto_classify": [
+    {
+      "match": "\u25cf\\ npm\\ package\\ resource\\ \u203a\\ installs\\ 2\\ resources,\\ one\\ prod\\ \\&\\ one\\ dev",
+      "label": "reevaluated_acceptable",
+      "note": "Unpinned div package version snapshot mismatch in deprecated gatsby-recipes (deleted in 5f623451fe)",
+      "lines": 0,
+      "id": "8ddea9c13fe7"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledTimes\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "bce511ca5b69"
+    },
+    {
+      "match": "\u25cf\\ npm\\ package\\ resource\\ \u203a\\ e2e\\ npm\\ package\\ resource\\ test",
+      "label": "reevaluated_acceptable",
+      "note": "Unpinned package install in deprecated gatsby-recipes (deleted in 5f623451fe)",
+      "lines": 0,
+      "id": "77cd2138f2c1"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchInlineSnapshot\\(snapshot\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d95060b4f8ae"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchSnapshot\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "450dc6c728bc"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toHaveLength\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "bed9c4f7b511"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'map'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f0fa718f81ec"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'find'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "39057569b6f3"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ '0'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a4082bc3f4ba"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'every'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6050bdba7fc8"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4c8a78c49122"
+    },
+    {
+      "match": "\\\nTypeError:\\ \\(0\\ ,\\ _gatsbyCoreUtils\\.getCIName\\)\\ is\\ not\\ a\\ function",
+      "label": "reevaluated_acceptable",
+      "note": "handle-flags.ts incomplete mock of gatsby-core-utils omitting getCIName",
+      "lines": 2,
+      "id": "864eead5d736"
+    },
+    {
+      "match": "Attempted\\ to\\ log\\ \"FetchError\\ \\{\\\nmessage:\\ 'request\\ to\\ http://test\\.com/events\\ failed,\\ reason:\\ getaddrinfo\\ ENOTFOUND\\ test\\.com',\\\ntype:\\ 'system',\\\nerrno:\\ 'ENOTFOUND',\\\ncode:\\ 'ENOTFOUND'\\\n\\}\\ request\\ to\\ http://test\\.com/events\\ failed,\\ reason:\\ getaddrinfo\\ ENOTFOUND\\ test\\.com\"\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Async unmocked telemetry fetch in gatsby-plugin-gatsby-cloud logged after test finished (same family as e929871ba192)",
+      "lines": 6,
+      "id": "ee4dff250175"
+    },
+    {
+      "match": "\u25cf\\ contentful\\ extend\\ node\\ type\\ \u203a\\ getBase64Image\\ \u203a\\ keeps\\ image\\ format",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "dcfff8e9b314"
+    },
+    {
+      "match": "\\\nENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ open\\ '//\\.cache/schema\\.gql'",
+      "label": "reevaluated_acceptable",
+      "note": "v4 alpha shouldGenerateEngines hardcoded true in unit test causing schema.gql ENOENT (fixed in b622b22e3a)",
+      "lines": 2,
+      "id": "0a9f4a1fdc62"
+    },
+    {
+      "match": "\\\nTypeError:\\ _fsExtra\\.default\\.readFileSync\\ is\\ not\\ a\\ function",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream test mock omission: fs-extra.readFileSync not mocked in data-tracking.js, fixed in 4712acc619",
+      "lines": 2,
+      "id": "9e2b35a90929"
+    },
+    {
+      "match": "\\\n\\s*\u25cf\\s+Cannot\\ log\\ after\\ tests\\ are\\ done",
+      "label": "reevaluated_acceptable",
+      "note": "Async unmocked fetch in gatsby-plugin-gatsby-cloud logged after test finished",
+      "lines": 2,
+      "id": "e929871ba192"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'setParserPlugins'\\)",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream test mock omission: module missing on subplugin in remark extend-node-type, fixed in 4712acc619",
+      "lines": 2,
+      "id": "365116ab2a08"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.resolves\\.toEqual\\(\\)\\\n\\\nReceived\\ promise\\ rejected\\ instead\\ of\\ resolved\\\nRejected\\ to\\ value:\\ \\[Error:\\ ENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ open\\ '//\\.cache/schema\\.gql'\\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "adc03e1b3f8b"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'toString'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4388a482480c"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "da4dac159f8a"
+    },
+    {
+      "match": "\\\nError\\ loading\\ a\\ result\\ for\\ the\\ page\\ query\\ in\\ \"/foo\"\\.\\ Query\\ was\\ not\\ run\\ and\\ no\\ cached\\ result\\ was\\ found\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream test mock omission: mode SSG missing on page object in get-page-data, fixed in 4712acc619",
+      "lines": 2,
+      "id": "9db41ef33670"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toBeCalledWith\\(\\.\\.\\.expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c2294d146099"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'path'\\)",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream test mock omission: mode SSG missing on page object in requires-writer, fixed in 4712acc619",
+      "lines": 2,
+      "id": "2f54c634e1de"
+    },
+    {
+      "match": "\\\nENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ open\\ 'wat'",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream test mock omission: fs-extra.readFileSync not mocked in create-pages, fixed in 4712acc619",
+      "lines": 2,
+      "id": "c80c6cb92776"
+    },
+    {
+      "match": "\\\nTypeError:\\ Joi\\.subPlugins\\ is\\ not\\ a\\ function",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream test mock defect: Joi.subPlugins not extended in testPluginOptionsSchema, fixed in 4712acc619",
+      "lines": 2,
+      "id": "663f8e0cf469"
+    },
+    {
+      "match": "\\\nUnhandled\\ error\\.\\ \\(TimeoutError:\\ Timeout\\ awaiting\\ 'send'\\ for\\ 30000ms",
+      "label": "reevaluated_acceptable",
+      "note": "Jest fake timers race with Got HTTP socket in fetch-remote-file tests (deleted in 19b0304e0a)",
+      "lines": 2,
+      "id": "8b830fbdd44b"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toBeCalledTimes\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e179b8a830fb"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toSatisfyAll\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "dd0a749f3ce2"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'destroy'\\)",
+      "label": "reevaluated_acceptable",
+      "note": "MSW interceptors socket destroy failure during image-cdn tests in worker threads",
+      "lines": 2,
+      "id": "b229608a9fee"
+    },
+    {
+      "match": "\\\nYour\\ test\\ suite\\ must\\ contain\\ at\\ least\\ one\\ test\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream developer error: process-node.fixture.js placed directly in __tests__ directory without tests, fixed in cad7503542 (same family as fe29empty001)",
+      "lines": 2,
+      "id": "06aaf456fb61"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'stream'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1dca5c4abeb3"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 30000\\ ms\\ for\\ a\\ test\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Unmocked live network test timeout (e.g. Unsplash image fetch in remote-file-interface.ts)",
+      "lines": 2,
+      "id": "1aeb0fd79319"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toBeCalled\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "274bef29bc3e"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 15000\\ ms\\ for\\ a\\ hook\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Parcel compileGatsbyFiles beforeAll hook timeout in Jest before worker pool refactor (commit 0a80cd6d61)",
+      "lines": 2,
+      "id": "6a82233a9b5d"
+    },
+    {
+      "match": "\\\nTypeError:\\ \\(0\\ ,\\ _diagnostic\\(\\.\\.\\.\\)\\.anyToDiagnostic\\)\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "aeacfe820fae"
+    },
+    {
+      "match": "\\\nwrite\\ EPIPE",
+      "label": "reevaluated_acceptable",
+      "note": "gatsby-worker IPC race during worker pool shutdown/restart in integration tests",
+      "lines": 2,
+      "id": "bfed6d249958"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchSnapshot\\(properties\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "cb48f46174cb"
+    },
+    {
+      "match": "\\\nENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ open\\ '//\\.cache/schema\\.gql'",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream test setup defect: Redux program directory uninitialized during v4 schema build, fixed in 4712acc619",
+      "lines": 2,
+      "id": "1626schema00a"
+    },
+    {
+      "match": "\\\n\\s*\u25cf\\s+Test\\ suite\\ failed\\ to\\ run\\\n\\\n\\s*Your\\ test\\ suite\\ must\\ contain\\ at\\ least\\ one\\ test\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream developer error: process-node.fixture.js placed directly in __tests__ directory without tests, fixed in cad7503542",
+      "lines": 3,
+      "id": "fe29empty001"
+    }
+  ]
+}
