@@ -31,6 +31,7 @@
 - [x] failed tests doublechecked (non-zero-exit runs inspected and classified by failure family)
 - [x] complete run (6607/6607 commits processed on author-date timestamps; 0 pending)
 - [x] complete test failure check (all 116 failing runs labeled; 0 problematic/unclear)
+- [x] complete JEV test failure check
 
 ## Results
 
@@ -53,13 +54,15 @@ The 116 failing runs fall into six signatures. All are dev-facing — the era's
 developer would see them at the same commit — and are labeled `acceptable` or
 `reevaluated_acceptable` (the latter records a family re-assessed from
 `unclear`/`problematic`). See
-[`failure_labels_project.csv`](failure_labels_project.csv) for the labels;
+[`failure_labels_project.csv`](failure_labels_project.csv) for the labels and
+[`failure_labels_jev.csv`](failure_labels_jev.csv) for the automated System 1 evaluation
+(all 28 flagged issues were audited against git history and confirmed as commit-era upstream defects);
 [`failure_labels_collapsed_problematic_unclear.csv`](failure_labels_collapsed_problematic_unclear.csv)
 lists no `problematic`/`unclear` families.
 
 | Signature | Classification | Coverage impact | Action |
 |---|---|---|---|
-| `● Test suite failed to run` — ts-jest compile errors at broken intermediate commits (`@services/nav-helper`, `@types/jest` window, `@singletons/components-registry`, `CorePlatform.isIOS`, `Constructor` export, `@ionic-native/qr-scanner`, `LongDateFormatKey`, `TS2740`/`TS2769`/`TS2507` refactor window (2021-03)) | acceptable / reevaluated_acceptable | valid partial | None |
+| `● Test suite failed to run` — ts-jest / Jest errors at broken intermediate commits (Jest unexpected token / `@moodlehq/ionic-native-push` ESM window, `@services/nav-helper`, `@types/jest` window, `@singletons/components-registry`, `CorePlatform.isIOS`, `Constructor` export, `@ionic-native/qr-scanner`, `LongDateFormatKey`, `TS2740`/`TS2769`/`TS2507` refactor window (2021-03)) | acceptable / reevaluated_acceptable | valid partial | None |
 | `● Credentials page › renders` — `NullInjectorError` (no `HttpClient` provider), 2023 era; later 5000 ms timeouts recovered by the `--testTimeout` fix | acceptable | valid partial | None |
 | `● Credentials page › suggests contacting support after multiple failed attempts` — unbounded `fixture.whenStable()` hang during the 2023-09 `MOBILE-4201` login-restyling window | acceptable / reevaluated_acceptable | valid partial | None (transient window) |
 | `● CoreFormatTextDirective` / `● CoreLinkDirective` (`should use link directive on anchors`, `should render`, `should format text`, `should use external-content directive on images`, `should capture clicks`) — un-mocked directive dependencies | acceptable / reevaluated_acceptable | valid partial | None |
