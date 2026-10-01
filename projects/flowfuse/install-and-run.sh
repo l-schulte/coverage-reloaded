@@ -10,6 +10,7 @@ export CYPRESS_INSTALL_BINARY=0
 
 source /coverage_reloaded/logging.sh
 source /coverage_reloaded/has-option.sh
+source /coverage_reloaded/na-if-focus-marker.sh
 
 # mocha_check_passing
 # Reads a mocha run's output from stdin, streams it through live (so it still reaches
@@ -65,6 +66,13 @@ apply_license_fix() {
 if [ ! -f package.json ]; then
     not_applicable "No package.json at this commit, no test infrastructure to run"
 fi
+
+# A committed focus marker (.only) in a collected suite would make mocha/vitest
+# execute only that subset, producing a valid-looking but unrepresentative lcov.
+# Mark the commit not-applicable instead of recording biased coverage.
+# Scope = the collected suites only; Cypress specs under test/e2e are also
+# *.spec.js but are excluded from collection, so they must not trigger this.
+na_if_focus_marker test/unit test/system
 
 # --- Git submodules for local file: dependencies ----------------------------
 # In late 2021 / early 2022 (commits between f4c5a1a5f and 1abc71dfe), package.json
@@ -196,24 +204,20 @@ fi
 if [ $HAS_FRONTEND -eq 1 ]; then
     suite_start "frontend-unit" "Running test:unit:frontend (vitest)"
 
-    # Ensure a matching vitest coverage package is available.
-    INSTALLED_VITEST=$(node -p "require('./node_modules/vitest/package.json').version" 2>/dev/null || true)
-    if [ -n "$INSTALLED_VITEST" ]; then
-        if [ ! -d node_modules/@vitest/coverage-v8 ] && \
-           [ ! -d node_modules/@vitest/coverage-c8 ] && \
-           [ ! -d node_modules/@vitest/coverage-istanbul ]; then
-            VITEST_MAJOR=$(echo "$INSTALLED_VITEST" | cut -d. -f1)
-            VITEST_MINOR=$(echo "$INSTALLED_VITEST" | cut -d. -f2)
-            # Vitest < 0.32.0 used c8; 0.32.0+ switched to v8.
-            if [ "$VITEST_MAJOR" -eq 0 ] && [ "$VITEST_MINOR" -lt 32 ]; then
-                print_header 4 "Installing @vitest/coverage-c8@$INSTALLED_VITEST..."
-                npm install --no-save --legacy-peer-deps "@vitest/coverage-c8@$INSTALLED_VITEST" 2>/dev/null || \
-                npm install --no-save --legacy-peer-deps "@vitest/coverage-c8"
-            else
-                print_header 4 "Installing @vitest/coverage-v8@$INSTALLED_VITEST..."
-                npm install --no-save --legacy-peer-deps "@vitest/coverage-v8@$INSTALLED_VITEST" 2>/dev/null || \
-                npm install --no-save --legacy-peer-deps "@vitest/coverage-v8"
-            fi
+    # Install the coverage provider matching the installed vitest.
+    INSTALLED_VITEST=$(node -p "require('./node_modules/vitest/package.json').version")
+    if [ ! -d node_modules/@vitest/coverage-v8 ] && \
+       [ ! -d node_modules/@vitest/coverage-c8 ] && \
+       [ ! -d node_modules/@vitest/coverage-istanbul ]; then
+        VITEST_MAJOR=$(echo "$INSTALLED_VITEST" | cut -d. -f1)
+        VITEST_MINOR=$(echo "$INSTALLED_VITEST" | cut -d. -f2)
+        # Vitest < 0.32.0 used c8; 0.32.0+ switched to v8.
+        if [ "$VITEST_MAJOR" -eq 0 ] && [ "$VITEST_MINOR" -lt 32 ]; then
+            print_header 4 "Installing @vitest/coverage-c8@$INSTALLED_VITEST..."
+            npm install --no-save --legacy-peer-deps "@vitest/coverage-c8@$INSTALLED_VITEST"
+        else
+            print_header 4 "Installing @vitest/coverage-v8@$INSTALLED_VITEST..."
+            npm install --no-save --legacy-peer-deps "@vitest/coverage-v8@$INSTALLED_VITEST"
         fi
     fi
 
