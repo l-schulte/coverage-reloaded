@@ -38,6 +38,7 @@
   coral-PDF timeout family re-ran clean)
 - [x] complete run (all 4386 commits processed; 298 hard errors, 93.2% coverage)
 - [x] complete test failure check
+- [x] complete JEV test failure check
 
 ## Results
 

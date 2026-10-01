@@ -52,6 +52,8 @@ Never invent values. Every number must be traceable to one of these files:
 - `projects/<p>/failure_labels_project.csv` and
   `projects/<p>/failure_labels_collapsed_problematic_unclear.csv` — failure
   families and their labels.
+- `projects/<p>/failure_labels_jev.csv` — automated System 1 failure classifications
+  from `check_failures_jev.py`.
 - `projects/<p>/install-and-run.sh` and `projects/<p>/command_changes.csv` —
   suite names, runners, and era transitions.
 - `projects/OVERVIEW.md.bak` — legacy content to migrate when present (see
@@ -86,6 +88,7 @@ Never invent values. Every number must be traceable to one of these files:
 - [ ] failed tests doublechecked (<note>)
 - [ ] complete run (<note>)
 - [ ] complete test failure check (<note>)
+- [ ] complete JEV test failure check (<note>)
 
 ## Results
 
@@ -139,6 +142,7 @@ Checklist items (see `AGENTS.md`):
 - **failed tests doublechecked** — non-zero-exit runs were inspected and classified.
 - **complete run** — the full commit history has been processed.
 - **complete test failure check** — every failing run has been labeled and assessed.
+- **complete JEV test failure check** — automated System 1 labeling via Jev (`failure_labels_jev.csv`) evaluated failing runs. A project is considered done (`✅`) if its `failure_labels_jev.csv` contains zero problematic (`is_pipeline_issue == True`) labels, or if all flagged problematic labels have been audited against git history and confirmed to be genuine upstream developer mistakes (as documented in `OVERVIEW.md`). It is in progress (`🟡`) if `failure_labels_jev.csv` exists with unaudited problematic labels, and not done (`❌`) if no `failure_labels_jev.csv` exists.
 
 Status symbols (used in the root status table and the per-project checklist):
 
@@ -147,6 +151,9 @@ Status symbols (used in the root status table and the per-project checklist):
 - `🚧` / `- [paused]` — paused; a run was partially processed and then stopped
   (for example, awaiting a date-basis switch or a re-run). The Results section
   shows pending commits.
+- `🆘` / `- [sos]` — inclusion criterion not met or at risk (for example, coverage
+  below the 90% threshold); the project is blocked pending an architectural or
+  quality resolution.
 - `❌` / `- [ ]` — not done; no work started.
 
 Failure labels (`failure_labels_project.csv`):
@@ -168,8 +175,9 @@ Failure labels (`failure_labels_project.csv`):
 
 1. Read `config.json` and the active-project list from the root `OVERVIEW.md`.
 2. Build the active set (exclude `sentry-javascript`). For each project, record
-   whether `stats_output/report.txt`, `failure_labels_project.csv`, and
-   `failure_labels_collapsed_problematic_unclear.csv` exist.
+   whether `stats_output/report.txt`, `failure_labels_project.csv`,
+   `failure_labels_collapsed_problematic_unclear.csv`, and
+   `failure_labels_jev.csv` exist.
 3. Checkpoint: present the active set and the per-project source availability.
 
 ### Phase 1 — Per-project drafts
@@ -193,16 +201,17 @@ For each active project, build the file from the template:
 
 Assemble `OVERVIEW.md`: purpose/pointers, legend, the checklist-status table
 (one row per active project, linking to its file; columns `100 done`, `failed
-tests doublechecked`, `complete run`, `complete test failure check`, symbols
-`✅`/`🟡`/`🚧`/`❌`; no numeric results), cross-cutting infrastructure notes, and the
-maintenance section pointing at this skill.
+tests doublechecked`, `complete run`, `complete test failure check`,
+`complete JEV test failure check`, symbols `✅`/`🟡`/`🚧`/`🆘`/`❌`; no numeric
+results), cross-cutting infrastructure notes (including `check_failures_jev.py`),
+and the maintenance section pointing at this skill.
 
 ### Phase 3 — Consistency check
 
 - Every per-project file exists for every active project.
 - Root table row count equals the active-project count.
 - Root table carries no numeric results (commits, coverage %, hard errors, dates).
-- Every checklist cell is `✅`, `🟡`, `🚧`, or `❌`, taken from the per-project file.
+- Every checklist cell is `✅`, `🟡`, `🚧`, `🆘`, or `❌`, taken from the per-project file.
 - All relative links resolve on disk.
 - No `config.json` JSON block is duplicated.
 - Style guide is respected.

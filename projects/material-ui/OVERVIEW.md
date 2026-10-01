@@ -23,6 +23,7 @@
 - [x] failed tests doublechecked
 - [x] complete run (11,882 commits processed, 0 pending)
 - [x] complete test failure check
+- [x] complete JEV test failure check
 
 ## Results
 
@@ -50,6 +51,8 @@ All known test failures exit with code 1 without bailing. Mocha and Vitest execu
 | `NotFoundError: The child can not be found in the parent.` | acceptable | none (exit code 1, warning) | None. Occurs in `createCssVarsProvider.test.js` when unmounting dynamic `<style>` tags under JSDOM. |
 | `AggregateError:` | reevaluated_acceptable | none (exit code 1, warning) | None. React 19 `act()` wraps child unmount `NotFoundError` exceptions in `createCssVarsProvider.test.js`. |
 | `Error: Timeout of 10000/20000ms exceeded... (envinfo.test.js)` | reevaluated_acceptable | none (exit code 1, warning) | None. Subprocess execution of `npx --package <build> envinfo --json` intermittently exceeded Mocha per-test timeout; fixed upstream in #40669. |
+| `Error: Cannot find module 'test/utils'` | reevaluated_acceptable | none (exit code 1, warning) | None. Author mistakenly imported `test/utils` instead of `@mui-internal/test-utils` in #39037; fixed in #39291. |
+| `Exception during run: Error: Cannot find module '.*'` | reevaluated_acceptable | none (exit code 1, warning) | None. Broken intermediate refactoring commits moving modules across packages (e.g. `BasePopper`, `useBadge`, `composeClasses` in #43076 / #43078). |
 
 ### Upstream and Environmental Context for Major Failure Modes
 

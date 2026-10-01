@@ -44,10 +44,11 @@
 - [x] failed tests doublechecked
 - [x] complete run
 - [x] complete test failure check
+- [x] complete JEV test failure check
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-09-24).
+Source: `stats_output/report.txt` (generated 2026-09-26).
 
 | Metric | Value |
 |---|---|

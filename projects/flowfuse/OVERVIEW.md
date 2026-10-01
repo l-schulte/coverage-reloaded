@@ -18,6 +18,9 @@
 - **Suites collected:** `test:unit` (and its delegated forge/frontend suites),
   `test:system`.
 - **Suites excluded:** end-to-end and documentation tests.
+- **Focus markers:** commits whose collected suites contain a committed `.only`
+  are marked not-applicable rather than recording subset coverage (see
+  [`STUDY_DECISIONS.md`](../../STUDY_DECISIONS.md) §2).
 - **Coverage tool / config:** `nyc`.
 - **LCOV production:** `nyc` with an `lcov` reporter.
 
@@ -27,19 +30,20 @@
 - [x] failed tests doublechecked (few and genuine)
 - [x] complete run
 - [x] complete test failure check
+- [x] complete JEV test failure check
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-09-24 10:35).
+Source: `stats_output/report.txt` (generated 2026-09-26 11:33).
 
 | Metric | Value |
 |---|---|
 | Commits processed | 15802 |
-| Without test failures | 13215 |
-| With test failures | 1550 |
-| Not applicable | 238 |
-| Hard errors | 799 |
-| Coverage produced | 94.9% |
+| Without test failures | 13143 |
+| With test failures | 1538 |
+| Not applicable | 319 |
+| Hard errors | 802 |
+| Coverage produced | 94.8% |
 
 Full statistics and plots: [`stats_output/`](stats_output/).
 
@@ -51,6 +55,8 @@ Full statistics and plots: [`stats_output/`](stats_output/).
 | `Module not found: Error: Can't resolve '@/pages/Account/index.vue'` — Webpack build failure in `frontend/src/routes/index.js` | acceptable | hard error; `npm run build` aborts, preventing backend test execution across 39 commits | None. Genuine repository regression on Linux (fixed upstream in `da1e8d159`). |
 | `Error: [vite-node] Failed to load @/...` — `test/unit/frontend/` specs (`users`, `team`, `billing`, `nav-item`) | acceptable | none; valid partial frontend coverage emitted, backend coverage valid (exit 1) across 345 runs | None. Genuine repository regression (fixed upstream in `3ca495c698`). |
 | `Cannot find module './stack.js'` — `forge/routes/api/index.js:14` requires a file added only by the next commit | reevaluated_acceptable | none; valid partial coverage, unit exit 1 (8 failing) | None. Genuine upstream broken commit `90460285` (fixed by `7e64532f5`). |
+| `Cannot find module './DeviceGroup'` — `forge/db/views/index.js:18` requires view file added only in subsequent commit `ef462b266` (5 runs) | reevaluated_acceptable | none; valid partial coverage, unit exit 1 | None. Genuine upstream uncommitted file in commit `a825fbee6a` (fixed by `ef462b266`). |
+| `Cannot find module '../../services/product.js'` — `forge/product/index.js` requires service file added in subsequent commit (1 run) | reevaluated_acceptable | none; valid partial coverage, unit exit 1 | None. Genuine upstream uncommitted file in commit `6a4dfd22bc`. |
 | `Invalid module version: v1` / `v2` — `ERROR` from `ProjectTemplate.validateSettings` | reevaluated_acceptable | none; app log during passing negative tests | None. Intentional validation logging (keyword false positive), not a test failure. |
 
 Root cause of the `map` failure: commit `4e350d4b` ("hide template settings hidden
@@ -80,6 +86,16 @@ nested under `resolve: { alias: { ... } }`. Consequently, Vitest failed to resol
 `@/` imports in `users.spec.js`, `team.spec.js`, `billing.spec.js`, and `nav-item.spec.js`.
 Upstream resolved this in commit `3ca495c698` ("Update config for @ alias", November
 2022). Spans 345 runs.
+
+Root cause of the `DeviceGroup` failure: commit `a825fbee6a` ("Add App Device Groups
+API", Dec 2023) registered `'DeviceGroup'` in `modelTypes` inside `forge/db/views/index.js`,
+but author Stephen McLaughlin forgot to commit `forge/db/views/DeviceGroup.js`. Upstream
+added the missing view file the following day in commit `ef462b266dac` ("Add DeviceGroup db
+view"). Spans 5 runs.
+
+Root cause of the `services/product.js` failure: commit `6a4dfd22bc` introduced an import of
+`../../services/product.js` in `forge/product/index.js` before the service module was
+committed upstream. Spans 1 run.
 
 ## Environment / setup fixes
 
@@ -128,4 +144,11 @@ Upstream resolved this in commit `3ca495c698` ("Update config for @ alias", Nove
 
 ## Known gaps
 
-None.
+- **Committed focus markers (`.only`).** 81 collected commits contain a
+  `describe.only`/`it.only` in a collected suite (`test/unit/` or `test/system/`;
+  40 distinct spec files, 2022-09 → 2025-12). Mocha/vitest would run only the
+  marked subset and emit a valid-looking but unrepresentative `lcov`, so these
+  commits are marked not-applicable by `na_if_focus_marker` (see
+  [`STUDY_DECISIONS.md`](../../STUDY_DECISIONS.md) §2). The 79 that previously
+  recorded subset coverage were re-run; the 2 that were hard errors were
+  reclassified.

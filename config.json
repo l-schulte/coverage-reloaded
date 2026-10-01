@@ -72,6 +72,7 @@
         },
         "uwazi": {
             "url": "https://github.com/huridocs/uwazi",
+            "container_cpus": 12,
             "node_version_overrides": [
                 {
                     "start_ts": 1626742218,
@@ -144,9 +145,24 @@
         },
         "rxdb": {
             "url": "https://github.com/pubkey/rxdb",
+            "container_cpus": 16,
             "node_version_lts_offset_months": 0,
             "node_version_delay_months": 0,
-            "use_exact_node_version": true
+            "use_exact_node_version": true,
+            "node_version_overrides": [
+                {
+                    "start_ts": 1649857978,
+                    "end_ts": 1651265736,
+                    "old_version": 16,
+                    "new_version": "16.20.2"
+                },
+                {
+                    "start_ts": 1635111471,
+                    "end_ts": 1637402636,
+                    "old_version": 14,
+                    "new_version": 16
+                }
+            ]
         }
     }
 }

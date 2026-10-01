@@ -20,6 +20,16 @@ For families that are really problematic, I recommend a fix. Every fix must be *
 ## Context
 
 - `check_failures.py --project <p> --dedup project` writes `projects/<p>/failure_labels_project.csv` (one row per failure fingerprint across all runs). Columns include `run_id` (`<ts>_<hash>`), `suite`, `exit_code`, `label` (`acceptable|problematic|unclear|false_positive`, plus the reclassification label `reevaluated_acceptable`), `keyword`, `fingerprint`, `occurrences`, `auto_rule_id`.
+
+### ⚠️ Understanding Deduplication & the `run_id` Column (Exemplar vs. Real Blast Radius)
+
+- **Each row is a unique signature, not a single run:** With `--dedup project`, each row in `failure_labels_project.csv` represents a deduplicated failure fingerprint (trigger line, suite, normalized error).
+- **`run_id` is merely the exemplar:** The `run_id` column stores only the **earliest chronological run** where that fingerprint first appeared. It does NOT mean the failure was confined to that single run!
+- **`occurrences` and `n_runs` indicate the real blast radius:** The `occurrences` column (and `n_runs` in the collapsed CSVs) records how many distinct runs experienced that failure signature across the repository's history.
+- **Never report exemplar counts as run counts:** Grouping CSV rows by `run_id` only tells you the earliest commits where new failure signatures were introduced. A family with 1 exemplar `run_id` might actually affect 50 subsequent commit runs! Always distinguish between:
+  1. **Unique failure signatures / fingerprints** (`n_fingerprints`),
+  2. **Total failure occurrences** (`total_occurrences`),
+  3. **Total distinct runs affected** (`n_runs`).
 - `collapse_labels.py <p>` reads that CSV and `failure_patterns.json` and produces **two complementary collapsed files**:
   1. `projects/<p>/failure_labels_collapsed_by_rule.csv` — **Primary view**: collapses by `auto_classify` rule ID / error pattern. Columns: `rule_id, rule_pattern, rule_label, label_breakdown, n_fingerprints, total_occurrences, n_runs, first_run, last_run, example_run_ids, example_keyword`. Since classification decisions and auto-rules operate at the error body/rule level, this view groups multi-test failures with the same underlying cause into a single actionable row.
   2. `projects/<p>/failure_labels_collapsed_problematic_unclear.csv` (alias `failure_labels_collapsed_by_signature.csv`) — **Signature view**: collapses by normalized trigger line / test title (`keyword`). Columns: `family_signature, label_breakdown, n_fingerprints, total_occurrences, n_runs, first_run, last_run, example_run_ids, example_keyword`. Used for decomposing catch-all rules (e.g. `● Test suite failed to run`) or investigating test-specific assertions.
@@ -57,6 +67,9 @@ to a final label — never leave a family as `unclear` after it has been assesse
 
 Run phases sequentially. Stop after each phase. Present findings in full and wait for the user's explicit input at every checkpoint.
 
+> [!IMPORTANT]
+> **Always talk to the user first at Checkpoint 0.** Never dive head-first into deep-tracing logs or analyzing an unknown number of issues without presenting the overview and getting user confirmation on which families to prioritize.
+
 ### Phase 0 — Prepare & Collapse
 
 Bounded scope: get the data ready, no assessment yet.
@@ -65,7 +78,8 @@ Bounded scope: get the data ready, no assessment yet.
 2. Run `python3 collapse_labels.py <p>` (local CSV transform — no container, safe) to (re)generate both `failure_labels_collapsed_by_rule.csv` and `failure_labels_collapsed_problematic_unclear.csv`.
 3. Report: number of rule families, number of signature families, source `problematic`/`unclear` row counts, and total occurrences.
 
-**Checkpoint 0:** Show the rule-collapsed summary table (sorted by `total_occurrences` desc): `rule_id | rule_pattern | rule_label | label_breakdown | n_fingerprints | total_occurrences | n_runs`. (If any broad rule needs sub-family breakdown, reference the signature view). Ask: *"Which families should I assess, and in what priority order? (default: all, top-down by occurrences)"*
+**Checkpoint 0 (Mandatory Stop Point):** Show the rule-collapsed summary table (sorted by `total_occurrences` desc): `rule_id | rule_pattern | rule_label | label_breakdown | n_fingerprints | total_occurrences | n_runs`. (If any broad rule needs sub-family breakdown, reference the signature view). Ask: *"Which families should I assess, and in what priority order? (default: all, top-down by occurrences)"*
+**STOP and wait for the user's response before proceeding to Phase 1.**
 
 ### Phase 1 — Family-by-family assessment (loop)
 

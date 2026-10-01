@@ -652,7 +652,6 @@
       "lines": 0,
       "id": "b1355794f3ad"
     },
-
     {
       "match": "Error:\\ SQLITE_ERROR:\\ no\\ such\\ table:\\ .*",
       "label": "acceptable",
@@ -690,7 +689,7 @@
     },
     {
       "match": "Error:\\ Cannot\\ find\\ module\\ '\\./DeviceGroup'",
-      "label": "acceptable",
+      "label": "reevaluated_acceptable",
       "note": "Genuine historic commit defect (missing/renamed/mis-pathed source in git tree), not caused by install-and-run.sh env. Reevaluated 2026-09-08.",
       "lines": 0,
       "id": "9b390171898e"
@@ -858,7 +857,7 @@
     },
     {
       "match": "Error:\\ Cannot\\ find\\ module\\ '\\.\\./\\.\\./services/product\\.js'",
-      "label": "acceptable",
+      "label": "reevaluated_acceptable",
       "note": "Genuine historic commit defect (missing/renamed/mis-pathed source in git tree), not caused by install-and-run.sh env. Reevaluated 2026-09-08.",
       "lines": 0,
       "id": "d214b2d3fbad"
@@ -963,7 +962,7 @@
     },
     {
       "match": "Exception\\ during\\ run:\\ Error:\\ Cannot\\ find\\ module\\ '\\.\\./setup'",
-      "label": "acceptable",
+      "label": "reevaluated_acceptable",
       "note": "Genuine transient defect at c08e6046 \u2014 spec requires test/unit/forge/housekeeper/setup.js, added later in a8fc2d546. Not env-caused. Reevaluated 2026-09-08.",
       "lines": 0,
       "id": "768a127d3e42"
@@ -1066,7 +1065,6 @@
       "lines": 0,
       "id": "4253761627d8"
     },
-
     {
       "match": "clarifyTimeoutError:\\ false",
       "label": "false_positive",

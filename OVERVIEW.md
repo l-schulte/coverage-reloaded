@@ -14,7 +14,7 @@ approach, checklist, results, and known test failures.
 
 ### Checklist
 
-Four items, always in this order:
+Five items, always in this order:
 
 | Item | Meaning |
 |---|---|
@@ -22,8 +22,9 @@ Four items, always in this order:
 | **failed tests doublechecked** | Non-zero-exit runs were inspected and classified. |
 | **complete run** | The full commit history has been processed. |
 | **complete test failure check** | Every failing run has been labeled and assessed. |
+| **complete JEV test failure check** | Automated System 1 labeling via Jev (`failure_labels_jev.csv`) evaluated failing runs. Done if zero problematic labels remain or all flagged issues are audited. |
 
-Symbols: ✅ done, 🟡 work in progress, 🚧 paused (partially processed), ❌ not done.
+Symbols: ✅ done, 🟡 work in progress, 🚧 paused (partially processed), 🆘 inclusion criterion not met or at risk, ❌ not done.
 
 ### Run statuses
 
@@ -58,28 +59,28 @@ Numeric results (commits processed, coverage %, hard errors) and their generatio
 dates live in the per-project Results sections, sourced from
 `stats_output/report.txt`.
 
-| Project | 100 done | failed tests doublechecked | complete run | complete test failure check |
-|---|---|---|---|---|
-| [apollo-client](projects/apollo-client/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
-| [apostrophe](projects/apostrophe/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
-| [bhima](projects/bhima/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
-| [flowfuse](projects/flowfuse/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
-| [gatsby](projects/gatsby/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
-| [material-ui](projects/material-ui/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
-| [matrix-js-sdk](projects/matrix-js-sdk/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
-| [moodleapp](projects/moodleapp/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
-| [n8n](projects/n8n/OVERVIEW.md) | ✅ | ❌ | 🟡 | ❌ |
-| [opencrvs-core](projects/opencrvs-core/OVERVIEW.md) | ✅ | 🟡 | ❌ | ❌ |
-| [openneuro](projects/openneuro/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
-| [pf2e](projects/pf2e/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
-| [rxdb](projects/rxdb/OVERVIEW.md) | ✅ | ✅ | ✅ | ❌ |
-| [serverless](projects/serverless/OVERVIEW.md) | ✅ | ✅ | 🆘 | 🚧 |
-| [spreed](projects/spreed/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
-| [uploader](projects/uploader/OVERVIEW.md) | ✅ | ✅ | ❌ | ❌ |
-| [uwazi](projects/uwazi/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
-| [vega-lite](projects/vega-lite/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
-| [wowanalyzer](projects/wowanalyzer/OVERVIEW.md) | ✅ | ✅ | ✅ | ✅ |
-| [yari](projects/yari/OVERVIEW.md) | ✅ | ✅ | 🟡 | ❌ |
+| Project                                             | 100 done | failed tests doublechecked | complete run | complete test failure check | complete JEV test failure check |
+| --------------------------------------------------- | -------- | -------------------------- | ------------ | --------------------------- | ------------------------------- |
+| [apollo-client](projects/apollo-client/OVERVIEW.md) | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| [apostrophe](projects/apostrophe/OVERVIEW.md)       | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| [bhima](projects/bhima/OVERVIEW.md)                 | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| [flowfuse](projects/flowfuse/OVERVIEW.md)           | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| [gatsby](projects/gatsby/OVERVIEW.md)               | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| [material-ui](projects/material-ui/OVERVIEW.md)     | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| [matrix-js-sdk](projects/matrix-js-sdk/OVERVIEW.md) | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| [moodleapp](projects/moodleapp/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | 🟡                              |
+| [n8n](projects/n8n/OVERVIEW.md)                     | ✅       | ❌                         | 🟡           | ❌                          | ❌                              |
+| [opencrvs-core](projects/opencrvs-core/OVERVIEW.md) | ✅       | ✅                         | 🟡           | ❌                          | ❌                              |
+| [openneuro](projects/openneuro/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ❌                          | ❌                              |
+| [pf2e](projects/pf2e/OVERVIEW.md)                   | ✅       | ✅                         | ✅           | ✅                          | ❌                              |
+| [rxdb](projects/rxdb/OVERVIEW.md)                   | ✅       | ✅                         | ✅           | ❌                          | ❌                              |
+| [serverless](projects/serverless/OVERVIEW.md)       | ✅       | ✅                         | 🆘           | 🚧                          | ❌                              |
+| [spreed](projects/spreed/OVERVIEW.md)               | ✅       | ✅                         | ✅           | ✅                          | ❌                              |
+| [uploader](projects/uploader/OVERVIEW.md)           | ✅       | ✅                         | ✅           | ❌                          | ❌                              |
+| [uwazi](projects/uwazi/OVERVIEW.md)                 | ✅       | ✅                         | ✅           | 🟡                          | ❌                              |
+| [vega-lite](projects/vega-lite/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ❌                              |
+| [wowanalyzer](projects/wowanalyzer/OVERVIEW.md)     | ✅       | ✅                         | ✅           | ✅                          | ❌                              |
+| [yari](projects/yari/OVERVIEW.md)                   | ✅       | ✅                         | ✅           | ❌                          | ❌                              |
 
 ## Cross-cutting infrastructure
 
@@ -96,6 +97,8 @@ dates live in the per-project Results sections, sourced from
   and `stats_output/report.txt` used as the Results source.
 - **`check_failures.py`** and **`collapse_labels.py`** classify non-zero-exit runs
   and collapse `problematic`/`unclear` rows into error families.
+- **`check_failures_jev.py`** evaluates non-zero-exit runs using the automated System 1
+  model (Jev) into `failure_labels_jev.csv` for independent auditing and work-order generation.
 
 ## Maintenance
 

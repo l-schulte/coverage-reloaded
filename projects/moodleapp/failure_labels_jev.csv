@@ -1,0 +1,56 @@
+project,run_id,suite,exit_code,line_number,fingerprint,occurrences,keyword,is_pipeline_issue,confidence,env_subsystem,labeled_at
+moodleapp,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,unit,1,236,0b0ab750c75937d7,70,  ● Test suite failed to run,False,0.8800,none,2026-09-26T12:10:13.359903+00:00
+moodleapp,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,unit,1,493,61451cd7691f97c2,60,  ● Test suite failed to run,False,0.8700,none,2026-09-26T12:10:13.366325+00:00
+moodleapp,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,unit,1,554,4d8f91cde483ca24,69,  ● Test suite failed to run,False,0.8800,none,2026-09-26T12:10:13.376707+00:00
+moodleapp,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,unit,1,476,c37aa63ed3ee0fa2,60,  ● Test suite failed to run,False,0.8500,none,2026-09-26T12:10:13.410838+00:00
+moodleapp,1610703141_183a033dc87ab7f22d4c95b3bd344cd3b7d0db87,unit,1,248,92af560a18ce529e,78,  ● Test suite failed to run,False,0.6800,module_resolution,2026-09-26T12:10:13.430562+00:00
+moodleapp,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,unit,1,836,71f61b70c6d064e7,68,  ● Test suite failed to run,False,0.8600,none,2026-09-26T12:10:13.716658+00:00
+moodleapp,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,unit,1,567,fc9a28ea0d54a3ed,67,  ● Test suite failed to run,True,0.7800,runner_env_config,2026-09-26T12:10:13.739067+00:00
+moodleapp,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,unit,1,659,f4d19ba0bcc82e9f,68,  ● Test suite failed to run,False,0.8500,none,2026-09-26T12:10:13.777464+00:00
+moodleapp,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,unit,1,746,ed0fe52c1f94ea6f,67,  ● Test suite failed to run,True,0.7800,runner_env_config,2026-09-26T12:10:13.794203+00:00
+moodleapp,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,unit,1,908,b87f82ed7e978514,67,  ● Test suite failed to run,True,0.7900,runner_env_config,2026-09-26T12:10:13.942601+00:00
+moodleapp,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,unit,1,996,dfd1fe98f16c6887,67,  ● Test suite failed to run,True,0.7300,runner_env_config,2026-09-26T12:10:14.333606+00:00
+moodleapp,1643291954_f83c8f4e1aa1190e2742943a8b4cbe79f5a3bf15,unit,1,267,49b0af9e6ada53cd,1,  ● CoreNavigator › navigates to site paths using the default tab,False,0.9400,none,2026-09-26T12:10:14.468549+00:00
+moodleapp,1646131677_717978388e013e451625e9c518b48e9aca92eb49,unit,1,333,c3e234b931d37c1a,59,  ● Test suite failed to run,True,0.7200,runner_env_config,2026-09-26T12:10:14.731600+00:00
+moodleapp,1646131677_717978388e013e451625e9c518b48e9aca92eb49,unit,1,244,ab3ec41463f2cced,70,  ● Test suite failed to run,True,0.7100,module_resolution,2026-09-26T12:10:14.798720+00:00
+moodleapp,1646131677_717978388e013e451625e9c518b48e9aca92eb49,unit,1,549,e63a5a56f073fcc0,59,  ● Test suite failed to run,True,0.7100,runner_env_config,2026-09-26T12:10:14.936932+00:00
+moodleapp,1646735137_112f00bcb51a73c1113204ae7e95d0e0f7d160a4,unit,1,272,395150e7a6e2e4c2,5,  ● CoreFormatTextDirective › should use link directive on anchors,False,0.7800,none,2026-09-26T12:10:15.099735+00:00
+moodleapp,1675410932_884827afb6a150438b985530f843daca56f4a713,unit,1,256,c26328277cd7970c,60,  ● Test suite failed to run,False,0.9100,none,2026-09-26T12:10:15.515609+00:00
+moodleapp,1676977658_ba723dd8990190176dcf21c346b799fa3e63c8f5,unit,1,388,457167cb923604dc,65,  ● Test suite failed to run,False,0.8700,none,2026-09-26T12:10:15.537107+00:00
+moodleapp,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,unit,1,925,aae769d149ac04e4,9,  ● Test suite failed to run,True,0.7900,runner_env_config,2026-09-26T12:10:15.709798+00:00
+moodleapp,1677149405_7a78bb9375055ef99d3009756f1d06bfddb4f625,unit,1,926,fcb7112cbc2c6189,1,  ● Site Home link handlers › Handles links ending with /?redirect=0,False,0.5400,none,2026-09-26T12:10:15.872023+00:00
+moodleapp,1677149405_7a78bb9375055ef99d3009756f1d06bfddb4f625,unit,1,392,37ee7bb1d540e5ba,4,  ● Credentials page › renders,False,0.8200,none,2026-09-26T12:10:15.898263+00:00
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,unit,1,352,6a95fcc299b0934f,58,  ● Test suite failed to run,True,0.8200,runner_env_config,2026-09-26T12:10:16.078876+00:00
+moodleapp,1668169342_8b8719559375ad784ee16be23bbb9fb579e565c7,unit,1,389,cce53d0bb526663e,16,  ● Credentials page › suggests contacting support after multiple failed attempts,False,0.8700,none,2026-09-26T12:10:16.109668+00:00
+moodleapp,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,unit,1,983,8b701ab18f202dd4,67,  ● Test suite failed to run,True,0.7700,runner_env_config,2026-09-26T12:10:16.110075+00:00
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,unit,1,424,84ac99411a290f2c,58,  ● Test suite failed to run,True,0.8100,runner_env_config,2026-09-26T12:10:16.227433+00:00
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,unit,1,532,671ddff4ab2ac9d3,58,  ● Test suite failed to run,True,0.7900,runner_env_config,2026-09-26T12:10:16.264787+00:00
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,unit,1,568,49d0947063fda178,58,  ● Test suite failed to run,True,0.8100,runner_env_config,2026-09-26T12:10:16.441313+00:00
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,unit,1,604,a6ebe6b98be700c1,58,  ● Test suite failed to run,True,0.8000,runner_env_config,2026-09-26T12:10:16.667520+00:00
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,unit,1,712,7a528b3dcb45aca1,58,  ● Test suite failed to run,True,0.8200,runner_env_config,2026-09-26T12:10:16.705432+00:00
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,unit,1,748,9b76315923098f9a,58,  ● Test suite failed to run,True,0.8100,runner_env_config,2026-09-26T12:10:16.873787+00:00
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,unit,1,784,1bacd33ce6004b42,58,  ● Test suite failed to run,True,0.8200,runner_env_config,2026-09-26T12:10:17.013023+00:00
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,unit,1,820,c355b3a98e9427bc,55,  ● Test suite failed to run,True,0.8300,runner_env_config,2026-09-26T12:10:17.138073+00:00
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,unit,1,856,801b9e43a087e94d,58,  ● Test suite failed to run,True,0.8100,runner_env_config,2026-09-26T12:10:17.392666+00:00
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,unit,1,892,9246784fdcb24940,58,  ● Test suite failed to run,True,0.8000,runner_env_config,2026-09-26T12:10:17.493919+00:00
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,unit,1,1000,1a0d1358df564ee1,58,  ● Test suite failed to run,True,0.8200,runner_env_config,2026-09-26T12:10:17.636105+00:00
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,unit,1,1108,094bc4365716f1aa,58,  ● Test suite failed to run,True,0.8200,runner_env_config,2026-09-26T12:10:17.819077+00:00
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,unit,1,1216,9ef586f26073615b,58,  ● Test suite failed to run,True,0.8000,runner_env_config,2026-09-26T12:10:17.904117+00:00
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,unit,1,1360,4ff46f7528b4f794,58,  ● Test suite failed to run,True,0.8100,runner_env_config,2026-09-26T12:10:18.130809+00:00
+moodleapp,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,unit,1,1396,d712817dbc2b41ff,58,  ● Test suite failed to run,True,0.8100,runner_env_config,2026-09-26T12:10:18.203879+00:00
+moodleapp,1699544907_22d0d4ece1f8e30384d782ada239c711665a8ed5,unit,1,341,5840f338d23bb795,57,  ● Test suite failed to run,True,0.6900,module_resolution,2026-09-26T12:10:18.345331+00:00
+moodleapp,1699544907_22d0d4ece1f8e30384d782ada239c711665a8ed5,unit,1,432,d23e51f249a54cff,57,  ● Test suite failed to run,True,0.6400,module_resolution,2026-09-26T12:10:18.523122+00:00
+moodleapp,1699544907_22d0d4ece1f8e30384d782ada239c711665a8ed5,unit,1,458,5725d36077472b61,57,  ● Test suite failed to run,True,0.6800,module_resolution,2026-09-26T12:10:18.639526+00:00
+moodleapp,1710751005_6ce688e76ca31eef1ff990583528a8cb9a9d5fa6,unit,1,361,43dce576d75407f0,9,  ● Test suite failed to run,False,0.8900,none,2026-09-26T12:10:18.777683+00:00
+moodleapp,1710751005_6ce688e76ca31eef1ff990583528a8cb9a9d5fa6,unit,1,409,cce6995e352012f3,9,  ● Test suite failed to run,False,0.8900,none,2026-09-26T12:10:18.957926+00:00
+moodleapp,1710751005_6ce688e76ca31eef1ff990583528a8cb9a9d5fa6,unit,1,481,0446e01e20623461,9,  ● Test suite failed to run,False,0.8700,none,2026-09-26T12:10:19.093419+00:00
+moodleapp,1726753080_a2c6a5b5788e7f3e9d5db497a6708eb60c616dfc,unit,1,910,3cefde4f2ea92b6b,8,  ● Test suite failed to run,False,0.9100,none,2026-09-26T12:10:19.271966+00:00
+moodleapp,1726753080_a2c6a5b5788e7f3e9d5db497a6708eb60c616dfc,unit,1,1210,d8cc940295da4593,8,  ● Test suite failed to run,False,0.9100,none,2026-09-26T12:10:19.428807+00:00
+moodleapp,1726753080_a2c6a5b5788e7f3e9d5db497a6708eb60c616dfc,unit,1,1360,e6a7e825bfa0fbff,8,  ● Test suite failed to run,False,0.9000,none,2026-09-26T12:10:19.502458+00:00
+moodleapp,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,unit,1,342,ad8b0a61329d498b,3,  ● CoreFormatTextDirective › should render,False,0.9200,none,2026-09-26T12:10:19.727593+00:00
+moodleapp,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,unit,1,376,79bd36efb74a49d3,3,  ● CoreFormatTextDirective › should format text,False,0.9200,none,2026-09-26T12:10:19.855456+00:00
+moodleapp,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,unit,1,444,1fef5543eb8e8a30,3,  ● CoreFormatTextDirective › should use external-content directive on images,False,0.9000,none,2026-09-26T12:10:19.979043+00:00
+moodleapp,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,unit,1,681,93cd096aa509f9e4,3,  ● CoreLinkDirective › should render,False,0.9300,none,2026-09-26T12:10:20.186579+00:00
+moodleapp,1740670691_ce767f621bdbe69fb61e2b3bf913addfdd957224,unit,1,482,7b6e4f5881225957,3,  ● Test suite failed to run,False,0.8100,none,2026-09-26T12:10:20.509111+00:00
+moodleapp,1740670691_ce767f621bdbe69fb61e2b3bf913addfdd957224,unit,1,514,6ba7c012f3eb1b98,3,  ● Test suite failed to run,False,0.8100,none,2026-09-26T12:10:20.620651+00:00
+moodleapp,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,unit,1,715,16703b6d132a8f0c,3,  ● CoreLinkDirective › should capture clicks,False,0.9200,none,2026-09-26T12:10:20.729395+00:00

@@ -29,6 +29,7 @@
 - [x] failed tests doublechecked
 - [x] complete run
 - [x] complete test failure check
+- [x] complete JEV test failure check
 
 ## Results
 
@@ -63,6 +64,7 @@ is now empty.
 | ts-jest type error (`graphql-ws` `terminate`) — 1 commit `1089b2f0defc5a3eee8c05df9b35f120e8266211` (2022-04-21) | reevaluated_acceptable | faithful gap | None. The `graphqlWsLink.ts` suite fails to run because ts-jest `diagnostics: true` rejects a type error in the test's mock `Client` after the `graphql-ws` v5.7.0 update. The project's own config enforces type-checking, so the developers' run also failed to compile this suite. |
 | ts-jest type error (`InMemoryCache` `lookupFragment`) — 1 commit `abecb11601f286e414101a3bc5b53017e7eb1499` (2022-09-21) | reevaluated_acceptable | faithful gap | None. The `writeToStore.ts` suite fails to run because ts-jest `diagnostics: true` rejects a type error in the test's mock `WriteContext` after `InMemoryCache#transformForLink` added the field. The developers' run also failed to compile this suite. |
 | `use-sync-external-store/shim` missing — 8 commits around 2021-11 (for example, `7f0d459c7b3b94c5de1561433c006a6efa017007`, 2021-11-16) | reevaluated_acceptable | faithful gap; ~70 unit tests abort | None. The `#8785` `useSyncExternalStore()` addition depends on `use-sync-external-store@^1.0.0-beta-…`, which apollo-client also declares as an optional peer dependency (`peerDependenciesMeta.use-sync-external-store.optional: true`). npm 7+ skips optional peers, so the `shim` subpath is never installed. WayPack serves the tarball correctly, so this is a real dependency-resolution gap at those commits. The project fixed it by bumping to `1.0.0-rc.0` on 2022-01-10. |
+| Profiler helper missing in release branch merge (`createProfiler` / `profileHook`) — 1 commit `ba70b6254862fae884457d9356c65c15497a4e89` (2024-11-07) | reevaluated_acceptable | faithful gap | None. Merging `origin/main` into `release-3.12` deleted `src/testing/internal/profile/` while `release-3.12` hook tests still imported `createProfiler`/`profileHook`. This was an upstream branch merge conflict resolved in follow-up branch commits. |
 
 ## Environment / setup fixes
 
