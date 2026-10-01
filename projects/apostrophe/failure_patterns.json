@@ -1,0 +1,129 @@
+{
+  "general": {
+    "patterns": [
+      "\\bAssertionError\\b",
+      "\\bError:",
+      "\\bTypeError\\b",
+      "\\bReferenceError\\b",
+      "\\bRangeError\\b",
+      "\\bSyntaxError\\b",
+      "\\bforbidden:",
+      "\\bModuleBuildError\\b"
+    ],
+    "exclude": [
+      "^\\s*at\\s+",
+      "^\\s*[0-9]+ failing",
+      "^\\s*[0-9]+ passing",
+      "ERR_FEATURE_UNAVAILABLE_ON_PLATFORM",
+      "aposError:"
+    ]
+  },
+  "suites": {},
+  "auto_classify": [
+    {
+      "match": "AssertionError\\ \\[ERR_ASSERTION\\]:\\ The\\ expression\\ evaluated\\ to\\ a\\ falsy\\ value:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "923cef48ac4e"
+    },
+    {
+      "match": "ReferenceError:\\ _id\\ is\\ not\\ defined",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "00b498ec1494"
+    },
+    {
+      "match": "Error:\\ HTTP\\ error\\ 500",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "57bba6b3b307"
+    },
+    {
+      "match": "Error:\\ HTTP\\ error\\ 404",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "ce18c237adda"
+    },
+    {
+      "match": "Error:\\ If\\ you\\ supply\\ your\\ own\\ _id\\ it\\ must\\ end\\ with\\ :locale:mode,\\ like\\ :en:published",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "0ba0f9c41a99"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ property\\ 'endsWith'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "fb84b89d922d"
+    },
+    {
+      "match": "TypeError:\\ apos\\.area\\.renderDocsAreas\\ is\\ not\\ a\\ function",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "96216a80216b"
+    },
+    {
+      "match": "Error:\\ Command\\ failed:\\ convert\\ test/data/upload_tests/.*\\.png\\ \\-auto\\-orient\\ \\(\\ \\-clone\\ 0\\-\\-1\\ \\-write\\ undefined/original\\.png\\ \\+delete\\ \\)\\ \\-strip\\ null:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "9bb5f032f523"
+    },
+    {
+      "match": "Error:\\ ENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ mkdir\\ 'undefined/.*'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "a571e041abf4"
+    },
+    {
+      "match": "forbidden:\\ forbidden",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "83516258e9f9"
+    },
+    {
+      "match": "Error:\\ the\\ string\\ \"<!DOCTYPE\\ html>",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "218e4e8d4f3b"
+    },
+    {
+      "match": "Error:\\ HTTP\\ error\\ 400",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "df9f7e6087d5"
+    },
+    {
+      "match": "<w>\\ while\\ serializing\\ webpack/lib/cache/PackFileCacheStrategy\\.PackContentItems\\ \\->\\ webpack/lib/NormalModule\\ \\->\\ webpack/lib/ModuleBuildError\\ \\->\\ webpack/lib/ModuleBuildError\\ \\->\\ SassError",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "a62d4e94789a"
+    },
+    {
+      "match": "forbidden:\\ apostrophe:passwordCurrentError",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "67093b7c4729"
+    },
+    {
+      "match": "<w>\\ while\\ serializing\\ webpack/lib/cache/PackFileCacheStrategy\\.PackContentItems\\ \\->\\ webpack/lib/NormalModule\\ \\->\\ webpack/lib/ModuleBuildError\\ \\->\\ webpack/lib/ModuleBuildError\\ \\->\\ Error\\ \\->\\ sass\\.Exception",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "4dbf3f0431f6"
+    }
+  ]
+}

@@ -118,6 +118,7 @@
         },
         "apostrophe": {
             "url": "https://github.com/apostrophecms/apostrophe",
+            "container_cpus": 12,
             "package_manager_version_overrides": [
                 {
                     "start_ts": 1764500000,

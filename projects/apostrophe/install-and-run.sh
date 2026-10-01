@@ -3,6 +3,13 @@
 set -e
 
 source /coverage_reloaded/logging.sh
+source /coverage_reloaded/na-if-focus-marker.sh
+source /coverage_reloaded/resolve-and-pin.sh
+
+# Pin GitHub release asset hosts to prevent EAI_AGAIN during native binary downloads (e.g. node-sass, sharp)
+resolve_and_pin "release-assets.githubusercontent.com"
+resolve_and_pin "objects.githubusercontent.com"
+resolve_and_pin "codeload.github.com"
 
 REPOPATH="${REPOPATH:-/coverage_reloaded/repo}"
 export REPOPATH
@@ -10,11 +17,24 @@ COVERAGE_REPORT_PATH="${COVERAGE_REPORT_PATH:-/coverage_reloaded/exported}"
 export COVERAGE_REPORT_PATH
 mkdir -p "$COVERAGE_REPORT_PATH"
 
+export TEST_TIMEOUT="${TEST_TIMEOUT:-60000}"
+
 cd "$REPOPATH"
 
 if [ ! -f package.json ]; then
-    print_header 2 "NOT APPLICABLE" "No package.json at this commit"
-    exit 2
+    not_applicable "No package.json at this commit"
+fi
+
+# A committed focus marker (.only) in a collected suite would make mocha execute
+# only that subset, producing a valid-looking but unrepresentative lcov. Mark
+# the commit not-applicable instead of recording biased coverage. The developer
+# guard (--forbid-only, injected into the mocha command below) remains as a
+# backstop for any marker outside these scanned paths: such a case fails loudly
+# rather than silently emitting subset coverage.
+if [ -f pnpm-workspace.yaml ]; then
+    na_if_focus_marker packages/apostrophe/test
+else
+    na_if_focus_marker test
 fi
 
 # The i18n hostname tests fetch http://<locale>.localhost:<port>/. Bullseye's
@@ -179,13 +199,19 @@ run_test_suite() {
     suite_end "$label" "$test_exit"
 }
 
+# Compensate for credential package's Moore's Law scaling which inflates PBKDF2 iterations in 2026 beyond mocha's 20s suite timeout.
+for hardcoded_timeout_test in test/login.js packages/apostrophe/test/login.js test/users.js packages/apostrophe/test/users.js; do
+    if [ -f "$hardcoded_timeout_test" ]; then
+        sed -i 's/this\.timeout(20000)/this.timeout(60000)/g' "$hardcoded_timeout_test"
+    fi
+done
+
 if [ -f pnpm-workspace.yaml ]; then
     # ── Monorepo era (from the 2025-12-01 monorepo switch) ────
     print_header 2 "Monorepo detected — running packages/apostrophe suites"
 
     if [ ! -f packages/apostrophe/package.json ]; then
-        print_header 2 "NOT APPLICABLE" "No packages/apostrophe/package.json at this commit"
-        exit 2
+        not_applicable "No packages/apostrophe/package.json at this commit"
     fi
 
     run_pnpm_nyc_suite() {
@@ -205,7 +231,7 @@ if [ -f pnpm-workspace.yaml ]; then
                 ;;
         esac
         local rest="${def#nyc }"
-        rest="${rest/mocha/mocha --forbid-only --no-bail}"
+        rest="${rest/mocha/mocha --forbid-only --no-bail --exit}"
 
         run_test_suite "$label" "pnpm --filter apostrophe exec nyc --reporter=lcov --reporter=text $rest" "true"
     }
@@ -219,8 +245,7 @@ else
 
     TEST_DEF=$(node -p "require('./package.json').scripts.test || ''")
     if [ -z "$TEST_DEF" ]; then
-        print_header 2 "NOT APPLICABLE" "No test script at this commit"
-        exit 2
+        not_applicable "No test script at this commit"
     fi
 
     HAS_SPLIT=0
@@ -250,7 +275,7 @@ else
         fi
 
         rest="${command#nyc }"
-        rest="${rest/mocha/mocha --forbid-only --no-bail}"
+        rest="${rest/mocha/mocha --forbid-only --no-bail --exit}"
 
         run_test_suite "$label" "$REPOPATH/node_modules/.bin/nyc --reporter=lcov --reporter=text $rest" "false"
     done < <(printf '%s\n' "$TEST_DEF" | sed 's/ && /\n/g')
