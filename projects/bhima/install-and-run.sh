@@ -224,7 +224,7 @@ if [ "$HAS_INTEGRATION" = "yes" ] && [ -n "$(node -p "require('./package.json').
     INTEGRATION_EXIT=$?
     set -e
 
-    bash /coverage_reloaded/find-and-move-lcov.sh "integration" "false" "$INTEGRATION_EXIT"
+    bash /coverage_reloaded/find-and-move-lcov.sh "integration" "false" "$INTEGRATION_EXIT" "bin/"
     suite_end "integration" "$INTEGRATION_EXIT"
 
     # Kill the bhima server so the next suite can bind to port 8080
@@ -266,6 +266,6 @@ if [ "$HAS_STOCK_INTEGRATION" = "yes" ] && [ -n "$(node -p "require('./package.j
     INTEGRATION_STOCK_EXIT=$?
     set -e
 
-    bash /coverage_reloaded/find-and-move-lcov.sh "integration-stock" "false" "$INTEGRATION_STOCK_EXIT"
+    bash /coverage_reloaded/find-and-move-lcov.sh "integration-stock" "false" "$INTEGRATION_STOCK_EXIT" "bin/"
     suite_end "integration-stock" "$INTEGRATION_STOCK_EXIT"
 fi
