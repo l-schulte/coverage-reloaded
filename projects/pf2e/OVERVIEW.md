@@ -26,6 +26,7 @@
 - [x] failed tests doublechecked (49 exit-code-1 runs: 32 betterer quality-gate, 17 jest)
 - [x] complete run (full history processed on committer date)
 - [x] complete test failure check (all 61 failure fingerprints across 49 runs labeled)
+- [x] complete JEV test failure check (61 signatures evaluated; 2 flagged suite load errors audited and confirmed upstream developer refactoring regressions)
 
 ## Results
 
@@ -71,7 +72,8 @@ same error.
 |---|---|---|---|
 | `TypeError: game.actors is not iterable` — `tests/module/migration.test.ts` fails 13 tests at `28fbe73057e` (2021-04-12, "Update migration runner to operate on world compendia") | reevaluated_acceptable | valid partial | None. `migration-runner.ts` iterates `game.actors` while the test mock is still the non-iterable `{entities, get, has}`; the next commit `7e83ae3e1e0` swaps in the iterable `FakeEntityCollection`. |
 | `● Test suite failed to run` — ts-jest compile errors in `src/module/item/treasure.ts` (`TS2344` / `TS2339`) at `ffadc44356f` (2021-02-13) | reevaluated_acceptable | valid partial | None. Mis-typed `game.packs.find<PF2EPhysicalItem>`; fixed the same day in `52421b542ce`. |
-| `● Test suite failed to run` — suite-level compile/load errors (`ReferenceError: foundry is not defined`, `PredicatePF2e is not defined`, `SyntaxError: Unexpected string in JSON`) across 8 runs (2021-05 to 2024-04) | acceptable | valid partial | None. Dev-facing transitional-compile failures. |
+| `● Test suite failed to run` — `ReferenceError: foundry is not defined` in `tests/module/actor/modifiers.test.ts` and `tests/module/item/runes.test.ts` across 2 runs (`dfde0852f05`, `549d70ea4f7`, 2022-03-07) | reevaluated_acceptable | valid partial | None. Author reorganized loose damage files into `@system/damage`, pulling unmocked global `foundry` into unit test modules; author removed the obsolete test suites within 45 minutes (`549d70ea4f7`, `eb35c85ad56`). |
+| `● Test suite failed to run` — suite-level compile/load errors (`ReferenceError: PredicatePF2e is not defined`, `SyntaxError: Unexpected string in JSON`, TS compile errors) across 6 runs (2021-05 to 2024-04) | acceptable | valid partial | None. Dev-facing transitional-compile failures. |
 | `● should calculate wealth based on inventory › sell …` — assertions in `tests/module/item/treasure.test.ts` (2021-05) | acceptable | valid partial | None. Dev-facing assertion failure. |
 
 ## Environment / setup fixes
