@@ -50,6 +50,7 @@ RUN apt-get update && \
         libudev-dev \
         libusb-1.0-0 \
         libusb-1.0-0-dev \
+        libmtp-dev \
         libavutil-dev \
         libcanberra-gtk3-module \
         packagekit-gtk3-module \

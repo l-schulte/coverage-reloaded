@@ -4,12 +4,16 @@ set -e
 unset NPM_CONFIG_LOCATION
 
 source /coverage_reloaded/logging.sh
+source /coverage_reloaded/resolve-and-pin.sh
 
 cd /coverage_reloaded/repo
 
+resolve_and_pin "electronjs.org"
+resolve_and_pin "www.electronjs.org"
+resolve_and_pin "artifacts.electronjs.org"
+
 if [ ! -f package.json ]; then
-    print_header 2 "NOT APPLICABLE" "No package.json at this commit"
-    exit 2
+    not_applicable "No package.json at this commit"
 fi
 
 if [ "$IS_YARN_MAIN_PM" != "true" ]; then
@@ -19,8 +23,7 @@ fi
 
 TEST_SCRIPT=$(node -p "((require('./package.json').scripts||{}).test) || ''")
 if [ -z "$TEST_SCRIPT" ]; then
-    print_header 2 "NOT APPLICABLE" "No test script at this commit"
-    exit 2
+    not_applicable "No test script at this commit"
 fi
 
 print_header 4 "test script: $TEST_SCRIPT"
@@ -44,7 +47,7 @@ export ELECTRON_MIRROR="http://waypack:3000/request/https://github.com/electron/
 
 YARN_MAJOR=$(yarn --version | cut -d. -f1)
 if [ "$YARN_MAJOR" = "1" ]; then
-    yarn install --ignore-engines
+    yarn install --ignore-engines --ignore-platform
 else
     export YARN_ENABLE_IMMUTABLE_INSTALLS=false
     yarn install
@@ -87,7 +90,7 @@ fi
 suite_start "unit" "jest behavioral suite (test/app + test/lib) via the Electron runner"
 
 set +e
-yarn test --coverage --coverageReporters=lcov --runInBand "${TANDEM_EXCLUDE_ARGS[@]}"
+yarn --ignore-engines test --coverage --coverageReporters=lcov --runInBand "${TANDEM_EXCLUDE_ARGS[@]}"
 TEST_EXIT=$?
 set -e
 

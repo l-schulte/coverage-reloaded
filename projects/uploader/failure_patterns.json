@@ -1,0 +1,83 @@
+{
+  "general": {
+    "patterns": [
+      "\u25cf",
+      "\\bAssertionError"
+    ],
+    "exclude": [
+      "\u25cf\\s*Console",
+      "Test Suites:",
+      "Tests:",
+      "Snapshots:",
+      "Ran all test suites",
+      "console\\.",
+      "^\\s+at\\s"
+    ]
+  },
+  "suites": {
+    "unit": {
+      "remove_patterns": [],
+      "add_patterns": [],
+      "remove_exclude": [],
+      "add_exclude": []
+    }
+  },
+  "auto_classify": [
+    {
+      "match": "\\\nTypeError:\\ _get__\\(\\.\\.\\.\\)\\.makeTempBasal\\(\\.\\.\\.\\)\\.with_time\\(\\.\\.\\.\\)\\.with_deviceTime\\(\\.\\.\\.\\)\\.with_timezoneOffset\\(\\.\\.\\.\\)\\.with_conversionOffset\\(\\.\\.\\.\\)\\.with_duration\\(\\.\\.\\.\\)\\.with_previous\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1bc1fd2f3735"
+    },
+    {
+      "match": "\\\nTypeError:\\ tempBasal\\.with_payload\\(\\.\\.\\.\\)\\.set\\(\\.\\.\\.\\)\\.with_duration\\(\\.\\.\\.\\)\\.with_previous\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1a924c22e3d0"
+    },
+    {
+      "match": "\\\nTypeError:\\ event\\.with_previous\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a2632392411d"
+    },
+    {
+      "match": "\\\nTypeError:\\ activationStatus\\.with_previous\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1d69d0ae4865"
+    },
+    {
+      "match": "\\\n\u25cf\\ Test\\ suite\\ failed\\ to\\ run\\\n\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./lib/core/driverManifests'\\ from\\ 'async\\.js'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "006907d3a779"
+    },
+    {
+      "match": "\\\n\u25cf\\ Test\\ suite\\ failed\\ to\\ run\\\n\\\nLoading\\ non\\-context\\-aware\\ native\\ module\\ in\\ renderer:\\ 'app/node_modules/usb/build/Release/usb_bindings\\.node',\\ but\\ app\\.allowRendererProcessReuse\\ is\\ true\\.\\ See\\ https://github\\.com/electron/electron/issues/18397\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "5d15985cb429"
+    },
+    {
+      "match": "\\\nTypeError:\\ simulator\\.finalBasal\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c8cbdfc5d127"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'payload'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4b5bae4d01d8"
+    }
+  ]
+}
