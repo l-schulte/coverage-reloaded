@@ -112,26 +112,31 @@ if echo "$TEST_SCRIPT" | grep -q vitest; then
     REPORT_ON_FAIL="--coverage.reportOnFailure"
   fi
 
-  # Bound the threads pool for this vitest version: it avoids the wasm OOM
-  # (`--maxWorkers`/`--no-threads`/`--single-thread`) and, on vitest 1.x,
-  # pins the worker-thread floor as well — an unset floor defaults to
-  # cpu_count-1, which conflicts with a maxWorkers cap and aborts the run
-  # before any test is collected. `--single-thread` already sets both bounds.
+  # Bound the thread/worker pool to 1 worker so that:
+  # 1. Host WASM OOM is avoided (defaults to nproc=256 threads without bounds).
+  # 2. Worker threads remain ENABLED (unlike --single-thread / --no-threads which
+  #    disables worker isolation and causes Mongoose OverwriteModelError across suites).
+  export VITEST_MAX_THREADS=1
+  export VITEST_MIN_THREADS=1
+  export VITEST_MAX_WORKERS=1
+  export VITEST_MIN_WORKERS=1
+
   HAS_OPTION_QUIET=1
-  if has_option --single-thread yarn vitest; then
-    PARALLEL_FLAG="--single-thread"
-  elif has_option --no-threads yarn vitest; then
-    PARALLEL_FLAG="--no-threads"
-  elif has_option --maxWorkers yarn vitest && has_option --minWorkers yarn vitest; then
+  if has_option --maxWorkers yarn vitest && has_option --minWorkers yarn vitest; then
     PARALLEL_FLAG="--maxWorkers=1 --minWorkers=1"
   elif has_option --maxWorkers yarn vitest; then
     PARALLEL_FLAG="--maxWorkers=1"
+  elif has_option --maxThreads yarn vitest && has_option --minThreads yarn vitest; then
+    PARALLEL_FLAG="--maxThreads=1 --minThreads=1"
+  elif has_option --maxThreads yarn vitest; then
+    PARALLEL_FLAG="--maxThreads=1"
   else
     PARALLEL_FLAG=""
   fi
 
   VITEST_LOG="$REPOPATH/vitest_run.log"
   suite_start "vitest" "Running vitest with coverage (vitest era)"
+  print_header 4 "vitest worker config: PARALLEL_FLAG='${PARALLEL_FLAG:-<none>}' (VITEST_MAX_THREADS=$VITEST_MAX_THREADS, VITEST_MAX_WORKERS=$VITEST_MAX_WORKERS)"
   set +e
   fake_time yarn vitest run --coverage.enabled --coverage.reporter=lcov $PARALLEL_FLAG $REPORT_ON_FAIL 2>&1 | tee "$VITEST_LOG"
   VITEST_EXIT=${PIPESTATUS[0]}
