@@ -25,7 +25,8 @@
 - [x] 100 done (92/100)
 - [x] failed tests doublechecked (fails rarely)
 - [x] complete run
-- [x] complete test failure check (922 fingerprints: 728 acceptable, 192 reevaluated_acceptable, 2 problematic, 0 unclear)
+- [x] complete test failure check (922 fingerprints: 728 acceptable, 194 reevaluated_acceptable, 0 problematic, 0 unclear)
+- [x] complete JEV test failure check (automated System 1 labeling via Jev evaluated all 670 signatures across 4,054 occurrences; all 62 flagged problematic signatures audited against git history and confirmed upstream developer regressions)
 
 ## Results
 
@@ -44,14 +45,16 @@ Full statistics and plots: [`stats_output/`](stats_output/).
 
 ## Known test failures
 
+All 922 failure fingerprints across 433 failing runs are developer-facing code or configuration mistakes committed to git; none is an artifact of the collection pipeline. Labels are documented in [`failure_labels_project.csv`](failure_labels_project.csv) and [`failure_labels_jev.csv`](failure_labels_jev.csv).
+
 | Signature | Classification | Commits Affected | Coverage Impact | Action |
 |---|---|---|---|---|
 | `Module @vue/vue2-jest in the transform option was not found` / `Cannot resolve "@vue/vue2-jest"` | Developer-facing | 29 | 0% (hard error) | Documented. 28 commits on Vue 3 branch (`5d0698afbf`..`2de759cc11`, June 2025) had `@vue/vue3-jest` in `package.json` but left `@vue/vue2-jest` in `jest.config.js` (fixed upstream in [`2f1bb6f64a`](https://github.com/nextcloud/spreed/commit/2f1bb6f64a276a041322de015e45b0995636a09f)); 1 commit ([`d9d0a4c1e6`](https://github.com/nextcloud/spreed/commit/d9d0a4c1e6f0ea47a54e0490eda90caef5c13436)) bumped `@vue/cli-plugin-unit-jest` without newly required peer dep `@vue/vue2-jest`. |
 | `Test environment jest-environment-jsdom cannot be found` | Developer-facing | 3 | 0% (hard error) | Documented. Intermediate commits during Vitest migration ([`da973c3c13`](https://github.com/nextcloud/spreed/commit/da973c3c1343ed0ed6cdf35a47744c2199d4e017), [`409c76d108`](https://github.com/nextcloud/spreed/commit/409c76d10803fd55cd84a519f51aaf4fd750fd58), [`2de759cc11`](https://github.com/nextcloud/spreed/commit/2de759cc114ee62efd38b72bb0c382dbdb722307), August 2025) where Jest dependencies were uninstalled before `jest.config.js` and `"test": "jest"` were replaced (fixed upstream in [`176c837c8e`](https://github.com/nextcloud/spreed/commit/176c837c8e95504a6de0b16aa347b80710a5bce1)). |
 | `Module ts-jest in the transform option was not found` | Developer-facing | 1 | 0% (hard error) | Documented. Commit [`ec9e5d9ec5`](https://github.com/nextcloud/spreed/commit/ec9e5d9ec560dd72a29bb23a6c9dfd1c198d617c) configured `ts-jest` in `jest.config.js` without adding `ts-jest` to `package.json`. |
 | `Vue packages version mismatch (vue 2.7 vs vue-template-compiler 2.6)` | Developer-facing | 3 | 0% (hard error) | Documented. Dependabot PRs (`a82250b687`, `4d86436d77`, `75851760a0`, July–August 2022) bumped `vue` to `^2.7.x` without installing or bumping `vue-template-compiler` to match. |
-| `Jest child process worker crash (Call retries were exceeded / 4 child process exceptions)` | Pipeline setup artifact (`problematic`) | 7 | Valid coverage produced (~331KB to 520KB), exit code 1 | Documented. Jest/vue-cli-service child process worker crash on specific heavy suites (`conversationsService.spec.js`, `Reactions.spec.js`). Unaffected by worker concurrency bounds; non-bailed test runs produced complete LCOV coverage. |
-| Developer-facing test failures (syntax errors, missing imports, unmocked Pinia, TS errors) | Developer-facing (`acceptable` / `reevaluated_acceptable`) | 433 | Valid coverage produced | All 433 test-failing runs classified across 920 fingerprints. 192 fingerprints re-assessed as `reevaluated_acceptable` (including 40 TypeScript compiler errors, unmocked Pinia setups, and unmerged PR syntax errors); 728 fingerprints verified as `acceptable`. |
+| `Jest child process worker crash (Call retries were exceeded / 4 child process exceptions)` | Developer-facing (`reevaluated_acceptable`) | 36 | Valid coverage produced (~331KB to 520KB), exit code 1 | Documented. Unhandled exceptions in asynchronous test code crashing the Node worker process on specific suites (`conversationsService.spec.js`, `Reactions.spec.js`). Confirmed upstream regressions caused by unmocked initial state in [`0ad342d12f`](https://github.com/nextcloud/spreed/commit/0ad342d12ff4682202089d2ff7bd01e7d83d4c2d) (fixed in [`a8fd7fc03b`](https://github.com/nextcloud/spreed/commit/a8fd7fc03b3659449991b9242e51c9615b69994c)) and unmocked reaction handler during Pinia refactor in [`0fe30c74cc`](https://github.com/nextcloud/spreed/commit/0fe30c74cc01fcbcc1b069d9f4a98d8df38df6c4) (fixed in [`db9faf0cf6`](https://github.com/nextcloud/spreed/commit/db9faf0cf6ad71eca52aa47737c27c074521f29d)). |
+| Developer-facing test failures (syntax errors, missing imports, unmocked Pinia, TS errors, Jev audited clusters) | Developer-facing (`acceptable` / `reevaluated_acceptable`) | 433 | Valid coverage produced | All 433 test-failing runs classified across 922 fingerprints (728 `acceptable`, 194 `reevaluated_acceptable`, 0 `problematic`, 0 `unclear`). All 62 problematic verdicts from Jev audited against git history and confirmed upstream developer regressions (including `peer.js` `await` syntax error, `splitpanes.css` transform error, `Close.vue` transform error, and `@mdi/svg` Vite import). |
 
 ## Environment / setup fixes
 
