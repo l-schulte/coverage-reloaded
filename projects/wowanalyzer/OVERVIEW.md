@@ -32,10 +32,11 @@
 - [x] failed tests doublechecked
 - [x] complete run
 - [x] complete test failure check
+- [x] complete JEV test failure check
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-09-19 14:29).
+Source: `stats_output/report.txt` (generated 2026-10-03 10:48).
 
 | Metric | Value |
 |---|---|
@@ -50,7 +51,7 @@ Full statistics and plots: [`stats_output/`](stats_output/).
 
 ## Known test failures
 
-Sourced from [`failure_labels_project.csv`](failure_labels_project.csv). All 1,385 recorded failures are genuine commit-era developer-facing failures (`acceptable` or `reevaluated_acceptable`).
+Sourced from [`failure_labels_project.csv`](failure_labels_project.csv) and audited against [`failure_labels_jev.csv`](failure_labels_jev.csv). All 1,385 recorded failure signatures (including the 13 flagged by Jev) are confirmed commit-era developer-facing failures (`acceptable` or `reevaluated_acceptable`).
 
 | Signature / Failure Cluster | Classification | Coverage Impact | Action / Rationale |
 |---|---|---|---|

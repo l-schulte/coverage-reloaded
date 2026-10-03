@@ -79,7 +79,7 @@ dates live in the per-project Results sections, sourced from
 | [uploader](projects/uploader/OVERVIEW.md)           | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 | [uwazi](projects/uwazi/OVERVIEW.md)                 | ✅       | ✅                         | 🟡           | 🚧                          | ❌                              |
 | [vega-lite](projects/vega-lite/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| [wowanalyzer](projects/wowanalyzer/OVERVIEW.md)     | ✅       | ✅                         | ✅           | ✅                          | ❌                              |
+| [wowanalyzer](projects/wowanalyzer/OVERVIEW.md)     | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 | [yari](projects/yari/OVERVIEW.md)                   | ✅       | ✅                         | 🟡           | 🚧                          | ❌                              |
 
 ## Cross-cutting infrastructure
