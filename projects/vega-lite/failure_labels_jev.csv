@@ -1,0 +1,2 @@
+project,run_id,suite,exit_code,line_number,fingerprint,occurrences,keyword,is_pipeline_issue,confidence,env_subsystem,labeled_at
+vega-lite,1609660342_c4b2458b7506ad17e50324be317ac18eafaf377c,examples,1,372,3e4a60419cee72d4,3,  ● examples/specs/bar_negative_horizontal_label.vl.json › should produce valid Vega,False,0.9000,none,2026-10-03T09:53:59.444832+00:00

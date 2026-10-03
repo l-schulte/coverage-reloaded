@@ -25,10 +25,11 @@
 - [x] failed tests doublechecked (genuine errors)
 - [x] complete run
 - [x] complete test failure check (3 commits doublechecked, genuine schema errors)
+- [x] complete JEV test failure check (automated System 1 labeling via Jev evaluated 1 signature across 3 occurrences; 0 flagged problematic signatures)
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-09-21 10:55).
+Source: `stats_output/report.txt` (generated 2026-10-03 09:55).
 
 | Metric | Value |
 |---|---|
