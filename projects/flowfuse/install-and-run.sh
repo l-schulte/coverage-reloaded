@@ -169,11 +169,21 @@ if [ $HAS_FORGE -eq 0 ] && [ $HAS_FRONTEND -eq 0 ] && [ $HAS_UNIT -eq 0 ] && [ $
 fi
 
 if [ $HAS_NYC -eq 1 ]; then
+    # Project ships its own nyc + .nycrc.json (include: forge/**); let it drive.
     COVER_TOOL=(npx --registry="$WAYPACK_REGISTRY_CURRENT" nyc --reporter=lcov)
-    print_header 4 "Coverage tool: nyc"
+    print_header 4 "Coverage tool: nyc (project config)"
 else
-    COVER_TOOL=(npx --registry="$WAYPACK_REGISTRY_CURRENT" c8 --reporter=lcov --)
-    print_header 4 "Coverage tool: c8"
+    # Pre-nyc-era commits have neither nyc nor .nycrc.json. Use nyc anyway so the
+    # exposure variable is measured by a single tool across the whole history,
+    # and reproduce the file set the project's own .nycrc.json defines:
+    # all backend source under forge/**, plus enterprise code, which lived at
+    # top-level ee/** before the license split was removed (it later moved to
+    # forge/ee/**, already covered by forge/**). The ee/** glob is inert once
+    # the split is gone.
+    print_header 2 "Installing nyc for pre-nyc-era coverage"
+    npm install --no-save nyc@15
+    COVER_TOOL=(npx --registry="$WAYPACK_REGISTRY_CURRENT" nyc --reporter=lcov --all --include 'forge/**' --include 'ee/**')
+    print_header 4 "Coverage tool: nyc (forge/** + ee/**)"
 fi
 
 # Forge backend tests start the app server and need frontend/dist/index.html.
@@ -185,7 +195,7 @@ print_header 2 "Running tests with coverage"
 # IMPORTANT: set +e around test execution so failures don't abort the script.
 # Coverage collection (find-and-move-lcov.sh) runs with set -e and must fail loudly.
 
-# --- test:unit:forge (mocha/nyc or mocha/c8) ---
+# --- test:unit:forge (mocha/nyc) ---
 if [ $HAS_FORGE -eq 1 ]; then
     apply_license_fix
     suite_start "forge-unit" "Running test:unit:forge"
@@ -244,7 +254,7 @@ else
     print_header 4 "NOTICE: No test:unit:frontend script found — skipping frontend tests"
 fi
 
-# --- test:unit (mocha/nyc or mocha/c8) — only if forge and frontend are absent ---
+# --- test:unit (mocha/nyc) — only if forge and frontend are absent ---
 if [ $HAS_UNIT -eq 1 ]; then
     if [ $HAS_FORGE -eq 1 ] || [ $HAS_FRONTEND -eq 1 ]; then
         print_header 4 "NOTICE: test:unit skipped because test:unit:forge or test:unit:frontend already covers unit tests"
@@ -263,7 +273,7 @@ else
     print_header 4 "NOTICE: No test:unit script found — skipping unit tests"
 fi
 
-# --- test:system (mocha/nyc or mocha/c8) ---
+# --- test:system (mocha/nyc) ---
 if [ $HAS_SYSTEM -eq 1 ]; then
     suite_start "system" "Running test:system"
     set +e
@@ -279,13 +289,10 @@ fi
 
 # --- test fallback — only when no per-suite scripts exist ---
 if [ $HAS_FORGE -eq 0 ] && [ $HAS_FRONTEND -eq 0 ] && [ $HAS_UNIT -eq 0 ] && [ $HAS_SYSTEM -eq 0 ] && [ $HAS_TEST -eq 1 ]; then
-    suite_start "unit" "Falling back to c8 on test script"
-
-    print_header 4 "Installing c8 locally for fallback..."
-    npm install --no-save c8@7
+    suite_start "unit" "Falling back to nyc on test script"
 
     set +e
-    npx --registry=$WAYPACK_REGISTRY_CURRENT c8 --reporter=lcov -- npm run test
+    "${COVER_TOOL[@]}" npm run test
     TEST_EXIT=$?
     set -e
 

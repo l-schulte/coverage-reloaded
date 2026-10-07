@@ -28,7 +28,7 @@
 
 - [x] 100 done (92/100)
 - [x] failed tests doublechecked (few and genuine)
-- [x] complete run
+- [ ] complete run (in progress — nyc-only re-run of 641 pre-nyc commits)
 - [x] complete test failure check
 - [x] complete JEV test failure check
 
