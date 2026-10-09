@@ -21,29 +21,34 @@
 - **Focus markers:** commits whose collected suites contain a committed `.only`
   are marked not-applicable rather than recording subset coverage (see
   [`STUDY_DECISIONS.md`](../../STUDY_DECISIONS.md) §2).
-- **Coverage tool / config:** `nyc`.
+- **Coverage tool / config:** `nyc`. From the nyc era onward the project's own
+  `nyc` + `.nycrc.json` (`include: forge/**`) drives collection. The 641
+  pre-nyc-era commits (2021-07-29 to 2022-03-21) are instrumented with an injected
+  `nyc@15` using `--all --include 'forge/**' --include 'ee/**'`, reproducing the
+  project's own file set so the exposure variable is produced by a single tool and
+  file set across the whole history.
 - **LCOV production:** `nyc` with an `lcov` reporter.
 
 ## Checklist
 
 - [x] 100 done (92/100)
 - [x] failed tests doublechecked (few and genuine)
-- [ ] complete run (in progress — nyc-only re-run of 641 pre-nyc commits)
+- [x] complete run (nyc-only re-run of the 641 pre-nyc commits completed)
 - [x] complete test failure check
 - [x] complete JEV test failure check
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-09-26 11:33).
+Source: `stats_output/report.txt` (generated 2026-10-09 13:26).
 
 | Metric | Value |
 |---|---|
 | Commits processed | 15802 |
-| Without test failures | 13143 |
-| With test failures | 1538 |
+| Without test failures | 13157 |
+| With test failures | 1540 |
 | Not applicable | 319 |
-| Hard errors | 802 |
-| Coverage produced | 94.8% |
+| Hard errors | 786 |
+| Coverage produced | 94.9% |
 
 Full statistics and plots: [`stats_output/`](stats_output/).
 
