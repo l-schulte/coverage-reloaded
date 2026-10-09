@@ -1,0 +1,1091 @@
+{
+  "general": {
+    "patterns": [
+      "\u25cf",
+      "\u2715",
+      "\\bAssertionError"
+    ],
+    "exclude": [
+      "\u25cf\\s*Console",
+      "\u25cf\\s*Cannot log after tests are done",
+      "Test Suites:",
+      "Tests:",
+      "Snapshots:",
+      "Ran all test suites"
+    ]
+  },
+  "suites": {},
+  "auto_classify": [
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n\\\nExpected:\\ \\d+\\\nReceived:\\ \\d+",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "6649f7b4e792"
+    },
+    {
+      "match": "\\\nIllegal\\ arguments:\\ undefined,\\ number",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "59f3cb71033a"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchSnapshot\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "dd3333528b19"
+    },
+    {
+      "match": "\\\nexpect\\(spy\\)\\.toHaveBeenCalledWith\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "987c3dc7878e"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ '.*'\\ of\\ undefined",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "90d143f9f9e3"
+    },
+    {
+      "match": "\\\nFailed:\\ Object\\ \\{\\\n\"code\":\\ 400,",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "3e649bc9957d"
+    },
+    {
+      "match": "\\\nResponseError:\\ resource_already_exists_exception",
+      "label": "reevaluated_acceptable",
+      "note": "ES index concurrency collision under 10 workers (see OVERVIEW.md)",
+      "lines": 2,
+      "id": "7980241d8893"
+    },
+    {
+      "match": "\\\nonly\\ absolute\\ urls\\ are\\ supported",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c189d9059a39"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ app/api/users/users\\.js:\\ Identifier\\ 'populateGroupsOfUsers'\\ has\\ already\\ been\\ declared\\ \\(164:6\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5125a87f9cb1"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ destructure\\ property\\ 'documentsFullText'\\ of\\ '_ref'\\ as\\ it\\ is\\ undefined\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4e832f4566a3"
+    },
+    {
+      "match": "\\\nAccessing\\ nonexistent\\ async\\ context",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "82d457a46fa1"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n\\\nExpected:\\ 500\\\nReceived:\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "a47a6401edbd"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.rejects\\.toHaveProperty\\(path,\\ value\\)\\\n\\\nExpected\\ path:\\ \"errors\"\\\nReceived\\ path:\\ \\[\\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "ebbfb8ffb2f3"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toContain\\(expected\\)\\ //\\ indexOf\\\n\\\nExpected\\ substring:\\ \"JSON\"\\\nReceived\\ string:\\ \\ \\ \\ \"Accessing\\ nonexistent\\ async\\ context\"",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "ea1de54b6479"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toContain\\(expected\\)\\ //\\ indexOf\\\n\\\nExpected\\ substring:\\ \"permissions\"\\\nReceived\\ string:\\ \\ \\ \\ \"Cannot\\ read\\ property\\ 'filter'\\ of\\ undefined\"",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "6bdb59c96aee"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality\\\n\\\n\\-\\ Expected\\\n\\+\\ Received",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "95da69d23c59"
+    },
+    {
+      "match": "\\\nexpected\\ 200\\ \"OK\",\\ got\\ 500\\ \"Internal\\ Server\\ Error\"",
+      "label": "reevaluated_acceptable",
+      "note": "Supertest API controller/route assertion drift during refactor",
+      "lines": 2,
+      "id": "c275e6fd816d"
+    },
+    {
+      "match": "\\\nmongoose\\ findOneAndUpdate\\ should\\ never\\ return\\ null!",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f66bd7d30a6c"
+    },
+    {
+      "match": "\\\nTimeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 60000ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a1153096937a"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBeDefined\\(\\)\\\n\\\nReceived:\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "261e76cf8264"
+    },
+    {
+      "match": "\\\nexpect\\(spy\\)\\.toHaveBeenCalled\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6b531449f80f"
+    },
+    {
+      "match": "\\\nthrown:\\ Object\\ \\{\\\n\"code\":\\ 403,\\\n\"message\":\\ \"User\\ not\\ found\",",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "9a7754324c04"
+    },
+    {
+      "match": "\\\nTimeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 20000ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 20000ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "5b3f8f4e383b"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'batarange'\\ from\\ 'Text\\.spec\\.js'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "28834741fad1"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'react\\-pdf\\-handler'\\ from\\ 'PDF\\.js'",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream yarn.lock broken commit fixed 7m later in bd1c93e",
+      "lines": 2,
+      "id": "a07695334161"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'react\\-pdf\\-handler'\\ from\\ 'PageReferences\\.tsx'",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream yarn.lock broken commit fixed 7m later in bd1c93e",
+      "lines": 2,
+      "id": "b977d5c149dc"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'react\\-pdf\\-handler'\\ from\\ 'PageReferences\\.spec\\.tsx'",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream yarn.lock broken commit fixed 7m later in bd1c93e",
+      "lines": 2,
+      "id": "043325b9cddc"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'rendered'\\ of\\ null",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "3ffc5394b60c"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledWith\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "2e1f81ad14f0"
+    },
+    {
+      "match": "\\\nTypeError:\\ assignments\\ is\\ not\\ iterable",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "fe2d930ce1ec"
+    },
+    {
+      "match": "\\\nspawn\\ gs\\ ENOENT",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "39823c593ae3"
+    },
+    {
+      "match": "\\\nRoute\\ GET\\ /api/attachment/:file\\ is\\ not\\ defined",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5623f2801f55"
+    },
+    {
+      "match": "\\\nRoute\\ GET\\ /api/attachments/download\\ is\\ not\\ defined",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5decde0047c0"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n\\\nExpected:\\ 404\\\nReceived:\\ undefined",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "03f741383942"
+    },
+    {
+      "match": "\\\nRoute\\ (POST|PUT|DELETE)\\ .*\\ is\\ not\\ defined",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5ead91354630"
+    },
+    {
+      "match": "\\\nInvariant\\ Violation:\\ Could\\ not\\ find\\ \"store\"\\ in\\ either\\ the\\ context\\ or\\ props\\ of\\ \"Connect\\(.*\\)\"\\.\\ Either\\ wrap\\ the\\ root\\ component\\ in\\ a\\ <Provider>,\\ or\\ explicitly\\ pass\\ \"store\"\\ as\\ a\\ prop\\ to\\ \"Connect\\(.*\\)\"\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Frontend Enzyme connected component without Provider (see OVERVIEW.md)",
+      "lines": 2,
+      "id": "1d735e3894b4"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.not\\.toThrow\\(\\)\\\n\\\nError\\ name:\\ \\ \\ \\ \"TypeError\"\\\nError\\ message:\\ \"Cannot\\ read\\ property\\ 'toJS'\\ of\\ undefined\"",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "a92d85881be6"
+    },
+    {
+      "match": "\\\nReferenceError:\\ document\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8a05e8e384ac"
+    },
+    {
+      "match": "\\\nFailed:\\ \"\\\\\"Mongod\\ internal\\ error\\\\\"\"",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "fd4531ca61cd"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n\\\nExpected:\\ true\\\nReceived:\\ false",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "054286fbc3b6"
+    },
+    {
+      "match": "\\\nTypeError:\\ originalReducer\\ is\\ not\\ a\\ function",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1ffdf7e9e3bd"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ app/react/Settings/components/",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ce611601bb13"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n\\\nExpected:\\ false\\\nReceived:\\ true",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "b5f34f15a55e"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.not\\.toHaveProperty\\(path\\)\\\n\\\nExpected\\ path:\\ not\\ \"_id\"\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "5d2c0eb479b4"
+    },
+    {
+      "match": "\\\nMethod\\ \u201c.*\u201d\\ is\\ meant\\ to\\ be\\ run\\ on\\ 1\\ node\\.\\ \\d+\\ found\\ instead\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Frontend Enzyme wrapper 0 nodes assertion (see OVERVIEW.md)",
+      "lines": 2,
+      "id": "5cb7e657c171"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n\\\nExpected:\\ \"form\\-element\"\\\nReceived:\\ \"form\\-element\\ row\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "7a3c32cc70e3"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ app/react/Documents/components/DocumentSidePanel\\.js:\\ Expected\\ corresponding\\ JSX\\ closing\\ tag\\ for\\ <ShowIf>\\ \\(363:14\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1b967d357223"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ app/react/Documents/components/DocumentSidePanel\\.js:\\ Unexpected\\ token,\\ expected\\ \",\"\\ \\(463:16\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4a3896d49d7c"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toContain\\(expected\\)\\ //\\ indexOf\\\n\\\nExpected\\ substring:\\ \"validation\\ failed\"\\\nReceived\\ string:\\ \\ \\ \\ \"<!DOCTYPE\\ html>",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "f26eaff87f50"
+    },
+    {
+      "match": "\\\nCannot\\ spy\\ the\\ head\\ property\\ because\\ it\\ is\\ not\\ a\\ function;\\ undefined\\ given\\ instead",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9ae52509d746"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toContain\\(expected\\)\\ //\\ indexOf\\\n\\\nExpected\\ value:\\ \"\\+\"\\\nReceived\\ array:\\ \\[\"\\ \",\\ 100\\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "3fb1b464098b"
+    },
+    {
+      "match": "\\\nTypeError:\\ select\\.includes\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f97a2461a9e1"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '@fortawesome/free\\-solid\\-svg\\-icons/faFingerPrint'\\ from\\ 'library\\.js'",
+      "label": "reevaluated_acceptable",
+      "note": "Developer typo faFingerPrint fixed in commit d17522d03",
+      "lines": 2,
+      "id": "a80ce29aa0cd"
+    },
+    {
+      "match": "\\\nMethod\\ \u201csimulate\u201d\\ is\\ meant\\ to\\ be\\ run\\ on\\ 1\\ node\\.\\ 0\\ found\\ instead\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "d4ef939f2b25"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./routes\\.js'\\ from\\ 'routes\\.spec\\.js'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5d12285a308b"
+    },
+    {
+      "match": "\\\nJest\\ encountered\\ an\\ unexpected\\ token",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e0389c2256d1"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ convert\\ undefined\\ or\\ null\\ to\\ object",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "420cc5d4b99a"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ app/api/search/specs/search\\.spec\\.js:\\ Can\\ not\\ use\\ keyword\\ 'await'\\ outside\\ an\\ async\\ function\\ \\(249:8\\)",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "049548f6eb9d"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchObject\\(expected\\)\\\n\\\n\\-\\ Expected\\\n\\+\\ Received",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "78f7f95dfe39"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ set\\ property\\ 'current'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e4c9b39cc135"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./entities/entityPropertiesUpdater'\\ from\\ 'templates\\.spec\\.js'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "881842efc19e"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./entities/entityPropertiesUpdater'\\ from\\ 'generatedIdPropertyAutoFiller\\.spec\\.ts'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1eb72e34c4f7"
+    },
+    {
+      "match": "\\\nexpected\\ 404\\ \"Not\\ Found\",\\ got\\ 500\\ \"Internal\\ Server\\ Error\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d515d965ce16"
+    },
+    {
+      "match": "\\\nTypeError:\\ formatter\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "50b595449da8"
+    },
+    {
+      "match": "\\\nvalidation\\ failed",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "744bfc47b33e"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n\\\nExpected:\\ \"documents\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "4d2d58ba31f9"
+    },
+    {
+      "match": "\\\nTypeError:\\ o\\.values\\ is\\ not\\ iterable",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "dfd9570bf8cc"
+    },
+    {
+      "match": "\\\nERROR!\\ Failed\\ to\\ index\\ documents\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "edad83f6229e"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toContain\\(expected\\)\\ //\\ indexOf\\\n\\\nMatcher\\ error:\\ received\\ value\\ must\\ not\\ be\\ null\\ nor\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "5cbcb6d9b587"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n\\\nExpected:\\ \"validation\\ failed\"\\\nReceived:\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "3b9621553083"
+    },
+    {
+      "match": "\\\nexpected\\ 400\\ \"Bad\\ Request\",\\ got\\ 500\\ \"Internal\\ Server\\ Error\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ddfa8e134b1b"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatch\\(expected\\)\\\n\\\nExpected\\ pattern:\\ /should\\ have\\ required\\ property\\ 'id'/",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "e1f8d07f5693"
+    },
+    {
+      "match": "\\\nexpected\\ 422\\ \"Unprocessable\\ Entity\",\\ got\\ 500\\ \"Internal\\ Server\\ Error\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "26fa1ae01f1e"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n\\\nExpected:\\ \"something\\ happened\"\\\nReceived:\\ \"Accessing\\ nonexistent\\ async\\ context\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "a541ff810513"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality\\\n\\\nExpected:\\ StringMatching\\ /\\^\\[0\\-9\\-\\]\\{4\\}\\$/\\\nReceived:\\ \"261\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "6d9626693a33"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality\\\n\\\nExpected:\\ \"error\\ nameerror\\ details\"\\\nReceived:\\ \"<Connect\\(Translate\\)\\ />error\\ name<Connect\\(Translate\\)\\ />error\\ details\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "300107e2eb98"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "403d2bf0ef2f"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5131fa62baeb"
+    },
+    {
+      "match": "\\\nTypeError:\\ _testingEnvironment\\.testingEnvironment\\.withTenant\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "af46fb439464"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ app/api/contact/specs/routes\\.spec\\.js:\\ Can\\ not\\ use\\ keyword\\ 'await'\\ outside\\ an\\ async\\ function\\ \\(10:0\\)",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8f30dc395576"
+    },
+    {
+      "match": "\\\nfetch\\-mock:\\ No\\ fallback\\ response\\ defined\\ for\\ GET\\ to\\ /api/files\\?type=document",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a32ebd1c6dc0"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./utils/test/renderConnected'\\ from\\ 'NeedAuthorization\\.spec\\.js'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "eb8b761fdbda"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./utils/test/renderConnected'\\ from\\ 'ShareEntityModal\\.spec\\.tsx'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e4d10b1b8ec9"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./utils/test/renderConnected'\\ from\\ 'EntityData\\.spec\\.tsx'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4b2c88c8bb23"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./utils/test/renderConnected'\\ from\\ 'PDFUploadButton\\.spec\\.ts'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "993fe149f2fb"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./utils/test/renderConnected'\\ from\\ 'ErrorBoundary\\.spec\\.tsx'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d9d3d14fd786"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./utils/test/renderConnected'\\ from\\ 'LibrarySidePanelButtons\\.spec\\.ts'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "2d0ce618a9ed"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./utils/test/renderConnected'\\ from\\ 'UploadSupportingFile\\.spec\\.tsx'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "183388ef40ca"
+    },
+    {
+      "match": "\\\nAddress\\ already\\ in\\ use",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "7acb1c3b6b4c"
+    },
+    {
+      "match": "\\\nCommand\\ failed:\\ cd\\ redis",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "8ebb005c5a5d"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./Templates/specs/utils/renderConnected'\\ from\\ 'PermissionsFilter\\.spec\\.tsx'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c2a477c1b62a"
+    },
+    {
+      "match": "\\\n\\{\"error\":\"Unauthorized\",\"message\":\"An\\ expected\\ header\\ was\\ not\\ found\"\\}",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "20524eb70588"
+    },
+    {
+      "match": "\\\nexpected\\ 200\\ \"OK\",\\ got\\ 401\\ \"Unauthorized\"",
+      "label": "reevaluated_acceptable",
+      "note": "Supertest 401 auth assertion failure during route testing",
+      "lines": 2,
+      "id": "925279101b71"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '@testing\\-library/jest\\-dom/extend\\-expect'\\ from\\ 'Pagination\\.spec\\.tsx'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "17e58b831046"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '@testing\\-library/jest\\-dom'\\ from\\ 'EntitySuggestions\\.spec\\.tsx'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "45d2d8c81a50"
+    },
+    {
+      "match": "\\\nTypeError\\ \\[ERR_INVALID_ARG_TYPE\\]\\ \\[ERR_INVALID_ARG_TYPE\\]:\\ The\\ \"path\"\\ argument\\ must\\ be\\ of\\ type\\ string\\.\\ Received\\ an\\ instance\\ of\\ ReadableString",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ddc8cf433e02"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./TaskManager'\\ from\\ 'taskManager\\.spec\\.ts'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "229c27bc5689"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./tasksmanager/TaskManager\\.ts'\\ from\\ 'PDFSegmentation\\.spec\\.ts'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ea56676b0489"
+    },
+    {
+      "match": "\\\nENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ open\\ 'app/api/services/informationExtraction/specs/uploads/documentA\\.xml'",
+      "label": "reevaluated_acceptable",
+      "note": "macOS vs Linux case-sensitivity path discrepancy in InformationExtraction specs",
+      "lines": 2,
+      "id": "14561f00f459"
+    },
+    {
+      "match": "\\\nENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ open\\ 'app/api/services/informationExtraction/specs/uploads/segmentation/documentA\\.xml'",
+      "label": "reevaluated_acceptable",
+      "note": "macOS vs Linux case-sensitivity path discrepancy in InformationExtraction specs",
+      "lines": 2,
+      "id": "fba7599cf11b"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./utils/async\\-fs'\\ from\\ 'InformationExtraction\\.spec\\.ts'",
+      "label": "reevaluated_acceptable",
+      "note": "Intermediate WIP import path refactor in InformationExtraction.spec.ts",
+      "lines": 2,
+      "id": "4dbeb3292217"
+    },
+    {
+      "match": "\\\nFailed:\\ \"TODO\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "59215a8743c3"
+    },
+    {
+      "match": "\\\nread\\ ECONNRESET",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "9ec9b477f46a"
+    },
+    {
+      "match": "\\\nResponseError:\\ index_not_found_exception",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c71387d1866e"
+    },
+    {
+      "match": "\\\nAbortError:\\ Redis\\ connection\\ lost\\ and\\ command\\ aborted\\.\\ It\\ might\\ have\\ been\\ processed\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "00c6f37f8773"
+    },
+    {
+      "match": "\\\nexpected\\ 200\\ \"OK\",\\ got\\ 400\\ \"Bad\\ Request\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b218068bc7bc"
+    },
+    {
+      "match": "\\\nAbortError:\\ Ready\\ check\\ failed:\\ Redis\\ connection\\ lost\\ and\\ command\\ aborted\\.\\ It\\ might\\ have\\ been\\ processed\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "064b91d8524c"
+    },
+    {
+      "match": "\\\nLanguage\\ not\\ supported",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "bfc9393271d2"
+    },
+    {
+      "match": "\\\nOcr\\ settings\\ are\\ missing\\ from\\ the\\ database\\ \\(settings\\.features\\.ocr\\)\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7c1fa6f992dc"
+    },
+    {
+      "match": "\\\nInvariant\\ Violation:\\ Expected\\ the\\ backend\\ to\\ be\\ a\\ function\\ or\\ an\\ ES6\\ module\\ exporting\\ a\\ default\\ function\\.\\ Read\\ more:\\ http://react\\-dnd\\.github\\.io/react\\-dnd/docs\\-drag\\-drop\\-context\\.html",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8ce7155f5498"
+    },
+    {
+      "match": "\\\nReferenceError:\\ TextEncoder\\ is\\ not\\ defined",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "651e6c37f950"
+    },
+    {
+      "match": "\\\nTypeError:\\ \\(\\(\\(cov_2e71vnjqk4\\.b\\[13\\]\\[0\\]\\+\\+\\)\\ ,\\ entity\\.metadata\\)\\ \\|\\|\\ \\(\\(cov_2e71vnjqk4\\.b\\[13\\]\\[1\\]\\+\\+\\)\\ ,\\ \\{\\}\\)\\)\\.entries\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a09bb15c91ae"
+    },
+    {
+      "match": "\\\nAWS\\ SDK\\ error\\ wrapper\\ for\\ Error:\\ connect\\ ECONNREFUSED\\ 127\\.0\\.0\\.1:9000",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "8a9be209a94c"
+    },
+    {
+      "match": "\\\nMongoBulkWriteError:\\ E11000\\ duplicate\\ key\\ error\\ collection:\\ uwazi_testing_tdzf4pbjadh_translations_v2_support_spec_ts\\.translations_v2\\ index:\\ language_1_key_1_context\\.id_1\\ dup\\ key:\\ \\{\\ language:\\ \"en\",\\ key:\\ \"Password\",\\ context\\.id:\\ \"System\"\\ \\}",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "79621473b3f3"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 10000\\ ms\\ for\\ a\\ hook\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "f0b3053f037a"
+    },
+    {
+      "match": "\\\nMongoServerError:\\ Given\\ transaction\\ number\\ 2\\ on\\ session\\ 2e286c39\\-2380\\-4b21\\-8d02\\-927c7d2695fc\\ \\-\\ 47DEQpj8HBSa\\+/TImW\\+5JCeuQeRkm5NMpJWZG3hSuFU=\\ \\-\\ \\ \\-\\ \\ using\\ txnRetryCounter\\ 0\\ does\\ not\\ match\\ any\\ in\\-progress\\ transactions\\.\\ The\\ active\\ transaction\\ number\\ is\\ 1",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "541f9a648f51"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 60000\\ ms\\ for\\ a\\ test\\.\\\nAdd\\ a\\ timeout\\ value\\ to\\ this\\ test\\ to\\ increase\\ the\\ timeout,\\ if\\ this\\ is\\ a\\ long\\-running\\ test\\.\\ See\\ https://jestjs\\.io/docs/api\\#testname\\-fn\\-timeout\\.\"",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "80e03705029f"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 60000\\ ms\\ for\\ a\\ hook\\.\\\nAdd\\ a\\ timeout\\ value\\ to\\ this\\ test\\ to\\ increase\\ the\\ timeout,\\ if\\ this\\ is\\ a\\ long\\-running\\ test\\.\\ See\\ https://jestjs\\.io/docs/api\\#testname\\-fn\\-timeout\\.\"",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream port 1234 collision fixed in commit e9eb6c582",
+      "lines": 3,
+      "id": "c8bbaa4d3029"
+    },
+    {
+      "match": "\\\nlisten\\ EADDRINUSE:\\ address\\ already\\ in\\ use\\ :::1234",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9a0544a5053a"
+    },
+    {
+      "match": "\\\nMongoServerError:\\ E11000\\ duplicate\\ key\\ error\\ collection:\\ uwazi_testing_n4ajto7giy_templatesUpdate_spec_ts\\.templates\\ index:\\ _id_\\ dup\\ key:\\ \\{\\ _id:\\ ObjectId\\('6ab4ad02e622f16651ec8d1d'\\)\\ \\}",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f7b6363c21bf"
+    },
+    {
+      "match": "\\\nTimeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 30000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f27224c0f119"
+    },
+    {
+      "match": "\\\nResponseError:\\ validation_exception:\\ \\[validation_exception\\]\\ Reason:\\ Validation\\ Failed:\\ 1:\\ this\\ action\\ would\\ add\\ \\[1\\]\\ shards,\\ but\\ this\\ cluster\\ currently\\ has\\ \\[1000\\]/\\[1000\\]\\ maximum\\ normal\\ shards\\ open;\\ for\\ more\\ information,\\ see\\ https://www\\.elastic\\.co/guide/en/elasticsearch/reference/8\\.18/size\\-your\\-shards\\.html\\#troubleshooting\\-max\\-shards\\-open;",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "92c6e1f3d2d5"
+    },
+    {
+      "match": "\\\nFile\\ customUpload\\.gif\\ not\\ found\\ in\\ local\\ storage",
+      "label": "problematic",
+      "note": "Root specs/customUploads wiped by cleanupTestUploadedPaths('') in FileSystemStorage.spec.ts during un-sharded test execution",
+      "lines": 2,
+      "id": "ac176b27df48"
+    },
+    {
+      "match": "\\\nFile\\ test\\.txt\\ not\\ found\\ in\\ local\\ storage",
+      "label": "problematic",
+      "note": "Root specs/uploads wiped by cleanupTestUploadedPaths('') in FileSystemStorage.spec.ts during un-sharded test execution",
+      "lines": 2,
+      "id": "506b32572058"
+    },
+    {
+      "match": "\\\nBucketAlreadyOwnedByYou:\\ Your\\ previous\\ request\\ to\\ create\\ the\\ named\\ bucket\\ succeeded\\ and\\ you\\ already\\ own\\ it\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "31fc263701e6"
+    },
+    {
+      "match": "\\\nconnect\\ ECONNREFUSED\\ 127\\.0\\.0\\.1:6379",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "a9b1df4cd11a"
+    },
+    {
+      "match": "\\\nTypeError:\\ Promised\\ type\\ was\\ not\\ provided!",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "691dc0cda6e4"
+    },
+    {
+      "match": "\\\nResponseError:\\ parsing_exception",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "54d7042cabac"
+    },
+    {
+      "match": "\\\nFailed:\\ \"should\\ not\\ throw\\ an\\ exception\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "afa46b8789ec"
+    },
+    {
+      "match": "\\\nTypeError:\\ _testingEnvironment\\.testingEnvironment\\.connect\\(\\.\\.\\.\\)\\.withContext\\(\\.\\.\\.\\)\\.run\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "94e8ddf1d2a7"
+    },
+    {
+      "match": "\\\nTypeError:\\ _languages\\.default\\.detect\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d5c4a40972ac"
+    },
+    {
+      "match": "\\\nexpect\\(spy\\)\\.toHaveBeenCalledTimes\\(\\d+\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "79fbf56cc350"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledTimes\\(\\d+\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7dcde2580144"
+    },
+    {
+      "match": "\\\nCommand\\ failed:\\ cd\\ app/api/services/tasksmanager/redis\\-bin\\ \\&\\&",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "746c431f3b88"
+    },
+    {
+      "match": "\\\nexpect\\(spy\\)\\.toHaveBeenLastCalledWith\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "211aea06d6bc"
+    },
+    {
+      "match": "\\\nReferenceError:\\ sockets\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e82dc79969ef"
+    },
+    {
+      "match": "\\\nTypeError:\\ Enzyme::Selector\\ expects\\ a\\ string,\\ object,\\ or\\ Component\\ Constructor",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0b6a727ac892"
+    },
+    {
+      "match": "\\\nTestingLibraryElementError:\\ Unable\\ to\\ find\\ an\\ element\\ with\\ the\\ text:\\ In\\ OCR\\ queue\\.\\ This\\ could\\ be\\ because\\ the\\ text\\ is\\ broken\\ up\\ by\\ multiple\\ elements\\.\\ In\\ this\\ case,\\ you\\ can\\ provide\\ a\\ function\\ for\\ your\\ text\\ matcher\\ to\\ make\\ your\\ matcher\\ more\\ flexible\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e918584712a1"
+    },
+    {
+      "match": "\\\nFailed:\\ \"WIP\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a13a0de0333d"
+    },
+    {
+      "match": "\\\nTypeError:\\ Url\\ must\\ be\\ a\\ string\\.\\ Received\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5a7397a7e016"
+    },
+    {
+      "match": "\\\nexpected\\ 404\\ \"Not\\ Found\",\\ got\\ 200\\ \"OK\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "786f106da980"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ set\\ property\\ 'name'\\ of\\ null",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "477f57130174"
+    },
+    {
+      "match": "\\\nUnable\\ to\\ find\\ an\\ element\\ with\\ the\\ text:\\ Last\\ updated\\ Tue\\ Dec\\ 14\\ 2021\\ 10:58:11\\ GMT\\-0300\\ \\(Argentina\\ Standard\\ Time\\)\\.\\ This\\ could\\ be\\ because\\ the\\ text\\ is\\ broken\\ up\\ by\\ multiple\\ elements\\.\\ In\\ this\\ case,\\ you\\ can\\ provide\\ a\\ function\\ for\\ your\\ text\\ matcher\\ to\\ make\\ your\\ matcher\\ more\\ flexible\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f4815965a79f"
+    },
+    {
+      "match": "\\\nexpect\\(spy\\)\\.not\\.toHaveBeenCalled\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "08ee12366d4c"
+    },
+    {
+      "match": "\\\nexpect\\(spy\\)\\.toHaveBeenCalledWith\\(\\.\\.\\.expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e2aed137acac"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledWith\\(\\.\\.\\.expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4236b007aae4"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchObject\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c772ebe8697b"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalled\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4b3f0678c549"
+    },
+    {
+      "match": "\\\nMongoBulkWriteError:\\ E11000\\ duplicate\\ key\\ error\\ collection:\\ uwazi_testing_m4pgkfv2mh_translations_v2_support_spec_ts\\.translations_v2\\ index:\\ language_1_key_1_context\\.id_1\\ dup\\ key:\\ \\{\\ language:\\ \"en\",\\ key:\\ \"Password\",\\ context\\.id:\\ \"System\"\\ \\}",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "e86f146563b0"
+    },
+    {
+      "match": "\\\nNoSuchBucket:\\ The\\ specified\\ bucket\\ does\\ not\\ exist",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6187eb375b53"
+    },
+    {
+      "match": "\\\nThe\\ specified\\ bucket\\ does\\ not\\ exist",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "238a70ab9e88"
+    },
+    {
+      "match": "\\\nBucketNotEmpty:\\ The\\ bucket\\ you\\ tried\\ to\\ delete\\ is\\ not\\ empty",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "27128e9ffcbf"
+    },
+    {
+      "match": "\\\n<spyOn>\\ :\\ updateMapping\\ has\\ already\\ been\\ spied\\ upon",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1a7a21719720"
+    }
+  ]
+}

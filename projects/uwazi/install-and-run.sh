@@ -4,18 +4,26 @@ set -e
 
 source /coverage_reloaded/logging.sh
 source /coverage_reloaded/has-option.sh
+source /coverage_reloaded/resolve-and-pin.sh
+
+resolve_and_pin "release-assets.githubusercontent.com"
+resolve_and_pin "objects.githubusercontent.com"
+resolve_and_pin "codeload.github.com"
 
 # Raise the V8 heap ceiling for the whole run.  Uwazi's full test suite with
 # istanbul coverage instrumentation uses ~2.7 GB of live objects; V8's code
 # space (compiled regexes from istanbul) also grows large in --runInBand mode.
 # 16 GB gives enough headroom for both old space and code space.
 export NODE_OPTIONS="--max-old-space-size=16384"
+export PUPPETEER_SKIP_DOWNLOAD=true
+export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+export CYPRESS_INSTALL_BINARY=0
+export ELECTRON_SKIP_BINARY_DOWNLOAD=1
 
 cd /coverage_reloaded/repo
 
 if [ ! -f package.json ]; then
-    print_header 2 "NOT APPLICABLE" "No package.json at this commit, no test infrastructure to run"
-    exit 2
+    not_applicable "No package.json at this commit, no test infrastructure to run"
 fi
 
 print_header 2 "Installing dependencies"
@@ -59,6 +67,18 @@ if [ -f "$WINSTON_LOGGER_JS" ]; then
     fi
 fi
 
+# In the Nov 2025+ files v2 era, FileSystemStorage.spec.ts called testingEnvironment.cleanupUploadPaths()
+# without calling setUp(), leaving subPath as an empty string (""). In upstream CI, tests were
+# isolated across 4 container shards (--shard=1/4), so FileSystemStorage and syncWorker ran in separate
+# containers. In our single-container pipeline with parallel workers, cleanupTestUploadedPaths('')
+# unlinked all files in the shared root specs/uploads/ and specs/customUploads/ directories, wiping
+# out fixture files (customUpload.gif, test.txt, test2.txt) while syncWorker.spec.ts was executing.
+# Guard cleanupTestUploadedPaths to only clean when a non-empty subPath is provided.
+if [ -f app/api/files/filesystem.ts ] && grep -q "cleanupTestUploadedPaths = async" app/api/files/filesystem.ts; then
+    sed -i 's/const cleanupTestUploadedPaths = async (subPath: string = '\'''\'') => {/const cleanupTestUploadedPaths = async (subPath: string = '\'''\'') => { if (!subPath) return;/' app/api/files/filesystem.ts
+fi
+
+
 print_header 2 "Detecting test infrastructure"
 
 TEST_SCRIPT=$(node -p "p=require('./package.json').scripts; (p.test || '')")
@@ -66,8 +86,7 @@ TEST_SCRIPT=$(node -p "p=require('./package.json').scripts; (p.test || '')")
 print_header 4 "test script:          $TEST_SCRIPT"
 
 if [ -z "$TEST_SCRIPT" ] || echo "$TEST_SCRIPT" | grep -q "Error: no test specified"; then
-    print_header 2 "NOT APPLICABLE" "No test script found at this commit, no test infrastructure to run"
-    exit 2
+    not_applicable "No test script found at this commit, no test infrastructure to run"
 fi
 
 # ── Docker-in-Docker for Elasticsearch ─────────────────────────
@@ -81,29 +100,7 @@ fi
 # the docker-cache pull-through mirror on mining-net, so the first pull per
 # version is fetched from Docker Hub and cached for every later run.
 
-print_header 3 "Starting Docker daemon"
-mkdir -p /etc/docker
-cat > /etc/docker/daemon.json <<'EOF'
-{
-  "registry-mirrors": ["http://docker-cache:5000"],
-  "insecure-registries": ["http://docker-cache:5000"],
-  "dns": ["1.1.1.1", "8.8.8.8"]
-}
-EOF
-dockerd > /var/log/dockerd.log 2>&1 &
-DOCKERD_PID=$!
-for i in $(seq 1 30); do
-    if docker ps > /dev/null 2>&1; then
-        print_header 4 "Docker daemon ready (attempt $i)"
-        break
-    fi
-    sleep 1
-done
-if ! docker ps > /dev/null 2>&1; then
-    print_header 2 "DOCKER DAEMON FAILED" "Could not start Docker daemon. Check /var/log/dockerd.log for details."
-    cat /var/log/dockerd.log
-    exit 1
-fi
+source /coverage_reloaded/start-dind.sh
 
 print_header 3 "Starting Elasticsearch"
 ELASTIC_DOCKERFILE=""
@@ -195,6 +192,20 @@ if [ "$ES_READY" != "true" ]; then
     print_header 2 "NOTE" "ES-dependent suites will fail (partial coverage). Full ES log kept by docker, dump via: docker logs uwazi-es"
 fi
 
+# Our monolithic single-ES run executes all suites in one container, so the
+# default cluster.max_shards_per_node ceiling (1000) can be exhausted as test
+# tenants accumulate indices across the run — a failure upstream CI never sees
+# because it shards app/api across 3 jobs, each with its own fresh ES.  Raise the
+# ceiling for the whole run; this is a no-op for the tests and is valid on both
+# the ES 7 and ES 8 lines.  A rejection here is a real problem, so let it abort
+# loudly rather than silently proceed into predictable shard-limit failures.
+if [ "$ES_READY" = "true" ]; then
+    print_header 4 "Raising Elasticsearch cluster.max_shards_per_node to 10000"
+    curl -fsS -XPUT http://localhost:9200/_cluster/settings \
+        -H 'Content-Type: application/json' \
+        -d '{"persistent":{"cluster.max_shards_per_node":10000}}'
+fi
+
 # ── MinIO (S3) ─────────────────────────────────────────────────
 #
 # Uwazi's S3 storage tests (Aug 2022+, files/specs/storage.spec.ts and
@@ -206,13 +217,31 @@ fi
 
 print_header 3 "Detecting S3 storage tests"
 if test -f app/api/files/S3Storage.ts \
+   || test -f app/api/files/specs/s3Storage.spec.ts \
+   || test -f app/api/files/specs/storage_s3_upload_on_read.spec.ts \
+   || test -f app/api/files/specs/storage_read.spec.ts \
+   || test -f app/api/files/specs/storage.spec.ts \
    || test -f app/api/files.v2/infrastructure/S3FileStorage.ts \
+   || test -f app/api/files.v2/infrastructure/specs/S3FileStorage.spec.ts \
    || test -f app/api/core/infrastructure/files/S3FileStorage.ts; then
     print_header 4 "S3 storage present at this commit — starting MinIO"
+
+    # Match the MinIO image the project's own CI pinned for this era, exactly like Elasticsearch.
+    CI_MINIO_IMAGE=""
+    for wf in .github/workflows/ci_*unit*test*.yml .github/workflows/*.yml .circleci/config.yml; do
+        [ -f "$wf" ] || continue
+        CI_MINIO_IMAGE=$(grep -E "image:.*minio" "$wf" | head -1 | sed 's/.*image:[[:space:]]*//')
+        if [ -n "$CI_MINIO_IMAGE" ]; then
+            break
+        fi
+    done
+    MINIO_IMAGE="${CI_MINIO_IMAGE:-lazybit/minio}"
+    print_header 4 "Using CI-pinned MinIO image: $MINIO_IMAGE"
+
     docker run -d --name uwazi-minio -p 9000:9000 \
         -e MINIO_ROOT_USER=minioadmin \
         -e MINIO_ROOT_PASSWORD=minioadmin \
-        minio/minio server /data --console-address :9001
+        "$MINIO_IMAGE" server /data --console-address :9001
     print_header 4 "Waiting for MinIO on localhost:9000 (up to 120s)"
     MINIO_READY=false
     for i in $(seq 1 60); do
@@ -278,15 +307,29 @@ print_header 3 "Starting Redis"
 # The downloadRedis jest global setup (Oct 2021 – Sep 2022 era) compiles
 # redis-stable from source and aborts the whole run when that make fails
 # (flaky).  Drop a redis-server binary where it expects it so it early-returns.
-if [ -f app/api/utils/downloadRedis.js ]; then
-    print_header 4 "downloadRedis era — dropping redis-server binary for the global setup, no global daemon"
-    mkdir -p redis-bin/redis-stable/src
+if [ -f app/api/utils/downloadRedis.js ] \
+   || [ -f app/api/tasksmanager/RedisServer.ts ] \
+   || [ -f app/api/services/tasksmanager/RedisServer.ts ]; then
+    print_header 4 "RedisServer / downloadRedis era — dropping redis-server binary for tests, no global daemon"
+    mkdir -p redis-bin/redis-stable/src redis/redis-stable/src
     cp "$(command -v redis-server)" redis-bin/redis-stable/src/redis-server
+    cp "$(command -v redis-server)" redis/redis-stable/src/redis-server
+    # RedisServer.ts and downloadRedis.js resolve their binary as
+    # path.join(__dirname, 'redis-bin/redis-stable/src/redis-server') — relative
+    # to the helper's own directory, NOT the repo root.  Mirror the binary next
+    # to every such helper present at this commit so downloadRedis() early-returns
+    # instead of downloading and compiling redis-stable from source (which fails
+    # with "jemalloc/jemalloc.h: No such file or directory" when pkg-config is
+    # absent from the image).
+    while IFS= read -r helper; do
+        helper_dir=$(dirname "$helper")
+        mkdir -p "$helper_dir/redis-bin/redis-stable/src"
+        cp "$(command -v redis-server)" "$helper_dir/redis-bin/redis-stable/src/redis-server"
+    done < <(find app -type f \( -name 'RedisServer.ts' -o -name 'downloadRedis.js' \) -not -path '*/node_modules/*')
     # This era's tests manage their own redis instances (RedisServer spawns
-    # redis-bin/redis-stable/src/redis-server --port <p> and asserts on
-    # "unavailable -> comes back").  A pre-bound daemon on 6379 breaks that
-    # control, so we deliberately do NOT start one here — same as the project's
-    # own CI, which ran no redis service in this era.
+    # redis-server --port <p> and asserts on "unavailable -> comes back").
+    # A pre-bound daemon on 6379 breaks that control, so we deliberately do NOT
+    # start one here — same as the project's own CI, which ran no redis service in this era.
 else
     # Later eras connect to config.redis (localhost:6379) directly; their CI
     # provisioned a redis service container.  A local daemon is our equivalent.
@@ -318,6 +361,16 @@ print_header 4 "Redis started"
 # --forceExit makes Jest terminate even if a suite
 # leaves open handles (ES/mongo/redis connections) so the lcov report is
 # written instead of the run hitting the 90-minute timeout.
+
+# In Jest 24.8.0, CLI --testTimeout is ignored (introduced in 24.9.0), defaulting to 5000 ms.
+# Configure the 60s default timeout via the project's setup files exclusively for the Jest 24 era.
+if grep -q '"jest":.*"24\.' package.json; then
+    for setup_file in app/setUpJestServer.js app/setUpJestClient.js; do
+        if [ -f "$setup_file" ] && ! grep -q "jest.setTimeout" "$setup_file"; then
+            printf "\nif (typeof jest !== 'undefined') {\n  jest.setTimeout(60000);\n}\n" >> "$setup_file"
+        fi
+    done
+fi
 
 suite_start "unit" "Running unit/integration tests with Jest coverage"
 

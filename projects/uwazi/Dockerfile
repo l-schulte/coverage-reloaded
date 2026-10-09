@@ -20,11 +20,9 @@ WORKDIR /coverage_reloaded
 #
 # docker.io provides dockerd/docker so install-and-run.sh can run Elasticsearch
 # in a nested container (via docker-run.sh's --privileged).
-RUN apt-get update && apt-get install -y gnupg --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/* \
-    && curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc \
-       | gpg --dearmor -o /usr/share/keyrings/mongodb-server-7.0.gpg \
-    && echo "deb [ signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] http://repo.mongodb.org/apt/debian bullseye/mongodb-org/7.0 main" \
+# MongoDB 7.0 APT repository configured with [trusted=yes], mirroring bhima.
+# Avoids gnupg (whose pre-dependencies conflict with bullseye archive gpgv).
+RUN echo "deb [trusted=yes] http://repo.mongodb.org/apt/debian bullseye/mongodb-org/7.0 main" \
        > /etc/apt/sources.list.d/mongodb-org-7.0.list \
     && apt-get update && apt-get install -y \
       mongodb-org \
@@ -33,6 +31,7 @@ RUN apt-get update && apt-get install -y gnupg --no-install-recommends \
       libpng-dev \
       poppler-utils \
       libjpeg-dev \
+      ghostscript \
       docker.io \
       --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
