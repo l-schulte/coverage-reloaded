@@ -70,7 +70,7 @@ dates live in the per-project Results sections, sourced from
 | [matrix-js-sdk](projects/matrix-js-sdk/OVERVIEW.md) | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 | [moodleapp](projects/moodleapp/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 | [n8n](projects/n8n/OVERVIEW.md)                     | ✅       | ✅                         | 🟡           | ❌                          | ❌                              |
-| [opencrvs-core](projects/opencrvs-core/OVERVIEW.md) | ✅       | ✅                         | ✅           | ❌                          | ❌                              |
+| [opencrvs-core](projects/opencrvs-core/OVERVIEW.md) | ✅       | ✅                         | 🟡           | ❌                          | ❌                              |
 | [openneuro](projects/openneuro/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 | [pf2e](projects/pf2e/OVERVIEW.md)                   | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 | [rxdb](projects/rxdb/OVERVIEW.md)                   | ✅       | ✅                         | ✅           | ✅                          | ❌                              |
@@ -80,7 +80,7 @@ dates live in the per-project Results sections, sourced from
 | [uwazi](projects/uwazi/OVERVIEW.md)                 | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 | [vega-lite](projects/vega-lite/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 | [wowanalyzer](projects/wowanalyzer/OVERVIEW.md)     | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| [yari](projects/yari/OVERVIEW.md)                   | ✅       | ✅                         | ✅           | 🚧                          | ❌                              |
+| [yari](projects/yari/OVERVIEW.md)                   | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 
 ## Cross-cutting infrastructure
 
@@ -99,6 +99,45 @@ dates live in the per-project Results sections, sourced from
   and collapse `problematic`/`unclear` rows into error families.
 - **`check_failures_jev.py`** evaluates non-zero-exit runs using the automated System 1
   model (Jev) into `failure_labels_jev.csv` for independent auditing and work-order generation.
+
+## Host system prerequisites
+
+Settings on the **host machine**, outside this repository and its containers. Unlike the
+per-project fixes, these are not project- or container-scoped: they apply to every user
+and every container on the shared host and must therefore be applied and reverted
+deliberately.
+
+### `fs.aio-max-nr` async-I/O budget (temporarily raised, 2026-10-09)
+
+`fs.aio-max-nr` is the host-wide ceiling on Linux native asynchronous-I/O events
+allocated by `io_setup()`; `fs.aio-nr` is the number currently reserved. `io_setup()`
+returns `EAGAIN` once `aio-nr` reaches `aio-max-nr` (kernel
+`Documentation/sysctl/fs.txt`; `io_setup(2)`). The budget is **global and not
+namespaced**, so all containers and all users on the host share it.
+
+Several project database containers (MySQL/MariaDB InnoDB, SQL Server) allocate a
+native-AIO context at startup. On this 256-CPU host each instance reserves **17 408
+events** (≈68 I/O threads × 256), measured directly. With the kernel default
+`fs.aio-max-nr = 65536` and ~26 688 events already held by long-lived services, only ~2
+concurrent database instances fit; a third `io_setup()` fails, the engine aborts at boot
+(`InnoDB: io_setup() failed with EAGAIN`; SQL Server `Unable to create a new
+asynchronous I/O context`), the container exits, and its health check can never pass —
+recorded as a hard error.
+
+- **Applied:** `sudo sysctl -w fs.aio-max-nr=1048576` (65536 → 1048576; ≈58 concurrent
+  database instances). Runtime only; not persisted under `/etc/sysctl.d/`, so a reboot
+  restores 65536.
+- **Revert** once collection on the affected projects is finished:
+  `sudo sysctl -w fs.aio-max-nr=65536` (or reboot).
+- **Scope:** host-wide and shared with all other users and containers on the machine.
+- **No container-level alternative:** Podman cannot bound this value — it is not
+  namespaced (not settable with `--sysctl`), `--cpuset-cpus` is unavailable under
+  rootless Podman here, and SQL Server ignores the CPU set regardless because it reads
+  the un-namespaced `/proc/cpuinfo` (cf. Red Hat BZ 1985491). `lxcfs` is not installed.
+- **Complementary in-repo mitigation (mysql/mariadb only):** `install-and-run.sh`
+  injects `--innodb-use-native-aio=0` into each mysql/mariadb compose service so those
+  engines no longer call `io_setup()`. This lowers the pressure but does not cover SQL
+  Server, so it cannot replace the host limit.
 
 ## Maintenance
 

@@ -1,0 +1,26 @@
+project,run_id,suite,exit_code,line_number,fingerprint,occurrences,keyword,is_pipeline_issue,confidence,env_subsystem,labeled_at
+yari,1609975735_5acdf23a8416e186122d1dca9050e824ad7eb228,kumascript,1,361,4f09f8c7bffa11fa,1,"  ● test ""spec2"" › WD (ja)",False,0.9000,none,2026-10-11T10:13:43.478906+00:00
+yari,1609483050_52d074efa1b5ff695065b5126b08c2dd69a2cc2f,kumascript,1,332,9ab33b0d658a8d5a,8,  ● testing the main render() function › non-fatal errors in macros are returned by render(),False,0.8500,none,2026-10-11T10:13:43.483250+00:00
+yari,1618264729_58703215106f34fb0c7c54b49de0498cda3e20b0,kumascript,1,331,6df8fc457aa91749,2,"  ● test ""svginfo"" › Test explicit slug (param: defs)",False,0.9100,none,2026-10-11T10:13:43.572135+00:00
+yari,1618264729_58703215106f34fb0c7c54b49de0498cda3e20b0,kumascript,1,348,56f3842723ca9108,2,"  ● test ""svginfo"" › Test implicit non English slug (no param, slug: /zh-CN/docs/Web/SVG/Element/defs)",False,0.9100,none,2026-10-11T10:13:43.644552+00:00
+yari,1647426282_8ea9eb3cd8b2b70bcc675400a7345ce343ac3e3b,client,1,274,911e946d07050d7b,3,  ● Test suite failed to run,False,0.7100,runner_env_config,2026-10-11T10:13:43.944111+00:00
+yari,1652094887_2738231976373d8bc95ccf13a583fe9e520c3393,client,1,276,f84d08221cc609ab,6,  ● test viewing a simple document › render document without props should not crash,False,0.8700,none,2026-10-11T10:13:43.945509+00:00
+yari,1652200134_22ac51b7d4f7929307b7ddacbfdbf43d3bc64dbf,kumascript,1,350,84752c010d193a77,3,"  ● test ""Draft"" › No arguments (en-US)",False,0.7500,none,2026-10-11T10:13:44.016253+00:00
+yari,1652200134_22ac51b7d4f7929307b7ddacbfdbf43d3bc64dbf,kumascript,1,378,a25ec6e1134df67f,3,"  ● test ""Draft"" › No arguments (es)",False,0.7400,none,2026-10-11T10:13:44.214095+00:00
+yari,1652200134_22ac51b7d4f7929307b7ddacbfdbf43d3bc64dbf,kumascript,1,406,b5ad91dc7e475754,3,"  ● test ""Draft"" › No arguments (fr)",False,0.7100,none,2026-10-11T10:13:44.335866+00:00
+yari,1652200134_22ac51b7d4f7929307b7ddacbfdbf43d3bc64dbf,kumascript,1,434,e4d849f2a77e3def,3,"  ● test ""Draft"" › No arguments (ja)",False,0.7500,none,2026-10-11T10:13:44.501177+00:00
+yari,1652200134_22ac51b7d4f7929307b7ddacbfdbf43d3bc64dbf,kumascript,1,462,f6fd452648a445c9,3,"  ● test ""Draft"" › No arguments (ko)",False,0.7500,none,2026-10-11T10:13:44.698955+00:00
+yari,1652200134_22ac51b7d4f7929307b7ddacbfdbf43d3bc64dbf,kumascript,1,490,1b41becbb8bd012d,3,"  ● test ""Draft"" › No arguments (pl)",False,0.7000,none,2026-10-11T10:13:44.800849+00:00
+yari,1652200134_22ac51b7d4f7929307b7ddacbfdbf43d3bc64dbf,kumascript,1,518,0f262647832fa69a,3,"  ● test ""Draft"" › No arguments (zh-CN)",False,0.7400,none,2026-10-11T10:13:45.073759+00:00
+yari,1652200134_22ac51b7d4f7929307b7ddacbfdbf43d3bc64dbf,kumascript,1,546,8d26a576ed55e390,3,"  ● test ""Draft"" › No arguments (zh-TW)",False,0.7300,none,2026-10-11T10:13:45.081881+00:00
+yari,1652200134_22ac51b7d4f7929307b7ddacbfdbf43d3bc64dbf,kumascript,1,574,9c1cd379cc996639,3,"  ● test ""Draft"" › No arguments (pt-PT)",False,0.7100,none,2026-10-11T10:13:45.244114+00:00
+yari,1652200134_22ac51b7d4f7929307b7ddacbfdbf43d3bc64dbf,kumascript,1,602,4fffd3838ea70b0a,3,"  ● test ""Draft"" › No arguments (pt-BR)",False,0.7100,none,2026-10-11T10:13:45.374946+00:00
+yari,1652200134_22ac51b7d4f7929307b7ddacbfdbf43d3bc64dbf,kumascript,1,630,0eef36fd3446ce34,3,"  ● test ""Draft"" › No arguments (ru)",False,0.7300,none,2026-10-11T10:13:45.586591+00:00
+yari,1652200134_22ac51b7d4f7929307b7ddacbfdbf43d3bc64dbf,kumascript,1,658,02afe8b9216eab6d,3,"  ● test ""Draft"" › One argument (en-US)",False,0.7300,none,2026-10-11T10:13:45.733574+00:00
+yari,1652200134_22ac51b7d4f7929307b7ddacbfdbf43d3bc64dbf,kumascript,1,686,10390181f183bf02,3,"  ● test ""Draft"" › One argument with embedded user profile in the middle (escattone) (en-US)",False,0.7000,none,2026-10-11T10:13:45.844856+00:00
+yari,1652200134_22ac51b7d4f7929307b7ddacbfdbf43d3bc64dbf,kumascript,1,714,6726075cc91f9690,3,"  ● test ""Draft"" › One argument with embedded user profile at the end (stephaniehobson) (en-US)",False,0.7300,none,2026-10-11T10:13:45.959290+00:00
+yari,1652200134_22ac51b7d4f7929307b7ddacbfdbf43d3bc64dbf,kumascript,1,742,3b524195c5add404,3,"  ● test ""Draft"" › One argument with embedded user profile at the end (ExE-Boss) (en-US)",False,0.7400,none,2026-10-11T10:13:46.134217+00:00
+yari,1661164963_657d56e547ff33d934a73edcfdeea02de850064f,kumascript,1,555,d16f1f516203877b,1,"  ● test ""Deprecated_Inline"" › ""semver"" string only (en-US)",False,0.8900,none,2026-10-11T10:13:46.298422+00:00
+yari,1661164963_657d56e547ff33d934a73edcfdeea02de850064f,kumascript,1,572,6c6de6940192128d,1,"  ● test ""Deprecated_Inline"" › Numeric version only (en-US)",False,0.8800,none,2026-10-11T10:13:46.436620+00:00
+yari,1661164963_657d56e547ff33d934a73edcfdeea02de850064f,kumascript,1,589,87ee029bf6e95b5f,1,"  ● test ""Deprecated_Inline"" › Gecko-prefixed version (en-US)",False,0.8900,none,2026-10-11T10:13:46.596366+00:00
+yari,1677262658_fa51c20f45e556334905f3d91e8e7e32b1cc976c,client,1,608,436382ce3adf3601,153,  ● test viewing a simple document › render document with props should not crash,False,0.6300,none,2026-10-11T10:13:46.734130+00:00

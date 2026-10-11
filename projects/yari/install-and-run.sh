@@ -1,6 +1,21 @@
 #!/bin/bash
 
 source /coverage_reloaded/logging.sh
+source /coverage_reloaded/resolve-and-pin.sh
+
+# Skip browser binary downloads during install (e2e suites are excluded)
+export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+export PUPPETEER_SKIP_DOWNLOAD=true
+export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+
+# Stabilize DNS lookups for binary downloads and package mirrors
+resolve_and_pin "api.github.com"
+resolve_and_pin "github.com"
+resolve_and_pin "release-assets.githubusercontent.com"
+resolve_and_pin "objects.githubusercontent.com"
+resolve_and_pin "codeload.github.com"
+resolve_and_pin "registry.npmmirror.com"
+resolve_and_pin "cdn.npmmirror.com"
 
 set -e
 
@@ -89,47 +104,6 @@ print_header 2 "Installing dependencies"
 
 yarn install --no-fund
 
-print_header 2 "Preparing build (if applicable)"
-
-if [ -f ".env.testing" ]; then
-    export ENV_FILE=.env.testing
-else
-    export ENV_FILE=testing/.env
-fi
-
-HAS_BUILD_PREPARE_SCRIPT=$(jq -r '.scripts["build:prepare"] // empty' package.json 2>/dev/null)
-HAS_PREPARE_BUILD_SCRIPT=$(jq -r '.scripts["prepare-build"] // empty' package.json 2>/dev/null)
-HAS_BUILD_LEGACY_PREPARE_SCRIPT=$(jq -r '.scripts["build:legacy:prepare"] // empty' package.json 2>/dev/null)
-DID_BUILD=false
-if [ "$HAS_BUILD_PREPARE_SCRIPT" ]; then
-    print_header 3 "Running yarn build:prepare" "$HAS_BUILD_PREPARE_SCRIPT"
-    yarn build:prepare
-    DID_BUILD=true
-fi
-if [ "$HAS_PREPARE_BUILD_SCRIPT" ]; then
-    print_header 3 "Running yarn prepare-build" "$HAS_PREPARE_BUILD_SCRIPT"
-    yarn prepare-build
-    DID_BUILD=true
-fi
-if [ "$HAS_BUILD_LEGACY_PREPARE_SCRIPT" ]; then
-    print_header 3 "Running yarn build:legacy:prepare" "$HAS_BUILD_LEGACY_PREPARE_SCRIPT"
-    yarn build:legacy:prepare
-    DID_BUILD=true
-fi
-
-if [ "$DID_BUILD" = "false" ]; then
-    print_header 4 "No build preparation scripts found, skipping build"
-fi
-
-print_header 2 "Building"
-
-BUILD_SCRIPT=$(jq -r '.scripts["build"] // empty' package.json 2>/dev/null)
-if [ "$BUILD_SCRIPT" != "" ]; then
-    print_header 3 "Running yarn build" "$BUILD_SCRIPT"
-    yarn build | tail -n 20
-else
-    print_header 4 "No build script found, skipping build"
-fi
 
 set -uo pipefail
 
@@ -194,14 +168,30 @@ if has_workspace "client" && workspace_has_script "client" "test"; then
     fi
 fi
 
-# --- test:client (later era, node scripts/test.js) ---
-if has_script "package.json" "test:client" && [ -f client/scripts/test.js ]; then
-    run_suite "client" "cd client && NODE_ENV=test BABEL_ENV=test node scripts/test.js \
-        --env=jsdom \
-        --no-bail \
-        --coverage \
-        --coverageReporters=lcov \
-        --watchAll=false"
+# --- test:client (unified package era & ejected era) ---
+if has_script "package.json" "test:client"; then
+    if [ -f client/scripts/test.js ]; then
+        run_suite "client" "cd client && NODE_ENV=test BABEL_ENV=test node scripts/test.js \
+            --env=jsdom \
+            --no-bail \
+            --coverage \
+            --coverageReporters=lcov \
+            --watchAll=false"
+    else
+        if [ -x "$REPO_ROOT/client/node_modules/.bin/react-scripts" ]; then
+            REACT_SCRIPTS="$REPO_ROOT/client/node_modules/.bin/react-scripts"
+        elif [ -x "$REPO_ROOT/node_modules/.bin/react-scripts" ]; then
+            REACT_SCRIPTS="$REPO_ROOT/node_modules/.bin/react-scripts"
+        else
+            REACT_SCRIPTS="react-scripts"
+        fi
+        run_suite "client" "cd client && $REACT_SCRIPTS test \
+            --env=jsdom \
+            --no-bail \
+            --coverage \
+            --coverageReporters=lcov \
+            --watchAll=false"
+    fi
 fi
 
 # --- test:kumascript ---
@@ -209,6 +199,7 @@ if has_script "package.json" "test:kumascript"; then
     run_suite "kumascript" "yarn jest --rootDir kumascript \
         --env=node \
         --no-bail \
+        --testTimeout=60000 \
         --coverage \
         --coverageReporters=lcov"
 fi
@@ -218,6 +209,7 @@ if has_script "package.json" "test:libs"; then
     run_suite "libs" "yarn jest --rootDir libs \
         --env=node \
         --no-bail \
+        --testTimeout=60000 \
         --coverage \
         --coverageReporters=lcov"
 fi
@@ -226,6 +218,7 @@ fi
 if has_script "package.json" "test:build"; then
     run_suite "build" "yarn jest --rootDir build \
         --no-bail \
+        --testTimeout=60000 \
         --coverage \
         --coverageReporters=lcov"
 fi
@@ -234,6 +227,7 @@ fi
 if has_script "package.json" "test:content"; then
     run_suite "content" "yarn jest --rootDir content \
         --no-bail \
+        --testTimeout=60000 \
         --coverage \
         --coverageReporters=lcov"
 fi

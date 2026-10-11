@@ -1,0 +1,61 @@
+{
+  "general": {
+    "patterns": [
+      "\u25cf",
+      "\\bAssertionError"
+    ],
+    "exclude": [
+      "\u25cf\\s*Console",
+      "Test Suites:",
+      "Tests:",
+      "Snapshots:",
+      "Ran all test suites",
+      "console\\.",
+      "^\\s+at\\s"
+    ]
+  },
+  "auto_classify": [
+    {
+      "match": "\\\nexpect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality\\\n\\\nExpected:\\ StringContaining\\ \"\\{\\{nonExistentMacro\\(\\&quot;yada\\&quot;\\)\\}\\}\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "83ad7cdd4087"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality\\\n\\\nExpected:\\ \"<",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "f9d7860bcf01"
+    },
+    {
+      "match": "\\\nreact\\-modal:\\ No\\ elements\\ were\\ found\\ for\\ selector\\ \\#root\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c9912f413cfb"
+    },
+    {
+      "match": "\\\nUnable\\ to\\ find\\ an\\ element\\ with\\ the\\ text:\\ /Hello\\ World!/\\.\\ This\\ could\\ be\\ because\\ the\\ text\\ is\\ broken\\ up\\ by\\ multiple\\ elements\\.\\ In\\ this\\ case,\\ you\\ can\\ provide\\ a\\ function\\ for\\ your\\ text\\ matcher\\ to\\ make\\ your\\ matcher\\ more\\ flexible\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "2545c0f9dccf"
+    },
+    {
+      "match": "\\\nTypeError:\\ kumascript/macros/Draft\\.ejs:1",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "524db8cea427"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 5000\\ ms\\ for\\ a\\ testfalse\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "fec07f2a1e09"
+    }
+  ]
+}
