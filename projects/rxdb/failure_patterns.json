@@ -1,0 +1,605 @@
+{
+    "general": {
+        "patterns": [
+            "\\bAssertionError\\b",
+            "\\bError:",
+            "\\bRxError\\b",
+            "\\b[A-Z][A-Za-z0-9_]*Error:"
+        ],
+        "exclude": [
+            "^\\s*at\\s+",
+            "^\\s*\\+",
+            "^\\s*-",
+            "^\\s*console\\.",
+            "Test Suites:",
+            "Tests:",
+            "Snapshots:",
+            "Ran all test suites",
+            "\u25cf\\s*Console"
+        ]
+    },
+    "suites": {},
+    "auto_classify": [
+        {
+            "match": "\\+\\ actual\\ \\-\\ expected\\ \\.\\.\\.\\ Lines\\ skipped\\\n\\\n\\[\\\n'3x6x7d5qqp4z',",
+            "label": "acceptable",
+            "note": "",
+            "lines": 4,
+            "id": "241232db0115"
+        },
+        {
+            "match": "\\\n\\d+\\ !==\\ \\d+",
+            "label": "acceptable",
+            "note": "",
+            "lines": 2,
+            "id": "84b670611abb"
+        },
+        {
+            "match": "Error:\\ no\\ all\\ storage\\ instances\\ have\\ been\\ closed",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "53f42abebc25"
+        },
+        {
+            "match": "ReferenceError:\\ randomToken\\ is\\ not\\ defined",
+            "label": "reevaluated_acceptable",
+            "note": "Genuine 3-commit author regression (Nov 2021): removed randomToken import but missed token property on RxDatabaseBase. Fixed in commit 3b33a7c77.",
+            "lines": 0,
+            "id": "d81734fd4b35"
+        },
+        {
+            "match": "Error:\\ Timeout\\ of\\ 10000ms\\ exceeded\\.\\ For\\ async\\ tests\\ and\\ hooks,\\ ensure\\ \"done\\(\\)\"\\ is\\ called;\\ if\\ returning\\ a\\ Promise,\\ ensure\\ it\\ resolves\\.",
+            "label": "problematic",
+            "note": "Timeout due to compute constraints under c8 AST instrumentation; flagged for re-run with container_cpus=16",
+            "lines": 0,
+            "id": "115b595dee01"
+        },
+        {
+            "match": "Error:\\ Timeout\\ of\\ 60000ms\\ exceeded\\.\\ For\\ async\\ tests\\ and\\ hooks,\\ ensure\\ \"done\\(\\)\"\\ is\\ called;\\ if\\ returning\\ a\\ Promise,\\ ensure\\ it\\ resolves\\.",
+            "label": "problematic",
+            "note": "Timeout due to compute constraints under c8 AST instrumentation; flagged for re-run with container_cpus=16",
+            "lines": 0,
+            "id": "d5c90b4d8add"
+        },
+        {
+            "match": "\\+\\ actual\\ \\-\\ expected\\\n\\\n\\+\\ '.*'\\\n\\-\\ '.*'",
+            "label": "acceptable",
+            "note": "",
+            "lines": 4,
+            "id": "36182d47d7a0"
+        },
+        {
+            "match": "\\+\\ expected\\ \\-\\ actual\\\n\\\n\\-false\\\n\\+true",
+            "label": "acceptable",
+            "note": "",
+            "lines": 4,
+            "id": "dc14e9ad9b85"
+        },
+        {
+            "match": "Error:\\ Timeout\\ of\\ 5000ms\\ exceeded\\.\\ For\\ async\\ tests\\ and\\ hooks,\\ ensure\\ \"done\\(\\)\"\\ is\\ called;\\ if\\ returning\\ a\\ Promise,\\ ensure\\ it\\ resolves\\.\\ \\(test_tmp/unit\\.test\\.js\\)",
+            "label": "problematic",
+            "note": "Timeout due to compute constraints under c8 AST instrumentation; flagged for re-run with container_cpus=16",
+            "lines": 0,
+            "id": "a29bee420b70"
+        },
+        {
+            "match": "Error:\\ Timeout\\ of\\ 12000ms\\ exceeded\\.\\ For\\ async\\ tests\\ and\\ hooks,\\ ensure\\ \"done\\(\\)\"\\ is\\ called;\\ if\\ returning\\ a\\ Promise,\\ ensure\\ it\\ resolves\\.\\ \\(test_tmp/unit\\.test\\.js\\)",
+            "label": "problematic",
+            "note": "Timeout due to compute constraints under c8 AST instrumentation; flagged for re-run with container_cpus=16",
+            "lines": 0,
+            "id": "0fe8599b5e08"
+        },
+        {
+            "match": "TypeError:\\ storageInstance\\..*\\ is\\ not\\ a\\ function",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "94769751b889"
+        },
+        {
+            "match": "Error:\\ not\\ implemented",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "7b18d36762a9"
+        },
+        {
+            "match": "TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'getMany'\\)",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "93261bd2e831"
+        },
+        {
+            "match": "TypeError:\\ dexieDb\\..*\\ is\\ not\\ a\\ function",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "ae2e30cfa9ac"
+        },
+        {
+            "match": "Error:\\ lastDoc\\ \\(.*\\)\\ was\\ in\\ previous\\ results",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "92c151b630f2"
+        },
+        {
+            "match": "RxReplicationPushError:\\ GraphQL\\ replication:\\ unknown\\ errors\\ occurred\\ in\\ replication\\ push\\ \\-\\ see\\ innerErrors\\ for\\ more\\ details",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "f61e7adce1a9"
+        },
+        {
+            "match": "TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ '.*'\\)",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "f8187c652a35"
+        },
+        {
+            "match": "TypeError:\\ instance\\.findDocumentsById\\ is\\ not\\ a\\ function",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "902a9159844d"
+        },
+        {
+            "match": "TypeError:\\ _config\\.default\\.storage\\.getStorage\\(\\.\\.\\.\\)\\.createKeyObjectStorageInstance\\ is\\ not\\ a\\ function",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "0d0a14f48208"
+        },
+        {
+            "match": "Error:\\ could\\ not\\ run\\ validate\\-z\\-schema\\.node\\.js\\.",
+            "label": "problematic",
+            "note": "Subprocess mocha test runner failure co-occurring with timeouts; flagged for re-run",
+            "lines": 0,
+            "id": "e83fdd24ffa9"
+        },
+        {
+            "match": "Error:\\ Timeout\\ of\\ 2000ms\\ exceeded\\.\\ For\\ async\\ tests\\ and\\ hooks,\\ ensure\\ \"done\\(\\)\"\\ is\\ called;\\ if\\ returning\\ a\\ Promise,\\ ensure\\ it\\ resolves\\.\\ \\(test_tmp/unit/validate\\-z\\-schema\\.node\\.js\\)",
+            "label": "problematic",
+            "note": "Timeout due to compute constraints under c8 AST instrumentation; flagged for re-run with container_cpus=16",
+            "lines": 0,
+            "id": "36438d668694"
+        },
+        {
+            "match": "TypeError:\\ \\(0\\ ,\\ _rxStorageHelper\\.getWrappedKeyObjectInstance\\)\\ is\\ not\\ a\\ function",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "4ca82b1d5a9f"
+        },
+        {
+            "match": "SyntaxError:\\ test_tmp/_backups/4/.*/document\\.json:\\ Unexpected\\ end\\ of\\ JSON\\ input",
+            "label": "problematic",
+            "note": "Race condition in backup.test.ts requiring document.json before write finished; fixed in 46f36368b",
+            "lines": 0,
+            "id": "c8f563342751"
+        },
+        {
+            "match": "RxError\\ \\(DB9\\):\\ RxError\\ \\(DB9\\):",
+            "label": "problematic",
+            "note": "Co-occurred with 60s timeout under 6 CPUs; flagged for re-run with container_cpus=16",
+            "lines": 0,
+            "id": "35fb3e0e6286"
+        },
+        {
+            "match": "RxError\\ \\(DB10\\):\\ RxError\\ \\(DB10\\):",
+            "label": "problematic",
+            "note": "Co-occurred with 60s timeout under 6 CPUs; flagged for re-run with container_cpus=16",
+            "lines": 0,
+            "id": "b8ffca719076"
+        },
+        {
+            "match": "RxError\\ \\(QU13\\):\\ RxError\\ \\(QU13\\):",
+            "label": "reevaluated_acceptable",
+            "note": "Upstream strict schema query check in ce855c6e3 breaking old test. Fixed in c3e71b0cd.",
+            "lines": 0,
+            "id": "8a336a07c838"
+        },
+        {
+            "match": "'\\ \\ \\ \\ \\ Error:\\ Timeout\\ of\\ 2000ms\\ exceeded\\.\\ For\\ async\\ tests\\ and\\ hooks,\\ ensure\\ \"done\\(\\)\"\\ is\\ called;\\ if\\ returning\\ a\\ Promise,\\ ensure\\ it\\ resolves\\.",
+            "label": "problematic",
+            "note": "Timeout due to compute constraints under c8 AST instrumentation; flagged for re-run with container_cpus=16",
+            "lines": 0,
+            "id": "e1464d30d408"
+        },
+        {
+            "match": "Error:\\ could\\ not\\ run\\ Core\\.node\\.js\\.",
+            "label": "problematic",
+            "note": "Subprocess core test runner failure co-occurring with timeouts; flagged for re-run",
+            "lines": 0,
+            "id": "e654a0029d1a"
+        },
+        {
+            "match": "Error:\\ Timeout\\ of\\ 2000ms\\ exceeded\\.\\ For\\ async\\ tests\\ and\\ hooks,\\ ensure\\ \"done\\(\\)\"\\ is\\ called;\\ if\\ returning\\ a\\ Promise,\\ ensure\\ it\\ resolves\\.\\ \\(test_tmp/unit/core\\.node\\.js\\)",
+            "label": "problematic",
+            "note": "Timeout due to compute constraints under c8 AST instrumentation; flagged for re-run with container_cpus=16",
+            "lines": 0,
+            "id": "f783e47581d9"
+        },
+        {
+            "match": "at\\ ensureNotRemoved\\ \\(src/plugins/memory/memory\\-helper\\.ts:27:15\\)",
+            "label": "problematic",
+            "note": "Memory storage close error co-occurring with 10 timeouts; flagged for re-run",
+            "lines": 1,
+            "id": "ebba0c723744"
+        },
+        {
+            "match": "RxError\\ \\(QU10\\):\\ RxError\\ \\(QU10\\):",
+            "label": "unclear",
+            "note": "",
+            "lines": 0,
+            "id": "4e2e197e298a"
+        },
+        {
+            "match": "TypeError:\\ \\(0\\ ,\\ _\\.getIndexableString\\)\\ is\\ not\\ a\\ function",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "f6e503773d0f"
+        },
+        {
+            "match": "Error:\\ Cannot\\ find\\ module\\ 'test_tmp/_backups/4/czocbjgupvih/document\\.json'",
+            "label": "unclear",
+            "note": "",
+            "lines": 0,
+            "id": "23b0109fac10"
+        },
+        {
+            "match": "Error:\\ AsyncTestUtil\\.waitUntil\\(\\):\\ reached\\ timeout\\ of\\ \\d+",
+            "label": "problematic",
+            "note": "Timeout due to compute constraints under c8 AST instrumentation; flagged for re-run with container_cpus=16",
+            "lines": 0,
+            "id": "e5f878f3abde"
+        },
+        {
+            "match": "Error:\\ could\\ not\\ run\\ ajv\\-validate\\.node\\.js\\.",
+            "label": "unclear",
+            "note": "",
+            "lines": 0,
+            "id": "6cd2126aab84"
+        },
+        {
+            "match": "Error:\\ Timeout\\ of\\ 2000ms\\ exceeded\\.\\ For\\ async\\ tests\\ and\\ hooks,\\ ensure\\ \"done\\(\\)\"\\ is\\ called;\\ if\\ returning\\ a\\ Promise,\\ ensure\\ it\\ resolves\\.\\ \\(test_tmp/unit/ajv\\-validate\\.node\\.js\\)",
+            "label": "problematic",
+            "note": "Timeout due to compute constraints under c8 AST instrumentation; flagged for re-run with container_cpus=16",
+            "lines": 0,
+            "id": "0c7d6a246b27"
+        },
+        {
+            "match": "RxError\\ \\(RC_PUSH\\):\\ RxError\\ \\(RC_PUSH\\):",
+            "label": "problematic",
+            "note": "Co-occurred with 60s timeout under 6 CPUs; flagged for re-run with container_cpus=16",
+            "lines": 0,
+            "id": "b49985d82781"
+        },
+        {
+            "match": "RxError\\ \\(RC_PULL\\):\\ RxError\\ \\(RC_PULL\\):",
+            "label": "problematic",
+            "note": "Co-occurred with 60s timeout under 6 CPUs; flagged for re-run with container_cpus=16",
+            "lines": 0,
+            "id": "ef3bf515851c"
+        },
+        {
+            "match": "SyntaxError:\\ Unexpected\\ token\\ .*\\ in\\ JSON\\ at\\ position\\ \\d+",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "e7c4caa18f09"
+        },
+        {
+            "match": "Error:\\ no\\ all\\ PouchDB\\ storage\\ instances\\ have\\ been\\ closed\\ \\(open:\\ 31\\)",
+            "label": "unclear",
+            "note": "",
+            "lines": 0,
+            "id": "7eb7028873c4"
+        },
+        {
+            "match": "Error:\\ not\\ all\\ broadcast\\ channels\\ have\\ been\\ closed\\ \\(\\d+\\)",
+            "label": "problematic",
+            "note": "Channel teardown cascade failures; flagged for re-run with container_cpus=16",
+            "lines": 0,
+            "id": "f0927dc16443"
+        },
+        {
+            "match": "Error:\\ cors\\ headers\\ not\\ set:\\ \\{",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "ef78c596093c"
+        },
+        {
+            "match": "Error:\\ no\\ all\\ PouchDB\\ storage\\ instances\\ have\\ been\\ closed\\ \\(open:\\ 12\\)",
+            "label": "unclear",
+            "note": "",
+            "lines": 0,
+            "id": "260fa3de69a5"
+        },
+        {
+            "match": "RxError\\ \\(COL19\\):\\ RxError\\ \\(COL19\\):",
+            "label": "problematic",
+            "note": "Non-deterministic FoundationDB concurrency conflict flakiness under CPU limits; flagged for re-run with container_cpus=16",
+            "lines": 0,
+            "id": "1b90f0265b93"
+        },
+        {
+            "match": "Error:\\ the\\ object\\ \\{",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "f89300b64c78"
+        },
+        {
+            "match": "RxError\\ \\(SNH\\):\\ RxError\\ \\(SNH\\):",
+            "label": "reevaluated_acceptable",
+            "note": "Upstream SNH regression in 5ee44a439 (memory storage close after remove). Fixed in 62a38d9e2.",
+            "lines": 0,
+            "id": "ab0893e68afe"
+        },
+        {
+            "match": "Error:\\ RxStorageInstance.*\\ is\\ closed\\ .*\\-.*",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "789ac0bde3dd"
+        },
+        {
+            "match": "RxError\\ \\(DB6\\):\\ RxError\\ \\(DB6\\):",
+            "label": "reevaluated_acceptable",
+            "note": "Upstream database config error in revision refactoring commit (33f5466b2)",
+            "lines": 0,
+            "id": "a3d19b474034"
+        },
+        {
+            "match": "\\+\\ actual\\ \\-\\ expected\\ \\.\\.\\.\\ Lines\\ skipped",
+            "label": "acceptable",
+            "note": "",
+            "lines": 1,
+            "id": "145db2576ba0"
+        },
+        {
+            "match": "Error:\\ not\\ all\\ graphql\\ websockets\\ have\\ been\\ closed\\ \\(\\d+\\)",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "f8de67c7baf2"
+        },
+        {
+            "match": "\\+\\ actual\\ \\-\\ expected\\\n\\\n\\[",
+            "label": "acceptable",
+            "note": "",
+            "lines": 3,
+            "id": "abf559593472"
+        },
+        {
+            "match": "\\+\\ actual\\ \\-\\ expected\\\n\\\n\\{",
+            "label": "acceptable",
+            "note": "",
+            "lines": 3,
+            "id": "5676c9c75b1b"
+        },
+        {
+            "match": "\\\n'aaa'\\ !==\\ 'bbb'\\\n",
+            "label": "acceptable",
+            "note": "",
+            "lines": 3,
+            "id": "c70b6784835a"
+        },
+        {
+            "match": "Error:\\ createMultiInstance\\(\\)\\ cannot\\ be\\ called\\ on\\ a\\ storage\\ with\\ hasMultiInstance:false",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "00199d608489"
+        },
+        {
+            "match": "RxError\\ \\(P2\\):\\ RxError\\ \\(P2\\):",
+            "label": "reevaluated_acceptable",
+            "note": "Upstream regression in f7ea16e56 (bulkWrite refactor empty array). Fixed in 759bf9472.",
+            "lines": 0,
+            "id": "7cccbec4c0f6"
+        },
+        {
+            "match": "util\\.assertThrowsAsync\\(\\):\\ Error\\ does\\ not\\ contain",
+            "label": "acceptable",
+            "note": "",
+            "lines": 1,
+            "id": "6ad6cf3d2f44"
+        },
+        {
+            "match": "Error:\\ util\\.assertThrowsAsync\\(\\):\\ Missing\\ rejection\\ with\\ Error",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "9b68d9b4b21e"
+        },
+        {
+            "match": "RxError\\ \\(CONFLICT\\):\\ RxError\\ \\(CONFLICT\\):",
+            "label": "problematic",
+            "note": "Non-deterministic FoundationDB concurrency conflict flakiness under CPU limits; flagged for re-run with container_cpus=16",
+            "lines": 0,
+            "id": "f0810294f13a"
+        },
+        {
+            "match": "\\+\\ actual\\ \\-\\ expected\\\n\\\n\\+\\ \\{",
+            "label": "acceptable",
+            "note": "",
+            "lines": 3,
+            "id": "e04b1fa3ee21"
+        },
+        {
+            "match": "Error:\\ not\\ all\\ RemoteMessageChannels\\ have\\ been\\ closed\\ \\(\\d+\\)",
+            "label": "problematic",
+            "note": "Channel teardown cascade failures; flagged for re-run with container_cpus=16",
+            "lines": 0,
+            "id": "2a5b38494125"
+        },
+        {
+            "match": "Error:\\ already\\ closed",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "c4266c9a9135"
+        },
+        {
+            "match": "Error:\\ STATE\\ not\\ equal",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "5c9453e90a70"
+        },
+        {
+            "match": "Error:\\ ensureNotFalsy\\(\\)\\ is\\ falsy",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "ed0ea1590487"
+        },
+        {
+            "match": "RxError\\ \\(UT3\\):\\ RxError\\ \\(UT3\\):",
+            "label": "unclear",
+            "note": "",
+            "lines": 0,
+            "id": "e73555fbb6bb"
+        },
+        {
+            "match": "Error:\\ Timeout\\ of\\ 40000ms\\ exceeded\\.\\ For\\ async\\ tests\\ and\\ hooks,\\ ensure\\ \"done\\(\\)\"\\ is\\ called;\\ if\\ returning\\ a\\ Promise,\\ ensure\\ it\\ resolves\\.\\ \\(test_tmp/unit\\.test\\.js\\)",
+            "label": "problematic",
+            "note": "Timeout due to compute constraints under c8 AST instrumentation; flagged for re-run with container_cpus=16",
+            "lines": 0,
+            "id": "bc9ff85523f5"
+        },
+        {
+            "match": "\\+\\ actual\\ \\-\\ expected\\\n\\\n\\+\\ \\[",
+            "label": "acceptable",
+            "note": "",
+            "lines": 3,
+            "id": "815fb754ca47"
+        },
+        {
+            "match": "RxError\\ \\(DM4\\):\\ RxError\\ \\(DM4\\):",
+            "label": "unclear",
+            "note": "",
+            "lines": 0,
+            "id": "609e64a18813"
+        },
+        {
+            "match": "Error:\\ not\\ all\\ memory\\ instances\\ have\\ been\\ closed\\ \\(3\\ still\\ open\\)",
+            "label": "problematic",
+            "note": "Memory storage instance leak cascading from replication-protocol concurrency race",
+            "lines": 0,
+            "id": "764bd87b2a1b"
+        },
+        {
+            "match": "TypeError:\\ db\\.destroy\\ is\\ not\\ a\\ function",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "ddcce1d77bba"
+        },
+        {
+            "match": "ReferenceError:\\ randomCouchString\\ is\\ not\\ defined",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "67f4e63ba9d5"
+        },
+        {
+            "match": "TypeError:\\ c\\.database\\.destroy\\ is\\ not\\ a\\ function",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "4b2cc3cf042a"
+        },
+        {
+            "match": "RxError\\ \\(DM5\\):\\ RxError\\ \\(DM5\\):",
+            "label": "unclear",
+            "note": "",
+            "lines": 0,
+            "id": "8bf5998b4e9b"
+        },
+        {
+            "match": "RxError\\ \\(CONFLICT\\):",
+            "label": "problematic",
+            "note": "Non-deterministic FoundationDB concurrency conflict flakiness under CPU limits; flagged for re-run with container_cpus=16",
+            "lines": 0,
+            "id": "45a652729513"
+        },
+        {
+            "match": "Error:\\ Timeout\\ of\\ 20000ms\\ exceeded\\.\\ For\\ async\\ tests\\ and\\ hooks,\\ ensure\\ \"done\\(\\)\"\\ is\\ called;\\ if\\ returning\\ a\\ Promise,\\ ensure\\ it\\ resolves\\.\\ \\(test_tmp/unit\\.test\\.js\\)",
+            "label": "problematic",
+            "note": "Timeout due to compute constraints under c8 AST instrumentation; flagged for re-run with container_cpus=16",
+            "lines": 0,
+            "id": "57560520196f"
+        },
+        {
+            "match": "Error:\\ not\\ all\\ collections\\ have\\ been\\ closed\\ \\(2\\)",
+            "label": "unclear",
+            "note": "",
+            "lines": 0,
+            "id": "4d19e5b3c3a1"
+        },
+        {
+            "match": "Error:\\ not\\ all\\ collections\\ have\\ been\\ closed\\ \\(\\d+\\)",
+            "label": "acceptable",
+            "note": "",
+            "lines": 0,
+            "id": "18a03652f54f"
+        },
+        {
+            "match": "RxError\\ \\(COL23\\):",
+            "label": "unclear",
+            "note": "",
+            "lines": 0,
+            "id": "77d2c8ccf310"
+        },
+        {
+            "match": "RxError\\ \\(COL22\\):",
+            "label": "reevaluated_acceptable",
+            "note": "Upstream duplicate key bug in migration PR 6fcc00857. Fixed in df21fdcdb (#7104).",
+            "lines": 0,
+            "id": "a6951163394f"
+        },
+        {
+            "match": "Error:\\ Cannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./build/Release/node_datachannel\\.node'",
+            "label": "problematic",
+            "note": "",
+            "lines": 0,
+            "id": "8bf51c3fa8b8"
+        },
+        {
+            "match": "RxError\\ \\(COL20\\):",
+            "label": "unclear",
+            "note": "",
+            "lines": 0,
+            "id": "034c4d3b4777"
+        },
+        {
+            "match": "RxError\\ \\(DM5\\):",
+            "label": "reevaluated_acceptable",
+            "note": "Upstream data migration error in major 17.0.0-beta.1 release (b053774b1)",
+            "lines": 0,
+            "id": "24588270fdfc"
+        },
+        {
+            "match": "Error:\\ got\\ stderr:\\ \\(.*\\)\\ \\[MODULE_TYPELESS_PACKAGE_JSON\\]\\ Warning:\\ Module\\ type\\ of\\ .*\\ is\\ not\\ specified\\ and\\ it\\ doesn't\\ parse\\ as\\ CommonJS\\.",
+            "label": "problematic",
+            "note": "Node 22 MODULE_TYPELESS_PACKAGE_JSON warning emitted to stderr, breaking plugin.test.ts child-process stderr check. Fixed in install-and-run.sh via NODE_OPTIONS --disable-warning. 67 runs archived to projects/rxdb/archive/fix_node22_typeless_package_json.",
+            "lines": 0,
+            "id": "192e9867db40"
+        },
+        {
+            "match": "RequestError:\\ Error:\\ getaddrinfo\\ ENOTFOUND\\ docker\\-multi\\-cache",
+            "label": "problematic",
+            "note": "",
+            "lines": 0,
+            "id": "48534580f5dd"
+        }
+    ]
+}
