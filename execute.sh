@@ -122,6 +122,7 @@ resolve_and_pin "github.com"
 resolve_and_pin "yarnpkg.com"
 resolve_and_pin "repo.yarnpkg.com"
 resolve_and_pin "nodejs.org"
+resolve_and_pin "docker-multi-cache"
 
 print_header 2 "Setting up Package Managers"
 

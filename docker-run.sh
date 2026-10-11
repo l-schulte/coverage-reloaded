@@ -23,7 +23,6 @@ CONTAINER_NAME=core_node"$6"_"$PROJECT_TAG"
 CONTAINER_DIR=/coverage_reloaded
 
 ENV_CONFIG="--env-file .env --env revision=$3 --env timestamp=$4 --env package_manager=$5 --env project_id=$7"
-DNS_CONFIG="--dns 1.1.1.1 --dns 8.8.8.8"
 
 # The repo is served from an in-memory tmpfs (see execute.sh). Declared at
 # runtime because the container lacks CAP_SYS_ADMIN and cannot mount tmpfs
@@ -62,12 +61,12 @@ fi
 
 if [ "$2" = "shell" ]; then
     # Run an interactive container for testing, executes bash on start
-    $EXECUTOR run --rm -it --network mining-net --cap-add=NET_ADMIN $ENV_CONFIG $DNS_CONFIG $CPU_CONFIG $TMPFS_CONFIG $EXTRA_FLAGS -v "$(pwd)/projects/$1/output:$CONTAINER_DIR/coverage" --pids-limit 10000 $CONTAINER_NAME bash
+    $EXECUTOR run --rm -it --network mining-net --cap-add=NET_ADMIN $ENV_CONFIG $CPU_CONFIG $TMPFS_CONFIG $EXTRA_FLAGS -v "$(pwd)/projects/$1/output:$CONTAINER_DIR/coverage" --pids-limit 10000 $CONTAINER_NAME bash
 elif [ "$2" = "debug" ]; then
     # Run an interactive container for debugging, executes bash and mounts the debug folder
     mkdir -p projects/$1/debug
-    $EXECUTOR run --rm -it --network mining-net --cap-add=NET_ADMIN $ENV_CONFIG $DNS_CONFIG $CPU_CONFIG $TMPFS_CONFIG $EXTRA_FLAGS -v "$(pwd)/projects/$1/output:$CONTAINER_DIR/coverage" -v "$(pwd)/projects/$1/debug:$CONTAINER_DIR" --pids-limit 10000 $CONTAINER_NAME bash
+    $EXECUTOR run --rm -it --network mining-net --cap-add=NET_ADMIN $ENV_CONFIG $CPU_CONFIG $TMPFS_CONFIG $EXTRA_FLAGS -v "$(pwd)/projects/$1/output:$CONTAINER_DIR/coverage" -v "$(pwd)/projects/$1/debug:$CONTAINER_DIR" --pids-limit 10000 $CONTAINER_NAME bash
 elif [ "$2" = "exec" ]; then
     # Run the full process non-interactively
-    $EXECUTOR run --rm --network mining-net --cap-add=NET_ADMIN $ENV_CONFIG $DNS_CONFIG $CPU_CONFIG $TMPFS_CONFIG $EXTRA_FLAGS -v "$(pwd)/projects/$1/output:$CONTAINER_DIR/coverage" --pids-limit 10000 $CONTAINER_NAME bash execute.sh
+    $EXECUTOR run --rm --network mining-net --cap-add=NET_ADMIN $ENV_CONFIG $CPU_CONFIG $TMPFS_CONFIG $EXTRA_FLAGS -v "$(pwd)/projects/$1/output:$CONTAINER_DIR/coverage" --pids-limit 10000 $CONTAINER_NAME bash execute.sh
 fi
