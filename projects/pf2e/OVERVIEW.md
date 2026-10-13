@@ -12,6 +12,15 @@
   2020-04-22. From the earliest commits a `pretest` lint gate (`eslint`, later
   `npm run lint`) and a `posttest` betterer gate run around jest.
 
+## Development style
+
+- **PR merging strategy:** Transitioned (GitLab/CLI branch merges in 2021 → Squash and merge from mid-2022 onward).
+- **Merge convention:** `Merge branch '<branch>' into 'master'` (2021); `<Title> (#<PR>)` (2022–2025, >99.6% from 2023 onward).
+- **Direct commits:** Minimal (1.6% human direct commits, 296 commits).
+- **JS/TS code impact of direct commits:** Negligible — system version banners, release notes, and minor styling hotfixes.
+- **Issue tracking discipline:** High (community issues and PRs tracked on GitHub).
+- **Workflow notes:** Migrated from GitLab local/branch merge workflow to GitHub web interface in mid-2022, enforcing near-100% Squash & Merge thereafter.
+
 ## Coverage collection
 
 - **Suites collected:** `test`, with `--coverage` appended.

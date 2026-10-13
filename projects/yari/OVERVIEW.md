@@ -13,6 +13,15 @@
 - **Eras:** workspace-specific `test` scripts use either `jest` or
   `react-scripts test`; `test:testing` is jest-based but runs end-to-end tests.
 
+## Development style
+
+- **PR merging strategy:** Squash and merge (98.6% of first-parent commits).
+- **Merge convention:** Strict `<Title> (#<PR>)`.
+- **Direct commits:** Negligible (0.4% human direct commits, 33 commits).
+- **JS/TS code impact of direct commits:** Negligible — release reverts and search index generation script adjustments.
+- **Issue tracking discipline:** High (MDN content and platform changes are PR-reviewed and issue-linked).
+- **Workflow notes:** Overwhelmingly enforced Squash & Merge across the entire 5-year history.
+
 ## Coverage collection
 
 - **Suites collected:** workspace `test` scripts. The harness enters each

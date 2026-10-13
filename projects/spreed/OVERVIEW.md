@@ -11,6 +11,15 @@
 - **Eras:** `test:unit` used `vue-cli-service` initially and later `jest`. The `test`
   script replaced `test:unit` and moved from `jest` to `vitest`.
 
+## Development style
+
+- **PR merging strategy:** Merge commit (76.8% of first-parent commits).
+- **Merge convention:** `Merge pull request #<PR> from <branch>`.
+- **Direct commits:** Minimal human (0.2%, 12 commits); moderate bot (23.1%, 1,539 commits).
+- **JS/TS code impact of direct commits:** Minimal — 23.1% direct commits are automated Transifex localization updates (`[l10n] Updated translations`); human direct commits are GitHub Actions workflow tweaks.
+- **Issue tracking discipline:** High (Nextcloud pull request review process).
+- **Workflow notes:** Clean merge-commit workflow for all functional code; translation bot commits directly to `main`.
+
 ## Coverage collection
 
 - **Suites collected:** `test:unit`, then `test`. The runners are called directly with

@@ -58,11 +58,18 @@ Bounded scope: read `command_changes.csv` and related files, classify everything
    - Node version and package manager version used
    - Coverage tool configuration (if any)
 5. **Check for workspace/monorepo structure** — does `package.json` have `workspaces`? Are there multiple packages with their own test scripts?
+6. **Check development style & Git workflow** — inspect the primary branch git history within the relevant timeframe (2021–2026) to characterize development practices and feed into the future `OVERVIEW.md`:
+   - **PR merging strategy:** Inspect first-parent commit structure (`git log --first-parent`). Identify whether PRs are landed via **Squash & Merge** (`Title (#PR)`), **Merge Commit** (`Merge pull request #...`), **Rebase**, or an era transition between them.
+   - **Direct commits on primary branch:** Check for single-parent commits by humans without a PR reference. Classify them:
+     - Automated bot commits (Renovate, Dependabot, l10n, release bots).
+     - Non-code release/metadata updates (`package.json` version bumps, Helm/k8s manifests).
+     - Direct code modifications touching executable `.ts`/`.js` logic under `src/` or `test/`.
+   - **Issue reference discipline:** Check whether direct commits and PRs reference issue numbers (`#<issue>`) or if the project exhibits untracked "wild west" code development.
 
 **Checkpoint 1:** Present a full summary:
 
 ```
-# Phase 1 — Script Inventory: <project>
+# Phase 1 — Script Inventory & Development Style: <project>
 
 ## Script Groups
 | Type | Script Name | Definition | Commits Affected |
@@ -92,6 +99,14 @@ Bounded scope: read `command_changes.csv` and related files, classify everything
 
 ## Monorepo? Yes/No
 ## Packages with tests: [list]
+
+## Development Style & Git Workflow
+- PR Merging Strategy: [Squash and merge | Merge commit | Rebase | Transitioned | Hybrid]
+- Merge Convention: [e.g., `Title (#<PR>)` | `Merge pull request #...`]
+- Direct Commits on Primary Branch: [None/Bot-only | Low (<5%) | High (details)]
+- JS/TS Impact of Direct Commits: [None | Releases/ops only | Core logic modified directly]
+- Issue Reference Discipline: [High | Partial | Low / Wild west]
+- Workflow Notes: [summary of team workflow]
 ```
 
 Ask: *"Does this match what you expect? Any scripts I misclassified? Proceed to coverage gate check?"*

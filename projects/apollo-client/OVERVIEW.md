@@ -15,6 +15,15 @@
   integration is already covered by the jest unit run over `src/__tests__`, so no
   separate integration suite is collected.
 
+## Development style
+
+- **PR merging strategy:** Squash and merge (57.4% in 2021–2025; 84%+ from 2023 onward).
+- **Merge convention:** `<Title> (#<PR>)` (e.g. `Warn when rereading a partial cache result after a write (#13392)`).
+- **Direct commits:** Moderate (26.2% bot direct commits, 9.2% human direct commits).
+- **JS/TS code impact of direct commits:** Minimal — human direct commits touch CI configs, roadmap, release metadata, and Changeset OIDC publishing (`try to fix changeset publishing with OIDC`).
+- **Issue tracking discipline:** High (features and fixes tracked via PRs and issues).
+- **Workflow notes:** Contributor PRs are squashed. In 2021–2022, Renovate bot performed linear automerges for dependencies (`chore(deps): update ...`) without PR numbers; shifted to squash in 2023+. Releases use Changesets.
+
 ## Coverage collection
 
 - **Suites collected:** the jest unit run over `src/__tests__`.

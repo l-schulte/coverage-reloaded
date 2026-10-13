@@ -21,6 +21,15 @@
   - `spec/browserify` exists until 2023-10-03 (removed upstream).
   - The 2026-01-15 switch to Vitest is outside the window.
 
+## Development style
+
+- **PR merging strategy:** Transitioned (Merge commit in 2021 → Squash and merge in early 2022).
+- **Merge convention:** `Merge pull request #<PR> from <branch>` (2021, 67%); `<Title> (#<PR>)` (2022–2025, 84–91%).
+- **Direct commits:** Minimal (3.9% human direct commits, 111 commits).
+- **JS/TS code impact of direct commits:** Negligible — SonarCloud workflow actions and CI action version updates.
+- **Issue tracking discipline:** High (pull requests linked to Element/Matrix tracking issues).
+- **Workflow notes:** Transitioned from classic GitFlow merge commits on `develop` to GitHub Squash & Merge in early 2022.
+
 ## Coverage collection
 
 - **Suites collected:** `unit` (`spec/unit`) and `integration` (`spec/integ`),

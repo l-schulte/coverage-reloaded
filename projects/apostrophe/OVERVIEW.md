@@ -22,6 +22,15 @@
   - 2025-12-01 →: pnpm monorepo; `packages/apostrophe` exposes `test:base`,
     `test:missing`, `test:assets`, `test:esm`.
 
+## Development style
+
+- **PR merging strategy:** Transitioned (Merge commit in 2021–2023 → Squash and merge in early 2024).
+- **Merge convention:** `Merge pull request #<PR> from <branch>` (2021–2023, ~75%); `<Title> (#<PR>)` (2024–2025, 69% in 2024 and 99% in 2025).
+- **Direct commits:** Minimal (2.2% human direct commits, 36 commits).
+- **JS/TS code impact of direct commits:** Negligible — direct commits by lead maintainers are minor CI matrix adjustments and hotfixes.
+- **Issue tracking discipline:** High (issues and PRs tracked via GitHub issues and Pro JIRA tickets, e.g. `PRO-4431 (#4815)`).
+- **Workflow notes:** Maintained strict merge commits through Apostrophe 3 development until transitioning to Squash & Merge in early 2024.
+
 ## Coverage collection
 
 - **Suites collected:** each nyc command in the root `test` chain, labelled

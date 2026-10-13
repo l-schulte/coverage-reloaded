@@ -16,6 +16,15 @@
   language/environment files before the tests from that point on. The `ng test`
   branch targets a single pre-window commit (around 2020-10).
 
+## Development style
+
+- **PR merging strategy:** Merge commit (98.5% of first-parent commits).
+- **Merge convention:** `Merge pull request #<PR> from <branch>`.
+- **Direct commits:** Negligible (0.4% human direct commits, 5 commits; 1.1% bot commits).
+- **JS/TS code impact of direct commits:** Negligible — license updates (`[ci skip]`) and release build number bumps (`MOBILE-3783 release: Bump build numbers`).
+- **Issue tracking discipline:** High (strictly mapped to Moodle JIRA issue tracker `MOBILE-<ID>` in branch names and commit descriptions).
+- **Workflow notes:** Formal enterprise open-source workflow; zero squashed commits on `main`.
+
 ## Coverage collection
 
 - **Suites collected:** `unit` (one suite, one `lcov` output).

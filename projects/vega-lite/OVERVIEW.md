@@ -10,6 +10,15 @@
 - **Runners:** `jest`, `vitest`
 - **Eras:** jest from 2020-05 to 2025-02; vitest from 2025-03 onward
 
+## Development style
+
+- **PR merging strategy:** Squash and merge (70.1% of first-parent commits; 88–92% in 2023+).
+- **Merge convention:** `<Title> (#<PR>)`.
+- **Direct commits:** Low human (9.0%, 96 commits); moderate bot (20.4%, 218 commits).
+- **JS/TS code impact of direct commits:** Minimal — human direct commits are manual release tags (`chore: release v6.4.1`) by core maintainers.
+- **Issue tracking discipline:** High (PRs track GitHub issues).
+- **Workflow notes:** All feature contributions squashed; releases tagged directly on `main`.
+
 ## Coverage collection
 
 - **Suites collected:**

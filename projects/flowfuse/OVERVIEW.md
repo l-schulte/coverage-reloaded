@@ -13,6 +13,15 @@
   runs `vitest`; `test:system` runs system tests with `mocha`. Only root scripts
   exist.
 
+## Development style
+
+- **PR merging strategy:** Merge commit (96.1% of first-parent commits).
+- **Merge convention:** `Merge pull request #<PR> from <branch>`.
+- **Direct commits:** Negligible (0.6% human direct commits, 19 commits).
+- **JS/TS code impact of direct commits:** Negligible — emergency reverts and CI script adjustments by core maintainers.
+- **Issue tracking discipline:** High (all behavioral changes gated through reviewed PRs).
+- **Workflow notes:** Clean, disciplined 2-parent merge commit workflow. Feature branches preserve all commit steps.
+
 ## Coverage collection
 
 - **Suites collected:** `test:unit` (and its delegated forge/frontend suites),

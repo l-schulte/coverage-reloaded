@@ -10,6 +10,15 @@
 - **Runners:** `jest` executed through a custom Electron test runner — `@jest-runner/electron` (window start to 2025-01-31), then `@kayahr/jest-electron-runner` (2025-01-31 onward). Tests run in Electron's renderer environment and require a display (Xvfb in the container).
 - **Eras:** the `test` script (`cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 jest`) is unchanged for the entire window; `testMatch` is `**/test/(app|lib)/**/*.js`. The runner, Electron, and yarn-major transitions occur on 2025-01-31.
 
+## Development style
+
+- **PR merging strategy:** Merge commit (90.6% of first-parent commits; 94.5% overall).
+- **Merge convention:** `Merge pull request #<PR> from <branch>`.
+- **Direct commits:** Low (9.0% human direct commits, 22 commits).
+- **JS/TS code impact of direct commits:** Low — emergency packaging and Electron build rebuilder fixes by lead engineer (`try without legacy rebuilder`, `drop npmRebuild as it breaks windows build`).
+- **Issue tracking discipline:** High (medical software repository, changes gated through Tidepool PR review).
+- **Workflow notes:** Classical merge-commit integration model on `develop`.
+
 ## Coverage collection
 
 - **Suites collected:** `unit` — the combined jest behavioral suite (`test/app` and `test/lib`) run through the Electron runner.

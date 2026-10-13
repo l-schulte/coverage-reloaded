@@ -17,6 +17,15 @@
 - **Eras:** `packages/e2e` uses Cypress (excluded); `test-storybook` in `client`
   is excluded. Neither is part of the root `test` dispatch.
 
+## Development style
+
+- **PR merging strategy:** Hybrid (Squash and merge for feature PRs ~58.5%; Merge commit for release/integration branches ~34.3%).
+- **Merge convention:** `<Title> (#<PR>)` for features; `Merge pull request #<PR> from <branch>` for release branches.
+- **Direct commits:** Low (7.2% human direct commits, 194 commits).
+- **JS/TS code impact of direct commits:** Low — docs, ACTIONS.md amendments, Docker compose/Swarm config adjustments, and hotfixes by core maintainers.
+- **Issue tracking discipline:** High (features and bugs tracked via GitHub issues and PRs).
+- **Workflow notes:** Switched from 98% merge commits in 2021 to a GitFlow hybrid: feature branches squash into `develop`, while milestone release branches merge.
+
 ## Coverage collection
 
 - **Suites collected:** the root `test` script (`lerna run test`).

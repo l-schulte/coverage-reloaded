@@ -10,6 +10,15 @@
 - **Runners:** jest
 - **Eras:** two jest periods: jest 27 before 2022-11; jest 29 after
 
+## Development style
+
+- **PR merging strategy:** Squash and merge (90.0% of first-parent commits).
+- **Merge convention:** `<Title> (#<PR>)`.
+- **Direct commits:** Low (9.9% human direct commits, 420 commits).
+- **JS/TS code impact of direct commits:** Minimal — direct commits are almost exclusively release publications (`chore(release): Publish next`) by release maintainers.
+- **Issue tracking discipline:** High (PRs link issues and changesets).
+- **Workflow notes:** Monorepo strictly squashes all contributor and maintainer PRs; release scripts publish releases directly to `master`.
+
 ## Coverage collection
 
 - **Suites collected:** unit → jest directly (`jest --verbose --coverage --collectCoverage=true --coverageReporters=lcov --maxWorkers=1 --testTimeout=30000 --forceExit`)

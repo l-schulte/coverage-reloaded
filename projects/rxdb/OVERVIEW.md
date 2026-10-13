@@ -28,6 +28,15 @@
   - Skips `custom` (template placeholder, never functional) and `test:full` (empty test file).
   - Skips `lokijs:worker` (duplicate of `lokijs`).
 
+## Development style
+
+- **PR merging strategy:** Mixed (Direct master development by creator + Squash and merge for external PRs).
+- **Merge convention:** `<Title> (#<PR>)` for community PRs; imperative verbs (`FIX ...`, `ADD ...`) for direct pushes.
+- **Direct commits:** Extensive (38.3% human direct commits, 32.3% bot commits).
+- **JS/TS code impact of direct commits:** High — 52.7% (1,363 commits) touch JS/TS files, of which 880 modify core library logic and tests under `src/` and `test/` (the remaining 483 touch website/docs code in `docs-src/`).
+- **Issue tracking discipline:** Low / Wild west — only 3.2% (43 / 1,363) of direct JS/TS commits reference an issue number.
+- **Workflow notes:** Solo-maintainer workflow; creator (`pubkey`) writes features, refactors, and bugfixes directly on `master`. PRs are reserved for external contributors.
+
 ## Coverage collection
 
 - **Suites collected:** the storage variants listed above.

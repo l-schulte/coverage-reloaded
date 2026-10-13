@@ -14,6 +14,15 @@
   `integrationTests/*.test.ts` files; these were deleted by `1409e34b3a`
   (2022-09-05, "reorganize back into a mono-package").
 
+## Development style
+
+- **PR merging strategy:** Transitioned (Merge commit 2021–2023 → Squash and merge 2024–2025).
+- **Merge convention:** `Merge pull request #<PR> from <branch>` (2021–2023, 64–92%); `<Title> (#<PR>)` (2024–2025, 77–86%).
+- **Direct commits:** Low (5.9% human direct commits, 177 commits).
+- **JS/TS code impact of direct commits:** Low — CI labeler updates, game expansion branch setup (Midnight), and metric upload filters by lead maintainer.
+- **Issue tracking discipline:** High (community theorycrafting PRs tracked via GitHub).
+- **Workflow notes:** Shifted from long-standing merge-commit history to Squash & Merge in 2024.
+
 ## Coverage collection
 
 - **Suites collected:** the main `test` script. It is a strict superset of the

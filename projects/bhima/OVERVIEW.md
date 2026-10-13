@@ -13,6 +13,15 @@
   (Node.js/Express backend with MySQL and Redis, AngularJS client). The client
   bundle is built via `build` / `build:client` / `compile`, detected dynamically.
 
+## Development style
+
+- **PR merging strategy:** Merge commit (86.0% of first-parent commits; 89.2% overall).
+- **Merge convention:** `Merge #<PR>` (2021–2023); standard `Merge pull request #<PR> from <branch>` (2024–2025).
+- **Direct commits:** Low (10.9% human direct commits, 200 commits).
+- **JS/TS code impact of direct commits:** Low — direct commits by lead maintainer are dependency bumps, stylelint setup, CI updates, and occasional translation/hotfixes.
+- **Issue tracking discipline:** High (PRs track feature and bugfix branches).
+- **Workflow notes:** Strictly branch-merge driven, preserving full feature branch histories.
+
 ## Coverage collection
 
 - **Suites collected:**

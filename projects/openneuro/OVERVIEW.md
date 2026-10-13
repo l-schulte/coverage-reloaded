@@ -15,6 +15,15 @@
 - **Eras:** the root `test` dispatches per-package suites. The harness runs the root
   `jest`/`vitest` directly with coverage.
 
+## Development style
+
+- **PR merging strategy:** Merge commit (57.0% of first-parent commits).
+- **Merge convention:** `Merge pull request #<PR> from <branch>`.
+- **Direct commits:** Frequent (42.5% human direct commits, 781 commits, 96% by lead engineer Nell Hardcastle).
+- **JS/TS code impact of direct commits:** Low — 81.5% (643 commits) touch only release tags (`vX.Y.Z`, `chore: Bump released version`) or Kubernetes/Helm manifests; only 146 commits (18.5%) touch JS/TS files (operational hotfixes, Sentry logging adjustments, and CLI patches).
+- **Issue tracking discipline:** High for feature PRs; low for direct ops (< 1.5% issue references in direct commits).
+- **Workflow notes:** Feature development is strictly PR-driven and reviewed; direct pushes on `master` are operational hotfixes, deployment resource adjustments, and manual release tags.
+
 ## Coverage collection
 
 - **Suites collected:** the root `jest`/`vitest` suites.

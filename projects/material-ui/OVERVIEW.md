@@ -10,6 +10,15 @@
 - **Runners:** `jest`, `mocha`, `lerna`, `pnpm`, `vitest`.
 - **Eras:** early commits run `jest` under `test`; intermediate commits run `mocha` wrapped in `nyc` via `test:coverage`; late commits run `vitest` with native v8 coverage.
 
+## Development style
+
+- **PR merging strategy:** Squash and merge (95.0% of first-parent commits).
+- **Merge convention:** Strict `[<scope>] <Title> (#<PR>)`.
+- **Direct commits:** Low (4.9% human direct commits, 483 commits).
+- **JS/TS code impact of direct commits:** Negligible — direct commits are documentation copyedits, website UTM analytics parameters, and team sync scripts (`[docs] Fix use of ellipsis`, `[website] Remove Tidelift UTMs`).
+- **Issue tracking discipline:** High (all features and fixes are issue-linked and PR-gated).
+- **Workflow notes:** Extremely disciplined, automated CI and squash merge policy.
+
 ## Coverage collection
 
 - **Suites collected:** `test:coverage` (wrapping `mocha` via `nyc`, or `vitest`).

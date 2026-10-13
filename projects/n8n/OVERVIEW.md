@@ -26,6 +26,15 @@
 - **Eras:** no karma or mocha in `test` scripts. End-to-end tests (cypress →
   playwright) are excluded and were never part of the root `test` dispatch.
 
+## Development style
+
+- **PR merging strategy:** Squash and merge (81.5% overall; >98% from 2024 onward).
+- **Merge convention:** `<Title> (#<PR>)`.
+- **Direct commits:** Moderate early, negligible later (17.0% human direct commits, 2,220 commits, almost all in 2021–2022).
+- **JS/TS code impact of direct commits:** High in 2021–2022 (founder manually bumping monorepo package versions `:bookmark: Release n8n@...` and pushing direct core fixes); zero in 2024–2025.
+- **Issue tracking discipline:** High (modern PRs are issue-gated and linear).
+- **Workflow notes:** Transitioned from early founder-led direct releases and hotfixes (2021–2022) to strict, automated CI-enforced Squash & Merge (2023+).
+
 ## Coverage collection
 
 - **Suites collected:** the root `test` script (`lerna run test` / `turbo run

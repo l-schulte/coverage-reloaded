@@ -56,6 +56,9 @@ Never invent values. Every number must be traceable to one of these files:
   from `check_failures_jev.py`.
 - `projects/<p>/install-and-run.sh` and `projects/<p>/command_changes.csv` —
   suite names, runners, and era transitions.
+- `projects/<p>/repo` git history — first-parent parent count, PR syntax patterns,
+  authors, and file diffs. Used **only when establishing a new overview or when
+  explicitly asked to audit development style — do not re-run on routine maintenance.**
 - `projects/OVERVIEW.md.bak` — legacy content to migrate when present (see
   Protocol); otherwise use git history.
 - `AGENTS.md` — checklist semantics, the bail rule, and coverage-gate policy.
@@ -74,6 +77,15 @@ Never invent values. Every number must be traceable to one of these files:
 - **Node strategy:** <strategy / overrides, or "default">
 - **Runners:** <runner list>
 - **Eras:** <chronological runner/config transitions>
+
+## Development style
+
+- **PR merging strategy:** <Squash and merge | Merge commit | Rebase | Transitioned (e.g. Merge commit -> Squash and merge in YYYY) | Hybrid>
+- **Merge convention:** <e.g. `Title (#<PR>)` | `Merge pull request #<PR> from <branch>` | `Merge branch '<branch>'`>
+- **Direct commits:** <None / minimal bot-only | Lead maintainer direct pushes | Release/chore-only bumps>
+- **JS/TS code impact of direct commits:** <None / negligible | Hotfixes & ops only (<pct>% JS/TS) | Core logic & tests (<pct>% JS/TS)>
+- **Issue tracking discipline:** <High (PR-gated) | Partial | Low / Wild west (<pct>% issue references)>
+- **Workflow notes:** <brief description of team workflow, release flow, or solo-maintainer style>
 
 ## Coverage collection
 
@@ -185,17 +197,20 @@ Failure labels (`failure_labels_project.csv`):
 For each active project, build the file from the template:
 
 1. Migrate the legacy section from `projects/OVERVIEW.md.bak` when it is present.
-2. Condense Known Test Failures into signature → classification → coverage impact
+2. **Preserve or populate `## Development style`:**
+   - **Do NOT re-analyze development style on routine maintenance invocations.** If `## Development style` is already present in `projects/<p>/OVERVIEW.md`, preserve it as-is.
+   - Only perform the git log analysis (first-parent parent count, PR syntax patterns, direct commit JS/TS impact, issue reference rate) when creating a new project overview for the first time or when explicitly requested by the user.
+3. Condense Known Test Failures into signature → classification → coverage impact
    → action rows; link to logs/CSV instead of embedding long narratives.
-3. Checkpoint: ask whether to trace back each documented known failure against the
+4. Checkpoint: ask whether to trace back each documented known failure against the
    most recent logs to confirm it still exists. If the user opts in, inspect
    `projects/<p>/logs/` for each signature and keep, update, or drop rows based on
    the latest evidence.
-4. Regenerate `stats_output/report.txt` by running `python stats.py <p> --report-only`
+5. Regenerate `stats_output/report.txt` by running `python stats.py <p> --report-only`
    (fresh numbers from the current `output/` state; stale plots are deleted).
    Then pull Results from it. If the command fails, write
    `Results: pending (no stats_output)`.
-5. Link to `config.json` for configuration; do not copy JSON.
+6. Link to `config.json` for configuration; do not copy JSON.
 
 ### Phase 2 — Root index
 

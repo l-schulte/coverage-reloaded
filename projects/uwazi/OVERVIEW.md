@@ -10,6 +10,15 @@
 - **Runners:** `jest`.
 - **Eras:** jest `24.8.0` → `27.5.1` → `29.7.0`. Suites run with `--maxWorkers=10 --forceExit --testTimeout=60000` (worker isolation prevents V8 compilation-cache heap leaks across ~800 suites without container sharding).
 
+## Development style
+
+- **PR merging strategy:** Transitioned / Dual merge (Merge commit in 2021 → Squash and merge for feature PRs post-2021 + Merge commit for production release trains).
+- **Merge convention:** `<Title> (#<PR>)` for feature PRs; `vX.Y.Z` (e.g., `v1.228.0`) for release merges into `production`.
+- **Direct commits:** Minimal human (2.5%, 45 commits); moderate bot (25.1%, 446 commits).
+- **JS/TS code impact of direct commits:** Negligible — small batching logic hotfixes and console cleanup.
+- **Issue tracking discipline:** High (features and bugfixes mapped to GitHub issues).
+- **Workflow notes:** Dual-branch model where features squash into development, and milestone releases merge into `production`.
+
 ## Coverage collection
 
 - **Suites collected:** the behavioral suite, with coverage.
