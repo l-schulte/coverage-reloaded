@@ -62,15 +62,15 @@ dates live in the per-project Results sections, sourced from
 | Project                                             | 100 done | failed tests doublechecked | complete run | complete test failure check | complete JEV test failure check |
 | --------------------------------------------------- | -------- | -------------------------- | ------------ | --------------------------- | ------------------------------- |
 | [apollo-client](projects/apollo-client/OVERVIEW.md) | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| [apostrophe](projects/apostrophe/OVERVIEW.md)       | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 | [bhima](projects/bhima/OVERVIEW.md)                 | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| [compass](projects/compass/OVERVIEW.md)             | ❌       | ❌                         | ❌           | ❌                          | ❌                              |
 | [flowfuse](projects/flowfuse/OVERVIEW.md)           | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 | [gatsby](projects/gatsby/OVERVIEW.md)               | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 | [material-ui](projects/material-ui/OVERVIEW.md)     | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 | [matrix-js-sdk](projects/matrix-js-sdk/OVERVIEW.md) | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 | [moodleapp](projects/moodleapp/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 | [n8n](projects/n8n/OVERVIEW.md)                     | ✅       | ✅                         | 🟡           | ❌                          | ❌                              |
-| [opencrvs-core](projects/opencrvs-core/OVERVIEW.md) | ✅       | ✅                         | 🟡           | ❌                          | ❌                              |
+| [opencrvs-core](projects/opencrvs-core/OVERVIEW.md) | ✅       | ✅                         | ✅           | 🟡                          | ❌                              |
 | [openneuro](projects/openneuro/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 | [pf2e](projects/pf2e/OVERVIEW.md)                   | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 | [sequelize](projects/sequelize/OVERVIEW.md)         | ✅       | 🟡                         | ❌           | ❌                          | ❌                              |
