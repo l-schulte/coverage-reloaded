@@ -1,7 +1,7 @@
 # rxdb
 
 **Repository:** https://github.com/pubkey/rxdb
-**Status:** active
+**Status:** archived
 
 ## Test infrastructure
 
