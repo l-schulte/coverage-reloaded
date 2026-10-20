@@ -3,17 +3,11 @@
     "end_date": "2026-01-01",
     "max_workers": 10,
     "projects": {
-        "sentry-javascript": {
-            "url": "https://github.com/getsentry/sentry-javascript"
-        },
         "spreed": {
             "url": "https://github.com/nextcloud/spreed",
             "min_pm_version": {
                 "npm": "8"
             }
-        },
-        "serverless": {
-            "url": "https://github.com/serverless/serverless"
         },
         "material-ui": {
             "url": "https://github.com/mui/material-ui",
@@ -89,7 +83,8 @@
             "node_version_lts_offset_months": 6,
             "disabled_node_strategies": [
                 "package.json"
-            ]
+            ],
+            "container_cpus": 12
         },
         "opencrvs-core": {
             "url": "https://github.com/opencrvs/opencrvs-core"
@@ -131,24 +126,52 @@
             "url": "https://github.com/tidepool-org/uploader",
             "min_node_version": 12
         },
-        "rxdb": {
-            "url": "https://github.com/pubkey/rxdb",
-            "container_cpus": 16,
+        "sequelize": {
+            "url": "https://github.com/sequelize/sequelize",
             "node_version_lts_offset_months": 0,
             "node_version_delay_months": 0,
-            "use_exact_node_version": true,
+            "disabled_node_strategies": [
+                "package.json"
+            ],
             "node_version_overrides": [
                 {
-                    "start_ts": 1649857978,
-                    "end_ts": 1651265736,
-                    "old_version": 16,
-                    "new_version": "16.20.2"
+                    "start_ts": 1761609600,
+                    "end_ts": 1767225600,
+                    "old_version": 24,
+                    "new_version": "22"
+                }
+            ]
+        },
+        "compass": {
+            "url": "https://github.com/mongodb-js/compass",
+            "use_first_node_version": true,
+            "package_manager_version_overrides": [
+                {
+                    "start_ts": 1623779898,
+                    "end_ts": 1659951736,
+                    "old_version": "npm@7.16.0",
+                    "new_version": "npm@8"
+                }
+            ]
+        },
+        "desktop": {
+            "url": "https://github.com/desktop/desktop",
+            "use_exact_node_version": true
+        },
+        "webpack": {
+            "url": "https://github.com/webpack/webpack",
+            "node_version_overrides": [
+                {
+                    "start_ts": 0,
+                    "end_ts": 1767225600,
+                    "old_version": 22,
+                    "new_version": "22.20"
                 },
                 {
-                    "start_ts": 1635111471,
-                    "end_ts": 1637402636,
-                    "old_version": 14,
-                    "new_version": 16
+                    "start_ts": 0,
+                    "end_ts": 1767225600,
+                    "old_version": 24,
+                    "new_version": "24.7"
                 }
             ]
         }
