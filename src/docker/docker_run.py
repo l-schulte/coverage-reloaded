@@ -144,6 +144,15 @@ def docker_run_script(commit, workspace_path, logs_path, output_path, skip_build
             elif success:
                 f.write("\n----\nSuccess!\n")
 
+        # A failed earlier attempt may have left an error marker next to the
+        # coverage dir. On success (including not-applicable) the run now has
+        # exactly one entry type, so remove the stale marker instead of leaving
+        # a dir+error conflict behind for stats.py to report.
+        if success:
+            stale_error = os.path.join(output_path, f"{timestamp}_{commit_hash}.error")
+            if os.path.exists(stale_error):
+                os.remove(stale_error)
+
         if is_not_applicable:
             logger.debug(
                 f"Commit {commit_hash} not applicable. See log: {log_filename}"
@@ -158,7 +167,13 @@ def docker_run_script(commit, workspace_path, logs_path, output_path, skip_build
             # deleting it would lose historical failure data.
             error_lcov = os.path.join(output_path, f"{timestamp}_{commit_hash}.error")
             with open(error_lcov, "w") as f:
-                f.write(f"Execution failed. See log for details.\n{log_filename}\n")
+                # Record the exit code: a silent post-completion non-zero exit
+                # (e.g. 125/137/143) is otherwise indistinguishable from a
+                # test-run failure when reading the marker alone.
+                f.write(
+                    f"Execution failed (exit {exit_code}). See log for details.\n"
+                    f"{log_filename}\n"
+                )
 
         return success
 
