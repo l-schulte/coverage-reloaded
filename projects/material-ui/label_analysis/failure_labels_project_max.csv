@@ -1,0 +1,817 @@
+project,window,run_id,suite,exit_code,line_number,keyword,label,labeled_at,fingerprint,n_runs,n_variants,example_variant_fp,auto_rule_id,first_run,last_run,block
+material-ui,max,1609497448_f736ebe441d73c823919887ac0f8d5fa983ef0e0,test_coverage,1,325,"     Error: Timeout of 10000ms exceeded. For async tests and hooks, ensure ""done()"" is called; if returning a Promise, ensure it resolves. (/coverage_reloaded/repo/packages/material-ui-envinfo/envinfo.test.js)",reevaluated_acceptable,2026-10-20T19:45:31.644615+00:00,6c3c59c7c7f2b0e7,66,1,f425962f9ca32e7a,9ee5b194879f,1609497448_f736ebe441d73c823919887ac0f8d5fa983ef0e0,1615287054_b725a3fbd074c9748ce729691938727b485d921c,"Error: Timeout of 10000ms exceeded. For async tests and hooks, ensure ""done()"" is called; if returning a Promise, ensure it resolves. (packages/material-ui-envinfo/envinfo.test.js)
+
+---------------------------------------|---------|----------|---------|---------|-------------------"
+material-ui,max,1611148141_1b9eed20bb21af82eaf56562ea60aab39063b311,test_coverage,1,330,      AssertionError: expected false to equal true,acceptable,2026-10-20T19:45:31.646690+00:00,02e806c85d290edc,1,1,f81261436bd6c5a6,4ea792fcb2ae,1611148141_1b9eed20bb21af82eaf56562ea60aab39063b311,1611148141_1b9eed20bb21af82eaf56562ea60aab39063b311,"AssertionError: expected false to equal true
++ expected - actual
+
+-false
++true"
+material-ui,max,1611567363_3e048a594fc7ce4f3df3f350d4153d75b1ca841d,test_coverage,1,253,TypeError: Cannot redefine property: cardClasses,acceptable,2026-10-20T19:45:31.647101+00:00,b8f5be41f6ebc6cc,2,1,8018316ea80f6aa4,6b2f0d1d6d14,1611567363_3e048a594fc7ce4f3df3f350d4153d75b1ca841d,1611567378_1f219b23ceac82c6ad76ad315524db1c8f0e8a7f,"TypeError: Cannot redefine property: cardClasses
+at Function.defineProperty (<anonymous>)
+at packages/material-ui/src/index.js:<n>:<n>
+at Array.forEach (<anonymous>)
+at Object.<anonymous> (packages/material-ui/src/index.js:<n>:<n>)
+at Module._compile (internal/modules/cjs/loader.js:<n>:<n>)"
+material-ui,max,1615656023_ae029a46298714ff499adee1f20e930834fe2e86,test_coverage,1,312,"     Error: Timeout of 10000ms exceeded. For async tests and hooks, ensure ""done()"" is called; if returning a Promise, ensure it resolves. (/coverage_reloaded/repo/packages/material-ui-envinfo/envinfo.test.js)",reevaluated_acceptable,2026-10-20T19:45:31.650216+00:00,ee8da87dcb36fcac,121,1,c9453dbc92c36308,9ee5b194879f,1615656023_ae029a46298714ff499adee1f20e930834fe2e86,1630837169_a70ea404bcdabbf3b99b831551b60361204846fc,"Error: Timeout of 10000ms exceeded. For async tests and hooks, ensure ""done()"" is called; if returning a Promise, ensure it resolves. (packages/material-ui-envinfo/envinfo.test.js)
+at processImmediate (internal/timers.js:<n>:<n>)
+
+---------------------------------------|---------|----------|---------|---------|-------------------"
+material-ui,max,1631010629_1052f1500eaae66eec2533add12d6f642e8e153f,test_coverage,1,344,"     Error: Timeout of 10000ms exceeded. For async tests and hooks, ensure ""done()"" is called; if returning a Promise, ensure it resolves. (/coverage_reloaded/repo/packages/mui-envinfo/envinfo.test.js)",acceptable,2026-10-20T19:45:31.651100+00:00,8530c98f1116c771,81,1,9ea1f0f4dc0417aa,f26937fc120d,1631010629_1052f1500eaae66eec2533add12d6f642e8e153f,1686029726_90f2f7962537ce2e8cced871f89d9255dadcb5c4,"Error: Timeout of 10000ms exceeded. For async tests and hooks, ensure ""done()"" is called; if returning a Promise, ensure it resolves. (packages/mui-envinfo/envinfo.test.js)
+at processImmediate (internal/timers.js:<n>:<n>)
+
+---------------------------------------|---------|----------|---------|---------|-------------------"
+material-ui,max,1646389341_298627c7339d1a5809518b0dbc212fe95c40a4e9,test_coverage,4,373,"     TestingLibraryElementError: Unable to find an accessible element with the role ""textbox""",acceptable,2026-10-20T19:45:31.652033+00:00,71ac9c9ba709e34a,1,1,50a04a05f6f0b675,96a4cf13a4d5,1646389341_298627c7339d1a5809518b0dbc212fe95c40a4e9,1646389341_298627c7339d1a5809518b0dbc212fe95c40a4e9,"TestingLibraryElementError: Unable to find an accessible element with the role ""textbox""
+
+Here are the accessible roles:
+
+combobox:"
+material-ui,max,1658298299_c384078b102a6e039cd9f02138ff16f78c90c3d5,test_coverage,1,395,"      AssertionError: expected { display: 'flex', …(5) } to deeply equal { …(5) }",acceptable,2026-10-20T19:45:31.652619+00:00,9cedd6fcde25eb64,1,1,0657c8fe1ecccc55,c02c76e7c36d,1658298299_c384078b102a6e039cd9f02138ff16f78c90c3d5,1658298299_c384078b102a6e039cd9f02138ff16f78c90c3d5,"AssertionError: expected { display: 'flex', …(5) } to deeply equal { …(5) }
++ expected - actual
+
+""marginTop"": ""16px""
+}
+}"
+material-ui,max,1668103601_269c1d0c7572fcb6ae3b270a2622d16c7e40c848,test_coverage,1,384,     Expected test not to call console.error() but instead received 2 calls.,acceptable,2026-10-20T19:45:31.653565+00:00,5f2e34e3ef3bae51,2,1,cfe5ef6bad6460a7,421cbab5f601,1668103601_269c1d0c7572fcb6ae3b270a2622d16c7e40c848,1670799143_ad906d0276f334f8f2f895b74bab1f36424543d5,"Expected test not to call console.error() but instead received 2 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-material/test/integration/DialogIntegration.test.js"
+material-ui,max,1688131426_a45d46c7421ad656f64b5448cb85e3bdd98a672e,test_coverage,1,390,"     Error: Timeout of 10000ms exceeded. For async tests and hooks, ensure ""done()"" is called; if returning a Promise, ensure it resolves. (/coverage_reloaded/repo/packages/mui-envinfo/envinfo.test.js)",acceptable,2026-10-20T19:45:31.654172+00:00,ea17685332e96520,9,1,d3c3d31e516ebb83,f26937fc120d,1688131426_a45d46c7421ad656f64b5448cb85e3bdd98a672e,1695731271_a07af4232e81c459674b54bfe18907eeee9f8cd3,"Error: Timeout of 10000ms exceeded. For async tests and hooks, ensure ""done()"" is called; if returning a Promise, ensure it resolves. (packages/mui-envinfo/envinfo.test.js)
+at processImmediate (node:internal/timers:476:21)
+
+---------------------------------------|---------|----------|---------|---------|-------------------"
+material-ui,max,1696337865_3de335fd73c11699fc1ee1ec817226a1733df694,test_coverage,1,261,Error: Cannot find module 'test/utils',reevaluated_acceptable,2026-10-20T19:45:31.655167+00:00,0ec78b2792954b7a,1,1,bc5284ac965da2a9,6bbfe1383cd5,1696337865_3de335fd73c11699fc1ee1ec817226a1733df694,1696337865_3de335fd73c11699fc1ee1ec817226a1733df694,"Error: Cannot find module 'test/utils'
+Require stack:
+- packages/mui-base/src/useTab/useTab.test.tsx
+- node_modules/mocha/lib/nodejs/esm-utils.js
+- node_modules/mocha/lib/mocha.js
+- node_modules/mocha/lib/cli/one-and-dones.js"
+material-ui,max,1704332416_fd461cda5f4fad784b1e474f3887c30a23f8f9a4,test_coverage,1,680,"     Error: Timeout of 20000ms exceeded. For async tests and hooks, ensure ""done()"" is called; if returning a Promise, ensure it resolves. (/coverage_reloaded/repo/packages/mui-envinfo/envinfo.test.js)",acceptable,2026-10-20T19:45:31.655795+00:00,17c8f84342625f80,80,1,f30d86415f564a40,f26937fc120d,1704332416_fd461cda5f4fad784b1e474f3887c30a23f8f9a4,1706553771_0492cf2160ed00034a93f3e44e9fad8d4375e7ca,"Error: Timeout of 20000ms exceeded. For async tests and hooks, ensure ""done()"" is called; if returning a Promise, ensure it resolves. (packages/mui-envinfo/envinfo.test.js)
+at processImmediate (node:internal/timers:476:21)
+
+---------------------------------------|---------|----------|---------|---------|-------------------"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,620,     Expected test not to call console.error() but instead received 9 calls.,acceptable,2026-10-20T19:45:31.667771+00:00,c0c5ea13dfd054fb,320,1,3aadf9c5d1235e82,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 9 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Select/Select.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,1209,     Expected test not to call console.error() but instead received 2 calls.,acceptable,2026-10-20T19:45:31.678974+00:00,d58d961fee420522,320,1,cfe5ef6bad6460a7,421cbab5f601,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 2 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Select/Select.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,1593,     Expected test not to call console.error() but instead received 3 calls.,acceptable,2026-10-20T19:45:31.687632+00:00,572341ee04f0ba84,320,1,3168fda2f8276439,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 3 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Select/Select.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,1782,     Expected test not to call console.error() but instead received 4 calls.,acceptable,2026-10-20T19:45:31.695772+00:00,bb107be383efe4ce,320,1,4b91edb8af2a40d6,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 4 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Select/Select.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,2059,     Expected test not to call console.error() but instead received 5 calls.,acceptable,2026-10-20T19:45:31.704008+00:00,9a56d436aa5ecdd5,320,1,e692452c00c82ab3,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 5 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Select/Select.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,3698,     Expected test not to call console.error() but instead received 13 calls.,acceptable,2026-10-20T19:45:31.712190+00:00,3efefeccb8bd9c2b,320,1,c1f07f9dce788ca1,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 13 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Select/Select.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,5320,     Expected test not to call console.error() but instead received 14 calls.,acceptable,2026-10-20T19:45:31.720496+00:00,2ad4d3fb61d61cf0,320,1,d1227d15ed67a33d,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 14 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Select/Select.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,7046,     Expected test not to call console.error() but instead received 16 calls.,acceptable,2026-10-20T19:45:31.728669+00:00,3afbd048d8b59d20,53,1,9aa85c401af5561f,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1705302797_c8878bd148be457fde9c38f3c4bb4750234c94d1,"Expected test not to call console.error() but instead received 16 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Select/Select.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,8019,     Expected test not to call console.error() but instead received 11 calls.,acceptable,2026-10-20T19:45:31.737263+00:00,2442058e545536ee,53,1,e4a2a472d2da838e,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1705302797_c8878bd148be457fde9c38f3c4bb4750234c94d1,"Expected test not to call console.error() but instead received 11 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Select/Select.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,8686,     Expected test not to call console.error() but instead received 17 calls.,acceptable,2026-10-20T19:45:31.745517+00:00,193686ec31834a36,53,1,da3659f29d69144c,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1705302797_c8878bd148be457fde9c38f3c4bb4750234c94d1,"Expected test not to call console.error() but instead received 17 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Select/Select.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,12405,     Expected test not to call console.error() but instead received 26 calls.,acceptable,2026-10-20T19:45:31.753873+00:00,2db997fe746b1eee,53,1,d3d8ee65a04c5fd5,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1705302797_c8878bd148be457fde9c38f3c4bb4750234c94d1,"Expected test not to call console.error() but instead received 26 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Select/Select.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,14799,     Expected test not to call console.error() but instead received 3 calls.,acceptable,2026-10-20T19:45:31.762705+00:00,3147fb56c9eb149c,320,1,3168fda2f8276439,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 3 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Unstable_NumberInput/NumberInput.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,15195,     Expected test not to call console.error() but instead received 6 calls.,acceptable,2026-10-20T19:45:31.771211+00:00,65ed1fce84be83fe,53,1,15cc0f4ab2aa9b95,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1705302797_c8878bd148be457fde9c38f3c4bb4750234c94d1,"Expected test not to call console.error() but instead received 6 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Unstable_NumberInput/NumberInput.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,15579,     Expected test not to call console.error() but instead received 5 calls.,acceptable,2026-10-20T19:45:31.779656+00:00,c170efb342a0a9ed,320,1,e692452c00c82ab3,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 5 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Unstable_NumberInput/NumberInput.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,15918,     Expected test not to call console.error() but instead received 7 calls.,acceptable,2026-10-20T19:45:31.788140+00:00,e6d2d72fb2f13bfb,53,1,c45e0f2e66c9567a,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1705302797_c8878bd148be457fde9c38f3c4bb4750234c94d1,"Expected test not to call console.error() but instead received 7 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Unstable_NumberInput/NumberInput.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,19288,     Expected test not to call console.error() but instead received 4 calls.,acceptable,2026-10-20T19:45:31.796511+00:00,bba925077c27d083,320,1,4b91edb8af2a40d6,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 4 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Unstable_NumberInput/NumberInput.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,19545,     Expected test not to call console.error() but instead received 7 calls.,acceptable,2026-10-20T19:45:31.804921+00:00,f10d7a7a07af0418,53,1,c45e0f2e66c9567a,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1705302797_c8878bd148be457fde9c38f3c4bb4750234c94d1,"Expected test not to call console.error() but instead received 7 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/unstable_useNumberInput/useNumberInput.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,20001,     Expected test not to call console.error() but instead received 5 calls.,acceptable,2026-10-20T19:45:31.813274+00:00,7e6ed906a907a1ca,320,1,e692452c00c82ab3,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 5 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/unstable_useNumberInput/useNumberInput.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,20328,     Expected test not to call console.error() but instead received 8 calls.,acceptable,2026-10-20T19:45:31.821914+00:00,75fe8230c98ebb13,53,1,ca206b006993292a,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1705302797_c8878bd148be457fde9c38f3c4bb4750234c94d1,"Expected test not to call console.error() but instead received 8 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/unstable_useNumberInput/useNumberInput.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,20841,     Expected test not to call console.error() but instead received 6 calls.,acceptable,2026-10-20T19:45:31.830819+00:00,4d1ce2ccfaf61e7c,53,1,15cc0f4ab2aa9b95,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1705302797_c8878bd148be457fde9c38f3c4bb4750234c94d1,"Expected test not to call console.error() but instead received 6 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/unstable_useNumberInput/useNumberInput.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,22635,     Expected test not to call console.error() but instead received 10 calls.,acceptable,2026-10-20T19:45:31.839458+00:00,fa4b8e53cea0ceae,53,1,2cf99500dcf20640,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1705302797_c8878bd148be457fde9c38f3c4bb4750234c94d1,"Expected test not to call console.error() but instead received 10 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/unstable_useNumberInput/useNumberInput.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,23277,     Expected test not to call console.error() but instead received 2 calls.,acceptable,2026-10-20T19:45:31.847826+00:00,b13aad6659b3ae31,53,1,cfe5ef6bad6460a7,421cbab5f601,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1705302797_c8878bd148be457fde9c38f3c4bb4750234c94d1,"Expected test not to call console.error() but instead received 2 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-material-next/src/ButtonBase/ButtonBase.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,23535,     Expected test not to call console.error() but instead received 2 calls.,acceptable,2026-10-20T19:45:31.856620+00:00,204f226eb91e76d9,53,1,cfe5ef6bad6460a7,421cbab5f601,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1705302797_c8878bd148be457fde9c38f3c4bb4750234c94d1,"Expected test not to call console.error() but instead received 2 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-material-next/src/Chip/Chip.test.tsx"
+material-ui,max,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,23665,     Expected test not to call console.error() but instead received 1 calls.,acceptable,2026-10-20T19:45:31.865864+00:00,f2dd110812593989,53,1,b98f476b0f1b041e,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1705302797_c8878bd148be457fde9c38f3c4bb4750234c94d1,"Expected test not to call console.error() but instead received 1 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-material-next/src/Chip/Chip.test.tsx"
+material-ui,max,1704772661_329c76c74dcad06f5edb36b9427e8a9e781c2e5d,test_coverage,1,23305,"     Error: Timeout of 20000ms exceeded. For async tests and hooks, ensure ""done()"" is called; if returning a Promise, ensure it resolves. (/coverage_reloaded/repo/packages/mui-envinfo/envinfo.test.js)",acceptable,2026-10-20T19:45:31.874275+00:00,d2b852b994d97f66,14,1,f30d86415f564a40,f26937fc120d,1704772661_329c76c74dcad06f5edb36b9427e8a9e781c2e5d,1705302797_c8878bd148be457fde9c38f3c4bb4750234c94d1,"Error: Timeout of 20000ms exceeded. For async tests and hooks, ensure ""done()"" is called; if returning a Promise, ensure it resolves. (packages/mui-envinfo/envinfo.test.js)
+at processImmediate (node:internal/timers:476:21)
+
+49) <ButtonBase />
+event: focus
+should call onFocus:"
+material-ui,max,1712581111_53cc684131f9b714320d0a8f33663c2ed76e76a1,test_coverage,1,632,     Expected test not to call console.error() but instead received 1 calls.,acceptable,2026-10-20T19:45:31.881432+00:00,70530bdb8514457d,267,1,b98f476b0f1b041e,d46ed19dcef3,1712581111_53cc684131f9b714320d0a8f33663c2ed76e76a1,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 1 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/MenuButton/MenuButton.test.tsx"
+material-ui,max,1712581111_53cc684131f9b714320d0a8f33663c2ed76e76a1,test_coverage,1,836,     Expected test not to call console.error() but instead received 2 calls.,acceptable,2026-10-20T19:45:31.885884+00:00,5e94dc2785dc0e08,267,1,cfe5ef6bad6460a7,421cbab5f601,1712581111_53cc684131f9b714320d0a8f33663c2ed76e76a1,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 2 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/MenuButton/MenuButton.test.tsx"
+material-ui,max,1712581111_53cc684131f9b714320d0a8f33663c2ed76e76a1,test_coverage,1,3327,     Expected test not to call console.error() but instead received 6 calls.,acceptable,2026-10-20T19:45:31.890239+00:00,364806ee616d21bc,267,1,15cc0f4ab2aa9b95,d46ed19dcef3,1712581111_53cc684131f9b714320d0a8f33663c2ed76e76a1,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 6 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Select/Select.test.tsx"
+material-ui,max,1712581111_53cc684131f9b714320d0a8f33663c2ed76e76a1,test_coverage,1,7409,     Expected test not to call console.error() but instead received 12 calls.,acceptable,2026-10-20T19:45:31.894631+00:00,b03ca003a2b9cb61,267,1,f8422968a162be0f,d46ed19dcef3,1712581111_53cc684131f9b714320d0a8f33663c2ed76e76a1,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 12 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Select/Select.test.tsx"
+material-ui,max,1712581111_53cc684131f9b714320d0a8f33663c2ed76e76a1,test_coverage,1,9619,     Expected test not to call console.error() but instead received 15 calls.,acceptable,2026-10-20T19:45:31.898960+00:00,cdc3363e4d7a9a52,267,1,6cc01f6ff85800ed,d46ed19dcef3,1712581111_53cc684131f9b714320d0a8f33663c2ed76e76a1,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 15 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Select/Select.test.tsx"
+material-ui,max,1712581111_53cc684131f9b714320d0a8f33663c2ed76e76a1,test_coverage,1,12967,     Expected test not to call console.error() but instead received 21 calls.,acceptable,2026-10-20T19:45:31.905286+00:00,c78eabe9c3947942,267,1,f1afaf934f10ec57,d46ed19dcef3,1712581111_53cc684131f9b714320d0a8f33663c2ed76e76a1,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 21 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Select/Select.test.tsx"
+material-ui,max,1712581111_53cc684131f9b714320d0a8f33663c2ed76e76a1,test_coverage,1,15083,     Expected test not to call console.error() but instead received 1 calls.,acceptable,2026-10-20T19:45:31.909856+00:00,b90babb9d9464535,267,1,b98f476b0f1b041e,d46ed19dcef3,1712581111_53cc684131f9b714320d0a8f33663c2ed76e76a1,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 1 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Unstable_NumberInput/NumberInput.test.tsx"
+material-ui,max,1712581111_53cc684131f9b714320d0a8f33663c2ed76e76a1,test_coverage,1,15154,     Expected test not to call console.error() but instead received 2 calls.,acceptable,2026-10-20T19:45:31.914201+00:00,bf658d1811afefd2,267,1,cfe5ef6bad6460a7,421cbab5f601,1712581111_53cc684131f9b714320d0a8f33663c2ed76e76a1,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 2 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/Unstable_NumberInput/NumberInput.test.tsx"
+material-ui,max,1712581111_53cc684131f9b714320d0a8f33663c2ed76e76a1,test_coverage,1,18492,     Expected test not to call console.error() but instead received 4 calls.,acceptable,2026-10-20T19:45:31.918650+00:00,ace8fca42d54c403,267,1,4b91edb8af2a40d6,d46ed19dcef3,1712581111_53cc684131f9b714320d0a8f33663c2ed76e76a1,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 4 calls.
+
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-base/src/unstable_useNumberInput/useNumberInput.test.tsx"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,631,      AssertionError: expected 2 to equal 4,acceptable,2026-10-20T19:45:31.919682+00:00,924fb30860d6792b,58,1,9a5228448b4cc0d8,aeca503a344d,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected 2 to equal 4
++ expected - actual
+-2
++4
+
+at Context.<anonymous> (packages/mui-base/src/Menu/Menu.test.tsx:<n>:<n>)"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,640,      AssertionError: expected +0 to equal 2,acceptable,2026-10-20T19:45:31.920284+00:00,3fece22c67dcc959,58,1,cfe95617d0670ae8,aeca503a344d,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected +0 to equal 2
++ expected - actual
+-0
++2
+
+at Context.<anonymous> (packages/mui-base/src/Select/Select.test.tsx:<n>:<n>)"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,650,      AssertionError: expected 'false' to equal 'true',acceptable,2026-10-20T19:45:31.920923+00:00,f31477c7600cc10d,58,1,b3bbbc1d861b8932,4e4c6b86e3d6,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected 'false' to equal 'true'
++ expected - actual
+-false
++true
+
+at Context.<anonymous> (packages/mui-base/src/Slider/Slider.test.tsx:<n>:<n>)"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,662,      AssertionError: expected +0 to equal 1,acceptable,2026-10-20T19:45:31.921551+00:00,003e3b6b19e43552,58,1,6806937dee140e21,aeca503a344d,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected +0 to equal 1
++ expected - actual
+-0
++1
+
+at Context.<anonymous> (packages/mui-base/src/useButton/useButton.test.tsx:<n>:<n>)"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,673,      AssertionError: expected +0 to equal 1,acceptable,2026-10-20T19:45:31.923435+00:00,b255053420b971eb,58,1,6806937dee140e21,aeca503a344d,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected +0 to equal 1
++ expected - actual
+-0
++1
+
+at Context.<anonymous> (packages/mui-base/src/useSwitch/useSwitch.test.tsx:<n>:<n>)"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,684,"     AssertionError: expected a.MuiLink-root.MuiLink-colorPrimary.MuiLink-body-md.MuiLink-underlineHover.emotion-client-render-the512-JoyLink-root[href=""/""] to have class 'Mui-focusVisible'",acceptable,2026-10-20T19:45:31.926669+00:00,e7bfa5e0e674965b,58,1,97c89102c6c1cc96,91cc893549ca,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected a.MuiLink-root.MuiLink-colorPrimary.MuiLink-body-md.MuiLink-underlineHover.emotion-client-render-the512-JoyLink-root[href=""/""] to have class 'Mui-focusVisible'
+at Context.<anonymous> (packages/mui-joy/src/Link/Link.test.tsx:<n>:<n>)
+at processImmediate (node:internal/timers:476:21)
+
+7) Joy <ListItemButton />
+prop: focusVisibleClassName"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,691,"     AssertionError: expected div.MuiListItemButton-root.MuiListItemButton-colorNeutral.MuiListItemButton-variantPlain.emotion-client-render-1r60ufc-JoyListItemButton-root[role=""button""][tabindex=""0""] to have class 'Mui-focusVisible'",acceptable,2026-10-20T19:45:31.928593+00:00,9b4fd2a5f8517405,58,1,2da0ce17108779f8,aeca503a344d,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected div.MuiListItemButton-root.MuiListItemButton-colorNeutral.MuiListItemButton-variantPlain.emotion-client-render-1r60ufc-JoyListItemButton-root[role=""button""][tabindex=""0""] to have class 'Mui-focusVisible'
+at Context.<anonymous> (packages/mui-joy/src/ListItemButton/ListItemButton.test.tsx:<n>:<n>)
+at processImmediate (node:internal/timers:476:21)
+
+8) <AccordionSummary />
+calls onFocusVisible if focused visibly:"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,697,      AssertionError: expected +0 to equal 1,acceptable,2026-10-20T19:45:31.929303+00:00,3a294504bbbdabb2,58,1,6806937dee140e21,aeca503a344d,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected +0 to equal 1
++ expected - actual
+-0
++1
+
+at Context.<anonymous> (packages/mui-material/src/AccordionSummary/AccordionSummary.test.js:<n>:<n>)"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,707,      AssertionError: expected null to not equal null,acceptable,2026-10-20T19:45:31.930119+00:00,1983f446aa9cd64d,58,1,3203d9668414b5c5,e827d99fa1bd,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected null to not equal null
++ expected - actual
+
+at Context.<anonymous> (packages/mui-material/src/Button/Button.test.js:<n>:<n>)
+at processImmediate (node:internal/timers:476:21)"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,717,      AssertionError: expected  to have a length of 1 but got +0,acceptable,2026-10-20T19:45:31.931174+00:00,39dd10acea78e4da,58,1,dabba12efd6a3f83,157d50f2f8bc,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected  to have a length of 1 but got +0
++ expected - actual
+-0
++1
+
+at Context.<anonymous> (packages/mui-material/src/ButtonBase/ButtonBase.test.js:<n>:<n>)"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,783,"     AssertionError: expected button.MuiButtonBase-root.emotion-client-render-10d1a0h-MuiButtonBase-root[tabindex=""0""][type=""button""] to have class 'Mui-focusVisible'",acceptable,2026-10-20T19:45:31.934095+00:00,429b9c8676051e29,58,1,47a3d513be239ca1,91cc893549ca,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected button.MuiButtonBase-root.emotion-client-render-10d1a0h-MuiButtonBase-root[tabindex=""0""][type=""button""] to have class 'Mui-focusVisible'
+at Context.<anonymous> (packages/mui-material/src/ButtonBase/ButtonBase.test.js:<n>:<n>)
+at processImmediate (node:internal/timers:476:21)
+
+17) <ButtonBase />
+event: focus"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,790,"     AssertionError: expected button.MuiButtonBase-root.emotion-client-render-10d1a0h-MuiButtonBase-root[tabindex=""0""][type=""button""] to have class 'Mui-focusVisible'",acceptable,2026-10-20T19:45:31.935579+00:00,59f9bf7853c1dceb,58,1,47a3d513be239ca1,91cc893549ca,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected button.MuiButtonBase-root.emotion-client-render-10d1a0h-MuiButtonBase-root[tabindex=""0""][type=""button""] to have class 'Mui-focusVisible'
+at Context.<anonymous> (packages/mui-material/src/ButtonBase/ButtonBase.test.js:<n>:<n>)
+at processImmediate (node:internal/timers:476:21)
+
+18) <ButtonBase />
+event: focus"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,797,"      AssertionError: expected [ 'focus', 'blur' ] to deeply equal [ 'focus-visible', 'focus', 'blur' ]",acceptable,2026-10-20T19:45:31.936789+00:00,4c8c5dfdf828c640,58,1,93302b9f7e5763ad,d1e2484f2666,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected [ 'focus', 'blur' ] to deeply equal [ 'focus-visible', 'focus', 'blur' ]
++ expected - actual
+[
++  ""focus-visible""
+""focus""
+""blur"""
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,811,      AssertionError: expected false to equal true,acceptable,2026-10-20T19:45:31.937629+00:00,97f5f101d650118e,58,1,91dc66a3402fc608,157d50f2f8bc,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected false to equal true
++ expected - actual
+-false
++true
+
+at Context.<anonymous> (packages/mui-material/src/ButtonBase/ButtonBase.test.js:<n>:<n>)"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,833,"     AssertionError: expected div.MuiButtonBase-root.MuiChip-root.MuiChip-filled.MuiChip-sizeMedium.MuiChip-colorDefault.MuiChip-clickable.MuiChip-clickableColorDefault.MuiChip-filledDefault.emotion-client-render-sg2e8q-MuiButtonBase-root-MuiChip-root[tabindex=""0""][role=""button""] to have class 'Mui-focusVisible'",acceptable,2026-10-20T19:45:31.944511+00:00,4a23a6958a02a2d4,58,1,f308cfffb2773240,91cc893549ca,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected div.MuiButtonBase-root.MuiChip-root.MuiChip-filled.MuiChip-sizeMedium.MuiChip-colorDefault.MuiChip-clickable.MuiChip-clickableColorDefault.MuiChip-filledDefault.emotion-client-render-sg2e8q-MuiButtonBase-root-MuiChip-root[tabindex=""0""][role=""button""] to have class 'Mui-focusVisible'
+at Context.<anonymous> (packages/mui-material/src/Chip/Chip.test.js:<n>:<n>)
+at processImmediate (node:internal/timers:476:21)
+
+22) <Chip />
+event: focus"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,840,"     AssertionError: expected div.MuiButtonBase-root.MuiChip-root.MuiChip-filled.MuiChip-sizeMedium.MuiChip-colorDefault.MuiChip-clickable.MuiChip-clickableColorDefault.MuiChip-filledDefault.emotion-client-render-sg2e8q-MuiButtonBase-root-MuiChip-root[tabindex=""0""][role=""button""] to have class 'Mui-focusVisible'",acceptable,2026-10-20T19:45:31.948726+00:00,d447a4b29cea517e,58,1,f308cfffb2773240,91cc893549ca,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected div.MuiButtonBase-root.MuiChip-root.MuiChip-filled.MuiChip-sizeMedium.MuiChip-colorDefault.MuiChip-clickable.MuiChip-clickableColorDefault.MuiChip-filledDefault.emotion-client-render-sg2e8q-MuiButtonBase-root-MuiChip-root[tabindex=""0""][role=""button""] to have class 'Mui-focusVisible'
+at Context.<anonymous> (packages/mui-material/src/Chip/Chip.test.js:<n>:<n>)
+at processImmediate (node:internal/timers:476:21)
+
+23) <Fab />
+should have a focusRipple by default:"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,846,      AssertionError: expected null to not equal null,acceptable,2026-10-20T19:45:31.950780+00:00,8f969fcbb23160b1,58,1,3203d9668414b5c5,91cc893549ca,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected null to not equal null
++ expected - actual
+
+at Context.<anonymous> (packages/mui-material/src/Fab/Fab.test.js:<n>:<n>)
+at processImmediate (node:internal/timers:476:21)"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,855,"     AssertionError: expected a.MuiTypography-root.MuiTypography-inherit.MuiLink-root.MuiLink-underlineAlways.emotion-client-render-1ruuf8c-MuiTypography-root-MuiLink-root[href=""/""] to have class 'Mui-focusVisible'",acceptable,2026-10-20T19:45:31.954389+00:00,182fb28c62f94f09,58,1,b023ab6b6538ce97,91cc893549ca,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected a.MuiTypography-root.MuiTypography-inherit.MuiLink-root.MuiLink-underlineAlways.emotion-client-render-1ruuf8c-MuiTypography-root-MuiLink-root[href=""/""] to have class 'Mui-focusVisible'
+at Context.<anonymous> (packages/mui-material/src/Link/Link.test.js:<n>:<n>)
+at processImmediate (node:internal/timers:476:21)
+
+25) <ListItem />
+prop: focusVisibleClassName"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,862,"     AssertionError: expected div.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-padding.MuiListItem-button.emotion-client-render-1yxzta3-MuiButtonBase-root-MuiListItem-root[tabindex=""0""][role=""button""] to have class 'focusVisibleClassName'",acceptable,2026-10-20T19:45:31.958852+00:00,0212121feb5e01b4,58,1,5d94fb484736e910,91cc893549ca,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected div.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-padding.MuiListItem-button.emotion-client-render-1yxzta3-MuiButtonBase-root-MuiListItem-root[tabindex=""0""][role=""button""] to have class 'focusVisibleClassName'
+at Context.<anonymous> (packages/mui-material/src/ListItem/ListItem.test.js:<n>:<n>)
+at processImmediate (node:internal/timers:476:21)
+
+26) <ListItemButton />
+prop: focusVisibleClassName"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,869,"     AssertionError: expected div.MuiButtonBase-root.MuiListItemButton-root.MuiListItemButton-gutters.MuiListItemButton-root.MuiListItemButton-gutters.emotion-client-render-9c0h7a-MuiButtonBase-root-MuiListItemButton-root[tabindex=""0""][role=""button""] to have class 'focusVisibleClassName'",acceptable,2026-10-20T19:45:31.961838+00:00,4fffd910e0deb9fd,58,1,5e1193ab43d780e5,91cc893549ca,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected div.MuiButtonBase-root.MuiListItemButton-root.MuiListItemButton-gutters.MuiListItemButton-root.MuiListItemButton-gutters.emotion-client-render-9c0h7a-MuiButtonBase-root-MuiListItemButton-root[tabindex=""0""][role=""button""] to have class 'focusVisibleClassName'
+at Context.<anonymous> (packages/mui-material/src/ListItemButton/ListItemButton.test.js:<n>:<n>)
+at processImmediate (node:internal/timers:476:21)
+
+27) <SpeedDial />
+keyboard"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,876,      AssertionError: expected null to not equal null,acceptable,2026-10-20T19:45:31.962731+00:00,8fce4182359732c3,58,1,3203d9668414b5c5,e827d99fa1bd,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected null to not equal null
++ expected - actual
+
+at Context.<anonymous> (packages/mui-material/src/SpeedDial/SpeedDial.test.js:<n>:<n>)
+at processImmediate (node:internal/timers:476:21)"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,884,      AssertionError: expected null to not equal null,acceptable,2026-10-20T19:45:31.963522+00:00,aa90185a0d372244,58,1,3203d9668414b5c5,e827d99fa1bd,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected null to not equal null
++ expected - actual
+
+at Context.<anonymous> (packages/mui-material/src/Tab/Tab.test.js:<n>:<n>)
+at processImmediate (node:internal/timers:476:21)"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,893,"     TestingLibraryElementError: Unable to find an accessible element with the role ""tooltip""",acceptable,2026-10-20T19:45:31.964290+00:00,e5dbd629d6cb050f,58,1,ac4f64172860d0c9,7404d360005b,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"TestingLibraryElementError: Unable to find an accessible element with the role ""tooltip""
+Here are the accessible roles:
+textbox:
+Name ""Title"":
+<input
+aria-label=""Title"""
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,929,"     TestingLibraryElementError: Unable to find an accessible element with the role ""tooltip""",acceptable,2026-10-20T19:45:31.965048+00:00,f045ca974fd406f8,58,1,a2c46ef5af67a472,7404d360005b,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"TestingLibraryElementError: Unable to find an accessible element with the role ""tooltip""
+Here are the accessible roles:
+button:
+Name ""Hello World"":
+<button
+aria-label=""Hello World"""
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,1009,"     TestingLibraryElementError: Unable to find an accessible element with the role ""tooltip""",acceptable,2026-10-20T19:45:31.965802+00:00,c7e95e22e41fd40d,58,1,a2c46ef5af67a472,7404d360005b,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"TestingLibraryElementError: Unable to find an accessible element with the role ""tooltip""
+Here are the accessible roles:
+button:
+Name ""tooltip"":
+<button
+aria-label=""tooltip"""
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,1049,      AssertionError: expected null to not equal null,acceptable,2026-10-20T19:45:31.966592+00:00,1fb4195a2a1c3e42,58,1,3203d9668414b5c5,e827d99fa1bd,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected null to not equal null
++ expected - actual
+
+at Context.<anonymous> (packages/mui-material/src/Tooltip/Tooltip.test.js:<n>:<n>)
+at processImmediate (node:internal/timers:476:21)"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,1058,"     TestingLibraryElementError: Unable to find an accessible element with the role ""tooltip""",acceptable,2026-10-20T19:45:31.967370+00:00,607a076c94c44aaf,58,1,a2c46ef5af67a472,7404d360005b,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"TestingLibraryElementError: Unable to find an accessible element with the role ""tooltip""
+Here are the accessible roles:
+button:
+Name ""Some information"":
+<button
+aria-label=""Some information"""
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,1092,"     AssertionError: expected li.MuiButtonBase-root.MuiMenuItem-root.MuiMenuItem-gutters.MuiMenuItem-root.MuiMenuItem-gutters.emotion-client-render-1h4bzp1-MuiButtonBase-root-MuiMenuItem-root[tabindex=""0""][role=""menuitem""] to have class 'focus-visible'",acceptable,2026-10-20T19:45:31.970712+00:00,077420e37239b8e3,31,1,f1ad49d17827ac84,91cc893549ca,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718103322_2cc51935b1ec1ccfc5897abb5158c5435e233ab3,"AssertionError: expected li.MuiButtonBase-root.MuiMenuItem-root.MuiMenuItem-gutters.MuiMenuItem-root.MuiMenuItem-gutters.emotion-client-render-1h4bzp1-MuiButtonBase-root-MuiMenuItem-root[tabindex=""0""][role=""menuitem""] to have class 'focus-visible'
+at Context.<anonymous> (packages/mui-material/test/integration/MenuList.test.js:<n>:<n>)
+at processImmediate (node:internal/timers:476:21)
+
+36) useIsFocusVisible
+focus inside shadowRoot"
+material-ui,max,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,test_coverage,1,1099,"     AssertionError: expected button#test-button[type=""button""] to have class 'focus-visible'",acceptable,2026-10-20T19:45:31.972553+00:00,ec67d415d6b41430,58,1,88e380b8b62a7627,91cc893549ca,1717852224_1ee901b29abe22e3c369d793c24fd1bdcff35ab7,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected button#test-button[type=""button""] to have class 'focus-visible'
+at Context.<anonymous> (packages/mui-utils/src/useIsFocusVisible/useIsFocusVisible.test.js:<n>:<n>)
+at processImmediate (node:internal/timers:476:21)
+
+---------------------------------------|---------|----------|---------|---------|-------------------
+File                                   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s"
+material-ui,max,1718117284_c7caa1d97fb8670c0a2ef6fe277e2352ed6f19ff,test_coverage,1,1093,"     AssertionError: expected li.MuiButtonBase-root.MuiMenuItem-root.MuiMenuItem-gutters.MuiMenuItem-root.MuiMenuItem-gutters.emotion-client-render-1h4bzp1-MuiButtonBase-root-MuiMenuItem-root[tabindex=""0""][role=""menuitem""] to have class 'focus-visible'",acceptable,2026-10-20T19:45:31.974878+00:00,312f0dbb8264d1c3,27,1,f1ad49d17827ac84,91cc893549ca,1718117284_c7caa1d97fb8670c0a2ef6fe277e2352ed6f19ff,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected li.MuiButtonBase-root.MuiMenuItem-root.MuiMenuItem-gutters.MuiMenuItem-root.MuiMenuItem-gutters.emotion-client-render-1h4bzp1-MuiButtonBase-root-MuiMenuItem-root[tabindex=""0""][role=""menuitem""] to have class 'focus-visible'
+at Context.<anonymous> (packages/mui-material/test/integration/MenuList.test.js:<n>:<n>)
+at processImmediate (node:internal/timers:476:21)
+
+36) withStyles
+option: withTheme"
+material-ui,max,1718117284_c7caa1d97fb8670c0a2ef6fe277e2352ed6f19ff,test_coverage,1,1100,      AssertionError: expected { [Symbol(mui.nested)]: false } to equal {},acceptable,2026-10-20T19:45:31.976063+00:00,7776e114e7e91a1b,27,1,bbc6323f063c762c,91cc893549ca,1718117284_c7caa1d97fb8670c0a2ef6fe277e2352ed6f19ff,1718611044_4939e93afbee9046274194a2c80caa200138747c,"AssertionError: expected { [Symbol(mui.nested)]: false } to equal {}
++ expected - actual
+
+at Context.<anonymous> (packages/mui-styles/src/withStyles/withStyles.test.js:<n>:<n>)
+at processImmediate (node:internal/timers:476:21)"
+material-ui,max,1718727689_d3ef60158ba066779102fba775dda6765e2cc0f5,test_coverage,1,621,      + expected - actual,acceptable,2026-10-20T19:45:31.977439+00:00,efb0a055d1c81392,4,1,3b2d0caf35c2a19e,b1c67710c834,1718727689_d3ef60158ba066779102fba775dda6765e2cc0f5,1718767478_c96d05e25c66a7948976882e4d72b52bdcf108f0,"+ expected - actual
+.MuiTab-root .MuiTab-icon {
+color: red;
+}
+-"
+material-ui,max,1721989659_257b3bc528f1711d4087f57ea299dcfec6fee10c,test_coverage,1,439, Exception during run: Error: Cannot find module './BasePopper',reevaluated_acceptable,2026-10-20T19:45:31.979902+00:00,1e676dc4756e892b,2,1,9eadf3bc7c775d5d,57653cb84ed6,1721989659_257b3bc528f1711d4087f57ea299dcfec6fee10c,1726094784_6588beeb9daf3478320119c121685171bd081c4d,"Exception during run: Error: Cannot find module './BasePopper'
+Require stack:
+- packages/mui-material/src/Popper/Popper.tsx
+- packages/mui-material/src/Popper/index.js
+- packages/mui-material/src/Autocomplete/Autocomplete.js
+- packages/mui-material/src/Autocomplete/index.js"
+material-ui,max,1721989661_2e6f73ca1c13616b4a072ff2de2b1d3015c1a0da,test_coverage,1,467, Exception during run: Error: Cannot find module './useBadge',reevaluated_acceptable,2026-10-20T19:45:31.983772+00:00,a8698ab7f32a1b32,1,1,5485c9365617757b,57653cb84ed6,1721989661_2e6f73ca1c13616b4a072ff2de2b1d3015c1a0da,1721989661_2e6f73ca1c13616b4a072ff2de2b1d3015c1a0da,"Exception during run: Error: Cannot find module './useBadge'
+Require stack:
+- packages/mui-base/src/useBadge/index.ts
+- packages/mui-base/src/Badge/Badge.tsx
+- packages/mui-base/src/Badge/index.ts
+- packages/mui-base/src/Badge/Badge.test.tsx"
+material-ui,max,1721989662_22ef52b059b46c080eb0df3d981576241217f127,test_coverage,1,433, Exception during run: Error: Cannot find module '../composeClasses',reevaluated_acceptable,2026-10-20T19:45:31.986394+00:00,d368ca6c5a359bdf,2,1,52b7157d9003c0b4,57653cb84ed6,1721989662_22ef52b059b46c080eb0df3d981576241217f127,1726095559_f6e03180c82e5387c0605d2e43116ab2f776083f,"Exception during run: Error: Cannot find module '../composeClasses'
+Require stack:
+- packages/mui-material/src/Popper/BasePopper.tsx
+- packages/mui-material/src/Popper/Popper.tsx
+- packages/mui-material/src/Popper/index.js
+- packages/mui-material/src/Autocomplete/Autocomplete.js"
+material-ui,max,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,test_coverage,1,10910,      + expected - actual,acceptable,2026-10-20T19:45:31.987444+00:00,7187f0404237b694,8,1,1ca9e99c3597ae05,01e326e04db1,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,1742203940_ce3386deee541f68bb9418d8b4a861fa038db4b1,"+ expected - actual
+import Button from '@material-ui/core/Button';
+
+export default function BoxComponent(props) {
+return (
+-    <Box"
+material-ui,max,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,test_coverage,1,10940,      + expected - actual,acceptable,2026-10-20T19:45:31.988995+00:00,3336e29d1dd7ce56,8,1,6e780ca9f6a21038,e059064f5161,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,1742203940_ce3386deee541f68bb9418d8b4a861fa038db4b1,"+ expected - actual
+const {  children, essential, position, user } = this.props;
+const { menuOpen } = this.state;
+
+return (
+-      <StyledAppBar essential={essential} position={position}>"
+material-ui,max,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,test_coverage,1,10972,      + expected - actual,acceptable,2026-10-20T19:45:31.990285+00:00,03a3f1346e3a9fbf,8,1,0b788a20c52d3dd9,2aa3c9ce6e92,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,1742203940_ce3386deee541f68bb9418d8b4a861fa038db4b1,"+ expected - actual
+function AffiliatesHero() {
+
+return (
+-    <Root className={classes.root}>"
+material-ui,max,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,test_coverage,1,11004,      + expected - actual,acceptable,2026-10-20T19:45:44.310299+00:00,6c9e4f98e26a786d,8,1,30526b4953d7577c,,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,1742203940_ce3386deee541f68bb9418d8b4a861fa038db4b1,"+ expected - actual
+
+export const MyCard = ((props) => {
+const { } = props;
+return (
+-    <StyledCard className={classes.root}>"
+material-ui,max,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,test_coverage,1,11052,      + expected - actual,acceptable,2026-10-20T19:45:46.250373+00:00,36f115c8cfea659b,8,1,5522adf535630152,,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,1742203940_ce3386deee541f68bb9418d8b4a861fa038db4b1,"+ expected - actual
+function SellHero() {
+
+return (
+-    <Root className={classes.root}>"
+material-ui,max,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,test_coverage,1,11084,      + expected - actual,acceptable,2026-10-20T19:45:48.970175+00:00,5ae93eb5f94fd8ea,8,1,8b07b51251bc6c04,,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,1742203940_ce3386deee541f68bb9418d8b4a861fa038db4b1,"+ expected - actual
+};
+}, []);
+
+return (
+-    <Root>"
+material-ui,max,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,test_coverage,1,11115,      + expected - actual,acceptable,2026-10-20T19:45:49.917636+00:00,0c52e4c1d51df254,8,1,304ce20e5fd3101f,,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,1742203940_ce3386deee541f68bb9418d8b4a861fa038db4b1,"+ expected - actual
+},
+});
+};
+return (
+-    <Root>"
+material-ui,max,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,test_coverage,1,11144,      + expected - actual,acceptable,2026-10-20T19:45:51.050137+00:00,a172f602f042f558,8,1,b3d1d83e8e3da6ab,,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,1742203940_ce3386deee541f68bb9418d8b4a861fa038db4b1,"+ expected - actual
+export default function Page() {
+
+return (
+-    <Root>"
+material-ui,max,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,test_coverage,1,11188,      + expected - actual,acceptable,2026-10-20T19:45:51.910125+00:00,756a0b59c2550d46,8,1,b3d1d83e8e3da6ab,,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,1742203940_ce3386deee541f68bb9418d8b4a861fa038db4b1,"+ expected - actual
+export default function Page() {
+
+return (
+-    <StyledSomeNamespaceSomeComponent>"
+material-ui,max,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,test_coverage,1,11210,      + expected - actual,acceptable,2026-10-20T19:45:52.737099+00:00,72bef4dbef521188,8,1,dac73191336b295a,,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,1742203940_ce3386deee541f68bb9418d8b4a861fa038db4b1,"+ expected - actual
+export default function ComponentUsingStyles(props) {
+const { classes, cx } = useStyles(props, {
+props: props
+});
+-  return ("
+material-ui,max,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,test_coverage,1,11239,      + expected - actual,acceptable,2026-10-20T19:45:53.489976+00:00,c340c9b85ec460c4,8,1,f4402d00904145dc,,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,1742203940_ce3386deee541f68bb9418d8b4a861fa038db4b1,"+ expected - actual
+function ComponentUsingStyles(props) {
+const { classes, cx } = useStyles(props, {
+props: props
+});
+-  return ("
+material-ui,max,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,test_coverage,1,11267,      + expected - actual,acceptable,2026-10-20T19:45:54.776981+00:00,6695199a57ed4c5f,8,1,7907a7dc41fcb8dd,,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,1742203940_ce3386deee541f68bb9418d8b4a861fa038db4b1,"+ expected - actual
+
+function App() {
+const { classes, cx } = useStyles();
+return (
+-    <div className={classes.parent}>"
+material-ui,max,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,test_coverage,1,11296,      + expected - actual,acceptable,2026-10-20T19:45:55.423951+00:00,62e4151cd598f97c,8,1,1f4a91348ff9faa7,,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,1742203940_ce3386deee541f68bb9418d8b4a861fa038db4b1,"+ expected - actual
+}
+});
+
+return (
+-    <div className={classes.root}>"
+material-ui,max,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,test_coverage,1,11325,      + expected - actual,acceptable,2026-10-20T19:45:56.382363+00:00,69c1ecab67d9077a,8,1,f9cd5ccced8b0488,,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,1742203940_ce3386deee541f68bb9418d8b4a861fa038db4b1,"+ expected - actual
+const Header = () => {
+const classes = useStyles();
+const { dark, setDark } = React.useContext(DarkContext);
+return (
+-    <AppBar color=""default"" position=""sticky"">"
+material-ui,max,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,test_coverage,1,11494,      + expected - actual,acceptable,2026-10-20T19:45:58.036312+00:00,175294215dfa2648,8,1,14b8491130856ba5,,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,1742203940_ce3386deee541f68bb9418d8b4a861fa038db4b1,"+ expected - actual
+import Page from './pages';
+
+const App = () => {
+return (
+-    <Providers>"
+material-ui,max,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,test_coverage,1,11523,      + expected - actual,acceptable,2026-10-20T19:45:58.696231+00:00,eefebfd3f708d922,8,1,7d70188d0b27ebe8,,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,1742203940_ce3386deee541f68bb9418d8b4a861fa038db4b1,"+ expected - actual
+import { createTheme, ThemeProvider, Theme } from '@material-ui/core/styles';
+
+function App() {
+return (
+-    <ThemeProvider theme={createTheme()}>"
+material-ui,max,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,test_coverage,1,11544,      + expected - actual,acceptable,2026-10-20T19:45:59.254317+00:00,7aa69e886c5781a6,8,1,8d12c6f7ca29fe85,,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,1742203940_ce3386deee541f68bb9418d8b4a861fa038db4b1,"+ expected - actual
+import { createTheme, ThemeProvider, Theme } from '@material-ui/core';
+
+function App() {
+return (
+-    <ThemeProvider theme={createTheme()}>"
+material-ui,max,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,test_coverage,1,11565,      + expected - actual,acceptable,2026-10-20T19:45:59.796492+00:00,ebe3e04d9696a92d,8,1,f0344cae90a2c961,,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,1742203940_ce3386deee541f68bb9418d8b4a861fa038db4b1,"+ expected - actual
+const Select2 = () => <MuiSelect2 variant=""standard"" />;
+
+export default function TextFieldComponent(props) {
+return (
+-    <div>"
+material-ui,max,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,test_coverage,1,11593,      + expected - actual,acceptable,2026-10-20T19:46:00.371304+00:00,43654a7f4f966ff9,8,1,b55ff3f19e4de24d,,1742124730_e88f260af2e27f82c5530e93970358f81a0d172d,1742203940_ce3386deee541f68bb9418d8b4a861fa038db4b1,"+ expected - actual
+25
+</Typographyyy>;
+function Copyright(props) {
+return (
+-    <Typographyyy"
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9664,     NotFoundError: The child can not be found in the parent.,acceptable,2026-10-20T19:45:32.012825+00:00,77815354865301aa,101,1,eb32a46e10dc1fb4,40f14ed06883,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"NotFoundError: The child can not be found in the parent.
+
+2) createCssVarsProvider
+[Application] Customization
+custom theme replace the default theme:"
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9670,     NotFoundError: The child can not be found in the parent.,acceptable,2026-10-20T19:45:32.013828+00:00,ae8759cc61db037f,101,1,eb32a46e10dc1fb4,40f14ed06883,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"NotFoundError: The child can not be found in the parent.
+
+3) createCssVarsProvider
+[Application] Customization
+extend palette property in colorSchemes:"
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9676,     NotFoundError: The child can not be found in the parent.,acceptable,2026-10-20T19:45:32.014815+00:00,5c9e23125146bf9a,101,1,eb32a46e10dc1fb4,40f14ed06883,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"NotFoundError: The child can not be found in the parent.
+
+4) createCssVarsProvider
+[Application] Customization
+able to override css variable prefix:"
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9682,     NotFoundError: The child can not be found in the parent.,acceptable,2026-10-20T19:45:32.015894+00:00,42a85b3445c64256,101,1,eb32a46e10dc1fb4,40f14ed06883,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"NotFoundError: The child can not be found in the parent.
+
+5) createCssVarsProvider
+[Application] Customization
+does not take `theme.components` into account:"
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9688,     NotFoundError: The child can not be found in the parent.,acceptable,2026-10-20T19:45:32.016955+00:00,5b504511f90e99ce,101,1,eb32a46e10dc1fb4,40f14ed06883,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"NotFoundError: The child can not be found in the parent.
+
+6) createCssVarsProvider
+[Application] Customization
+should use colorSchemes.palette.mode if `colorSchemes` does not contain all the default:"
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9694,     NotFoundError: The child can not be found in the parent.,acceptable,2026-10-20T19:45:32.020329+00:00,35a177ef8a892c7a,101,1,eb32a46e10dc1fb4,40f14ed06883,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"NotFoundError: The child can not be found in the parent.
+
+7) createCssVarsProvider
+Nested providers
+independent context:"
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9701,  AggregateError:,acceptable,2026-10-20T19:46:05.283890+00:00,16036efab681b1b1,16,1,8dba4be84b4c0eef,,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1746005692_1d1746d27c6c1dc0b72d56d970dc6a846f92e36b,"AggregateError:
+at aggregateErrors (node_modules/.pnpm/react@19.1.0/node_modules/react/cjs/react.development.js:<n>:<n>)
+at process.env.NODE_ENV.exports.act (node_modules/.pnpm/react@19.1.0/node_modules/react/cjs/react.development.js:<n>:<n>)
+at node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.2_@type_f9f0abf8b10a578f3d41efa958f5721d/node_modules/@testing-library/react/dist/act-compat.js:<n>:<n>
+at renderRoot (node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.2_@type_f9f0abf8b10a578f3d41efa958f5721d/node_modules/@testing-library/react/dist/pure.js:<n>:<n>)
+at render (node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.2_@type_f9f0abf8b10a578f3d41efa958f5721d/node_modules/@testing-library/react/dist/pure.js:<n>:<n>)"
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9717,     NotFoundError: The child can not be found in the parent.,acceptable,2026-10-20T19:45:32.030416+00:00,ccb403f83ab57b09,101,1,eb32a46e10dc1fb4,40f14ed06883,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"NotFoundError: The child can not be found in the parent.
+
+9) System <Grid />
+combines system properties with the sx prop:
+AssertionError: expected <div …(1)></div> to have computed style { 'margin-top': '16px', …(2) }"
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9725,      + expected - actual,acceptable,2026-10-20T19:45:32.031847+00:00,52786b44314e5a62,124,1,cf7ac5f0dac3e70c,23a4cbd5c510,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"+ expected - actual
+{
+-  ""margin-bottom"": """"
+-  ""margin-right"": """"
+-  ""margin-top"": """"
++  ""margin-bottom"": ""16px"""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9741,      AssertionError: expected <div …(2)></div> to have computed style { 'flex-wrap': 'wrap' },acceptable,2026-10-20T19:45:32.033687+00:00,2c9c80cdf54cf584,124,1,5e116bda7bcfbd18,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div …(2)></div> to have computed style { 'flex-wrap': 'wrap' }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""flex-wrap"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9756,      AssertionError: expected <div …(2)></div> to have computed style { 'flex-wrap': 'nowrap' },acceptable,2026-10-20T19:45:32.035547+00:00,a2a681c861017620,124,1,23da0fceac7c6bd2,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div …(2)></div> to have computed style { 'flex-wrap': 'nowrap' }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""flex-wrap"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9771,      AssertionError: expected <div …(2)></div> to have computed style { 'flex-wrap': 'wrap-reverse' },acceptable,2026-10-20T19:45:32.037458+00:00,3108b0054e39deab,124,1,40c45ff3bd12a203,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div …(2)></div> to have computed style { 'flex-wrap': 'wrap-reverse' }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""flex-wrap"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9785,"      AssertionError: expected <div class=""css-1ohja90""></div> to have computed style { width: '200px' }",acceptable,2026-10-20T19:45:32.040035+00:00,a55063fe923d8779,124,1,3d1a74b3708870fe,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div class=""css-1ohja90""></div> to have computed style { width: '200px' }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""width"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9799,"      AssertionError: expected <div class=""css-76sv76""></div> to have computed style { width: '200px' }",acceptable,2026-10-20T19:45:32.042788+00:00,689c5b3c9995e236,124,1,59575f9928edf431,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div class=""css-76sv76""></div> to have computed style { width: '200px' }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""width"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9813,"      AssertionError: expected <div class=""css-1lg2hzc""></div> to have computed style { width: '8px' }",acceptable,2026-10-20T19:45:32.045529+00:00,670055d26255ed8b,124,1,bf420436e038c68b,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div class=""css-1lg2hzc""></div> to have computed style { width: '8px' }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""width"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9827,"      AssertionError: expected <div class=""css-1gq8co7""></div> to have computed style { width: '8px' }",acceptable,2026-10-20T19:45:32.048235+00:00,ca6a778ea115fd3e,124,1,44eaf5c740e679d7,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div class=""css-1gq8co7""></div> to have computed style { width: '8px' }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""width"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9841,"      AssertionError: expected <div class=""css-1uzebon""></div> to have computed style { width: '10px' }",acceptable,2026-10-20T19:45:32.050617+00:00,a7a9dacc937cb9c4,124,1,6e33e10ba1f0f02d,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div class=""css-1uzebon""></div> to have computed style { width: '10px' }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""width"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9855,"      AssertionError: expected <div class=""css-bosr71""></div> to have computed style { width: '10px' }",acceptable,2026-10-20T19:45:32.052475+00:00,a2e834256b15f9ef,124,1,6a128fd1752a0292,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div class=""css-bosr71""></div> to have computed style { width: '10px' }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""width"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9870,"      AssertionError: expected <div scale=""4"" …(2)></div> to have computed style { 'font-size': '32px', …(1) }",acceptable,2026-10-20T19:45:32.054391+00:00,16e6d9e1820e65cd,124,1,57b2454c53fef568,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div scale=""4"" …(2)></div> to have computed style { 'font-size': '32px', …(1) }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""font-size"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9904,"      AssertionError: expected <div …(1)></div> to have computed style { width: '200px', height: '250px' }",acceptable,2026-10-20T19:45:32.056242+00:00,ac2b2582a3232424,124,1,9d1fe72a0b55a7cd,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div …(1)></div> to have computed style { width: '200px', height: '250px' }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""height"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9921,"      AssertionError: expected <div …(1)></div> to have computed style { width: '200px', height: '300px' }",acceptable,2026-10-20T19:45:32.058092+00:00,f709e61310741fe4,124,1,45d7841b05714568,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div …(1)></div> to have computed style { width: '200px', height: '300px' }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""height"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9955,"      AssertionError: expected <div …(1)></div> to have computed style { width: '250px', height: '300px' }",acceptable,2026-10-20T19:45:32.060059+00:00,6828549b8ba406c5,124,1,46c6c7d904ff62f6,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div …(1)></div> to have computed style { width: '250px', height: '300px' }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""height"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,9989,"      AssertionError: expected <div …(1)></div> to have computed style { width: '250px', height: '250px' }",acceptable,2026-10-20T19:45:32.062509+00:00,26fe976c7bcb15d2,124,1,f384ef00c7339525,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div …(1)></div> to have computed style { width: '250px', height: '250px' }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""height"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,10040,"      AssertionError: expected <div …(1)></div> to have computed style { width: '400px', height: '400px' }",acceptable,2026-10-20T19:45:32.065413+00:00,0acd2cc2f4a9858d,124,1,d41cb729ac86a0dc,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div …(1)></div> to have computed style { width: '400px', height: '400px' }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""height"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,10108,"      AssertionError: expected <div …(1)></div> to have computed style { width: '500px', height: '400px' }",acceptable,2026-10-20T19:45:32.067292+00:00,1568199de5a419ec,124,1,ec5ec9e3920c87f1,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div …(1)></div> to have computed style { width: '500px', height: '400px' }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""height"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,10142,"      AssertionError: expected <div data-testid=""large"" …(1)></div> to have computed style { width: '400px', height: '400px' }",acceptable,2026-10-20T19:45:32.069158+00:00,781962cf12dd5ac1,124,1,221e1428b89e6cda,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div data-testid=""large"" …(1)></div> to have computed style { width: '400px', height: '400px' }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""height"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,10159,"      AssertionError: expected <div …(1)></div> to have computed style { color: 'rgb(0, 0, 255)' }",acceptable,2026-10-20T19:45:32.071047+00:00,7e1e439f026f9f42,124,1,77edb5f552c2552a,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div …(1)></div> to have computed style { color: 'rgb(0, 0, 255)' }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""color"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,10174,"      AssertionError: expected <div …(1)></div> to have computed style { 'font-family': 'Roboto', …(1) }",acceptable,2026-10-20T19:45:32.072932+00:00,52dc1d9c22c2c99d,124,1,edd6d164faba23cc,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div …(1)></div> to have computed style { 'font-family': 'Roboto', …(1) }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""font-family"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,10223,"      AssertionError: expected <div class=""css-1ebprri""></div> to have computed style { 'margin-top': '16px', …(1) }",acceptable,2026-10-20T19:45:32.074835+00:00,3508e17eda80b921,124,1,d783fb9f8d5ba8be,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div class=""css-1ebprri""></div> to have computed style { 'margin-top': '16px', …(1) }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""margin-bottom"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,10240,      AssertionError: expected <div …(1)></div> to have computed style { 'margin-top': '16px' },acceptable,2026-10-20T19:45:32.076717+00:00,462ab4ebe8bf32a4,124,1,2f0ae3b0dbf677a7,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div …(1)></div> to have computed style { 'margin-top': '16px' }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""margin-top"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,10255,"      AssertionError: expected <div class=""css-9124uu""></div> to have computed style { 'margin-top': '-1px' }",acceptable,2026-10-20T19:45:32.078610+00:00,fc2c7eb8ff48d3ff,124,1,d96b00b1cc452c0a,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div class=""css-9124uu""></div> to have computed style { 'margin-top': '-1px' }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""margin-top"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,10269,      AssertionError: expected <div …(2)></div> to have computed style { 'mix-blend-mode': 'lighten' },acceptable,2026-10-20T19:45:32.080469+00:00,9d4967a931c502f9,124,1,ba978c0bbe8c5ffd,c986ecf5fac3,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected <div …(2)></div> to have computed style { 'mix-blend-mode': 'lighten' }
+Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade nor actual CSS property value computation. If results differ between real browsers and JSDOM, skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`
+Browsers can compute shorthand properties differently. Prefer longhand properties e.g. `borderTopColor`, `borderRightColor` etc. instead of `border` or `border-color`.
++ expected - actual
+{
+-  ""mix-blend-mode"": """""
+material-ui,max,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,test_coverage,1,10283,     AssertionError: expected [Function] to not throw an error but 'NotFoundError: The child can not be f…' was thrown,acceptable,2026-10-20T19:46:08.842233+00:00,14a6ed3f9b06dbfb,124,1,6fa435b2890bdd65,,1745825160_b1c3344ad02e9a35b77bd584f1478b318d5a851d,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AssertionError: expected [Function] to not throw an error but 'NotFoundError: The child can not be f…' was thrown
+at Context.<anonymous> (docs/src/theming.test.tsx:<n>:<n>)
+at processImmediate (node:internal/timers:483:21)
+
+---------------------------------------|---------|----------|---------|---------|-------------------
+File                                   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s"
+material-ui,max,1745830744_3c81823e5bdbd178bd48974a820915e31a81b666,test_coverage,1,9676,     Expected test not to call console.error() but instead received 1 calls.,acceptable,2026-10-20T19:45:32.085845+00:00,d61edae9e014ecea,22,1,11696b096f8402b5,d46ed19dcef3,1745830744_3c81823e5bdbd178bd48974a820915e31a81b666,1747659797_d8cf3633c6ea10e33890bcb5004d78ff7b11c652,"Expected test not to call console.error() but instead received 1 calls.
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-material/src/Autocomplete/Autocomplete.test.js
+console.error message #1:
+An update to Transition inside a test was not wrapped in act(...)."
+material-ui,max,1745830744_3c81823e5bdbd178bd48974a820915e31a81b666,test_coverage,1,9705,     NotFoundError: The child can not be found in the parent.,acceptable,2026-10-20T19:45:32.086874+00:00,2b8c2b81a9866f48,23,1,eb32a46e10dc1fb4,40f14ed06883,1745830744_3c81823e5bdbd178bd48974a820915e31a81b666,1747659797_d8cf3633c6ea10e33890bcb5004d78ff7b11c652,"NotFoundError: The child can not be found in the parent.
+
+3) createCssVarsProvider
+[Application] Customization
+custom theme replace the default theme:"
+material-ui,max,1745830744_3c81823e5bdbd178bd48974a820915e31a81b666,test_coverage,1,9711,     NotFoundError: The child can not be found in the parent.,acceptable,2026-10-20T19:45:32.087879+00:00,08f695d4ed93de65,23,1,eb32a46e10dc1fb4,40f14ed06883,1745830744_3c81823e5bdbd178bd48974a820915e31a81b666,1747659797_d8cf3633c6ea10e33890bcb5004d78ff7b11c652,"NotFoundError: The child can not be found in the parent.
+
+4) createCssVarsProvider
+[Application] Customization
+extend palette property in colorSchemes:"
+material-ui,max,1745830744_3c81823e5bdbd178bd48974a820915e31a81b666,test_coverage,1,9717,     NotFoundError: The child can not be found in the parent.,acceptable,2026-10-20T19:45:32.088901+00:00,29105bfcb432491d,23,1,eb32a46e10dc1fb4,40f14ed06883,1745830744_3c81823e5bdbd178bd48974a820915e31a81b666,1747659797_d8cf3633c6ea10e33890bcb5004d78ff7b11c652,"NotFoundError: The child can not be found in the parent.
+
+5) createCssVarsProvider
+[Application] Customization
+able to override css variable prefix:"
+material-ui,max,1745830744_3c81823e5bdbd178bd48974a820915e31a81b666,test_coverage,1,9723,     NotFoundError: The child can not be found in the parent.,acceptable,2026-10-20T19:45:32.090050+00:00,c109812c952783a3,23,1,eb32a46e10dc1fb4,40f14ed06883,1745830744_3c81823e5bdbd178bd48974a820915e31a81b666,1747659797_d8cf3633c6ea10e33890bcb5004d78ff7b11c652,"NotFoundError: The child can not be found in the parent.
+
+6) createCssVarsProvider
+[Application] Customization
+does not take `theme.components` into account:"
+material-ui,max,1745830744_3c81823e5bdbd178bd48974a820915e31a81b666,test_coverage,1,9729,     NotFoundError: The child can not be found in the parent.,acceptable,2026-10-20T19:45:32.091121+00:00,4c40b10b4416c1c7,23,1,eb32a46e10dc1fb4,40f14ed06883,1745830744_3c81823e5bdbd178bd48974a820915e31a81b666,1747659797_d8cf3633c6ea10e33890bcb5004d78ff7b11c652,"NotFoundError: The child can not be found in the parent.
+
+7) createCssVarsProvider
+[Application] Customization
+should use colorSchemes.palette.mode if `colorSchemes` does not contain all the default:"
+material-ui,max,1745830744_3c81823e5bdbd178bd48974a820915e31a81b666,test_coverage,1,9735,     NotFoundError: The child can not be found in the parent.,acceptable,2026-10-20T19:45:32.094789+00:00,97686998b3a9d76b,23,1,eb32a46e10dc1fb4,40f14ed06883,1745830744_3c81823e5bdbd178bd48974a820915e31a81b666,1747659797_d8cf3633c6ea10e33890bcb5004d78ff7b11c652,"NotFoundError: The child can not be found in the parent.
+
+8) createCssVarsProvider
+Nested providers
+independent context:"
+material-ui,max,1745830744_3c81823e5bdbd178bd48974a820915e31a81b666,test_coverage,1,9758,     NotFoundError: The child can not be found in the parent.,acceptable,2026-10-20T19:45:32.097413+00:00,1f1ed291af74ebe5,23,1,eb32a46e10dc1fb4,40f14ed06883,1745830744_3c81823e5bdbd178bd48974a820915e31a81b666,1747659797_d8cf3633c6ea10e33890bcb5004d78ff7b11c652,"NotFoundError: The child can not be found in the parent.
+
+10) System <Grid />
+combines system properties with the sx prop:
+AssertionError: expected <div …(1)></div> to have computed style { 'margin-top': '16px', …(2) }"
+material-ui,max,1746015220_13fa2ac21b9813f25d0faa87400aebd348e79dff,test_coverage,1,9730,  AggregateError:,acceptable,2026-10-20T19:46:10.825162+00:00,8b21c972382619f7,31,1,8dba4be84b4c0eef,,1746015220_13fa2ac21b9813f25d0faa87400aebd348e79dff,1746488478_819807fd9ecdb6e1042a4c7356ec08c9226fbaa5,"AggregateError:
+at aggregateErrors (node_modules/.pnpm/react@19.1.0/node_modules/react/cjs/react.development.js:<n>:<n>)
+at process.env.NODE_ENV.exports.act (node_modules/.pnpm/react@19.1.0/node_modules/react/cjs/react.development.js:<n>:<n>)
+at node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.3_@type_663406122d5b9765f6653a6e4ab277b1/node_modules/@testing-library/react/dist/act-compat.js:<n>:<n>
+at renderRoot (node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.3_@type_663406122d5b9765f6653a6e4ab277b1/node_modules/@testing-library/react/dist/pure.js:<n>:<n>)
+at render (node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.3_@type_663406122d5b9765f6653a6e4ab277b1/node_modules/@testing-library/react/dist/pure.js:<n>:<n>)"
+material-ui,max,1746057019_0f7979672b4542bcbab461ee6df419b37e5f5a71,test_coverage,1,9712,     Expected test not to call console.error() but instead received 2 calls.,acceptable,2026-10-20T19:45:32.111125+00:00,f51aa510fc080049,1,1,032c2b4ec048c325,421cbab5f601,1746057019_0f7979672b4542bcbab461ee6df419b37e5f5a71,1746057019_0f7979672b4542bcbab461ee6df419b37e5f5a71,"Expected test not to call console.error() but instead received 2 calls.
+If the warning is expected, test for it explicitly by using the toErrorDev() matcher.
+Test location:
+packages/mui-material/test/integration/DialogIntegration.test.js
+console.error message #1:
+An update to Transition inside a test was not wrapped in act(...)."
+material-ui,max,1746516886_03f24b1fff56938d1189f9dd671ad98202621743,test_coverage,1,9734,  AggregateError:,acceptable,2026-10-20T19:46:11.490156+00:00,cd9eb20dea18a243,20,1,8dba4be84b4c0eef,,1746516886_03f24b1fff56938d1189f9dd671ad98202621743,1747014200_cd25f4f87724ed58ff52865d852579e2243a86bc,"AggregateError:
+at aggregateErrors (node_modules/.pnpm/react@19.1.0/node_modules/react/cjs/react.development.js:<n>:<n>)
+at process.env.NODE_ENV.exports.act (node_modules/.pnpm/react@19.1.0/node_modules/react/cjs/react.development.js:<n>:<n>)
+at node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.3_@type_a5db6ee88d42d87fe6a93bfd7900cad7/node_modules/@testing-library/react/dist/act-compat.js:<n>:<n>
+at renderRoot (node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.3_@type_a5db6ee88d42d87fe6a93bfd7900cad7/node_modules/@testing-library/react/dist/pure.js:<n>:<n>)
+at render (node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.3_@type_a5db6ee88d42d87fe6a93bfd7900cad7/node_modules/@testing-library/react/dist/pure.js:<n>:<n>)"
+material-ui,max,1747052523_98b7dec7330ba95b4842e6cbcb6b9e582a5c7b54,test_coverage,1,9835,  AggregateError:,acceptable,2026-10-20T19:46:11.944966+00:00,f70eabcd01123f0e,3,1,8dba4be84b4c0eef,,1747052523_98b7dec7330ba95b4842e6cbcb6b9e582a5c7b54,1747059968_49ba026815a884ea184b2243b73c241560d301a6,"AggregateError:
+at aggregateErrors (node_modules/.pnpm/react@19.1.0/node_modules/react/cjs/react.development.js:<n>:<n>)
+at process.env.NODE_ENV.exports.act (node_modules/.pnpm/react@19.1.0/node_modules/react/cjs/react.development.js:<n>:<n>)
+at node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.4_@type_f9f00e8b1eaac44271c868da05fd30f1/node_modules/@testing-library/react/dist/act-compat.js:<n>:<n>
+at renderRoot (node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.4_@type_f9f00e8b1eaac44271c868da05fd30f1/node_modules/@testing-library/react/dist/pure.js:<n>:<n>)
+at render (node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.4_@type_f9f00e8b1eaac44271c868da05fd30f1/node_modules/@testing-library/react/dist/pure.js:<n>:<n>)"
+material-ui,max,1747118933_bc625f5707b2aa73f374f96576a2d0231e482268,test_coverage,1,9887,  AggregateError:,acceptable,2026-10-20T19:46:12.383344+00:00,26b532104713e02c,13,1,8dba4be84b4c0eef,,1747118933_bc625f5707b2aa73f374f96576a2d0231e482268,1747132380_1922fd0dae7f39f16802111d421eb82a78e33423,"AggregateError:
+at aggregateErrors (node_modules/.pnpm/react@19.1.0/node_modules/react/cjs/react.development.js:<n>:<n>)
+at process.env.NODE_ENV.exports.act (node_modules/.pnpm/react@19.1.0/node_modules/react/cjs/react.development.js:<n>:<n>)
+at node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.4_@type_604a572e354ed84cb9b7171a2409d882/node_modules/@testing-library/react/dist/act-compat.js:<n>:<n>
+at renderRoot (node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.4_@type_604a572e354ed84cb9b7171a2409d882/node_modules/@testing-library/react/dist/pure.js:<n>:<n>)
+at render (node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.4_@type_604a572e354ed84cb9b7171a2409d882/node_modules/@testing-library/react/dist/pure.js:<n>:<n>)"
+material-ui,max,1747205163_387e676fdb51f6d0514f1d5269b5918d05d30015,test_coverage,1,9831,  AggregateError:,acceptable,2026-10-20T19:46:12.977177+00:00,478de4c301b6485c,30,1,8dba4be84b4c0eef,,1747205163_387e676fdb51f6d0514f1d5269b5918d05d30015,1747798471_4cfd2f73c291df2a57fa5feb6bffdd39c544d838,"AggregateError:
+at aggregateErrors (node_modules/.pnpm/react@19.1.0/node_modules/react/cjs/react.development.js:<n>:<n>)
+at process.env.NODE_ENV.exports.act (node_modules/.pnpm/react@19.1.0/node_modules/react/cjs/react.development.js:<n>:<n>)
+at node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.5_@type_13678f14edb207b811efad2d1cd9d44e/node_modules/@testing-library/react/dist/act-compat.js:<n>:<n>
+at renderRoot (node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.5_@type_13678f14edb207b811efad2d1cd9d44e/node_modules/@testing-library/react/dist/pure.js:<n>:<n>)
+at render (node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.5_@type_13678f14edb207b811efad2d1cd9d44e/node_modules/@testing-library/react/dist/pure.js:<n>:<n>)"
+material-ui,max,1747903662_2c2ede9d20ca97adaa9a631c317b9ffbd61d3e6a,test_coverage,1,9810,  AggregateError:,acceptable,2026-10-20T19:46:13.504385+00:00,06abc9de04070f10,9,1,8dba4be84b4c0eef,,1747903662_2c2ede9d20ca97adaa9a631c317b9ffbd61d3e6a,1748282900_7fd9e80d24268cd05be11df93cb57be8a618af86,"AggregateError:
+at aggregateErrors (node_modules/.pnpm/react@19.1.0/node_modules/react/cjs/react.development.js:<n>:<n>)
+at process.env.NODE_ENV.exports.act (node_modules/.pnpm/react@19.1.0/node_modules/react/cjs/react.development.js:<n>:<n>)
+at node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.5_@type_36f68d90f8ae0167ce63c369495ef878/node_modules/@testing-library/react/dist/act-compat.js:<n>:<n>
+at renderRoot (node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.5_@type_36f68d90f8ae0167ce63c369495ef878/node_modules/@testing-library/react/dist/pure.js:<n>:<n>)
+at render (node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.5_@type_36f68d90f8ae0167ce63c369495ef878/node_modules/@testing-library/react/dist/pure.js:<n>:<n>)"
+material-ui,max,1748350655_c8f1da5b945228a17441ca1fe8a4b10f0e408b75,test_coverage,1,9852,  AggregateError:,acceptable,2026-10-20T19:46:14.081292+00:00,529a229ac6e60901,2,1,8dba4be84b4c0eef,,1748350655_c8f1da5b945228a17441ca1fe8a4b10f0e408b75,1748415271_2fffbbd308f1d0306bb79797aa245272b1158f55,"AggregateError:
+at aggregateErrors (node_modules/.pnpm/react@19.1.0/node_modules/react/cjs/react.development.js:<n>:<n>)
+at process.env.NODE_ENV.exports.act (node_modules/.pnpm/react@19.1.0/node_modules/react/cjs/react.development.js:<n>:<n>)
+at node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.5_@type_f7baedc87abeea735b6a71317a9c8149/node_modules/@testing-library/react/dist/act-compat.js:<n>:<n>
+at renderRoot (node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.5_@type_f7baedc87abeea735b6a71317a9c8149/node_modules/@testing-library/react/dist/pure.js:<n>:<n>)
+at render (node_modules/.pnpm/@testing-library+react@16.3.0_@testing-library+dom@10.4.0_@types+react-dom@19.1.5_@type_f7baedc87abeea735b6a71317a9c8149/node_modules/@testing-library/react/dist/pure.js:<n>:<n>)"

@@ -36,7 +36,7 @@
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-09-20 09:52).
+Source: `stats_output/report.txt` (generated 2026-10-20 19:56).
 
 | Metric | Value |
 |---|---|
@@ -51,7 +51,7 @@ Full statistics and plots: [`stats_output/`](stats_output/).
 
 ## Known test failures
 
-All known test failures exit with code 1 without bailing. Mocha and Vitest execute all remaining suites to completion, ensuring that full LCOV line coverage is collected across the codebase.
+All known test failures exit with code 1 without bailing. Mocha and Vitest execute all remaining suites to completion, ensuring that full LCOV line coverage is collected across the codebase. Deduplicated failure fingerprints and family cards are tracked under [`label_analysis/`](label_analysis/).
 
 | Signature | Classification | Coverage impact | Action |
 |---|---|---|---|

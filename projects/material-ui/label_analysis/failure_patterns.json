@@ -164,8 +164,8 @@
     },
     {
       "match": "Error:\\ Timeout\\ of\\ 10000ms\\ exceeded\\.\\ For\\ async\\ tests\\ and\\ hooks,\\ ensure\\ \"done\\(\\)\"\\ is\\ called;\\ if\\ returning\\ a\\ Promise,\\ ensure\\ it\\ resolves\\.\\ \\(packages/material\\-ui\\-envinfo/envinfo\\.test\\.js\\)",
-      "label": "unclear",
-      "note": "",
+      "label": "reevaluated_acceptable",
+      "note": "Subprocess execution of envinfo exceeded Mocha per-test timeout; fixed upstream in #40669",
       "lines": 0,
       "id": "9ee5b194879f"
     },
@@ -206,8 +206,8 @@
     },
     {
       "match": "at\\ aggregateErrors\\ \\(node_modules/\\.pnpm/react@19\\.1\\.0/node_modules/react/cjs/react\\.development\\.js:527:11\\)\\\nat\\ process\\.env\\.NODE_ENV\\.exports\\.act\\ \\(node_modules/\\.pnpm/react@19\\.1\\.0/node_modules/react/cjs/react\\.development\\.js:872:24\\)",
-      "label": "unclear",
-      "note": "",
+      "label": "reevaluated_acceptable",
+      "note": "React 19 act() wraps child unmount NotFoundError exceptions in createCssVarsProvider.test.js",
       "lines": 2,
       "id": "3f022fb8c10e"
     },
@@ -217,6 +217,15 @@
       "note": "",
       "lines": 4,
       "id": "23a4cbd5c510"
+    },
+    {
+      "match": "\\+\\ expected\\ \\-\\ actual\\\n\\\n\\-false\\\n\\+true",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "4ea792fcb2ae",
+      "generated_by": "check_failures_v2",
+      "window": "min"
     }
   ]
 }
