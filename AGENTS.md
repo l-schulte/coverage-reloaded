@@ -62,24 +62,42 @@ Not-applicable is signalled by a **marker file**, never by an exit code. The sha
 - [ ] Run-level exit: `0` = success, non-zero = failure; not-applicable is signalled by the marker file, not an exit code
 - [ ] `set -e` at script top
 - [ ] `find-and-move-lcov.sh` always called with exit code as 3rd arg
-- [ ] `na_if_focus_marker` called with the collected-suite roots (see below)
+- [ ] `na_if_focus_marker` called with the collected-suite roots and the runner(s) that execute them (see below)
 
 ### Focus markers (`.only`) — the other silent partial
 
-A committed `describe.only` / `it.only` makes mocha/vitest execute only the marked
-subset. The run exits 0 and emits a structurally valid `lcov.info`, so it passes
-every check above while measuring a handful of tests — the same silent-partial
-danger as a bail. Do **not** strip the marker (we cannot know whether the rest of
-the suite was healthy or broken). Mark the commit not-applicable with the shared
-helper, scoped to the *collected* suites only:
+A committed `describe.only` / `it.only` makes the runner execute only the marked
+subset. Depending on the runner the run still exits 0 and emits a structurally
+valid `lcov.info`, so it passes every check above while measuring less —
+the same silent-partial danger as a bail. Do **not** strip the marker (we cannot
+know whether the rest of the suite was healthy or broken). How much is actually
+hidden depends on the runner, so the guard is runner-aware:
+
+| Runner | Effect of a committed `.only` | Handling |
+|---|---|---|
+| mocha | run-global: all spec files share one process and context, so the whole run is truncated | not applicable |
+| jest | per-file: only the marked file is reduced, every other file runs in full | record deficit, continue |
+| vitest | per-file; `allowOnly` (default false) makes vitest refuse, surfacing as a failing run | record deficit, continue |
+| node:test | per-file; also inert unless started with `--test-only` | record deficit, continue |
+| not listed | unknown semantics | not applicable |
+
+Declare the runner(s) of the collected suites; with no `--runner` the conservative
+run-global default is assumed. The scan is scoped to the *collected* suites only:
 
 ```bash
 source /coverage_reloaded/na-if-focus-marker.sh
-na_if_focus_marker test/unit test/system     # flowfuse; paths = collected suites
+na_if_focus_marker --runner jest --runner node app/test/unit script eslint-rules  # desktop
+na_if_focus_marker --runner mocha test                                            # apostrophe
 ```
 
-Excluded suites (e.g. Cypress specs under `test/e2e`) must be left out of the
-pathspec so they cannot trigger it. See `STUDY_DECISIONS.md` §2.
+A commit is not-applicable when any declared runner is run-global. For a per-file
+runner the run continues and the deficit is recorded in a `focus_marker.txt`
+sidecar: the helper writes it to the coverage staging area and `execute.sh` copies
+it into the commit's own output directory
+(`<output>/<timestamp>_<revision>/focus_marker.txt`) next to its lcov files, so
+affected commits stay discoverable. Excluded suites (e.g. Cypress specs under
+`test/e2e`) must be left out of the pathspec so they cannot trigger it. See
+`STUDY_DECISIONS.md` §2.
 
 ---
 
