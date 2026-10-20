@@ -22,15 +22,29 @@ PROJECT_TAG=$(echo "$1" | tr '[:upper:]' '[:lower:]')
 CONTAINER_NAME=core_node"$6"_"$PROJECT_TAG"
 CONTAINER_DIR=/coverage_reloaded
 
-ENV_CONFIG="--env-file .env --env revision=$3 --env timestamp=$4 --env package_manager=$5 --env project_id=$7"
-
 # The repo is served from an in-memory tmpfs (see execute.sh). Declared at
 # runtime because the container lacks CAP_SYS_ADMIN and cannot mount tmpfs
 # itself; --tmpfs needs no extra capabilities. Default 35g accommodates large
 # historical monorepos before workspaces (e.g. compass in mid-2021 with 78
 # independent package trees).
 TMPFS_SIZE=${TMPFS_SIZE:-35g}
-TMPFS_CONFIG="--tmpfs /coverage_reloaded/repo:rw,size=$TMPFS_SIZE"
+
+# USE_TMPFS=false opts out of the in-memory repo mount and runs the repo on
+# the container's writable-layer disk instead — for low-RAM hosts (e.g. 16 GB)
+# where a large tmpfs ceiling would compete with the test run for memory.
+# The flag must be exported in the invoking shell (docker_run.py copies the
+# host env); it is NOT read from .env, which is only passed into the container.
+USE_TMPFS=${USE_TMPFS:-true}
+if [ "$USE_TMPFS" = "true" ]; then
+    TMPFS_CONFIG="--tmpfs /coverage_reloaded/repo:rw,size=$TMPFS_SIZE"
+else
+    echo "NOTICE: USE_TMPFS=false — running /coverage_reloaded/repo on container disk (no tmpfs)"
+    TMPFS_CONFIG=""
+fi
+
+# use_tmpfs tells execute.sh whether the tmpfs opt-out above was intentional,
+# so it can distinguish a deliberate disk run from a misconfigured runtime.
+ENV_CONFIG="--env-file .env --env revision=$3 --env timestamp=$4 --env package_manager=$5 --env project_id=$7 --env use_tmpfs=$USE_TMPFS"
 
 # CONTAINER_CPUS caps the CPU *quota* the container may consume (N CPU-seconds
 # per real second), i.e. it throttles aggregate CPU time — it does NOT change

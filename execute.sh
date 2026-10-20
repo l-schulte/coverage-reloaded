@@ -4,12 +4,27 @@ set -e
 # The repo lives on a tmpfs provided by docker-run.sh (--tmpfs). The container
 # lacks CAP_SYS_ADMIN and cannot mount tmpfs itself, so fail loudly here if the
 # runtime did not supply the mount instead of silently running on disk.
-if ! grep -q " /coverage_reloaded/repo tmpfs" /proc/mounts; then
+# Exception: when the host opted out with USE_TMPFS=false (low-RAM hosts, where
+# a large tmpfs ceiling would compete with the test run for memory), docker-run.sh
+# passes use_tmpfs=false into the container and the repo runs on disk instead.
+if grep -q " /coverage_reloaded/repo tmpfs" /proc/mounts; then
+    cp -a /coverage_reloaded/repo_disk/. /coverage_reloaded/repo/
+    echo "Copied repo_disk contents into in-memory /coverage_reloaded/repo"
+elif [ "${use_tmpfs:-true}" = "false" ]; then
+    echo "=============================================================="
+    echo "NOTICE: tmpfs disabled (host set USE_TMPFS=false)"
+    echo "Running /coverage_reloaded/repo on container disk instead of"
+    echo "in-memory tmpfs. Slower, and needs disk space for repo +"
+    echo "node_modules, but keeps memory use low on small-RAM hosts."
+    echo "=============================================================="
+    mkdir -p /coverage_reloaded/repo
+    cp -a /coverage_reloaded/repo_disk/. /coverage_reloaded/repo/
+    echo "Copied repo_disk contents into disk-backed /coverage_reloaded/repo"
+else
     echo "ERROR: /coverage_reloaded/repo is not mounted as tmpfs" >&2
+    echo "ERROR: If this is intentional (low-RAM host), export USE_TMPFS=false before running docker-run.sh/main.py" >&2
     exit 1
 fi
-cp -a /coverage_reloaded/repo_disk/. /coverage_reloaded/repo/
-echo "Copied repo_disk contents into in-memory /coverage_reloaded/repo"
 
 source "$(dirname "${BASH_SOURCE[0]}")/logging.sh"
 source "$(dirname "${BASH_SOURCE[0]}")/resolve-and-pin.sh"
