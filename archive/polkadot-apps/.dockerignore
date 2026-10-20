@@ -1,6 +1,5 @@
 *
 !Dockerfile
 !repo/
-!archive/
 !install-and-run.sh
 !substrate_lookup.csv

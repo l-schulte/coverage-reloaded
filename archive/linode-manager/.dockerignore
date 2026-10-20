@@ -1,6 +1,5 @@
 *
 !Dockerfile
 !repo/
-!archive/
 !install-and-run.sh
 !buildRequests.noop.js
