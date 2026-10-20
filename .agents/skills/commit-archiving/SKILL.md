@@ -88,7 +88,7 @@ python3 archive_fixed_commits.py <project> <archive_name> \
 2. **Determine Affected Commits / Runs:**
    Use one or more of the following identification strategies:
    - **By Error Pattern (`--grep-log`):** Grep `projects/<project>/logs/` for the specific failure string (e.g. `EAI_AGAIN`, `OverwriteModelError`, `Cannot find module`).
-   - **By Failure Rule / Label File:** Extract run IDs from `projects/<project>/failure_labels_project.csv` or `failure_labels_collapsed_by_rule.csv` for the problematic rule ID.
+   - **By Failure Rule / Label File:** Extract run IDs from `projects/<project>/label_analysis/failure_labels_project_min.csv` (unmigrated project: `projects/<project>/failure_labels_project.csv` or `failure_labels_collapsed_by_rule.csv`) for the problematic rule ID, joining on `auto_rule_id` or `fingerprint`.
    - **By Commit Hashes / Era List:** A list of commit hashes or `{timestamp}_{hash}` prefixes known to have suffered from the bug.
 
 ---

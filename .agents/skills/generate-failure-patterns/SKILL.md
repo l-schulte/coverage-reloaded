@@ -38,19 +38,20 @@ resolve them to `problematic` or `reevaluated_acceptable` once the detected fami
 has been assessed (see the `labeled-failure-analysis` skill). `reevaluated_acceptable`
 is a valid rule label.
 
-## Context (how check_failures.py uses this file)
+## Context (how check_failures_v2.py uses this file)
 
 - `projects/<name>/output/<ts>_<hash>/<suite>.exit_code` records the test runner's exit code. For mocha this is the number of failing tests (capped at 255), so any value `> 0` is a failing suite (not a crash); those runs drive which logs are scanned.
 - For each such run, the matching log is `projects/<name>/logs/<ts>_<hash>.log`.
-- Inside that log, `check_failures.py` finds `[SUITE_START] <suite>` … `[SUITE_END] <suite>`
+- Inside that log, `check_failures_v2.py` finds `[SUITE_START] <suite>` … `[SUITE_END] <suite>`
   spans and, within each span, flags a line as a failure if it matches any `patterns` regex
-  AND does not match any `exclude` regex.
-- On a hit, it shows `context-below=40` lines, so the real error is *usually* visible even
-  if the matched line is slightly upstream — but the matched line's TEXT becomes the
-  `keyword` stored in `failure_labels.csv`, so it must itself be meaningful.
-- `min-gap` (default 5) and a normalized-block fingerprint dedupe jest's re-prints, so a
-  single failure reported twice collapses. Still, prefer ONE tight anchor per failure kind
-  to keep the `keyword` column clean.
+  AND does not match any `exclude` regex (plus `exclude_blocks`).
+- On a hit it stores ~40 lines below the matched line (`--context-below 40`), so the real
+  error is *usually* visible even if the matched line is slightly upstream — but the matched
+  line's TEXT becomes the `keyword` in `label_analysis/failure_labels_project_min.csv`, so
+  it must itself be meaningful.
+- `min_gap` (default 5) and the normalized-block fingerprint dedupe jest's re-prints, so a
+  single failure reported twice collapses into one `fp_min`/`fp_max` family. Still, prefer
+  ONE tight anchor per failure kind to keep the `keyword` column clean.
 
 ## Invocation
 
@@ -67,7 +68,7 @@ where `<name>` is a directory under `projects/`. Read everything from
 ### Phase 1 — Inventory suites and runners
 
 1. Read `projects/<name>/install-and-run.sh`. Enumerate every `suite_start "<s>"` marker
-   (these are the suite names `check_failures.py` will key on). Record, per suite, the test
+   (these are the suite names `check_failures_v2.py` will key on). Record, per suite, the test
    command it wraps (jest / mocha / vitest / karma / ava / tap / web-component-tester / …)
    by inspecting the command between `suite_start` and `suite_end`.
 2. Confirm each suite actually appears in the logs: grep `projects/<name>/logs/*.log` for
@@ -86,7 +87,7 @@ where `<name>` is a directory under `projects/`. Read everything from
 For each suite, pick a few `.log` files where that suite's `[SUITE_END]` is preceded by a
 non-zero exit (or just grep the suite span for failure markers) and extract the raw block
 around a failure. Do this by reading the log files directly (the model, not
-`check_failures.py`). Look for the *native* failure vocabulary of that runner, for example:
+`check_failures_v2.py`). Look for the *native* failure vocabulary of that runner, for example:
 
 - **jest / vitest:** `✕ <test>`, `● <suite> › <test>` (the detailed error header that sits
   **directly above** the actual error), `FAIL <path> (Ns)` (file header), `Tests: N failed`,
@@ -178,12 +179,18 @@ Rules for composition:
 ### Phase 4 — Self-validate before showing
 
 1. Write the candidate JSON to a **temp** path (e.g. `/tmp/failure_patterns.<name>.json`).
-2. If the project is still unmigrated (patterns at the project root), run
-   `python archive/v1_check_failures/check_failures.py --project <name> --dry-run` to confirm
-   detections fire at all and to see how many `(suite, line)` hits per run. A zero hit-count
-   on runs that clearly failed means the patterns are too tight — loosen. The archived v1
-   script only reads the legacy root path, so for migrated projects rely on step 3 (manual
-   log sampling) instead.
+2. **Detection dry-run.** `check_failures_v2.py` has no detection-only dry-run (`--dry-run`
+   just prints rows of an already-built CSV), so:
+   - if the project is still unmigrated (patterns at the project root), run
+     `python archive/check_failures.py --project <name> --dry-run` to confirm detections
+     fire at all and to see how many `(suite, line)` hits per run — a zero hit-count on
+     runs that clearly failed means the patterns are too tight; loosen. The archived v1
+     script only reads the legacy root path.
+   - for a migrated project (patterns in `label_analysis/`), rely on step 3 (manual log
+     sampling) before approval, and validate after approval with
+     `python3 check_failures_v2.py <name> --window min --build` followed by
+     `--progress` (detection/fingerprint counts) — mention that this step writes the
+     CSVs and DB, so it runs only on the user's go-ahead.
 3. **Verify the anchors reveal the true error:** for a sample of detected `(run_id, line)`
    pairs, open `projects/<name>/logs/<run_id>.log` and read lines `[line-2 .. line+40]`.
    Confirm the block shows the actual error (assertion / stack / `Expected`/`Received`), not
@@ -210,7 +217,7 @@ already exists, back it up to `failure_patterns.json.bak` first and preserve any
   via `check_failures_v2.py` (`.` key creates a rule).
 - No `FAIL\s` / `failed` / bare `Error` unless Phase-2 logs prove the anchor is adjacent to
   the real error.
-- Never modify shared pipeline scripts (`check_failures.py`, `execute.sh`,
+- Never modify shared pipeline scripts (`check_failures_v2.py`, `failure_triage/`, `execute.sh`,
   `find-and-move-lcov.sh`, `logging.sh`) or `install-and-run.sh`.
 - Use the **unsuffixed** `logs/` directory only; ignore `logs_N/`.
 - Do not run containers; this is read-only log analysis + a dry-run validation on the host.

@@ -11,6 +11,7 @@
 *.not_applicable
 *.bak
 *.db
+*.jsonl
 
 *additional_information.csv
 *commits.csv

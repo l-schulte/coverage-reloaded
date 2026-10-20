@@ -49,11 +49,20 @@ Never invent values. Every number must be traceable to one of these files:
   reading it; this rewrites `report.txt` from the current `output/` state and
   deletes any stale plots.
 - `projects/<p>/stats_output/` — CSVs and plots; link to the directory.
-- `projects/<p>/failure_labels_project.csv` and
-  `projects/<p>/failure_labels_collapsed_problematic_unclear.csv` — failure
-  families and their labels.
-- `projects/<p>/failure_labels_jev.csv` — automated System 1 failure classifications
-  from `check_failures_jev.py`.
+- `projects/<p>/label_analysis/failure_labels_project_min.csv` — the primary
+  failure-label file (one row per `fp_min` fingerprint, columns include `label`,
+  `n_runs`, `auto_rule_id`, `first_run`/`last_run`).
+  `failure_labels_project_max.csv` is the diagnostic window. For a project not
+  yet migrated to the v2 toolchain the same data lives at
+  `projects/<p>/failure_labels_project.csv`.
+- `projects/<p>/label_analysis/<p>_min.jsonl` — family cards written by
+  `check_failures_v2.py <p> --window min --analyze`; use these for
+  family/roll-up tables (label, union `n_runs`, `n_variants`, suites, block).
+  On unmigrated projects fall back to
+  `projects/<p>/failure_labels_collapsed_problematic_unclear.csv`.
+- `projects/<p>/label_analysis/failure_labels_jev_min.csv` — automated System 1
+  failure classifications from `check_failures_jev_v2.py` (unmigrated projects:
+  root `failure_labels_jev.csv` from the retired `archive/check_failures_jev.py`).
 - `projects/<p>/install-and-run.sh` and `projects/<p>/command_changes.csv` —
   suite names, runners, and era transitions.
 - `projects/<p>/repo` git history — first-parent parent count, PR syntax patterns,
@@ -121,7 +130,9 @@ Full statistics and plots: [`stats_output/`](stats_output/).
 
 <One table per classification group, or a single table with a Classification
 column. Keep each row to signature → classification → coverage impact → action.
-Link to `logs/`, `failure_labels_project.csv`, or the collapsed CSV for depth.>
+Link to `logs/`, `label_analysis/failure_labels_project_min.csv`, or the family
+cards `label_analysis/<p>_min.jsonl` for depth (unmigrated project: the root
+label CSV or the collapsed CSV).>
 
 ## Environment / setup fixes
 
@@ -154,7 +165,7 @@ Checklist items (see `AGENTS.md`):
 - **failed tests doublechecked** — non-zero-exit runs were inspected and classified.
 - **complete run** — the full commit history has been processed.
 - **complete test failure check** — every failing run has been labeled and assessed.
-- **complete JEV test failure check** — automated System 1 labeling via Jev (`failure_labels_jev.csv`) evaluated failing runs. A project is considered done (`✅`) if its `failure_labels_jev.csv` contains zero problematic (`is_pipeline_issue == True`) labels, or if all flagged problematic labels have been audited against git history and confirmed to be genuine upstream developer mistakes (as documented in `OVERVIEW.md`). It is in progress (`🟡`) if `failure_labels_jev.csv` exists with unaudited problematic labels, and not done (`❌`) if no `failure_labels_jev.csv` exists.
+- **complete JEV test failure check** — automated System 1 labeling via Jev (`label_analysis/failure_labels_jev_min.csv`, produced by `check_failures_jev_v2.py`; unmigrated project: root `failure_labels_jev.csv`) evaluated failing runs. A project is considered done (`✅`) if that Jev file contains zero problematic (`is_pipeline_issue == True`) labels, or if all flagged problematic labels have been audited against git history and confirmed to be genuine upstream developer mistakes (as documented in `OVERVIEW.md`). It is in progress (`🟡`) if the Jev file exists with unaudited problematic labels, and not done (`❌`) if no Jev file exists.
 
 Status symbols (used in the root status table and the per-project checklist):
 
@@ -168,7 +179,7 @@ Status symbols (used in the root status table and the per-project checklist):
   quality resolution.
 - `❌` / `- [ ]` — not done; no work started.
 
-Failure labels (`failure_labels_project.csv`):
+Failure labels (`label_analysis/failure_labels_project_min.csv`):
 
 - `acceptable` — a genuine developer-facing test failure at that commit.
 - `problematic` — an environment/setup artifact of this pipeline.
@@ -176,10 +187,11 @@ Failure labels (`failure_labels_project.csv`):
 - `false_positive` — not a real failure (for example, captured console output).
 - `reevaluated_acceptable` — documented reclassification for failures initially
   labeled `unclear`/`problematic` that static analysis confirms are genuine
-  developer-facing failures (see the `labeled-failure-analysis` skill). Excluded
-  from `collapse_labels.py` (only `problematic`/`unclear` collapse) and assignable
-  interactively with the `e` key. Environment/setup artifacts remain labeled
-  `problematic` even after fixes are applied so regressions continue to surface.
+  developer-facing failures (see the `labeled-failure-analysis` skill). Assigned
+  interactively with the `e` key, and valid as an `auto_classify` rule label, so
+  `--auto-classify` propagates it to new occurrences of the same error body.
+  Environment/setup artifacts remain labeled `problematic` even after fixes are
+  applied so regressions continue to surface.
 
 ## Protocol
 
@@ -187,9 +199,12 @@ Failure labels (`failure_labels_project.csv`):
 
 1. Read `config.json` and the active-project list from the root `OVERVIEW.md`.
 2. Build the active set (exclude `sentry-javascript`). For each project, record
-   whether `stats_output/report.txt`, `failure_labels_project.csv`,
-   `failure_labels_collapsed_problematic_unclear.csv`, and
-   `failure_labels_jev.csv` exist.
+   whether `stats_output/report.txt`, the primary label CSV
+   (`label_analysis/failure_labels_project_min.csv`, else root
+   `failure_labels_project.csv`), and the Jev CSV
+   (`label_analysis/failure_labels_jev_min.csv`, else root
+   `failure_labels_jev.csv`) exist. Record the family cards
+   (`label_analysis/<p>_min.jsonl`) as a bonus source when present.
 3. Checkpoint: present the active set and the per-project source availability.
 
 ### Phase 1 — Per-project drafts
@@ -218,7 +233,7 @@ Assemble `OVERVIEW.md`: purpose/pointers, legend, the checklist-status table
 (one row per active project, linking to its file; columns `100 done`, `failed
 tests doublechecked`, `complete run`, `complete test failure check`,
 `complete JEV test failure check`, symbols `✅`/`🟡`/`🚧`/`🆘`/`❌`; no numeric
-results), cross-cutting infrastructure notes (including `check_failures_jev.py`),
+results), cross-cutting infrastructure notes (including `check_failures_jev_v2.py`),
 and the maintenance section pointing at this skill.
 
 ### Phase 3 — Consistency check

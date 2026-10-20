@@ -297,7 +297,7 @@ def do_crosscheck(project, con):
         "- [ ] unmatched v1 rows explained (pattern drift vs v2 miss)",
         "- [ ] no unresolved label conflicts",
         "- [ ] label disagreements reviewed",
-        "- [ ] manual checklist done (see the check-failures-v2 skill)",
+        "- [ ] manual checklist done (see the labeled-failure-analysis skill)",
         "- result: pending",
         "",
     ]

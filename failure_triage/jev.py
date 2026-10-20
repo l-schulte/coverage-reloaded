@@ -15,6 +15,7 @@ import asyncio
 import csv
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 
@@ -25,6 +26,31 @@ JEV_FIELDS = [
     "fingerprint", "n_runs", "keyword", "is_pipeline_issue", "confidence",
     "env_subsystem", "labeled_at",
 ]
+
+# --- dedup-keyword batching (opt-in via --dedup-keyword) -------------------
+#
+# Groups candidate fingerprints by (suite, normalized keyword) and sends one
+# representative per group to the provider. This is a request-batching device
+# only: it never alters fingerprints, labels, or the detection pass. The
+# volatile-token rules below (Tier 1/2 in normalization-policy terms) apply
+# to the batch key ONLY — deliberately stricter than the Tier 0 fingerprint
+# policy, so that timestamp/UUID/number variants of one error text share a
+# single request. The full, unnormalized log context is still sent.
+
+_DEDUP_UUID_RE = re.compile(
+    r"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}")
+_DEDUP_TS_RE = re.compile(r"\[[0-9T:.+-]+Z\]")
+_DEDUP_HEX_RE = re.compile(r"\b0x[0-9a-fA-F]+\b")
+_DEDUP_NUM_RE = re.compile(r"\b\d+\b")
+
+
+def dedup_key(text):
+    """Normalized batch key for --dedup-keyword. Not a fingerprint."""
+    s = _DEDUP_UUID_RE.sub("<uuid>", text)
+    s = _DEDUP_TS_RE.sub("<ts>", s)
+    s = _DEDUP_HEX_RE.sub("<hex>", s)
+    s = _DEDUP_NUM_RE.sub("<n>", s)
+    return " ".join(s.split())
 
 
 def jev_csv_path(project, window):
@@ -89,8 +115,15 @@ def resolve_provider(provider):
     return "typesafe", typesafe_key
 
 
-def build_items(project, window, suite_filter, limit, only_unlabeled):
-    """Return (items, already_labeled_count, total_candidates)."""
+def build_items(project, window, suite_filter, limit, only_unlabeled,
+                dedup_keyword=False, con=None):
+    """Return (items, already_labeled_count, total_candidates).
+
+    With dedup_keyword, candidates are grouped by (suite, normalized keyword)
+    and only one representative per group is sent; the representative's
+    n_runs becomes the family's union run count (via the SQLite sidecar) so
+    downstream reporting stays union-based, never a sum of occurrences.
+    """
     pdir = paths.project_dir(project)
     rows = store.load_csv(paths.csv_path(project, window))
     if not rows:
@@ -103,6 +136,29 @@ def build_items(project, window, suite_filter, limit, only_unlabeled):
     if only_unlabeled and existing:
         candidates = [r for r in candidates if r["fingerprint"] not in existing]
     already = total - len(candidates)
+
+    dedup_note = ""
+    if dedup_keyword and candidates:
+        families = {}
+        for r in candidates:
+            families.setdefault((r["suite"], dedup_key(r["keyword"])), []).append(r)
+        name = "min" if window == 2 else "max"
+        grouped = []
+        for fam in families.values():
+            rep = fam[0]
+            fps = [x["fingerprint"] for x in fam]
+            if len(fam) > 1 and con is not None:
+                runs = set()
+                for chunk in store.chunks(fps):
+                    ph = ",".join("?" * len(chunk))
+                    runs.update(x[0] for x in con.execute(
+                        f"SELECT DISTINCT run_id FROM failures "
+                        f"WHERE fp_{name} IN ({ph})", chunk))
+                rep = dict(rep, n_runs=str(len(runs)))
+            grouped.append(rep)
+        dedup_note = (f"dedup-keyword: {len(candidates)} fingerprints -> "
+                      f"{len(grouped)} family representatives\n")
+        candidates = grouped
     if limit:
         candidates = candidates[:limit]
 
@@ -127,6 +183,8 @@ def build_items(project, window, suite_filter, limit, only_unlabeled):
             "lines": lines,
             "span": span,
         })
+    if dedup_note:
+        print(dedup_note, end="")
     return items, already, total
 
 
@@ -259,6 +317,10 @@ def parse_args(argv=None):
     p.add_argument("--model", default="typesafe/jev-latest")
     p.add_argument("--suite", default=None)
     p.add_argument("--limit", type=int, default=None)
+    p.add_argument("--dedup-keyword", action="store_true",
+                   help="Group candidates by (suite, normalized keyword) and "
+                        "send one representative per family. Batching only; "
+                        "fingerprints and labels are unaffected.")
     p.add_argument("--concurrency", type=int, default=5)
     p.add_argument("--context-above", type=int, default=4)
     p.add_argument("--context-below", type=int, default=35)
@@ -299,6 +361,7 @@ def main(argv=None):
 
     items, already, total = build_items(
         args.project, window, args.suite, args.limit, args.only_unlabeled,
+        dedup_keyword=args.dedup_keyword, con=con,
     )
     name = "min" if window == 2 else "max"
     print(f"Jev v2 — project {args.project} / window {name}")
