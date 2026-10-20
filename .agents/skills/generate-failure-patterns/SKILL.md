@@ -1,6 +1,6 @@
 ---
 name: generate-failure-patterns
-description: Derive and propose a per-project failure_patterns.json for check_failures.py. Analyzes the project's install-and-run.sh and the unsuffixed logs/ folder to learn the actual test-runner output, then proposes tight failure-detection patterns that anchor on the REAL error (not just the failing test name). Draft-and-confirm only — it writes the file only after the user approves. Does NOT touch auto_classify (that is manual work done with check_failures.py).
+description: Derive and propose a per-project failure_patterns.json for check_failures_v2.py. Analyzes the project's install-and-run.sh and the unsuffixed logs/ folder to learn the actual test-runner output, then proposes tight failure-detection patterns that anchor on the REAL error (not just the failing test name). Draft-and-confirm only — it writes the file only after the user approves. Does NOT touch auto_classify (that is manual work done with check_failures_v2.py).
 license: MIT
 metadata:
   audience: developers
@@ -9,8 +9,10 @@ metadata:
 
 ## What I do
 
-For a single project, I produce a candidate `projects/<name>/failure_patterns.json`
-that `check_failures.py` consumes to find failures inside non-zero-exit test runs.
+For a single project, I produce a candidate `projects/<name>/label_analysis/failure_patterns.json`
+that the v2 toolchain (`check_failures_v2.py`) consumes to find failures inside non-zero-exit
+test runs (unmigrated projects may still keep it at `projects/<name>/failure_patterns.json`;
+the v2 path resolver falls back to the root location).
 The file has two relevant blocks (the third, `auto_classify`, is **off-limits** here):
 
 - `general.patterns` / `general.exclude` — the base failure markers and noise filters.
@@ -27,7 +29,7 @@ verify each anchor by reading the lines *below* it in the log.
 **`auto_classify` is NEVER written by this skill.** It stays an empty array `[]` (or is
 left untouched if the file already exists). Those rules map an error *body* to a label
 (acceptable / problematic / unclear / false_positive) and are built manually by you,
-interactively, with `check_failures.py` (press `.` on a failure to create a rule). Do not
+interactively, with `check_failures_v2.py` (press `.` on a failure to create a rule). Do not
 attempt to guess labels or seed auto_classify here.
 
 When the user later creates `auto_classify` rules, start unresolved patterns as
@@ -156,9 +158,12 @@ Rules for composition:
 ### Phase 4 — Self-validate before showing
 
 1. Write the candidate JSON to a **temp** path (e.g. `/tmp/failure_patterns.<name>.json`).
-2. Run `python check_failures.py --project <name> --dry-run` to confirm detections fire at all
-   and to see how many `(suite, line)` hits per run. A zero hit-count on runs that clearly
-   failed means the patterns are too tight — loosen.
+2. If the project is still unmigrated (patterns at the project root), run
+   `python archive/v1_check_failures/check_failures.py --project <name> --dry-run` to confirm
+   detections fire at all and to see how many `(suite, line)` hits per run. A zero hit-count
+   on runs that clearly failed means the patterns are too tight — loosen. The archived v1
+   script only reads the legacy root path, so for migrated projects rely on step 3 (manual
+   log sampling) instead.
 3. **Verify the anchors reveal the true error:** for a sample of detected `(run_id, line)`
    pairs, open `projects/<name>/logs/<run_id>.log` and read lines `[line-2 .. line+40]`.
    Confirm the block shows the actual error (assertion / stack / `Expected`/`Received`), not
@@ -173,7 +178,7 @@ Print the full proposed `failure_patterns.json` and a short rationale per suite,
 validation counts from Phase 4. Then stop and ask:
 
 > "Proposed failure_patterns.json for `<name>` (detection-only; auto_classify left empty).
-> Approve to write it to `projects/<name>/failure_patterns.json`?"
+> Approve to write it to `projects/<name>/label_analysis/failure_patterns.json`?"
 
 Only after explicit approval, write the file (pretty-printed, trailing newline). If the file
 already exists, back it up to `failure_patterns.json.bak` first and preserve any pre-existing
@@ -182,7 +187,7 @@ already exists, back it up to `failure_patterns.json.bak` first and preserve any
 ## Guardrails (strictly enforced)
 
 - **No `auto_classify` content** — ever. Empty array only. Labeling is the user's manual job
-  via `check_failures.py` (`.` key creates a rule).
+  via `check_failures_v2.py` (`.` key creates a rule).
 - No `FAIL\s` / `failed` / bare `Error` unless Phase-2 logs prove the anchor is adjacent to
   the real error.
 - Never modify shared pipeline scripts (`check_failures.py`, `execute.sh`,

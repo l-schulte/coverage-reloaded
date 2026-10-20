@@ -24,10 +24,17 @@ Keyboard shortcuts (interactive / review mode):
   r          -> reload rules from disk and re-check the current item
   q          -> quit (save and exit)
 
-Labels are stored in projects/<project>/failure_labels.csv.
+Labels are stored in projects/<project>/failure_labels_project.csv.
+
+Config (projects/<project>/failure_patterns.json):
+  general.patterns / general.exclude   what counts as a failure line
+  min_gap                              proximity window (lines); same as --min-gap.
+                                       CLI --min-gap overrides it. Default 5.
+  auto_classify                        rules mapping an error body to a label
 
 Modes:
   (default)           label unlabeled failures interactively
+  --verify            drop labels whose failure no longer occurs, then label as usual
   --dry-run           preview failures, do not prompt / store
   --report-env        list failures whose lines match environment signals + current label
   --review <label>    re-display existing labels of <label> and let you change them
@@ -210,7 +217,11 @@ ALL_LABELS = ["acceptable", "problematic", "unclear", "false_positive",
 
 
 def clean(line):
-    return ANSI_RE.sub("", line).rstrip()
+    # Fast path: ANSI escapes all start with ESC, so skip the regex for the vast
+    # majority of lines (identical result, much cheaper on multi-MB logs).
+    if "\x1b" in line:
+        line = ANSI_RE.sub("", line)
+    return line.rstrip()
 
 
 def env_signals(text_lines):
@@ -227,13 +238,49 @@ def env_signals(text_lines):
 
 # Tokens stripped when normalizing a line for fingerprinting.
 TIMING_RE = re.compile(r"\(\d+(?:\.\d+)?\s*(?:s|ms)\)")
+# vitest >=2.x appends a bare duration to the live failing-test line, e.g.
+# "× suite > test 8305ms". Stripped so the identity is stable across runs.
+VITEST_TRAIL_TIME_RE = re.compile(r"\s+\d+(?:\.\d+)?\s*(?:ms|s)\s*$")
 REPO_PREFIX_RE = re.compile(r"/coverage_reloaded/repo/?")
 
 
-def normalize_line(line):
-    """Normalize a log line so identical failures print differently across a run match."""
+# Turbo's per-task log prefix, e.g. "n8n-editor-ui:test: " or "n8n-core:test:unit: ".
+# Only stripped when a project opts in via failure_patterns.json ->
+# fingerprint.strip_package_prefix (or the --fingerprint pkg-prefix override).
+_TURBO_PREFIX_RE = re.compile(r"^[A-Za-z0-9_@./-]+:test(?::[A-Za-z0-9_@./-]+)*:\s*")
+
+
+def resolve_fingerprint(cfg, mode=None):
+    """Return the compiled package-prefix regex to strip, or None.
+
+    Precedence: explicit CLI ``mode`` ('default' -> None, 'pkg-prefix' -> turbo
+    regex), else the project config's ``fingerprint.strip_package_prefix`` which
+    may be a bool (True = built-in turbo regex) or an explicit regex string.
+    Absent / False -> None, i.e. the historical, project-independent behavior.
+    """
+    if mode == "default":
+        return None
+    if mode == "pkg-prefix":
+        return _TURBO_PREFIX_RE
+    spec = ((cfg or {}).get("fingerprint") or {}).get("strip_package_prefix", False)
+    if spec is True:
+        return _TURBO_PREFIX_RE
+    if isinstance(spec, str) and spec:
+        return re.compile(spec)
+    return None
+
+
+def normalize_line(line, prefix_re=None):
+    """Normalize a log line so identical failures print differently across a run match.
+
+    ``prefix_re`` (optional) removes a leading runner/tool prefix (e.g. turbo's
+    ``pkg:task:``) before the failure identity is extracted; it is only supplied
+    when the project opts in.
+    """
     s = ANSI_RE.sub("", line)
     s = s.strip()
+    if prefix_re is not None:
+        s = prefix_re.sub("", s, count=1)
     s = TIMING_RE.sub("", s)
     s = REPO_PREFIX_RE.sub("", s)
     if s.startswith("src/"):
@@ -241,7 +288,7 @@ def normalize_line(line):
     return s
 
 
-def fingerprint(fail_line, lines, window=5):
+def fingerprint(fail_line, lines, window=5, prefix_re=None):
     """Stable per-failure identity (sha1) used to dedupe jest's re-prints.
 
     Rather than hashing a raw block (which differs between jest's mid-run print and
@@ -249,10 +296,26 @@ def fingerprint(fail_line, lines, window=5):
     test/file identity from a scan window around the line. This also collapses the
     `FAIL <file>` / `✕ <test>` / `● <suite> › <test>` representations of one failure
     into a single unit.
+
+    vitest's live failing-test line is also recognised:
+      `❯ <file> > <suite> > <test>`  (vitest <=1.x)  -> same identity as `FAIL <file> > ...`
+      `× <suite> > <test> [<duration>]` (vitest >=2.x) -> duration stripped
+    and is anchored on the trigger line only, because adjacent failures are only
+    3-4 lines apart and a wider scan would pick up the previous test's line.
+
+    ``prefix_re`` (optional) is passed to normalize_line so prefixed logs (e.g.
+    turbo's ``pkg:task:``) reach the ``startswith("FAIL")`` branch.
     """
     lo = max(0, fail_line - 1 - 4)
     hi = fail_line - 1 + window + 4
-    blk = [normalize_line(ln) for ln in lines[lo: hi + 1]]
+    blk = [normalize_line(ln, prefix_re) for ln in lines[lo: hi + 1]]
+
+    # Trigger line first: vitest live per-test failure (see docstring).
+    self_s = normalize_line(lines[fail_line - 1], prefix_re)
+    if self_s[:1] in ("\u276f", "\u00d7") and ">" in self_s:
+        ident = VITEST_TRAIL_TIME_RE.sub("", self_s[1:].strip()).strip()
+        if ident:
+            return hashlib.sha1(("file:" + ident).encode("utf-8", "replace")).hexdigest()[:16]
 
     for s in blk:
         if "✕" in s:
@@ -272,7 +335,7 @@ def fingerprint(fail_line, lines, window=5):
     # Fallback: normalized block (failure line + lines below). Exact re-prints share
     # an identical block and collapse; distinct messages (e.g. different console output)
     # stay separate.
-    block = "\n".join(normalize_line(ln) for ln in lines[fail_line - 1: fail_line - 1 + window])
+    block = "\n".join(normalize_line(ln, prefix_re) for ln in lines[fail_line - 1: fail_line - 1 + window])
     return hashlib.sha1(("blk:" + block).encode("utf-8", "replace")).hexdigest()[:16]
 
 
@@ -299,30 +362,35 @@ def get_key():
         termios.tcsetattr(fd, termios.TCSADRAIN, old)
 
 
-def labels_path(project, dedup):
-    name = "failure_labels.csv" if dedup == "run" else "failure_labels_project.csv"
-    return os.path.join(REPO_ROOT, "projects", project, name)
+def labels_path(project):
+    return os.path.join(REPO_ROOT, "projects", project, "failure_labels_project.csv")
 
 
-def load_existing(project, dedup):
-    path = labels_path(project, dedup)
+def load_existing(project):
+    path = labels_path(project)
     rows = []
     if os.path.isfile(path):
         with open(path, newline="") as f:
             rows = list(csv.DictReader(f))
     for r in rows:
         r.setdefault("occurrences", "1")
-    if dedup == "project":
-        done = {r["fingerprint"] for r in rows if r.get("fingerprint")}
-    else:
-        done = {(r["run_id"], r["fingerprint"]) for r in rows if r.get("fingerprint")}
+    done = {r["fingerprint"] for r in rows if r.get("fingerprint")}
     return path, rows, done
 
 
-def find_suite_span(lines, stem):
-    """Return (start_line, end_line, matched_name) for the suite, 1-indexed."""
+def _collect_spans(lines):
+    """Return the list of (name, start, end) suite spans in *lines* (1-indexed).
+
+    Scanning the log for span markers is O(len(lines)); callers that need spans
+    for several suite names in the same log should compute this once and reuse
+    it via _select_span instead of calling find_suite_span repeatedly.
+    """
     starts, ends = [], []
     for i, ln in enumerate(lines, 1):
+        # Markers always contain "[SUITE_"; skip the two regexes for the vast
+        # majority of lines (identical result).
+        if "[SUITE_" not in ln:
+            continue
         m = SUITE_START_RE.search(ln)
         if m:
             starts.append((m.group(1), i))
@@ -335,17 +403,44 @@ def find_suite_span(lines, stem):
         e = next((e_i for n, e_i in ends if n == name and e_i > s), None)
         if e:
             spans.append((name, s, e))
+    return spans
 
+
+def _select_span(spans, stem):
+    """Pick the (start, end, name) span matching *stem*, or None."""
     if not spans:
         return None
-
+    stem_norm = stem.replace("-", "_")
     for name, s, e in spans:
-        if name == stem:
+        name_norm = name.replace("-", "_")
+        if name_norm == stem_norm:
             return (s, e, name)
     for name, s, e in spans:
-        if stem == name or stem.endswith("_" + name) or stem.startswith(name + "_") or name in stem:
+        name_norm = name.replace("-", "_")
+        if stem_norm == name_norm or stem_norm.endswith("_" + name_norm) or stem_norm.startswith(name_norm + "_") or name_norm in stem_norm:
             return (s, e, name)
     return spans[0][1], spans[0][2], spans[0][0]
+
+
+
+def find_suite_span(lines, stem):
+    """Return (start_line, end_line, matched_name) for the suite, 1-indexed."""
+    return _select_span(_collect_spans(lines), stem)
+
+
+def _combined(compiled):
+    """One regex matching any of *compiled*, or None when the list is empty.
+
+    Equivalent to ``any(p.search(t) for p in compiled)`` but with a single
+    search. Returns None (so callers keep the ``any`` path) if the alternation
+    cannot be compiled, e.g. due to duplicate group names across patterns.
+    """
+    if not compiled:
+        return None
+    try:
+        return re.compile("|".join("(?:%s)" % p.pattern for p in compiled))
+    except re.error:
+        return None
 
 
 def collect_failures(lines, span, min_gap, patterns, excludes):
@@ -355,12 +450,20 @@ def collect_failures(lines, span, min_gap, patterns, excludes):
     matches any `excludes` regex (both come from the project config).
     """
     start, end, _ = span
+    comb_exc = _combined(excludes)
+    comb_pat = _combined(patterns)
     hits = []
     for i in range(start, end + 1):
         text = clean(lines[i - 1])
-        if any(p.search(text) for p in excludes):
+        if comb_exc is not None:
+            if comb_exc.search(text):
+                continue
+        elif any(p.search(text) for p in excludes):
             continue
-        if any(p.search(text) for p in patterns):
+        if comb_pat is not None:
+            if comb_pat.search(text):
+                hits.append((i, text))
+        elif any(p.search(text) for p in patterns):
             hits.append((i, text))
 
     out = []
@@ -372,27 +475,86 @@ def collect_failures(lines, span, min_gap, patterns, excludes):
     return out
 
 
-def iter_failures(project, out_root, min_gap, suite_filter, fp_window=5, dedup="run", cfg=None):
+# Bounded LRU of parsed run logs, used only to back the lazy `lines` of the
+# failure records yielded by iter_failures (most-recently-used last).
+_LINES_CACHE = {}
+_LINES_CACHE_MAX = 4
+
+
+def _log_lines(logs_dir, run_id):
+    """Return the parsed lines of a run's log, re-reading with a bounded LRU.
+
+    iter_failures streams failures and must not retain every run's log in
+    memory. The full `lines` of a run are materialized only when a consumer
+    actually indexes `it["lines"]` (interactive labeling / context display).
+    """
+    lines = _LINES_CACHE.pop(run_id, None)
+    if lines is None:
+        with open(os.path.join(logs_dir, run_id + ".log"), errors="replace") as fh:
+            lines = fh.read().split("\n")
+    _LINES_CACHE[run_id] = lines
+    while len(_LINES_CACHE) > _LINES_CACHE_MAX:
+        _LINES_CACHE.pop(next(iter(_LINES_CACHE)))
+    return lines
+
+
+class _Failure(dict):
+    """Failure record whose `lines` are loaded lazily from the run's log.
+
+    Behaves like the plain dict iter_failures used to yield, except that
+    `lines` is filled in on first access instead of being held for every run.
+    """
+
+    __slots__ = ("_logs_dir", "_run_id")
+
+    def __init__(self, logs_dir, run_id, **fields):
+        super().__init__(**fields)
+        self["run_id"] = run_id
+        self._logs_dir = logs_dir
+        self._run_id = run_id
+
+    def __missing__(self, key):
+        if key == "lines":
+            value = _log_lines(self._logs_dir, self._run_id)
+            self["lines"] = value
+            return value
+        raise KeyError(key)
+
+
+def iter_failures(project, out_root, min_gap, suite_filter, fp_window=5, cfg=None,
+                  fp_mode=None):
     """Yield each failure occurrence as a dict, in deterministic order.
 
-    Failures are deduplicated by a normalized block fingerprint:
-      - dedup="run"     -> first occurrence per fingerprint *within each log*
-      - dedup="project" -> first occurrence per fingerprint *across all logs*
-    `occurrences` is the number of distinct runs/commits sharing the fingerprint.
+    Failures are deduplicated by a normalized block fingerprint: the first
+    occurrence per fingerprint across all logs. `occurrences` is the number of
+    distinct runs/commits sharing the fingerprint.
+
+    Streaming implementation: each run's log is read ONCE and only lightweight
+    per-failure metadata is retained across runs; the run's `lines` are re-read
+    lazily (bounded LRU) when a consumer indexes them. This keeps peak memory
+    bounded regardless of corpus size (previously every processed log stayed
+    resident, so n8n's ~9 GB of logs needed ~100+ GB of RAM).
 
     `cfg` is the pattern config used for failure DETECTION. If None, the
     project's failure_patterns.json is loaded (the default/human behavior).
     """
-    fp_runs = {}          # fingerprint -> set of run_ids (distinct-run count)
-    all_f = []
     if cfg is None:
         cfg = load_pattern_config(project)
+    prefix_re = resolve_fingerprint(cfg, fp_mode)
+    logs_dir = os.path.join(REPO_ROOT, "projects", project, "logs")
+
     resolved = {}        # suite_stem -> (patterns, excludes)
+    fp_runs = {}         # fingerprint -> set of run_ids (distinct-run count)
+    order = []           # first-seen record per fingerprint (no `lines`)
+    seen = set()
+
     for run_dir in sorted(os.listdir(out_root)):
         run_path = os.path.join(out_root, run_dir)
         if not os.path.isdir(run_path):
             continue
-        run_failures = []
+
+        # Failing sidecars for this run, in sorted order.
+        failing = []
         for ec_file in sorted(os.listdir(run_path)):
             if not ec_file.endswith(".exit_code"):
                 continue
@@ -403,18 +565,33 @@ def iter_failures(project, out_root, min_gap, suite_filter, fp_window=5, dedup="
                 code = int(val)
             except ValueError:
                 continue
-            if code <= 0:
-                continue
+            if code > 0:
+                failing.append((stem, code))
+        if not failing:
+            continue
 
-            log_path = os.path.join(REPO_ROOT, "projects", project, "logs", run_dir + ".log")
-            if not os.path.isfile(log_path):
-                print(f"[warn] missing log for {run_dir}", file=sys.stderr)
-                continue
+        log_path = os.path.join(logs_dir, run_dir + ".log")
+        if not os.path.isfile(log_path):
+            print(f"[warn] missing log for {run_dir}", file=sys.stderr)
+            continue
 
-            with open(log_path, errors="replace") as f:
-                lines = f.read().split("\n")
+        # Read the log once for the whole run (was: once per failing sidecar).
+        with open(log_path, errors="replace") as f:
+            lines = f.read().split("\n")
 
-            span = find_suite_span(lines, stem)
+        # Collect suite spans once for the whole run (span-finding is O(len(lines))
+        # and all of a run's failing stems share the same log).
+        spans = _collect_spans(lines)
+
+        # Scan the shared span at most once per (span, pattern-set): all of a
+        # run's failing stems usually resolve to the same span and the same
+        # resolved patterns (n8n averages ~15 failing sidecars/run), and
+        # collect_failures is O(len(span)). Iteration order per stem is kept,
+        # so first-seen attribution/dedup is unchanged.
+        scan_cache = {}
+
+        for stem, code in failing:
+            span = _select_span(spans, stem)
             if not span:
                 print(f"[warn] no suite span for {run_dir} / {stem}", file=sys.stderr)
                 continue
@@ -424,66 +601,44 @@ def iter_failures(project, out_root, min_gap, suite_filter, fp_window=5, dedup="
             if stem not in resolved:
                 resolved[stem] = resolve_patterns(cfg, stem)
             pats, excs = resolved[stem]
-            for ln, text in collect_failures(lines, span, min_gap, pats, excs):
-                fp = fingerprint(ln, lines, fp_window)
-                run_failures.append({
+            sig = (tuple(p.pattern for p in pats), tuple(e.pattern for e in excs))
+            key = (span, sig)
+            hits = scan_cache.get(key)
+            if hits is None:
+                hits = collect_failures(lines, span, min_gap, pats, excs)
+                scan_cache[key] = hits
+            for ln, text in hits:
+                fp = fingerprint(ln, lines, fp_window, prefix_re)
+                fp_runs.setdefault(fp, set()).add(run_dir)
+                if fp in seen:
+                    continue
+                seen.add(fp)
+                order.append({
                     "run_id": run_dir,
                     "suite": stem,
                     "exit_code": code,
                     "line": ln,
                     "text": text,
                     "span": span,
-                    "lines": lines,
                     "fp": fp,
                 })
+        del lines
 
-        for f in run_failures:
-            fp_runs.setdefault(f["fp"], set()).add(run_dir)
-        all_f.extend(run_failures)
-
-    # Deduplicate. run -> reset seen per log; project -> global seen.
-    seen_global = set()
-    per_run_seen = {}
-    out = []
-    for f in all_f:
-        seen = seen_global if dedup == "project" else per_run_seen.setdefault(f["run_id"], set())
-        if f["fp"] in seen:
-            continue
-        seen.add(f["fp"])
-        out.append(f)
-
-    # Assign failure_index/total: run mode per log (familiar "failure 1/N of this
-    # run"), project mode globally across all logs.
-    if dedup == "run":
-        by_run = {}
-        for f in out:
-            by_run.setdefault(f["run_id"], []).append(f)
-        renumbered = []
-        for items in by_run.values():
-            for idx, f in enumerate(items, 1):
-                g = dict(f)
-                g["failure_index"] = idx
-                g["total"] = len(items)
-                renumbered.append(g)
-        out = renumbered
-    else:
-        out = [dict(f, failure_index=idx, total=len(out))
-               for idx, f in enumerate(out, 1)]
-
-    for f in out:
-        yield {
-            "run_id": f["run_id"],
-            "suite": f["suite"],
-            "exit_code": f["exit_code"],
-            "failure_index": f["failure_index"],
-            "total": f["total"],
-            "line": f["line"],
-            "text": f["text"],
-            "span": f["span"],
-            "lines": f["lines"],
-            "fp": f["fp"],
-            "occurrences": 1 if dedup == "run" else len(fp_runs[f["fp"]]),
-        }
+    total = len(order)
+    for idx, f in enumerate(order, 1):
+        yield _Failure(
+            logs_dir,
+            f["run_id"],
+            suite=f["suite"],
+            exit_code=f["exit_code"],
+            failure_index=idx,
+            total=total,
+            line=f["line"],
+            text=f["text"],
+            span=f["span"],
+            fp=f["fp"],
+            occurrences=len(fp_runs[f["fp"]]),
+        )
 
 
 def print_context(item, c_above, c_below):
@@ -546,11 +701,12 @@ def parse_args():
                    help="Lines shown ABOVE a failure (failure detail follows the marker).")
     p.add_argument("--context-below", type=int, default=40,
                    help="Lines shown BELOW a failure (where the error is).")
-    p.add_argument("--min-gap", type=int, default=5,
-                   help="Only report a failure if it is more than N lines after the previous one.")
+    p.add_argument("--min-gap", type=int, default=None,
+                   help="Only report a failure if it is more than N lines after the previous "
+                        "one. Omitted -> use the project config's top-level 'min_gap', else 5.")
     p.add_argument("--suite", type=str, default=None, help="Only process suites whose name contains this.")
     p.add_argument("--only-unlabeled", action="store_true", default=True,
-                   help="Skip failures already present in failure_labels.csv (default).")
+                   help="Skip failures already present in failure_labels_project.csv (default).")
     p.add_argument("--all", dest="only_unlabeled", action="store_false",
                    help="Re-process even already-labeled failures.")
     p.add_argument("--dry-run", action="store_true",
@@ -559,12 +715,21 @@ def parse_args():
                    help="List failures matching environment signals with their current label.")
     p.add_argument("--auto-classify", action="store_true",
                    help="Non-interactively apply auto_classify rules to all unlabeled failures.")
+    p.add_argument("--verify", action="store_true",
+                   help="Drop labels whose failure no longer occurs in the current output, then "
+                        "continue in the normal labeling flow (re-label only what changed).")
     p.add_argument("--review", type=str, default=None, choices=ALL_LABELS,
                    help="Re-display existing labels of the given class and let you change them.")
     p.add_argument("--fp-window", type=int, default=5,
                    help="Size of the normalized failure block (failure line + N-1 below) used to dedupe re-prints.")
-    p.add_argument("--dedup", type=str, default="run", choices=["run", "project"],
-                   help="run: dedupe within each log (default). project: dedupe across all logs into failure_labels_project.csv.")
+    p.add_argument("--fingerprint", type=str, default=None,
+                   choices=["default", "pkg-prefix"],
+                   help="Override the dedup fingerprint strategy. 'default' = historical "
+                        "behavior; 'pkg-prefix' = strip a leading turbo 'pkg:task:' prefix "
+                        "before fingerprinting (fixes cross-run dedup for prefixed logs). "
+                        "Omitted -> use the project config's fingerprint.strip_package_prefix.")
+    p.add_argument("--dedup", type=str, default="project", choices=["project"],
+                   help="Deduplicate across all logs into failure_labels_project.csv (only mode).")
     return p.parse_args()
 
 
@@ -580,44 +745,36 @@ def save_rows(path, rows):
             w.writerow(r)
 
 
-def do_report_env(args, out_root, existing_rows, dedup):
-    if dedup == "project":
-        label_of = {r.get("fingerprint"): r["label"] for r in existing_rows}
-    else:
-        label_of = {(r["run_id"], r.get("fingerprint")): r["label"] for r in existing_rows}
+def do_report_env(args, out_root, existing_rows):
+    label_of = {r.get("fingerprint"): r["label"] for r in existing_rows}
     shown = 0
-    for it in iter_failures(args.project, out_root, args.min_gap, args.suite, args.fp_window, dedup):
+    for it in iter_failures(args.project, out_root, args.min_gap, args.suite, args.fp_window,
+                            args.fingerprint):
         start, end, _ = it["span"]
         hits = env_signals(it["lines"][start - 1: end])
         if not hits:
             continue
-        key = it["fp"] if dedup == "project" else (it["run_id"], it["fp"])
-        lab = label_of.get(key, "unlabeled")
-        occ = f" occ={it['occurrences']}" if dedup == "project" else ""
+        lab = label_of.get(it["fp"], "unlabeled")
         print(f"[{it['run_id']}] {it['suite']} #{it['failure_index']} L{it['line']} "
-              f"label={lab}{occ}  env={{{', '.join(hits)}}}  :: {it['text'][:80]}")
+              f"label={lab} occ={it['occurrences']}  env={{{', '.join(hits)}}}  :: {it['text'][:80]}")
         shown += 1
         print(f"\nenv-signal failures shown: {shown}")
 
 
-def do_auto_classify(args, out_root, csv_path, existing_rows, dedup):
+def do_auto_classify(args, out_root, csv_path, existing_rows):
     """Apply auto_classify rules to all (unlabeled) failures non-interactively."""
     rules = load_auto_rules(args.project)
     if not rules:
         print("no auto_classify rules in project config; nothing to do")
         return
-    def keyfn(it):
-        return it["fp"] if dedup == "project" else (it["run_id"], it["fp"])
-    done = {r["fingerprint"] if dedup == "project" else (r["run_id"], r["fingerprint"])
-            for r in existing_rows}
+    done = {r["fingerprint"] for r in existing_rows}
     current = {}
     for r in existing_rows:
-        k = r["fingerprint"] if dedup == "project" else (r["run_id"], r["fingerprint"])
-        current[k] = dict(r)
+        current[r["fingerprint"]] = dict(r)
     applied = 0
     for it in iter_failures(args.project, out_root, args.min_gap, args.suite,
-                             args.fp_window, dedup):
-        key = keyfn(it)
+                             args.fp_window, args.fingerprint):
+        key = it["fp"]
         if args.only_unlabeled and key in done:
             continue
         res = match_auto_rule(it, rules)
@@ -696,6 +853,11 @@ def do_review(args, csv_path, existing_rows):
 
 def main():
     args = parse_args()
+    # `--min-gap` may be omitted -> fall back to the project config's `min_gap`
+    # so the proximity window is reproducible from failure_patterns.json.
+    cfg = load_pattern_config(args.project)
+    if args.min_gap is None:
+        args.min_gap = int(cfg.get("min_gap", 5))
     if args.context is not None:
         c_above = c_below = args.context
     else:
@@ -705,15 +867,15 @@ def main():
         print(f"no output dir for project {args.project!r}", file=sys.stderr)
         sys.exit(1)
 
-    csv_path, existing_rows, done = load_existing(args.project, args.dedup)
+    csv_path, existing_rows, done = load_existing(args.project)
     rules = load_auto_rules(args.project)
 
     if args.report_env:
-        do_report_env(args, out_root, existing_rows, args.dedup)
+        do_report_env(args, out_root, existing_rows)
         return
 
     if args.auto_classify:
-        do_auto_classify(args, out_root, csv_path, existing_rows, args.dedup)
+        do_auto_classify(args, out_root, csv_path, existing_rows)
         return
 
     if args.review:
@@ -721,24 +883,34 @@ def main():
         return
 
     failures = list(iter_failures(args.project, out_root, args.min_gap, args.suite,
-                                  args.fp_window, args.dedup))
+                                  args.fp_window, args.fingerprint))
+
+    # --verify: drop labels whose failure no longer occurs in the current output,
+    # then fall through to the normal labeling flow so only newly-changed failures
+    # are re-presented. The auto_classify rules stay in place, so a resolved error
+    # that reappears is re-detected and surfaces again.
+    if args.verify:
+        present = {it["fp"] for it in failures}
+        before = len(existing_rows)
+        existing_rows = [r for r in existing_rows if r.get("fingerprint") in present]
+        done = {r["fingerprint"] for r in existing_rows if r.get("fingerprint")}
+        print(f"[verify] dropped {before - len(existing_rows)} resolved label(s); "
+              f"{len(existing_rows)} still present, {len(failures)} current failures")
 
     if args.dry_run:
         for it in failures:
-            occ = f" occ={it['occurrences']}" if args.dedup == "project" else ""
             print(f"[{it['run_id']}] {it['suite']} exit={it['exit_code']} "
-                  f"#{it['failure_index']}/{it['total']} L{it['line']}{occ}: {it['text']}")
+                  f"#{it['failure_index']}/{it['total']} L{it['line']} occ={it['occurrences']}: {it['text']}")
         return
 
-    # Working set keyed by the resume key. Seeded from existing_rows so prior labels
+    # Working set keyed by fingerprint. Seeded from existing_rows so prior labels
     # are ALWAYS preserved (the previous flush() discarded them -> data loss bug).
     def keyfn(it):
-        return it["fp"] if args.dedup == "project" else (it["run_id"], it["fp"])
+        return it["fp"]
 
     current = {}
     for r in existing_rows:
-        k = r["fingerprint"] if args.dedup == "project" else (r["run_id"], r["fingerprint"])
-        current[k] = dict(r)
+        current[r["fingerprint"]] = dict(r)
 
     history = []  # (action, key, prev_row_or_None)
     labeled = 0
@@ -906,6 +1078,9 @@ def main():
             print("  -> quit")
             break
 
+    # Persist even when nothing new was labeled (e.g. --verify pruned resolved rows
+    # and every remaining failure already had a label).
+    flush()
     print(f"done. labeled={labeled} auto-labeled={auto_labeled} skipped={skipped}")
 
 

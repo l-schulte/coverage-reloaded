@@ -16,6 +16,7 @@
       "Snapshots:"
     ]
   },
+  "min_gap": 5,
   "suites": {
     "_example_suite_": {
       "remove_patterns": ["Error:", "\\bfailed\\b"],

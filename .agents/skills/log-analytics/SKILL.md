@@ -43,7 +43,7 @@ Bounded scope: cluster failures by root cause, assign tentative types. Do NOT tr
 2. Cluster matching errors into groups by signature. Each group represents a distinct root-cause pattern observed across commits.
 3. Tentatively classify each group:
    - **Developer-facing** — a genuine assertion/logic failure a developer would also hit at that commit (real bug or known-flaky test). These legitimately reduce coverage.
-   - **Environment/setup** — sandbox artifact: network isolation (remote/stitched service schemas, external endpoints), temporal drift (time-relative/"self-expiring" tests running at wall-clock instead of commit time), package-manager/version mismatch, missing system deps, Docker build infra.
+   - **Environment/setup** — container/runner environment artifact: external service/endpoint dependencies, temporal drift (time-relative/"self-expiring" tests running at wall-clock instead of commit time), package-manager/version mismatch, missing system deps, Docker build infra.
 
    If time-related and fixable, verify candidate with `helper/fake-time-node.js` (set `NODE_OPTIONS="-r /coverage_reloaded/fake-time-node.js"` + `TIMESTAMP_EPOCH="$timestamp"`). Check it doesn't introduce new failures.
 

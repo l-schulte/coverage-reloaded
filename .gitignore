@@ -17,6 +17,8 @@
 *old_commits.csv
 *dashboard-index.json
 *failure_labels_collapsed*.csv
+# retired v1 labels + double-check artifacts (kept out of git by decision)
+projects/**/label_analysis/v1/
 
 **/tmp/
 **/debug/
@@ -29,6 +31,8 @@
 **/stats_output/
 **/bin*
 projects/**/archive/
+projects/**/label_analysis/v1/
+archive/**/archive/
 
 node_modules/
 **/node_modules/

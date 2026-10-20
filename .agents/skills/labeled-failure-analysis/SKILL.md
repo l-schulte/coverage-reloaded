@@ -7,6 +7,12 @@ metadata:
   workflow: failure-analysis
 ---
 
+> **v2 projects:** when a project has been processed with `check_failures_v2.py`,
+> use the v2 family cards (`projects/<p>/label_analysis/<p>_<window>.jsonl`) as
+> the family source and the SQLite union counts for blast radius. The v1
+> CSV/`collapse_labels.py` workflow below applies to v1 projects only. See the
+> `check-failures-v2` skill.
+
 ## What I do
 
 I consume the failures you already labeled with `check_failures.py` and re-assess them at the *family* level. Your `problematic` and `unclear` labels are treated as first-pass guesses; I decide for each error family whether it is:
@@ -76,6 +82,7 @@ Bounded scope: get the data ready, no assessment yet.
 
 1. Confirm `projects/<p>/failure_labels_project.csv` exists. If not, tell the user to run `python3 check_failures.py --project <p> --dedup project` first (labeling is their manual step) and stop.
 2. Run `python3 collapse_labels.py <p>` (local CSV transform — no container, safe) to (re)generate both `failure_labels_collapsed_by_rule.csv` and `failure_labels_collapsed_problematic_unclear.csv`.
+   - If a harness/read-only mode blocks executing the script, do **not** reproduce the collapse in memory. Ask the user to either (a) run `python3 collapse_labels.py <p>` themselves, or (b) enable a mode that permits execution — then continue from the regenerated files.
 3. Report: number of rule families, number of signature families, source `problematic`/`unclear` row counts, and total occurrences.
 
 **Checkpoint 0 (Mandatory Stop Point):** Show the rule-collapsed summary table (sorted by `total_occurrences` desc): `rule_id | rule_pattern | rule_label | label_breakdown | n_fingerprints | total_occurrences | n_runs`. (If any broad rule needs sub-family breakdown, reference the signature view). Ask: *"Which families should I assess, and in what priority order? (default: all, top-down by occurrences)"*
@@ -106,6 +113,9 @@ Process one selected family at a time (prioritizing the rule view):
    - **Tolerates drift:** if the cause only spans some commits, the branch must activate only for that range and stay inert elsewhere; note where the behavior should flip.
    - **Locate it:** (a) `install-and-run.sh` conditional edit (preferred), (b) `Dockerfile` system dep, or (c) document as known failure in `projects/<p>/OVERVIEW.md` "Known Test Failures" if unfixable.
    - **Exposure impact:** note whether it silently under-measures coverage (bail risk) or is an acceptable visible partial result.
+6. **Close the loop after a fix is applied and re-run.** Once the user has applied a fix and re-run the affected commits:
+   - Tell the user to run `python3 check_failures.py --project <p> --verify`. This drops labels whose failure no longer occurs in the current output, then falls straight into the normal labeling flow, so only newly-changed failures are re-presented. The family's `auto_classify` rule stays `problematic`, so a regression is re-detected and resurfaces rather than being hidden — never relabel a real pipeline defect to `reevaluated_acceptable` just to clear it from the view.
+   - After the user finishes re-labeling, run `python3 collapse_labels.py <p>` again and continue with the remaining families.
 
 **Checkpoint (per family):** Show the verdict + fix recommendation. Ask: *"Accept, modify, or skip this family?"* Always offer these three. Do not move on until answered.
 
