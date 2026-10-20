@@ -64,6 +64,7 @@ git config --global url."https://github.com/".insteadOf "git://github.com/"
 # pnpm/yarn clone git deps over SSH (git@github.com:...); containers have no ssh client.
 # Redirect SSH git URLs to anonymous HTTPS so public git deps resolve.
 git config --global url."https://github.com/".insteadOf "git@github.com:"
+git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
 
 IS_NPM_MAIN_PM=$([[ "$package_manager" == npm* ]] && echo "true" || echo "false")
 export IS_NPM_MAIN_PM
@@ -109,6 +110,49 @@ pwd
 print_header 2 "Git Checkout"
 git checkout "$revision"
 
+print_header 2 "Commit Topology"
+
+GIT_PRIMARY_REF=""
+for candidate_ref in origin/HEAD origin/main origin/master main master; do
+    if git rev-parse --verify --quiet "${candidate_ref}^{commit}" >/dev/null 2>&1; then
+        GIT_PRIMARY_REF="$candidate_ref"
+        break
+    fi
+done
+
+COMMIT_PARENT_HASHES=$(git show -s --format='%P' "$revision")
+COMMIT_PARENT_COUNT=$(git rev-list --parents -n 1 "$revision" | wc -w)
+COMMIT_PARENT_COUNT=$((COMMIT_PARENT_COUNT - 1))
+COMMIT_AUTHOR_TS=$(git show -s --format='%at' "$revision")
+COMMIT_COMMITTER_TS=$(git show -s --format='%ct' "$revision")
+
+echo "Subject:            $(git show -s --format='%s' "$revision")"
+echo "Author date:        $(git show -s --format='%ai' "$revision")"
+echo "Committer date:     $(git show -s --format='%ci' "$revision")"
+echo "Parents:            $COMMIT_PARENT_COUNT ${COMMIT_PARENT_HASHES:-}"
+
+if [ "$COMMIT_PARENT_COUNT" -gt 1 ]; then
+    echo "Kind:               merge commit"
+else
+    echo "Kind:               single-parent commit"
+fi
+
+COMMIT_DATE_SKEW=$((COMMIT_COMMITTER_TS - COMMIT_AUTHOR_TS))
+if [ "$COMMIT_DATE_SKEW" -ge 86400 ]; then
+    echo "Date skew:          committer date is $((COMMIT_DATE_SKEW / 86400)) day(s) after author date (rebased/amended)"
+fi
+
+if [ -n "$GIT_PRIMARY_REF" ]; then
+    echo "Primary branch ref: $GIT_PRIMARY_REF"
+    if git rev-list --first-parent "$GIT_PRIMARY_REF" | grep -qxF "$revision"; then
+        echo "Lineage:            on first-parent history of $GIT_PRIMARY_REF"
+    else
+        echo "Lineage:            NOT on first-parent history of $GIT_PRIMARY_REF (branch/PR intermediate)"
+    fi
+else
+    echo "Lineage:            unknown (no primary branch ref found)"
+fi
+
 print_header 2 "Node Version"
 node --version
 
@@ -122,6 +166,11 @@ resolve_and_pin "github.com"
 resolve_and_pin "yarnpkg.com"
 resolve_and_pin "repo.yarnpkg.com"
 resolve_and_pin "nodejs.org"
+# yarn fetches git/tarball dependencies from codeload, and webpack fixtures
+# reference raw.githubusercontent.com. Containers intermittently fail these
+# with EAI_AGAIN, so pin them like the registry hosts.
+resolve_and_pin "codeload.github.com"
+resolve_and_pin "raw.githubusercontent.com"
 resolve_and_pin "docker-multi-cache"
 
 print_header 2 "Setting up Package Managers"
@@ -282,9 +331,11 @@ process_files "$execute_function"
 # Workaround 1: remove those lines to let yarn resolve them via the configured registry (waypack & verdaccio).
 # [ -f "yarn.lock" ] && sed -i '/^  resolved/d' yarn.lock
 # Workaround 2: replace URLs with waypack URL (https://registry.yarnpkg.com/)
+# bnpm.byted.org is an internal mirror some upstream lockfiles reference
+# (e.g. webpack 93d12eb); it is unreachable from the container.
 match_patterns=('yarn.lock' '*/yarn.lock')
 ignore_patterns=('*/node_modules/*')
-execute_function='sed -i "s|resolved \"https://registry.yarnpkg.com/|resolved \"'"$WAYPACK_YARN_REGISTRY"'|g" {}'
+execute_function='sed -i "s|resolved \"https://registry.yarnpkg.com/|resolved \"'"$WAYPACK_YARN_REGISTRY"'|g; s|resolved \"http://bnpm.byted.org/|resolved \"'"$WAYPACK_YARN_REGISTRY"'|g" {}'
 process_files "$execute_function"
 # execute_function='sed -i "/^[[:space:]]*integrity /d" {}'
 # process_files "$execute_function"
@@ -308,6 +359,10 @@ print_header 1 "Calling install-and-run.sh"
 # marker from a previous run before invoking install-and-run.sh.
 NOT_APPLICABLE_MARKER="$OUTPUT_PATH/${timestamp}_${revision}.not_applicable"
 rm -f "$NOT_APPLICABLE_MARKER"
+# The focus-marker deficit sidecar (helper/na-if-focus-marker.sh) needs no
+# staleness cleanup here: it is written to the staging area and copied into the
+# commit's own directory in the collection step below, and the post-run re-run
+# block replaces that directory wholesale.
 
 (sleep 5220s && echo "WARNING: 90 minute timeout for install-and-run.sh about to apply") &
 TIMEOUT_PID=$!
@@ -370,6 +425,9 @@ rm -f "$OUTPUT_PATH/${prefix}"__*.lcov "$OUTPUT_PATH/${prefix}"__*.exit_code
 rm -f "$OUTPUT_PATH/${prefix}.error"
 # Remove any stale .not_applicable marker so a successful re-run doesn't show twice
 rm -f "$OUTPUT_PATH/${prefix}.not_applicable"
+# NOTE: the focus-marker deficit sidecar needs no line here. It is written to the
+# staging area during install-and-run.sh and copied into the commit directory
+# below, so it is replaced (or dropped) together with the directory removed above.
 
 commit_dir="$OUTPUT_PATH/$prefix"
 
@@ -419,6 +477,15 @@ while IFS= read -r -d '' tr; do
     cp "$tr" "$dest"
     echo "  [OK]  $(basename "$tr") → $prefix/${safe_stem}.test_results.json"
 done < <(find "$COVERAGE_REPORT_PATH" -name "*.test_results.json" -print0)
+
+# Copy the focus-marker deficit sidecar (helper/na-if-focus-marker.sh) into the
+# commit directory, so it sits with the coverage it qualifies instead of at the
+# output root. It is written to the staging area during the run and is absent
+# when the commit carries no per-file focus marker.
+if [ -f "$COVERAGE_REPORT_PATH/focus_marker.txt" ]; then
+    cp "$COVERAGE_REPORT_PATH/focus_marker.txt" "$commit_dir/focus_marker.txt"
+    echo "  [OK]  focus_marker.txt → $prefix/focus_marker.txt"
+fi
 
 
 

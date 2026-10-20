@@ -34,6 +34,8 @@
 #   jest     "Test Suites: 0 total"      / "Tests:       0 total"
 #   mocha    "0 passing" (e.g. "0 passing (12ms)")
 #   tap      "# tests 0" / "0 tests"
+#   node     "ℹ tests 0" / "ℹ tests 7"  (node:test spec reporter; also accepts
+#            the labels node:test / nodetest)
 #
 #   exit_code (optional 4th arg) is only used to make the failure message
 #   explicit about a runner that exited 0 while running nothing.
@@ -74,66 +76,94 @@ assert_suite_ran() {
         exit 2
     fi
 
+    # The suite log is captured raw by `tee` inside the container; only the
+    # host-side copy is passed through strip-ansi by docker_run.py. Runner
+    # output can therefore still contain ANSI colour/cursor sequences and `\r`
+    # line rewrites, which would hide an otherwise valid summary line from the
+    # `grep -E '^...'` patterns below. Normalise the stream before matching so
+    # the runner's own reported count stays authoritative.
+    _asr_grep() {
+        # -a is essential: webpack's test output embeds NUL bytes (dumped binary
+        # fixtures). GNU grep then treats the stream as binary, prints only
+        # "binary file matches" on stderr and exits 0 with empty stdout, which
+        # the strict check below would misread as an unparseable summary.
+        sed -E 's/\x1b\][^\x07]*(\x07|\x1b\\)//g; s/\x1b\[[0-9;?]*[a-zA-Z]//g; s/\x1b[()][A-Z0-9]//g; s/\r/\n/g' "$log_file" | grep -a "$@"
+    }
+
     # verdict: "zero" (runner reported no tests), "ran" (runner reported a
     # positive test tally), or "" (no summary line recognisable for this runner).
     local verdict="" evidence=""
 
     case "$runner" in
         vitest)
-            evidence=$(grep -m1 -E '^[[:space:]]*Test Files[[:space:]]+no tests' "$log_file" || true)
+            evidence=$(_asr_grep -m1 -E '^[[:space:]]*Test Files[[:space:]]+no tests' || true)
             if [ -n "$evidence" ]; then verdict="zero"; fi
             if [ -z "$verdict" ]; then
-                evidence=$(grep -m1 -E '^[[:space:]]*Test Files[[:space:]]+0 passed \(0\)' "$log_file" || true)
+                evidence=$(_asr_grep -m1 -E '^[[:space:]]*Test Files[[:space:]]+0 passed \(0\)' || true)
                 [ -n "$evidence" ] && verdict="zero"
             fi
             if [ -z "$verdict" ]; then
-                evidence=$(grep -m1 -E '^[[:space:]]*Tests[[:space:]]+no tests' "$log_file" || true)
+                evidence=$(_asr_grep -m1 -E '^[[:space:]]*Tests[[:space:]]+no tests' || true)
                 [ -n "$evidence" ] && verdict="zero"
             fi
             if [ -z "$verdict" ]; then
-                evidence=$(grep -m1 -E '^[[:space:]]*Tests[[:space:]]+0 passed \(0\)' "$log_file" || true)
+                evidence=$(_asr_grep -m1 -E '^[[:space:]]*Tests[[:space:]]+0 passed \(0\)' || true)
                 [ -n "$evidence" ] && verdict="zero"
             fi
             if [ -z "$verdict" ]; then
-                evidence=$(grep -m1 -E '^[[:space:]]*Test Files[[:space:]]+[1-9][0-9]* (passed|failed)' "$log_file" || true)
+                evidence=$(_asr_grep -m1 -E '^[[:space:]]*Test Files[[:space:]]+[1-9][0-9]* (passed|failed)' || true)
                 [ -n "$evidence" ] && verdict="ran"
             fi
             if [ -z "$verdict" ]; then
-                evidence=$(grep -m1 -E '^[[:space:]]*Tests[[:space:]]+([0-9]+ failed, )?[1-9][0-9]* passed' "$log_file" || true)
+                evidence=$(_asr_grep -m1 -E '^[[:space:]]*Tests[[:space:]]+([0-9]+ failed, )?[1-9][0-9]* passed' || true)
                 [ -n "$evidence" ] && verdict="ran"
             fi
             ;;
         jest)
-            evidence=$(grep -m1 -E 'Test Suites:[[:space:]]+0 total' "$log_file" || true)
+            evidence=$(_asr_grep -m1 -E 'Test Suites:[[:space:]]+0 total' || true)
             if [ -n "$evidence" ]; then verdict="zero"; fi
             if [ -z "$verdict" ]; then
-                evidence=$(grep -m1 -E 'Tests:[[:space:]]+0 total' "$log_file" || true)
+                evidence=$(_asr_grep -m1 -E 'Tests:[[:space:]]+0 total' || true)
                 [ -n "$evidence" ] && verdict="zero"
             fi
             if [ -z "$verdict" ]; then
-                evidence=$(grep -m1 -E 'Test Suites:[[:space:]]+([0-9]+ failed, )?[1-9][0-9]* passed' "$log_file" || true)
+                evidence=$(_asr_grep -m1 -E 'Test Suites:[[:space:]].*[1-9][0-9]* (passed|total)' || true)
                 [ -n "$evidence" ] && verdict="ran"
             fi
             if [ -z "$verdict" ]; then
-                evidence=$(grep -m1 -E 'Tests:[[:space:]]+([0-9]+ failed, )?[1-9][0-9]* passed' "$log_file" || true)
+                evidence=$(_asr_grep -m1 -E 'Tests:[[:space:]].*[1-9][0-9]* (passed|total)' || true)
                 [ -n "$evidence" ] && verdict="ran"
             fi
             ;;
         mocha)
-            evidence=$(grep -m1 -E '(^|[^0-9])0 passing' "$log_file" || true)
+            evidence=$(_asr_grep -m1 -E '(^|[^0-9])0 passing' || true)
             if [ -n "$evidence" ]; then
                 verdict="zero"
             else
-                evidence=$(grep -m1 -E '(^|[^0-9])[1-9][0-9]* passing' "$log_file" || true)
+                evidence=$(_asr_grep -m1 -E '(^|[^0-9])[1-9][0-9]* passing' || true)
                 [ -n "$evidence" ] && verdict="ran"
             fi
             ;;
         tap)
-            evidence=$(grep -m1 -E '^#[[:space:]]+tests[[:space:]]+0$|(^|[^0-9])0 tests' "$log_file" || true)
+            evidence=$(_asr_grep -m1 -E '^#[[:space:]]+tests[[:space:]]+0$|(^|[^0-9])0 tests' || true)
             if [ -n "$evidence" ]; then
                 verdict="zero"
             else
-                evidence=$(grep -m1 -E '^#[[:space:]]+tests[[:space:]]+[1-9][0-9]*$' "$log_file" || true)
+                evidence=$(_asr_grep -m1 -E '^#[[:space:]]+tests[[:space:]]+[1-9][0-9]*$' || true)
+                [ -n "$evidence" ] && verdict="ran"
+            fi
+            ;;
+        node|node:test|nodetest)
+            # Node's own test runner, spec reporter:
+            #   ℹ tests 7 / ℹ suites 4 / ℹ pass 6 / ℹ fail 1
+            # Match on "tests <n>" without assuming the ℹ glyph's bytes, and use a
+            # leading non-letter so "subtests <n>" (which the runner also prints)
+            # cannot be mistaken for the test count.
+            evidence=$(_asr_grep -m1 -E '(^|[^a-zA-Z])tests[[:space:]]+0[[:space:]]*$' || true)
+            if [ -n "$evidence" ]; then
+                verdict="zero"
+            else
+                evidence=$(_asr_grep -m1 -E '(^|[^a-zA-Z])tests[[:space:]]+[1-9][0-9]*[[:space:]]*$' || true)
                 [ -n "$evidence" ] && verdict="ran"
             fi
             ;;
