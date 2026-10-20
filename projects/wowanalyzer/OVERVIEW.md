@@ -39,13 +39,13 @@
 
 - [x] 100 done
 - [x] failed tests doublechecked
-- [x] complete run
+- [ ] complete run (3,722 pre-monorepo commits archived for re-run under include_analysis_coverage)
 - [x] complete test failure check
 - [x] complete JEV test failure check
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-10-03 10:48).
+Source: `stats_output/report.txt` (generated 2026-10-03 10:48; 3,722 pre-monorepo commits are archived to [`archive/include_analysis_coverage/`](archive/include_analysis_coverage/) and pending re-run to collect coverage across `analysis/**`).
 
 | Metric | Value |
 |---|---|
@@ -71,7 +71,7 @@ Sourced from [`failure_labels_project.csv`](failure_labels_project.csv) and audi
 
 ## Environment / setup fixes
 
-None.
+- **Monorepo analysis directory coverage (`include_analysis_coverage`):** Prior to the 2022-09-05 monorepo reorganization (commit `1409e34b3a`), the core class analysis packages lived in the root-level `analysis/` folder outside `src/`. Create React App's default `collectCoverageFrom` glob (`src/**/*.{js,jsx,ts,tsx}`) strictly ignored `analysis/`, omitting over 1,700 source files (~65% of the codebase) from LCOV across the entire pre-split era. Fixed in `install-and-run.sh` by dynamically injecting `--collectCoverageFrom="{src,analysis}/**/*.{js,jsx,ts,tsx}"` into `react-app-rewired test` when `analysis/` exists. All 3,722 affected runs were archived to [`archive/include_analysis_coverage/`](archive/include_analysis_coverage/) to permit a clean re-run.
 
 ## Known gaps
 

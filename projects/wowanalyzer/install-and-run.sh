@@ -88,7 +88,18 @@ if echo "$TEST_SCRIPT" | grep -q "vitest"; then
 elif echo "$TEST_SCRIPT" | grep -q "react-app-rewired"; then
     suite_start "react-app-rewired" "Running tests with coverage"
     print_header 3 "Running tests (react-app-rewired / jest)"
-    npx --registry="$WAYPACK_NPM_REGISTRY" react-app-rewired test --runInBand --coverage --coverageReporters=lcov --watchAll=false 2>&1 | jest_check_executed
+
+    # When analysis/ exists as a separate root directory (commits prior to
+    # the 2022-09-05 monorepo reorganization in 1409e34b3a), Create React App's
+    # default collectCoverageFrom ('src/**/*.{js,jsx,ts,tsx}') ignores analysis/.
+    # Expand collectCoverageFrom to instrument both roots: {src,analysis}/**.
+    EXTRA_COVERAGE_ARGS=()
+    if [ -d "analysis" ]; then
+        print_header 4 "Monorepo era: adding analysis/** to Jest collectCoverageFrom"
+        EXTRA_COVERAGE_ARGS=(--collectCoverageFrom="{src,analysis}/**/*.{js,jsx,ts,tsx}")
+    fi
+
+    npx --registry="$WAYPACK_NPM_REGISTRY" react-app-rewired test --runInBand --coverage --coverageReporters=lcov --watchAll=false "${EXTRA_COVERAGE_ARGS[@]}" 2>&1 | jest_check_executed
     TEST_EXIT=${PIPESTATUS[0]}
     set -e
     bash /coverage_reloaded/find-and-move-lcov.sh "react-app-rewired" "false" "$TEST_EXIT"
