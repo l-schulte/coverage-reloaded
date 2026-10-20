@@ -14,13 +14,20 @@
       "Test Suites:",
       "Tests:",
       "Snapshots:"
+    ],
+    "exclude_blocks": [
+      {
+        "start": "[⎯\\u23af-]+\\s*Failed\\s+(?:Tests|Suites)",
+        "end": "^\\s*Test Files\\b"
+      }
     ]
   },
   "min_gap": 5,
   "suites": {
     "_example_suite_": {
       "remove_patterns": ["Error:", "\\bfailed\\b"],
-      "add_exclude": ["snapshots failed", "worker process has failed"]
+      "add_exclude": ["snapshots failed", "worker process has failed"],
+      "add_exclude_blocks": []
     }
   },
   "auto_classify": [

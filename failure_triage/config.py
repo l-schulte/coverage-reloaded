@@ -38,8 +38,25 @@ def resolve_patterns(cfg, suite=None):
     general = cfg.get("general", {})
     patterns = list(general.get("patterns", []))
     excludes = list(general.get("exclude", []))
+    exclude_blocks = list(general.get("exclude_blocks", []))
     if suite is not None:
-        ov = cfg.get("suites", {}).get(suite, {})
+        suites_cfg = cfg.get("suites", {})
+        ov = suites_cfg.get(suite)
+        if ov is None:
+            suite_norm = suite.replace("-", "_")
+            for k, v in suites_cfg.items():
+                if k.replace("-", "_") == suite_norm:
+                    ov = v
+                    break
+        if ov is None:
+            suite_norm = suite.replace("-", "_")
+            for k, v in suites_cfg.items():
+                k_norm = k.replace("-", "_")
+                if k_norm in suite_norm or suite_norm in k_norm:
+                    ov = v
+                    break
+        if ov is None:
+            ov = {}
         for p in ov.get("remove_patterns", []):
             if p in patterns:
                 patterns.remove(p)
@@ -48,7 +65,23 @@ def resolve_patterns(cfg, suite=None):
             if p in excludes:
                 excludes.remove(p)
         excludes += ov.get("add_exclude", [])
-    return compile_patterns(patterns), compile_patterns(excludes)
+        for b in ov.get("remove_exclude_blocks", []):
+            if b in exclude_blocks:
+                exclude_blocks.remove(b)
+        exclude_blocks += ov.get("add_exclude_blocks", [])
+        for b in ov.get("exclude_blocks", []):
+            if b not in exclude_blocks:
+                exclude_blocks.append(b)
+
+    compiled_blocks = []
+    for b in exclude_blocks:
+        if isinstance(b, dict) and "start" in b and "end" in b:
+            try:
+                compiled_blocks.append((re.compile(b["start"]), re.compile(b["end"])))
+            except re.error:
+                continue
+
+    return compile_patterns(patterns), compile_patterns(excludes), compiled_blocks
 
 
 def gen_rule_id():

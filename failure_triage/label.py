@@ -216,8 +216,9 @@ def do_verify(project, window, cfg, args, con):
         print(f"[error] no rows in {path}; run --build first")
         return
     out_root = args.output_dir or os.path.join(paths.project_dir(project), "output")
+    min_gap = args.min_gap if args.min_gap is not None else int(cfg.get("min_gap", 5))
     families, _failures, _runs = detect.scan(
-        project, cfg, out_root, args.min_gap, args.suite, [window],
+        project, cfg, out_root, min_gap, args.suite, [window],
     )
     live = set(families[window])
     kept, dropped = [], []

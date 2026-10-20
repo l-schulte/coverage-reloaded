@@ -55,12 +55,39 @@ def _combined(compiled):
         return None
 
 
-def collect_failures(lines, span, min_gap, patterns, excludes):
+def _compute_excluded_lines(lines, span, exclude_blocks):
+    if not exclude_blocks:
+        return set()
+    start, end, _ = span
+    excluded = set()
+    for start_re, end_re in exclude_blocks:
+        in_block = False
+        for i in range(start, end + 1):
+            text = clean(lines[i - 1])
+            if not in_block:
+                if start_re.search(text):
+                    in_block = True
+                    excluded.add(i)
+                    if end_re.search(text):
+                        in_block = False
+            else:
+                excluded.add(i)
+                if end_re.search(text):
+                    in_block = False
+    return excluded
+
+
+def collect_failures(lines, span, min_gap, patterns, excludes, exclude_blocks=None):
+    if min_gap is None:
+        min_gap = 5
     start, end, _ = span
     comb_exc = _combined(excludes)
     comb_pat = _combined(patterns)
+    blocked_lines = _compute_excluded_lines(lines, span, exclude_blocks) if exclude_blocks else set()
     hits = []
     for i in range(start, end + 1):
+        if i in blocked_lines:
+            continue
         text = clean(lines[i - 1])
         if comb_exc is not None:
             if comb_exc.search(text):
@@ -97,6 +124,8 @@ def scan(project, cfg, out_root, min_gap, suite_filter, windows):
     failures = [{run_id, suite, line, fp_min, fp_max, text, exit_code}]
     runs = {run_id: exit_code}
     """
+    if min_gap is None:
+        min_gap = int(cfg.get("min_gap", 5))
     resolved = {}
     families = {w: {} for w in windows}
     failures = []
@@ -131,8 +160,13 @@ def scan(project, cfg, out_root, min_gap, suite_filter, windows):
                 continue
             if stem not in resolved:
                 resolved[stem] = resolve_patterns(cfg, stem)
-            pats, excs = resolved[stem]
-            for ln, text in collect_failures(lines, span, min_gap, pats, excs):
+            res = resolved[stem]
+            if len(res) == 3:
+                pats, excs, blocks = res
+            else:
+                pats, excs = res
+                blocks = None
+            for ln, text in collect_failures(lines, span, min_gap, pats, excs, blocks):
                 fp_min, fp_max, bmin, bmax = compute_fingerprints(lines, ln)
                 failures.append({
                     "run_id": run_dir, "suite": stem, "line": ln,

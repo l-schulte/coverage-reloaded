@@ -10,6 +10,10 @@ Reads projects/<name>/output/ and produces:
          status_pie.png, monthly_commit_volume.png, per_suite_coverage.png,
          lines_scatter.png, cumulative_progress.png
 
+The report also contains a per-suite breakdown, so the report-only statistics
+are available for each collected test suite (unit, integration, …), not just for
+the whole project.
+
 With --report-only, only report.txt is regenerated; existing plots (.png) are
 deleted because the underlying data may have changed and stale graphs would be
 misleading.
@@ -1186,8 +1190,75 @@ def _write_empty_plot(out_dir: Path, filename: str, title: str) -> Path:
 # ── Report ───────────────────────────────────────────────────────────────────
 
 
+def collect_suite_stats(commits: list[dict]) -> dict:
+    """Aggregate per-suite run counts and coverage across all commits.
+
+    A suite "run" is a commit that produced that suite's lcov file. Suite
+    outcomes come from the suite's own exit code, so a commit is counted as a
+    failure for a suite only when *that* suite failed (not another one).
+    """
+    stats = defaultdict(
+        lambda: {
+            "runs": 0,
+            "passed": 0,
+            "failed": 0,
+            "no_exit": 0,
+            "with_coverage": 0,
+            "lines_pct": [],
+        }
+    )
+    for c in commits:
+        for s in c.get("suites", []):
+            st = stats[s["name"]]
+            st["runs"] += 1
+            exit_code = s.get("exitCode")
+            if exit_code == 0:
+                st["passed"] += 1
+            elif exit_code is None:
+                st["no_exit"] += 1
+            else:
+                st["failed"] += 1
+            cov = s.get("coverage")
+            if cov:
+                st["with_coverage"] += 1
+                lines_pct = cov.get("lines", {}).get("pct")
+                if lines_pct is not None:
+                    st["lines_pct"].append(lines_pct)
+    return stats
+
+
+def suite_report_lines(commits: list[dict]) -> list[str]:
+    """Build the per-suite breakdown section of report.txt."""
+    stats = collect_suite_stats(commits)
+    lines = ["── Per-suite breakdown ───────────────────────────────"]
+    if not stats:
+        lines.append("No test suites found.")
+        return lines
+
+    for name in sorted(stats, key=lambda n: (-stats[n]["runs"], n)):
+        st = stats[name]
+        runs = st["runs"]
+        pct_cov = round(st["with_coverage"] / runs * 100, 1) if runs else 0.0
+        lines.append(f"{name}")
+        lines.append(f"  {runs} runs")
+        lines.append(f"  {st['passed']} without test failures")
+        lines.append(f"  {st['failed']} with test failures")
+        if st["no_exit"]:
+            lines.append(f"  {st['no_exit']} without exit code")
+        lines.append(f"  {st['with_coverage']} runs with coverage")
+        lines.append(f"  {pct_cov}% of runs produced coverage")
+        lines_pct = st["lines_pct"]
+        if lines_pct:
+            lines.append(
+                f"  lines coverage: mean {round(statistics.mean(lines_pct), 1)}%, "
+                f"median {round(statistics.median(lines_pct), 1)}%, "
+                f"min {round(min(lines_pct), 1)}%, max {round(max(lines_pct), 1)}%"
+            )
+    return lines
+
+
 def write_report(commits: list[dict], output_dir: Path, proj_dir: Path) -> Path:
-    """Write report.txt (status counts + sanity check) into output_dir."""
+    """Write report.txt (status counts + per-suite breakdown + sanity check)."""
     passed = sum(1 for c in commits if c["status"] == "pass")
     failed = sum(1 for c in commits if c["status"] == "fail")
     errors = sum(1 for c in commits if c["status"] == "error")
@@ -1221,6 +1292,9 @@ def write_report(commits: list[dict], output_dir: Path, proj_dir: Path) -> Path:
     report = "\n".join(report_lines)
     print(f"\n── Coverage Collection Report ─────────────────────────\n{report}\n────────────────────────────────────────────────────────")
 
+    suites = "\n".join(suite_report_lines(commits))
+    print(f"\n{suites}\n────────────────────────────────────────────────────────")
+
     # Sanity check: commits with multiple conflicting output entry types
     out = proj_dir / "output"
     conflicts = find_conflicts(out)
@@ -1242,7 +1316,7 @@ def write_report(commits: list[dict], output_dir: Path, proj_dir: Path) -> Path:
     sanity = "\n".join(sanity_lines)
     print(f"\n── Sanity Check ──────────────────────────────────────\n{sanity}\n────────────────────────────────────────────────────────")
 
-    full_report = report + "\n\n" + sanity
+    full_report = report + "\n\n" + suites + "\n\n" + sanity
     report_path = output_dir / "report.txt"
     report_path.write_text(full_report + "\n")
     return report_path

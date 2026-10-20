@@ -15,8 +15,8 @@ test runs (unmigrated projects may still keep it at `projects/<name>/failure_pat
 the v2 path resolver falls back to the root location).
 The file has two relevant blocks (the third, `auto_classify`, is **off-limits** here):
 
-- `general.patterns` / `general.exclude` — the base failure markers and noise filters.
-- `suites["<suite>"].add_patterns` / `remove_patterns` / `add_exclude` / `remove_exclude`
+- `general.patterns` / `general.exclude` / `general.exclude_blocks` — the base failure markers, noise filters, and multi-line section exclusions.
+- `suites["<suite>"].add_patterns` / `remove_patterns` / `add_exclude` / `remove_exclude` / `exclude_blocks` / `add_exclude_blocks` / `remove_exclude_blocks`
   — additive per-suite overrides (the runner is often different per suite).
 
 **Critical requirement:** patterns must mark the *start of the real error*, not the
@@ -126,20 +126,39 @@ header over the file-name header. Here are concrete include/exclude examples to 
   error in that runner and nothing tighter exists.
 - Any project-specific persistent footer (e.g. a custom reporter line) observed in Phase 2.
 
+**Block / span exclusions (`exclude_blocks`):**
+
+When runners (like Vitest or Jest) report failures across multi-line blocks that repeat failures (for example, printing inline failure lines during execution and then re-printing an entire `Failed Tests` summary block at the end), use `exclude_blocks` with explicit `start` and `end` regexes to exclude whole sections:
+
+```json
+"exclude_blocks": [
+  {
+    "start": "[⎯\\u23af-]+\\s*Failed\\s+(?:Tests|Suites)",
+    "end": "^\\s*Test Files\\b"
+  }
+]
+```
+
+Any line between `start` and `end` (inclusive) will be bypassed during failure collection.
+
 Build the structure:
 
 ```json
 {
   "general": {
     "patterns": [ "<runner-agnostic anchors that work for MOST suites>" ],
-    "exclude":  [ "<noise seen across suites>" ]
+    "exclude":  [ "<noise seen across suites>" ],
+    "exclude_blocks": []
   },
   "suites": {
     "<suite>": {
       "remove_patterns": [ "..." ],
       "add_patterns":    [ "..." ],
       "remove_exclude":  [ "..." ],
-      "add_exclude":     [ "..." ]
+      "add_exclude":     [ "..." ],
+      "add_exclude_blocks": [
+        { "start": "...", "end": "..." }
+      ]
     }
   },
   "auto_classify": []
@@ -151,6 +170,7 @@ Rules for composition:
   common noise in `general.exclude`.
 - Use a suite block only to **fix drift**: if suite `integration` is mocha while `general` is
   jest-shaped, `add_patterns: ["AssertionError","\\bError:"]` and `remove_patterns: ["✕","●"]`.
+- Use `exclude_blocks` (general or per-suite via `add_exclude_blocks` / `exclude_blocks`) when single-line exclusions cannot safely suppress multi-line duplicate blocks or runner footers.
 - **Always show the reasoning** for each chosen/omitted pattern (the include/exclude examples
   above are the template). Do not emit a pattern you cannot justify against a sampled log line.
 - Leave `auto_classify` as `[]`. Never populate it.
