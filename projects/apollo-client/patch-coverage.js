@@ -53,9 +53,12 @@ function patchScript(name, s) {
     if (s.indexOf('jest') >= 0) {
         // Don't double-patch if already has coverage
         if (s.indexOf('--coverage') >= 0) {
+            if (s.indexOf('--testTimeout') < 0) {
+                return s + ' --testTimeout=20000';
+            }
             return s;
         }
-        return s + ' --coverage --coverageReporters=lcov --maxWorkers=2';
+        return s + ' --coverage --coverageReporters=lcov --maxWorkers=2 --testTimeout=20000';
     }
 
     // For vitest test scripts: add coverage flags

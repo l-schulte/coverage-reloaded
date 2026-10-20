@@ -77,8 +77,8 @@
     },
     {
       "match": "\\\nTimed\\ out\\ in\\ waitForNextUpdate\\ after\\ 1000ms\\.\\\n\\\nat\\ waitForNextUpdate\\ \\(\\.\\./node_modules/@testing\\-library/react\\-hooks/lib/core/asyncUtils\\.js:102:13\\)",
-      "label": "acceptable",
-      "note": "",
+      "label": "reevaluated_acceptable",
+      "note": "retried with --testTimeout=20000",
       "lines": 4,
       "id": "b15e911da92b"
     },
@@ -231,8 +231,8 @@
     },
     {
       "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ \\d+\\ ms\\ for\\ a\\ test\\.",
-      "label": "acceptable",
-      "note": "",
+      "label": "reevaluated_acceptable",
+      "note": "retried with --testTimeout=20000",
       "lines": 2,
       "id": "68da1bb52127"
     },
@@ -294,8 +294,8 @@
     },
     {
       "match": "\\\nExceeded\\ timeout\\ waiting\\ for\\ next\\ render\\.\\\n",
-      "label": "acceptable",
-      "note": "",
+      "label": "reevaluated_acceptable",
+      "note": "retried with --testTimeout=20000",
       "lines": 3,
       "id": "642cb11acaa0"
     },
@@ -370,18 +370,18 @@
       "id": "9329e629bbab"
     },
     {
+      "match": "\\\nWaitForRenderTimeoutError:\\ Exceeded\\ timeout\\ waiting\\ for\\ next\\ render\\.\\\n",
+      "label": "reevaluated_acceptable",
+      "note": "retried with --testTimeout=20000",
+      "lines": 3,
+      "id": "a261d36bc334"
+    },
+    {
       "match": "\\\nTried\\ to\\ create\\ a\\ React\\ root\\ for\\ a\\ render\\ stream\\ inside\\ a\\ React\\ act\\ environment\\.\\\nThis\\ is\\ not\\ supported\\.\\ Please\\ use\\ `disableActEnvironment`\\ to\\ disable\\ the\\ act\\ environment\\ for\\ this\\ test\\.",
       "label": "reevaluated_acceptable",
       "note": "",
       "lines": 3,
       "id": "ca7c2450013e"
-    },
-    {
-      "match": "\\\nWaitForRenderTimeoutError:\\ Exceeded\\ timeout\\ waiting\\ for\\ next\\ render\\.\\\n",
-      "label": "acceptable",
-      "note": "",
-      "lines": 3,
-      "id": "a261d36bc334"
     },
     {
       "match": "\\\nexpect\\(.*\\)\\.toEmit.*\\(.*\\)\\\n",
@@ -445,6 +445,63 @@
       "note": "",
       "lines": 2,
       "id": "9265979ae9a3"
+    },
+    {
+      "match": "\\\nTimed\\ out\\ in\\ waitForNextUpdate\\ after\\ 1000ms\\.",
+      "label": "reevaluated_acceptable",
+      "note": "retried with --testTimeout=20000",
+      "lines": 2,
+      "id": "6709af77e26a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n:\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
+      "label": "reevaluated_acceptable",
+      "note": "retried with --testTimeout=20000",
+      "lines": 2,
+      "id": "4aee58b176f0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.rejects\\.toThrow\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "2fb1063df260",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"too\\ many\\ renders\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e479f794e455",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nToo\\ many\\ renders",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8303ccd2e516"
+    },
+    {
+      "match": "\\\nUnexpected\\ fall\\ through",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "59782a679d24"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Too\\ many\\ renders\\ \\(4\\)\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "74daaccfc0de"
     }
   ]
 }

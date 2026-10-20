@@ -55,20 +55,20 @@ HAS_COVERAGE_SCRIPT=$(node -p "!!((require('./package.json').scripts||{}).covera
 HAS_TEST_SCRIPT=$(node -p "!!((require('./package.json').scripts||{}).test)")
 
 if [ "$HAS_COVERAGE_SCRIPT" = "true" ]; then
-    suite_start "unit" "Running coverage script (env -u CI $PM_RUN coverage -- --maxWorkers=2)"
+    suite_start "unit" "Running coverage script (env -u CI $PM_RUN coverage -- --maxWorkers=2 --testTimeout=20000)"
 
     set +e
-    env -u CI $PM_RUN coverage -- --maxWorkers=2
+    env -u CI $PM_RUN coverage -- --maxWorkers=2 --testTimeout=20000
     UNIT_EXIT=$?
     set -e
 
     bash /coverage_reloaded/find-and-move-lcov.sh "unit" "false" "$UNIT_EXIT"
     suite_end "unit" "$UNIT_EXIT"
 elif [ "$HAS_TEST_SCRIPT" = "true" ]; then
-    suite_start "unit" "Running test script (env -u CI $PM_RUN test -- --maxWorkers=2)"
+    suite_start "unit" "Running test script (env -u CI $PM_RUN test -- --maxWorkers=2 --testTimeout=20000)"
 
     set +e
-    env -u CI $PM_RUN test -- --maxWorkers=2
+    env -u CI $PM_RUN test -- --maxWorkers=2 --testTimeout=20000
     UNIT_EXIT=$?
     set -e
 

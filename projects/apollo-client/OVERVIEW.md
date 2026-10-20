@@ -42,19 +42,19 @@
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-09-16 07:51).
+Source: `stats_output/report.txt` (generated 2026-10-20 19:07).
 
 | Metric | Value |
 |---|---|
 | Commits processed | 4462 |
-| Without test failures | 3895 |
-| With test failures | 514 |
+| Without test failures | 3921 |
+| With test failures | 488 |
 | Not applicable | 0 |
 | Hard errors | 53 |
-| Coverage produced | 99.0% |
+| Coverage produced | 98.8% |
 
 Full statistics and plots: [`stats_output/`](stats_output/). Failure labels:
-[`failure_labels_project.csv`](failure_labels_project.csv).
+[`label_analysis/failure_labels_project_min.csv`](label_analysis/failure_labels_project_min.csv).
 
 ## Known test failures
 
@@ -66,7 +66,7 @@ is now empty.
 
 | Signature | Classification | Coverage impact | Action |
 |---|---|---|---|
-| Sporadic jest 5000 ms timeouts (40 runs, 2021-11 to 2025-12) | acceptable | valid partial | None. 60 distinct tests hit `thrown: "Exceeded timeout of 5000 ms for a test"`; the largest family is `happy path › memoizes between requests` (`src/link/persisted-queries/__tests__/react.test.tsx`, 11 runs) — a timing assertion (`expect(firstRun).toBeGreaterThan(secondRun)`). No single commit-era cause. |
+| Sporadic test timeouts retried with `--testTimeout=20000` (37 runs, 2020-05 to 2025-12) | reevaluated_acceptable | valid partial | Retried. 71 commits affected by timeouts were re-run under `--testTimeout=20000`; 26 resolved to clean passes and 8 resolved timeouts completely. The remaining 37 runs encounter timeouts that persist despite the increased budget: 23 runs hit the internal 1,000 ms `@testing-library/react-hooks` `waitForNextUpdate` limit, 6 runs hit uninvoked async callbacks exceeding 20,000 ms, 6 hit general Jest timeouts, and 2 hit `WaitForRenderTimeoutError`. All produce valid line coverage without bailing. |
 | Mutation `refetchQueries` assertion (16 runs, 2021-05 to 2021-11) | acceptable | valid partial | None. `allows refetchQueries to be passed to the mutate function` (`src/react/components/__tests__/client/Mutation.test.tsx`) fails; 9 runs (2021-06-23 to 2021-08-16) show `Expected: false / Received: true` on a loading-state assertion, 5 runs (2021-05-18) fail with `Converting circular structure to JSON`, and the 2 runs on 2021-11-03 coincide with the jsdom commit `278ba5fd…`. |
 | jsdom environment missing (`window is not defined`) — 1 commit `278ba5fd223f133e53dbef2bc840e38c4dbee735` (2021-11-03) | reevaluated_acceptable | the commit's code was effectively not covered; this is the faithful signal | None. The `src_unit` suite fails to run because the jest `26→27` bump left `testEnvironment` unset, so the default `node` environment aborts every browser-touching test. `testEnvironment: 'jsdom'` was added upstream one day later in `745712847`. |
 | `@testing-library/react-render-stream` act-environment incompatibility — 1 commit `7bcde69848dead02b8af2305bcf0a1a87c99dbc8` (2024-12-04) | reevaluated_acceptable | render-stream-covered code was effectively not covered; accepted as a faithful gap | None. All 30 `config_unit` failures (10 "Test suite failed to run" + 20 downstream masking-assertion failures) stem from one error: the pinned `@testing-library/react-render-stream@2.0.0-alpha.1` throws "Tried to create a React root for a render stream inside a React act environment" because `@testing-library/react@16` forces `IS_REACT_ACT_ENVIRONMENT`. The test files already call `disableActEnvironment()`. |
@@ -77,7 +77,7 @@ is now empty.
 
 ## Environment / setup fixes
 
-None.
+- **Jest test timeouts under container load (`fix_jest_timeouts`):** 71 historical commits affected by test timeouts were archived to [`projects/apollo-client/archive/fix_jest_timeouts/`](archive/fix_jest_timeouts/) and re-run with `--testTimeout=20000` in `install-and-run.sh` and `patch-coverage.js`. 26 commits resolved into clean passes (`exit_code = 0`), 8 commits eliminated timeouts and now only fail on genuine commit-era assertions, and 37 commits with persistent timeouts (predominantly internal 1,000 ms `waitForNextUpdate` limits in `@testing-library/react-hooks`) were re-evaluated as acceptable (`reevaluated_acceptable`).
 
 ## Known gaps
 
