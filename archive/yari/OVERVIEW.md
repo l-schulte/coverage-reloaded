@@ -1,7 +1,7 @@
 # yari
 
 **Repository:** https://github.com/mdn/yari
-**Status:** active
+**Status:** archived (issues were removed from GitHub)
 
 ## Test infrastructure
 
