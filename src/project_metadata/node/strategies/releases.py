@@ -10,7 +10,7 @@ from src.project_metadata.node.parse_version import (
 def get_node_version(
     repo_path: str,
     commit_hash: str,
-    release_cutoff: Optional[datetime] = None,
+    release_cutoff: Optional[datetime.datetime] = None,
     use_first: bool = False,
     **kwargs,
 ) -> Optional[str]:
