@@ -26,8 +26,11 @@ ENV_CONFIG="--env-file .env --env revision=$3 --env timestamp=$4 --env package_m
 
 # The repo is served from an in-memory tmpfs (see execute.sh). Declared at
 # runtime because the container lacks CAP_SYS_ADMIN and cannot mount tmpfs
-# itself; --tmpfs needs no extra capabilities.
-TMPFS_CONFIG="--tmpfs /coverage_reloaded/repo:rw,size=20g"
+# itself; --tmpfs needs no extra capabilities. Default 35g accommodates large
+# historical monorepos before workspaces (e.g. compass in mid-2021 with 78
+# independent package trees).
+TMPFS_SIZE=${TMPFS_SIZE:-35g}
+TMPFS_CONFIG="--tmpfs /coverage_reloaded/repo:rw,size=$TMPFS_SIZE"
 
 # CONTAINER_CPUS caps the CPU *quota* the container may consume (N CPU-seconds
 # per real second), i.e. it throttles aggregate CPU time — it does NOT change
