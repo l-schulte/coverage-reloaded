@@ -10,12 +10,14 @@
 *.exit_code
 *.not_applicable
 *.bak
+*.db
 
 *additional_information.csv
 *commits.csv
 *command_changes.csv
 *old_commits.csv
 *dashboard-index.json
+*lcov_sanity_report.csv
 *failure_labels_collapsed*.csv
 # retired v1 labels + double-check artifacts (kept out of git by decision)
 projects/**/label_analysis/v1/
