@@ -48,7 +48,7 @@
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-10-09 13:26).
+Source: `stats_output/report.txt` (generated 2026-10-20 20:57).
 
 | Metric | Value |
 |---|---|
@@ -62,6 +62,19 @@ Source: `stats_output/report.txt` (generated 2026-10-09 13:26).
 Full statistics and plots: [`stats_output/`](stats_output/).
 
 ## Known test failures
+
+All signatures below stem from the v2 labeling pass on the `min` window
+([`label_analysis/failure_labels_project_min.csv`](label_analysis/failure_labels_project_min.csv),
+20,274 fingerprints, 100% labeled: 18 manual, 20,256 auto). Labels: 6,602
+acceptable, 808 reevaluated_acceptable, 12,864 false_positive — zero
+problematic/unclear. The v1→v2 double-check gate passed (audit trail in
+`label_analysis/v1/flowfuse_v2_doublecheck.md`, gitignored): 94.4% of v1
+rows matched; the 1,672 unmatched rows, 2 label conflicts, and 4
+disagreements are all detection-pass drift with conservative v2 outcomes.
+The independent Jev v2 audit (758 deduped families, one per (suite,
+normalized keyword)) flagged 42 problematic at low confidence (0.50–0.79);
+all 42 were audited against git history and confirmed to be genuine upstream
+developer mistakes or human-confirmed false positives — no pipeline issues.
 
 | Signature | Classification | Coverage impact | Action |
 |---|---|---|---|
@@ -111,6 +124,14 @@ Root cause of the `services/product.js` failure: commit `6a4dfd22bc` introduced 
 `../../services/product.js` in `forge/product/index.js` before the service module was
 committed upstream. Spans 1 run.
 
+### Vitest failure triage configuration
+
+In [`label_analysis/failure_patterns.json`](label_analysis/failure_patterns.json), `frontend-unit` (Vitest) uses `exclude_blocks` to eliminate duplicate failure detections. Vitest emits test failures twice: once inline during execution (`× <path> > <test>`) and again in a summary block at the end (`⎯⎯⎯ Failed Tests` … `⎯⎯⎯ [n/n]⎯`).
+
+The configuration:
+- Anchors on the inline failure marker via `add_patterns: ["^\\s*×\\s+"]`.
+- Uses `exclude_blocks` on `frontend-unit` (`start: "[⎯\\u23af-]+\\s*Failed\\s+(?:Tests|Suites)"`, `end: "^\\s*Test Files\\b"`) to suppress the duplicate summary block (`Failed Tests` and `Failed Suites`) and summary footers.
+
 ## Environment / setup fixes
 
 - **SQLite `:memory:` connection race.** Symptom: a cascade of
@@ -134,8 +155,9 @@ committed upstream. Spans 1 run.
   prebuilt binary. Fix: when `require('sqlite3')` fails to load, run
   `npm_config_build_from_source=true npm rebuild sqlite3`. The check is
   conditional, so already-working runs are not recompiled. Status: fix applied
-  and verified on the 3 GLIBC and 6 bindings commits; labeled `problematic` in
-  `failure_labels_project.csv`.
+  and verified on the 3 GLIBC and 6 bindings commits; the corresponding
+  `problematic` auto-rules are retained in
+  [`label_analysis/failure_patterns.json`](label_analysis/failure_patterns.json).
 - **Git submodules for `file:sub_modules/` dependencies.** Symptom: `npm install`
   failing with `npm ERR! code ENOLOCAL: Could not install from "sub_modules/flowforge-driver-localfs"`
   across 174 historical commits (late 2021 / early 2022). Root cause: `package.json`
@@ -160,9 +182,10 @@ committed upstream. Spans 1 run.
 
 - **Committed focus markers (`.only`).** 81 collected commits contain a
   `describe.only`/`it.only` in a collected suite (`test/unit/` or `test/system/`;
-  40 distinct spec files, 2022-09 → 2025-12). Mocha/vitest would run only the
-  marked subset and emit a valid-looking but unrepresentative `lcov`, so these
-  commits are marked not-applicable by `na_if_focus_marker` (see
+  40 distinct spec files, 2022-09 → 2025-12). The forge suite runs under mocha,
+  whose `.only` is run-global: it would run only the marked subset and emit a
+  valid-looking but unrepresentative `lcov`, so these commits are marked
+  not-applicable by `na_if_focus_marker --runner mocha --runner vitest` (see
   [`STUDY_DECISIONS.md`](../../STUDY_DECISIONS.md) §2). The 79 that previously
   recorded subset coverage were re-run; the 2 that were hard errors were
   reclassified.

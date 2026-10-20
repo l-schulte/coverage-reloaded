@@ -67,12 +67,15 @@ if [ ! -f package.json ]; then
     not_applicable "No package.json at this commit, no test infrastructure to run"
 fi
 
-# A committed focus marker (.only) in a collected suite would make mocha/vitest
-# execute only that subset, producing a valid-looking but unrepresentative lcov.
-# Mark the commit not-applicable instead of recording biased coverage.
+# A committed focus marker (.only) in a collected suite would make a run-global
+# runner (mocha, used by test:unit:forge) execute only that subset, producing a
+# valid-looking but unrepresentative lcov, so such a commit is marked
+# not-applicable. The vitest suites (test:unit:frontend, test:system) are
+# per-file, but the matching file cannot be attributed to a runner, so the
+# run-global classification stands for the whole commit.
 # Scope = the collected suites only; Cypress specs under test/e2e are also
 # *.spec.js but are excluded from collection, so they must not trigger this.
-na_if_focus_marker test/unit test/system
+na_if_focus_marker --runner mocha --runner vitest test/unit test/system
 
 # --- Git submodules for local file: dependencies ----------------------------
 # In late 2021 / early 2022 (commits between f4c5a1a5f and 1abc71dfe), package.json

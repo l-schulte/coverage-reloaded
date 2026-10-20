@@ -13,18 +13,34 @@
       "\u25cf\\s*Console",
       "Test Suites:",
       "Tests:",
-      "Snapshots:"
+      "^\\s*Tests\\s+",
+      "Snapshots:",
+      "Test Files",
+      "\u23af\u23af\u23af",
+      "^\\s*\u276f\\s+"
     ]
   },
   "suites": {
-    "_example_suite_": {
-      "remove_patterns": [
-        "Error:",
-        "\\bfailed\\b"
+    "coverage_frontend_frontend_unit": {
+      "add_patterns": [
+        "^\\s*×\\s+"
       ],
-      "add_exclude": [
-        "snapshots failed",
-        "worker process has failed"
+      "exclude_blocks": [
+        {
+          "start": "[⎯\\u23af-]+\\s*Failed\\s+(?:Tests|Suites)",
+          "end": "^\\s*Test Files\\b"
+        }
+      ]
+    },
+    "frontend-unit": {
+      "add_patterns": [
+        "^\\s*×\\s+"
+      ],
+      "exclude_blocks": [
+        {
+          "start": "[⎯\\u23af-]+\\s*Failed\\s+(?:Tests|Suites)",
+          "end": "^\\s*Test Files\\b"
+        }
       ]
     }
   },
@@ -1288,6 +1304,15 @@
       "note": "",
       "lines": 0,
       "id": "0a966fc02145"
+    },
+    {
+      "match": "\u2192\\ expected\\ 'May\\ 17,\\ 2022'\\ to\\ be\\ '17\\ May\\ 2022'\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "972a79682aba",
+      "generated_by": "check_failures_v2",
+      "window": "min"
     }
   ]
 }
