@@ -1,0 +1,600 @@
+{
+  "general": {
+    "patterns": [
+      "\u25cf"
+    ],
+    "exclude": [
+      "\u25cf\\s*Console",
+      "\u25cf\\s*Deprecation Warning",
+      "\u25cf\\s*TLSWRAP",
+      "\u25cf\\s*Invalid return value",
+      "Test Suites:",
+      "Tests:",
+      "Snapshots:",
+      "Ran all test suites"
+    ]
+  },
+  "min_gap": 5,
+  "suites": {
+    "unit": {
+      "remove_patterns": [
+        "\u25cf"
+      ],
+      "add_patterns": [
+        "^\\s*\\[?(?:AssertionError|TypeError|ReferenceError|RangeError|SyntaxError|Error)(?:\\s*\\[[^\\]]+\\])?:"
+      ]
+    },
+    "script": {
+      "remove_patterns": [
+        "\u25cf"
+      ],
+      "add_patterns": [
+        "^\\s*\\[?(?:AssertionError|TypeError|ReferenceError|RangeError|SyntaxError|Error)(?:\\s*\\[[^\\]]+\\])?:"
+      ]
+    }
+  },
+  "auto_classify": [
+    {
+      "match": "error TS\\d+:",
+      "label": "acceptable",
+      "note": "TypeScript compile error in the commit's own tree (intermediate PR commit); coverage is a visible partial",
+      "lines": 5,
+      "id": "8b6f2c4a1d97"
+    },
+    {
+      "match": "expect\\(received\\)\\.toHaveLength\\(length\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "81c9611cc6d4"
+    },
+    {
+      "match": "expect\\(received\\)\\.toBeUndefined\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4871b6600b6c"
+    },
+    {
+      "match": "expect\\(received\\)\\.toEqual\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6d9a32d443a1"
+    },
+    {
+      "match": "expect\\(received\\)\\.not\\.toBeNull\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5ca81a542b03"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ property\\ 'sha'\\ of\\ undefined",
+      "label": "reevaluated_acceptable",
+      "note": "TypeError: Cannot read property 'sha' of undefined secondary assertion error caused by in-tree regressions",
+      "lines": 2,
+      "id": "c3ea7eb84228"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ property\\ 'parentSHAs'\\ of\\ undefined",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "cb038194f1fe"
+    },
+    {
+      "match": "Could\\ not\\ load\\ commit:\\ '.*'",
+      "label": "reevaluated_acceptable",
+      "note": "git log parser in-tree WIP regressions on wip-log-parser branch (PR #11486)",
+      "lines": 2,
+      "id": "663bd2e59137",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ property\\ 'sha'\\ of\\ null",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "a188794bef91",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Unable\\ to\\ find\\ commit\\ for\\ HEAD\\ \\-\\ check\\ that\\ you\\ are\\ not\\ working\\ with\\ an\\ unborn\\ repository",
+      "label": "reevaluated_acceptable",
+      "note": "git log parser in-tree WIP regressions on wip-log-parser branch (PR #11486)",
+      "lines": 2,
+      "id": "a08b098313fb",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Unable\\ to\\ find\\ commit\\ for\\ ",
+      "label": "reevaluated_acceptable",
+      "note": "git log parser in-tree WIP regressions on wip-log-parser branch (PR #11486)",
+      "lines": 0,
+      "id": "d18e7ed514e3",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "expect\\(received\\)\\.toBeArrayOfSize\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "362cb5e7db05",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "expect\\(function\\)\\.toThrow\\(regexp\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "afa8112a3be6",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ property\\ 'upstream'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9a55b290e2d5",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "ReferenceError:\\ trampoline_server_1\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "cbf9f60131ce",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "df48be5b61d1",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "expect\\(received\\)\\.not\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n\\\nExpected:\\ \"b834f578cb989b87efcf11fe85a695491f3a8632\"\\\nReceived:\\ \"b834f578cb989b87efcf11fe85a695491f3a8632\"",
+      "label": "unclear",
+      "note": "",
+      "lines": 5,
+      "id": "1bac276ad26c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ git_1\\.deleteBranch\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "16a9418e404b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "expect\\(array\\)\\.not\\.toContain\\(value\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "62f1b3fd2058",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Cannot\\ find\\ module\\ '\\./dark\\-theme'\\ from\\ 'src/ui/lib/theme\\-change\\-monitor\\.ts'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "15f032c6dd88",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "expect\\(received\\)\\.toContain\\(expected\\)\\ //\\ indexOf",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a92652ac5339",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "GitError:\\ fatal:\\ cherry\\-pick:\\ \\-\\-mainline\\ cannot\\ be\\ used\\ with\\ \\-\\-continue",
+      "label": "reevaluated_acceptable",
+      "note": "cherry-pick -m 1 passed to continueCherryPick WIP regression on PR #11877",
+      "lines": 2,
+      "id": "2f3c9fb4aca0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "expect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalled\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1ed06c7aa2c7",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Cannot\\ find\\ module\\ '\\.\\./alive/alive\\-session'\\ from\\ 'src/lib/stores/alive\\-store\\.ts'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "3c0d569201c0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "SyntaxError:\\ .*\\ Unterminated\\ string\\ constant",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "90185cce1075",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Jest\\ encountered\\ an\\ unexpected\\ token",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a42cfa44f82f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "expect\\(received\\)\\.toBeTrue\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "afc2a9aa3e3d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ electron_1\\.ipcRenderer\\.sendSync\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1b01eff49916",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'loadInitialState'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d0db6f18cc90",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ .*_1\\..*\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9c22c187cde5",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Caught\\ error\\ after\\ test\\ environment\\ was\\ torn\\ down",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c2e082cff1d3",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ property\\ 'path'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e9295aa0c84b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Cannot\\ find\\ module\\ 'electron/renderer'\\ from\\ 'src/lib/ipc\\-renderer\\.ts'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "b4d3bac46995",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": ":\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 10000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 10000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "1e7778d6f7ca",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Invalid\\ table\\ argument\\ to\\ Dexie\\.transaction\\(\\)\\.\\ Only\\ Table\\ or\\ String\\ are\\ allowed",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "450f83fd7166",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ '.*'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "34b26211724c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Cannot\\ find\\ module\\ '\\./ssh\\-token\\-storage'\\ from\\ 'src/lib/ssh/ssh\\-user\\-password\\.ts'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "82be9f748e5d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 10000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 10000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.",
+      "label": "problematic",
+      "note": "rebase progress-test.ts async test timeout due to heavy Git rebase loop",
+      "lines": 2,
+      "id": "e845141b6ca2",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "GitError:\\ Cloning\\ into\\ ",
+      "label": "reevaluated_acceptable",
+      "note": "dugite 2.1.0 Git 2.35.5 transport file not allowed for submodule in rev-parse-test, fixed in 7cd667172c",
+      "lines": 2,
+      "id": "9f7ad24e5bb4",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "expect\\(received\\)\\.not\\.toBeUndefined\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5944e8906948",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "ReferenceError:\\ __APP_VERSION__\\ is\\ not\\ defined",
+      "label": "reevaluated_acceptable",
+      "note": "ReferenceError: __APP_VERSION__ is not defined in globals.ts in-tree WIP regression (PR #16990)",
+      "lines": 2,
+      "id": "8ce3f837ce6c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "expect\\(received\\)\\.toHaveLength\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "255e27f8b63a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "expect\\(received\\)\\.resolves\\.not\\.toThrow\\(\\)\\\n\\\nReceived\\ promise\\ rejected\\ instead\\ of\\ resolved\\\nRejected\\ to\\ value:\\ \\[ReferenceError:\\ __APP_VERSION__\\ is\\ not\\ defined\\]",
+      "label": "reevaluated_acceptable",
+      "note": "ReferenceError: __APP_VERSION__ is not defined in globals.ts in-tree WIP regression (PR #16990)",
+      "lines": 5,
+      "id": "7644fada18af",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "expect\\(received\\)\\.rejects\\.toThrow\\(expected\\)\\\n\\\nExpected\\ pattern:\\ /There\\ is\\ no\\ merge\\ in\\ progress,\\ so\\ there\\ is\\ nothing\\ to\\ abort/\\\nReceived\\ message:\\ \"__APP_VERSION__\\ is\\ not\\ defined\"",
+      "label": "unclear",
+      "note": "",
+      "lines": 5,
+      "id": "29f727ab7e6f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ unknown:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'addHelper'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "dc00350e7b12",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "expect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledWith\\(\\.\\.\\.expected\\)\\\n\\\nExpected:\\ \"mergeAbortedAfterConflicts\"\\\nReceived:\\ \"mergeAbortedAfterConflictsCount\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "2bc0837acbb1",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ ts\\.getMutableClone\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b39352dd9f48",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\u25cf\\ Invalid\\ return\\ value:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b8113a81954d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "ReferenceError:\\ setImmediate\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "2419f1311801",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Returning\\ a\\ Promise\\ from\\ \"describe\"\\ is\\ not\\ supported\\.\\ Tests\\ must\\ be\\ defined\\ synchronously\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "54589d13e594",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "expect\\(received\\)\\.toIncludeSameMembers\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "3d5022ea64ac",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "GitError:\\ fatal:\\ cherry\\-pick:\\ \\-\\-keep\\-redundant\\-commits\\ cannot\\ be\\ used\\ with\\ \\-\\-continue",
+      "label": "reevaluated_acceptable",
+      "note": "In-tree Git CLI argument syntax regressions promptly fixed upstream",
+      "lines": 2,
+      "id": "655c00985680",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "thrown:\\ \"Exceeded\\ timeout\\ of\\ 10000\\ ms\\ for\\ a\\ test\\.",
+      "label": "problematic",
+      "note": "git/remote returns promisor remote test times out on unmocked network fetch",
+      "lines": 2,
+      "id": "343363835d25",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ properties\\ of\\ null\\ \\(reading\\ '_origin'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ba058684e8fe",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "GitError:\\ usage:\\ git\\ cherry\\-pick\\ \\[\\-\\-edit\\]\\ \\[\\-n\\]\\ \\[\\-m\\ <parent\\-number>\\]\\ \\[\\-s\\]\\ \\[\\-x\\]\\ \\[\\-\\-ff\\]",
+      "label": "reevaluated_acceptable",
+      "note": "In-tree Git CLI argument syntax regressions promptly fixed upstream",
+      "lines": 2,
+      "id": "b0c025da0cbb",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "expect\\(received\\)\\.rejects\\.toThrowError\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c76f854e08f1",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "GitError:\\ error:\\ unknown\\ option\\ `format='",
+      "label": "reevaluated_acceptable",
+      "note": "In-tree Git CLI argument syntax regressions promptly fixed upstream",
+      "lines": 2,
+      "id": "5dd59e103f11",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError\\ \\[ERR_ASSERTION\\]:\\ \\d+\\ ==\\ \\d+",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "25c7de314957",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\[Error:\\ ENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ lstat\\ '/tmp/desktop\\-test\\-.*'\\]",
+      "label": "reevaluated_acceptable",
+      "note": "app/test/helpers/temp.ts clean() ENOENT on iteration 2 in-tree WIP regression, fixed in e45fa12eab",
+      "lines": 0,
+      "id": "7ef59690c183",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError\\ \\[ERR_ASSERTION\\]:\\ The\\ expression\\ evaluated\\ to\\ a\\ falsy\\ value:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "cc6fdbef7da0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError\\ \\[ERR_ASSERTION\\]:\\ Missing\\ expected\\ rejection\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "7a42c5ed7974",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Could\\ not\\ generate\\ a\\ patch,\\ no\\ changes",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "8bd6a988542a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError\\ \\[ERR_ASSERTION\\]:\\ .*\\ ==\\ .*",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "79d2e39e72b7",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError\\ \\[Error\\]:\\ change\\.isIncludedInCommit\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "048568184652",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    }
+  ]
+}
