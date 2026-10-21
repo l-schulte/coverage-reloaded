@@ -195,13 +195,21 @@ function patchScript(s, vitestMajor) {
 		return s;
 	}
 
-	// Handle chained scripts (containing &&) — only patch the segment that
-	// contains the test runner, leaving build/typecheck segments untouched.
-	// This prevents coverage flags from leaking onto `yarn test:compilation`
-	// (which runs `tsc --noEmit`) when the script is e.g.
-	//   jest ... && yarn test:compilation
+	// Handle chained scripts (containing &&).
+	// Explicitly exclude static typecheck segments (`test:compilation` / `tsc --noEmit`)
+	// when a behavioral test runner is present in the chain, so static type errors do not
+	// act as pre-test gatekeepers and prevent coverage collection. All other segments
+	// (including any setup steps) are preserved.
 	if (s.indexOf('&&') >= 0) {
 		var parts = s.split('&&');
+		var hasAnyRunner = parts.some(function(p) {
+			return p.indexOf('vitest') >= 0 || p.indexOf('jest') >= 0 || p.indexOf('craco test') >= 0;
+		});
+		if (hasAnyRunner) {
+			parts = parts.filter(function(p) {
+				return !(/\btest:compilation\b|\btsc\s+--noEmit\b/.test(p.trim()));
+			});
+		}
 		var patchedParts = [];
 		for (var i = 0; i < parts.length; i++) {
 			var seg = parts[i];

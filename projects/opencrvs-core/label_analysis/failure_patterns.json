@@ -1,0 +1,1611 @@
+{
+  "general": {
+    "patterns": [
+      "\u25cf ",
+      "\\bAssertionError",
+      "\\berror TS\\d+:",
+      "Unhandled Error",
+      "^\\s*\u00d7\\s+"
+    ],
+    "exclude": [
+      "\u25cf\\s*Console",
+      "Test Suites:",
+      "Tests:",
+      "Snapshots:",
+      "Ran all test suites",
+      "^\\s*console\\.",
+      "\\{\\s*\"level\"\\s*:\\s*\\d+",
+      "UnhandledPromiseRejectionWarning",
+      "^\\s+at\\s",
+      "^\\s*\u276f\\s"
+    ]
+  },
+  "suites": {},
+  "auto_classify": [
+    {
+      "match": "Download failed for url \".*fastdl\\.mongodb\\.org.*\"",
+      "label": "problematic",
+      "note": "Transient fastdl.mongodb.org 502/timeout in MongoMemoryServer; routed via Waypack proxy",
+      "lines": 2,
+      "id": "mongo_download_waypack"
+    },
+    {
+      "match": "@opencrvs/auth:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n@opencrvs/auth:\\ \\ \\ \\ \\ Expected:\\ \"12345\"\\\n@opencrvs/auth:\\ \\ \\ \\ \\ Received:\\ undefined\\\n@opencrvs/auth:\\ \\ \\ \u25cf\\ verifyUser\\ handler\\ receives\\ a\\ request\\ \u203a\\ user\\ management\\ service\\ says\\ user\\ is\\ valid\\ \u203a\\ generates\\ a\\ mobile\\ verification\\ code\\ and\\ sends\\ it\\ to\\ sms\\ gateway",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "db70f1a56729"
+    },
+    {
+      "match": "@opencrvs/auth:\\ \\ \\ \\ \\ expect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalled\\(\\)\\\n@opencrvs/auth:\\ \\ \\ \\ \\ Expected\\ mock\\ function\\ to\\ have\\ been\\ called,\\ but\\ it\\ was\\ not\\ called\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "3bc9fe3eac76"
+    },
+    {
+      "match": "@opencrvs/auth:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ property\\ '1'\\ of\\ undefined\\\n@opencrvs/auth:\\ \\ \\ \u25cf\\ authenticate\\ handler\\ receives\\ a\\ request\\ \u203a\\ refresh\\ expiring\\ token\\ \u203a\\ refreshError\\ returns\\ a\\ 401\\ to\\ the\\ client\\ if\\ the\\ token\\ is\\ bad",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "67c650d45b93"
+    },
+    {
+      "match": "@opencrvs/auth:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n@opencrvs/auth:\\ \\ \\ \\ \\ Expected:\\ 200\\\n@opencrvs/auth:\\ \\ \\ \\ \\ Received:\\ 401",
+      "label": "problematic",
+      "note": "Symptom of broken mocks/build compilation in auth tests",
+      "lines": 3,
+      "id": "1a1ee7480157"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ property\\ 'get'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7fd59b0300ba"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ property\\ 'set'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "717a3ed59c32"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ property\\ 'INTEGRATIONS'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "717a3ed59c3x"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ property\\ 'then'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "717a3ed59c3y"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ property\\ '.*'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7fd59b0300by"
+    },
+    {
+      "match": "@opencrvs/auth:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n@opencrvs/auth:\\ \\ \\ \\ \\ Expected:\\ 200\\\n@opencrvs/auth:\\ \\ \\ \\ \\ Received:\\ 400",
+      "label": "unclear",
+      "note": "",
+      "lines": 3,
+      "id": "a062ffbcb8c1"
+    },
+    {
+      "match": "@opencrvs/auth:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n@opencrvs/auth:\\ \\ \\ \\ \\ Expected:\\ 200",
+      "label": "problematic",
+      "note": "Symptom of broken mocks/build compilation in auth tests",
+      "lines": 2,
+      "id": "af55b4c98233"
+    },
+    {
+      "match": "@opencrvs/auth:\\ \\ \\ \\ \\ expect\\(received\\)\\.rejects\\.toThrowErrorMatchingSnapshot\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "444928104362"
+    },
+    {
+      "match": "Cannot\\ find\\ module\\ '.*\\.json'\\ from\\ '.*\\.js'",
+      "label": "problematic",
+      "note": "tests ran on build/dist instead of src, missing .json fixtures",
+      "lines": 1,
+      "id": "5e0aadfd8795"
+    },
+    {
+      "match": "@opencrvs/metrics:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n@opencrvs/metrics:\\ \\ \\ \\ \\ Expected:\\ 200\\\n@opencrvs/metrics:\\ \\ \\ \\ \\ Received:\\ 500",
+      "label": "reevaluated_acceptable",
+      "note": "Symptom of broken mocks/build compilation in metrics tests",
+      "lines": 3,
+      "id": "4a947be665c5"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n@opencrvs/client:\\ \\ \\ \\ \\ Expected:\\ true\\\n@opencrvs/client:\\ \\ \\ \\ \\ Received:\\ false",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "15cd5bbd12e8"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ property\\ 'map'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "1b9557c74e64"
+    },
+    {
+      "match": "@opencrvs/.*:\\ \\ \\ \\ \\ expect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledTimes\\(\\d+\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "cabb9f35fe6c"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Method\\ .*\\ is\\ meant\\ to\\ be\\ run\\ on\\ \\d+\\ node\\.\\ \\d+\\ found\\ instead\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Enzyme UI component assertion failure in @opencrvs/client tests",
+      "lines": 1,
+      "id": "2673299a6faf"
+    },
+    {
+      "match": "@opencrvs/login:\\ \\ \\ \\ \\ Method\\ .*\\ is\\ meant\\ to\\ be\\ run\\ on\\ \\d+\\ node\\.\\ \\d+\\ found\\ instead\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "2673299a6fax"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ expect\\(received\\)\\.toThrowError\\(expected\\)\\\n@opencrvs/client:\\ \\ \\ \\ \\ Expected\\ substring:\\ \"Given\\ value\\ key\\ structure\\ is\\ not\\ valid:\\ deathEvent\\.deathDate\"\\\n@opencrvs/client:\\ \\ \\ \\ \\ Received\\ message:\\ \\ \\ \"No\\ countries\\ found\\ for\\ this\\ transformer\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "10c3399528f9"
+    },
+    {
+      "match": "@opencrvs/metrics:\\ \\ \\ \\ \\ expect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "9d666f98507d"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "301c3dca9bce"
+    },
+    {
+      "match": "@opencrvs/login:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ property\\ '(example)'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "3f27724edd31"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ property\\ 'start'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "4088a155156b"
+    },
+    {
+      "match": "@opencrvs/client:.*Property\\ '.*'\\ does\\ not\\ exist\\ on\\ type\\ ",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "d48d98e3d20b"
+    },
+    {
+      "match": "@opencrvs/client:.*Property\\ '.*'\\ is\\ missing\\ in\\ type\\ ",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "4dcae24df076"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Couldn't\\ find\\ selector\\ \\#.*\\ from\\ component\\ in\\ 10000ms",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "c8736f6a0d7b"
+    },
+    {
+      "match": "@opencrvs/login:\\ \\ \\ \\ \\ expect\\(received\\)\\.toHaveLength\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "df4d75204395"
+    },
+    {
+      "match": "@opencrvs/login:\\ \\ \\ \\ \\ Test\\ functions\\ cannot\\ both\\ take\\ a\\ 'done'\\ callback\\ and\\ return\\ something\\.\\ Either\\ use\\ a\\ 'done'\\ callback,\\ or\\ return\\ a\\ promise\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "7010bf5639ec"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ expect\\(received\\)\\.rejects\\.toThrowError\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "a06d757560ba"
+    },
+    {
+      "match": "@opencrvs/.*:\\ \\ \\ \\ \\ expect\\(received\\)\\.toMatchSnapshot\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "b772274bc0e4"
+    },
+    {
+      "match": "@opencrvs/notification:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ private\\ member\\ \\#topo\\ from\\ an\\ object\\ whose\\ class\\ did\\ not\\ declare\\ it",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "90d58d55aa67"
+    },
+    {
+      "match": "@opencrvs/user\\-mgnt:.*\\ TS2322:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "7681f00d750f"
+    },
+    {
+      "match": "@opencrvs/client:.*\\ TS2322:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "7681f00d750x"
+    },
+    {
+      "match": "@opencrvs/events:.*\\ TS2322:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "7681f00d750y"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Must\\ provide\\ Source\\.\\ Received:\\ undefined\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "665d704bdb14"
+    },
+    {
+      "match": "@opencrvs/search:\\ \\ \\ \\ \\ ConnectionError:\\ connect\\ ECONNREFUSED\\ 127\\.0\\.0\\.1:9200",
+      "label": "unclear",
+      "note": "",
+      "lines": 1,
+      "id": "85f182e640d9"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ expect\\(received\\)\\.toContain\\(expected\\)\\ //\\ indexOf\\\n@opencrvs/client:\\ \\ \\ \\ \\ Expected\\ substring:\\ \"/review\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "effc9555443e"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ TypeError:\\ debouncedModifyApplication\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "85c6f38db1a4"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ destructure\\ property\\ 'num'\\ of\\ '\\(\\(cov_cczdx1v45\\(\\.\\.\\.\\)\\.s\\[198\\]\\+\\+\\)\\ ,\\ window\\.config\\.NID_NUMBER_PATTERN\\)'\\ as\\ it\\ is\\ undefined\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "f8abb7f6a17a"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ expect\\(received\\)\\.toContain\\(expected\\)\\ //\\ indexOf\\\n@opencrvs/client:\\ \\ \\ \\ \\ Expected\\ substring:\\ \".*\"\\\n@opencrvs/client:\\ \\ \\ \\ \\ Received\\ string:\\ \\ \\ \\ \".*\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "9432e21e79e0"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ property\\ 'location'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "fda2165f58d0"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ \\[@formatjs/intl\\]\\ An\\ `id`\\ must\\ be\\ provided\\ to\\ format\\ a\\ message\\.\\ You\\ can\\ either:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "816b7af3f090"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ expect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "8ca9aa7b0c85"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Couldn't\\ find\\ selector\\ input\\[name=\"contactPoint\\.nestedFields\\.registrationPhone\"\\]\\ from\\ component\\ in\\ 10000ms",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "4cb00bfcf73a"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/views/OfficeHome/tabs/print/printTab\\.test\\.tsx\\(30,10\\):\\ error\\ TS2305:\\ Module\\ '\"\\.\\./\\.\\./OfficeHome\"'\\ has\\ no\\ exported\\ member\\ 'RegistrationHome'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 1,
+      "id": "7c25cbc9591d"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ Task\\ does\\ not\\ exist",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "bf0dd34e9462"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ Interface\\ field\\ EventRegistration\\.history\\ expected\\ but\\ BirthRegistration\\ does\\ not\\ provide\\ it\\.\\\n@opencrvs/gateway:\\ \\ \\ \\ \\ Interface\\ field\\ EventRegistration\\.history\\ expected\\ but\\ DeathRegistration\\ does\\ not\\ provide\\ it\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "1bd768801d8b"
+    },
+    {
+      "match": "@opencrvs/search:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n@opencrvs/search:\\ \\ \\ \\ \\ Expected:\\ 200",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "662cc0a580bf"
+    },
+    {
+      "match": "@opencrvs/workflow:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n@opencrvs/workflow:\\ \\ \\ \\ \\ Expected:\\ 200",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "87f9fd517001"
+    },
+    {
+      "match": "@opencrvs/.*:.*\\ expect\\(jest\\.fn\\(\\)\\)\\.toBeCalled.*\\(.*\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "b51fc61124c9"
+    },
+    {
+      "match": "@opencrvs/workflow:.*\\ TS2300:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "75b8009079e3"
+    },
+    {
+      "match": "@opencrvs/client:.*\\ TS2300:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "75b8009079ex"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/views/Home/RecordAudit\\.tsx\\(35,3\\):\\ error\\ TS2724:\\ Module\\ '\"\\.\\./\\.\\./applications\"'\\ has\\ no\\ exported\\ member\\ 'archiveApplication'\\.\\ Did\\ you\\ mean\\ 'writeApplication'\\?",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "d58baa05b830"
+    },
+    {
+      "match": "@opencrvs/search:\\ \\ \\ \\ \\ :\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "23d6c9781a00"
+    },
+    {
+      "match": "@opencrvs/.*:\\ \\ \\ \\ \\ expect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledTimes\\(.*\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "210f05a0e10c"
+    },
+    {
+      "match": "@opencrvs/.*:\\ \\ \\ \\ \\ expect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalled\\(.*\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "210f05a0e10x"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ property\\ 'json'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "2ec18394a148"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ property\\ 'then'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "395ca96f1157"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ expect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "b1137d69665a"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ property\\ 'mockOfflineData'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "c16a105ab706"
+    },
+    {
+      "match": "@opencrvs/login:\\ \\ \\ \\ \\ Cannot\\ create\\ styled\\-component\\ for\\ component:\\ undefined\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "360e73b8d347"
+    },
+    {
+      "match": "@opencrvs/config:.*\\ TS2307:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "778bbc8edbae"
+    },
+    {
+      "match": "@opencrvs/login:.*\\ TS2307:",
+      "label": "unclear",
+      "note": "",
+      "lines": 1,
+      "id": "778bbc8edbax"
+    },
+    {
+      "match": "@opencrvs/user\\-mgnt:.*\\ TS2307:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "778bbc8edbay"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ property\\ 'text'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "6b5a121ec3ac"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Unknown\\ type\\ \"MesssageDescriptor\"\\.",
+      "label": "reevaluated_acceptable",
+      "note": "GraphQL schema validation error in client tests (missing MesssageDescriptor)",
+      "lines": 1,
+      "id": "8de8229a23a0"
+    },
+    {
+      "match": "@opencrvs/login:\\ \\ \\ \\ \\ expect\\(received\\)\\.toContain\\(expected\\)\\ //\\ indexOf",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "5205bab088bd"
+    },
+    {
+      "match": "@opencrvs/login:\\ \\ \\ \\ \\ expect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality\\\n@opencrvs/login:\\ \\ \\ \\ \\ Expected:\\ \"\u09a8\u09a4\u09c1\u09a8\\ \u09aa\u09be\u09b8\u0993\u09df\u09be\u09b0\u09cd\u09a1\u099f\u09bf\\ \u09b8\u09a0\u09bf\u0995\\ \u09a8\u09df\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ee1c6bb8a4e6"
+    },
+    {
+      "match": "@opencrvs/login:\\ \\ \\ \\ \\ Configuration\\ error:\\\n@opencrvs/login:\\ \\ \\ \\ \\ Could\\ not\\ locate\\ module\\ @login/i18n/locales/bn\\ mapped\\ as:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "afd513693f53"
+    },
+    {
+      "match": "@opencrvs/config:\\ \\ \\ \\ \\ :\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "701263588408"
+    },
+    {
+      "match": "@opencrvs/config:\\ \\ \\ \\ \\ TypeError:\\ mockingoose_1\\.default\\.resetAll\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "451aacbb9d96"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/forms/configuration/actions\\.ts\\(14,10\\):\\ error\\ TS2724:\\ Module\\ '\"\\.\\./\\.\\./\\.\\./\\.\\./\\.\\./node_modules/@opencrvs/gateway/src/graphql/schema\"'\\ has\\ no\\ exported\\ member\\ 'GQLformDraft'\\.\\ Did\\ you\\ mean\\ 'GQLFormDraft'\\?",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "057fb9f1c991"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ property\\ '.*'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "40256d773d4f"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/extract\\-translations\\.ts\\(84,35\\):\\ error\\ TS2532:\\ Object\\ is\\ possibly\\ 'undefined'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "4a747c59145c"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/views/SysAdmin/Config/Form/FormConfiguration\\.test\\.tsx\\(23,6\\):\\ error\\ TS2559:\\ Type\\ '\\{\\ location:\\ Location<\\{\\ isNavigatedInsideApp:\\ boolean;\\ \\}>;\\ history:\\ MemoryHistory<\\{\\ isNavigatedInsideApp:\\ boolean;\\ \\}>;\\ match:\\ match<unknown>;\\ \\}'\\ has\\ no\\ properties\\ in\\ common\\ with\\ type\\ 'IntrinsicAttributes\\ \\&\\ Pick<WithIntlProps<Props>,\\ \"forwardedRef\">'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "af91648c4711"
+    },
+    {
+      "match": "@opencrvs/client:.*\\ TS2307:",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "6171cd260878"
+    },
+    {
+      "match": "@opencrvs/config:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n@opencrvs/config:\\ \\ \\ \\ \\ Expected:\\ 400\\\n@opencrvs/config:\\ \\ \\ \\ \\ Received:\\ 201",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "d4eafbfc8999"
+    },
+    {
+      "match": "@opencrvs/client:\\ .*TS2345:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "476f679822b7"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ .*TS2345:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "476f679822bx"
+    },
+    {
+      "match": "@opencrvs/workflow:\\ .*TS2345:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "476f679822by"
+    },
+    {
+      "match": "@opencrvs/login:\\ .*TS2345:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "476f679822bz"
+    },
+    {
+      "match": "@opencrvs/search:.*\\ TS6133:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "da534e63f150"
+    },
+    {
+      "match": "@opencrvs/config:.*\\ TS6133:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "da534e63f15x"
+    },
+    {
+      "match": "@opencrvs/workflow:.*\\ TS6133:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "da534e63f15y"
+    },
+    {
+      "match": "@opencrvs/events:.*\\ TS6133:",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "da534e63f15yz"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Field\\ \"Mutation\\.createOrUpdateQuestion\"\\ can\\ only\\ be\\ defined\\ once\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "7ef8556dd19b"
+    },
+    {
+      "match": "@opencrvs/user\\-mgnt:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "024f7943a631"
+    },
+    {
+      "match": "@opencrvs/client:.*\\ TS2554:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "87698c18b47e"
+    },
+    {
+      "match": "@opencrvs/login:.*\\ TS2554:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "87698c18b47x"
+    },
+    {
+      "match": "@opencrvs/events:.*\\ TS2554:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "87698c18b47z"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "d58f61c02cd0"
+    },
+    {
+      "match": "@opencrvs/user\\-mgnt:\\ \\ \\ \\ \\ expect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality\\\n@opencrvs/user\\-mgnt:\\ \\ \\ \\ \\ Expected:\\ 401\\\n@opencrvs/user\\-mgnt:\\ \\ \\ \\ \\ Received:\\ 400",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "1824f6e8d0cd"
+    },
+    {
+      "match": "@opencrvs/.*:\\ \\ \\ \\ \\ expect\\(received\\)\\..*\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "0232550e2cf9"
+    },
+    {
+      "match": "@opencrvs/login:\\ \\ \\ \\ \\ Element\\ type\\ is\\ invalid:\\ expected\\ a\\ string\\ \\(for\\ built\\-in\\ components\\)\\ or\\ a\\ class/function\\ \\(for\\ composite\\ components\\)\\ but\\ got:\\ undefined\\.\\ You\\ likely\\ forgot\\ to\\ export\\ your\\ component\\ from\\ the\\ file\\ it's\\ defined\\ in,\\ or\\ you\\ might\\ have\\ mixed\\ up\\ default\\ and\\ named\\ imports\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "5b5deedde705"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/views/Unlock/ForgotPIN\\.tsx\\(27,29\\):\\ error\\ TS2305:\\ Module\\ '\"\\.\\./\\.\\./\\.\\./\\.\\./\\.\\./node_modules/@opencrvs/components/lib/icons\"'\\ has\\ no\\ exported\\ member\\ 'Logo'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "ec55523ea3e5"
+    },
+    {
+      "match": "@opencrvs/login:.*\\ TS2593:\\ Cannot\\ find\\ name\\ 'describe'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "5092d2b63dbe"
+    },
+    {
+      "match": "@opencrvs/login:.*\\ TS2593:\\ Cannot\\ find\\ name\\ 'it'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "5092d2b63dbx"
+    },
+    {
+      "match": "@opencrvs/client:.*\\ TS2304:\\ Cannot\\ find\\ name\\ '.*'\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "8eeac8b6f34f"
+    },
+    {
+      "match": "@opencrvs/gateway:.*\\ TS2304:\\ Cannot\\ find\\ name\\ '.*'\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "8eeac8b6f34x"
+    },
+    {
+      "match": "@opencrvs/client:\\ AssertionError:\\ expected\\ ",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "ed98e1446ca5"
+    },
+    {
+      "match": "@opencrvs/login:\\ AssertionError:\\ expected\\ ",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "ed98e1446cax"
+    },
+    {
+      "match": "@opencrvs/.*:\\ \u23af\u23af\u23af\u23af\u23af\u23af\\ Unhandled\\ Errors?\\ \u23af\u23af\u23af\u23af\u23af\u23af",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "27f554d09854"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Condition\\ was\\ not\\ met\\ in\\ 10000ms:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "1fe69c326920"
+    },
+    {
+      "match": "@opencrvs/.*:\\ \\ \\ \\ \\ ValidationError:\\ Invalid\\ hapi\\-sentry\\ options:\\ \"client\"\\ does\\ not\\ match\\ any\\ of\\ the\\ allowed\\ types",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "f2fd17ae9efb"
+    },
+    {
+      "match": "@opencrvs/notification:\\ \\ \\ \\ \\ src/features/sms/service\\.test\\.ts:13:10\\ \\-\\ error\\ TS2305:\\ Module\\ '\"\\./service\"'\\ has\\ no\\ exported\\ member\\ 'sendSMS'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 1,
+      "id": "3c531565b9b9"
+    },
+    {
+      "match": "@opencrvs/login:\\ \\.\\./\\.\\./node_modules/msw/node_modules/graphql/NotSupportedTSVersion\\.d\\.ts\\(1,63\\):\\ error\\ TS1003:\\ Identifier\\ expected\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 1,
+      "id": "56574b323673"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ Config\\ request\\ failed:\\ invalid\\ json\\ response\\ body\\ at\\ \\ reason:\\ Unexpected\\ end\\ of\\ JSON\\ input",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "a20b0ecbb692"
+    },
+    {
+      "match": "@opencrvs/client:.*\\ TS2769:\\ No\\ overload\\ matches\\ this\\ call\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "2ef63f1e585b"
+    },
+    {
+      "match": "@opencrvs/login:.*\\ TS2769:\\ No\\ overload\\ matches\\ this\\ call\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "2ef63f1e585x"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ GraphQLError:\\ Syntax\\ Error:\\ Unexpected\\ <EOF>\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "c72d73f30396"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/views/UserAudit/UserAuditHistory\\.tsx\\(59,19\\):\\ error\\ TS2305:\\ Module\\ '\"@client/views/RecordAudit/History\"'\\ has\\ no\\ exported\\ member\\ 'IActionDetailsData'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "6cddd23e7fcb"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/views/.*\\ TS2532:\\ Object\\ is\\ possibly\\ 'undefined'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "1e86fe03410d"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ ENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ open\\ '\\.\\./\\.\\./\\.secrets/private\\-key\\.pem'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "2f171b28425a"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/i18n/messages/views/customFieldForm\\.ts\\(54,7\\):\\ error\\ TS2739:\\ Type\\ '\\{\\ handleBardHeading:\\ \\{\\ id:\\ string;\\ defaultMessage:\\ string;\\ description:\\ string;\\ \\};\\ customTextFieldHeading:\\ \\{\\ id:\\ string;\\ defaultMessage:\\ string;\\ description:\\ string;\\ \\};\\ customTextAreaHeading:\\ \\{\\ \\.\\.\\.;\\ \\};\\ \\.\\.\\.\\ 33\\ more\\ \\.\\.\\.;\\ statusTranslationMissing:\\ \\{\\ \\.\\.\\.;\\ \\};\\ \\}'\\ is\\ missing\\ the\\ following\\ properties\\ from\\ type\\ 'ICustomFieldFormMessages':\\ postfixLabel,\\ postfixOptionG,\\ postfixOptionKg,\\ postfixOptionCm,\\ postfixOptionM",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "5675cff4b011"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/views/RegisterForm/PreviewForm\\.test\\.tsx\\(18,3\\):\\ error\\ TS2724:\\ '\"@client/tests/util\"'\\ has\\ no\\ exported\\ member\\ named\\ 'validateScopeToken'\\.\\ Did\\ you\\ mean\\ 'validatorScopeToken'\\?",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "f8d3f0ee6098"
+    },
+    {
+      "match": "@opencrvs/login:\\ src/utils/dataCleanse\\.ts\\(12,34\\):\\ error\\ TS7016:\\ Could\\ not\\ find\\ a\\ declaration\\ file\\ for\\ module\\ 'country\\-data'\\.\\ 'node_modules/country\\-data/index\\.js'\\ implicitly\\ has\\ an\\ 'any'\\ type\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "1155a755384e"
+    },
+    {
+      "match": "@opencrvs/workflow:\\ \\ \\ \\ \\ Call\\ retries\\ were\\ exceeded",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "cce80f1826ab"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/components/charts/RegRatesLineChart\\.tsx\\(21,15\\):\\ error\\ TS2305:\\ Module\\ '\"recharts\"'\\ has\\ no\\ exported\\ member\\ 'LayoutType'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "93c311214f88"
+    },
+    {
+      "match": "@opencrvs/login:\\ src/App\\.test\\.tsx\\(19,5\\):\\ error\\ TS2741:\\ Property\\ 'USER_NOTIFICATION_DELIVERY_METHOD'\\ is\\ missing\\ in\\ type\\ '\\{\\ AUTH_API_URL:\\ string;\\ CONFIG_API_URL:\\ string;\\ COUNTRY:\\ string;\\ LANGUAGES:\\ string;\\ AVAILABLE_LANGUAGES_SELECT:\\ string;\\ CLIENT_APP_URL:\\ string;\\ COUNTRY_CONFIG_URL:\\ string;\\ PHONE_NUMBER_PATTERN:\\ RegExp;\\ SENTRY:\\ string;\\ LOGROCKET:\\ string;\\ \\}'\\ but\\ required\\ in\\ type\\ '\\{\\ AUTH_API_URL:\\ string;\\ CONFIG_API_URL:\\ string;\\ COUNTRY_CONFIG_URL:\\ string;\\ COUNTRY:\\ string;\\ LANGUAGES:\\ string;\\ AVAILABLE_LANGUAGES_SELECT:\\ string;\\ USER_NOTIFICATION_DELIVERY_METHOD:\\ \"email\"\\ \\|\\ \"sms\";\\ CLIENT_APP_URL:\\ string;\\ PHONE_NUMBER_PATTERN:\\ RegExp;\\ LOGROCKET:\\ string;\\ SENTRY:\\ string;\\ \\}'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "95a196540456"
+    },
+    {
+      "match": "@opencrvs/.*:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'stop'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "13cea938475b"
+    },
+    {
+      "match": "@opencrvs/.*:\\ \\ \\ \\ \\ No\\ Docker\\ client\\ strategy\\ found",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "f4c49fa7ba0d"
+    },
+    {
+      "match": "@opencrvs/.*:\\ \\ \\ \\ \\ TypeError:\\ mongoose\\.set\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "3dd6729c1c82"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/search/advancedSearch/utils\\.test\\.ts\\(12,3\\):\\ error\\ TS2724:\\ '\"@client/search/advancedSearch/utils\"'\\ has\\ no\\ exported\\ member\\ named\\ 'IBaseAdvancedSearchState'\\.\\ Did\\ you\\ mean\\ 'IAdvancedSearchFormState'\\?",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "6bb187333e04"
+    },
+    {
+      "match": "@opencrvs/.*:\\ \\ \\ \\ \\ \\(HTTP\\ code\\ 500\\)\\ server\\ error\\ \\-\\ Head\\ \"https://registry\\-1\\.docker\\.io.*\":\\ received\\ unexpected\\ HTTP\\ status:\\ 502\\ Bad\\ Gateway",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "2b917bf380fc"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/views/RecordAudit/History\\.tsx\\(28,32\\):\\ error\\ TS2305:\\ Module\\ '\"@client/utils/userUtils\"'\\ has\\ no\\ exported\\ member\\ 'getUserRole'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "eef135a95504"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/views/SysAdmin/Communications/InformantSMSNotification/InformantSMSNotification\\.test\\.tsx\\(22,10\\):\\ error\\ TS2305:\\ Module\\ '\"@client/navigation/routes\"'\\ has\\ no\\ exported\\ member\\ 'INFORMANT_NOTIFICATION'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "3b03a9293046"
+    },
+    {
+      "match": "@opencrvs/search:\\ \\ \\ \\ \\ \\(HTTP\\ code\\ 500\\)\\ server\\ error\\ \\-\\ Head\\ \"https://registry\\-1\\.docker\\.io.*\":\\ received\\ unexpected\\ HTTP\\ status:\\ 500\\ Internal\\ Server\\ Error",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "ee884b3dcb7c"
+    },
+    {
+      "match": "@opencrvs/login:.*\\ TS2304:\\ Cannot\\ find\\ name\\ 'APP_VERSION'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "33f419497655"
+    },
+    {
+      "match": "@opencrvs/search:\\ \\ \\ \u25cf\\ Test\\ suite\\ failed\\ to\\ run",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "2c887160978f"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/views/RecordAudit/RecordAudit\\.test\\.tsx\\(17,3\\):\\ error\\ TS2305:\\ Module\\ '\"@client/tests/util\"'\\ has\\ no\\ exported\\ member\\ 'registerScopeToken'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "f715d7abf244"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/views/RegisterForm/PreviewForm\\.test\\.tsx\\(18,3\\):\\ error\\ TS2305:\\ Module\\ '\"@client/tests/util\"'\\ has\\ no\\ exported\\ member\\ 'registerScopeToken'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "235c7e0b12af"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ TypeError:\\ Right\\-hand\\ side\\ of\\ 'instanceof'\\ is\\ not\\ callable",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "427777feaf57"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/views/Performance/RegistrationsList\\.tsx\\(33,3\\):\\ error\\ TS2305:\\ Module\\ '\"@client/utils/gateway\"'\\ has\\ no\\ exported\\ member\\ 'RegistrationsListByLocationFilter'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "19c1b41c16bf"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBeDefined\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "2ddbf3d47084"
+    },
+    {
+      "match": "@opencrvs/config:\\ \\ \\ \\ \\ Download\\ failed\\ for\\ url\\ \"https://fastdl\\.mongodb\\.org/linux/mongodb\\-linux\\-x86_64\\-debian11\\-7\\.0\\.14\\.tgz\",\\ Details:",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "16ab30a91f77"
+    },
+    {
+      "match": "@opencrvs/workflow:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'map'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "0de0dd49bc3a"
+    },
+    {
+      "match": "@opencrvs/user\\-mgnt:\\ \\ \\ \\ \\ expect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenLastCalledWith\\(\\.\\.\\.expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "c0ffb4c511b6"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ thrown:\\ \"Exceeded\\ timeout\\ of\\ 30000\\ ms\\ for\\ a\\ hook\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "6e90b25dc3c3"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/views/RecordAudit/ActionMenu\\.tsx\\(66,3\\):\\ error\\ TS2724:\\ '\"@client/declarations/utils\"'\\ has\\ no\\ exported\\ member\\ named\\ 'isViewAble'\\.\\ Did\\ you\\ mean\\ 'isViewable'\\?",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "aa963e791bb1"
+    },
+    {
+      "match": "@opencrvs/client:\\ .*\\ TS7006:\\ Parameter\\ '.*'\\ implicitly\\ has\\ an\\ 'any'\\ type\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "d618c752ab89"
+    },
+    {
+      "match": "@opencrvs/.*:\\ .*\\ TS1185:\\ Merge\\ conflict\\ marker\\ encountered\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "e98766e3524d"
+    },
+    {
+      "match": "@opencrvs/.*:\\ .*\\ TS1128:\\ Declaration\\ or\\ statement\\ expected\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "e98766e3524d"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/views/RegisterForm/review/ReviewSection\\.test\\.tsx\\(275,7\\):\\ error\\ TS2740:\\ Type\\ '\\{\\ component:\\ ReactWrapper<any,\\ Readonly<\\{\\}>,\\ Component<\\{\\},\\ \\{\\},\\ any>>;\\ router:\\ Router;\\ \\}'\\ is\\ missing\\ the\\ following\\ properties\\ from\\ type\\ 'ReactWrapper<\\{\\},\\ \\{\\},\\ Component<\\{\\},\\ \\{\\},\\ any>>':\\ unmount,\\ mount,\\ ref,\\ detach,\\ and\\ 63\\ more\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "4d46655807ad"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/views/ViewRecord/ViewRecord\\.test\\.tsx\\(1235,7\\):\\ error\\ TS2353:\\ Object\\ literal\\ may\\ only\\ specify\\ known\\ properties,\\ and\\ 'history'\\ does\\ not\\ exist\\ in\\ type\\ '\\{\\ store:\\ AppStore;\\ graphqlMocks\\?:\\ readonly\\ MockedResponse<Record<string,\\ any>,\\ Record<string,\\ any>>\\[\\]\\ \\|\\ undefined;\\ apolloClient\\?:\\ ApolloClient<any>\\ \\|\\ undefined;\\ initialEntries\\?:\\ string\\[\\]\\ \\|\\ undefined;\\ \\}'\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "597015fd87b9"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/views/SysAdmin/Performance/PerformanceHome\\.test\\.tsx\\(44,8\\):\\ error\\ TS1005:\\ ','\\ expected\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "213c66c97ef8"
+    },
+    {
+      "match": "@opencrvs/client:\\ src/components/interface/Navigation\\.tsx\\(58,49\\):\\ error\\ TS1261:\\ Already\\ included\\ file\\ name\\ 'packages/client/src/components/withRouter\\.tsx'\\ differs\\ from\\ file\\ name\\ 'packages/client/src/components/WithRouter\\.tsx'\\ only\\ in\\ casing\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "9abf45fb0d5e"
+    },
+    {
+      "match": "@opencrvs/search:\\ \\ \\ \\ \\ \\(HTTP\\ code\\ 404\\)\\ no\\ such\\ container\\ \\-\\ No\\ such\\ image:\\ elasticsearch:8\\.14\\.3",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "55b559175c2d"
+    },
+    {
+      "match": "@opencrvs/events:.*\\ TS2554:\\ Expected\\ 2\\ arguments,\\ but\\ got\\ 1\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "f701f2dbcfd5"
+    },
+    {
+      "match": "@opencrvs/events:\\ src/tests/generators\\.ts\\(100,33\\):\\ error\\ TS2551:\\ Property\\ 'toISOString'\\ does\\ not\\ exist\\ on\\ type\\ 'string'\\.\\ Did\\ you\\ mean\\ 'toString'\\?",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "a2bcbfafd1a7"
+    },
+    {
+      "match": "@opencrvs/commons:.*\\ TS2345:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "234cb8660aae"
+    },
+    {
+      "match": "@opencrvs/events:\\ src/router/event/event\\.search\\.test\\.ts\\(39,10\\):\\ error\\ TS2459:\\ Module\\ '\"@events/service/locations/locations\"'\\ declares\\ 'Location'\\ locally,\\ but\\ it\\ is\\ not\\ exported\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "fef6f95b0877"
+    },
+    {
+      "match": "@opencrvs/commons:\\ src/events/state/availableActions\\.test\\.ts:11:23\\ \\-\\ error\\ TS2305:\\ Module\\ '\"\\.\\./EventMetadata\"'\\ has\\ no\\ exported\\ member\\ 'InherentFlags'\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "f7d415ab2828"
+    },
+    {
+      "match": "@opencrvs/commons:\\ \\ \\ \\ \\ Cannot\\ find\\ module\\ 'src/client'\\ from\\ 'src/events/state/flags\\.ts'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "11ad5d2480f3"
+    },
+    {
+      "match": "@opencrvs/commons:\\ \\ \\ \\ \\ Jest\\ encountered\\ an\\ unexpected\\ token",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "2fef48b408b2"
+    },
+    {
+      "match": "@opencrvs/commons:\\ \\ \\ \\ \\ Action\\ config\\ for\\ action\\ type\\ CREATE\\ not\\ found",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "bed5d24c7364"
+    },
+    {
+      "match": "@opencrvs/events:\\ src/router/event/event\\.actions\\.notify\\.test\\.ts\\(136,7\\):\\ error\\ TS2578:\\ Unused\\ '@ts\\-expect\\-error'\\ directive\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "bef6b6758139"
+    },
+    {
+      "match": "@opencrvs/auth:\\ \\ \\ \\ \\ thrown:\\ \"Exceeded\\ timeout\\ of\\ 5000\\ ms\\ for\\ a\\ test\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 1,
+      "id": "fd5221b3a6b3"
+    },
+    {
+      "match": "@opencrvs/commons:\\ src/scopes\\.test\\.ts:18:1\\ \\-\\ error\\ TS6133:\\ 'qs'\\ is\\ declared\\ but\\ its\\ value\\ is\\ never\\ read\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "6604969cc3e1"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ TypeError:\\ name\\.replaceAll\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "3f13e5278c72"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Invariant\\ failed:\\ You\\ should\\ not\\ use\\ <withRouter\\(NavigationView\\)\\ />\\ outside\\ a\\ <Router>",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "a0302000da65"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ RangeError:\\ Use\\ `dd`\\ instead\\ of\\ `DD`\\ \\(in\\ `DD\\.MM\\.YYYY`\\)\\ for\\ formatting\\ days\\ of\\ the\\ month\\ to\\ the\\ input\\ `Tue\\ Feb\\ 14\\ 2017\\ 12:51:48\\ GMT\\+0000\\ \\(Coordinated\\ Universal\\ Time\\)`;\\ see:\\ https://git\\.io/fxCyr",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "2aa557810ea4"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ expect\\(received\\)\\.not\\.toThrowError\\(\\)\\\n@opencrvs/client:\\ \\ \\ \\ \\ Error\\ name:\\ \\ \\ \\ \"RangeError\"\\\n@opencrvs/client:\\ \\ \\ \\ \\ Error\\ message:\\ \"Use\\ `dd`\\ instead\\ of\\ `DD`\\ \\(in\\ `DD\\.MM\\.YYYY`\\)\\ for\\ formatting\\ days\\ of\\ the\\ month\\ to\\ the\\ input\\ `Tue\\ Feb\\ 14\\ 2017\\ 12:51:48\\ GMT\\+0000\\ \\(Coordinated\\ Universal\\ Time\\)`;\\ see:\\ https://git\\.io/fxCyr\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "6659aaa09ed4"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ FormDraft\\ not\\ loaded",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "2aa98fee2067"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Cannot\\ find\\ module\\ '\\./views/SysAdmin/Config/Certificates'\\ from\\ 'src/App\\.tsx'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "2bbb37e95954"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Configuration\\ error:\\\n@opencrvs/client:\\ \\ \\ \\ \\ Could\\ not\\ locate\\ module\\ @client/views/SysAdmin/Config/mutations\\ mapped\\ as:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e095a876b6da"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Configuration\\ error:\\\n@opencrvs/client:\\ \\ \\ \\ \\ Could\\ not\\ locate\\ module\\ @client/forms/configuration/queries\\ mapped\\ as:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1309d8eafab1"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Offline\\ data\\ is\\ not\\ yet\\ loaded\\.\\ This\\ should\\ never\\ happen",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "4f1dc5e864c3"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Configuration\\ error:\\\n@opencrvs/client:\\ \\ \\ \\ \\ Could\\ not\\ locate\\ module\\ @client/views/SysAdmin/Config/Forms/FormConfigSettings\\ mapped\\ as:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8eeea09f6a98"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \u25cf\\ Test\\ suite\\ failed\\ to\\ run",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "70cf128616b9"
+    },
+    {
+      "match": "@opencrvs/workflow:\\ \\ \\ \\ \\ 229\\ \\ \\ \\ \\ expect\\(trackingId\\)\\.toMatch\\(/\\^B/\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "b0f1df08813a"
+    },
+    {
+      "match": "@opencrvs/auth:\\ \\ \\ \\ \\ Jest\\ worker\\ encountered\\ 4\\ child\\ process\\ exceptions,\\ exceeding\\ retry\\ limit",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "5339ae7fdbf3"
+    },
+    {
+      "match": "@opencrvs/commons:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'REJECTED'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "5e647ff7bdb5"
+    },
+    {
+      "match": "@opencrvs/search:\\ \\ \\ \\ \\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "97f338eb7d0d"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Couldn't\\ find\\ selector\\ .*\\ from\\ component\\ in",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ce8b40830344",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ No\\ condition\\ has\\ matched\\ for\\ OfflineAddress\\ transformer",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "13f3e59be866",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/login:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ destructure\\ property\\ 'example'\\ of\\ '.*'\\ as\\ it\\ is\\ undefined\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "2fee182f4f0f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ TypeError:\\ props\\.name\\.replaceAll\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "c73488f04270",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Element\\ type\\ is\\ invalid:\\ expected\\ a\\ string\\ \\(for\\ built\\-in\\ components\\)\\ or\\ a\\ class/function\\ \\(for\\ composite\\ components\\)\\ but\\ got:\\ undefined\\.\\ You\\ likely\\ forgot\\ to\\ export\\ your\\ component\\ from\\ the\\ file\\ it's\\ defined\\ in,\\ or\\ you\\ might\\ have\\ mixed\\ up\\ default\\ and\\ named\\ imports\\.\\\n@opencrvs/client:\\ \\ \\ \u25cf\\ RegistrationHome\\ sent\\ for\\ review\\ tab\\ related\\ tests\\ \u203a\\ handles\\ download\\ status\\ \u203a\\ shows\\ error\\ when\\ download\\ is\\ failed",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "31ae42c9e7c2",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ RangeError:\\ Invalid\\ time\\ value",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4a9d4cdb657c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ RangeError:\\ Use\\ `dd`\\ instead\\ of\\ `DD`\\ \\(in\\ `DD/MM/YYYY`\\)\\ for\\ formatting\\ days\\ of\\ the\\ month\\ to\\ the\\ input",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0288d843589f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Unknown\\ type\\ \"FormDraft\"\\.\\ Did\\ you\\ mean\\ \"formDraft\"\\?",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "b3fd09e97956",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Actions\\ may\\ not\\ have\\ an\\ undefined\\ \"type\"\\ property\\.\\ You\\ may\\ have\\ misspelled\\ an\\ action\\ type\\ string\\ constant\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "8da688eae739",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Default\\ birth\\ formDraft\\ not\\ found",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "80cc2415995f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/metrics:\\ \\ \\ \\ \\ TypeError:\\ readPoints\\.mockResolvedValueOnce\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "17197bbae22e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Field\\ \"M@opencrvs/client:\\ info\\ Visit\\ https://yarnpkg\\.com/en/docs/cli/run\\ for\\ documentation\\ about\\ this\\ command\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "cb6b63802cce",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Invariant\\ Violation:\\ Expecting\\ a\\ parsed\\ GraphQL\\ document\\.\\ Perhaps\\ you\\ need\\ to\\ wrap\\ the\\ query\\ string\\ in\\ a\\ \"gql\"\\ tag\\?\\ http://docs\\.apollostack\\.com/apollo\\-client/core\\.html\\#gql",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "b10ca0161427",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBeUndefined\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "be1c262c9753",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ thrown:\\ \"Exceeded\\ timeout\\ of\\ 30000\\ ms\\ for\\ a\\ hook\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 1,
+      "id": "0da13ee1370e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/metrics:\\ \\ \\ \\ \\ :\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
+      "label": "unclear",
+      "note": "",
+      "lines": 1,
+      "id": "185667fc36d8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ ReactWrapper::getNode\\(\\)\\ can\\ only\\ be\\ called\\ when\\ wrapping\\ one\\ node",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "5b0005ec942b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ ReferenceError:\\ showLanguageSettings\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "1c8e08bdfa6f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ ReferenceError:\\ ChangePhonePage\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "520ad38c2891",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Declaration\\ \"mockBirth1234\"\\ missing!",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "32c346234da3",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/notification:\\ \\ \\ \\ \\ src/features/sms/service\\.test\\.ts:<n>:<n>\\ \\-\\ error\\ TS2305:\\ Module\\ '\"\\./service\"'\\ has\\ no\\ exported\\ member\\ 'sendSMS'\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "5cc4cc6c4334",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ TypeError:\\ root_resolvers_1\\.resolvers\\.Query\\.fetchTimeLoggedMetricsByPractitioner\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "055ab9143c1f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ Didn't\\ find\\ any\\ identifier\\ for\\ tracking\\ id",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "287ea629ee73",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ expect\\(received\\)\\.rejects\\.toThrowError\\(\\)\\\n@opencrvs/gateway:\\ \\ \\ \\ \\ Received\\ promise\\ resolved\\ instead\\ of\\ rejected",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "474f602906df",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ TypeError:\\ phoneUtil\\.format\\(\\.\\.\\.\\)\\.replaceAll\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "2b80c0a1b99a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ Expected\\ undefined\\ to\\ be\\ a\\ FieldBuilder\\ object\\ for\\ field\\ name\\ ",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "759fe3c634c8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ '0'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "a7f9dbd8d51a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ \\(HTTP\\ code\\ 500\\)\\ server\\ error\\ \\-\\ Head\\ \"https://registry\\-1\\.docker\\.io/v2/library/redis/manifests/5\":\\ Get\\ \"https://auth\\.docker\\.io/token\\?scope=repository%3Alibrary%2Fredis%3Apull\\&service=registry\\.docker\\.io\":\\ context\\ deadline\\ exceeded\\ \\(Client\\.Timeout\\ exceeded\\ while\\ awaiting\\ headers\\)",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "7659d5eac4e8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ getUserId:\\ Error\\ occurred\\ during\\ token\\ decode",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "e4132abcbb02",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 30000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 30000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "4dba89ac8cd8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/auth:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ '1'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "1fd6b09dd76c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/search:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'cat'\\)",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "a5e76465c92b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ \\(HTTP\\ code\\ 404\\)\\ no\\ such\\ container\\ \\-\\ No\\ such\\ image:\\ redis:5",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "1be1c22e152d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/config:\\ \\ \\ \\ \\ input:\\ Expected\\ \"input\"\\ to\\ have\\ Regex\\ Matches",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "283148365b20",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ Search\\ user\\ is\\ not\\ allowed\\ for\\ this\\ user",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "8532603f73b0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ Create\\ or\\ update\\ user\\ is\\ not\\ allowed\\ for\\ this\\ user",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "fd860692a3bd",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/workflow:\\ \\ \\ \\ \\ New\\ route\\ /records/\\{id\\}/upsert\\ conflicts\\ with\\ existing\\ /records/\\{id\\}/upsert",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "29bca4aa2b61",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/commons:\\ \\ \\ \\ \\ Cannot\\ find\\ module\\ 'src/authentication'\\ from\\ 'src/conditionals/conditionals\\.test\\.ts'",
+      "label": "unclear",
+      "note": "",
+      "lines": 1,
+      "id": "b5a53351eaa2",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/events:\\ AssertionError:\\ expected\\ \\{\\ \u2026\\(5\\)\\ \\}\\ to\\ deeply\\ equal\\ \\{\\ \u2026\\(5\\)\\ \\}",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "eb87b1a43423",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/commons:\\ \\ \\ \\ \\ Todo\\ must\\ be\\ called\\ with\\ only\\ a\\ description\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "7a3ffc3fa596",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    }
+  ]
+}

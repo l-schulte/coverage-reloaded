@@ -8,18 +8,20 @@ source /coverage_reloaded/logging.sh
 # c8 coverage report after all tests pass. The container has no memory cap and
 # lerna runs tests serially (--concurrency=1), so a 16GB heap is safe.
 export NODE_OPTIONS="${NODE_OPTIONS:-} --max-old-space-size=16384"
+# Prevent Yarn v1 from aborting on patch-level Node engine constraints (e.g. 18.19.x vs 18.20.8)
+export YARN_IGNORE_ENGINES=true
+# Route MongoMemoryServer binary downloads through Waypack caching proxy (prevents transient fastdl.mongodb.org 502/timeouts)
+export MONGOMS_DOWNLOAD_URL="http://waypack:3000/request/https://fastdl.mongodb.org"
 
 cd /coverage_reloaded/repo
 
 if [ ! -f package.json ]; then
-    print_header 2 "NOT APPLICABLE" "No package.json at this commit, no test infrastructure to run"
-    exit 2
+    not_applicable "No package.json at this commit, no test infrastructure to run"
 fi
 
 ROOT_TEST=$(node -p "((require('./package.json').scripts||{}).test) || ''" || true)
 if [ -z "$ROOT_TEST" ]; then
-    print_header 2 "NOT APPLICABLE" "No root test script at this commit"
-    exit 2
+    not_applicable "No root test script at this commit"
 fi
 print_header 4 "Root test script: $ROOT_TEST"
 
@@ -46,7 +48,7 @@ elif [ "$IS_YARN_MAIN_PM" = "true" ]; then
     # hoisting is identical to it. Without it, any package.json change forces a
     # full re-resolution that rewrites yarn.lock and can re-hoist dependencies
     # (e.g. a duplicate `vite` that breaks packages/login's tsc).
-    yarn install --frozen-lockfile --ignore-scripts
+    yarn install --frozen-lockfile --ignore-scripts --ignore-engines
     # Apply patches manually — skip failures when version mismatches occur
     # (e.g. --no-lockfile resolves newer versions than the patch targets).
     # Patches that match still apply; mismatches are warnings, not errors.
@@ -63,31 +65,13 @@ else
 fi
 
 # ── Rebuild native addons skipped by --ignore-scripts ────────────────────────
-# The install runs with --ignore-scripts (some dependency lifecycle scripts need
-# network or misbehave in the sandbox), which also skips node-gyp builds. The
-# notification SMS suites load the native `iconv` addon at require-time and fail
-# to run without its compiled binding, silently dropping notification coverage.
-# Rebuild only that addon, using the `n`-installed Node headers so node-gyp does
-# not need to download them.
-ICONV_DIR=$(node -e "
-  try {
-    var p = require.resolve('iconv/package.json', { paths: [process.cwd()] });
-    console.log(require('path').dirname(p));
-  } catch (e) { process.stdout.write(''); }
-")
-if [ -n "$ICONV_DIR" ] && [ -f "$ICONV_DIR/binding.gyp" ] && [ ! -f "$ICONV_DIR/build/Release/iconv.node" ]; then
-    # Use the Node installation's own headers so node-gyp does not download them.
+# In commits prior to 2022-09-28, packages/notification depends on native addon
+# iconv. Since --ignore-scripts skipped its node-gyp build, rebuild it using
+# local Node headers and Python 2.7.
+if grep -q '"iconv"' packages/notification/package.json 2>/dev/null; then
+    print_header 2 "Rebuilding native addon: iconv"
     NODE_HEADERS_DIR=$(dirname "$(dirname "$(readlink -f "$(command -v node)")")")
-    # Node 12/14 ship npm 6 / node-gyp 5, which only supports Python 2.7 or
-    # <=3.8; the image symlinks `python` to 3.10, so pin python2 for those.
-    NODE_MAJOR=$(node -p "process.versions.node.split('.')[0]")
-    if [ "$NODE_MAJOR" -le 14 ] && [ -x /usr/bin/python2.7 ]; then
-        REBUILD_PYTHON=/usr/bin/python2.7
-    else
-        REBUILD_PYTHON=$(command -v python)
-    fi
-    print_header 2 "Rebuilding native addon: iconv (node $NODE_MAJOR, python $REBUILD_PYTHON)"
-    ( cd "$ICONV_DIR" && npm_config_nodedir="$NODE_HEADERS_DIR" npm_config_python="$REBUILD_PYTHON" npm rebuild )
+    npm_config_nodedir="$NODE_HEADERS_DIR" npm_config_python=/usr/bin/python2.7 npm rebuild iconv
 fi
 
 # ── Install vitest >= 1 coverage provider out-of-tree ────────────────────────
@@ -129,29 +113,10 @@ if [ -f "$PROVIDER_FILE" ]; then
     ' "$PROVIDER_FILE")
 fi
 
-# ── Start Docker daemon (testcontainers needs Docker for ES/Postgres) ───────
-print_header 2 "Starting Docker daemon for testcontainers"
-mkdir -p /etc/docker
-cat > /etc/docker/daemon.json <<'EOF'
-{
-  "registry-mirrors": ["http://docker-cache:5000"],
-  "insecure-registries": ["http://docker-cache:5000"],
-  "dns": ["1.1.1.1", "8.8.8.8"]
-}
-EOF
-dockerd > /var/log/dockerd.log 2>&1 &
-DOCKERD_PID=$!
-for i in $(seq 1 30); do
-    if docker ps > /dev/null 2>&1; then
-        print_header 4 "Docker daemon ready (attempt $i)"
-        break
-    fi
-    sleep 1
-done
-if ! docker ps > /dev/null 2>&1; then
-    print_header 2 "DOCKER DAEMON FAILED" "Could not start Docker daemon within 30s. Check /var/log/dockerd.log for details."
-    cat /var/log/dockerd.log
-    exit 1
+# ── Start Docker daemon (testcontainers needs Docker for ES/Postgres/Redis) ─
+if grep -rq "testcontainers" packages/*/package.json 2>/dev/null; then
+    source /coverage_reloaded/start-dind.sh
+    export DOCKER_HOST="unix:///var/run/docker.sock"
 fi
 
 # ── Build ────────────────────────────────────────────────────────────────────
@@ -159,15 +124,78 @@ fi
 # workspace packages with the repo's own build script.
 if [ "$HAS_ROOT_BUILD" = "true" ]; then
     print_header 2 "Building workspace packages"
+    # Neutralize @opencrvs/integration build: standalone k6 load tests with no
+    # test suite and no dependents; prevents ambient TS2300 collisions in 2021.
+    if [ -f packages/integration/package.json ]; then
+        node -e "
+          var ip = 'packages/integration/package.json';
+          var ij = JSON.parse(require('fs').readFileSync(ip));
+          if (ij.scripts && ij.scripts.build) {
+            ij.scripts.build = 'echo skipping integration build';
+            require('fs').writeFileSync(ip, JSON.stringify(ij, null, 2) + '\n');
+            console.log('Neutralized packages/integration build script');
+          }
+        "
+    fi
+    # Neutralize @opencrvs/api-docs build: standalone documentation generator
+    # with no test suite and no dependents.
+    if [ -f packages/api-docs/package.json ]; then
+        node -e "
+          var ap = 'packages/api-docs/package.json';
+          var aj = JSON.parse(require('fs').readFileSync(ap));
+          if (aj.scripts && aj.scripts.build) {
+            aj.scripts.build = 'echo skipping api-docs build';
+            require('fs').writeFileSync(ap, JSON.stringify(aj, null, 2) + '\n');
+            console.log('Neutralized packages/api-docs build script');
+          }
+        "
+    fi
+    # Neutralize build-storybook in packages/components
+    if [ -f packages/components/package.json ]; then
+        node -e "
+          var cp = 'packages/components/package.json';
+          var cj = JSON.parse(require('fs').readFileSync(cp));
+          if (cj.scripts && cj.scripts['build-storybook']) {
+            cj.scripts['build-storybook'] = 'echo skipping build-storybook';
+            require('fs').writeFileSync(cp, JSON.stringify(cj, null, 2) + '\n');
+            console.log('Neutralized packages/components build-storybook script');
+          }
+        "
+    fi
+    # Neutralize builds for non-library targets:
+    # - production SPA web bundlers in client and login (Vite/Craco)
+    # - standalone metrics and auth services (prevents tsc compiling tests to build/dist where missing assets or db mocks fail under Jest)
+    for pkg in client login metrics auth; do
+        if [ -f "packages/$pkg/package.json" ]; then
+            node -e "
+              var pp = 'packages/$pkg/package.json';
+              var pj = JSON.parse(require('fs').readFileSync(pp));
+              if (pj.scripts && pj.scripts.build) {
+                pj.scripts.build = 'echo skipping $pkg build';
+                require('fs').writeFileSync(pp, JSON.stringify(pj, null, 2) + '\n');
+                console.log('Neutralized packages/$pkg build script');
+              }
+            "
+        fi
+    done
     # Patch build script to run lerna with --concurrency=1, preventing race
     # conditions where @opencrvs/api-docs starts before @opencrvs/commons
-    # finishes building.
+    # finishes building. Also ignore non-library targets (@opencrvs/integration,
+    # @opencrvs/client, @opencrvs/login, @opencrvs/metrics, @opencrvs/auth) and strip build-storybook.
     node -e "
       var p = require('./package.json');
-      if (p.scripts && p.scripts.build && p.scripts.build.indexOf('lerna run build') >= 0) {
-        p.scripts.build = p.scripts.build.replace(/lerna run build\b(?!.*--concurrency)/, 'lerna run build --concurrency=1');
+      if (p.scripts && p.scripts.build) {
+        p.scripts.build = p.scripts.build.replace(/&&\s*lerna\s+run\s+build-storybook\b/g, '');
+        if (p.scripts.build.indexOf('lerna run build') >= 0) {
+          p.scripts.build = p.scripts.build.replace(/lerna run build\b(?!.*--concurrency)/, 'lerna run build --concurrency=1');
+          ['@opencrvs/integration', '@opencrvs/client', '@opencrvs/login', '@opencrvs/metrics', '@opencrvs/auth'].forEach(function(pkg) {
+            if (p.scripts.build.indexOf('--ignore ' + pkg) === -1) {
+              p.scripts.build = p.scripts.build.replace(/lerna run build\b/, 'lerna run build --ignore ' + pkg);
+            }
+          });
+        }
         require('fs').writeFileSync('package.json', JSON.stringify(p, null, 2) + '\n');
-        console.log('Patched build script to add --concurrency=1');
+        console.log('Patched build script: ' + p.scripts.build);
       }
     "
     set +e
