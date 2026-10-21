@@ -40,13 +40,13 @@
 
 - [x] 100 done (99/100)
 - [x] failed tests doublechecked (environment vs test-code classified across a 100-log review)
-- [x] complete run (5,170/5,170 processed; 98.8% coverage produced)
+- [ ] complete run (1,963 pre-Nov 2021 commits archived to fix_jest_ts_coverage pending re-run)
 - [x] complete test failure check (501/501 unique failure signatures classified across 702 failing commits; 0 unlabeled remain)
 - [x] complete JEV test failure check (178/178 Jev problematic signatures audited against git history and confirmed upstream developer-facing)
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-10-02 06:55).
+Source: `stats_output/report.txt` (generated 2026-10-02 06:55; 1,963 pre-Nov 2021 commits archived to [`archive/fix_jest_ts_coverage/`](archive/fix_jest_ts_coverage/) pending re-run to collect TypeScript coverage).
 
 | Metric | Value |
 |---|---|
@@ -69,6 +69,7 @@ test still executes the code under test, so it counts toward line coverage. Only
 
 | Fix | Commits affected |
 |---|---|
+| Jest `collectCoverageFrom` TypeScript inclusion (`fix_jest_ts_coverage`): root `package.json` hardcoded `collectCoverageFrom` to `"**/*.{js,jsx}"` prior to upstream commit `5ab102c4d2` (2021-11-16), omitting all `.ts` and `.tsx` source files and collecting transpiled `dist/` artifacts. Backported upstream commit `5ab102c4d2` in `install-and-run.sh` to update `collectCoverageFrom` to include `"**/*.{js,jsx,ts,tsx}"` and exclude `"**/dist/**"`. | 1,963 commits (2021-01 to 2021-11); archived to [`archive/fix_jest_ts_coverage/`](archive/fix_jest_ts_coverage/) pending re-run |
 | Vitest thread-pool bounding: replaced `--single-thread`/`--no-threads` with worker-pool environment variables (`VITEST_MAX_THREADS=1`, `VITEST_MAX_WORKERS=1`) and `--maxWorkers=1`/`--maxThreads=1` to restore thread isolation while preventing out-of-memory errors on 256-core hosts; resolves Mongoose `OverwriteModelError` | 727 commits (`1668555600_6030b62e`–`1716223707_84e84b2c`); archived to `archive/overwrite_model_error/` pending re-run |
 | `tsc -b` build made non-fatal (`dist/` still emitted despite pre-existing type errors) | ~10 commits |
 | `bids-validator` local `file:` dependency rewritten to published `1.6.2` | 2 commits |

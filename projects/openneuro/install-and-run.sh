@@ -146,6 +146,31 @@ if echo "$TEST_SCRIPT" | grep -q vitest; then
   suite_end "vitest" "$VITEST_EXIT"
 else
   # ── Jest era ─────────────────────────────────────────────
+  # Prior to upstream commit 5ab102c4d2 (2021-11-16, "fix(ci): Fix Codecov service"),
+  # root package.json hardcoded collectCoverageFrom to "**/*.{js,jsx}", omitting
+  # all TypeScript (.ts/.tsx) files and measuring compiled dist/ artifacts.
+  # Backport upstream fix to include ts/tsx and exclude dist.
+  if grep -q '"\*\*/\*\.{js,jsx}"' package.json && ! grep -q '"\*\*/\*\.{js,jsx,ts,tsx}"' package.json; then
+    print_header 4 "Backporting upstream collectCoverageFrom fix (5ab102c4d2): adding ts/tsx and excluding dist"
+    node -e '
+      const fs = require("fs");
+      const pkg = JSON.parse(fs.readFileSync("./package.json", "utf8"));
+      if (pkg.jest && pkg.jest.collectCoverageFrom) {
+        pkg.jest.collectCoverageFrom = [
+          "**/*.{js,jsx,ts,tsx}",
+          "!**/papaya.js",
+          "!**/*.spec.{js,jsx,ts,tsx}",
+          "!**/node_modules/**",
+          "!**/vendor/**",
+          "!**/.yarn/**",
+          "!**/dist/**",
+          "!**/*.d.ts"
+        ];
+        fs.writeFileSync("./package.json", JSON.stringify(pkg, null, 2) + "\n");
+      }
+    '
+  fi
+
   # The root jest config uses `projects: ["packages/*"]`, so `jest --coverage`
   # collects coverage for every package and writes one lcov.info per package.
   set +e
