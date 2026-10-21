@@ -8,10 +8,15 @@
 - **Package manager:** npm (`package_manager_version_overwrite = "npm"`; see
   [`config.json`](../../config.json) → `bhima`).
 - **Node strategy:** default.
-- **Runners:** `mocha`, `c8`, Karma, Chromium.
-- **Eras:** four suites run against a full-stack hospital information system
-  (Node.js/Express backend with MySQL and Redis, AngularJS client). The client
-  bundle is built via `build` / `build:client` / `compile`, detected dynamically.
+- **Runners:** `mocha` under `c8` (server and integration suites); Karma with
+  `karma-coverage` and Chromium (client suite).
+- **Eras:**
+  - `server-unit` — `sh/server-unit-tests-node.sh` when present, otherwise direct
+    `mocha`; the era is chosen from the checked-out tree.
+  - `client-unit` — always the `harness/karma.sidecar.conf.js` sidecar.
+  - `integration` / `integration-stock` — enabled only when the commit's
+    `package.json` defines `test:integration` / `test:integration:stock`; the
+    stock suite additionally requires `build:stock`.
 
 ## Development style
 
@@ -25,33 +30,38 @@
 ## Coverage collection
 
 - **Suites collected:**
-  - `server-unit` — `mocha` + `c8`. Two eras:
-    `sh/server-unit-tests-node.sh` (shell script) and direct `mocha`.
-  - `client-unit` — Karma with a `karma-coverage` harness sidecar. Coverage is
-    validated for non-zero `DA` entries and AngularJS DI failures.
-  - `integration` — `mocha` + `c8` against a live Express server. Requires MySQL
-    (`build:db`), Redis, and Chromium.
-  - `integration-stock` — same as `integration`, but requires a separate
-    `build:stock` database seed. Runs after the main integration suite; the server
-    is killed between suites.
+  - `server-unit` → output suite `server` — `mocha` + `c8`.
+  - `client-unit` → output suite `coverage_client_client` — Karma +
+    `karma-coverage`.
+  - `integration` → output suite `integration` — `mocha` + `c8` against a live
+    Express server with MySQL and Redis.
+  - `integration-stock` → output suite `integration_stock` — `mocha` + `c8`
+    after a `build:stock` database reseed; the server is killed between the two
+    integration suites.
 - **Suites excluded:** none.
-- **Coverage tool / config:** `c8` (installed as a fallback when absent).
-- **LCOV production:** `c8` `lcov` reporter for the mocha suites; the
-  `karma-coverage` sidecar writes the client `lcov`. Chromium runs with
-  `--no-sandbox`.
+- **Coverage tool / config:** `c8` (installed as a fallback when absent) and the
+  `karma-coverage` sidecar. No project coverage config and no coverage gate apply
+  to the collected suites.
+- **LCOV production:** `c8 --reporter=lcov` for the mocha suites; the Karma
+  sidecar writes `harness/output/lcov.info`, which is rejected when it is empty,
+  has no non-zero `DA` entry, or shows AngularJS dependency-injection failures.
+  Chromium runs with `--no-sandbox`.
 
 ## Checklist
 
 - [x] 100 done (96/100)
-- [x] failed tests doublechecked (52 `acceptable`; 0 `problematic`/`unclear` —
-  coral-PDF timeout family re-ran clean)
-- [x] complete run (all 4386 commits processed; 298 hard errors, 93.2% coverage)
-- [x] complete test failure check
-- [x] complete JEV test failure check
+- [x] failed tests doublechecked (100-commit sample reviewed; non-zero-exit runs
+  classified)
+- [x] complete run (4386 commits processed; 0 unprocessed; 298 hard errors;
+  93.2% coverage)
+- [x] complete test failure check (all 77 fingerprints and 208 failing runs
+  labeled)
+- [x] complete JEV test failure check (77 of 77 fingerprints evaluated; 0
+  pipeline issues)
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-09-16 08:58).
+Source: `stats_output/report.txt` (generated 2026-10-21 20:13).
 
 | Metric | Value |
 |---|---|
@@ -64,66 +74,84 @@ Source: `stats_output/report.txt` (generated 2026-09-16 08:58).
 
 Full statistics and plots: [`stats_output/`](stats_output/).
 
-## Known test failures
+## Failure triage
 
-52 labeled rows in [`failure_labels_project.csv`](failure_labels_project.csv)
-(all `acceptable`); per-commit logs under [`logs/`](logs/).
-[`failure_labels_collapsed_problematic_unclear.csv`](failure_labels_collapsed_problematic_unclear.csv)
-lists no `problematic`/`unclear` families.
+Source: `python check_failures_v2.py bhima --stats` (window `min`, run 2026-10-21)
+and `stats_output/report.txt` (generated 2026-10-21 20:13). Labels:
+[`failure_labels_project_min.csv`](label_analysis/failure_labels_project_min.csv)
+(primary) and [`failure_labels_project_max.csv`](label_analysis/failure_labels_project_max.csv)
+(diagnostic window). These CSVs are the single source of truth; this section
+reports numbers only and does not restate per-family labels.
 
-| Signature | Classification | Coverage impact | Action |
-|---|---|---|---|
-| `integration` `AssertionError`: HTTP status mismatches (expected 2xx/4xx, got 4xx/5xx) | acceptable | valid partial | none |
-| `integration` `AssertionError`: response key-set mismatches | acceptable | valid partial | none |
-| `integration` `AssertionError`: numeric / array-length / count mismatches (payroll, purchases, `staffingIndices`, inventory) | acceptable | valid partial | partly date-sensitive; none |
-| `integration` UTF-8 mojibake (`RemunÃ©ration` vs `Remunération`) | acceptable | valid partial | locale/DB collation; none |
-| `integration` `SyntaxError: Invalid regular expression: missing /` | acceptable | valid partial | none |
-| `server` `TypeError: job.nextDate(...).format is not a function` | acceptable | valid partial | none |
-| `server` `TypeError: coral is not a function` / `require(...) is not a function` | acceptable | valid partial | none |
-| `server` SQL `Error: ER_*` (e.g. `ER_WRONG_VALUE_COUNT_ON_ROW`) and `Error: A callback is required!` | acceptable | valid partial | none |
+| Metric | Value |
+|---|---|
+| Failing runs (`report.txt`) | 208 |
+| Failing runs (label DB) | 208 |
+| Fingerprints (min / max) | 77 / 88 |
+| Labeled fingerprints | 77 (100.0%) |
+| Unlabeled fingerprints | 0 |
+| acceptable | 77 |
+| reevaluated_acceptable | 0 |
+| problematic | 0 |
+| unclear | 0 |
+| false_positive | 0 |
+| Manual / auto-propagated labels | 29 / 48 |
+| Labeled detections (min) | 488/488 (100.0%) |
+| Labeled runs (min) | 208/208 (100.0%) |
+| Jev pipeline issues | 0 |
 
-**Resolved (2026-09-16):** the earlier `problematic` mocha-timeout family
-(5000 ms `pdf.spec.js` / `account_report.js`, 30000 ms
-`reports/finance/cash.receipt.js`) was a container-contention flake, not a
-deterministic failure. All five affected commits
-(`1691933532_d9238c94`, `1707063237_2f77b170`, `1709541076_55f1ecae`,
-`1715548551_bdc18457`, `1718473127_39ada258`) were re-run and every suite passed
-(`exit_code=0`, zero timeout lines); the old logs are archived under
-`archive/pre_pdf_timeout_retry/`. The `439ec8f6ef51` auto-classify rule is
-retained as `problematic` as a regression tripwire.
+**State:** complete.
+
+On 2026-10-21 the failure patterns were extended with a chai diff anchor
+(`^\s*\+ expected - actual$`) and the ISO-timestamp exclusion was narrowed to
+`errors #interceptor()` lines. Detection rose from 435 to 593 hits and from 49 to
+77 fingerprints, so every failing run now carries at least one fingerprint; the
+28 new families were labeled and re-checked with Jev the same day. The previous
+patterns are kept as
+[`failure_patterns.json.bak`](label_analysis/failure_patterns.json.bak).
 
 ## Environment / setup fixes
 
-- MySQL 8.0 from the official APT repo (MariaDB 10.5's stored-procedure and
-  charset behaviour breaks `build:db`).
-- MySQL server started with
-  `--sql-mode="STRICT_ALL_TABLES,NO_UNSIGNED_SUBTRACTION"` and a
-  `mysql_native_password` user, replicating bhima's CI.
-- Redis daemon and Chromium `--no-sandbox`.
-- `karma-coverage` / babel harness symlinked into `node_modules` for the client
-  sidecar config.
-- Timeouts are contention-sensitive: the `integration` suite drives
-  `@ima-worldhealth/coral` PDF rendering, which is CPU-bound. Re-running the
-  five affected commits with `--max-workers 1` cleared every timeout, so lower
-  worker counts are preferred for this project.
+- **MySQL 8.0 instead of MariaDB 10.5** (`Dockerfile`): MariaDB's
+  stored-procedure and charset behaviour breaks the `build:db` seed.
+- **MySQL server configuration** (`install-and-run.sh`):
+  `--sql-mode="STRICT_ALL_TABLES,NO_UNSIGNED_SUBTRACTION"`, `utf8mb4` server
+  charset and collation, and a `mysql_native_password` user, replicating the
+  project's CI; the app's `mysql@^2.16` client cannot authenticate with
+  `caching_sha2_password` over TCP.
+- **Redis and Chromium** (`install-and-run.sh`): `redis-server --daemonize yes`
+  and `--no-sandbox` for Chromium and Puppeteer.
+- **Karma harness** (`Dockerfile`, `install-and-run.sh`): `karma-coverage` and
+  Babel packages are installed in `/coverage_reloaded/harness` and symlinked into
+  the project's `node_modules`.
+- **libfaketime** (`helper/fake-time-node.js`): wraps `build:db`, `build:stock`,
+  `integration`, and `integration-stock` at the commit timestamp.
+- **Timeout-sensitive integration suite:** the `coral` PDF-rendering timeouts were
+  cleared by re-running the affected commits; those runs are archived under
+  [`archive/pre_pdf_timeout_retry/`](archive/pre_pdf_timeout_retry/) (logs only,
+  no README, so no counts are restated here).
 
 ## Known gaps
 
 298 commits hard-errored (exit code > 1 or no `lcov.info`), so their coverage is
-missing. Causes, from the `.error` logs:
+missing. Cause per `.error` log:
 
 | Cause | Commits |
 |---|---|
 | `ETARGET` — declared dependency range unresolvable in the author-date WayPack snapshot | 242 |
 | Client build produced no `bhima.min.js` | 15 |
-| `build:stock` seed foreign-key constraint failure | 14 |
-| `build:db` failed | 12 |
-| `server` suite emitted empty `lcov.info` | 9 |
+| `build:stock` seed failure (foreign-key `stock_movement__period`, column-count mismatch) | 14 |
+| `build:db` seed failure (e.g. no fiscal year for the provided date, seed SQL drift) | 13 |
+| `server` suite aborted (`ERR_REQUIRE_ESM` for `chai`) and emitted no `lcov.info` | 9 |
 | Redis connection refused | 3 |
 | `karma-coverage` produced no `lcov.info` | 2 |
-| Build DB column-count mismatch | 1 |
 
 The `ETARGET` group is the faithful "un-buildable at author date" reconstruction
 described in [`STUDY_DECISIONS.md`](../../STUDY_DECISIONS.md) §1; the top missing
 packages are `@ima-worldhealth/coral`, `@uirouter/core`, `release-it`, and
 `express-handlebars`.
+
+The `integration` suite renders PDFs through `@ima-worldhealth/coral` and is
+sensitive to host contention against mocha's 30 s per-test timeout. Re-running
+affected commits cleared the timeouts, so a fresh timeout family in this suite is
+a contention candidate before it is labeled `problematic`.
