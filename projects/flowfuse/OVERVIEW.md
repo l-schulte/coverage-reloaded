@@ -7,11 +7,11 @@
 
 - **Package manager:** npm (see [`config.json`](../../config.json) → `flowfuse`).
 - **Node strategy:** `node_version_delay_months = 24`, `min_node_version = 14`.
-- **Runners:** `mocha`, `vitest`.
-- **Eras:** `test:unit` runs `mocha` specs and later delegates to `test:unit:forge`
-  and `test:unit:frontend`. `test:unit:forge` runs `mocha`; `test:unit:frontend`
-  runs `vitest`; `test:system` runs system tests with `mocha`. Only root scripts
-  exist.
+- **Runners:** `mocha` (forge, unit and system suites) and `vitest` (frontend suite).
+- **Eras:** `test:unit` initially ran the mocha suite; later commits split it into
+  `test:unit:forge` (mocha) and `test:unit:frontend` (vitest), with `test:unit` kept
+  only as a fallback when neither split script exists. `test:system` runs mocha
+  throughout. Only root scripts exist.
 
 ## Development style
 
@@ -24,31 +24,32 @@
 
 ## Coverage collection
 
-- **Suites collected:** `test:unit` (and its delegated forge/frontend suites),
-  `test:system`.
-- **Suites excluded:** end-to-end and documentation tests.
-- **Focus markers:** commits whose collected suites contain a committed `.only`
-  are marked not-applicable rather than recording subset coverage (see
+- **Suites collected:** `forge-unit` → mocha; `frontend-unit` → vitest; `unit` →
+  mocha (fallback when the split scripts are absent); `system` → mocha.
+- **Suites excluded:** end-to-end (Cypress) and documentation tests.
+- **Coverage tool / config:** `nyc`. From the nyc era onward the project's own `nyc`
+  and `.nycrc.json` (`include: forge/**`) drive collection. The 641 pre-nyc-era
+  commits (2021-07-29 to 2022-03-21) are instrumented with an injected `nyc@15`
+  using `--all --include 'forge/**' --include 'ee/**'`, reproducing the project's
+  own file set so the exposure variable is produced by one tool and one file set
+  across the whole history ([`archive/switch_to_nyc/`](archive/switch_to_nyc/)).
+- **Focus markers:** commits whose collected suites contain a committed `.only` are
+  marked not-applicable rather than recording subset coverage (see
   [`STUDY_DECISIONS.md`](../../STUDY_DECISIONS.md) §2).
-- **Coverage tool / config:** `nyc`. From the nyc era onward the project's own
-  `nyc` + `.nycrc.json` (`include: forge/**`) drives collection. The 641
-  pre-nyc-era commits (2021-07-29 to 2022-03-21) are instrumented with an injected
-  `nyc@15` using `--all --include 'forge/**' --include 'ee/**'`, reproducing the
-  project's own file set so the exposure variable is produced by a single tool and
-  file set across the whole history.
-- **LCOV production:** `nyc` with an `lcov` reporter.
+- **LCOV production:** `nyc` with an `lcov` reporter. The frontend suite emits its
+  own `lcov.info` through the version-matched Vitest coverage provider.
 
 ## Checklist
 
 - [x] 100 done (92/100)
-- [x] failed tests doublechecked (few and genuine)
-- [x] complete run (nyc-only re-run of the 641 pre-nyc commits completed)
-- [x] complete test failure check
-- [x] complete JEV test failure check
+- [x] failed tests doublechecked
+- [x] complete run (nyc-only re-run of the pre-nyc commits completed)
+- [x] complete test failure check (20288 fingerprints, 100% labeled; 1540/1540 failing runs covered)
+- [x] complete JEV test failure check (dedup-keyword artifact, 760 families, 42 flagged; audit current)
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-10-20 20:57).
+Source: `stats_output/report.txt` (generated 2026-10-21 21:47).
 
 | Metric | Value |
 |---|---|
@@ -61,131 +62,103 @@ Source: `stats_output/report.txt` (generated 2026-10-20 20:57).
 
 Full statistics and plots: [`stats_output/`](stats_output/).
 
-## Known test failures
+Coverage produced (94.9%) is above the 90% inclusion criterion; 786 commits are hard
+errors and 319 are not applicable.
 
-All signatures below stem from the v2 labeling pass on the `min` window
-([`label_analysis/failure_labels_project_min.csv`](label_analysis/failure_labels_project_min.csv),
-20,274 fingerprints, 100% labeled: 18 manual, 20,256 auto). Labels: 6,602
-acceptable, 808 reevaluated_acceptable, 12,864 false_positive — zero
-problematic/unclear. The v1→v2 double-check gate passed (audit trail in
-`label_analysis/v1/flowfuse_v2_doublecheck.md`, gitignored): 94.4% of v1
-rows matched; the 1,672 unmatched rows, 2 label conflicts, and 4
-disagreements are all detection-pass drift with conservative v2 outcomes.
-The independent Jev v2 audit (758 deduped families, one per (suite,
-normalized keyword)) flagged 42 problematic at low confidence (0.50–0.79);
-all 42 were audited against git history and confirmed to be genuine upstream
-developer mistakes or human-confirmed false positives — no pipeline issues.
+## Failure triage
 
-| Signature | Classification | Coverage impact | Action |
-|---|---|---|---|
-| `Cannot read properties of undefined (reading 'map')` — HTTP 500 on `GET /api/v1/projects/:id`, thousands per run (21 runs) | acceptable | none; `nyc` still emits `lcov` (500 vs expected 200), so coverage is valid | None. Genuine repository regression. |
-| `Module not found: Error: Can't resolve '@/pages/Account/index.vue'` — Webpack build failure in `frontend/src/routes/index.js` | acceptable | hard error; `npm run build` aborts, preventing backend test execution across 39 commits | None. Genuine repository regression on Linux (fixed upstream in `da1e8d159`). |
-| `Error: [vite-node] Failed to load @/...` — `test/unit/frontend/` specs (`users`, `team`, `billing`, `nav-item`) | acceptable | none; valid partial frontend coverage emitted, backend coverage valid (exit 1) across 345 runs | None. Genuine repository regression (fixed upstream in `3ca495c698`). |
-| `Cannot find module './stack.js'` — `forge/routes/api/index.js:14` requires a file added only by the next commit | reevaluated_acceptable | none; valid partial coverage, unit exit 1 (8 failing) | None. Genuine upstream broken commit `90460285` (fixed by `7e64532f5`). |
-| `Cannot find module './DeviceGroup'` — `forge/db/views/index.js:18` requires view file added only in subsequent commit `ef462b266` (5 runs) | reevaluated_acceptable | none; valid partial coverage, unit exit 1 | None. Genuine upstream uncommitted file in commit `a825fbee6a` (fixed by `ef462b266`). |
-| `Cannot find module '../../services/product.js'` — `forge/product/index.js` requires service file added in subsequent commit (1 run) | reevaluated_acceptable | none; valid partial coverage, unit exit 1 | None. Genuine upstream uncommitted file in commit `6a4dfd22bc`. |
-| `Invalid module version: v1` / `v2` — `ERROR` from `ProjectTemplate.validateSettings` | reevaluated_acceptable | none; app log during passing negative tests | None. Intentional validation logging (keyword false positive), not a test failure. |
+Source: `python check_failures_v2.py flowfuse --stats` (window `min`, run 2026-10-21)
+and `stats_output/report.txt` (generated 2026-10-21 21:47). Labels:
+[`failure_labels_project_min.csv`](label_analysis/failure_labels_project_min.csv)
+(primary) and [`failure_labels_project_max.csv`](label_analysis/failure_labels_project_max.csv)
+(diagnostic window). These CSVs are the single source of truth; this section
+reports numbers only and does not restate per-family labels.
 
-Root cause of the `map` failure: commit `4e350d4b` ("hide template settings hidden
-env values") added an unguarded
-`project.template.settings.env = project.template.settings.env.map(...)` in
-`forge/routes/api/project.js:94`. The preceding commit `6c27303b` (same day, about
-2.5 hours earlier) lacks this line and throws zero such errors. The project's own
-test fixtures create templates with `settings: {}` (no `env` key), for example
-`test/unit/forge/ee/setup.js` (`template1`),
-`test/unit/forge/db/models/Project_spec.js`, and
-`test/unit/forge/ee/routes/api/pipeline_spec.js`. The `pool-shim.js` SQLite fix is
-inert for this failure (6834 errors pre-shim vs 6840 post-shim). Do not relabel as
-environment.
+| Metric | Value |
+|---|---|
+| Failing runs (`report.txt`) | 1540 |
+| Failing runs (label DB) | 1540 |
+| Fingerprints (min / max) | 20288 / 29056 |
+| Labeled fingerprints | 20288 (100.0%) |
+| Unlabeled fingerprints | 0 |
+| acceptable | 6616 |
+| reevaluated_acceptable | 808 |
+| problematic | 0 |
+| unclear | 0 |
+| false_positive | 12864 |
+| Manual / auto-propagated labels | 32 / 20256 |
+| Labeled detections (min) | 38308/38308 (100.0%) |
+| Labeled runs (min) | 1540/1540 (100.0%) |
+| Jev mode | dedup-keyword |
+| Jev pipeline issues | 42 flagged families |
+| Jev audit | current |
 
-Root cause of the `Account/index.vue` failure: commit `952a7ee3` ("Big rework of ui
-front end (#45)") introduced `import Account from "@/pages/Account/index.vue"` in
-`frontend/src/routes/index.js:3`, whereas the committed directory on disk is
-`frontend/src/pages/account/` (lowercase `a`). On macOS (default APFS/HFS+ case-insensitive
-filesystems), the path resolves without error. On Linux (case-sensitive ext4), Webpack
-fails during `npm run build`. Upstream fixed the defect in commit `da1e8d159` ("Fix case
-of route import"). Spans 39 commits.
+**State:** complete.
 
-Root cause of the Vitest `@` alias failure: commit `c2611a97` ("Add passing API test
-dependent on @/api/client", May 2022) placed `alias: { '@': ... }` at the root level
-of `defineConfig` in `config/vitest.config.ts`. In Vite/Vitest, aliases must be
-nested under `resolve: { alias: { ... } }`. Consequently, Vitest failed to resolve
-`@/` imports in `users.spec.js`, `team.spec.js`, `billing.spec.js`, and `nav-item.spec.js`.
-Upstream resolved this in commit `3ca495c698` ("Update config for @ alias", November
-2022). Spans 345 runs.
+No `problematic` or `unclear` families. The `max` window is built and unlabeled;
+it is a diagnostic window only. The frontend suite anchors on the inline `×` tick
+and on `Error: [vite-node]` lines, while `Failed Tests` summary blocks are excluded
+to avoid double counting and `Failed Suites` blocks are scanned
+([`label_analysis/failure_patterns.json`](label_analysis/failure_patterns.json)).
 
-Root cause of the `DeviceGroup` failure: commit `a825fbee6a` ("Add App Device Groups
-API", Dec 2023) registered `'DeviceGroup'` in `modelTypes` inside `forge/db/views/index.js`,
-but author Stephen McLaughlin forgot to commit `forge/db/views/DeviceGroup.js`. Upstream
-added the missing view file the following day in commit `ef462b266dac` ("Add DeviceGroup db
-view"). Spans 5 runs.
-
-Root cause of the `services/product.js` failure: commit `6a4dfd22bc` introduced an import of
-`../../services/product.js` in `forge/product/index.js` before the service module was
-committed upstream. Spans 1 run.
-
-### Vitest failure triage configuration
-
-In [`label_analysis/failure_patterns.json`](label_analysis/failure_patterns.json), `frontend-unit` (Vitest) uses `exclude_blocks` to eliminate duplicate failure detections. Vitest emits test failures twice: once inline during execution (`× <path> > <test>`) and again in a summary block at the end (`⎯⎯⎯ Failed Tests` … `⎯⎯⎯ [n/n]⎯`).
-
-The configuration:
-- Anchors on the inline failure marker via `add_patterns: ["^\\s*×\\s+"]`.
-- Uses `exclude_blocks` on `frontend-unit` (`start: "[⎯\\u23af-]+\\s*Failed\\s+(?:Tests|Suites)"`, `end: "^\\s*Test Files\\b"`) to suppress the duplicate summary block (`Failed Tests` and `Failed Suites`) and summary footers.
+The 42 Jev-flagged families were audited against git history; no flag traces to the
+pipeline (see [`label_analysis/jev_audit.md`](label_analysis/jev_audit.md)).
 
 ## Environment / setup fixes
 
-- **SQLite `:memory:` connection race.** Symptom: a cascade of
-  `no such table: MetaVersions` / `duplicate column name: editorAffinity` failures
-  yielding 0% coverage or a crash across ~34 commits (April 2025). Root cause:
-  SQLite `:memory:` is per-connection, so pooled connections see different empty
-  databases; `init()` creates `MetaVersion` on one connection while
-  `checkPendingMigrations` queries it on another, re-applying migrations. Fix:
-  `projects/flowfuse/pool-shim.js`, injected via
-  `NODE_OPTIONS="--require /coverage_reloaded/pool-shim.js"`. It force-injects
-  `pool: { max: 1, min: 1 }` into any Sequelize constructor configured with
-  `storage: ':memory:'`, giving each app a single isolated in-memory connection.
-  Whitelisted in `.dockerignore` (`!pool-shim.js`) and copied by the Dockerfile.
-- **`sqlite3` native module (build from source).** Symptom: two native-module
-  failure families in the forge backend, both crashing `forge_unit`/`system`
-  (exit 100/255/12): `Could not locate the bindings file` (prebuilt `sqlite3`
-  `.node` addon absent for the installed Node ABI, Node 20 era, 6 commits) and
-  `GLIBC_2.33 not found` (prebuilt addon built against a newer glibc than the
-  bullseye base image, glibc 2.31, Node 16 era, 3 commits). Root cause:
-  `npm rebuild sqlite3` re-ran `node-pre-gyp` and re-downloaded an incompatible
-  prebuilt binary. Fix: when `require('sqlite3')` fails to load, run
-  `npm_config_build_from_source=true npm rebuild sqlite3`. The check is
-  conditional, so already-working runs are not recompiled. Status: fix applied
-  and verified on the 3 GLIBC and 6 bindings commits; the corresponding
-  `problematic` auto-rules are retained in
-  [`label_analysis/failure_patterns.json`](label_analysis/failure_patterns.json).
-- **Git submodules for `file:sub_modules/` dependencies.** Symptom: `npm install`
-  failing with `npm ERR! code ENOLOCAL: Could not install from "sub_modules/flowforge-driver-localfs"`
-  across 174 historical commits (late 2021 / early 2022). Root cause: `package.json`
-  declared local dependencies pointing to Git submodules tracked in `.gitmodules`,
-  but `execute.sh` does not run submodule updates on checkout. Fix: conditionally
-  execute `git submodule update --init` before `npm install` in `install-and-run.sh`
-  when `.gitmodules` exists and `package.json` declares `file:sub_modules/` dependencies.
+- **SQLite `:memory:` connection race (`pool-shim`).** Symptom: cascades of
+  `no such table: MetaVersions` / `duplicate column name: editorAffinity` and 0%
+  coverage or crashes. Root cause: SQLite `:memory:` is per-connection, so pooled
+  connections see different empty databases and migrations are re-applied. Fix:
+  `pool-shim.js` force-injects `pool: { max: 1, min: 1 }` into any Sequelize
+  constructor using `storage: ':memory:'`; loaded via `NODE_OPTIONS` in
+  [`install-and-run.sh`](install-and-run.sh) and copied by the
+  [`Dockerfile`](Dockerfile). Logs: [`archive/pool-shim/`](archive/pool-shim/).
+- **`sqlite3` native module built from source.** Symptom: `Could not locate the
+  bindings file` and `GLIBC_2.33 not found` crashes in the forge and system suites.
+  Root cause: `npm rebuild sqlite3` re-downloaded a prebuilt addon incompatible with
+  the installed Node ABI or the image glibc. Fix: when `require('sqlite3')` fails to
+  load, run `npm_config_build_from_source=true npm rebuild sqlite3` in
+  [`install-and-run.sh`](install-and-run.sh). Logs:
+  [`archive/bindings/`](archive/bindings/),
+  [`archive/pre_glibc_fix/`](archive/pre_glibc_fix/).
+- **Git submodules for `file:sub_modules/` dependencies.** Symptom: `npm ERR! code
+  ENOLOCAL: Could not install from "sub_modules/flowforge-driver-localfs"`. Root
+  cause: `package.json` declared local dependencies pointing at Git submodules that
+  `execute.sh` does not initialize. Fix: run `git submodule update --init` before
+  `npm install` when `.gitmodules` exists and `package.json` declares
+  `file:sub_modules/` dependencies ([`install-and-run.sh`](install-and-run.sh)).
+  Logs: [`archive/fix_submodules/`](archive/fix_submodules/).
 - **Cypress binary download bypass.** Symptom: `npm install` failing with
-  `npm error [FAILED] Error: getaddrinfo EAI_AGAIN download.cypress.io` across 111 commits.
-  Root cause: Cypress postinstall attempts to download desktop binaries from an
-  external domain blocked in the sandbox. Fix: `export CYPRESS_INSTALL_BINARY=0` in
-  `install-and-run.sh`. (E2E Cypress suite is excluded from coverage collection).
-- **Version-matched Vitest coverage provider.** Symptom: `test:unit:frontend` crashing
-  with `Cannot find module 'vitest/coverage'` and failing hard with no `lcov.info`
-  across ~295 commits. Root cause: `install-and-run.sh` installed an unversioned
-  `@vitest/coverage-v8`, which was incompatible with Vitest `< 0.32` (which required
-  `@vitest/coverage-c8` with an exact version match). Fix: detect installed Vitest
-  version and conditionally install `@vitest/coverage-c8@$VERSION` (< 0.32) or
-  `@vitest/coverage-v8@$VERSION` (≥ 0.32) only when no coverage provider is present.
+  `getaddrinfo EAI_AGAIN download.cypress.io`. Root cause: the Cypress postinstall
+  downloads desktop binaries from a blocked external domain. Fix:
+  `CYPRESS_INSTALL_BINARY=0` in [`install-and-run.sh`](install-and-run.sh). Logs:
+  [`archive/fix_cypress_download/`](archive/fix_cypress_download/).
+- **Version-matched Vitest coverage provider.** Symptom: `test:unit:frontend`
+  crashing with `Cannot find module 'vitest/coverage'` and no `lcov.info`. Root
+  cause: an unversioned provider is incompatible with Vitest `< 0.32`, which
+  requires `@vitest/coverage-c8` at an exact version. Fix:
+  [`install-and-run.sh`](install-and-run.sh) installs `@vitest/coverage-c8@$VERSION`
+  (< 0.32) or `@vitest/coverage-v8@$VERSION` (≥ 0.32) only when no provider is
+  present. Logs: [`archive/fix_vitest_dependency/`](archive/fix_vitest_dependency/).
+
+The `archive/` folders hold the archived logs and outputs only; none contains a
+`README.md`.
 
 ## Known gaps
 
 - **Committed focus markers (`.only`).** 81 collected commits contain a
   `describe.only`/`it.only` in a collected suite (`test/unit/` or `test/system/`;
   40 distinct spec files, 2022-09 → 2025-12). The forge suite runs under mocha,
-  whose `.only` is run-global: it would run only the marked subset and emit a
-  valid-looking but unrepresentative `lcov`, so these commits are marked
-  not-applicable by `na_if_focus_marker --runner mocha --runner vitest` (see
-  [`STUDY_DECISIONS.md`](../../STUDY_DECISIONS.md) §2). The 79 that previously
-  recorded subset coverage were re-run; the 2 that were hard errors were
-  reclassified.
+  whose `.only` is run-global and would emit a valid-looking but unrepresentative
+  `lcov`, so these commits are marked not-applicable by
+  `na_if_focus_marker --runner mocha --runner vitest test/unit test/system` (see
+  [`STUDY_DECISIONS.md`](../../STUDY_DECISIONS.md) §2). The 79 commits that previously
+  recorded subset coverage were re-run and the 2 hard errors were reclassified
+  ([`archive/reclassify_only/`](archive/reclassify_only/)).
+- **Excluded suites.** The Cypress end-to-end suite under `test/e2e` and the
+  documentation tests are not collected; Cypress is still installed with
+  `CYPRESS_INSTALL_BINARY=0`.
+- **Lint-gated `test` script.** On the early `unit` suite, `npm run test` runs
+  `npm run lint && mocha`, so a commit with lint errors fails the suite before any
+  test executes.

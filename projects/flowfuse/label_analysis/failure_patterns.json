@@ -4,6 +4,7 @@
       "FAIL\\s",
       "\u2715",
       "\u2717",
+      "\u2716",
       "\u25cf",
       "\\bAssertionError",
       "Error:",
@@ -23,24 +24,30 @@
   "suites": {
     "coverage_frontend_frontend_unit": {
       "add_patterns": [
-        "^\\s*×\\s+"
+        "^\\s*\u00d7\\s+"
       ],
       "exclude_blocks": [
         {
-          "start": "[⎯\\u23af-]+\\s*Failed\\s+(?:Tests|Suites)",
+          "start": "[\u23af-]+\\s*Failed\\s+Tests",
           "end": "^\\s*Test Files\\b"
         }
+      ],
+      "remove_patterns": [
+        "FAIL\\s"
       ]
     },
     "frontend-unit": {
       "add_patterns": [
-        "^\\s*×\\s+"
+        "^\\s*\u00d7\\s+"
       ],
       "exclude_blocks": [
         {
-          "start": "[⎯\\u23af-]+\\s*Failed\\s+(?:Tests|Suites)",
+          "start": "[\u23af-]+\\s*Failed\\s+Tests",
           "end": "^\\s*Test Files\\b"
         }
+      ],
+      "remove_patterns": [
+        "FAIL\\s"
       ]
     }
   },
