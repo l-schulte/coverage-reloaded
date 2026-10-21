@@ -1,6 +1,6 @@
 ---
 name: jev-failure-analysis
-description: Analyze, audit, and triage failure classifications from the Jev automated labeler (failure_labels_jev_min.csv via check_failures_jev_v2.py). Cross-references Jev's independent decisions against git history, human labels, and project OVERVIEW.md to differentiate true pipeline bugs from commit-era regressions, then translates confirmed pipeline issues into actionable runner/Dockerfile fixes.
+description: Analyze, audit, and triage failure classifications from the Jev automated labeler (failure_labels_jev_min.csv via check_failures_jev_v2.py). Cross-references Jev's independent decisions against git history and human labels to differentiate true pipeline bugs from commit-era regressions, writes the audit artifact `projects/<p>/label_analysis/jev_audit.md`, and translates confirmed pipeline issues into actionable runner/Dockerfile fixes.
 license: MIT
 metadata:
   audience: developers
@@ -15,6 +15,7 @@ Jev evaluates failures statelessly as an uncorrupted second opinion. My job in a
 1. **Audit Jev's `problematic` verdicts** against the project's git history to perform **causal attribution** (differentiating our pipeline bugs from commit-era developer mistakes).
 2. **Cross-reference discrepancies** between Jev's verdicts and human labels in `projects/<p>/label_analysis/failure_labels_project_min.csv`.
 3. **Synthesize confirmed pipeline failures into actionable work orders** for `install-and-run.sh` or the `Dockerfile` to recover commits toward the $\ge 90\%$ coverage inclusion criterion.
+4. **Record the audit** in `projects/<p>/label_analysis/jev_audit.md` so the result is reviewable without re-reading logs, and so `maintain-project-overviews` can cite it.
 
 ---
 
@@ -29,7 +30,8 @@ Jev evaluates failures statelessly as an uncorrupted second opinion. My job in a
   - Routes either through Eden AI (`EDENAI_API_KEY` from `.env`, endpoint `POST /v3/alpha/decisions`, model `typesafe/jev-latest`) or direct TypeSafe (`TYPESAFE_API_KEY`).
   - Reuses the v2 fingerprints and SQLite sidecar (`projects/<p>/label_analysis/failure_labels_v2.db`), **never writes the human label CSVs**, and prints the number of items before spending API tokens. `--dry-run` never calls the API; `--yes` skips the confirmation (use only when the count is already known).
 - **Run logs:** `projects/<p>/logs/<run_id>.log` (where `run_id = <timestamp>_<commit_hash>`).
-- **Project overviews:** `projects/<p>/OVERVIEW.md` (documents known failures and historical setup fixes).
+- **Audit output (written by this skill):** `projects/<p>/label_analysis/jev_audit.md`. This is the durable record of the audit and the evidence behind the "complete JEV test failure check" checklist item. The per-project `OVERVIEW.md` links to it; the overview never restates the audit.
+- **Project overviews:** `projects/<p>/OVERVIEW.md` (links to the audit and the label CSVs; it does not carry the Jev findings themselves).
 
 Retired v1 artifacts (`failure_labels_jev.csv`, `failure_labels_project.csv`) may still sit at the project root or under `label_analysis/v1/`. They are reference only; disclose them in-session if they influence anything, and never treat them as the current Jev output.
 
@@ -76,6 +78,62 @@ When Jev identifies a confirmed pipeline defect, map it to one of these proven p
 | `runner_env_config` | SQLite in-memory isolation, testTimeout ignored by runner | `flowfuse`: Inject `pool-shim.js` to isolate SQLite `:memory:` connections. `uwazi`: Inject `jest.setTimeout(60000)` into Jest setup. |
 
 ---
+
+## Output artifact — `label_analysis/jev_audit.md`
+
+Write this file at the end of the audit (Phase 3). It is the durable evidence for
+the "complete JEV test failure check" checklist item in
+`projects/<p>/OVERVIEW.md`; the overview links to it and never restates it.
+
+Rules:
+
+- Record both snapshots so staleness is detectable: the Jev CSV (`labeled_at`
+  maximum, total fingerprints, flagged count) and the human label CSV it was
+  joined against (`labeled_at` maximum, fingerprint count).
+- Before auditing, confirm the Jev CSV and `failure_labels_project_min.csv` cover
+  the same fingerprint set. A mismatch means the Jev snapshot predates a re-label;
+  regenerate it with `check_failures_jev_v2.py` (ask first — it spends API
+  tokens) and audit the fresh file.
+- Cover every flagged fingerprint, grouped by root-cause family. State the
+  verdict (`upstream defect`, `pipeline defect`, `unclear`) and the evidence
+  (commit hashes, follow-up fix commit, log signature).
+- Record the label outcome: which fingerprints remain `acceptable`, which were
+  reclassified `reevaluated_acceptable`, and which stay `problematic` with a work
+  order.
+- When there are zero flagged fingerprints, still write the file with the
+  snapshot metadata and `No flagged fingerprints.`
+- Re-write the file whenever the Jev CSV changes (new `labeled_at`, fingerprint
+  count, or flagged count). An audit whose snapshot metadata no longer matches
+  the CSV is outdated and does not satisfy the checklist.
+- When no Jev CSV exists, do not write the file; report `n/a (no Jev file)`.
+
+Template:
+
+```markdown
+# Jev audit — <project>
+
+**Source:** `label_analysis/failure_labels_jev_min.csv`
+**Snapshot:** Jev `labeled_at` max `<ISO>`; fingerprints `<n>`; flagged
+`is_pipeline_issue == True` `<n>` (`<env_subsystem>`: `<n>`, ...)
+**Human labels:** `label_analysis/failure_labels_project_min.csv` (`labeled_at` max
+`<ISO>`; fingerprints `<n>`)
+
+## Flagged fingerprints
+
+| Family | Date / exemplar run | Fingerprints | env_subsystem | Finding | Verdict |
+|---|---|---|---|---|---|
+| <root cause> | <date> `<hash>` | <n> | <subsystem> | <commit / follow-up fix / log signature> | <upstream defect / pipeline defect / unclear> |
+
+## Conclusion
+
+<Number of confirmed pipeline defects and number of commit-era upstream defects.
+If zero: no Jev flag traces to the container, harness, or registry mirror.>
+
+## Label outcome
+
+<Remaining `acceptable`: <n>. Reclassified `reevaluated_acceptable`: <n>.
+Remaining `problematic`: <n> (link the work order).>
+```
 
 ## Phased Triage Protocol
 
@@ -127,9 +185,9 @@ Wait for user input before moving forward.
 
 ### Phase 3 — Actionable Work Order Formulation & Label Adjustments
 For confirmed pipeline defects or agreed-upon label updates:
-1. **Label adjustments:** Jev labels and human labels are separate artifacts; propose the exact change and apply it only on the user's approval — human labels go through `check_failures_v2.py` (interactive keys / `--review`), Jev labels are regenerated with `check_failures_jev_v2.py`. Note the result in `projects/<p>/OVERVIEW.md` where the checklist expects it.
+1. **Label adjustments:** Jev labels and human labels are separate artifacts; propose the exact change and apply it only on the user's approval — human labels go through `check_failures_v2.py` (interactive keys / `--review`), Jev labels are regenerated with `check_failures_jev_v2.py`. Then **write or refresh `label_analysis/jev_audit.md`** with the snapshot metadata and findings (template above). The per-project `OVERVIEW.md` links to that file; do not paste the findings into the overview.
 2. **Work orders:** for confirmed pipeline defects, formulate a minimal, commit-era-aware recommendation for `install-and-run.sh` or `Dockerfile`.
    - Follow `AGENTS.md §6`: never apply unconditional global changes that risk breaking working historical eras; branch conditionally on package manager, detected files at checkout, or Node engine versions.
 3. Output the prioritized fix order based on the number of commits recovered (union runs), never a summed occurrence count.
 
-**Off-limits** (same as the `labeled-failure-analysis` skill): static analysis only — no container launches, no edits to `install-and-run.sh`, `Dockerfile`, `failure_patterns.json`, or shared scripts without explicit permission; lead with a 3-sentence summary and one concrete verification step.
+**Off-limits** (same as the `labeled-failure-analysis` skill): static analysis only — no container launches, no edits to `install-and-run.sh`, `Dockerfile`, `failure_patterns.json`, or shared scripts without explicit permission; the only file this skill writes is `label_analysis/jev_audit.md` (label CSVs are changed through the tools above). Lead with a 3-sentence summary and one concrete verification step.

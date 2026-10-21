@@ -1,6 +1,6 @@
 ---
 name: maintain-project-overviews
-description: Create and update the two-level coverage-collection documentation (root OVERVIEW.md index with a checklist-only status table + projects/<p>/OVERVIEW.md per active project). Enforces a fixed template and technical-English style, sources results from stats_output/report.txt (regenerated fresh via `stats.py --report-only` on every invocation), condenses known failures with classification and links. Active projects only. Draft-and-confirm only.
+description: Create and update the two-level coverage-collection documentation (root OVERVIEW.md index with a checklist-only status table + projects/<p>/OVERVIEW.md per active project). Enforces a fixed template and technical-English style. Sources results from stats_output/report.txt (regenerated fresh via `stats.py --report-only` on every invocation) and failure-triage numbers from the v2 label CSVs (regenerated fresh via `check_failures_v2.py --stats`). Never duplicates per-family failure labels. Active projects only. Draft-and-confirm only.
 license: MIT
 metadata:
   audience: developers
@@ -33,6 +33,10 @@ wait for explicit approval before writing anything to disk.
   in git history); `projects/OVERVIEW.md` is now only a pointer stub.
 - The per-project file is the single source of detail. The root file never
   duplicates project detail; it links to it.
+- Failure labels live only in `projects/<p>/label_analysis/failure_labels_project_min.csv`
+  and `..._max.csv`. The per-project `## Failure triage` section reports aggregate
+  numbers and, only when non-zero, the `problematic`/`unclear` families. It never
+  restates `acceptable`/`reevaluated_acceptable` labels.
 - The canonical per-project template lives **only in this skill**. The root
   `OVERVIEW.md` maintenance section points readers here.
 
@@ -49,20 +53,23 @@ Never invent values. Every number must be traceable to one of these files:
   reading it; this rewrites `report.txt` from the current `output/` state and
   deletes any stale plots.
 - `projects/<p>/stats_output/` — CSVs and plots; link to the directory.
-- `projects/<p>/label_analysis/failure_labels_project_min.csv` — the primary
-  failure-label file (one row per `fp_min` fingerprint, columns include `label`,
-  `n_runs`, `auto_rule_id`, `first_run`/`last_run`).
-  `failure_labels_project_max.csv` is the diagnostic window. For a project not
-  yet migrated to the v2 toolchain the same data lives at
-  `projects/<p>/failure_labels_project.csv`.
-- `projects/<p>/label_analysis/<p>_min.jsonl` — family cards written by
-  `check_failures_v2.py <p> --window min --analyze`; use these for
-  family/roll-up tables (label, union `n_runs`, `n_variants`, suites, block).
-  On unmigrated projects fall back to
-  `projects/<p>/failure_labels_collapsed_problematic_unclear.csv`.
+- `projects/<p>/label_analysis/failure_labels_project_min.csv` — **the single
+  source of truth for failure labels**: one row per `fp_min` fingerprint, with
+  `label`, `n_runs`, `auto_rule_id`, `first_run`/`last_run`, `keyword`, and
+  `block`. `failure_labels_project_max.csv` is the diagnostic window. Regenerate
+  the aggregate numbers fresh on every invocation with
+  `python check_failures_v2.py <p> --stats` (read-only, backed by
+  `label_analysis/failure_labels_v2.db`) before reading either CSV. Legacy v1
+  artifacts (`failure_labels_project.csv`, `failure_labels_collapsed_*.csv`,
+  `label_analysis/v1/`) are **not** read.
 - `projects/<p>/label_analysis/failure_labels_jev_min.csv` — automated System 1
-  failure classifications from `check_failures_jev_v2.py` (unmigrated projects:
-  root `failure_labels_jev.csv` from the retired `archive/check_failures_jev.py`).
+  failure classifications from `check_failures_jev_v2.py`. Only rows with
+  `is_pipeline_issue == True` are counted in the triage table.
+- `projects/<p>/label_analysis/jev_audit.md` — the Jev audit written by the
+  `jev-failure-analysis` skill. Its `Snapshot` line records the `labeled_at`
+  maximum and the fingerprint/flagged counts used to detect staleness. This is
+  the only place Jev findings are written; the overview links to it and reports
+  the `Jev audit` state.
 - `projects/<p>/install-and-run.sh` and `projects/<p>/command_changes.csv` —
   suite names, runners, and era transitions.
 - `projects/<p>/repo` git history — first-parent parent count, PR syntax patterns,
@@ -126,17 +133,50 @@ Source: `stats_output/report.txt` (generated <date>).
 
 Full statistics and plots: [`stats_output/`](stats_output/).
 
-## Known test failures
+## Failure triage
 
-<One table per classification group, or a single table with a Classification
-column. Keep each row to signature → classification → coverage impact → action.
-Link to `logs/`, `label_analysis/failure_labels_project_min.csv`, or the family
-cards `label_analysis/<p>_min.jsonl` for depth (unmigrated project: the root
-label CSV or the collapsed CSV).>
+Source: `python check_failures_v2.py <p> --stats` (window `min`, run <date>) and
+`stats_output/report.txt` (generated <date>). Labels:
+[`failure_labels_project_min.csv`](label_analysis/failure_labels_project_min.csv)
+(primary) and [`failure_labels_project_max.csv`](label_analysis/failure_labels_project_max.csv)
+(diagnostic window). These CSVs are the single source of truth; this section
+reports numbers only and does not restate per-family labels.
+
+| Metric | Value |
+|---|---|
+| Failing runs (`report.txt`) | <n> |
+| Failing runs (label DB) | <n> (`failing runs` line) |
+| Fingerprints (min / max) | <n> / <n> |
+| Labeled fingerprints | <n> (<pct>%) |
+| Unlabeled fingerprints | <n> |
+| acceptable | <n> |
+| reevaluated_acceptable | <n> |
+| problematic | <n> |
+| unclear | <n> |
+| false_positive | <n> |
+| Manual / auto-propagated labels | <n> / <n> |
+| Labeled detections (min) | <n>/<n> (<pct>%) |
+| Labeled runs (min) | <n>/<n> (<pct>%) |
+| Jev pipeline issues | <n> or `n/a (no Jev file)` |
+| Jev audit | <current / outdated / missing / n/a> |
+
+**State:** <complete | in progress | stale | not started>.
+
+<Only when `problematic` or `unclear` is non-zero: one table of those families
+(label → suite → signature → fingerprint → first/last run → `n_runs`), sourced
+from `failure_labels_project_min.csv`. No row for `acceptable` or
+`reevaluated_acceptable` families.>
+
+<When the label DB and `report.txt` disagree on the failing-run count, name both
+numbers, set State to `stale`, and give the re-label command. Do not reconstruct
+a narrative from logs.>
 
 ## Environment / setup fixes
 
-<Conditional fixes applied in install-and-run.sh / Dockerfile, or "None.">
+<Applied pipeline changes only: fix name, files changed (install-and-run.sh,
+Dockerfile, patch-*.js), and a link to `archive/<fix>/README.md`. Record counts
+only as stated by that README; do not re-derive run counts, timeout breakdowns, or
+per-family signatures. Those belong to the label CSVs and logs.>
 
 ## Known gaps
 
@@ -165,7 +205,7 @@ Checklist items (see `AGENTS.md`):
 - **failed tests doublechecked** — non-zero-exit runs were inspected and classified.
 - **complete run** — the full commit history has been processed.
 - **complete test failure check** — every failing run has been labeled and assessed.
-- **complete JEV test failure check** — automated System 1 labeling via Jev (`label_analysis/failure_labels_jev_min.csv`, produced by `check_failures_jev_v2.py`; unmigrated project: root `failure_labels_jev.csv`) evaluated failing runs. A project is considered done (`✅`) if that Jev file contains zero problematic (`is_pipeline_issue == True`) labels, or if all flagged problematic labels have been audited against git history and confirmed to be genuine upstream developer mistakes (as documented in `OVERVIEW.md`). It is in progress (`🟡`) if the Jev file exists with unaudited problematic labels, and not done (`❌`) if no Jev file exists.
+- **complete JEV test failure check** — automated System 1 labeling via Jev (`label_analysis/failure_labels_jev_min.csv`, produced by `check_failures_jev_v2.py`) evaluated failing runs. A project is done (`✅`) when the Jev CSV exists and either it has zero `is_pipeline_issue == True` labels, or `label_analysis/jev_audit.md` is `current` (its `Snapshot` matches both the Jev CSV and `failure_labels_project_min.csv`) and attributes every flagged fingerprint (upstream defect, pipeline defect, or unclear). The audit records the evidence and the label outcome. In progress (`🟡`) if the CSV exists but the audit is `missing`/`outdated` or a flagged family is unattributed; not done (`❌`) if no Jev CSV exists.
 
 Status symbols (used in the root status table and the per-project checklist):
 
@@ -193,18 +233,47 @@ Failure labels (`label_analysis/failure_labels_project_min.csv`):
   Environment/setup artifacts remain labeled `problematic` even after fixes are
   applied so regressions continue to surface.
 
+Failure triage state (`## Failure triage`):
+
+- `complete` — 100% of fingerprints and detections are labeled, and the label DB
+  failing-run count equals `stats_output/report.txt`.
+- `in progress` — unlabeled fingerprints or detections remain, and the counts
+  agree.
+- `stale` — the label DB failing-run count differs from `stats_output/report.txt`.
+  The label snapshot predates the current `output/`; this takes precedence over
+  `complete` and `in progress`.
+- `not started` — `label_analysis/failure_labels_project_min.csv` does not exist.
+  Report the failing-run count from `stats_output/report.txt` only. Never fall
+  back to legacy v1 label files.
+
+`problematic` and `unclear` counts are reported in the table as open issues; they
+do not change the state by themselves. A project with 100% labeled runs and
+non-zero `problematic` is still `complete` (the artifact remains visible so
+regressions surface).
+
+Jev audit state (`Jev audit` row):
+
+- `current` — `label_analysis/jev_audit.md` exists and its `Snapshot` line matches
+  both current CSVs: the Jev `labeled_at` maximum, fingerprint count, and flagged
+  count, plus the human CSV `labeled_at` maximum and fingerprint count.
+- `outdated` — the file exists but either snapshot differs; re-run the Jev audit
+  (and regenerate the Jev CSV first when its fingerprint set differs from
+  `failure_labels_project_min.csv`).
+- `missing` — the Jev CSV has flagged fingerprints but no audit file.
+- `n/a` — no `label_analysis/failure_labels_jev_min.csv`.
+
 ## Protocol
 
 ### Phase 0 — Inventory
 
 1. Read `config.json` and the active-project list from the root `OVERVIEW.md`.
 2. Build the active set (exclude `sentry-javascript`). For each project, record
-   whether `stats_output/report.txt`, the primary label CSV
-   (`label_analysis/failure_labels_project_min.csv`, else root
-   `failure_labels_project.csv`), and the Jev CSV
-   (`label_analysis/failure_labels_jev_min.csv`, else root
-   `failure_labels_jev.csv`) exist. Record the family cards
-   (`label_analysis/<p>_min.jsonl`) as a bonus source when present.
+   whether `stats_output/report.txt`, `label_analysis/failure_labels_project_min.csv`,
+   `label_analysis/failure_labels_project_max.csv`,
+   `label_analysis/failure_labels_v2.db`, and
+   `label_analysis/failure_labels_jev_min.csv` exist, plus whether
+   `label_analysis/jev_audit.md` exists. A project without the v2
+   label artifacts is recorded as `not started`; do not inspect legacy v1 files.
 3. Checkpoint: present the active set and the per-project source availability.
 
 ### Phase 1 — Per-project drafts
@@ -215,17 +284,37 @@ For each active project, build the file from the template:
 2. **Preserve or populate `## Development style`:**
    - **Do NOT re-analyze development style on routine maintenance invocations.** If `## Development style` is already present in `projects/<p>/OVERVIEW.md`, preserve it as-is.
    - Only perform the git log analysis (first-parent parent count, PR syntax patterns, direct commit JS/TS impact, issue reference rate) when creating a new project overview for the first time or when explicitly requested by the user.
-3. Condense Known Test Failures into signature → classification → coverage impact
-   → action rows; link to logs/CSV instead of embedding long narratives.
-4. Checkpoint: ask whether to trace back each documented known failure against the
-   most recent logs to confirm it still exists. If the user opts in, inspect
-   `projects/<p>/logs/` for each signature and keep, update, or drop rows based on
-   the latest evidence.
-5. Regenerate `stats_output/report.txt` by running `python stats.py <p> --report-only`
+3. Regenerate `stats_output/report.txt` by running `python stats.py <p> --report-only`
    (fresh numbers from the current `output/` state; stale plots are deleted).
    Then pull Results from it. If the command fails, write
    `Results: pending (no stats_output)`.
-6. Link to `config.json` for configuration; do not copy JSON.
+4. **Build `## Failure triage` from the v2 label source.**
+   - Run `python check_failures_v2.py <p> --stats` fresh and take every label
+     number from its output (`failing runs`, `fingerprints`, `labeled`,
+     `labels`, `coverage`). Do not hand-count CSV rows and do not read legacy
+     v1 files; ignore the `v1 reference` line.
+   - Compare the label DB failing-run count with `Failing runs` from
+     `report.txt`; when they differ, set State to `stale` and name the re-label
+     command in one sentence.
+   - Add a per-family table **only** when `problematic` or `unclear` is non-zero.
+     Source those rows from `label_analysis/failure_labels_project_min.csv`
+     (label, suite, signature, fingerprint, first/last run, `n_runs`). Never list
+     `acceptable` or `reevaluated_acceptable` families.
+   - Count `Jev pipeline issues` directly from
+     `label_analysis/failure_labels_jev_min.csv` (`is_pipeline_issue == True`);
+     write `n/a (no Jev file)` when the file is absent.
+   - Set the `Jev audit` row from `label_analysis/jev_audit.md`: `current` when
+     its `Snapshot` line matches both current CSVs (Jev and human `labeled_at`
+     maxima, fingerprint counts, flagged count), `outdated` when it differs,
+     `missing` when flags exist without a file, `n/a` when no Jev CSV exists. If
+     the Jev CSV fingerprint set differs from `failure_labels_project_min.csv`,
+     the Jev snapshot predates a re-label: regenerate it (ask first) and audit
+     the fresh file. If the audit is `missing` or `outdated`, perform the audit
+     following the `jev-failure-analysis` skill (Phases 1–3) or ask the user to;
+     do not mark the JEV checklist item `✅` until the audit is `current`.
+   - If the v2 artifacts are absent, write `State: not started` and the
+     `report.txt` failing-run count only.
+5. Link to `config.json` for configuration; do not copy JSON.
 
 ### Phase 2 — Root index
 
@@ -242,6 +331,18 @@ and the maintenance section pointing at this skill.
 - Root table row count equals the active-project count.
 - Root table carries no numeric results (commits, coverage %, hard errors, dates).
 - Every checklist cell is `✅`, `🟡`, `🚧`, `🆘`, or `❌`, taken from the per-project file.
+- Every `## Failure triage` table was regenerated on this invocation from
+  `check_failures_v2.py --stats` and `stats_output/report.txt`.
+- No `## Failure triage` section lists `acceptable` or `reevaluated_acceptable`
+  families; only aggregate counts and, when non-zero, `problematic`/`unclear`
+  families appear.
+- Every triage `State` matches its numbers (`stale` whenever the label DB and
+  `report.txt` failing-run counts differ, `not started` whenever the v2 label
+  artifacts are absent).
+- `Jev audit` is `current` (or `n/a`) whenever the JEV checklist item is `✅`, and
+  the audit `Snapshot` matches both the current `failure_labels_jev_min.csv` and
+  `failure_labels_project_min.csv`.
+- No legacy v1 label artifact is linked or cited.
 - All relative links resolve on disk.
 - No `config.json` JSON block is duplicated.
 - Style guide is respected.
@@ -261,7 +362,18 @@ user explicitly approves.** On approval:
 - **Active projects only.** Do not document, edit, or move projects under
   `archive/`.
 - **Never fabricate numbers.** Every value cites `stats_output/report.txt` or the
-  source CSV.
+  output of `check_failures_v2.py <p> --stats` (for label counts).
+- **The v2 label CSVs are the single source of truth for failure labels.** Never
+  restate `acceptable`/`reevaluated_acceptable` families in an overview; list only
+  `problematic`/`unclear` families, and only as pointers. Do not re-derive counts
+  from logs or from old narratives in `## Environment / setup fixes`.
+- **No v1 fallbacks.** A project without `label_analysis/failure_labels_project_min.csv`
+  is reported as `State: not started`. Never read `failure_labels_project.csv`,
+  `failure_labels_collapsed_*.csv`, or `label_analysis/v1/`.
+- **Jev findings live only in `label_analysis/jev_audit.md`.** The overview reports
+  the `Jev audit` state and links to the file; it never restates the audit's
+  per-family findings. If the audit is `missing`/`outdated`, the JEV checklist
+  item cannot be `✅`.
 - **Root status table is checklist-only.** It never carries numeric results
   (commits, coverage %, hard errors, dates); those live in the per-project
   Results sections.

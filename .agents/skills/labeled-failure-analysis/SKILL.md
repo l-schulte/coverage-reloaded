@@ -15,6 +15,9 @@ I consume the failures you already labeled with `check_failures_v2.py` and re-as
 - **actually acceptable** — a genuine dev-facing test failure you mislabeled (the developer of that era would have seen it too), or
 - **genuinely unclear** — still ambiguous after best static effort.
 
+> [!IMPORTANT]
+> **Scope:** We ONLY care about `unclear` and `problematic` failures here. `acceptable` and `false_positive` are already settled/final labels and do NOT need to be listed, reviewed, or re-assessed.
+
 For families that are really problematic, I recommend a fix. Every fix must be **commit-era-aware**: it applies conditionally across the commit range, tolerates evolutionary drift (different behavior in different eras), and must NOT break the other ~thousands of commits. I do not edit files — I only recommend.
 
 ## Context
@@ -85,12 +88,13 @@ A project may still carry artifacts from the retired v1 toolchain (`archive/chec
 `unclear` and `problematic` are **starting** labels. Assessment must resolve them
 to a final label — never leave a family as `unclear` after it has been assessed.
 
-- **Transition model.** After assessing a family, apply exactly one transition:
+- **Transition model.** Only `unclear` and `problematic` are subject to assessment.
+  `acceptable` and `false_positive` are final labels, out of scope, and omitted from listings.
+  After assessing a family, apply exactly one transition:
   - `unclear` + genuinely problematic (setup artifact) → `problematic`
   - `unclear` + genuinely dev-facing → `reevaluated_acceptable`
   - `problematic` + genuinely dev-facing → `reevaluated_acceptable`
   - `problematic` + confirmed setup artifact → stays `problematic`
-  `acceptable` and `false_positive` are final labels and do not transition.
 - **Apply it everywhere.** The resolved label is written both to the matching rows
   in `failure_labels_project_min.csv` AND to the `auto_classify` rule that matches
   the error body in `failure_patterns.json`. A rule must not stay `unclear`/`problematic`
@@ -157,9 +161,12 @@ Bounded scope: get the data ready, no assessment yet.
    v1 labels exist.
 5. **Rule-level rollup** (replaces v1's `collapse_labels.py`; read-only, from the
    JSONL cards + the DB + `failure_patterns.json`):
+   **Filter strictly for `unclear` and `problematic`**: we only care about actionable
+   unresolved labels here. Groups that are purely `acceptable` or `false_positive`
+   do NOT need to be listed.
 
    ```python
-   # python3 - — rule rollup for window=min
+   # python3 - — rule rollup for window=min (unclear & problematic only)
    import json, sqlite3, collections
    p = "<project>"; an = f"projects/{p}/label_analysis"
    cards = [json.loads(l) for l in open(f"{an}/{p}_min.jsonl")]
@@ -178,11 +185,14 @@ Bounded scope: get the data ready, no assessment yet.
    for c in cards:
        groups[c["auto_rule_id"] or "(manual)"].append(c)
    for rid, g in sorted(groups.items(), key=lambda kv: -union([c["fingerprint"] for c in kv[1]])):
+       labels = dict(collections.Counter(c['label'] for c in g))
+       if not ('unclear' in labels or 'problematic' in labels):
+           continue
        rule = rules.get(rid, {})
        print(f"{rid:<24} {rule.get('match', '-'):40.40} {rule.get('label', '-'):<26}"
              f" {len(g):>4} fp  {union([c['fingerprint'] for c in g]):>5} runs  "
              f"{min(c['first_run'] for c in g)}..{max(c['last_run'] for c in g)}  "
-             f"{dict(collections.Counter(c['label'] for c in g))}")
+             f"{labels}")
    ```
 
    Caveats to state when using it: `auto_rule_id` is **label provenance**, not
@@ -192,13 +202,13 @@ Bounded scope: get the data ready, no assessment yet.
    `failure_patterns.json` because the DB stores only the id. The v1 "signature
    view" is the same grouping keyed on `keyword` instead of `auto_rule_id`.
 
-**Checkpoint 0 (Mandatory Stop Point):** Show the rule rollup sorted by union runs in the snippet's column order:
-`rule_id | rule_pattern | rule_label | n_fingerprints | union n_runs | first_run..last_run | label_breakdown`, plus the top ~20 fingerprint families by `n_runs` (label, `n_variants`, example `keyword`), plus the `--progress` block (labeled %, manual vs auto, run coverage). Then ask: *"Which families should I assess, and in what priority order? (default: all, top-down by union runs)"*
+**Checkpoint 0 (Mandatory Stop Point):** Show the rule rollup of `unclear` and `problematic` families (omit purely `acceptable`/`false_positive` groups) sorted by union runs in the snippet's column order:
+`rule_id | rule_pattern | rule_label | n_fingerprints | union n_runs | first_run..last_run | label_breakdown`, plus the top ~20 `unclear` and `problematic` fingerprint families by `n_runs` (label, `n_variants`, example `keyword` — do NOT list `acceptable` or `false_positive` fingerprints), plus the `--progress` block (labeled %, manual vs auto, run coverage). Then ask: *"Which families should I assess, and in what priority order? (default: all, top-down by union runs)"*
 **STOP and wait for the user's response before proceeding to Phase 1.**
 
 ### Phase 1 — Family-by-family assessment (loop)
 
-Process one selected family at a time (prioritizing the rule view):
+Process one selected `unclear` or `problematic` family at a time (prioritizing the rule view):
 
 1. **Display the family card:** `auto_rule_id` / fingerprint, `rule_pattern`, `label_breakdown`, `n_fingerprints`, union `n_runs`, `first_run`→`last_run`, `suites`, `example_run`, `line`, `keyword`, and the recorded `block`.
 2. **Trace root cause (static only):**
