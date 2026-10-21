@@ -69,6 +69,15 @@ If the warning is expected, test for it explicitly by using the toErrorDev() mat
 material-ui,min,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,test_coverage,1,23665,     Expected test not to call console.error() but instead received 1 calls.,acceptable,2026-10-20T19:41:04.141948+00:00,b98f476b0f1b041e,320,3,70530bdb8514457d,d46ed19dcef3,1704759522_ea16771ba33d400108f9dcd80e4ec98bf2679513,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 1 calls.
 
 If the warning is expected, test for it explicitly by using the toErrorDev() matcher."
+material-ui,min,1707887709_d8558a579e0ede12f08e33dff49007ee3aa2563c,test_coverage,1,2661," ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL  Command ""test:zero-runtime"" not found",acceptable,2026-10-21T21:58:45.756474+00:00,d2eac40a7d2481e7,121,1,2aa66b4759266baf,703d68b079f4,1707887709_d8558a579e0ede12f08e33dff49007ee3aa2563c,1709280262_5733554730a1c6638e75ded49d123a2d9401cad9,"ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL  Command ""test:zero-runtime"" not found
+
+Did you mean ""pnpm test:zero-runtime:ci""?"
+material-ui,min,1709280329_a3a1be9dd57202946d57b3971eb34f8875a707e2,test_coverage,1,2685," ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL  Command ""test:pigment-react"" not found",acceptable,2026-10-21T21:58:45.759629+00:00,63cc5608461bfa61,90,1,16ab8c3fff61747e,703d68b079f4,1709280329_a3a1be9dd57202946d57b3971eb34f8875a707e2,1710228103_d93226a9a04239763f29887470f882d9e5320094,"ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL  Command ""test:pigment-react"" not found
+
+Did you mean ""pnpm test:pigment-react:ci""?"
+material-ui,min,1710239530_828f4da9be03132d0b728ea3aff59c0a2bec36f0,test_coverage,1,1509," ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL  Command ""test:pigment-css-react"" not found",acceptable,2026-10-21T21:58:45.762116+00:00,c419862382be7c4c,191,1,29a286e31905faa5,703d68b079f4,1710239530_828f4da9be03132d0b728ea3aff59c0a2bec36f0,1712574961_187c38acd7e49d92ccf8f23a79d5b2ec01c4ef3c,"ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL  Command ""test:pigment-css-react"" not found
+
+Did you mean ""pnpm test:pigment-css-react:ci""?"
 material-ui,min,1712581111_53cc684131f9b714320d0a8f33663c2ed76e76a1,test_coverage,1,7409,     Expected test not to call console.error() but instead received 12 calls.,acceptable,2026-10-20T19:41:04.149520+00:00,f8422968a162be0f,267,1,b03ca003a2b9cb61,d46ed19dcef3,1712581111_53cc684131f9b714320d0a8f33663c2ed76e76a1,1716454777_1f86f9003fd2c073c699b7ba79b3756260843a0c,"Expected test not to call console.error() but instead received 12 calls.
 
 If the warning is expected, test for it explicitly by using the toErrorDev() matcher."

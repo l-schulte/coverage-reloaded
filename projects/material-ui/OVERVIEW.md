@@ -8,7 +8,7 @@
 - **Package manager:** npm, yarn, and pnpm across root and workspaces (see [`config.json`](../../config.json) → `material-ui`). The `pnpm-lock.yaml` Node strategy is disabled, and exact Node versions are used.
 - **Node strategy:** `use_exact_node_version = true`; override `20.18` for `2025-08-05`–`2025-09-08` (epoch `1754389274`–`1757319331`).
 - **Runners:** `jest`, `mocha`, `lerna`, `pnpm`, `vitest`.
-- **Eras:** early commits run `jest` under `test`; intermediate commits run `mocha` wrapped in `nyc` via `test:coverage`; late commits run `vitest` with native v8 coverage.
+- **Eras:** early commits run `jest` under `test`; intermediate commits run `mocha` wrapped in `nyc` via `test:coverage`; late commits run `vitest` with native v8 coverage. From 2024-02-14 to 2024-04-08 (402 commits) `test:coverage` ends in a broken `&& pnpm test:<pkg>` step whose root script name does not exist at those commits (see Known gaps).
 
 ## Development style
 
@@ -22,7 +22,7 @@
 ## Coverage collection
 
 - **Suites collected:** `test:coverage` (wrapping `mocha` via `nyc`, or `vitest`).
-- **Suites excluded:** none.
+- **Suites excluded:** the per-package `pigment` / `zero-runtime` suite that `test:coverage` chains after the `mocha` run is excluded from the `mocha` glob and runs without coverage instrumentation upstream; it contributes no LCOV in any era.
 - **Coverage tool / config:** `nyc` (with babel registration) for `mocha` eras; native v8 provider for `vitest`.
 - **LCOV production:** `nyc report --reporter=lcov` for mocha eras; direct LCOV export from `vitest`.
 
@@ -31,12 +31,12 @@
 - [x] 100 done (95/100)
 - [x] failed tests doublechecked
 - [x] complete run (11,882 commits processed, 0 pending)
-- [x] complete test failure check
-- [x] complete JEV test failure check
+- [x] complete test failure check (1,286/1,286 failing runs labeled; 0 problematic/unclear)
+- [x] complete JEV test failure check (29 flagged fingerprints audited; 0 pipeline defects; see [`label_analysis/jev_audit.md`](label_analysis/jev_audit.md))
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-10-20 19:56).
+Source: `stats_output/report.txt` (generated 2026-10-21 21:53).
 
 | Metric | Value |
 |---|---|
@@ -49,31 +49,44 @@ Source: `stats_output/report.txt` (generated 2026-10-20 19:56).
 
 Full statistics and plots: [`stats_output/`](stats_output/).
 
-## Known test failures
+## Failure triage
 
-All known test failures exit with code 1 without bailing. Mocha and Vitest execute all remaining suites to completion, ensuring that full LCOV line coverage is collected across the codebase. Deduplicated failure fingerprints and family cards are tracked under [`label_analysis/`](label_analysis/).
+Source: `python check_failures_v2.py material-ui --stats` (window `min`, run 2026-10-21)
+and `stats_output/report.txt` (generated 2026-10-21 21:53). Labels:
+[`failure_labels_project_min.csv`](label_analysis/failure_labels_project_min.csv)
+(primary) and [`failure_labels_project_max.csv`](label_analysis/failure_labels_project_max.csv)
+(diagnostic window). These CSVs are the single source of truth; this section
+reports numbers only and does not restate per-family labels.
 
-| Signature | Classification | Coverage impact | Action |
-|---|---|---|---|
-| `Expected test not to call console.error() but instead received \d+ calls.` | acceptable | none (exit code 1, warning) | None. Test harness spy asserts zero `console.error` calls; asynchronous React state updates in transition components emit `act(...)` warnings. See detailed analysis below. |
-| `AssertionError: expected <...> to have computed style {...}` | acceptable | none (exit code 1, warning) | None. JSDOM does not compute the CSS cascade; assertions on computed styles fail intermittently in headless unit tests. See detailed analysis below. |
-| `NotFoundError: The child can not be found in the parent.` | acceptable | none (exit code 1, warning) | None. Occurs in `createCssVarsProvider.test.js` when unmounting dynamic `<style>` tags under JSDOM. |
-| `AggregateError:` | reevaluated_acceptable | none (exit code 1, warning) | None. React 19 `act()` wraps child unmount `NotFoundError` exceptions in `createCssVarsProvider.test.js`. |
-| `Error: Timeout of 10000/20000ms exceeded... (envinfo.test.js)` | reevaluated_acceptable | none (exit code 1, warning) | None. Subprocess execution of `npx --package <build> envinfo --json` intermittently exceeded Mocha per-test timeout; fixed upstream in #40669. |
-| `Error: Cannot find module 'test/utils'` | reevaluated_acceptable | none (exit code 1, warning) | None. Author mistakenly imported `test/utils` instead of `@mui-internal/test-utils` in #39037; fixed in #39291. |
-| `Exception during run: Error: Cannot find module '.*'` | reevaluated_acceptable | none (exit code 1, warning) | None. Broken intermediate refactoring commits moving modules across packages (e.g. `BasePopper`, `useBadge`, `composeClasses` in #43076 / #43078). |
+| Metric | Value |
+|---|---|
+| Failing runs (`report.txt`) | 1286 |
+| Failing runs (label DB) | 1286 |
+| Fingerprints (min / max) | 103 / 151 |
+| Labeled fingerprints | 103 (100.0%) |
+| Unlabeled fingerprints | 0 |
+| acceptable | 97 |
+| reevaluated_acceptable | 6 |
+| problematic | 0 |
+| unclear | 0 |
+| false_positive | 0 |
+| Manual / auto-propagated labels | 18 / 85 |
+| Labeled detections (min) | 13378/13378 (100.0%) |
+| Labeled runs (min) | 1286/1286 (100.0%) |
+| Jev mode | fingerprint |
+| Jev pipeline issues | 29 flagged rows |
+| Jev audit | current |
 
-### Upstream and Environmental Context for Major Failure Modes
+**State:** complete.
 
-#### 1. Unwrapped React `act(...)` Warnings in `console.error`
-- **Mechanism:** Material-UI installs an internal spy that fails any test emitting unexpected `console.error` output. When transition components (`Fade`, `Dialog`, `Modal`, `Select`) run asynchronous animations via `react-transition-group`, state update timers occasionally resolve after the synchronous `act()` scope has completed.
-- **Local machine vs. CI / container:** On a developer's workstation running an isolated single test file, low CPU contention allows timers to flush cleanly within `act()`. Under the high CPU load of running the entire 6,000–9,000 test suite—and under the latency added by `nyc` coverage instrumentation—timers slip past `act()` boundaries. This latency mirrors CircleCI (which explicitly lengthened Mocha timeouts due to "low-performance CPUs"). Material-UI maintainers experienced this frequently and added custom `toErrorDev()` matchers to handle expected warnings.
-- **Effect on coverage:** Zero. The test executes all mounting and state transition paths before the spy assertion fails at the end of the test. All subsequent tests continue running, and full LCOV coverage is recorded.
-
-#### 2. JSDOM Computed-Style Assertions
-- **Mechanism:** Mocha runs unit tests against JSDOM, which does not implement CSS cascade calculation or full computed style resolution (`margin`, `flex-wrap`, `display`).
-- **Local machine vs. CI / container:** Any developer running `yarn test:unit` locally reproduces this exact failure. Upstream maintainers hardcoded an explicit diagnostic into their test assertion helper: *"Styles in JSDOM e.g. from `test:unit` are often misleading since JSDOM does not implement the Cascade... skip the test in JSDOM e.g. `if (/jsdom/.test(window.navigator.userAgent)) this.skip();`"*. In CircleCI, tests ran under two jobs: `Tests fake browser` (JSDOM) and `Tests real browsers` (Karma with headless Chrome). Whenever a developer tested styles only in Karma and omitted `this.skip()` for JSDOM, the commit failed CircleCI's `Tests fake browser` job.
-- **Effect on coverage:** Zero. The failure triggers on the final computed property assertion after DOM rendering has executed. Runner execution does not bail, and complete coverage for component code is captured.
+The 2026-10-21 pass added the `ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL` detection
+pattern and anchored the `FAIL\s` exclude to the line start in
+[`label_analysis/failure_patterns.json`](label_analysis/failure_patterns.json),
+which made 402 previously invisible failing runs detectable (884 → 1,286 runs).
+The three resulting families are labeled through the shared auto rule
+`703d68b079f4`. All 29 Jev-flagged fingerprints are attributed in
+[`label_analysis/jev_audit.md`](label_analysis/jev_audit.md); none traces to the
+container or harness.
 
 ## Environment / setup fixes
 
@@ -88,4 +101,4 @@ All known test failures exit with code 1 without bailing. Mocha and Vitest execu
 
 ## Known gaps
 
-None documented.
+- **`pigment` / `zero-runtime` package suites not executed at 402 commits (2024-02-14 → 2024-04-08).** At those commits `test:coverage` ends in `&& pnpm test:zero-runtime`, `&& pnpm test:pigment-react`, or `&& pnpm test:pigment-css-react`, while only the `*:ci` variant exists in the root `package.json`; `pnpm` therefore exits with `ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL`. The step is the last element of the chain, so nothing after it is skipped, and the `nyc` + `mocha` run plus the root LCOV complete before it. The chained step runs the package's uninstrumented `test` script (plain `mocha`, no `nyc`), and those paths are `--exclude`d from the `mocha` glob, so the collected LCOV is unaffected: no mocha-era LCOV contains `pigment`/`zero-runtime` files, no run directory holds a nested LCOV, and median line coverage in the window (90.4%) matches neighbouring commits (90.2%). The 402 runs are labeled `acceptable`. Upstream removed the broken tail on 2024-04-23; the chain only reaches it when the `mocha` run passes fully, which is why the failure does not extend past 2024-04-08.
