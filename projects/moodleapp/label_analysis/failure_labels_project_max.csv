@@ -1,0 +1,431 @@
+project,window,run_id,suite,exit_code,line_number,keyword,label,labeled_at,fingerprint,n_runs,n_variants,example_variant_fp,auto_rule_id,first_run,last_run,block
+moodleapp,max,1610703141_183a033dc87ab7f22d4c95b3bd344cd3b7d0db87,jest,1,248,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.944665+00:00,e4a7ddef465f3e1c,6,1,e3b2e1525079ab7e,cf5609f34cfb,1610703141_183a033dc87ab7f22d4c95b3bd344cd3b7d0db87,1611155612_adf8a1f4816ec46aeb83f52f8c02db3b99e01662,"● Test suite failed to run
+
+src/core/features/course/services/handlers/default-format.ts:<n>:<n> - error TS2307: Cannot find module '@services/nav-helper' or its corresponding type declarations.
+
+19 import { CoreNavHelper } from '@services/nav-helper';
+~~~~~~~~~~~~~~~~~~~~~~"
+moodleapp,max,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,jest,1,236,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.947984+00:00,20c93719adea0fb0,1,1,4c296cf0df78958b,6a2377d3c9f0,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,"● Test suite failed to run
+
+src/core/services/tests/navigator.test.ts:<n>:<n> - error TS2740: Type 'string[]' is missing the following properties from type 'NavController': location, serializer, direction, guessDirection, and 9 more.
+
+42         navControllerMock = mockSingleton(NavController, ['navigateRoot', 'navigateForward']);
+~~~~~~~~~~~~~~~~~"
+moodleapp,max,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,jest,1,342,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.950771+00:00,eb87340164ef317f,1,1,c82834929c7d5d30,f8b9168a9df8,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,"● Test suite failed to run
+
+src/core/directives/tests/format-text.test.ts:<n>:<n> - error TS2769: No overload matches this call.
+Overload 1 of 3, '(singletonClass: CoreSingletonProxy<{ ready: () => Promise<void>; }, never>, instance: { ready: () => Promise<void>; }): { ready: () => Promise<void>; }', gave the following error.
+Argument of type 'typeof Platform' is not assignable to parameter of type 'CoreSingletonProxy<{ ready: () => Promise<void>; }, never>'.
+Property 'ready' is missing in type 'typeof Platform' but required in type 'Pick<{ ready: () => Promise<void>; }, ""ready"">'."
+moodleapp,max,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,jest,1,476,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.951391+00:00,351aa3a4efc2ee7f,1,1,c3c2a9af93320f50,f24126b50fe7,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,"● Test suite failed to run
+
+src/core/services/tests/utils/text.test.ts:<n>:<n> - error TS2345: Argument of type 'typeof CoreApp' is not assignable to parameter of type 'CoreSingletonProxy<unknown, never>'.
+Type 'typeof CoreApp' is missing the following properties from type '{ instance: unknown; setInstance(instance: unknown): void; }': instance, setInstance
+
+29         mockSingleton(CoreApp, [], { isAndroid: jest.fn(() => config.platform === 'android') });"
+moodleapp,max,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,jest,1,493,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.951934+00:00,6d14fc2aac8de4d8,1,1,ea615b56882842e7,f24126b50fe7,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,"● Test suite failed to run
+
+src/core/services/utils/url.ts:<n>:<n> - error TS2339: Property 'instance' does not exist on type 'typeof CoreTextUtils'.
+
+106             url.indexOf(CoreTextUtils.instance.concatenatePaths(siteUrl, 'pluginfile.php')) === 0 ||
+~~~~~~~~"
+moodleapp,max,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,jest,1,554,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.954216+00:00,8e9fb353de732b37,1,1,7b8cb503b749b6b1,f8b9168a9df8,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,"● Test suite failed to run
+
+src/app/app.component.test.ts:<n>:<n> - error TS2769: No overload matches this call.
+Overload 1 of 3, '(singletonClass: CoreSingletonProxy<unknown, never>, instance: unknown): unknown', gave the following error.
+Argument of type 'typeof CoreApp' is not assignable to parameter of type 'CoreSingletonProxy<unknown, never>'.
+Type 'typeof CoreApp' is not assignable to type '{ instance: unknown; setInstance(instance: unknown): void; }'."
+moodleapp,max,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,jest,1,659,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.955899+00:00,3b819578c9f7f41a,1,1,2eb4ca8ca4349f82,8ec39fc4b33e,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,"● Test suite failed to run
+
+src/core/singletons/index.ts:<n>:<n> - error TS2507: Type 'CoreSingletonProxy<Badge, never>' is not a constructor function type.
+
+194 export class Badge extends makeSingleton(BadgeService) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+moodleapp,max,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,jest,1,836,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.956677+00:00,d1a4fbe1ef7dbf8b,1,1,c610b814eab2e80a,f24126b50fe7,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,1614678683_2ab9d37f484a8c6382ca32d4c0340c72b82fb3a5,"● Test suite failed to run
+
+src/core/directives/link.ts:<n>:<n> - error TS2339: Property 'instance' does not exist on type 'typeof CoreUtils'.
+
+57         this.inApp = typeof this.inApp == 'undefined' ? this.inApp : CoreUtils.instance.isTrueOrOne(this.inApp);
+~~~~~~~~"
+moodleapp,max,1615278549_e4f719957e3594049a31f09e0f1d6c951c4b5c6b,jest,1,250,  ● Test suite failed to run,acceptable,2026-10-21T18:25:43.717478+00:00,5d75682d2999c788,1,1,0a774c1f34385d2d,,1615278549_e4f719957e3594049a31f09e0f1d6c951c4b5c6b,1615278549_e4f719957e3594049a31f09e0f1d6c951c4b5c6b,"● Test suite failed to run
+
+src/core/services/urlschemes.ts:<n>:<n> - error TS2345: Argument of type 'CoreUrlParams | undefined' is not assignable to parameter of type 'CoreUrlParams'.
+Type 'undefined' is not assignable to type 'CoreUrlParams'.
+
+77                 CoreLoginHelper.getOAuthIdFromParams(data.ssoUrlParams),"
+moodleapp,max,1615278549_e4f719957e3594049a31f09e0f1d6c951c4b5c6b,jest,1,281,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.959287+00:00,e0a8d4f69343914c,1,1,1da16375ba8fdc7e,f24126b50fe7,1615278549_e4f719957e3594049a31f09e0f1d6c951c4b5c6b,1615278549_e4f719957e3594049a31f09e0f1d6c951c4b5c6b,"● Test suite failed to run
+
+src/app/app.component.ts:<n>:<n> - error TS2339: Property 'setWaitingForBrowser' does not exist on type 'CoreSingletonProxy<CoreLoginHelperProvider, never>'.
+
+128             CoreLoginHelper.setWaitingForBrowser(false);
+~~~~~~~~~~~~~~~~~~~~"
+moodleapp,max,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,jest,1,372,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.959789+00:00,99afd3a380ac34cf,8,1,f9a0fbe9bf94c480,4676730a7449,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,1628503239_c6a90e251fb2d196506fa3dd82e607294a67ff57,"● Test suite failed to run
+
+src/testing/setup.ts:<n>:<n> - error TS2304: Cannot find name 'fail'.
+
+25 console.error = (...args: any[]) => fail(args.map(a => a.toString()).join(''));
+~~~~"
+moodleapp,max,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,jest,1,389,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.960459+00:00,8a309658c84ef15d,8,1,77f9f8831d850c70,4676730a7449,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,1628503239_c6a90e251fb2d196506fa3dd82e607294a67ff57,"● Test suite failed to run
+
+src/core/directives/tests/format-text.test.ts:<n>:<n> - error TS2593: Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add `jest` or `mocha` to the types field in your tsconfig.
+
+33 describe('CoreFormatTextDirective', () => {
+~~~~~~~~"
+moodleapp,max,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,jest,1,446,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.961123+00:00,48fd1da0966af97a,8,1,5b11efe62a48ff2d,4676730a7449,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,1628503239_c6a90e251fb2d196506fa3dd82e607294a67ff57,"● Test suite failed to run
+
+src/core/services/tests/utils/text.test.ts:<n>:<n> - error TS2593: Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add `jest` or `mocha` to the types field in your tsconfig.
+
+21 describe('CoreTextUtilsProvider', () => {
+~~~~~~~~"
+moodleapp,max,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,jest,1,567,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.961746+00:00,d4e56e1174084f66,8,1,1610a55a41f06fdb,4676730a7449,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,1628503239_c6a90e251fb2d196506fa3dd82e607294a67ff57,"● Test suite failed to run
+
+src/core/singletons/tests/url.test.ts:<n>:<n> - error TS2593: Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add `jest` or `mocha` to the types field in your tsconfig.
+
+17 describe('CoreUrl singleton', () => {
+~~~~~~~~"
+moodleapp,max,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,jest,1,640,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.962211+00:00,76eb2289e6fcad70,8,1,9c70c3cb063b5e6a,4676730a7449,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,1628503239_c6a90e251fb2d196506fa3dd82e607294a67ff57,"● Test suite failed to run
+
+src/core/services/tests/utils/url.test.ts:<n>:<n> - error TS2593: Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add `jest` or `mocha` to the types field in your tsconfig.
+
+17 describe('CoreUrlUtilsProvider', () => {
+~~~~~~~~"
+moodleapp,max,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,jest,1,701,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.962538+00:00,c1535cf9352b0971,8,1,7c5c71aae755ac51,4676730a7449,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,1628503239_c6a90e251fb2d196506fa3dd82e607294a67ff57,"● Test suite failed to run
+
+src/app/app.component.test.ts:<n>:<n> - error TS2593: Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add `jest` or `mocha` to the types field in your tsconfig.
+
+27 describe('AppComponent', () => {
+~~~~~~~~"
+moodleapp,max,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,jest,1,746,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.962908+00:00,6b58a4018a9c49cf,8,1,8c8ae36111ae5366,4676730a7449,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,1628503239_c6a90e251fb2d196506fa3dd82e607294a67ff57,"● Test suite failed to run
+
+src/core/classes/tests/error.test.ts:<n>:<n> - error TS2593: Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add `jest` or `mocha` to the types field in your tsconfig.
+
+19 describe('CoreError', () => {
+~~~~~~~~"
+moodleapp,max,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,jest,1,823,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.963277+00:00,db62440e38311f76,8,1,23a94c729d65280d,4676730a7449,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,1628503239_c6a90e251fb2d196506fa3dd82e607294a67ff57,"● Test suite failed to run
+
+src/core/singletons/tests/singletons.test.ts:<n>:<n> - error TS2593: Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add `jest` or `mocha` to the types field in your tsconfig.
+
+20 describe('Singletons', () => {
+~~~~~~~~"
+moodleapp,max,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,jest,1,908,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.963639+00:00,6f0c3779514c8f24,8,1,53cf7d9dd105ac28,4676730a7449,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,1628503239_c6a90e251fb2d196506fa3dd82e607294a67ff57,"● Test suite failed to run
+
+src/app/app-routing.module.test.ts:<n>:<n> - error TS2593: Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add `jest` or `mocha` to the types field in your tsconfig.
+
+22 describe('Routing utils', () => {
+~~~~~~~~"
+moodleapp,max,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,jest,1,925,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.964014+00:00,6dbf04c710caf5bf,8,1,8d48149de1687ea8,4676730a7449,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,1628503239_c6a90e251fb2d196506fa3dd82e607294a67ff57,"● Test suite failed to run
+
+src/core/components/tests/icon.test.ts:<n>:<n> - error TS2593: Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add `jest` or `mocha` to the types field in your tsconfig.
+
+19 describe('CoreIconComponent', () => {
+~~~~~~~~"
+moodleapp,max,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,jest,1,954,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.964373+00:00,5a237f0b018c362f,8,1,1c3326eea3122fa3,4676730a7449,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,1628503239_c6a90e251fb2d196506fa3dd82e607294a67ff57,"● Test suite failed to run
+
+src/core/directives/tests/link.test.ts:<n>:<n> - error TS2593: Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add `jest` or `mocha` to the types field in your tsconfig.
+
+19 describe('CoreLinkDirective', () => {
+~~~~~~~~"
+moodleapp,max,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,jest,1,983,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.964880+00:00,83244b7310d28ead,8,1,cfd873dfc108955a,1d7a7edf2d4a,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,1628503239_c6a90e251fb2d196506fa3dd82e607294a67ff57,"● Test suite failed to run
+
+src/core/components/tests/user-avatar.test.ts:<n>:<n> - error TS2593: Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add `jest` or `mocha` to the types field in your tsconfig.
+
+15 describe('CoreUserAvatarComponent', () => {
+~~~~~~~~"
+moodleapp,max,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,jest,1,996,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.965293+00:00,6a09485163c35e81,8,1,8abea074a0c5b164,1d7a7edf2d4a,1627386228_655e97213dfc339b67c8c887b69d4a8907701192,1628503239_c6a90e251fb2d196506fa3dd82e607294a67ff57,"● Test suite failed to run
+
+src/core/components/tests/iframe.test.ts:<n>:<n> - error TS2593: Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add `jest` or `mocha` to the types field in your tsconfig.
+
+15 describe('CoreIframeComponent', () => {
+~~~~~~~~"
+moodleapp,max,1628759514_f86c2af9bf800247be559a3f77f215954b770c0c,jest,1,229,  ● Test suite failed to run,acceptable,2026-10-21T18:25:47.379174+00:00,d6bb87f02eab962e,2,1,bb040028fa04cb26,,1628759514_f86c2af9bf800247be559a3f77f215954b770c0c,1628763290_b039ad62752bba6586843048de626278e7d838c2,"● Test suite failed to run
+
+src/core/directives/tests/format-text.test.ts:<n>:<n> - error TS2554: Expected 0 arguments, but got 1.
+
+43         CoreUtils.setInstance(new CoreUtilsProvider(mock<NgZone>()));
+~~~~~~~~~~~~~~"
+moodleapp,max,1628759514_f86c2af9bf800247be559a3f77f215954b770c0c,jest,1,237,  ● Test suite failed to run,acceptable,2026-10-21T18:25:48.321055+00:00,93502267731a8c81,1,1,7eb79ebf0a199702,,1628759514_f86c2af9bf800247be559a3f77f215954b770c0c,1628759514_f86c2af9bf800247be559a3f77f215954b770c0c,"● Test suite failed to run
+
+src/core/services/tests/navigator.test.ts:<n>:<n> - error TS2554: Expected 0 arguments, but got 1.
+
+45         mockSingleton(CoreUtils, new CoreUtilsProvider(mock()));
+~~~~~~"
+moodleapp,max,1631104820_d5d8962766d5ce2f33634776ca7054a450421ba7,jest,1,243,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.967904+00:00,7d61fe9b1996d036,1,1,bacb4a5ac16e29e0,f24126b50fe7,1631104820_d5d8962766d5ce2f33634776ca7054a450421ba7,1631104820_d5d8962766d5ce2f33634776ca7054a450421ba7,"● Test suite failed to run
+
+src/core/features/course/services/handlers/default-module.ts:<n>:<n> - error TS2339: Property 'requireCurrentSite' does not exist on type 'CoreSingletonProxy<CoreSitesProvider>'.
+
+73                     CoreSites.requireCurrentSite().openInBrowserWithAutoLoginIfSameSite(url);
+~~~~~~~~~~~~~~~~~~"
+moodleapp,max,1639657790_49a1d1d80624423a6bcd8744c72ddff5e1f93463,jest,1,243,  ● Test suite failed to run,acceptable,2026-10-21T18:25:52.336933+00:00,810e35135c39e182,1,1,326325a929a29fd2,,1639657790_49a1d1d80624423a6bcd8744c72ddff5e1f93463,1639657790_49a1d1d80624423a6bcd8744c72ddff5e1f93463,"● Test suite failed to run
+
+src/core/features/course/services/course-helper.ts:<n>:<n> - error TS2322: Type '{ state: number; timecompleted: number; overrideby: number; valueused: boolean | undefined; tracking: CoreCourseModuleCompletionTracking; courseId: number; courseName: string | undefined; cmid: number; }' is not assignable to type 'CoreCourseModuleCompletionData'.
+Object literal may only specify known properties, and 'courseName' does not exist in type 'CoreCourseModuleCompletionData'.
+
+213                         courseName,"
+moodleapp,max,1643291954_f83c8f4e1aa1190e2742943a8b4cbe79f5a3bf15,jest,1,267,  ● CoreNavigator › navigates to site paths using the default tab,acceptable,2026-10-21T18:42:31.969938+00:00,5ed1b6619f8cecb8,1,1,83f1bcb845c8a563,86155647a967,1643291954_f83c8f4e1aa1190e2742943a8b4cbe79f5a3bf15,1643291954_f83c8f4e1aa1190e2742943a8b4cbe79f5a3bf15,"● CoreNavigator › navigates to site paths using the default tab
+
+expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+- Expected
++ Received"
+moodleapp,max,1646131677_717978388e013e451625e9c518b48e9aca92eb49,jest,1,244,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.970092+00:00,935004498da774f4,1,1,38cd7b8fbcd760d5,cf5609f34cfb,1646131677_717978388e013e451625e9c518b48e9aca92eb49,1646131677_717978388e013e451625e9c518b48e9aca92eb49,"● Test suite failed to run
+
+src/core/services/utils/dom.ts:<n>:<n> - error TS2307: Cannot find module '@singletons/components-registry' or its corresponding type declarations.
+
+55 import { CoreComponentsRegistry } from '@singletons/components-registry';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+moodleapp,max,1646131677_717978388e013e451625e9c518b48e9aca92eb49,jest,1,252,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.970403+00:00,5d2b0969b1e2545d,1,1,3a20850f4a09ff1d,b8559e67f116,1646131677_717978388e013e451625e9c518b48e9aca92eb49,1646131677_717978388e013e451625e9c518b48e9aca92eb49,"● Test suite failed to run
+
+Configuration error:
+
+Could not locate module @singletons/components-registry mapped as:
+src/core/singletons/$1."
+moodleapp,max,1646735137_112f00bcb51a73c1113204ae7e95d0e0f7d160a4,jest,1,272,  ● CoreFormatTextDirective › should use link directive on anchors,reevaluated_acceptable,2026-10-21T18:42:31.970882+00:00,3244fced165811b2,2,1,13d9a0372ebe78a1,b672ef8e3c18,1646735137_112f00bcb51a73c1113204ae7e95d0e0f7d160a4,1646748064_9f03a64a85d561e9589f356ee7b941b8fb0a0147,"● CoreFormatTextDirective › should use link directive on anchors
+
+Uncaught (in promise): CoreError: You aren't authenticated in any site.
+CoreError: You aren't authenticated in any site.
+
+922 |     getRequiredCurrentSite(): CoreSite {"
+moodleapp,max,1646735137_112f00bcb51a73c1113204ae7e95d0e0f7d160a4,jest,1,347,  ● CoreFormatTextDirective › should use link directive on anchors,acceptable,2026-10-21T18:26:03.196746+00:00,05cdf8a08514c058,2,1,db5aa68deafdc210,,1646735137_112f00bcb51a73c1113204ae7e95d0e0f7d160a4,1646748064_9f03a64a85d561e9589f356ee7b941b8fb0a0147,"● CoreFormatTextDirective › should use link directive on anchors
+
+Failed: ""Error: Uncaught [Error: Uncaught (in promise): CoreError: You aren't authenticated in any site.
+CoreError: You aren't authenticated in any site.
+
+922 |     getRequiredCurrentSite(): CoreSite {"
+moodleapp,max,1668169342_8b8719559375ad784ee16be23bbb9fb579e565c7,jest,1,389,  ● Credentials page › suggests contacting support after multiple failed attempts,reevaluated_acceptable,2026-10-21T18:42:31.973224+00:00,5ebf77fc703ede25,6,1,7dd49de067b1ba94,fec890d89dae,1668169342_8b8719559375ad784ee16be23bbb9fb579e565c7,1668431905_1a8c4fde04526667b941ed7da2474c7eee26ee4e,"● Credentials page › suggests contacting support after multiple failed attempts
+
+TypeError: this.translate.get is not a function
+
+at TranslatePipe.Object.<anonymous>.TranslatePipe.updateValue (projects/ngx-translate/core/src/lib/translate.pipe.ts:<n>:<n>)
+at TranslatePipe.Object.<anonymous>.TranslatePipe.transform (projects/ngx-translate/core/src/lib/translate.pipe.ts:<n>:<n>)"
+moodleapp,max,1675410932_884827afb6a150438b985530f843daca56f4a713,jest,1,244,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.973445+00:00,f09f34d8f380ef05,1,1,d072d87040e4aabe,f24126b50fe7,1675410932_884827afb6a150438b985530f843daca56f4a713,1675410932_884827afb6a150438b985530f843daca56f4a713,"● Test suite failed to run
+
+src/core/singletons/media.ts:<n>:<n> - error TS2339: Property 'isIOS' does not exist on type 'CoreSingletonProxy<CorePlatformService>'.
+
+57         if (!CorePlatform.isIOS()) {
+~~~~~"
+moodleapp,max,1675410932_884827afb6a150438b985530f843daca56f4a713,jest,1,256,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.973738+00:00,043dd0510a013407,1,1,7e60792ed6af6a65,4676730a7449,1675410932_884827afb6a150438b985530f843daca56f4a713,1675410932_884827afb6a150438b985530f843daca56f4a713,"● Test suite failed to run
+
+src/core/singletons/dom.ts:<n>:<n> - error TS2304: Cannot find name 'CoreMimetypeUtils'.
+
+605         let extension = source.type ? CoreMimetypeUtils.getExtension(source.type) : undefined;
+~~~~~~~~~~~~~~~~~"
+moodleapp,max,1675413950_3e0e29ba2e7f538b3df04e09f5c812031ef69461,jest,1,244,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.973974+00:00,4263b488d5496b49,2,1,502b4b1e80c87e6b,f24126b50fe7,1675413950_3e0e29ba2e7f538b3df04e09f5c812031ef69461,1677149123_fe97d32342321b703b661a4a27901a488ade4edd,"● Test suite failed to run
+
+src/core/features/settings/services/settings-helper.ts:<n>:<n> - error TS2339: Property 'STAGING_SITES_CHANGE' does not exist on type 'typeof CoreEvents'.
+
+488         CoreEvents.trigger(CoreEvents.STAGING_SITES_CHANGE, { enabled });
+~~~~~~~~~~~~~~~~~~~~"
+moodleapp,max,1676977658_ba723dd8990190176dcf21c346b799fa3e63c8f5,jest,1,388,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.974571+00:00,dc8a0efdc20e58f9,2,1,16a6fcde1bf318d8,c5f4d34d106e,1676977658_ba723dd8990190176dcf21c346b799fa3e63c8f5,1676978155_bb64922a147e4365db87a2ce9a7f9ca266c50a17,"● Test suite failed to run
+
+src/core/components/sheet-modal/sheet-modal.ts:<n>:<n> - error TS2305: Module '""../../utils/types""' has no exported member 'Constructor'.
+
+15 import { Constructor } from '@/core/utils/types';
+~~~~~~~~~~~"
+moodleapp,max,1677149123_fe97d32342321b703b661a4a27901a488ade4edd,jest,1,244,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.974798+00:00,9dcd7723370ededb,2,1,aa190c2c94b94ae5,f24126b50fe7,1677149123_fe97d32342321b703b661a4a27901a488ade4edd,1677149199_856a8a495716367d81920b2417a93771c3fbf4c3,"● Test suite failed to run
+
+src/core/features/login/services/login-helper.ts:<n>:<n> - error TS2339: Property 'stagingsites' does not exist on type 'EnvironmentConfig'.
+
+401         return CoreConstants.CONFIG.stagingsites;
+~~~~~~~~~~~~"
+moodleapp,max,1677149405_7a78bb9375055ef99d3009756f1d06bfddb4f625,jest,1,392,  ● Credentials page › renders,reevaluated_acceptable,2026-10-21T18:42:31.976133+00:00,afa76842fff6a3ed,1,1,9d46a19305eb98bc,03ac5ab31d84,1677149405_7a78bb9375055ef99d3009756f1d06bfddb4f625,1677149405_7a78bb9375055ef99d3009756f1d06bfddb4f625,"● Credentials page › renders
+
+Uncaught (in promise): NullInjectorError: StaticInjectorError[HttpClient]:
+NullInjectorError: No provider for HttpClient!
+NullInjectorError: StaticInjectorError[HttpClient]:
+NullInjectorError: No provider for HttpClient!"
+moodleapp,max,1677149405_7a78bb9375055ef99d3009756f1d06bfddb4f625,jest,1,497,  ● Credentials page › renders,acceptable,2026-10-21T18:26:07.861293+00:00,4f293d9f098d5682,1,1,89af23d93c3be225,,1677149405_7a78bb9375055ef99d3009756f1d06bfddb4f625,1677149405_7a78bb9375055ef99d3009756f1d06bfddb4f625,"● Credentials page › renders
+
+Failed: ""Error: Uncaught [Error: Uncaught (in promise): NullInjectorError: StaticInjectorError[HttpClient]:
+NullInjectorError: No provider for HttpClient!
+NullInjectorError: StaticInjectorError[HttpClient]:
+NullInjectorError: No provider for HttpClient!"
+moodleapp,max,1677149405_7a78bb9375055ef99d3009756f1d06bfddb4f625,jest,1,625,  ● Credentials page › suggests contacting support after multiple failed attempts,reevaluated_acceptable,2026-10-21T18:42:31.979729+00:00,fd28d15c10252822,1,1,9c13434123d1184b,03ac5ab31d84,1677149405_7a78bb9375055ef99d3009756f1d06bfddb4f625,1677149405_7a78bb9375055ef99d3009756f1d06bfddb4f625,"● Credentials page › suggests contacting support after multiple failed attempts
+
+Uncaught (in promise): NullInjectorError: StaticInjectorError[HttpClient]:
+NullInjectorError: No provider for HttpClient!
+NullInjectorError: StaticInjectorError[HttpClient]:
+NullInjectorError: No provider for HttpClient!"
+moodleapp,max,1677149405_7a78bb9375055ef99d3009756f1d06bfddb4f625,jest,1,730,  ● Credentials page › suggests contacting support after multiple failed attempts,acceptable,2026-10-21T18:26:08.876843+00:00,5288c0e234310de9,1,1,af849ea70708b6d3,,1677149405_7a78bb9375055ef99d3009756f1d06bfddb4f625,1677149405_7a78bb9375055ef99d3009756f1d06bfddb4f625,"● Credentials page › suggests contacting support after multiple failed attempts
+
+Failed: ""Error: Uncaught [Error: Uncaught (in promise): NullInjectorError: StaticInjectorError[HttpClient]:
+NullInjectorError: No provider for HttpClient!
+NullInjectorError: StaticInjectorError[HttpClient]:
+NullInjectorError: No provider for HttpClient!"
+moodleapp,max,1677149405_7a78bb9375055ef99d3009756f1d06bfddb4f625,jest,1,926,  ● Site Home link handlers › Handles links ending with /?redirect=0,reevaluated_acceptable,2026-10-21T18:42:31.983016+00:00,12c0cb2dce830869,1,1,a9693e74dcdf66be,a188c55aa712,1677149405_7a78bb9375055ef99d3009756f1d06bfddb4f625,1677149405_7a78bb9375055ef99d3009756f1d06bfddb4f625,"● Site Home link handlers › Handles links ending with /?redirect=0
+
+: Timeout - Async callback was not invoked within the 30000 ms timeout specified by jest.setTimeout.Timeout - Async callback was not invoked within the 30000 ms timeout specified by jest.setTimeout.Error:
+
+23 | describe('Site Home link handlers', () => {
+24 |"
+moodleapp,max,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,jest,1,244,  ● Test suite failed to run,acceptable,2026-10-21T18:42:31.984396+00:00,209fb66ebe30a156,1,1,8949e9ddc9cda88c,4d7a4ff53120,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,1682050666_a0d49dc5e02e64facfa3440168413043ca047d5d,"● Test suite failed to run
+
+Jest encountered an unexpected token
+
+This usually means that you are trying to import a file which Jest cannot parse, e.g. it's not plain JavaScript."
+moodleapp,max,1688631297_28049518106901fb84c4634b5f6229d5b62c4355,jest,1,248,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.984719+00:00,b73114ad350cc3e2,1,1,dc38097784460789,4676730a7449,1688631297_28049518106901fb84c4634b5f6229d5b62c4355,1688631297_28049518106901fb84c4634b5f6229d5b62c4355,"● Test suite failed to run
+
+src/core/services/utils/dom.ts:<n>:<n> - error TS2304: Cannot find name 'CorePasswordModalResponse'.
+
+1890     async promptPassword(passwordParams?: CorePasswordModalParams): Promise<CorePasswordModalResponse> {
+~~~~~~~~~~~~~~~~~~~~~~~~~"
+moodleapp,max,1691396697_c0b98030303462fea50bee5926a3c86b5b302e1c,jest,1,239,  ● Test suite failed to run,acceptable,2026-10-21T18:26:11.338867+00:00,6322aa22e51a9309,5,1,0e409cbd7cf22a60,,1691396697_c0b98030303462fea50bee5926a3c86b5b302e1c,1694075268_c4ce1edfe0625a3d309b1b87e069b8dd4760feab,"● Test suite failed to run
+
+src/core/services/sites.ts:<n>:<n> - error TS2531: Object is possibly 'null'.
+
+1074         await CoreUtils.ignoreErrors(CoreNative.plugin('secureStorage').deleteCollection(siteId));
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+moodleapp,max,1693921125_0a3125837d8de4178c1f1a3423d5e0f1e8b90256,jest,1,402,  ● Credentials page › suggests contacting support after multiple failed attempts,reevaluated_acceptable,2026-10-21T18:42:31.986679+00:00,58db6ca36ec6d6ca,7,1,1b110a6d14ece46e,a188c55aa712,1693921125_0a3125837d8de4178c1f1a3423d5e0f1e8b90256,1694178520_9c2133bd73407b5b3058761c26b34699df540b4b,"● Credentials page › suggests contacting support after multiple failed attempts
+
+: Timeout - Async callback was not invoked within the 30000 ms timeout specified by jest.setTimeout.Timeout - Async callback was not invoked within the 30000 ms timeout specified by jest.setTimeout.Error:
+
+72 |     });
+73 |"
+moodleapp,max,1694178520_9c2133bd73407b5b3058761c26b34699df540b4b,jest,1,402,  ● Credentials page › renders,acceptable,2026-10-21T18:26:13.334950+00:00,67b37ea168f93b1b,1,1,0294bbf704a2b0ed,,1694178520_9c2133bd73407b5b3058761c26b34699df540b4b,1694178520_9c2133bd73407b5b3058761c26b34699df540b4b,"● Credentials page › renders
+
+expect(received).not.toBeNull()
+
+Received: null"
+moodleapp,max,1699442139_988ddb4b9423a1e505afa4d72161eb11e98fe728,jest,1,369,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.988004+00:00,bc02fba1e5455176,1,1,6304aff0ba3495ee,cf5609f34cfb,1699442139_988ddb4b9423a1e505afa4d72161eb11e98fe728,1699442139_988ddb4b9423a1e505afa4d72161eb11e98fe728,"● Test suite failed to run
+
+src/core/components/user-avatar/user-avatar.ts:<n>:<n> - error TS2307: Cannot find module '@classes/site' or its corresponding type declarations.
+
+25 import { CoreSiteInfo } from '@classes/site';
+~~~~~~~~~~~~~~~"
+moodleapp,max,1699532427_954ce48d7b2f5237bea054e1c72ff4cd261d5797,jest,1,369,  ● Test suite failed to run,acceptable,2026-10-21T18:26:15.032411+00:00,85756d6b0d41ed1b,2,1,1d41b1aaf3ccbe14,,1699532427_954ce48d7b2f5237bea054e1c72ff4cd261d5797,1699613641_a724a946d2e01bf43fe9cebaae12860995dc998d,"● Test suite failed to run
+
+src/core/components/sites-list/sites-list.ts:<n>:<n> - error TS2345: Argument of type '{ info: CoreSiteInfo | undefined; }' is not assignable to parameter of type 'CoreSiteInfo'.
+Object literal may only specify known properties, and 'info' does not exist in type 'CoreSiteInfo'.
+
+88         return CoreSitesFactory.makeSite(site.id, site.siteUrl, '', { info: site.info }).shouldDisplayInformativeLinks();"
+moodleapp,max,1699544907_22d0d4ece1f8e30384d782ada239c711665a8ed5,jest,1,237,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.989786+00:00,c01cd8f51bdc8798,20,1,88339f77fde552a5,cf5609f34cfb,1699544907_22d0d4ece1f8e30384d782ada239c711665a8ed5,1701185048_825ae4ad7ccbb4fd2f12d162bb6c016d62e39fb9,"● Test suite failed to run
+
+src/core/singletons/index.ts:<n>:<n> - error TS2307: Cannot find module '@ionic-native/qr-scanner/ngx' or its corresponding type declarations.
+
+57 import { QRScanner as QRScannerService } from '@ionic-native/qr-scanner/ngx';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+moodleapp,max,1699613641_a724a946d2e01bf43fe9cebaae12860995dc998d,jest,1,249,  ● Test suite failed to run,acceptable,2026-10-21T18:26:16.898182+00:00,82749cce37138880,1,1,4213e260b8f92e37,,1699613641_a724a946d2e01bf43fe9cebaae12860995dc998d,1699613641_a724a946d2e01bf43fe9cebaae12860995dc998d,"● Test suite failed to run
+
+src/core/classes/sites/candidate-site.ts:<n>:<n> - error TS2345: Argument of type 'this' is not assignable to parameter of type 'CoreSite'.
+Type 'CoreCandidateSite' is missing the following properties from type 'CoreSite': db, cacheTable, configTable, lastViewedTable, and 42 more.
+
+941                     supportConfig: new CoreUserAuthenticatedSupportConfig(this),"
+moodleapp,max,1700831320_e7c5dcd6da21ffc40534cd6234f117d790187666,jest,1,236,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.991397+00:00,78e095099a9e4b7e,22,1,88339f77fde552a5,cf5609f34cfb,1700831320_e7c5dcd6da21ffc40534cd6234f117d790187666,1701353192_807ba1455295cbc226d53269beedd3a25f69015e,"● Test suite failed to run
+
+src/core/singletons/index.ts:<n>:<n> - error TS2307: Cannot find module '@ionic-native/qr-scanner/ngx' or its corresponding type declarations.
+
+56 import { QRScanner as QRScannerService } from '@ionic-native/qr-scanner/ngx';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+moodleapp,max,1701352584_60a2d16dc6288db7878f1335a4d5f8f7308eda38,jest,1,234,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.991599+00:00,ceacee7a96bcd6c2,6,1,88339f77fde552a5,cf5609f34cfb,1701352584_60a2d16dc6288db7878f1335a4d5f8f7308eda38,1701676933_fec29ecca12e8d42d030916ea9ad2f062c8c1aaf,"● Test suite failed to run
+
+src/core/singletons/index.ts:<n>:<n> - error TS2307: Cannot find module '@ionic-native/qr-scanner/ngx' or its corresponding type declarations.
+
+55 import { QRScanner as QRScannerService } from '@ionic-native/qr-scanner/ngx';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+moodleapp,max,1706271310_c3c414a1da1f5522304d23974f8c3c79e490447a,jest,1,347,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.991876+00:00,a8de0a3dbc0da54d,1,1,73d5bde20cb4386f,f24126b50fe7,1706271310_c3c414a1da1f5522304d23974f8c3c79e490447a,1706271310_c3c414a1da1f5522304d23974f8c3c79e490447a,"● Test suite failed to run
+
+src/core/components/mod-icon/mod-icon.ts:<n>:<n> - error TS2339: Property 'moduleIconIsBranded' does not exist on type 'CoreSingletonProxy<CoreCourseModuleDelegateService>'.
+
+159             return await CoreCourseModuleDelegate.moduleIconIsBranded(this.modname);
+~~~~~~~~~~~~~~~~~~~"
+moodleapp,max,1710751005_6ce688e76ca31eef1ff990583528a8cb9a9d5fa6,jest,1,229,  ● Test suite failed to run,acceptable,2026-10-21T18:26:19.985390+00:00,f3d47b04027d230e,1,1,3bba1c2767b187ab,,1710751005_6ce688e76ca31eef1ff990583528a8cb9a9d5fa6,1710751005_6ce688e76ca31eef1ff990583528a8cb9a9d5fa6,"● Test suite failed to run
+
+src/core/services/sites.ts:<n>:<n> - error TS2353: Object literal may only specify known properties, and 'debug' does not exist in type 'Partial<CoreLoginErrorOptions>'.
+
+503                 debug: {
+~~~~~"
+moodleapp,max,1726753080_a2c6a5b5788e7f3e9d5db497a6708eb60c616dfc,jest,1,280,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:31.996181+00:00,badc04aa6e87b522,5,1,395a0d1c72f60961,8287911c57fd,1726753080_a2c6a5b5788e7f3e9d5db497a6708eb60c616dfc,1727968425_a169d9301a2a572218f727712700c8dd85a6395a,"● Test suite failed to run
+
+src/core/features/course/services/course-helper.ts:<n>:<n> - error TS2345: Argument of type '(CoreCourseModuleData | CoreCourseSection)[]' is not assignable to parameter of type 'CoreCourseModuleData[]'.
+Type 'CoreCourseModuleData | CoreCourseSection' is not assignable to type 'CoreCourseModuleData'.
+Type 'CoreCourseSection' is not assignable to type 'CoreCourseModuleData'.
+Type 'CoreCourseSection' is missing the following properties from type 'Omit<CoreCourseGetContentsWSModule, ""completiondata"">': instance, visibleoncoursepage, modicon, modname, and 2 more."
+moodleapp,max,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,jest,1,342,  ● CoreFormatTextDirective › should render,acceptable,2026-10-21T18:42:31.997857+00:00,4786f7fae9e13213,3,1,de131ac971b47903,e29131c03262,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,1738576966_f0922480ca93e5e4ac53ab853da3f3c739333cbf,"● CoreFormatTextDirective › should render
+
+Unexpected ""CoreFormatTextDirective"" found in the ""declarations"" array of the ""DynamicTestModule"" NgModule, ""CoreFormatTextDirective"" is marked as standalone and can't be declared in any NgModule - did you intend to import it instead (by adding it to the ""imports"" array)?
+
+111 |     await TestBed.compileComponents();
+112 |"
+moodleapp,max,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,jest,1,376,  ● CoreFormatTextDirective › should format text,acceptable,2026-10-21T18:42:31.999389+00:00,720195a45fc3f7c0,3,1,7c234af143099db9,e29131c03262,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,1738576966_f0922480ca93e5e4ac53ab853da3f3c739333cbf,"● CoreFormatTextDirective › should format text
+
+Unexpected ""CoreFormatTextDirective"" found in the ""declarations"" array of the ""DynamicTestModule"" NgModule, ""CoreFormatTextDirective"" is marked as standalone and can't be declared in any NgModule - did you intend to import it instead (by adding it to the ""imports"" array)?
+
+111 |     await TestBed.compileComponents();
+112 |"
+moodleapp,max,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,jest,1,410,  ● CoreFormatTextDirective › should get filters from server and format text,acceptable,2026-10-21T18:42:32.000978+00:00,f4b9c815445acc3d,3,1,bfbece6fd7e7158c,e29131c03262,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,1738576966_f0922480ca93e5e4ac53ab853da3f3c739333cbf,"● CoreFormatTextDirective › should get filters from server and format text
+
+Unexpected ""CoreFormatTextDirective"" found in the ""declarations"" array of the ""DynamicTestModule"" NgModule, ""CoreFormatTextDirective"" is marked as standalone and can't be declared in any NgModule - did you intend to import it instead (by adding it to the ""imports"" array)?
+
+111 |     await TestBed.compileComponents();
+112 |"
+moodleapp,max,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,jest,1,444,  ● CoreFormatTextDirective › should use external-content directive on images,acceptable,2026-10-21T18:42:32.002425+00:00,10c7654a9a2b3dac,3,1,ef4920c3a2a79788,e29131c03262,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,1738576966_f0922480ca93e5e4ac53ab853da3f3c739333cbf,"● CoreFormatTextDirective › should use external-content directive on images
+
+Unexpected ""CoreFormatTextDirective"" found in the ""declarations"" array of the ""DynamicTestModule"" NgModule, ""CoreFormatTextDirective"" is marked as standalone and can't be declared in any NgModule - did you intend to import it instead (by adding it to the ""imports"" array)?
+
+111 |     await TestBed.compileComponents();
+112 |"
+moodleapp,max,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,jest,1,478,  ● CoreFormatTextDirective › should use link directive on anchors,acceptable,2026-10-21T18:42:32.004014+00:00,b9b8139cc79e1981,3,1,2e2e44d9f4e867f1,e29131c03262,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,1738576966_f0922480ca93e5e4ac53ab853da3f3c739333cbf,"● CoreFormatTextDirective › should use link directive on anchors
+
+Unexpected ""CoreFormatTextDirective"" found in the ""declarations"" array of the ""DynamicTestModule"" NgModule, ""CoreFormatTextDirective"" is marked as standalone and can't be declared in any NgModule - did you intend to import it instead (by adding it to the ""imports"" array)?
+
+111 |     await TestBed.compileComponents();
+112 |"
+moodleapp,max,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,jest,1,681,  ● CoreLinkDirective › should render,acceptable,2026-10-21T18:42:32.005200+00:00,a36f46622af1b472,3,1,b8e256e2fe47d556,e29131c03262,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,1738576966_f0922480ca93e5e4ac53ab853da3f3c739333cbf,"● CoreLinkDirective › should render
+
+Unexpected ""CoreLinkDirective"" found in the ""declarations"" array of the ""DynamicTestModule"" NgModule, ""CoreLinkDirective"" is marked as standalone and can't be declared in any NgModule - did you intend to import it instead (by adding it to the ""imports"" array)?
+
+111 |     await TestBed.compileComponents();
+112 |"
+moodleapp,max,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,jest,1,715,  ● CoreLinkDirective › should capture clicks,acceptable,2026-10-21T18:42:32.006596+00:00,11481d837c12acac,3,1,34b97b9e3f81bf07,e29131c03262,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,1738576966_f0922480ca93e5e4ac53ab853da3f3c739333cbf,"● CoreLinkDirective › should capture clicks
+
+Unexpected ""CoreLinkDirective"" found in the ""declarations"" array of the ""DynamicTestModule"" NgModule, ""CoreLinkDirective"" is marked as standalone and can't be declared in any NgModule - did you intend to import it instead (by adding it to the ""imports"" array)?
+
+111 |     await TestBed.compileComponents();
+112 |"
+moodleapp,max,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,jest,1,796,  ● CoreIframeComponent › should render,acceptable,2026-10-21T18:42:32.008205+00:00,91603037bb68c871,3,1,cdc56c7d650097ef,e29131c03262,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,1738576966_f0922480ca93e5e4ac53ab853da3f3c739333cbf,"● CoreIframeComponent › should render
+
+Unexpected ""CoreIframeComponent"" found in the ""declarations"" array of the ""TestBed.configureTestingModule"" call, ""CoreIframeComponent"" is marked as standalone and can't be declared in any NgModule - did you intend to import it instead (by adding it to the ""imports"" array)?
+
+89 |     config.declarations.push(component);
+90 |"
+moodleapp,max,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,jest,1,843,  ● CoreUserAvatarComponent › should render,acceptable,2026-10-21T18:42:32.009800+00:00,f986a9868ba90dbd,3,1,5de8c74c5d1ddb61,e29131c03262,1738360127_797e725e6ef1fc3575524099d0f16253b718f506,1738576966_f0922480ca93e5e4ac53ab853da3f3c739333cbf,"● CoreUserAvatarComponent › should render
+
+Unexpected ""CoreUserAvatarComponent"" found in the ""declarations"" array of the ""TestBed.configureTestingModule"" call, ""CoreUserAvatarComponent"" is marked as standalone and can't be declared in any NgModule - did you intend to import it instead (by adding it to the ""imports"" array)?
+
+89 |     config.declarations.push(component);
+90 |"
+moodleapp,max,1738362607_46392a2358780a6dc3f8ef1bf0d856e77342d9cc,jest,1,551,  ● Credentials page › renders,acceptable,2026-10-21T18:42:32.011355+00:00,bb4f68bb3f35ab01,2,1,8e14b4d449ca4db9,e29131c03262,1738362607_46392a2358780a6dc3f8ef1bf0d856e77342d9cc,1738576966_f0922480ca93e5e4ac53ab853da3f3c739333cbf,"● Credentials page › renders
+
+Unexpected ""CoreLoginCredentialsPage"" found in the ""declarations"" array of the ""TestBed.configureTestingModule"" call, ""CoreLoginCredentialsPage"" is marked as standalone and can't be declared in any NgModule - did you intend to import it instead (by adding it to the ""imports"" array)?
+
+89 |     config.declarations.push(component);
+90 |"
+moodleapp,max,1738362607_46392a2358780a6dc3f8ef1bf0d856e77342d9cc,jest,1,595,  ● Credentials page › suggests contacting support after multiple failed attempts,acceptable,2026-10-21T18:42:32.012941+00:00,99baf274383b5293,2,1,9d653614a057e507,e29131c03262,1738362607_46392a2358780a6dc3f8ef1bf0d856e77342d9cc,1738576966_f0922480ca93e5e4ac53ab853da3f3c739333cbf,"● Credentials page › suggests contacting support after multiple failed attempts
+
+Unexpected ""CoreLoginCredentialsPage"" found in the ""declarations"" array of the ""TestBed.configureTestingModule"" call, ""CoreLoginCredentialsPage"" is marked as standalone and can't be declared in any NgModule - did you intend to import it instead (by adding it to the ""imports"" array)?
+
+89 |     config.declarations.push(component);
+90 |"
+moodleapp,max,1738671840_465595a632fc48aed693486ad683e8242c1441da,jest,1,409,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:32.013170+00:00,8d7b578090fc9c72,1,1,0c71afe16551ca57,cf5609f34cfb,1738671840_465595a632fc48aed693486ad683e8242c1441da,1738671840_465595a632fc48aed693486ad683e8242c1441da,"● Test suite failed to run
+
+src/core/features/courses/services/courses-helper.ts:<n>:<n> - error TS2307: Cannot find module '../courses-my-lazy.module' or its corresponding type declarations.
+
+439         return import('../courses-my-lazy.module');
+~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+moodleapp,max,1740670691_ce767f621bdbe69fb61e2b3bf913addfdd957224,jest,1,258,  ● Test suite failed to run,reevaluated_acceptable,2026-10-21T18:42:32.013468+00:00,da104587c7f27a2a,1,1,8bbb39027348d65b,4676730a7449,1740670691_ce767f621bdbe69fb61e2b3bf913addfdd957224,1740670691_ce767f621bdbe69fb61e2b3bf913addfdd957224,"● Test suite failed to run
+
+src/core/singletons/time.ts:<n>:<n> - error TS2304: Cannot find name 'LongDateFormatKey'.
+
+449     static getLocalizedDateFormat(localizedFormat: LongDateFormatKey): string {
+~~~~~~~~~~~~~~~~~"
+moodleapp,max,1751286662_e22be5cc4da242dc3148a5b15a4364c89e402af0,jest,1,263,  ● Test suite failed to run,acceptable,2026-10-21T18:26:22.416828+00:00,28a8dd6438750b18,1,1,b4a03d5d9806f61e,,1751286662_e22be5cc4da242dc3148a5b15a4364c89e402af0,1751286662_e22be5cc4da242dc3148a5b15a4364c89e402af0,"● Test suite failed to run
+
+src/core/services/sites.ts:<n>:<n> - error TS2345: Argument of type '{ params: { redirectPath?: string; redirectOptions?: CoreNavigationOptions; urlToOpen?: string; forceLogout?: boolean; removeAccount?: boolean; siteId?: string; }; reset: true; }' is not assignable to parameter of type 'CoreNavigationOptions'.
+Type '{ params: { redirectPath?: string | undefined; redirectOptions?: CoreNavigationOptions | undefined; urlToOpen?: string | undefined; forceLogout?: boolean | undefined; removeAccount?: boolean | undefined; siteId?: string | undefined; }; reset: true; }' is missing the following properties from type 'Pick<NavigationOptions, ""animated"" | ""animation"" | ""animationDirection"">': animated, animation, animationDirection
+
+1674         await CoreNavigator.navigate('/logout', {"
+moodleapp,max,1758884419_d4ef8318ec32f0b04eadc4e9b040b096951cccf3,jest,1,266,  ● Test suite failed to run,acceptable,2026-10-21T18:26:24.792620+00:00,abf1f1d81dfbff56,1,1,3eb0d580c7dad4c0,,1758884419_d4ef8318ec32f0b04eadc4e9b040b096951cccf3,1758884419_d4ef8318ec32f0b04eadc4e9b040b096951cccf3,"● Test suite failed to run
+
+src/core/singletons/dom.ts:<n>:<n> - error TS2322: Type 'HTMLElement | HTMLIonButtonElement | HTMLIonInputElement | HTMLIonSearchbarElement | HTMLIonTextareaElement' is not assignable to type 'HTMLElement'.
+Type 'HTMLIonInputElement' is not assignable to type 'HTMLElement'.
+Types of property 'autocorrect' are incompatible.
+Type 'string' is not assignable to type 'boolean'."

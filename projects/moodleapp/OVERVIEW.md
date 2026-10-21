@@ -44,7 +44,7 @@
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-09-16 07:20).
+Source: `stats_output/report.txt` (generated 2026-10-21 19:10).
 
 | Metric | Value |
 |---|---|
@@ -62,11 +62,12 @@ Full statistics and plots: [`stats_output/`](stats_output/).
 The 116 failing runs fall into six signatures. All are dev-facing — the era's
 developer would see them at the same commit — and are labeled `acceptable` or
 `reevaluated_acceptable` (the latter records a family re-assessed from
-`unclear`/`problematic`). See
-[`failure_labels_project.csv`](failure_labels_project.csv) for the labels and
-[`failure_labels_jev.csv`](failure_labels_jev.csv) for the automated System 1 evaluation
-(all 28 flagged issues were audited against git history and confirmed as commit-era upstream defects);
-[`failure_labels_collapsed_problematic_unclear.csv`](failure_labels_collapsed_problematic_unclear.csv)
+`unclear`/`problematic`). See the v2 artifacts under [`label_analysis/`](label_analysis/):
+[`label_analysis/failure_labels_project_min.csv`](label_analysis/failure_labels_project_min.csv) (and
+[`failure_labels_project_max.csv`](label_analysis/failure_labels_project_max.csv)) for human labels, and
+[`label_analysis/failure_labels_jev_min.csv`](label_analysis/failure_labels_jev_min.csv) for the automated System 1 evaluation
+(all 17 flagged issues across 58 union runs were audited against git history and confirmed as commit-era upstream defects);
+[`label_analysis/moodleapp_min.jsonl`](label_analysis/moodleapp_min.jsonl)
 lists no `problematic`/`unclear` families.
 
 | Signature | Classification | Coverage impact | Action |
