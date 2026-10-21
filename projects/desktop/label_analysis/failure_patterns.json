@@ -31,6 +31,18 @@
       "add_patterns": [
         "^\\s*\\[?(?:AssertionError|TypeError|ReferenceError|RangeError|SyntaxError|Error)(?:\\s*\\[[^\\]]+\\])?:"
       ]
+    },
+    "app_unit": {
+      "add_patterns": [
+        "^\\s*\\[?(?:AssertionError|TypeError|ReferenceError|RangeError|SyntaxError|Error)(?:\\s*\\[[^\\]]+\\])?:"
+      ],
+      "note": "jest-era stem for the same suite; keep the general bullet rule because jest assertion blocks carry no error-prefixed line"
+    },
+    "script_script": {
+      "add_patterns": [
+        "^\\s*\\[?(?:AssertionError|TypeError|ReferenceError|RangeError|SyntaxError|Error)(?:\\s*\\[[^\\]]+\\])?:"
+      ],
+      "note": "jest-era stem for the same suite; keep the general bullet rule because jest assertion blocks carry no error-prefixed line"
     }
   },
   "auto_classify": [
@@ -78,8 +90,8 @@
     },
     {
       "match": "TypeError:\\ Cannot\\ read\\ property\\ 'parentSHAs'\\ of\\ undefined",
-      "label": "unclear",
-      "note": "",
+      "label": "reevaluated_acceptable",
+      "note": "Same wip-log-parser parser defect as 93fd280e4d0c6d4e (commits a91fc7ed76, 1f3d77b706); fixed in 180b3b57bd.",
       "lines": 2,
       "id": "cb038194f1fe"
     },
@@ -94,8 +106,8 @@
     },
     {
       "match": "TypeError:\\ Cannot\\ read\\ property\\ 'sha'\\ of\\ null",
-      "label": "unclear",
-      "note": "",
+      "label": "reevaluated_acceptable",
+      "note": "wip-log-parser branch: git log/tag parsing returned objects without sha (and parentSHAs for commits). 2020-12-08 runs (a91fc7ed76, 1f3d77b706) fixed 2 minutes later in 180b3b57bd; 2021-01-13 runs (3a27f7064b, 473f03ad7c) fixed in 032101127f ('math?').",
       "lines": 2,
       "id": "a188794bef91",
       "generated_by": "check_failures_v2",
@@ -166,8 +178,8 @@
     },
     {
       "match": "expect\\(received\\)\\.not\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n\\\nExpected:\\ \"b834f578cb989b87efcf11fe85a695491f3a8632\"\\\nReceived:\\ \"b834f578cb989b87efcf11fe85a695491f3a8632\"",
-      "label": "unclear",
-      "note": "",
+      "label": "reevaluated_acceptable",
+      "note": "WIP trampoline refactor on 2021-01-26: git fetch raised ReferenceError: trampoline_server_1 is not defined (src/lib/git/environment.ts:87), so the pull assertion never ran. Fixed in the follow-up branch commits ending 2f96fc871f.",
       "lines": 5,
       "id": "1bac276ad26c",
       "generated_by": "check_failures_v2",
@@ -193,8 +205,8 @@
     },
     {
       "match": "Cannot\\ find\\ module\\ '\\./dark\\-theme'\\ from\\ 'src/ui/lib/theme\\-change\\-monitor\\.ts'",
-      "label": "unclear",
-      "note": "",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream stale import on 2021-02-23 (14d59399): theme-change-monitor.ts imported ./dark-theme, which never existed; fixed same day in eb0a16e032 ('Fix Imports') to import from application-theme.",
       "lines": 2,
       "id": "15f032c6dd88",
       "generated_by": "check_failures_v2",
@@ -229,8 +241,8 @@
     },
     {
       "match": "Cannot\\ find\\ module\\ '\\.\\./alive/alive\\-session'\\ from\\ 'src/lib/stores/alive\\-store\\.ts'",
-      "label": "unclear",
-      "note": "",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream branch mistake 2021-11-23: alive-store.ts imported a local ../alive/alive-session that was never committed (TS2307); switched to @github/alive-client in 6dcf0e3292 three weeks later.",
       "lines": 2,
       "id": "3c0d569201c0",
       "generated_by": "check_failures_v2",
@@ -310,17 +322,17 @@
     },
     {
       "match": "Cannot\\ find\\ module\\ 'electron/renderer'\\ from\\ 'src/lib/ipc\\-renderer\\.ts'",
-      "label": "unclear",
-      "note": "",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream branch mistake on 2022-01-21: ipc-renderer.ts imported electron/renderer while package.json pins electron 13.6.2; the author fixed it in 8fab257e39 before merge.",
       "lines": 2,
       "id": "b4d3bac46995",
       "generated_by": "check_failures_v2",
       "window": "min"
     },
     {
-      "match": ":\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 10000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 10000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.",
-      "label": "unclear",
-      "note": "",
+      "match": "DesktopFileTransport[\\s\\S]*Async\\ callback\\ was\\ not\\ invoked",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream bug on 2022-03-11: desktop-file-transport.ts awaited createStream(), which resolved only on the stream 'ready' event and had no error path, so the write callback never fired (jest async timeout). Replaced with a synchronous createWriteStream in 9ff3f77a5b one minute later. NOTE: this rule matches the generic async-callback timeout body, so future occurrences are auto-accepted. Narrowed to the DesktopFileTransport tests so the generic async-timeout bodies still fall through to the older problematic rules (rebase progress, promisor remote).",
       "lines": 2,
       "id": "1e7778d6f7ca",
       "generated_by": "check_failures_v2",
@@ -346,8 +358,8 @@
     },
     {
       "match": "Cannot\\ find\\ module\\ '\\./ssh\\-token\\-storage'\\ from\\ 'src/lib/ssh/ssh\\-user\\-password\\.ts'",
-      "label": "unclear",
-      "note": "",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream unsaved rename on 2022-05-25 (9a89c27e): ssh-user-password.ts imported ./ssh-token-storage; the file is ssh-secret-storage.ts. Fixed same day in 7b6f61d851 ('Add changes I forgot to save').",
       "lines": 2,
       "id": "82be9f748e5d",
       "generated_by": "check_failures_v2",
@@ -409,8 +421,8 @@
     },
     {
       "match": "expect\\(received\\)\\.rejects\\.toThrow\\(expected\\)\\\n\\\nExpected\\ pattern:\\ /There\\ is\\ no\\ merge\\ in\\ progress,\\ so\\ there\\ is\\ nothing\\ to\\ abort/\\\nReceived\\ message:\\ \"__APP_VERSION__\\ is\\ not\\ defined\"",
-      "label": "unclear",
-      "note": "",
+      "label": "reevaluated_acceptable",
+      "note": "custom-ua branch 2023-06-28: abortMerge threw '__APP_VERSION__ is not defined' from trampoline-environment.ts:26, masking the expected git error. Fixed 31 minutes later in c487f2177f.",
       "lines": 5,
       "id": "29f727ab7e6f",
       "generated_by": "check_failures_v2",
