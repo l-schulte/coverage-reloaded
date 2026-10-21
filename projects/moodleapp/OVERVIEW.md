@@ -40,11 +40,11 @@
 - [x] failed tests doublechecked (non-zero-exit runs inspected and classified by failure family)
 - [x] complete run (6607/6607 commits processed on author-date timestamps; 0 pending)
 - [x] complete test failure check (all 116 failing runs labeled; 0 problematic/unclear)
-- [x] complete JEV test failure check
+- [x] complete JEV test failure check (Jev CSV present; [`label_analysis/jev_audit.md`](label_analysis/jev_audit.md) is current)
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-10-21 19:10).
+Source: `stats_output/report.txt` (generated 2026-10-21 22:16).
 
 | Metric | Value |
 |---|---|
@@ -57,28 +57,87 @@ Source: `stats_output/report.txt` (generated 2026-10-21 19:10).
 
 Full statistics and plots: [`stats_output/`](stats_output/).
 
-## Known test failures
+### Zero-test runs (0.0 % coverage)
 
-The 116 failing runs fall into six signatures. All are dev-facing — the era's
-developer would see them at the same commit — and are labeled `acceptable` or
-`reevaluated_acceptable` (the latter records a family re-assessed from
-`unclear`/`problematic`). See the v2 artifacts under [`label_analysis/`](label_analysis/):
-[`label_analysis/failure_labels_project_min.csv`](label_analysis/failure_labels_project_min.csv) (and
-[`failure_labels_project_max.csv`](label_analysis/failure_labels_project_max.csv)) for human labels, and
-[`label_analysis/failure_labels_jev_min.csv`](label_analysis/failure_labels_jev_min.csv) for the automated System 1 evaluation
-(all 17 flagged issues across 58 union runs were audited against git history and confirmed as commit-era upstream defects);
-[`label_analysis/moodleapp_min.jsonl`](label_analysis/moodleapp_min.jsonl)
-lists no `problematic`/`unclear` families.
+67 of the 116 failing runs executed no test at all: jest reported `Test Suites: <n>
+failed, <n> total` with `Tests: 0 total`, because every suite failed to compile or
+load before execution. Jest still writes a structurally valid `lcov` in that state —
+measured on `1627386228_655e97213`: 1 736 `SF:` records and `LH=0` over
+`LF=271964` — so these runs pass LCOV validation and enter the dataset as valid
+partial coverage at exactly 0.0 % lines (the per-suite `min 0.0%` in
+`report.txt`). They are the only population in this project with zero coverage.
 
-| Signature | Classification | Coverage impact | Action |
+Boundaries, sourced from `logs/`, `label_analysis/failure_labels_v2.db`, and
+`git` in `repo/`:
+
+- **Time:** first `2021-07-27 11:43` (`655e97213`), last `2025-09-26 11:00`
+  (`d4ef8318e`). No zero-test run exists before 2021-07 or after 2025-09.
+- **Branch:** all 67 are commits of merged side branches; **none lies on the
+  first-parent mainline**. The 1 621 first-parent commits of `main` contain no
+  failing run at all, so the mainline never carries this outlier.
+- **Consecutiveness:** in processed (author-date) order the 67 form 23 bursts —
+  13 isolated runs, 34 with a zero-test neighbour on both sides, 20 at a burst
+  edge. The largest bursts are 25 runs (2023-11-28 14:56 → 11-30 14:06) and 10
+  runs (2023-11-24 13:06 → 11-28 14:22), separated by single passing runs inside
+  the 48-run Ionic 7 window.
+- **Concentration:** 15 distinct pull-request branches; 44 of the 67 belong to
+  ticket `MOBILE-3947` (three authors' branches), and 48 of the 67 fall between
+  2023-11-09 and 2023-12-04.
+
+| Era | Runs | Branch(es) | Signature |
 |---|---|---|---|
-| `● Test suite failed to run` — ts-jest / Jest errors at broken intermediate commits (Jest unexpected token / `@moodlehq/ionic-native-push` ESM window, `@services/nav-helper`, `@types/jest` window, `@singletons/components-registry`, `CorePlatform.isIOS`, `Constructor` export, `@ionic-native/qr-scanner`, `LongDateFormatKey`, `TS2740`/`TS2769`/`TS2507` refactor window (2021-03)) | acceptable / reevaluated_acceptable | valid partial | None |
-| `● Credentials page › renders` — `NullInjectorError` (no `HttpClient` provider), 2023 era; later 5000 ms timeouts recovered by the `--testTimeout` fix | acceptable | valid partial | None |
-| `● Credentials page › suggests contacting support after multiple failed attempts` — unbounded `fixture.whenStable()` hang during the 2023-09 `MOBILE-4201` login-restyling window | acceptable / reevaluated_acceptable | valid partial | None (transient window) |
-| `● CoreFormatTextDirective` / `● CoreLinkDirective` (`should use link directive on anchors`, `should render`, `should format text`, `should use external-content directive on images`, `should capture clicks`) — un-mocked directive dependencies | acceptable / reevaluated_acceptable | valid partial | None |
-| `● CoreNavigator › navigates to site paths using the default tab` (2022 era) | acceptable | valid partial | None |
-| `● Site Home link handlers › Handles links ending with /?redirect=0` — unbounded `handleCustomURL` await (true hang) | acceptable | valid partial | None (transient window) |
-| `NG0203` Angular injection-context warnings (present in 476 logs) | false_positive | none | None. Warnings only; tests pass. |
+| 2021-07-27 → 2021-08-09 | 8 | `MOBILE-3792-2`, `MOBILE-3833` | `TS2593` / `TS2304 Cannot find name 'fail'` — jest typings absent from the lockfile |
+| 2022-03-01 | 1 | `MOBILE-3982` | `Could not locate module @singletons/components-registry` |
+| 2023-04-21 | 1 | `MOBILE-4214` | `Jest encountered an unexpected token` on `@moodlehq/ionic-native-push` |
+| 2023-11-09 → 2023-12-04 | 48 | `MOBILE-3947` (3 authors), `MOBILE-4479` | `TS2307` on `@ionic-native/qr-scanner/ngx` |
+| 2024-03-18 | 1 | `MOBILE-4268` | `TS2353` object literal |
+| 2024-09-19 → 2024-10-03 | 5 | `MOBILE-4660` | `TS2345` argument type |
+| 2025-02-27 | 1 | `MOBILE-4549` | `TS2304 Cannot find name 'LongDateFormatKey'` |
+| 2025-06-30 | 1 | `MOBILE-4739` | `TS2345` argument type |
+| 2025-09-26 | 1 | `MOBILE-4842` | `TS2322` on `HTMLElement` union |
+
+Every cause is upstream: the branch state was broken as authored and repaired
+before or at merge, which is why no mainline commit is affected. The runs are
+labeled `acceptable` / `reevaluated_acceptable`; the per-family attribution is in
+[`label_analysis/jev_audit.md`](label_analysis/jev_audit.md). The zero coverage is
+a property of the commit, not a pipeline defect: no execution occurred, so 0 % is
+the correct measurement of what the suite exercised, but it is not evidence that
+the code was untested.
+
+## Failure triage
+
+Source: `python check_failures_v2.py moodleapp --stats` (window `min`, run 2026-10-21)
+and `stats_output/report.txt` (generated 2026-10-21 22:16). Labels:
+[`failure_labels_project_min.csv`](label_analysis/failure_labels_project_min.csv)
+(primary) and [`failure_labels_project_max.csv`](label_analysis/failure_labels_project_max.csv)
+(diagnostic window). These CSVs are the single source of truth; this section reports
+numbers only and does not restate per-family labels. Automated System 1 labeling:
+[`failure_labels_jev_min.csv`](label_analysis/failure_labels_jev_min.csv), audited in
+[`jev_audit.md`](label_analysis/jev_audit.md).
+
+| Metric | Value |
+|---|---|
+| Failing runs (`report.txt`) | 116 |
+| Failing runs (label DB) | 116 (`failing runs` line) |
+| Fingerprints (min / max) | 70 / 72 |
+| Labeled fingerprints | 70 (100%) |
+| Unlabeled fingerprints | 0 |
+| acceptable | 27 |
+| reevaluated_acceptable | 43 |
+| problematic | 0 |
+| unclear | 0 |
+| false_positive | 0 |
+| Manual / auto-propagated labels | 14 / 56 |
+| Labeled detections (min) | 259/259 (100%) |
+| Labeled runs (min) | 116/116 (100%) |
+| Jev mode | fingerprint |
+| Jev pipeline issues | 17 flagged rows (4 upstream defect families) |
+| Jev audit | current |
+
+**State:** complete. All failing runs are classified dev-facing or non-failures; no
+`problematic` or `unclear` family remains, so no per-family table is given. The Jev
+audit attributes all 17 flagged rows to commit-era upstream defects and requires no
+pipeline change.
 
 ## Environment / setup fixes
 
@@ -93,6 +152,9 @@ lists no `problematic`/`unclear` families.
 
 ## Known gaps
 
+- 67 failing runs executed zero tests and therefore carry 0.0 % coverage (see
+  Zero-test runs under Results). They are genuine commit-era compile failures on
+  merged side branches, not pipeline artifacts; no mainline commit is affected.
 - 152 processed commits predate the test infrastructure and are recorded as
   **not applicable**.
 - 110 hard errors (no coverage): 93 `npm install` failures — 69 on git-based
