@@ -9,9 +9,14 @@
   Version override: `npm@7.20.3` → `npm@8` for epoch `1627914966`–`1636403951`.
 - **Node strategy:** default.
 - **Runners:** `jest`.
-- **Eras:** unit tests only. The `integration-tests/` workspace is Playwright
-  end-to-end (off-limits). `scripts/memory` and `integration-tests/node` use
-  `node:test` smoke checks that exercise the built package, not `src/`. Behavioral
+- **Eras:** one full jest unit run for the whole window. The run is filed under two
+  suite labels because the lcov file inherits the directory the project writes its
+  coverage to: `src_unit` (2019-10-16 → 2022-09-08) when coverage lands in
+  `src/coverage`, and `config_unit` (from 2020-05-20, dominant from 2022-06-28,
+  through 2025-12-23) when it lands in `config/coverage`. The two labels never occur
+  at the same commit. The `integration-tests/` workspace is Playwright end-to-end
+  (off-limits), and `scripts/memory` / `integration-tests/node` are `node:test`
+  smoke checks that exercise the built package rather than `src/`. Behavioral
   integration is already covered by the jest unit run over `src/__tests__`, so no
   separate integration suite is collected.
 
@@ -26,23 +31,28 @@
 
 ## Coverage collection
 
-- **Suites collected:** the jest unit run over `src/__tests__`.
+- **Suites collected:** the single jest unit run, recorded as `src_unit` or
+  `config_unit` (see Eras).
 - **Suites excluded:** Playwright end-to-end (`integration-tests/`) and the
-  `node:test` smoke checks.
-- **Coverage tool / config:** runner-native coverage.
-- **LCOV production:** jest `lcov` reporter.
+  `node:test` smoke checks (`scripts/memory`, `integration-tests/node`).
+- **Coverage tool / config:** jest's Istanbul coverage through the project's own
+  `coverage` script (`jest --config ./config/jest.config.js --coverage`);
+  [`patch-coverage.js`](patch-coverage.js) appends `--coverageReporters=lcov`.
+- **LCOV production:** the run writes `<dir>/coverage/lcov.info`; the harness moves
+  it out of the repository and files it as `src_unit` or `config_unit`, one lcov
+  per commit.
 
 ## Checklist
 
 - [x] 100 done (99/100)
 - [x] failed tests doublechecked
-- [x] complete run
-- [x] complete test failure check
-- [x] complete JEV test failure check
+- [x] complete run (4462 commits processed; 0 pending)
+- [x] complete test failure check (all 488 failing runs labeled; 0 problematic/unclear)
+- [x] complete JEV test failure check (all 359 flagged fingerprints audited; see [`label_analysis/jev_audit.md`](label_analysis/jev_audit.md))
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-10-20 19:07).
+Source: `stats_output/report.txt` (generated 2026-10-21 20:03).
 
 | Metric | Value |
 |---|---|
@@ -53,33 +63,57 @@ Source: `stats_output/report.txt` (generated 2026-10-20 19:07).
 | Hard errors | 53 |
 | Coverage produced | 98.8% |
 
-Full statistics and plots: [`stats_output/`](stats_output/). Failure labels:
-[`label_analysis/failure_labels_project_min.csv`](label_analysis/failure_labels_project_min.csv).
+Full statistics and plots: [`stats_output/`](stats_output/).
 
-## Known test failures
+## Failure triage
 
-All failures exit with code 1 and valid (partial) coverage; the suite never bails.
-A labeling pass on 2026-09-16 reclassified every previously `problematic`/`unclear`
-family to `reevaluated_acceptable`; the collapsed
-[`failure_labels_collapsed_problematic_unclear.csv`](failure_labels_collapsed_problematic_unclear.csv)
-is now empty.
+Source: `python check_failures_v2.py apollo-client --stats` (window `min`, run 2026-10-21)
+and `stats_output/report.txt` (generated 2026-10-21 20:03). Labels:
+[`failure_labels_project_min.csv`](label_analysis/failure_labels_project_min.csv)
+(primary) and [`failure_labels_project_max.csv`](label_analysis/failure_labels_project_max.csv)
+(diagnostic window). These CSVs are the single source of truth; this section
+reports numbers only and does not restate per-family labels.
 
-| Signature | Classification | Coverage impact | Action |
-|---|---|---|---|
-| Sporadic test timeouts retried with `--testTimeout=20000` (37 runs, 2020-05 to 2025-12) | reevaluated_acceptable | valid partial | Retried. 71 commits affected by timeouts were re-run under `--testTimeout=20000`; 26 resolved to clean passes and 8 resolved timeouts completely. The remaining 37 runs encounter timeouts that persist despite the increased budget: 23 runs hit the internal 1,000 ms `@testing-library/react-hooks` `waitForNextUpdate` limit, 6 runs hit uninvoked async callbacks exceeding 20,000 ms, 6 hit general Jest timeouts, and 2 hit `WaitForRenderTimeoutError`. All produce valid line coverage without bailing. |
-| Mutation `refetchQueries` assertion (16 runs, 2021-05 to 2021-11) | acceptable | valid partial | None. `allows refetchQueries to be passed to the mutate function` (`src/react/components/__tests__/client/Mutation.test.tsx`) fails; 9 runs (2021-06-23 to 2021-08-16) show `Expected: false / Received: true` on a loading-state assertion, 5 runs (2021-05-18) fail with `Converting circular structure to JSON`, and the 2 runs on 2021-11-03 coincide with the jsdom commit `278ba5fd…`. |
-| jsdom environment missing (`window is not defined`) — 1 commit `278ba5fd223f133e53dbef2bc840e38c4dbee735` (2021-11-03) | reevaluated_acceptable | the commit's code was effectively not covered; this is the faithful signal | None. The `src_unit` suite fails to run because the jest `26→27` bump left `testEnvironment` unset, so the default `node` environment aborts every browser-touching test. `testEnvironment: 'jsdom'` was added upstream one day later in `745712847`. |
-| `@testing-library/react-render-stream` act-environment incompatibility — 1 commit `7bcde69848dead02b8af2305bcf0a1a87c99dbc8` (2024-12-04) | reevaluated_acceptable | render-stream-covered code was effectively not covered; accepted as a faithful gap | None. All 30 `config_unit` failures (10 "Test suite failed to run" + 20 downstream masking-assertion failures) stem from one error: the pinned `@testing-library/react-render-stream@2.0.0-alpha.1` throws "Tried to create a React root for a render stream inside a React act environment" because `@testing-library/react@16` forces `IS_REACT_ACT_ENVIRONMENT`. The test files already call `disableActEnvironment()`. |
-| ts-jest type error (`graphql-ws` `terminate`) — 1 commit `1089b2f0defc5a3eee8c05df9b35f120e8266211` (2022-04-21) | reevaluated_acceptable | faithful gap | None. The `graphqlWsLink.ts` suite fails to run because ts-jest `diagnostics: true` rejects a type error in the test's mock `Client` after the `graphql-ws` v5.7.0 update. The project's own config enforces type-checking, so the developers' run also failed to compile this suite. |
-| ts-jest type error (`InMemoryCache` `lookupFragment`) — 1 commit `abecb11601f286e414101a3bc5b53017e7eb1499` (2022-09-21) | reevaluated_acceptable | faithful gap | None. The `writeToStore.ts` suite fails to run because ts-jest `diagnostics: true` rejects a type error in the test's mock `WriteContext` after `InMemoryCache#transformForLink` added the field. The developers' run also failed to compile this suite. |
-| `use-sync-external-store/shim` missing — 8 commits around 2021-11 (for example, `7f0d459c7b3b94c5de1561433c006a6efa017007`, 2021-11-16) | reevaluated_acceptable | faithful gap; ~70 unit tests abort | None. The `#8785` `useSyncExternalStore()` addition depends on `use-sync-external-store@^1.0.0-beta-…`, which apollo-client also declares as an optional peer dependency (`peerDependenciesMeta.use-sync-external-store.optional: true`). npm 7+ skips optional peers, so the `shim` subpath is never installed. WayPack serves the tarball correctly, so this is a real dependency-resolution gap at those commits. The project fixed it by bumping to `1.0.0-rc.0` on 2022-01-10. |
-| Profiler helper missing in release branch merge (`createProfiler` / `profileHook`) — 1 commit `ba70b6254862fae884457d9356c65c15497a4e89` (2024-11-07) | reevaluated_acceptable | faithful gap | None. Merging `origin/main` into `release-3.12` deleted `src/testing/internal/profile/` while `release-3.12` hook tests still imported `createProfiler`/`profileHook`. This was an upstream branch merge conflict resolved in follow-up branch commits. |
+| Metric | Value |
+|---|---|
+| Failing runs (`report.txt`) | 488 |
+| Failing runs (label DB) | 488 |
+| Fingerprints (min / max) | 872 / 967 |
+| Labeled fingerprints | 872 (100.0%) |
+| Unlabeled fingerprints | 0 |
+| acceptable | 425 |
+| reevaluated_acceptable | 447 |
+| problematic | 0 |
+| unclear | 0 |
+| false_positive | 0 |
+| Manual / auto-propagated labels | 16 / 856 |
+| Labeled detections (min) | 2020/2020 (100.0%) |
+| Labeled runs (min) | 488/488 (100.0%) |
+| Jev pipeline issues | 359 |
+
+**State:** complete.
+
+All 359 Jev-flagged fingerprints originate from four runs and were audited against
+the project's git history; the audit is recorded in
+[`label_analysis/jev_audit.md`](label_analysis/jev_audit.md).
 
 ## Environment / setup fixes
 
-- **Jest test timeouts under container load (`fix_jest_timeouts`):** 71 historical commits affected by test timeouts were archived to [`projects/apollo-client/archive/fix_jest_timeouts/`](archive/fix_jest_timeouts/) and re-run with `--testTimeout=20000` in `install-and-run.sh` and `patch-coverage.js`. 26 commits resolved into clean passes (`exit_code = 0`), 8 commits eliminated timeouts and now only fail on genuine commit-era assertions, and 37 commits with persistent timeouts (predominantly internal 1,000 ms `waitForNextUpdate` limits in `@testing-library/react-hooks`) were re-evaluated as acceptable (`reevaluated_acceptable`).
+- **Jest test timeouts under container load (`fix_jest_timeouts`):** 71
+  timeout-affected runs were archived to
+  [`archive/fix_jest_timeouts/`](archive/fix_jest_timeouts/) and re-run with
+  `--testTimeout=20000`, applied in [`install-and-run.sh`](install-and-run.sh) and
+  [`patch-coverage.js`](patch-coverage.js). See the
+  [archive README](archive/fix_jest_timeouts/README.md) for the archived run list.
 
 ## Known gaps
 
-The Playwright end-to-end workspace and the `node:test` smoke checks are
-intentionally not collected.
+- The Playwright end-to-end workspace (`integration-tests/`) and the `node:test`
+  smoke checks (`scripts/memory`, `integration-tests/node`) are intentionally not
+  collected.
+- 53 commits produce no coverage (`report.txt`): 34 abort with exit code 127
+  because a build binary is absent (`tsc` 27, `ts-node-script` 6, `rollup` 1), 10
+  with exit code 2 (9 TypeScript build errors, 1 `npm install` failure), 7 with exit
+  code 1 (5 `npm install` failures, 1 `SyntaxError: Cannot use import statement
+  outside a module`, 1 unresolved `whatwg-fetch` import in `dist/`), and 2 hit the
+  90-minute run timeout.
