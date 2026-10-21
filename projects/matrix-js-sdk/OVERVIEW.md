@@ -57,7 +57,7 @@
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-09-26).
+Source: `stats_output/report.txt` (generated 2026-10-21).
 
 | Metric | Value |
 |---|---|
@@ -76,20 +76,14 @@ Group E (1, WebRTC crash). The environment groups (A, D) were recovered by the
 
 ## Known test failures
 
-Labeling pass complete. `failure_labels_project.csv` holds 400 fingerprints
-covering all 6,463 detected failures across the 843 failing runs: **328
-`acceptable`, 72 `reevaluated_acceptable`, 0 `problematic`, 0 `unclear`**. Every
-family was re-assessed at the error-body level; none is a setup artifact of this
-pipeline, so no `install-and-run.sh` or `Dockerfile` change is required and no
-coverage-threshold confound was found. See
-[`failure_labels_project.csv`](failure_labels_project.csv) and the collapsed
-views [`failure_labels_collapsed_by_rule.csv`](failure_labels_collapsed_by_rule.csv) /
-[`failure_labels_collapsed_problematic_unclear.csv`](failure_labels_collapsed_problematic_unclear.csv)
-(both empty of unresolved families). The olm-related families
-(`End-to-end encryption not supported`, `Cannot find module '@matrix-org/olm'`,
-`must contain at least one test`) were traced to genuine upstream defects: merge
-`4e283176` deleted `"@matrix-org/olm"` from `package.json`, and the 2021-05-21
-libolm package rename left `spec/olm-loader.js` importing the old `olm` name.
+v2 labeling and Jev triage pass complete:
+- **Human Labels ([`label_analysis/failure_labels_project_min.csv`](label_analysis/failure_labels_project_min.csv)):** 1,247 fingerprints covering all 6,283 detected failures across the 843 failing runs: **911 `acceptable`, 336 `reevaluated_acceptable`, 0 `problematic`, 0 `unclear`**. Every failure family was re-assessed at the error-body and git-commit level; zero setup or pipeline defects were found.
+- **Jev Automated Triage ([`label_analysis/failure_labels_jev_min.csv`](label_analysis/failure_labels_jev_min.csv)):** 310 fingerprints evaluated (266 `acceptable`, 44 `problematic` across 14 union runs). All 44 Jev `problematic` verdicts were audited against git history and proven to be **Hypothesis B (commit-era developer mistakes / fast author fixes)**:
+  - `Cannot find module .../client` (7 runs): author Travis Ralston temporarily renamed `src/client.js` to `src/1client.ts` during intermediate PR commits before restoring it as `src/client.ts`.
+  - `TypeError: Cannot read property 'init' of undefined` & `E2EE not supported: load olm` (4 runs): Hubert Chathi bumped olm package name without updating `spec/olm-loader.js` (fixed 24 min later in `9e30c4f7d`); Michael Telatynski accidentally dropped `@matrix-org/olm` during merge `4e2831764` (fixed 14 min later in `8c3b24956`).
+  - Jest environment hint / `ReferenceError: navigator is not defined` (3 runs): Robert Long introduced `navigator.mediaDevices.addEventListener` without Node guard in `src/webrtc/mediaHandler.ts` (reverted/moved 5 days later in `17f5ab41917`).
+
+No `install-and-run.sh` or `Dockerfile` modification is required. Zero coverage-threshold confounds exist.
 
 ### Hard failures (no coverage produced)
 
@@ -106,8 +100,9 @@ environment artifacts — so they are documented rather than patched.
 ### Soft failures (partial coverage, suite did not bail)
 
 All of these still emit `lcov.info`, so they are visible partial results — no
-silent under-measurement. The remaining soft-failure groups are still under
-triage; the one resolved so far is below.
+silent under-measurement. All soft-failure groups have been fully triaged and
+verified as genuine upstream developer-facing defects (0 `problematic`, 0
+`unclear`). Key resolved groups are detailed below.
 
 | Signature | Classification | Coverage impact | Action |
 |---|---|---|---|
