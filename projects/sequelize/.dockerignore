@@ -1,0 +1,5 @@
+*
+!Dockerfile
+!repo/
+!install-and-run.sh
+!disable-innodb-native-aio.js

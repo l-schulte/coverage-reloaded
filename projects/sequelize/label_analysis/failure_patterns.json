@@ -1,0 +1,225 @@
+{
+  "general": {
+    "patterns": [
+      "^\\s*[A-Za-z0-9_]*Error:",
+      "^\\s*Error:?\\s*$",
+      "^\\s*\\[IBM\\]\\[CLI Driver\\]"
+    ],
+    "exclude": [
+      "^\\s*[0-9]+\\s+failing\\b",
+      "^\\s*[0-9]+\\s+passing\\b",
+      "^\\s*[0-9]+\\s+pending\\b",
+      "^\\s*[0-9]+\\)\\s",
+      "^\\s+at\\s+\\S",
+      "Test Suites:",
+      "Tests:",
+      "Snapshots:",
+      "Ran all test suites",
+      "^\\s*console\\.",
+      "npm ERR!"
+    ]
+  },
+  "suites": {},
+  "auto_classify": [
+    {
+      "match": "AssertionError:\\ expected\\ \\{\\ Object\\ \\(id,\\ name,\\ \\.\\.\\.\\)\\ \\}\\ to\\ deeply\\ equal\\ \\{\\ Object\\ \\(id,\\ name,\\ \\.\\.\\.\\)\\ \\}",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "d04176bd9da1"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ promise\\ to\\ be\\ rejected\\ with\\ an\\ error\\ including\\ '.*'\\ but\\ it\\ was\\ fulfilled\\ with\\ \\[\\ undefined,\\ undefined\\ \\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "58823ff2ca88"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\d+\\ to\\ not\\ equal\\ \\d+",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "6b03582baca2"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ undefined\\ to\\ be\\ truthy",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "226765a6311f"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ '.*'\\ to\\ equal\\ '.*'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "0d7bc54bb5dd"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ false\\ to\\ be\\ true",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "839ee353ef26"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\+?\\d+\\ to\\ equal\\ \\d+",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "e13a867d6749"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\[.*\\]\\ to\\ have\\ a\\ length\\ of\\ \\d+\\ but\\ got\\ \\+?\\d+",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "f71b576cf9f4"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ true\\ to\\ be\\ falsy",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "31baf2266750"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ properties\\ of\\ null\\ \\(reading\\ 'dataValues'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "5ff09390a75a"
+    },
+    {
+      "match": "\\[IBM\\]\\[CLI\\ Driver\\]\\[DB2/LINUXX8664\\]\\ SQL0205N\\ \\ Column,\\ attribute,\\ or\\ period\\ \"currency\"\\ is\\ not\\ defined\\ in\\ \"archive\\.users\"\\.\\ \\ SQLSTATE=42703",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "5a462059bae3"
+    },
+    {
+      "match": "\\[IBM\\]\\[CLI\\ Driver\\]\\[DB2/LINUXX8664\\]\\ SQL0205N\\ \\ Column,\\ attribute,\\ or\\ period\\ \"firstName\"\\ is\\ not\\ defined\\ in\\ \"archive\\.users\"\\.\\ \\ SQLSTATE=42703",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "dfe57fb3466b"
+    },
+    {
+      "match": "\\[IBM\\]\\[CLI\\ Driver\\]\\[DB2/LINUXX8664\\]\\ SQL0205N\\ \\ Column,\\ attribute,\\ or\\ period\\ \"lastName\"\\ is\\ not\\ defined\\ in\\ \"archive\\.users\"\\.\\ \\ SQLSTATE=42703",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "139385c18297"
+    },
+    {
+      "match": "\\[IBM\\]\\[CLI\\ Driver\\]\\[DB2/LINUXX8664\\]\\ SQL0205N\\ \\ Column,\\ attribute,\\ or\\ period\\ \"email\"\\ is\\ not\\ defined\\ in\\ \"archive\\.users\"\\.\\ \\ SQLSTATE=42703",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "139385c1829f"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ 0\\.\\d+\\ to\\ be\\ falsy",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "6daa23feff76"
+    },
+    {
+      "match": "TypeError:\\ The\\ \"path\"\\ argument\\ must\\ be\\ of\\ type\\ string\\.\\ Received\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "f8e91a842b5f"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ undefined\\ to\\ equal\\ ''",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "83fededcc315"
+    },
+    {
+      "match": "SequelizeAssociationError:\\ You\\ are\\ trying\\ to\\ define\\ the\\ BelongsToMany\\ association\\ \"Users\"\\ from\\ Group\\ to\\ User,",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "006eb81dc978"
+    },
+    {
+      "match": "SequelizeAssociationError:\\ Defining\\ BelongsToMany\\ association\\ \"relation2\"\\ from\\ b\\ to\\ a\\ failed",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "565293d63440"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\[\\ .*,\\ \\d\\ \\]\\ to\\ deeply\\ equal\\ \\[\\ .*,\\ \\d\\ \\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "baa110064a92"
+    },
+    {
+      "match": "TypeError:\\ Can't\\ install\\ fake\\ timers\\ twice\\ on\\ the\\ same\\ global\\ object\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "cdd8bf4ff0bd"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\[\\ \\{\\ \u2026\\(\\d+\\)\\ \\}\\ \\]\\ to\\ deeply\\ equal\\ \\[\\ \\{\\ \u2026\\(\\d+\\)\\ \\}\\ \\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "c9515b0cb10d"
+    },
+    {
+      "match": "TypeError:\\ tasks\\[0\\]\\.getAttributes\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "50ccb246adc2"
+    },
+    {
+      "match": "\\[IBM\\]\\[CLI\\ Driver\\]\\ SQL30081N\\ \\ A\\ communication\\ error\\ has\\ been\\ detected\\.\\ Communication\\ protocol\\ being\\ used:\\ \"TCP/IP\"\\.\\ \\ Communication\\ API\\ being\\ used:\\ \"SOCKETS\"\\.\\ \\ Location\\ where\\ the\\ error\\ was\\ detected:\\ \"127\\.0\\.0\\.1\"\\.\\ \\ Communication\\ function\\ detecting\\ the\\ error:\\ \"selectForConnectTimeout\"\\.\\ \\ Protocol\\ specific\\ error\\ code\\(s\\):\\ \"115\",\\ \"\\*\",\\ \"\\*\"\\.\\ \\ SQLSTATE=08001",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "51732e1c6ae3"
+    },
+    {
+      "match": "SequelizeConnectionError:\\ \\(conn:\\-1,\\ no:\\ 45012,\\ SQLState:\\ 08S01\\)\\ Connection\\ timeout:\\ failed\\ to\\ create\\ socket\\ after\\ 999ms",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "b1682c44a506"
+    },
+    {
+      "match": "SequelizeForeignKeyConstraintError:\\ SQLITE_CONSTRAINT:\\ FOREIGN\\ KEY\\ constraint\\ failed",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "1526d26208ad"
+    },
+    {
+      "match": "SequelizeDatabaseError:\\ Deadlock\\ found\\ when\\ trying\\ to\\ get\\ lock;\\ try\\ restarting\\ transaction",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "96c1ad357c23",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "RangeError:\\ Port\\ should\\ be\\ >=\\ 0\\ and\\ <\\ 65536\\.\\ Received\\ 99999\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "1cad3766c565",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    }
+  ]
+}
