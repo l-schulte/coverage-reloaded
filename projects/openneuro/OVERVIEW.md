@@ -46,7 +46,7 @@
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-10-22 15:21).
+Source: `stats_output/report.txt` (generated 2026-10-22 15:41).
 
 | Metric | Value |
 |---|---|
@@ -62,7 +62,7 @@ Full statistics and plots: [`stats_output/`](stats_output/).
 ## Failure triage
 
 Source: `python check_failures_v2.py openneuro --stats` (window `min`, run 2026-10-22) and
-`stats_output/report.txt` (generated 2026-10-22 15:21). Labels:
+`stats_output/report.txt` (generated 2026-10-22 15:41). Labels:
 [`failure_labels_project_min.csv`](label_analysis/failure_labels_project_min.csv)
 (primary) and [`failure_labels_project_max.csv`](label_analysis/failure_labels_project_max.csv)
 (diagnostic window). These CSVs are the single source of truth; this section
@@ -84,8 +84,8 @@ reports numbers only and does not restate per-family labels.
 | Labeled detections (min) | 5621/5621 (100.0%) |
 | Labeled runs (min) | 694/694 (100.0%) |
 | Jev mode | fingerprint |
-| Jev pipeline issues | 0 |
-| Jev audit | [`jev_audit.md`](label_analysis/jev_audit.md) |
+| Jev pipeline issues | 284 flagged rows |
+| Jev audit | current ([`jev_audit.md`](label_analysis/jev_audit.md)) |
 
 **State:** complete.
 
