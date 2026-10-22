@@ -25,19 +25,19 @@
 - **Suites excluded:** e2e. `test:e2e` (Playwright) exists only on an unmerged 2024 topic branch; legacy Spectron (`test/spectron`, `test/e2e.js`) predates the study window.
 - **Coverage tool / config:** jest's built-in coverage (babel/istanbul). The project defines no coverage configuration and no thresholds.
 - **LCOV production:** `yarn test --coverage --coverageReporters=lcov --runInBand` writes `coverage/lcov.info`, which `find-and-move-lcov.sh` moves to the report path.
-- **Suite excluded at runtime:** `test/lib/tandem/testTandemSimulator.js` is skipped on commits where `lib/drivers/tandem/tandemSimulator.js` is not part of the repository tree (see Known test failures and Known gaps). Detection is per-commit via the revision tree (not a date), so pre-2022 commits still run the suite.
+- **Suite excluded at runtime:** `test/lib/tandem/testTandemSimulator.js` is skipped on commits where `lib/drivers/tandem/tandemSimulator.js` is not part of the repository tree (see Known gaps). Detection is per-commit via the revision tree (not a date), so pre-2022 commits still run the suite.
 
 ## Checklist
 
 - [x] 100 done (100/100)
 - [x] failed tests doublechecked (inspected non-zero-exit runs; verified genuine developer regressions)
 - [x] complete run (2410 of 2410 commits processed)
-- [x] complete test failure check (all 64 fingerprints across 95 failing runs labeled and assessed; 51 acceptable, 13 reevaluated_acceptable, 0 problematic, 0 unclear)
-- [x] complete JEV test failure check (automated System 1 labeling via Jev evaluated all 64 signatures; all 12 flagged problematic signatures audited against git history and confirmed to be genuine developer-facing regressions)
+- [x] complete test failure check (all 82 fingerprints across 95 failing runs labeled and assessed; 81 acceptable, 1 reevaluated_acceptable, 0 problematic, 0 unclear)
+- [x] complete JEV test failure check (automated System 1 labeling via Jev evaluated all 82 fingerprints; 1 flagged signature audited in [`label_analysis/jev_audit.md`](label_analysis/jev_audit.md) and confirmed as commit-era upstream regression)
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-10-01 15:50).
+Source: `stats_output/report.txt` (generated 2026-10-22 08:13).
 
 | Metric | Value |
 |---|---|
@@ -50,20 +50,35 @@ Source: `stats_output/report.txt` (generated 2026-10-01 15:50).
 
 Full statistics and plots: [`stats_output/`](stats_output/).
 
-## Known test failures
+## Failure triage
 
-All 64 failure fingerprints across 95 failing runs are developer-facing code or configuration mistakes committed to git; none is an artifact of the collection pipeline. Labels are documented in [`failure_labels_project.csv`](failure_labels_project.csv) and [`failure_labels_jev.csv`](failure_labels_jev.csv).
+Source: `python check_failures_v2.py uploader --stats` (window `min`, run 2026-10-22) and
+`stats_output/report.txt` (generated 2026-10-22 08:13). Labels:
+[`failure_labels_project_min.csv`](label_analysis/failure_labels_project_min.csv)
+(primary) and [`failure_labels_project_max.csv`](label_analysis/failure_labels_project_max.csv)
+(diagnostic window). These CSVs are the single source of truth; this section
+reports numbers only and does not restate per-family labels.
 
-| Signature / Error | Classification | Coverage impact | Action / Root Cause |
-|---|---|---|---|
-| `Cannot find module '.../lib/drivers/tandem/tandemSimulator.js'` (`test/lib/tandem/testTandemSimulator.js`, from 2022-06-22) | reevaluated_acceptable (private submodule not available) | Before fix: suite failed to load, exit code 1 with valid partial coverage; after fix: suite excluded, exit code 0 | Excluded conditionally in `install-and-run.sh`; the driver source became an external private submodule at `34e707f87`/`e98a41a6f` and the suite exercises only that external code. |
-| `SyntaxError: Cannot use 'import.meta' outside a module` (`testCommonFunctions.js`, `testMedtronic600Simulator.js`, commit `8e940c63f`) | reevaluated_acceptable (developer regression) | Suite fails to load, exit code 1; valid partial coverage | Upstream commit `8e940c63f` introduced `import.meta.url` in `app/utils/ipc.js` during Node 22 upgrade; developer fixed it 3 hours later in `aef83e362` (*"fix tests"*). |
-| `Loading non-context-aware native module in renderer ... usb_bindings.node` (`test/lib/testSerialDevice.js`, commits `0c28ad508` to `59005b934`) | reevaluated_acceptable (developer regression) | Suite fails to load, exit code 1; valid partial coverage | Top-level `require('usb')` left unguarded during Electron 12 upgrade; developer fixed it in `6e330bf4e9` by scoping `require('usb')` to non-test environments. |
-| `Cannot find module '../../lib/core/driverManifests'` (`test/app/actions/async.test.js`, commits `0c28ad508` to `888cbbbc8`) | reevaluated_acceptable (developer regression) | Suite fails to load, exit code 1; valid partial coverage | Developer imported `driverManifests.js` before adding the file to git; committed missing file 2 commits later in `59005b934`. |
-| `SyntaxError: Unexpected token 'export'` (`node_modules/webmtp/mtp.js`, commit `673e3dd93`) | reevaluated_acceptable (developer regression) | Suite fails to load, exit code 1; valid partial coverage | Developer bumped `webmtp` to an ESM build; fixed 47 minutes later in `851dade0a` (*"fix jest for es6 module"*). |
-| `TypeError: Cannot read properties of undefined (reading 'on')` (`test/app/reducers/working.test.js`, commit `00679046d`) | reevaluated_acceptable (developer regression) | Suite fails to load, exit code 1; valid partial coverage | Merged test file mocked `electron` instead of `@electron/remote`; fixed 30 minutes later in `622871643` (*"fixing issues after merge"*). |
-| `SyntaxError: .../app/actions/async.js: Unexpected token (271:4)` (`test/app/reducers/users.test.js`, commit `7bbd7f016`) | reevaluated_acceptable (developer regression) | Suite fails to load, exit code 1; valid partial coverage | Syntax typo committed by developer (duplicate closing `}); };` blocks); resolved in subsequent commit. |
-| Behavioral test assertion failures (`HIDE_UNAVAILABLE_DEVICES`, `doUpload`, `doVersionCheck`, `doLogin`, simulator assertions) | acceptable (developer-facing test regressions) | Test assertion failures, exit code 1; valid partial coverage | Genuine unit test assertion failures across 51 distinct fingerprints. |
+| Metric | Value |
+|---|---|
+| Failing runs (`report.txt`) | 95 |
+| Failing runs (label DB) | 95 |
+| Fingerprints (min / max) | 82 / 116 |
+| Labeled fingerprints | 82 (100.0%) |
+| Unlabeled fingerprints | 0 |
+| acceptable | 81 |
+| reevaluated_acceptable | 1 |
+| problematic | 0 |
+| unclear | 0 |
+| false_positive | 0 |
+| Manual / auto-propagated labels | 50 / 32 |
+| Labeled detections (min) | 355/355 (100.0%) |
+| Labeled runs (min) | 95/95 (100.0%) |
+| Jev mode | fingerprint |
+| Jev pipeline issues | 1 flagged rows (audited in [`label_analysis/jev_audit.md`](label_analysis/jev_audit.md)) |
+| Jev audit | current |
+
+**State:** complete.
 
 ## Environment / setup fixes
 

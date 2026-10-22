@@ -78,6 +78,87 @@
       "note": "",
       "lines": 2,
       "id": "4b5bae4d01d8"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'getGlobal'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d305ac891ba3",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'payload'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "33ab67b80a61",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nExpected\\ value\\ \\ \\ undefined\\\nReceived:\\\nundefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "7cdc4cf12497",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nExpected\\ value\\ \\ \\ 5\\\nReceived:\\\n5\\.5",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "2a6c64be6c31",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nassert\\.deepStrictEqual\\(received,\\ expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0c473c30ea86",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nExpected\\ value\\ \\ \\ undefined\\\nReceived:\\\n\\[Error:\\ Something\\ went\\ wrong\\ during\\ device\\ upload\\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "56c2b387dfee",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nExpected\\ value\\ \\ \\ undefined\\\nReceived:\\\n\\[Error:\\ I'm\\ an\\ upload\\ error!\\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "a1a9612b89de",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nExpected\\ value\\ \\ \\ undefined\\\nReceived:\\\n\\[Error:\\ Make\\ sure\\ no\\ other\\ software\\ \\(e\\.g\\.\\ CareLink,\\ OpenAPS,\\ Loop\\)\\ is\\ talking\\ to\\ your\\ pump\\.\\ Otherwise,\\ please\\ see\\ the\\ error\\ details\\ below\\ or\\ contact\\ Tidepool\\ Support\\.\\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "d2d783f3cbef",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nReferenceError:\\ data\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "49e7a611dd90",
+      "generated_by": "check_failures_v2",
+      "window": "min"
     }
   ]
 }
