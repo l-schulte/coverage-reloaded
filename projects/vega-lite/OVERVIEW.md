@@ -33,12 +33,12 @@
 - [x] 100 done (99/100)
 - [x] failed tests doublechecked (genuine errors)
 - [x] complete run
-- [x] complete test failure check (3 commits doublechecked, genuine schema errors)
-- [x] complete JEV test failure check (automated System 1 labeling via Jev evaluated 1 signature across 3 occurrences; 0 flagged problematic signatures)
+- [x] complete test failure check (2 fingerprints, 100% labeled; 3/3 failing runs covered)
+- [x] complete JEV test failure check (fingerprint mode, 2 evaluated, 0 flagged; audit current)
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-10-03 09:55).
+Source: `stats_output/report.txt` (generated 2026-10-22 09:05).
 
 | Metric | Value |
 |---|---|
@@ -51,11 +51,35 @@ Source: `stats_output/report.txt` (generated 2026-10-03 09:55).
 
 Full statistics and plots: [`stats_output/`](stats_output/).
 
-## Known test failures
+## Failure triage
 
-| Signature | Classification | Coverage impact | Action |
-|---|---|---|---|
-| `examples/specs/bar_negative_horizontal_label.vl.json › should produce valid Vega` | acceptable | Valid coverage (exit code 1) | Genuine schema validation error introduced in PR #7144 (`c4b2458b75`, `c7b541d570`, `734e0b894f`) and fixed in PR #7147 (`59aace73f`). |
+Source: `python check_failures_v2.py vega-lite --stats` (window `min`, run 2026-10-22) and
+`stats_output/report.txt` (generated 2026-10-22 09:05). Labels:
+[`failure_labels_project_min.csv`](label_analysis/failure_labels_project_min.csv)
+(primary) and [`failure_labels_project_max.csv`](label_analysis/failure_labels_project_max.csv)
+(diagnostic window). These CSVs are the single source of truth; this section
+reports numbers only and does not restate per-family labels.
+
+| Metric | Value |
+|---|---|
+| Failing runs (`report.txt`) | 3 |
+| Failing runs (label DB) | 3 |
+| Fingerprints (min / max) | 2 / 2 |
+| Labeled fingerprints | 2 (100.0%) |
+| Unlabeled fingerprints | 0 |
+| acceptable | 2 |
+| reevaluated_acceptable | 0 |
+| problematic | 0 |
+| unclear | 0 |
+| false_positive | 0 |
+| Manual / auto-propagated labels | 2 / 0 |
+| Labeled detections (min) | 6/6 (100.0%) |
+| Labeled runs (min) | 3/3 (100.0%) |
+| Jev mode | fingerprint |
+| Jev pipeline issues | 0 flagged rows |
+| Jev audit | current |
+
+**State:** complete.
 
 ## Environment / setup fixes
 

@@ -1,0 +1,7 @@
+project,window,run_id,suite,exit_code,line_number,keyword,label,labeled_at,fingerprint,n_runs,n_variants,example_variant_fp,auto_rule_id,first_run,last_run,block
+vega-lite,min,1609660342_c4b2458b7506ad17e50324be317ac18eafaf377c,examples,1,372,  ● examples/specs/bar_negative_horizontal_label.vl.json › should produce valid Vega,acceptable,2026-10-22T08:56:08.844357+00:00,c28b926c16dc07b5,3,1,ea51341a32693e3a,,1609660342_c4b2458b7506ad17e50324be317ac18eafaf377c,1609661505_734e0b894f0472df12dd589e4785d0038b667d6a,"● examples/specs/bar_negative_horizontal_label.vl.json › should produce valid Vega
+
+expect(received).toBeUndefined()"
+vega-lite,min,1609660342_c4b2458b7506ad17e50324be317ac18eafaf377c,examples,1,389,  ● examples/specs/normalized/bar_negative_horizontal_label_normalized.vl.json › should produce valid Vega,acceptable,2026-10-22T08:56:10.860604+00:00,c24509ec328f0b82,3,1,d07cfcacc5205a4a,,1609660342_c4b2458b7506ad17e50324be317ac18eafaf377c,1609661505_734e0b894f0472df12dd589e4785d0038b667d6a,"● examples/specs/normalized/bar_negative_horizontal_label_normalized.vl.json › should produce valid Vega
+
+expect(received).toBeUndefined()"

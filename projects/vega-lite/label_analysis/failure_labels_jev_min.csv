@@ -1,0 +1,3 @@
+project,window,run_id,suite,exit_code,line_number,fingerprint,n_runs,keyword,is_pipeline_issue,confidence,env_subsystem,labeled_at
+vega-lite,min,1609660342_c4b2458b7506ad17e50324be317ac18eafaf377c,examples,1,372,c28b926c16dc07b5,3,  ● examples/specs/bar_negative_horizontal_label.vl.json › should produce valid Vega,False,0.8800,none,2026-10-22T08:56:29.549018+00:00
+vega-lite,min,1609660342_c4b2458b7506ad17e50324be317ac18eafaf377c,examples,1,389,c24509ec328f0b82,3,  ● examples/specs/normalized/bar_negative_horizontal_label_normalized.vl.json › should produce valid Vega,False,0.9000,none,2026-10-22T08:56:29.555300+00:00
