@@ -110,7 +110,7 @@
     },
     {
       "match": "\\\nCall\\ retries\\ were\\ exceeded",
-      "label": "problematic",
+      "label": "reevaluated_acceptable",
       "note": "",
       "lines": 2,
       "id": "51279d9fe99a"
@@ -583,6 +583,168 @@
       "note": "Destructuring type error in test",
       "lines": 1,
       "id": "destructure_type_error"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ unknown:\\ Missing\\ semicolon\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0d9d42bde4ee",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ '0'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a79eb21cfe48",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ URL\\.createObjectURL\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "58e6448997fa",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "SyntaxError: Invalid or unexpected token",
+      "label": "acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "58e6448997fa",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "SyntaxError: Cannot use import statement outside a module",
+      "label": "acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "58e6448997fr",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ .*:\\ Missing\\ semicolon\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0009e4eebd50",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nReferenceError:\\ OCP\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a34c20ad1cc4",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n\\[.*\\]:\\ \"getActivePinia\\(\\)\"\\ was\\ called\\ but\\ there\\ was\\ no\\ active\\ Pinia\\.\\ Did\\ you\\ forget\\ to\\ install\\ pinia\\?",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9091bdc820cf",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ convert\\ undefined\\ or\\ null\\ to\\ object",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a2709b59bdda",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n\\[\ufffd\ufffd\\]:\\ \"getActivePinia\\(\\)\"\\ was\\ called\\ but\\ there\\ was\\ no\\ active\\ Pinia\\.\\ Are\\ you\\ trying\\ to\\ use\\ a\\ store\\ before\\ calling\\ \"app\\.use\\(pinia\\)\"\\?",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5dee701fdf2b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ _ref44\\ is\\ not\\ iterable",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5b54eefef464",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nMust\\ use\\ import\\ to\\ load\\ ES\\ Module:\\ node_modules/@matrix\\-org/olm/olm\\.wasm",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "a397990daae4",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n\\[vuex\\]\\ unknown\\ action\\ type:\\ updateToken",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8ce205e239e3",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n\\[Vue\\ warn\\]:\\ Error\\ in\\ getter\\ for\\ watcher\\ \"token\":\\ \"TypeError:\\ store\\.getters\\.getToken\\ is\\ not\\ a\\ function\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "723381960310",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n\\[Vue\\ warn\\]:\\ Error\\ in\\ setup:\\ \"Error:\\ \\[.*\\]:\\ \"getActivePinia\\(\\)\"\\ was\\ called\\ but\\ there\\ was\\ no\\ active\\ Pinia\\.\\ Are\\ you\\ trying\\ to\\ use\\ a\\ store\\ before\\ calling\\ \"app\\.use\\(pinia\\)\"\\?",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e11824d408e0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.not\\.toHaveBeenCalled\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f563a946a918",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "FAIL\\ \\ src/stores/__tests__/chat\\.spec\\.js\\ >\\ chatStore\\ >\\ get\\ a\\ list\\ of\\ messages\\ >\\ returns\\ an\\ array\\ of\\ thread\\ messages\\ only",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "fbf1b8e774aa",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ \\[Vue\\ warn\\]:\\ injection\\ \"Symbol\\(route\\ location\\)\"\\ not\\ found\\.\\\n\u276f\\ Console\\.console\\.warn\\ src/test\\-setup\\.js:<n>:<n>\\\n141\\|\\ console\\.warn\\ =\\ function\\(message\\)\\ \\{\\\n142\\|\\ \\ originalWarn\\.apply\\(console,\\ arguments\\)\\\n143\\|\\ \\ throw\\ \\(message\\ instanceof\\ Error\\ \\?\\ message\\ :\\ new\\ Error\\(message\\)\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "c430796d02c8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
     }
   ]
 }
