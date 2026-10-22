@@ -1,0 +1,1167 @@
+{
+  "general": {
+    "patterns": [
+      "\u25cf",
+      "\u2715",
+      "\\bAssertionError",
+      "\\bTypeError",
+      "\\bReferenceError"
+    ],
+    "exclude": [
+      "\u25cf\\s*Console",
+      "Test Suites:",
+      "Tests:",
+      "Snapshots:",
+      "Ran all test suites",
+      "^\\s*console\\.",
+      "^\\s+at\\s",
+      "^\\s*\u276f\\s+",
+      "\\[ioredis\\]",
+      "UnhandledPromiseRejectionWarning",
+      "npm ERR!"
+    ],
+    "exclude_blocks": []
+  },
+  "suites": {
+    "vitest": {
+      "remove_patterns": [
+        "\u25cf",
+        "\u2715"
+      ],
+      "add_patterns": [
+        "^\\s*(?:[A-Z][a-zA-Z0-9_]*Error|Error):"
+      ],
+      "add_exclude": [
+        "Test Files",
+        "\u23af\u23af\u23af"
+      ]
+    }
+  },
+  "auto_classify": [
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchSnapshot\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "2b3c699e503f"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBeTruthy\\(\\)\\\n\\\nReceived:\\ false",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "337942d4c1cc"
+    },
+    {
+      "match": "\\\npackages/openneuro\\-client/src/client\\.js:1\\\nError:\\ Cannot\\ find\\ module\\ 'apollo\\-client'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "2d77e25fd934"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'apollo\\-client'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "82325f5660d1"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./mobile/collapsible\\-wrapper\\.jsx'\\ from\\ 'dataset\\-readme\\.jsx'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5731d01e109b"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./common/forms/file\\-select\\.jsx'\\ from\\ 'upload\\-resume\\.jsx'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d1c7b7aa4286"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./common/forms/file\\-select\\.jsx'\\ from\\ 'upload\\-select\\.jsx'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c9177d0ffc0a"
+    },
+    {
+      "match": "\\\nUnknown\\ option\\ \".*\"\\ with\\ value\\ .*\\ was\\ found\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d000b605f193"
+    },
+    {
+      "match": "\\\n\\\nEnzyme\\ Internal\\ Error:\\ Enzyme\\ expects\\ an\\ adapter\\ to\\ be\\ configured,\\ but\\ found\\ none\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Jest packages/* glob collision on packages/tsconfig.json ran headless duplicate suite without jestsetup.ts",
+      "lines": 3,
+      "id": "b1f51a93d054"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'openneuro\\-content'\\ from\\ 'dummy\\.spec\\.jsx'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0a48b697f786"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'Decimal128'\\ of\\ null",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7b8e60de8fa4"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./models/dataset\\.js'\\ from\\ 'src/datalad/pagination\\.js'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ec5a58caf997"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./models/subscription\\.js'\\ from\\ 'src/handlers/subscriptions\\.js'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5b00101256f5"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./models/counter\\.js'\\ from\\ 'src/libs/counter\\.js'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "82852c345ca1"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./models/user\\.js'\\ from\\ 'src/libs/authentication/__tests__/jwt\\.spec\\.js'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5c41886710a1"
+    },
+    {
+      "match": "\\\nQualified\\ path\\ resolution\\ failed\\ \\-\\ none\\ of\\ the\\ candidates\\ can\\ be\\ found\\ on\\ the\\ disk\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream transitional refactoring commits with moved files and lagging test imports",
+      "lines": 2,
+      "id": "509370ee459e"
+    },
+    {
+      "match": "\\\nConfiguration\\ error:\\\n\\\nCould\\ not\\ locate\\ module\\ @openneuro/components/search\\-page\\ mapped\\ as:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "8d291e0f9c47"
+    },
+    {
+      "match": "\\\n@testing\\-library/react\\ tried\\ to\\ access\\ react\\-dom\\ \\(a\\ peer\\ dependency\\)\\ but\\ it\\ isn't\\ provided\\ by\\ your\\ application;\\ this\\ makes\\ the\\ require\\ call\\ ambiguous\\ and\\ unsound\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Developer removed react-dom from package.json in b398282; fixed in 81f2c5d1e",
+      "lines": 2,
+      "id": "6fc9be87f91a"
+    },
+    {
+      "match": "\\\nYour\\ test\\ suite\\ must\\ contain\\ at\\ least\\ one\\ test\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b3ce6ab3325c"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./file\\-tree\\.jsx'\\ from\\ 'packages/openneuro\\-app/src/scripts/dataset/files/__tests__'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7ced8ac6f240"
+    },
+    {
+      "match": "\\\nReferenceError:\\ gql\\ is\\ not\\ defined",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "59b6d1402a56"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'node\\-fetch'\\ from\\ 'packages/openneuro\\-server/src/graphql/resolvers'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1075c01f0e66"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'cross\\-fetch/polyfill'\\ from\\ 'packages/openneuro\\-client/src'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "13c577f309e4"
+    },
+    {
+      "match": "OverwriteModelError:\\ Cannot\\ overwrite\\ `.*`\\ model\\ once\\ compiled\\.",
+      "label": "problematic",
+      "note": "Harness interference: vitest --single-thread/--no-threads broke module isolation causing Mongoose OverwriteModelError",
+      "lines": 1,
+      "id": "b154ebe0f2ca"
+    },
+    {
+      "match": "Error:\\ \\[vitest\\]\\ There\\ was\\ an\\ error,\\ when\\ mocking\\ a\\ module\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "ff95876be1df"
+    },
+    {
+      "match": "Error:\\ \\[vitest\\]\\ vi\\.mock\\(path:\\ string,\\ factory\\?:\\ \\(\\)\\ =>\\ unknown\\)\\ is\\ not\\ returning\\ an\\ object\\.\\ Did\\ you\\ mean\\ to\\ return\\ an\\ object\\ with\\ a\\ \"default\"\\ key\\?",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "c3ae90624472"
+    },
+    {
+      "match": "TestingLibraryElementError:\\ Found\\ multiple\\ elements",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "06cc814c916a"
+    },
+    {
+      "match": "Error:\\ No\\ test\\ suite\\ found\\ in\\ file",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "ef02c9c86982"
+    },
+    {
+      "match": "Error:\\ Snapshot\\ cannot\\ be\\ used\\ outside\\ of\\ test",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "e805ac2984ff"
+    },
+    {
+      "match": "Error:\\ ENOENT:\\ `/root/\\.openneuro`:\\ no\\ such\\ file\\ or\\ directory",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "bbc2a676e27f"
+    },
+    {
+      "match": "Error:\\ \\[vite\\-node\\]\\ Failed\\ to\\ load\\ \\.\\./\\.\\./datalad/files\\.js",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "2f246fe027e6"
+    },
+    {
+      "match": "Error:\\ \\[vite\\-node\\]\\ Failed\\ to\\ load\\ apollo\\-server",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "48683233cf68"
+    },
+    {
+      "match": "Error:\\ Qualified\\ path\\ resolution\\ failed:\\ we\\ looked\\ for\\ the\\ following\\ paths,\\ but\\ none\\ could\\ be\\ accessed\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Vitest dist/ execution artifact + upstream relative import typo in user.spec.ts",
+      "lines": 1,
+      "id": "6cb8a6878755"
+    },
+    {
+      "match": "Error:\\ require\\(\\)\\ of\\ ES\\ Module\\ \\.yarn/__virtual__/react\\-markdown\\-virtual\\-f212cc2672/0/cache/react\\-markdown\\-npm\\-9\\.0\\.1\\-02c77a4123\\-ca1daa650d\\.zip/node_modules/react\\-markdown/index\\.js\\ from\\ packages/openneuro\\-app/dist/scripts/utils/markdown\\.js\\ not\\ supported\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "187279dcba51"
+    },
+    {
+      "match": "SyntaxError:\\ Cannot\\ use\\ import\\ statement\\ outside\\ a\\ module",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "aa89f44e04cf"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'fn'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "8e2750d09c3e"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'mock'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "597e4900adc8"
+    },
+    {
+      "match": "Error:\\ Your\\ application\\ tried\\ to\\ access\\ @testing\\-library/react,\\ but\\ it\\ isn't\\ declared\\ in\\ your\\ dependencies;\\ this\\ makes\\ the\\ require\\ call\\ ambiguous\\ and\\ unsound\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "f4a9f1023ea4"
+    },
+    {
+      "match": "Error:\\ require\\(\\)\\ of\\ ES\\ Module\\ \\.yarn/__virtual__/vitest\\-fetch\\-mock\\-virtual\\-e3917f9232/0/cache/vitest\\-fetch\\-mock\\-npm\\-0\\.2\\.2\\-ba54c13e51\\-fa160f3011\\.zip/node_modules/vitest\\-fetch\\-mock/src/index\\.js\\ from\\ packages/openneuro\\-server/dist/graphql/resolvers/__tests__/importRemoteDataset\\.spec\\.js\\ not\\ supported\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "0d31335e7744"
+    },
+    {
+      "match": "Error:\\ Your\\ application\\ tried\\ to\\ access\\ .*,\\ but\\ it\\ isn't\\ declared\\ in\\ your\\ dependencies;\\ this\\ makes\\ the\\ require\\ call\\ ambiguous\\ and\\ unsound\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "259c1ffc616f"
+    },
+    {
+      "match": "Error:\\ Snapshot\\ `email\\ template\\ \\->\\ comment\\ created\\ >\\ renders\\ with\\ expected\\ arguments\\ 1`\\ mismatched",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "8c95f2482310"
+    },
+    {
+      "match": "Error:\\ Vitest\\ cannot\\ be\\ imported\\ in\\ a\\ CommonJS\\ module\\ using\\ require\\(\\)\\.\\ Please\\ use\\ \"import\"\\ instead\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "5e0fbad2b751"
+    },
+    {
+      "match": "Error:\\ Failed\\ to\\ resolve\\ import\\ \"@openneuro/components/search\\-page\"\\ from\\ \"packages/openneuro\\-app/src/scripts/search/inputs/sort\\-by\\-select\\.tsx\"\\.\\ Does\\ the\\ file\\ exist\\?",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "5f1485f7ac34"
+    },
+    {
+      "match": "Error:\\ Failed\\ to\\ resolve\\ import\\ \"\\.\\./queries/user\"\\ from\\ \"packages/openneuro\\-app/src/scripts/users/user\\-account\\-view\\.tsx\"\\.\\ Does\\ the\\ file\\ exist\\?",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "4dbc43582ffd"
+    },
+    {
+      "match": "Error:\\ No\\ test\\ found\\ in\\ suite",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "40ef758d1b4d"
+    },
+    {
+      "match": "\\\nInvariant\\ Violation:\\ Could\\ not\\ find\\ \"client\"\\ in\\ the\\ context\\ or\\ passed\\ in\\ as\\ an\\ option\\.\\ Wrap\\ the\\ root\\ component\\ in\\ an\\ <ApolloProvider>,\\ or\\ pass\\ an\\ ApolloClient\\ instance\\ in\\ via\\ options\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "10318813755d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "throw\\ new\\ Error\\(",
+      "label": "acceptable",
+      "note": "",
+      "lines": 7,
+      "id": "b766372b9f33",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ \\(.*\\)\\(\\.\\.\\.\\)\\.then\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d91209e6147d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nInvariant\\ Violation:\\ Invalid\\ hook\\ call\\.\\ Hooks\\ can\\ only\\ be\\ called\\ inside\\ of\\ the\\ body\\ of\\ a\\ function\\ component\\.\\ This\\ could\\ happen\\ for\\ one\\ of\\ the\\ following\\ reasons:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0a0afd7b8033",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.not\\.toThrowError\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b27f358354f4",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nInvariant\\ Violation:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c8c324167d98",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledTimes\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ba21bbdfd40b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledWith\\(\\.\\.\\.expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d8d195f374df",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ _mongoose\\.Schema\\ is\\ not\\ a\\ constructor",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "671725d93a44",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./config\\.js'\\ from\\ 'download\\-s3\\.jsx'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0461b61cd23e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'cloudID'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ff6207cd71b3",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'child'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9ca24f72ffbd",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n\\\nExpected:\\ \"/datasets/ds000001/versions/2\\.0\\.0\"\\\nReceived:\\ \"/datasets/ds000001/versions/1\\.0\\.0\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "813f4baa78aa",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nReferenceError:\\ Cannot\\ access\\ 'MockFileTree'\\ before\\ initialization",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9f691e64a7d1",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\./utils'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a1f7a8a1200b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ \\(0\\ ,\\ _mongoose\\.model\\)\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a0b5e550be35",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ window\\.matchMedia\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "bd1a722faf55",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ expect\\(\\.\\.\\.\\)\\.toBeDisabled\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8ca3f5b890b5",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ expect\\(\\.\\.\\.\\)\\.not\\.toBeDisabled\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e811a30ebe8b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ fetch\\.mockResponseOnce\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6b14561c94f4",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ fetch\\.mockReject\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d83b108ea4ff",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "01c4193b418f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toThrowErrorMatchingSnapshot\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "cc158fb7af5b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ require\\.requireMock\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "53b9f4ad85d5",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'openneuro\\-content'\\ from\\ '.*'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a85139644d0e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nJest\\ encountered\\ an\\ unexpected\\ token\\\n\\\nThis\\ usually\\ means\\ that\\ you\\ are\\ trying\\ to\\ import\\ a\\ file\\ which\\ Jest\\ cannot\\ parse,\\ e\\.g\\.\\ it's\\ not\\ plain\\ JavaScript\\.\\\n\\\nBy\\ default,\\ if\\ Jest\\ sees\\ a\\ Babel\\ config,\\ it\\ will\\ use\\ that\\ to\\ transform\\ your\\ files,\\ ignoring\\ \"node_modules\"\\.\\\n\\\nHere's\\ what\\ you\\ can\\ do:\\\n\u2022\\ If\\ you\\ are\\ trying\\ to\\ use\\ ECMAScript\\ Modules,\\ see\\ https://jestjs\\.io/docs/en/ecmascript\\-modules\\ for\\ how\\ to\\ enable\\ it\\.\\\n\u2022\\ To\\ have\\ some\\ of\\ your\\ \"node_modules\"\\ files\\ transformed,\\ you\\ can\\ specify\\ a\\ custom\\ \"transformIgnorePatterns\"\\ in\\ your\\ config\\.\\\n\u2022\\ If\\ you\\ need\\ a\\ custom\\ transformation\\ specify\\ a\\ \"transform\"\\ option\\ in\\ your\\ config\\.\\\n\u2022\\ If\\ you\\ simply\\ want\\ to\\ mock\\ your\\ non\\-JS\\ modules\\ \\(e\\.g\\.\\ binary\\ assets\\)\\ you\\ can\\ stub\\ them\\ out\\ with\\ the\\ \"moduleNameMapper\"\\ config\\ option\\.\\\n\\\nYou'll\\ find\\ more\\ details\\ and\\ examples\\ of\\ these\\ config\\ options\\ in\\ the\\ docs:\\\nhttps://jestjs\\.io/docs/en/configuration\\.html\\\n\\\nDetails:\\\n\\\nnode_modules/bids\\-validator/index\\.js:2\\\nimport\\ validate\\ from\\ '\\./validators'\\\n\\^\\^\\^\\^\\^\\^\\\n",
+      "label": "acceptable",
+      "note": "",
+      "lines": 22,
+      "id": "a52c29a4121f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ .*\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9e1b61b736cf",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ '.*'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "3369456c4b66",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchObject\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7710c1319f2a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ .*:\\ Unexpected\\ token,\\ expected\\ \".\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4ae8da76b95d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalled\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e717278df9d0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ Unexpected\\ token\\ ;\\ in\\ JSON\\ at\\ position\\ 4",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1a939b1a0ffd",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTestingLibraryElementError:\\ Unable\\ to\\ find\\ a\\ label\\ with\\ the\\ text\\ of",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c02326c92c18",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nMailjet\\ API_KEY\\ is\\ required",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "13a2f02e478a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "cda42fc64aeb",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.not\\.toThrow\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "483daaf0a4e5",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'node\\-fetch'\\ from\\ 'packages/openneuro\\-server/src/",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c2c9cf4a0865",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'cross\\-fetch/polyfill'\\ from\\ 'packages/openneuro\\-cli/src'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a2c3a032750a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "f019d2de283f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ \\[vite\\-node\\]\\ Failed\\ to\\ load\\ \\./metadata\\.js\\\n\u276f\\ packages/openneuro\\-server/src/graphql/resolvers/dataset\\.js:<n>:<n>",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "3be51c4509e0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Uncaught\\ \\[TypeError:\\ window\\.matchMedia\\ is\\ not\\ a\\ function\\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "3ca79b4ad90b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0650e0f71ec8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenLastCalledWith\\(\\.\\.\\.expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9ee6095e744f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toHaveProperty\\(path\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "3d87920c898e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toHaveLength\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "36dec6b89c61",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBeInTheDocument\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "453fbeb324c7",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\+\\ \\[TypeError:\\ Header\\ guard\\ error:\\ Cannot\\ set\\ forbidden\\ header\\ for\\ requests\\ \\(cookie\\)\\],",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "6ad8c4c95d21",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\npackages/openneuro\\-app/src/assets/ljaf\\.png:1",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c674c91586eb",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nPrettyFormatPluginError:\\ Invalid\\ string\\ lengthRangeError:\\ Invalid\\ string\\ length",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7537f4ec3b9c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\npackages/openneuro\\-app/src/scripts/config\\.ts:116\\\nurl:\\ import\\.meta\\.env\\.VITE_CRN_SERVER_URL\\.toString\\(\\),",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "2442dfee4b45",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ extend\\ field\\ 'downloadDataset'\\ from\\ type\\ 'Query'\\.\\ Field\\ does\\ not\\ exist\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "aab839562b2a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nNo\\ more\\ mocked\\ responses\\ for\\ the\\ query:\\ mutation\\ deleteFiles\\(\\$datasetId:\\ ID!,\\ \\$files:\\ \\[DeleteFile\\]!\\)\\ \\{",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8a67355e646f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nYour\\ application\\ tried\\ to\\ access\\ openneuro\\-client,\\ but\\ it\\ isn't\\ declared\\ in\\ your\\ dependencies;\\ this\\ makes\\ the\\ require\\ call\\ ambiguous\\ and\\ unsound\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "de27b3091246",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ The\\ first\\ argument\\ must\\ be\\ of\\ type\\ string\\ or\\ an\\ instance\\ of\\ Buffer,\\ ArrayBuffer,\\ or\\ Array\\ or\\ an\\ Array\\-like\\ Object\\.\\ Received\\ undefinedTypeError\\ \\[ERR_INVALID_ARG_TYPE\\]:\\ The\\ first\\ argument\\ must\\ be\\ of\\ type\\ string\\ or\\ an\\ instance\\ of\\ Buffer,\\ ArrayBuffer,\\ or\\ Array\\ or\\ an\\ Array\\-like\\ Object\\.\\ Received\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c0690ac3a050",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nMethod\\ \u201chasClass\u201d\\ is\\ meant\\ to\\ be\\ run\\ on\\ 1\\ node\\.\\ 0\\ found\\ instead\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "504ff6ffb841",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError\\ \\[ERR_INVALID_ARG_TYPE\\]:\\ The\\ \"listener\"\\ argument\\ must\\ be\\ of\\ type\\ function\\.\\ Received\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "df009c671298",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Uncaught\\ \\[TypeError:\\ Cannot\\ read\\ property\\ 'latestSnapshot\\.summary\\.modalities'\\ of\\ undefined\\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "8af79f3fc728",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nElement\\ type\\ is\\ invalid:\\ expected\\ a\\ string\\ \\(for\\ built\\-in\\ components\\)\\ or\\ a\\ class/function\\ \\(for\\ composite\\ components\\)\\ but\\ got:\\ undefined\\.\\ You\\ likely\\ forgot\\ to\\ export\\ your\\ component\\ from\\ the\\ file\\ it's\\ defined\\ in,\\ or\\ you\\ might\\ have\\ mixed\\ up\\ default\\ and\\ named\\ imports\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "edad101a2da6",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nReferenceError:\\ fetch\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "20481454b710",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ done\\(\\)\\ callback\\ is\\ deprecated,\\ use\\ promise\\ instead",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "144af38334af",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Type\\ with\\ name\\ \"DatasetChange\"\\ does\\ not\\ exists",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "7224fa388471",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Uncaught\\ \\[TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'includes'\\)\\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "7488df95acee",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'includes'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "9902c18b4acf",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ Snapshot\\ `DataTable\\ component\\ >\\ renders\\ a\\ basic\\ table\\ 1`\\ mismatched",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "8e3019b81dc7",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ \\[vite\\-node\\]\\ Failed\\ to\\ load\\ \\.\\./jwt\\.js",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "8334eab09386",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Test\\ timed\\ out\\ in\\ 5000ms\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "172cce1aa67a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Missing\\ \"\\./extend\\-expect\"\\ specifier\\ in\\ \"@testing\\-library/jest\\-dom\"\\ package",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "4259d41813c4",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Failed\\ to\\ resolve\\ import\\ \".*\\./config\\.js\"\\ from",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "8416acc764c8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Failed\\ to\\ resolve\\ import\\ \".*\\./libs/dataset\\.js\"\\ from",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "a5a0c93d0bae",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Failed\\ to\\ resolve\\ import\\ \".*\\./libs/redis\\.js\"\\ from",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "4ff9c2beacb6",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Failed\\ to\\ resolve\\ import\\ \"\\.\\./\\.\\./libs/notifications\\.js\"\\ from\\ \"packages/openneuro\\-server/src/graphql/resolvers/comment\\.js\"\\.\\ Does\\ the\\ file\\ exist\\?",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "572ca5950a2b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Failed\\ to\\ resolve\\ import\\ \"\\.\\./apikey\\.js\"\\ from\\ \"packages/openneuro\\-server/src/libs/__tests__/apikey\\.spec\\.js\"\\.\\ Does\\ the\\ file\\ exist\\?",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "1110654f1eba",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Failed\\ to\\ resolve\\ import\\ \"\\.\\./dataset\\.js\"\\ from\\ \"packages/openneuro\\-server/src/libs/__tests__/dataset\\.spec\\.js\"\\.\\ Does\\ the\\ file\\ exist\\?",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "e6b656c50d2d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Failed\\ to\\ resolve\\ import\\ \"\\.\\./\\.\\./libs/datalad\\-service\\.js\"\\ from\\ \"packages/openneuro\\-server/src/graphql/resolvers/dataset\\.js\"\\.\\ Does\\ the\\ file\\ exist\\?",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "f963b0fe61f1",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ destructure\\ property\\ 'localStorageValue'\\ of\\ 'useContext\\(\\.\\.\\.\\)'\\ as\\ it\\ is\\ undefined\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "09191483310b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Failed\\ to\\ resolve\\ import\\ \"npm:ignore@5\\.3\\.0\"\\ from\\ \"cli/src/deps\\.ts\"\\.\\ Does\\ the\\ file\\ exist\\?",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "917555f5a7a3",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Snapshot\\ `.*`\\ mismatched",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "e81b03129aec",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Failed\\ to\\ resolve\\ import\\ \".*\"\\ from\\ \".*\"\\.\\ Does\\ the\\ file\\ exist\\?",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "6966b747cef9",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'total'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "59fa8d7c1ae5",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TestingLibraryElementError:\\ Unable\\ to\\ find\\ an\\ element\\ with\\ the\\ text:\\ OpenNeuro\\ Upload\\ Terms\\ and\\ Conditions\\.\\ This\\ could\\ be\\ because\\ the\\ text\\ is\\ broken\\ up\\ by\\ multiple\\ elements\\.\\ In\\ this\\ case,\\ you\\ can\\ provide\\ a\\ function\\ for\\ your\\ text\\ matcher\\ to\\ make\\ your\\ matcher\\ more\\ flexible\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "1d6357cf32bf",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'snapshot'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "b027f9775109",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Element\\ type\\ is\\ invalid:\\ expected\\ a\\ string",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "95e014313a1a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TestingLibraryElementError:\\ Unable\\ to\\ find\\ an\\ element\\ with\\ the\\ text",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "28bef8835a6e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Uncaught\\ \\[Invariant\\ Violation:\\ An\\ error\\ occurred!",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "130a66db599c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TestingLibraryElementError:\\ Unable\\ to\\ find\\ an\\ accessible\\ element\\ with\\ the\\ role",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "0e6d52e71483",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ '.*'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "04aa9aea3ba0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TestingLibraryElementError:\\ Unable\\ to\\ find\\ an\\ element\\ by",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "1f5c63fbdeda",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ destructure\\ property",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "a029affeaac9",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ promise\\ rejected\\ \"Error:\\ Connect\\ an\\ email\\ to\\ make\\ contribut\u2026\"\\ instead\\ of\\ resolving",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "bc7792d2d788",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ useHref\\(\\)\\ may\\ be\\ used\\ only\\ in\\ the\\ context\\ of\\ a\\ <Router>\\ component\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "8f74aca9a166",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    }
+  ]
+}
