@@ -39,7 +39,7 @@
     },
     {
       "match": "\\\nTypeError:\\ game\\.actors\\ is\\ not\\ iterable",
-      "label": "unclear",
+      "label": "reevaluated_acceptable",
       "note": "",
       "lines": 2,
       "id": "c484eb5fc576"
@@ -85,6 +85,33 @@
       "note": "",
       "lines": 2,
       "id": "b01f2da6a751"
+    },
+    {
+      "match": "",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "9f0edaa790c3",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality\\\n\\\nExpected:\\ \"updated\"\\\nReceived:\\ \"Tanning\\ Lore\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "87fae66aaf12",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ actor\\.deleteEmbeddedDocuemnts\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b67018b5289a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
     }
   ]
 }

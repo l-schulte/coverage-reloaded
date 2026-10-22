@@ -1,0 +1,205 @@
+project,window,run_id,suite,exit_code,line_number,keyword,label,labeled_at,fingerprint,n_runs,n_variants,example_variant_fp,auto_rule_id,first_run,last_run,block
+pf2e,min,1611371293_3cd26b94112bd8a9f8f3cf6af677ed0c42819091,jest,1,267," ☀️  betterer  erro  🔥  -  ""stricter compilation"" got worse. 😔",false_positive,2026-10-22T07:38:02.369296+00:00,915369cb78f9fb0d,4,1,8f38e69585bd9ac7,a4c1634a68ad,1611371293_3cd26b94112bd8a9f8f3cf6af677ed0c42819091,1611557836_05006fd75b8cced71d4dc1036a6450448226748f,"☀️  betterer  erro  🔥  -  ""stricter compilation"" got worse. 😔
+
+☀️  betterer  erro  🔥  -  7 new issues in ""src/module/item/class.ts"":"
+pf2e,min,1611371293_3cd26b94112bd8a9f8f3cf6af677ed0c42819091,jest,1,342," ☀️  betterer  erro  🔥  -  1 new issue in ""src/module/actor/character.ts"":",false_positive,2026-10-22T07:38:02.369584+00:00,8ad201906c76fec6,4,1,d6c31d12f7eaf158,a4c1634a68ad,1611371293_3cd26b94112bd8a9f8f3cf6af677ed0c42819091,1611557836_05006fd75b8cced71d4dc1036a6450448226748f,"☀️  betterer  erro  🔥  -  1 new issue in ""src/module/actor/character.ts"":
+
+Type 'ClassData | undefined' is not assignable to type 'ClassData'."
+pf2e,min,1611371293_3cd26b94112bd8a9f8f3cf6af677ed0c42819091,jest,1,359, ☀️  betterer  erro  🔥  -  1 test got worse. 😔,false_positive,2026-10-22T07:38:02.369798+00:00,ae41c6c8ba5e06ea,12,1,3f554f5d1b583acc,a4c1634a68ad,1611371293_3cd26b94112bd8a9f8f3cf6af677ed0c42819091,1614515861_891723555157b799f9eb4afd888581af79068379,"☀️  betterer  erro  🔥  -  1 test got worse. 😔
+☀️  betterer  erro  🔥  -  Run `betterer --update` to force an update of the results file. 🆙
+npm ERR! Test failed.  See above for more details."
+pf2e,min,1611751039_98e636ab99e21fd3b591d2cac89e7f095d6f1305,jest,1,267," ☀️  betterer  erro  🔥  -  ""stricter compilation"" got worse. 😔",false_positive,2026-10-22T07:38:02.370053+00:00,c4e732850bac2cc6,1,1,7640ca9c3ecb0536,a4c1634a68ad,1611751039_98e636ab99e21fd3b591d2cac89e7f095d6f1305,1611751039_98e636ab99e21fd3b591d2cac89e7f095d6f1305,"☀️  betterer  erro  🔥  -  ""stricter compilation"" got worse. 😔
+
+☀️  betterer  warn  🚨  -  100 existing issues in ""src/module/actor/sheet/base.ts""."
+pf2e,min,1611954192_f581fca679a729aef2e8df07900c1eef00a1bec0,jest,1,267," ☀️  betterer  erro  🔥  -  ""stricter compilation"" got worse. 😔",false_positive,2026-10-22T07:38:02.370236+00:00,0d107ba8bfa5e2f1,2,1,cf6d7f2199e488f3,a4c1634a68ad,1611954192_f581fca679a729aef2e8df07900c1eef00a1bec0,1611991638_7540aabd7ed5d6776970a8d40f40a527b202c773,"☀️  betterer  erro  🔥  -  ""stricter compilation"" got worse. 😔
+
+☀️  betterer  erro  🔥  -  2 new issues in ""src/module/item/class.ts"":"
+pf2e,min,1613254039_ffadc44356f599621538f13fd2690b4454b5aeea,jest,1,208,  ● Test suite failed to run,acceptable,2026-10-22T07:38:13.623802+00:00,bb49aaf6df9aaacb,2,1,10be639064899fe2,,1613254039_ffadc44356f599621538f13fd2690b4454b5aeea,1613269640_a1ad8bfe04014be2e6ccdbe5f0f4ea03b7e3d11a,"● Test suite failed to run
+
+src/module/item/treasure.ts:<n>:<n> - error TS2344: Type 'PF2EPhysicalItem' does not satisfy the constraint 'Compendium<CompendiumEntity>'."
+pf2e,min,1613733917_ad18f0f638a9684097c5ea6bf0f5465ce48e6915,jest,1,271," ☀️  betterer  erro  🔥  -  ""stricter compilation"" got worse. 😔",false_positive,2026-10-22T07:38:02.372063+00:00,07bd0b2e7c462979,2,1,d3c740020a393868,a4c1634a68ad,1613733917_ad18f0f638a9684097c5ea6bf0f5465ce48e6915,1613739146_f98a71e6453e1b207a2c00d422edc840887a1ef0,"☀️  betterer  erro  🔥  -  ""stricter compilation"" got worse. 😔
+
+☀️  betterer  warn  🚨  -  22 existing issues in ""src/module/actor/sheet/npc.ts""."
+pf2e,min,1613872369_a31f2ff1dd7e3ad208cb34b2fd6d19887d072e9f,jest,1,271," ☀️  betterer  erro  🔥  -  ""stricter compilation"" got worse. 😔",false_positive,2026-10-22T07:38:02.372336+00:00,b390aec0c30006f8,1,1,c7166dfb2a37281c,a4c1634a68ad,1613872369_a31f2ff1dd7e3ad208cb34b2fd6d19887d072e9f,1613872369_a31f2ff1dd7e3ad208cb34b2fd6d19887d072e9f,"☀️  betterer  erro  🔥  -  ""stricter compilation"" got worse. 😔
+
+☀️  betterer  erro  🔥  -  11 new issues in ""tests/module/item/treasure.test.ts"":"
+pf2e,min,1614306129_67f790bf2e0f03b6ed2f28bf6ce65cdf5cafa5de,jest,1,270," ☀️  betterer  erro  🔥  -  ""stricter compilation"" got worse. 😔",false_positive,2026-10-22T07:38:02.372541+00:00,054cd04a59ad6d35,1,1,08e39c4bd75911b6,a4c1634a68ad,1614306129_67f790bf2e0f03b6ed2f28bf6ce65cdf5cafa5de,1614306129_67f790bf2e0f03b6ed2f28bf6ce65cdf5cafa5de,"☀️  betterer  erro  🔥  -  ""stricter compilation"" got worse. 😔
+
+☀️  betterer  erro  🔥  -  3 new issues in ""src/scripts/hooks/canvas-init.ts"":"
+pf2e,min,1614515861_891723555157b799f9eb4afd888581af79068379,jest,1,268," ☀️  betterer  erro  🔥  -  ""stricter compilation"" got worse. 😔",false_positive,2026-10-22T07:38:02.373005+00:00,f3741a4568fb5534,1,1,22639d32c9bd08a8,a4c1634a68ad,1614515861_891723555157b799f9eb4afd888581af79068379,1614515861_891723555157b799f9eb4afd888581af79068379,"☀️  betterer  erro  🔥  -  ""stricter compilation"" got worse. 😔
+
+☀️  betterer  erro  🔥  -  7 new issues in ""src/module/combat.ts"":"
+pf2e,min,1614515861_891723555157b799f9eb4afd888581af79068379,jest,1,351," ☀️  betterer  erro  🔥  -  19 new issues in ""src/module/actor/sheet/base.ts"":",false_positive,2026-10-22T07:38:02.373478+00:00,5b3395e500512135,1,1,a61fad9bdceb5cc3,a4c1634a68ad,1614515861_891723555157b799f9eb4afd888581af79068379,1614515861_891723555157b799f9eb4afd888581af79068379,"☀️  betterer  erro  🔥  -  19 new issues in ""src/module/actor/sheet/base.ts"":
+
+Property 'attributes' does not exist on type 'RawCharacterData | RawNpcData | RawHazardData | RawLootData | RawFamiliarData | RawVehicleData | RawAnimalCompanionData'."
+pf2e,min,1614515861_891723555157b799f9eb4afd888581af79068379,jest,1,563," ☀️  betterer  erro  🔥  -  3 new issues in ""src/module/gm/travel/travel-speed-sheet.ts"":",false_positive,2026-10-22T07:38:02.373875+00:00,210ae95a04ad4727,1,1,b573420d825c44f6,a4c1634a68ad,1614515861_891723555157b799f9eb4afd888581af79068379,1614515861_891723555157b799f9eb4afd888581af79068379,"☀️  betterer  erro  🔥  -  3 new issues in ""src/module/gm/travel/travel-speed-sheet.ts"":
+
+Property 'attributes' does not exist on type 'RawCharacterData | RawNpcData | RawHazardData | RawLootData | RawFamiliarData | RawVehicleData | RawAnimalCompanionData'."
+pf2e,min,1614515861_891723555157b799f9eb4afd888581af79068379,jest,1,599," ☀️  betterer  erro  🔥  -  10 new issues in ""src/module/item/item.ts"":",false_positive,2026-10-22T07:38:02.374254+00:00,872a17ebd133f8e7,1,1,f2deb06c77b33c6e,a4c1634a68ad,1614515861_891723555157b799f9eb4afd888581af79068379,1614515861_891723555157b799f9eb4afd888581af79068379,"☀️  betterer  erro  🔥  -  10 new issues in ""src/module/item/item.ts"":
+
+Property 'abilities' does not exist on type 'RawCharacterData | RawNpcData | RawHazardData | RawLootData | RawFamiliarData | RawVehicleData | RawAnimalCompanionData'."
+pf2e,min,1614515861_891723555157b799f9eb4afd888581af79068379,jest,1,712," ☀️  betterer  erro  🔥  -  1 new issue in ""src/module/item/spell-consumables.ts"":",false_positive,2026-10-22T07:38:02.374637+00:00,cd2ce3cd27f47460,1,1,9afbea150da7fbc1,a4c1634a68ad,1614515861_891723555157b799f9eb4afd888581af79068379,1614515861_891723555157b799f9eb4afd888581af79068379,"☀️  betterer  erro  🔥  -  1 new issue in ""src/module/item/spell-consumables.ts"":
+
+Property 'skills' does not exist on type 'RawCharacterData | RawNpcData | RawHazardData | RawLootData | RawFamiliarData | RawVehicleData | RawAnimalCompanionData'."
+pf2e,min,1614515861_891723555157b799f9eb4afd888581af79068379,jest,1,726," ☀️  betterer  erro  🔥  -  5 new issues in ""src/module/system/damage/weapon.ts"":",false_positive,2026-10-22T07:38:02.375032+00:00,0191d8eeb38ff2cf,1,1,db6b7cfbadf4865f,a4c1634a68ad,1614515861_891723555157b799f9eb4afd888581af79068379,1614515861_891723555157b799f9eb4afd888581af79068379,"☀️  betterer  erro  🔥  -  5 new issues in ""src/module/system/damage/weapon.ts"":
+
+Property 'abilities' does not exist on type 'RawCharacterData | RawNpcData | RawHazardData | RawLootData | RawFamiliarData | RawVehicleData | RawAnimalCompanionData'."
+pf2e,min,1614515861_891723555157b799f9eb4afd888581af79068379,jest,1,784," ☀️  betterer  erro  🔥  -  1 new issue in ""src/module/system/rolls.ts"":",false_positive,2026-10-22T07:38:02.375434+00:00,6f54cec26e8026d5,1,1,0edda51be4cca2a8,a4c1634a68ad,1614515861_891723555157b799f9eb4afd888581af79068379,1614515861_891723555157b799f9eb4afd888581af79068379,"☀️  betterer  erro  🔥  -  1 new issue in ""src/module/system/rolls.ts"":
+
+Property 'attributes' does not exist on type 'RawCharacterData | RawNpcData | RawHazardData | RawLootData | RawFamiliarData | RawVehicleData | RawAnimalCompanionData'."
+pf2e,min,1614515861_891723555157b799f9eb4afd888581af79068379,jest,1,798," ☀️  betterer  erro  🔥  -  1 new issue in ""src/pf2e.ts"":",false_positive,2026-10-22T07:38:02.375827+00:00,6bf834128a4ae9a0,1,1,70038e831144300b,a4c1634a68ad,1614515861_891723555157b799f9eb4afd888581af79068379,1614515861_891723555157b799f9eb4afd888581af79068379,"☀️  betterer  erro  🔥  -  1 new issue in ""src/pf2e.ts"":
+
+Property 'attributes' does not exist on type 'RawCharacterData | RawNpcData | RawHazardData | RawLootData | RawFamiliarData | RawVehicleData | RawAnimalCompanionData'."
+pf2e,min,1614515861_891723555157b799f9eb4afd888581af79068379,jest,1,813," ☀️  betterer  erro  🔥  -  14 new issues in ""src/module/actor/actor.ts"":",false_positive,2026-10-22T07:38:02.376200+00:00,5fc93bc9a70e41eb,1,1,e68be79d6a0dfe3e,a4c1634a68ad,1614515861_891723555157b799f9eb4afd888581af79068379,1614515861_891723555157b799f9eb4afd888581af79068379,"☀️  betterer  erro  🔥  -  14 new issues in ""src/module/actor/actor.ts"":
+
+Property 'skills' does not exist on type 'RawCharacterData | RawNpcData | RawHazardData | RawLootData | RawFamiliarData | RawVehicleData | RawAnimalCompanionData'."
+pf2e,min,1615326340_77673c49c293ad4d57efa0aa559e6466c2fbe9aa,jest,1,273,"🔥 stricter compilation: ""stricter compilation"" got worse. (1 new issue, 1,169",false_positive,2026-10-22T07:38:02.376424+00:00,43056dc014913a12,1,1,67b2cabeebf31e58,a4c1634a68ad,1615326340_77673c49c293ad4d57efa0aa559e6466c2fbe9aa,1615326340_77673c49c293ad4d57efa0aa559e6466c2fbe9aa,"🔥 stricter compilation: ""stricter compilation"" got worse. (1 new issue, 1,169
+total) 😔
+・ 1 new issue in ""src/module/actor/actor.ts"":"
+pf2e,min,1616775732_26a3511cb9ac6877e1da3009567a897153885f48,jest,1,273,"🔥 stricter compilation: ""stricter compilation"" got worse. (5 new issues, 721",false_positive,2026-10-22T07:38:02.376667+00:00,53494bc04c377474,1,1,ad7d367e2c32b7a2,a4c1634a68ad,1616775732_26a3511cb9ac6877e1da3009567a897153885f48,1616775732_26a3511cb9ac6877e1da3009567a897153885f48,"🔥 stricter compilation: ""stricter compilation"" got worse. (5 new issues, 721
+total) 😔
+・ 2 existing issues in"
+pf2e,min,1616987616_bd504dd9cf2d2ea990601d72622de22066160162,jest,1,273,"🔥 stricter compilation: ""stricter compilation"" got worse. (1 new issue, 648",false_positive,2026-10-22T07:38:02.376864+00:00,dfdb450f6a74badc,1,1,d7a11fc5f2e34132,a4c1634a68ad,1616987616_bd504dd9cf2d2ea990601d72622de22066160162,1616987616_bd504dd9cf2d2ea990601d72622de22066160162,"🔥 stricter compilation: ""stricter compilation"" got worse. (1 new issue, 648
+total) 😔
+・ 28 existing issues in"
+pf2e,min,1617313586_57d828b16ed983f65f8c5b162276e2a2f0e345de,jest,1,273,"🔥 stricter compilation: ""stricter compilation"" got worse. (644 issues) 😔",false_positive,2026-10-22T07:38:02.377035+00:00,e67d01b2d5a1290c,2,1,74a463641a7c44ed,a4c1634a68ad,1617313586_57d828b16ed983f65f8c5b162276e2a2f0e345de,1617314009_50a7947f15f94ee2e54c8cf29a85d9ee6c83d4c6,"🔥 stricter compilation: ""stricter compilation"" got worse. (644 issues) 😔
+・ 1 fixed issue in
+""tests/module/item/identification.test.ts""."
+pf2e,min,1617546213_ddb588dbbcecde2972ade8c9da46929f625bab15,jest,1,273,"🔥 stricter compilation: ""stricter compilation"" got worse. (2 new issues, 534",false_positive,2026-10-22T07:38:02.377210+00:00,ad63b2d1766d5484,1,1,51b93ac90ce0cc96,a4c1634a68ad,1617546213_ddb588dbbcecde2972ade8c9da46929f625bab15,1617546213_ddb588dbbcecde2972ade8c9da46929f625bab15,"🔥 stricter compilation: ""stricter compilation"" got worse. (2 new issues, 534
+total) 😔
+・ 2 new issues in"
+pf2e,min,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,jest,1,216,  ● test migration runner › expect update causes version to be updated,reevaluated_acceptable,2026-10-22T07:49:06.295917+00:00,b4db0d5b96189cfa,1,1,07f9360182224b84,c484eb5fc576,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,"● test migration runner › expect update causes version to be updated
+
+TypeError: game.actors is not iterable"
+pf2e,min,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,jest,1,232,  ● test migration runner › expect update actor name in world,reevaluated_acceptable,2026-10-22T07:49:06.295917+00:00,e4054fcbb1a33ea9,1,1,1f83bc459380a37b,c484eb5fc576,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,"● test migration runner › expect update actor name in world
+
+TypeError: game.actors is not iterable"
+pf2e,min,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,jest,1,248,  ● test migration runner › expect update actor deep property,reevaluated_acceptable,2026-10-22T07:49:06.295917+00:00,426c648ec00b1592,1,1,8a179278bbe2af96,c484eb5fc576,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,"● test migration runner › expect update actor deep property
+
+TypeError: game.actors is not iterable"
+pf2e,min,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,jest,1,264,  ● test migration runner › expect unlinked actor in scene gets migrated,reevaluated_acceptable,2026-10-22T07:49:06.295917+00:00,3621217cce112e9b,1,1,0c0193cc9f690346,c484eb5fc576,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,"● test migration runner › expect unlinked actor in scene gets migrated
+
+TypeError: game.actors is not iterable"
+pf2e,min,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,jest,1,280,  ● test migration runner › update world actor item,reevaluated_acceptable,2026-10-22T07:49:06.295917+00:00,d6abe89f8e2465ed,1,1,39bf0d971581ce3b,c484eb5fc576,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,"● test migration runner › update world actor item
+
+TypeError: game.actors is not iterable"
+pf2e,min,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,jest,1,296,  ● test migration runner › update world item,reevaluated_acceptable,2026-10-22T07:49:06.295917+00:00,bf64e7837efef17b,1,1,e213ea5c6f2ed3ef,c484eb5fc576,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,"● test migration runner › update world item
+
+TypeError: game.actors is not iterable"
+pf2e,min,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,jest,1,312,  ● test migration runner › properties can be removed,reevaluated_acceptable,2026-10-22T07:49:06.295917+00:00,a26d51c87b7ee111,1,1,04e4b4fbba5a52b5,c484eb5fc576,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,"● test migration runner › properties can be removed
+
+TypeError: game.actors is not iterable"
+pf2e,min,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,jest,1,328,  ● test migration runner › migrations run in sequence,reevaluated_acceptable,2026-10-22T07:49:06.295917+00:00,2d5b2557546f09a7,1,1,01fcbbb0259b2cb6,c484eb5fc576,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,"● test migration runner › migrations run in sequence
+
+TypeError: game.actors is not iterable"
+pf2e,min,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,jest,1,344,  ● test migration runner › migrations can remove items from actors,reevaluated_acceptable,2026-10-22T07:49:06.295917+00:00,14ad87c2473c5ac3,1,1,abd6c078880e535f,c484eb5fc576,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,"● test migration runner › migrations can remove items from actors
+
+TypeError: game.actors is not iterable"
+pf2e,min,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,jest,1,360,  ● test migration runner › migrations can add items to actors,reevaluated_acceptable,2026-10-22T07:49:06.295917+00:00,0d3dab9d70d1ab9e,1,1,62407fbdb334a2a8,c484eb5fc576,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,"● test migration runner › migrations can add items to actors
+
+TypeError: game.actors is not iterable"
+pf2e,min,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,jest,1,376,  ● test migration runner › migrations can reference previously added items,reevaluated_acceptable,2026-10-22T07:49:06.295917+00:00,866d9c4a3fa1e588,1,1,b8f99e210feae935,c484eb5fc576,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,"● test migration runner › migrations can reference previously added items
+
+TypeError: game.actors is not iterable"
+pf2e,min,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,jest,1,392,  ● test migration runner › migrations can reference previously added items on tokens,reevaluated_acceptable,2026-10-22T07:49:06.295917+00:00,cc1d8ac5ac0a845c,1,1,663733358ed46c20,c484eb5fc576,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,"● test migration runner › migrations can reference previously added items on tokens
+
+TypeError: game.actors is not iterable"
+pf2e,min,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,jest,1,408,  ● test migration runner › expect free migration function gets called,reevaluated_acceptable,2026-10-22T07:49:06.295917+00:00,dfab74d872f76246,1,1,802a1f48926d9d8d,c484eb5fc576,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,1618230111_28fbe73057e0217a1016f8368cf83b4dff94fb5a,"● test migration runner › expect free migration function gets called
+
+TypeError: game.actors is not iterable"
+pf2e,min,1618346263_b12c120653accbd1a3b1ecb0ec6b90df419d8d14,jest,1,282,"🔥 stricter compilation: ""stricter compilation"" got worse. (6 fixed issues, 471",false_positive,2026-10-22T07:38:02.380154+00:00,0d0a63f99fbdb7bc,1,1,bd87c9a980a92537,a4c1634a68ad,1618346263_b12c120653accbd1a3b1ecb0ec6b90df419d8d14,1618346263_b12c120653accbd1a3b1ecb0ec6b90df419d8d14,"🔥 stricter compilation: ""stricter compilation"" got worse. (6 fixed issues, 471
+remaining) 😔
+・ 9 fixed issues in"
+pf2e,min,1619730485_a1fd2b54896360f14b9168d6fffe1b225b9c1533,jest,1,283,"🔥 stricter compilation: ""stricter compilation"" got worse. (1 fixed issue, 370",false_positive,2026-10-22T07:38:02.380345+00:00,30d1d03733191a23,1,1,5be6fbb7f42b232d,a4c1634a68ad,1619730485_a1fd2b54896360f14b9168d6fffe1b225b9c1533,1619730485_a1fd2b54896360f14b9168d6fffe1b225b9c1533,"🔥 stricter compilation: ""stricter compilation"" got worse. (1 fixed issue, 370
+remaining) 😔
+・ 1 new issue in ""src/module/actor/base.ts"":"
+pf2e,min,1620242572_aaf251e5d756e09633c15b64c9ec6922f82ed2bc,jest,1,283,"🔥 stricter compilation: ""stricter compilation"" got worse. (357 issues) 😔",false_positive,2026-10-22T07:38:02.380530+00:00,af02340d2ed84b25,1,1,782270fc2a254399,a4c1634a68ad,1620242572_aaf251e5d756e09633c15b64c9ec6922f82ed2bc,1620242572_aaf251e5d756e09633c15b64c9ec6922f82ed2bc,"🔥 stricter compilation: ""stricter compilation"" got worse. (357 issues) 😔
+・ 1 fixed issue in ""src/module/item/base.ts"".
+・ 14 existing issues in"
+pf2e,min,1620451237_5beb1aaae030868c9fa5ff13551fe0b0560b06e0,jest,1,290,"🔥 stricter compilation: ""stricter compilation"" got worse. (4 new issues, 112",false_positive,2026-10-22T07:38:02.380717+00:00,3de1f26649de1ca8,1,1,c3c5849c54ad51a7,a4c1634a68ad,1620451237_5beb1aaae030868c9fa5ff13551fe0b0560b06e0,1620451237_5beb1aaae030868c9fa5ff13551fe0b0560b06e0,"🔥 stricter compilation: ""stricter compilation"" got worse. (4 new issues, 112
+total) 😔
+・ 3 new issues in ""src/module/item/sheet/base.ts"":"
+pf2e,min,1620631899_47f357cf8ad25de4d621ab75719c9d63e9b940eb,jest,1,283,"🔥 stricter compilation: ""stricter compilation"" got worse. (3 new issues, 358",false_positive,2026-10-22T07:38:02.380898+00:00,e40b6d451a445f36,1,1,3a940e0bf78d1856,a4c1634a68ad,1620631899_47f357cf8ad25de4d621ab75719c9d63e9b940eb,1620631899_47f357cf8ad25de4d621ab75719c9d63e9b940eb,"🔥 stricter compilation: ""stricter compilation"" got worse. (3 new issues, 358
+total) 😔
+・ 14 existing issues in"
+pf2e,min,1620632751_29ea31d7df6f4e517a60fda6b531e249b5c4b0e7,jest,1,211,  ● Test suite failed to run,acceptable,2026-10-22T07:38:17.959866+00:00,1783c31c86f80f57,1,1,c77788764978b5a7,,1620632751_29ea31d7df6f4e517a60fda6b531e249b5c4b0e7,1620632751_29ea31d7df6f4e517a60fda6b531e249b5c4b0e7,"● Test suite failed to run
+
+src/module/migration-runner.ts:<n>:<n> - error TS2551: Property 'deleteEmbeddedEntity' does not exist on type 'ActorPF2e'. Did you mean 'updateEmbeddedEntity'?"
+pf2e,min,1620632877_9fdd674dc4328e1162f5cd8cfe3b040dfff9f84e,jest,1,214,  ● Test suite failed to run,acceptable,2026-10-22T07:38:23.394836+00:00,728ef47fd793d312,1,1,bb45be8edb8411a4,,1620632877_9fdd674dc4328e1162f5cd8cfe3b040dfff9f84e,1620632877_9fdd674dc4328e1162f5cd8cfe3b040dfff9f84e,"● Test suite failed to run
+
+src/module/migration-runner.ts:<n>:<n> - error TS2339: Property 'deleteEmbeddedEntity' does not exist on type 'ActorPF2e'."
+pf2e,min,1620633612_2d40edff884c4d9a3a6ce58ba1dd1eb44c76b7f1,jest,1,392,  ● test migration runner › update world actor item,acceptable,2026-10-22T07:38:30.026791+00:00,37de0732fa0a158e,2,1,016155584e722482,,1620633612_2d40edff884c4d9a3a6ce58ba1dd1eb44c76b7f1,1620633831_e3a369bfda76a0e7af1437c4e147bf5b9d0ec1df,"● test migration runner › update world actor item
+
+expect(received).toEqual(expected) // deep equality"
+pf2e,min,1620633612_2d40edff884c4d9a3a6ce58ba1dd1eb44c76b7f1,jest,1,409,  ● test migration runner › migrations can remove items from actors,acceptable,2026-10-22T07:38:38.051606+00:00,4439e67ce74d3307,2,1,523d0f9313914ab8,,1620633612_2d40edff884c4d9a3a6ce58ba1dd1eb44c76b7f1,1620633831_e3a369bfda76a0e7af1437c4e147bf5b9d0ec1df,"● test migration runner › migrations can remove items from actors
+
+expect(received).toEqual(expected) // deep equality"
+pf2e,min,1620633612_2d40edff884c4d9a3a6ce58ba1dd1eb44c76b7f1,jest,1,426,  ● test migration runner › migrations can add items to actors,acceptable,2026-10-22T07:38:41.235336+00:00,f9fe257505adaa0a,2,1,ea9b7edccac5e741,,1620633612_2d40edff884c4d9a3a6ce58ba1dd1eb44c76b7f1,1620633831_e3a369bfda76a0e7af1437c4e147bf5b9d0ec1df,"● test migration runner › migrations can add items to actors
+
+expect(received).toEqual(expected) // deep equality"
+pf2e,min,1620633612_2d40edff884c4d9a3a6ce58ba1dd1eb44c76b7f1,jest,1,443,  ● test migration runner › migrations can reference previously added items,acceptable,2026-10-22T07:38:42.820605+00:00,c0d58b828a023442,2,1,48135430533a5877,,1620633612_2d40edff884c4d9a3a6ce58ba1dd1eb44c76b7f1,1620633831_e3a369bfda76a0e7af1437c4e147bf5b9d0ec1df,"● test migration runner › migrations can reference previously added items
+
+expect(received).toEqual(expected) // deep equality"
+pf2e,min,1620634599_00df513617623212035de29058a493fee97b4004,jest,1,214,  ● should calculate wealth based on inventory › sell ignores coins,acceptable,2026-10-22T07:38:02.385740+00:00,238811c10c459714,1,1,1bb7da70c8370f74,d214378d04f7,1620634599_00df513617623212035de29058a493fee97b4004,1620634599_00df513617623212035de29058a493fee97b4004,"● should calculate wealth based on inventory › sell ignores coins
+
+TypeError: actor.deleteEmbeddedEntity is not a function"
+pf2e,min,1620634599_00df513617623212035de29058a493fee97b4004,jest,1,229,  ● should calculate wealth based on inventory › sell without coins has the same value as calculateWealth,acceptable,2026-10-22T07:38:02.386059+00:00,4ef25ae870f70ed2,1,1,2db081ae6c80fbaf,d214378d04f7,1620634599_00df513617623212035de29058a493fee97b4004,1620634599_00df513617623212035de29058a493fee97b4004,"● should calculate wealth based on inventory › sell without coins has the same value as calculateWealth
+
+TypeError: actor.deleteEmbeddedEntity is not a function"
+pf2e,min,1620634599_00df513617623212035de29058a493fee97b4004,jest,1,244,  ● should calculate wealth based on inventory › sell only finds treasure,acceptable,2026-10-22T07:38:02.386354+00:00,94460795f6a74de2,1,1,6a0de4e381eec514,d214378d04f7,1620634599_00df513617623212035de29058a493fee97b4004,1620634599_00df513617623212035de29058a493fee97b4004,"● should calculate wealth based on inventory › sell only finds treasure
+
+TypeError: actor.deleteEmbeddedEntity is not a function"
+pf2e,min,1620634599_00df513617623212035de29058a493fee97b4004,jest,1,259,  ● should calculate wealth based on inventory › attemptToRemoveCoinsByValue resolves to true if sufficient coins are available after updating coin counts,acceptable,2026-10-22T07:38:02.386775+00:00,424d6185a2a4774e,1,1,03e083de7f5ed512,d214378d04f7,1620634599_00df513617623212035de29058a493fee97b4004,1620634599_00df513617623212035de29058a493fee97b4004,"● should calculate wealth based on inventory › attemptToRemoveCoinsByValue resolves to true if sufficient coins are available after updating coin counts
+
+TypeError: actor.deleteEmbeddedEntity is not a function"
+pf2e,min,1620635485_b6f1b3fb65136d793646530ad8e596f707ba3866,jest,1,214,  ● should calculate wealth based on inventory › sell ignores coins,acceptable,2026-10-22T07:38:47.454629+00:00,95ec7d5701cc8afe,1,1,bb5723bd581daedd,,1620635485_b6f1b3fb65136d793646530ad8e596f707ba3866,1620635485_b6f1b3fb65136d793646530ad8e596f707ba3866,"● should calculate wealth based on inventory › sell ignores coins
+
+TypeError: actor.deleteEmbeddedDocuemnts is not a function"
+pf2e,min,1620635485_b6f1b3fb65136d793646530ad8e596f707ba3866,jest,1,229,  ● should calculate wealth based on inventory › sell without coins has the same value as calculateWealth,acceptable,2026-10-22T07:39:44.115386+00:00,146e2de506ce8455,1,1,485209e6110a27c4,,1620635485_b6f1b3fb65136d793646530ad8e596f707ba3866,1620635485_b6f1b3fb65136d793646530ad8e596f707ba3866,"● should calculate wealth based on inventory › sell without coins has the same value as calculateWealth
+
+TypeError: actor.deleteEmbeddedDocuemnts is not a function"
+pf2e,min,1620635485_b6f1b3fb65136d793646530ad8e596f707ba3866,jest,1,244,  ● should calculate wealth based on inventory › sell only finds treasure,acceptable,2026-10-22T07:39:44.146165+00:00,3951d4c2421d2686,1,1,c07cee98d08b500d,b67018b5289a,1620635485_b6f1b3fb65136d793646530ad8e596f707ba3866,1620635485_b6f1b3fb65136d793646530ad8e596f707ba3866,"● should calculate wealth based on inventory › sell only finds treasure
+
+TypeError: actor.deleteEmbeddedDocuemnts is not a function"
+pf2e,min,1620760654_7e3aa9b753d899f206a3201062a68771be80d8ee,jest,1,283,"🔥 stricter compilation: ""stricter compilation"" got worse. (2 fixed issues, 353",false_positive,2026-10-22T07:38:02.388518+00:00,cb47c1b1eab7f941,1,1,b6254549afc81cb0,a4c1634a68ad,1620760654_7e3aa9b753d899f206a3201062a68771be80d8ee,1620760654_7e3aa9b753d899f206a3201062a68771be80d8ee,"🔥 stricter compilation: ""stricter compilation"" got worse. (2 fixed issues, 353
+remaining) 😔
+・ 1 new issue in ""src/module/actor/base.ts"":"
+pf2e,min,1621617939_6f5b158f23735d7f5d70b07572e191881de468fa,jest,1,285,"🔥 stricter compilation: ""stricter compilation"" got worse. (122 fixed issues,",false_positive,2026-10-22T07:38:02.388772+00:00,214e1a74c3818026,1,1,6222428b22afc9ab,a4c1634a68ad,1621617939_6f5b158f23735d7f5d70b07572e191881de468fa,1621617939_6f5b158f23735d7f5d70b07572e191881de468fa,"🔥 stricter compilation: ""stricter compilation"" got worse. (122 fixed issues,
+220 remaining) 😔
+・ 44 fixed issues in"
+pf2e,min,1621622724_1e479d7817d4ca957bbb29047d2bb8327f51e27c,jest,1,283,"🔥 stricter compilation: ""stricter compilation"" got worse. (182 fixed issues,",false_positive,2026-10-22T07:38:02.389003+00:00,98ce5d3a0df94f94,1,1,c86833e5b3fae50c,a4c1634a68ad,1621622724_1e479d7817d4ca957bbb29047d2bb8327f51e27c,1621622724_1e479d7817d4ca957bbb29047d2bb8327f51e27c,"🔥 stricter compilation: ""stricter compilation"" got worse. (182 fixed issues,
+160 remaining) 😔
+・ 44 fixed issues in"
+pf2e,min,1621623000_4823b45c050fa89b4f7eb8c4ec904bd68b38b282,jest,1,285,"🔥 stricter compilation: ""stricter compilation"" got worse. (187 fixed issues,",false_positive,2026-10-22T07:38:02.389244+00:00,49413dbad63665dc,1,1,da2869f3d8095e70,a4c1634a68ad,1621623000_4823b45c050fa89b4f7eb8c4ec904bd68b38b282,1621623000_4823b45c050fa89b4f7eb8c4ec904bd68b38b282,"🔥 stricter compilation: ""stricter compilation"" got worse. (187 fixed issues,
+155 remaining) 😔
+・ 44 fixed issues in"
+pf2e,min,1622064165_9f4e4f14aede72eb5c3e9f63e0d517f01c4ad18f,jest,1,283,"🔥 stricter compilation: ""stricter compilation"" got worse. (1 new issue, 124",false_positive,2026-10-22T07:38:02.389435+00:00,b5f1a62013ac4c60,1,1,c9db26a36956821e,a4c1634a68ad,1622064165_9f4e4f14aede72eb5c3e9f63e0d517f01c4ad18f,1622064165_9f4e4f14aede72eb5c3e9f63e0d517f01c4ad18f,"🔥 stricter compilation: ""stricter compilation"" got worse. (1 new issue, 124
+total) 😔
+・ 1 new issue in"
+pf2e,min,1624598259_431cad3b74a19fc8239c709874d62f72777d3fca,jest,1,206,  ● Test suite failed to run,acceptable,2026-10-22T07:39:50.927685+00:00,aa51d45ed271bb96,2,1,a611676e86bf83d9,,1624598259_431cad3b74a19fc8239c709874d62f72777d3fca,1624602381_39bc491e60d67946a0f3564f4a7d9b6cc705657b,"● Test suite failed to run
+
+tests/module/item/identification.test.ts:<n>:<n> - error TS2345: Argument of type 'ConsumablePF2e' is not assignable to parameter of type 'PhysicalItemPF2e'."
+pf2e,min,1625160186_9361540e24bf88f6798e6934781e8617286f4211,jest,1,196,  ● Test suite failed to run,acceptable,2026-10-22T07:38:02.390732+00:00,eb3ea85735276059,1,1,76940028517d447d,f4127fc8a58f,1625160186_9361540e24bf88f6798e6934781e8617286f4211,1625160186_9361540e24bf88f6798e6934781e8617286f4211,"● Test suite failed to run
+
+SyntaxError: Unexpected string in JSON at position 59172"
+pf2e,min,1625517500_3bfb1c1313e1c6c8aa4ffb82b0ed071889354b99,jest,1,194,  ● Test suite failed to run,acceptable,2026-10-22T07:39:53.936102+00:00,11f31d3843760fbc,1,1,5bc84a8130bce70f,,1625517500_3bfb1c1313e1c6c8aa4ffb82b0ed071889354b99,1625517500_3bfb1c1313e1c6c8aa4ffb82b0ed071889354b99,"● Test suite failed to run
+
+tests/fakes/fake-token.ts:<n>:<n> - error TS2615: Type of property 'effects' circularly references itself in mapped type 'RawObject<ActorDataPF2e>'."
+pf2e,min,1627872650_c7c5e7b5f0401c47fdf68865802bc3a58e5d2880,jest,1,284,"🔥 stricter compilation: ""stricter compilation"" got worse. (1 new issue, 67",false_positive,2026-10-22T07:38:02.391509+00:00,dd15ba19246dc88d,1,1,8e74117b64969e8f,a4c1634a68ad,1627872650_c7c5e7b5f0401c47fdf68865802bc3a58e5d2880,1627872650_c7c5e7b5f0401c47fdf68865802bc3a58e5d2880,"🔥 stricter compilation: ""stricter compilation"" got worse. (1 new issue, 67
+total) 😔
+・ 2 new issues in"
+pf2e,min,1628636397_8c267fc78c6e898f349699a23886bda110009372,jest,1,283,"🔥 stricter compilation: ""stricter compilation"" got worse. (1 new issue, 30",false_positive,2026-10-22T07:38:02.391694+00:00,41a174a3b651ead5,2,1,34f004e78d989470,a4c1634a68ad,1628636397_8c267fc78c6e898f349699a23886bda110009372,1628636461_d777e363184e78bc7841026cffdbaa25543759b0,"🔥 stricter compilation: ""stricter compilation"" got worse. (1 new issue, 30
+total) 😔
+・ 1 new issue in ""src/module/item/spell/data.ts"":"
+pf2e,min,1631431324_d001016146533c997632af8dedce182350bc916c,jest,1,284,"🔥 too-much-lint: ""too-much-lint"" got worse. (280 issues) 😔",false_positive,2026-10-22T07:38:02.391899+00:00,08d41706080cfa64,1,1,c98ec9dcec0d86a3,a4c1634a68ad,1631431324_d001016146533c997632af8dedce182350bc916c,1631431324_d001016146533c997632af8dedce182350bc916c,"🔥 too-much-lint: ""too-much-lint"" got worse. (280 issues) 😔
+・ 1 fixed issue in
+""src/module/system/check-modifiers-dialog.ts""."
+pf2e,min,1638947737_5188eef07b535f5bc075bacbaa0b750dc9a1807c,jest,1,211,  ● test migration runner › expect update actor deep property,acceptable,2026-10-22T07:39:55.523683+00:00,63ad2ac428f96b23,1,1,f1c7dca2fbcafbbb,,1638947737_5188eef07b535f5bc075bacbaa0b750dc9a1807c,1638947737_5188eef07b535f5bc075bacbaa0b750dc9a1807c,"● test migration runner › expect update actor deep property
+
+TypeError: Cannot set property 'value' of undefined"
+pf2e,min,1646692728_dfde0852f057c4a2d5168f918bf9c0d8d143ec96,jest,1,211,  ● Test suite failed to run,acceptable,2026-10-22T07:38:02.393273+00:00,b9a3f8b9818243e8,2,1,9ea44c1b6a098031,b01f2da6a751,1646692728_dfde0852f057c4a2d5168f918bf9c0d8d143ec96,1646694826_549d70ea4f7042806fccb065891dd3cddc1c44b1,"● Test suite failed to run
+
+ReferenceError: foundry is not defined"
+pf2e,min,1712388520_9ab5a5a29ff6fff6d0853191483e168e5c172b0e,jest,1,218,  ● Test suite failed to run,acceptable,2026-10-22T07:38:02.393814+00:00,e409240e2ecaacad,1,1,613c05a3015cc5dc,b01f2da6a751,1712388520_9ab5a5a29ff6fff6d0853191483e168e5c172b0e,1712388520_9ab5a5a29ff6fff6d0853191483e168e5c172b0e,"● Test suite failed to run
+
+ReferenceError: PredicatePF2e is not defined"
