@@ -5,13 +5,14 @@
       "\\bAssertionError",
       "\\bTypeError",
       "\\bReferenceError",
-      "\\bRangeError"
+      "\\bRangeError",
+      "\\b\\d+\\s+(?:files?\\s+)?obsolete\\b"
     ],
     "exclude": [
       "\u25cf\\s*Console",
       "Test Suites:",
       "Tests:",
-      "Snapshots:",
+      "Snapshots:(?!.*\\bobsolete\\b)",
       "Ran all test suites",
       "console\\.",
       "^\\s+at \\s",
@@ -21,7 +22,8 @@
   "suites": {
     "vitest": {
       "add_patterns": [
-        "FAIL\\s+src.*>"
+        "\\bError:",
+        "FAIL\\s+src"
       ],
       "add_exclude": [
         "worker process has failed"
@@ -29,6 +31,55 @@
     }
   },
   "auto_classify": [
+    {
+      "match": "\\b\\d+\\s+(?:files?\\s+)?obsolete\\b",
+      "label": "false_positive",
+      "note": "All behavioral tests passed; Jest exited 1 solely due to obsolete snapshots",
+      "lines": 0,
+      "id": "be9bb52afaa3"
+    },
+    {
+      "match": "expect\\(received\\)\\.toMatchSnapshot\\(\\)",
+      "label": "acceptable",
+      "note": "Jest snapshot mismatch (commit-era formula/UI update)",
+      "lines": 3,
+      "id": "cab96a6d0a70"
+    },
+    {
+      "match": "TypeError:.*(?:'getModule' of undefined|reading 'getModule')",
+      "label": "acceptable",
+      "note": "Harness cascade: parseLog failed, leaving parser.getModule undefined",
+      "lines": 3,
+      "id": "6519dcccaa34"
+    },
+    {
+      "match": "TypeError:.*(?:'active' of undefined|reading 'active')",
+      "label": "acceptable",
+      "note": "Harness cascade: parseLog failed, leaving analyzer.active undefined",
+      "lines": 3,
+      "id": "5f6363576eb4"
+    },
+    {
+      "match": "TypeError:.*(?:'isCancelled' of undefined|reading 'isCancelled')",
+      "label": "acceptable",
+      "note": "GlobalCooldown module crash (event.trigger.isCancelled of undefined)",
+      "lines": 3,
+      "id": "81b4cc509b75"
+    },
+    {
+      "match": "TypeError:.*(?:'constructor' of undefined|reading 'constructor')",
+      "label": "acceptable",
+      "note": "Balance Druid spellbook error (parser.constructor of undefined)",
+      "lines": 3,
+      "id": "df8f8c9e5224"
+    },
+    {
+      "match": "ReferenceError:\\s*PropTypes\\s*is\\s*not\\s*defined",
+      "label": "acceptable",
+      "note": "Shadow Priest checklist missing PropTypes import",
+      "lines": 3,
+      "id": "e85ff7b79829"
+    },
     {
       "match": "\\\nTimeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.",
       "label": "problematic",
@@ -129,8 +180,8 @@
     },
     {
       "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'includes'\\ of\\ undefined\\\n\\\n48\\ \\|\\ \\ \\ \\ \\ if\\ \\(this\\.selectedCombatant\\.hasTalent\\(SPELLS\\.AVENGING_CRUSADER_TALENT\\.id\\)\\ \\&\\&\\\n49\\ \\|\\ \\ \\ \\ \\ \\ \\ \\ \\ this\\.selectedCombatant\\.hasBuff\\(SPELLS\\.AVENGING_CRUSADER_TALENT\\.id,\\ event\\.timestamp\\)\\ \\&\\&\\\n>\\ 50\\ \\|\\ \\ \\ \\ \\ \\ \\ \\ \\ this\\.AVENGING_CRUSADER_SPELLS\\.includes\\(spellId\\)\\)\\ \\{",
-      "label": "unclear",
-      "note": "",
+      "label": "reevaluated_acceptable",
+      "note": "Developer static vs instance property bug in AlwaysBeCasting.js (4 commits, Feb 2021), fixed in eca888e35c",
       "lines": 6,
       "id": "178678b36842"
     },
@@ -220,8 +271,8 @@
     },
     {
       "match": "\\\nReferenceError:\\ setImmediate\\ is\\ not\\ defined",
-      "label": "unclear",
-      "note": "",
+      "label": "reevaluated_acceptable",
+      "note": "Jest 27 removed setImmediate polyfill during react-scripts 5 upgrade (1 commit, Feb 2022), fixed in ee89b88547",
       "lines": 2,
       "id": "6a9aed4ccf4f"
     },
@@ -275,9 +326,16 @@
       "id": "0ff33efed351"
     },
     {
+      "match": "SyntaxError:\\s*Unexpected\\s*token\\s*'\\?\\?='",
+      "label": "problematic",
+      "note": "vega-lite requires Node >=15 for nullish assignment ??=; run with Node 14 instead of Node 16",
+      "lines": 30,
+      "id": "59ea1579bc6b"
+    },
+    {
       "match": "\\\nJest\\ encountered\\ an\\ unexpected\\ token",
-      "label": "unclear",
-      "note": "",
+      "label": "reevaluated_acceptable",
+      "note": "Developer syntax / merge conflict errors (10 commits)",
       "lines": 2,
       "id": "39e7e1683840"
     },
@@ -290,8 +348,8 @@
     },
     {
       "match": "\\\nCannot\\ find\\ module\\ 'analysis/.*'\\ from\\ 'src/analysis/.*'",
-      "label": "problematic",
-      "note": "",
+      "label": "reevaluated_acceptable",
+      "note": "Subfolder reorganization pt. 1 missed 6 test import paths (1 commit, Sep 2022), fixed 6 mins later in 411acc2c76",
       "lines": 2,
       "id": "3f7af8005e27"
     },
@@ -303,7 +361,7 @@
       "id": "4995b5b90433"
     },
     {
-      "match": "\\\nSyntaxError:\\ src/common/SPELLS/evoker\\.ts:\\ Unexpected\\ token,\\ expected\\ \",\"\\ \\(265:1\\)",
+      "match": "\\\nSyntaxError:\\ .*:\\ Unexpected\\ token,\\ expected\\ \",\"",
       "label": "acceptable",
       "note": "",
       "lines": 2,
@@ -399,6 +457,330 @@
       "note": "",
       "lines": 2,
       "id": "0970cbf994fa"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ src/CHANGELOG\\.tsx:\\ Unexpected\\ token,\\ expected\\ \".\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f51eabf67235",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nReferenceError:\\ Buudha\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "40008d8006dd",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nReferenceError:\\ .*\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "eb7bd5905663",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ '.*'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "2bc54f4bd53b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'parser/shared/modules/items/EnchantChecker'\\ from\\ 'src/parser/shadowlands/modules/items/EnchantChecker\\.tsx'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "5ae2b2aabc6f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nFailed\\ to\\ load\\ modules:\\ checklist",
+      "label": "reevaluated_acceptable",
+      "note": "WIP refactor of Checklist/ManaValues to TS across specs (2 commits, Sep 2021), fixed in 139f186f89",
+      "lines": 2,
+      "id": "34406f636830",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ module\\.onLoad\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "2be7ac9f0288",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ cnd\\.hasLegendary\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a3bc6772552f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ \\(0\\ ,\\ _conditions\\.hasLegendary\\)\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b1af97b14d33",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.not\\.toBeCalled\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9ecdc6b64416",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\./normalizers/SunKingBlessingRefresh'\\ from\\ 'analysis/magefire/src/CombatLogParser\\.ts'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "57f27d20a89c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Class\\ extends\\ value\\ \\[object\\ Object\\]\\ is\\ not\\ a\\ constructor\\ or\\ null",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d3c172916c80",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\./modules/core/Channeling'\\ from\\ 'analysis/monkbrewmaster/src/CombatLogParser\\.ts'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "e2706be6136d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ analysis/monkwindwalker/src/CHANGELOG\\.tsx:\\ Legacy\\ octal\\ literals\\ are\\ not\\ allowed\\ in\\ strict\\ mode\\.\\ \\(7:20\\)",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "677258733e7e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ _CombatLogParser\\.default\\.suggestions\\ is\\ not\\ iterable",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9e7904a5c093",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\./DampenHarm'\\ from\\ 'analysis/monk/src/index\\.ts'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9a065184a266",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'parser/core/calculateEffectiveHealing'\\ from\\ 'src/parser/shadowlands/modules/items/enchants/AscendedVigor\\.tsx'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "0ac61987d738",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'parser/shared/modules/EnemyInstances'\\ from\\ 'analysis/druid/src/shadowlands/AdaptiveSwarm\\.ts'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "df169e8af717",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalled\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ac45b2f19438",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ module\\.refreshCooldown\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9c0d60b5899e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toThrow\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6c7a77eff5d7",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledTimes\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f58897be3ffd",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "79fe0519d01e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ this\\.spellUsable\\.cooldownTriggerEvent\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e8c92c0893a0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\./ExpansionContext'\\ from\\ 'src/interface/report/index\\.tsx'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "30ae44afa2a4",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ \\(0\\ ,\\ _react2\\.useLingui\\)\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "cce659e10f07",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'current'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7f585ed985b5",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBeInstanceOf\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5d80d21834f2",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toStrictEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c0006fcc10a8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'getAbility'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "42ced3516eab",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'getEntity'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5a905a4a78ba",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'spec'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "bf1f922bdb7f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'permanentEnchant'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4e7767b4b3d6",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'common/isFightDungeon'\\ from\\ 'src/interface/report/PlayerTile\\.tsx'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "11cbe89edb7b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\./backgrounds/ThroneOfTheTides\\.jpg'\\ from\\ 'src/game/raids/mythicplusseasonthree/ThroneOfTheTides\\.ts'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "34f0e66f4445",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'interface/images/avatars/Ypp\\-avatar\\.png'\\ from\\ 'src/CONTRIBUTORS\\.ts'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "9f77d9276f9f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
     }
   ]
 }

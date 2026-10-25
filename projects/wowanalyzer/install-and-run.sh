@@ -18,7 +18,17 @@ jest_check_executed() {
     # stdout is a pipe, so the raw stream carries ANSI SGR codes before the
     # label and the anchored grep below never matches. strip-ansi-cli@3.0.0 is
     # pinned because it supports every Node major this project runs (12-24).
-    if ! npx -y --registry="$VERDACCIO_REGISTRY" strip-ansi-cli@3.0.0 < "$out_file" \
+    #
+    # Installed via `npm install -g`, NOT npx: npm 6's npx (node 12/14 commits)
+    # silently ignores --registry and falls back to the configured registry —
+    # WayPack's time-scoped snapshot, which predates strip-ansi-cli@3.0.0 for
+    # every commit before 2021-04-16 (ETARGET, 401 old commits failed). Plain
+    # npm install honors --registry even on npm 6, so install once from
+    # Verdaccio and use the binary directly.
+    if ! command -v strip-ansi >/dev/null 2>&1; then
+        npm install -g --registry="$VERDACCIO_REGISTRY" strip-ansi-cli@3.0.0
+    fi
+    if ! strip-ansi < "$out_file" \
             | grep -qE '^[[:space:]]*(Tests|Test Files)[: ]'; then
         echo "  [NFO] test run did not complete (no Tests: summary) — discarding partial coverage and failing hard"
         find "$REPOPATH" -name lcov.info -not -path '*/node_modules/*' -delete
