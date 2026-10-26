@@ -1054,7 +1054,7 @@
     },
     {
       "match": "\\\nMongoBulkWriteError:\\ E11000\\ duplicate\\ key\\ error\\ collection:\\ uwazi_testing_m4pgkfv2mh_translations_v2_support_spec_ts\\.translations_v2\\ index:\\ language_1_key_1_context\\.id_1\\ dup\\ key:\\ \\{\\ language:\\ \"en\",\\ key:\\ \"Password\",\\ context\\.id:\\ \"System\"\\ \\}",
-      "label": "unclear",
+      "label": "reevaluated_acceptable",
       "note": "",
       "lines": 2,
       "id": "e86f146563b0"
@@ -1075,7 +1075,7 @@
     },
     {
       "match": "\\\nBucketNotEmpty:\\ The\\ bucket\\ you\\ tried\\ to\\ delete\\ is\\ not\\ empty",
-      "label": "unclear",
+      "label": "problematic",
       "note": "",
       "lines": 2,
       "id": "27128e9ffcbf"
@@ -1086,6 +1086,816 @@
       "note": "",
       "lines": 2,
       "id": "1a7a21719720"
+    },
+    {
+      "match": "\\\nTypeError:\\ _userGroups\\.default\\.getByMemberIdList\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "85e6ddd17d3a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBeInstanceOf\\(expected\\)\\\n\\\nExpected\\ constructor:\\ ValidationError\\\nReceived\\ constructor:\\ TypeError",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "5db44f6a892f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nNo\\ document\\ was\\ updated!",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1144bc030956",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toContain\\(expected\\)\\ //\\ indexOf\\\n\\\nExpected\\ substring:\\ \"missingEntity\"\\\nReceived\\ string:\\ \\ \\ \\ \"There's\\ a\\ connection\\ to\\ entity:\\ entity1\\ on\\ hub:\\ 6ac056750845dc0a1624208f,\\ but\\ no\\ entity\\ data\\.\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "7dbdc845528e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nFailed:\\ \"Should\\ throw\\ an\\ error\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b5eac1f87542",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ message\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "2b4b9c1e5d35",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ set\\ property\\ 'connections'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "481afefa894b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nThere\\ is\\ no\\ tenant\\ on\\ the\\ current\\ async\\ context",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "fa169bdaf502",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nBulkWriteError:\\ E11000\\ duplicate\\ key\\ error\\ collection:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e7ab4b32d326",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Failed:\\ \"{\\\"message\\\":",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e7ab4b3dd326",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nFailed:\\ \"\\{\\\\\"message\\\\\":",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "154514b6700a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\./fixtures\\.js'\\ from\\ 'userGroupsMembers\\.spec\\.ts'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "1be5a11b0977",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nFailed:\\ Object\\ \\{\\\n\"code\":\\ 500,",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "9f63e733c612",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ \\(0\\ ,\\ _routes\\.processAttachmentAllLanguages\\)\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "78cbf46679d5",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toContain\\(expected\\)\\ //\\ indexOf\\\n\\\nExpected\\ value:\\ \"permissions\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "296c4351ac10",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nFailed:\\ \"Mongod\\ internal\\ error\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "76a1bd862ebe",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'name'\\ of\\ null",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7e65c4a89e66",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nThe\\ document\\ was\\ not\\ updated!",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b92488f7df77",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ headRequestMock\\.mockReturnValue\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a98ec229f48b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nHave\\ not\\ permissions\\ granted\\ to\\ update\\ the\\ requested\\ entities",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6bf22b2e4e65",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nFailed:\\ Object\\ \\{\\\n\"cookie\":\\ undefined,",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "ef51d844fe7b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ ShallowWrapper::dive\\(\\)\\ can\\ only\\ be\\ called\\ on\\ components",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9389484b233a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.not\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n\\\nExpected:\\ not\\ null",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "caa54ddf7574",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./auth/captchaMiddleware\\.js'\\ from\\ 'publicRoutes\\.spec\\.ts'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "7650c2c98796",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ PublicForm\\.renderFileField\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "057932fee664",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nDid\\ not\\ find\\ exactly\\ one\\ match\\ \\(found:\\ 0\\)\\ for\\ componentType:function\\ DragDropContainer\\(props,\\ context\\)\\ \\{",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "18b8abcb1af1",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nActions\\ must\\ be\\ plain\\ objects\\.\\ Use\\ custom\\ middleware\\ for\\ async\\ actions\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "aa4d9a2f3cf0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ state\\.templates\\.find\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "afcd262cde5d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nFailed:\\ \"it\\ should\\ not\\ validate\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5612f521c51c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ app/react/Entities/components/EntityViewer\\.js:\\ Identifier\\ 'visibleConnectionGroups'\\ has\\ already\\ been\\ declared\\ \\(107:10\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e1e5b139ae27",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nMongoError:\\ E11000\\ duplicate\\ key\\ error\\ collection:\\ 8135a48e\\-bb9a\\-41ef\\-bd6b\\-92b45071ba12\\.connections\\ index:\\ _id_\\ dup\\ key:\\ \\{\\ _id:\\ ObjectId\\('6ab596aec9226309f432ba6a'\\)\\ \\}",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "adf1268b346a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./Pages/utils/setPageAssets'\\ from\\ 'EntityView\\.spec\\.js'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "a6343bd287d0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\./utils/setPageAssets'\\ from\\ 'PageView\\.js'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "81ca49b8345d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./Pages/utils/setPageAssets'\\ from\\ 'EntityView\\.js'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "27d97235de34",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ _testingEnvironment\\.testingEnvironment\\.withRequestId\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a7836d373592",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ \\(0\\ ,\\ .*\\)\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9621d2b76d8e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'properties'\\ of\\ null",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8dd57c80d7fa",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ this\\.props\\.clearMetadataSelections\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "cdca2554463c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n<spyOn>\\ :\\ extractPageInfo\\(\\)\\ method\\ does\\ not\\ exist",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "05a4dd71a91b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '.*/utils/test/renderConnected.*'\\ from '.*'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c55fa8b84829",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./utils/test/renderConnected'\\ from\\ 'PDFView\\.spec\\.js'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "0ea212407fd0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./\\.\\./utils/test/renderConnected'\\ from\\ 'UserGroupSidePanel\\.spec\\.tsx'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "ab3960c165b4",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./utils/test/renderConnected'\\ from\\ 'Users\\.spec\\.tsx'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "b3c557014ae7",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./\\.\\./utils/test/renderConnected'\\ from\\ 'UserGroups\\.spec\\.tsx'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "39caefb26b38",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./utils/test/renderConnected'\\ from\\ 'TableRow\\.spec\\.ts'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "8db66ef28235",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./utils/test/renderConnected'\\ from\\ 'FilterSuggestions\\.spec\\.ts'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "fb1a1e1a5339",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./utils/test/renderConnected\\.tsx'\\ from\\ 'FormConfigRelationship\\.spec\\.js'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "cd6bb58757c0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./utils/test/renderConnected'\\ from\\ 'PageView\\.spec\\.js'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "13c38d7db1d4",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./utils/test/renderConnected\\.tsx'\\ from\\ 'FormConfigSelect\\.spec\\.js'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "c5f893753a82",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./utils/test/renderConnected'\\ from\\ 'HiddenColumnsDropdown\\.spec\\.ts'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "ee714868fae9",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nRangeError:\\ Maximum\\ call\\ stack\\ size\\ exceeded",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "503a9cc66ca1",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ req\\.get\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4f5c81988778",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpected\\ 422\\ \"Unprocessable\\ Entity\",\\ got\\ 401\\ \"Unauthorized\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "2ef183224017",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.not\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "204e867ffec7",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTimeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 10000ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ef0409004bb6",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.rejects\\.toThrow\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "390316b1f750",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nRedis\\ is\\ not\\ connected",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "94573f13b060",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nMongoError:\\ Collection\\ already\\ exists\\.\\ NS:\\ .*\\.files",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5e11d1c27739",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nshould\\ allow\\ .*\\ supporting\\ files",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c867bb30420b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "throw\\ new\\ Error\\(",
+      "label": "acceptable",
+      "note": "",
+      "lines": 7,
+      "id": "b766372b9f33",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\ \\ \\ fail\\(",
+      "label": "acceptable",
+      "note": "",
+      "lines": 7,
+      "id": "b7663r2b9f33",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "return\\ done\\.fail",
+      "label": "acceptable",
+      "note": "",
+      "lines": 7,
+      "id": "b7663e2b9f33",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nconnect\\ ECONNREFUSED\\ 127\\.0\\.0\\.1:80",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "bbfd9197c7fc",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n<spyOn>\\ :\\ validateMapping\\(\\)\\ method\\ does\\ not\\ exist",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6a6371cd08c5",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ destructure\\ property\\ 'error'\\ of\\ '\\(\\(cov_1rnqev6zsn\\.s\\[19\\]\\+\\+\\)\\ ,\\ \\(intermediate\\ value\\)\\)'\\ as\\ it\\ is\\ undefined\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "62b20f02c1bc",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTestingLibraryElementError:\\ Unable\\ to\\ find\\ an\\ accessible\\ element\\ with\\ the\\ role",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4c471df5f01a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nUnable\\ to\\ find\\ an\\ element\\ with\\ the\\ text:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d8b226af5af4",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.rejects\\.toHaveProperty\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "990d8c1f6c0f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toHaveLength\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4430da61783f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nFetchError:\\ invalid\\ json\\ response\\ body\\ at\\ /serviceUrl/info\\ reason:\\ Unexpected\\ token\\ r\\ in\\ JSON\\ at\\ position\\ 0",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "3a3fed4c6f2b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.rejects\\.toThrow\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c0e0b8f7da0d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ _OcrManager\\.OcrManager\\.cleanupRecordsOfFiles\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8019ce690009",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ readStream\\.pipe\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "db2e7b1b31c2",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ expect\\(\\.\\.\\.\\)\\.toHaveBeenCalledBefore\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0d03d0a484b8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ open\\ 'app/api/migrations/migrations/59\\-add_system_key_translations/system_keys\\.csv'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "5ca037e6f693",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpected\\ 200\\ \"OK\",\\ got\\ 422\\ \"Unprocessable\\ Entity\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e2044a8f496b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(spy\\)\\.toHaveBeenCalledTimes\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1727cce10153",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n:\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 60000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 60000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "64d40a3156eb",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ open\\ 'app/api/files/specs/uploads/file_created\\.txt'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "a9656654b1a1",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 60000\\ ms\\ for\\ a\\ test\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "1758ab2616ca",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 10000\\ ms\\ for\\ a\\ test\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "83ce48ca0a0a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nMongoBulkWriteError:\\ E11000\\ duplicate\\ key\\ error\\ collection",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8ecacd94856f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nMongoServerError:\\ Transaction\\ with\\ .*\\ has\\ been\\ aborted\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c7027cd3d3f4",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nMongoServerError:\\ Given\\ transaction\\ number\\ \\d+\\ on\\ session",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8d563b1e64a3",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n<spyOn>\\ :\\ getSemanticData\\ has\\ already\\ been\\ spied\\ upon",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "905c1e898832",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ Object\\ \\{\\\n\"error\":\\ \"cluster_block_exception:\\ \\[cluster_block_exception\\]\\ Reason:\\ index\\ \\[target1\\]\\ blocked\\ by:\\ \\[TOO_MANY_REQUESTS/12/disk\\ usage\\ exceeded\\ flood\\-stage\\ watermark,\\ index\\ has\\ read\\-only\\-allow\\-delete\\ block\\];\",\\\n\"prettyMessage\":\\ \"cluster_block_exception:\\ \\[cluster_block_exception\\]\\ Reason:\\ index\\ \\[target1\\]\\ blocked\\ by:\\ \\[TOO_MANY_REQUESTS/12/disk\\ usage\\ exceeded\\ flood\\-stage\\ watermark,\\ index\\ has\\ read\\-only\\-allow\\-delete\\ block\\];\",",
+      "label": "unclear",
+      "note": "",
+      "lines": 4,
+      "id": "d44109c156a1",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nResponseError:\\ cluster_block_exception:\\ \\[cluster_block_exception\\]\\ Reason:\\ index\\ \\[reindex\\]\\ blocked\\ by:\\ \\[TOO_MANY_REQUESTS/12/disk\\ usage\\ exceeded\\ flood\\-stage\\ watermark,\\ index\\ has\\ read\\-only\\-allow\\-delete\\ block\\];",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "8040f94dcebc",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nServer\\ Error:\\ Request\\ failed\\ with\\ status\\ code\\ 500:\\ Internal\\ Server\\ Error",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "f2ed0056de5b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 20000\\ ms\\ for\\ a\\ hook\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "345ab594c35e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nJest\\ worker\\ encountered\\ 4\\ child\\ process\\ exceptions,\\ exceeding\\ retry\\ limit",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "d7e2e90d5bcf",
+      "generated_by": "check_failures_v2",
+      "window": "min"
     }
   ]
 }

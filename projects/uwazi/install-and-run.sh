@@ -200,10 +200,10 @@ fi
 # the ES 7 and ES 8 lines.  A rejection here is a real problem, so let it abort
 # loudly rather than silently proceed into predictable shard-limit failures.
 if [ "$ES_READY" = "true" ]; then
-    print_header 4 "Raising Elasticsearch cluster.max_shards_per_node to 10000"
+    print_header 4 "Configuring Elasticsearch: max_shards_per_node=10000 and disabling disk watermark thresholds"
     curl -fsS -XPUT http://localhost:9200/_cluster/settings \
         -H 'Content-Type: application/json' \
-        -d '{"persistent":{"cluster.max_shards_per_node":10000}}'
+        -d '{"persistent":{"cluster.max_shards_per_node":10000,"cluster.routing.allocation.disk.threshold_enabled":false}}'
 fi
 
 # ── MinIO (S3) ─────────────────────────────────────────────────
