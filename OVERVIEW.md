@@ -62,6 +62,7 @@ dates live in the per-project Results sections, sourced from
 | Project                                             | 100 done | failed tests doublechecked | complete run | complete test failure check | complete JEV test failure check |
 | --------------------------------------------------- | -------- | -------------------------- | ------------ | --------------------------- | ------------------------------- |
 | [apollo-client](projects/apollo-client/OVERVIEW.md) | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| [babel](projects/babel/OVERVIEW.md)                 | ✅       | ✅                         | ❌           | ❌                          | ❌                              |
 | [bhima](projects/bhima/OVERVIEW.md)                 | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 | [compass](projects/compass/OVERVIEW.md)             | ❌       | ❌                         | ❌           | ❌                          | ❌                              |
 | [flowfuse](projects/flowfuse/OVERVIEW.md)           | ✅       | ✅                         | ✅           | ✅                          | ✅                              |

@@ -174,6 +174,33 @@
                     "new_version": "24.7"
                 }
             ]
+        },
+        "babel": {
+            "url": "https://github.com/babel/babel",
+            "use_exact_node_version": true,
+            "package_manager_skip_engines": true,
+            "package_manager_version_overrides": [
+                {
+                    "start_ts": 0,
+                    "end_ts": 1631823825,
+                    "old_version": "yarn",
+                    "new_version": "yarn@2.4.0"
+                }
+            ],
+            "node_version_overrides": [
+                {
+                    "start_ts": 1699976189,
+                    "end_ts": 1705689684,
+                    "old_version": 16,
+                    "new_version": "18"
+                },
+                {
+                    "start_ts": 1757088750,
+                    "end_ts": 4102444800,
+                    "old_version": 20,
+                    "new_version": "22"
+                }
+            ]
         }
     }
 }
