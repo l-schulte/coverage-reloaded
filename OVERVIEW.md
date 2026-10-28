@@ -63,25 +63,26 @@ dates live in the per-project Results sections, sourced from
 |  # | Project                                             | 100 done | failed tests doublechecked | complete run | complete test failure check | complete JEV test failure check |
 | -- | --------------------------------------------------- | -------- | -------------------------- | ------------ | --------------------------- | ------------------------------- |
 |  1 | [apollo-client](projects/apollo-client/OVERVIEW.md) | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-|  2 | [bhima](projects/bhima/OVERVIEW.md)                 | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-|  3 | [compass](projects/compass/OVERVIEW.md)             | ✅       | ✅                         | 🟡           | ❌                          | ❌                              |
-|  4 | [desktop](projects/desktop/OVERVIEW.md)             | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-|  5 | [flowfuse](projects/flowfuse/OVERVIEW.md)           | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-|  6 | [gatsby](projects/gatsby/OVERVIEW.md)               | ✅       | ✅                         | 🟡           | 🚧                          | 🚧                              |
-|  7 | [material-ui](projects/material-ui/OVERVIEW.md)     | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-|  8 | [matrix-js-sdk](projects/matrix-js-sdk/OVERVIEW.md) | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-|  9 | [moodleapp](projects/moodleapp/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| 10 | [n8n](projects/n8n/OVERVIEW.md)                     | ✅       | ✅                         | ✅           | ✅                          | ❌                              |
-| 11 | [opencrvs-core](projects/opencrvs-core/OVERVIEW.md) | ✅       | ✅                         | 🟡           | 🚧                          | 🚧                              |
-| 12 | [openneuro](projects/openneuro/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| 13 | [pf2e](projects/pf2e/OVERVIEW.md)                   | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| 14 | [sequelize](projects/sequelize/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| 15 | [spreed](projects/spreed/OVERVIEW.md)               | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| 16 | [uploader](projects/uploader/OVERVIEW.md)           | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| 17 | [uwazi](projects/uwazi/OVERVIEW.md)                 | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| 18 | [vega-lite](projects/vega-lite/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| 19 | [webpack](projects/webpack/OVERVIEW.md)             | ✅       | ✅                         | ✅           | 🚧 (todo: 6837)             | ❌                              |
-| 20 | [wowanalyzer](projects/wowanalyzer/OVERVIEW.md)     | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+|  2 | [babel](projects/babel/OVERVIEW.md)                 | ✅       | ✅                         | ❌           | ❌                          | ❌                              |
+|  3 | [bhima](projects/bhima/OVERVIEW.md)                 | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+|  4 | [compass](projects/compass/OVERVIEW.md)             | ✅       | ✅                         | 🟡           | ❌                          | ❌                              |
+|  5 | [desktop](projects/desktop/OVERVIEW.md)             | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+|  6 | [flowfuse](projects/flowfuse/OVERVIEW.md)           | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+|  7 | [gatsby](projects/gatsby/OVERVIEW.md)               | ✅       | ✅                         | 🟡           | 🚧                          | 🚧                              |
+|  8 | [material-ui](projects/material-ui/OVERVIEW.md)     | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+|  9 | [matrix-js-sdk](projects/matrix-js-sdk/OVERVIEW.md) | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 10 | [moodleapp](projects/moodleapp/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 11 | [n8n](projects/n8n/OVERVIEW.md)                     | ✅       | ✅                         | ✅           | ✅                          | ❌                              |
+| 12 | [opencrvs-core](projects/opencrvs-core/OVERVIEW.md) | ✅       | ✅                         | 🟡           | 🚧                          | 🚧                              |
+| 13 | [openneuro](projects/openneuro/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 14 | [pf2e](projects/pf2e/OVERVIEW.md)                   | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 15 | [sequelize](projects/sequelize/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 16 | [spreed](projects/spreed/OVERVIEW.md)               | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 17 | [uploader](projects/uploader/OVERVIEW.md)           | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 18 | [uwazi](projects/uwazi/OVERVIEW.md)                 | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 19 | [vega-lite](projects/vega-lite/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 20 | [webpack](projects/webpack/OVERVIEW.md)             | ✅       | ✅                         | ✅           | 🚧 (todo: 6837)             | ❌                              |
+| 21 | [wowanalyzer](projects/wowanalyzer/OVERVIEW.md)     | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 
 ## Cross-cutting infrastructure
 ^

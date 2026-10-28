@@ -1,0 +1,17 @@
+#!/bin/bash
+workers="${BABEL_JEST_WORKERS:-2}"
+args=()
+
+for arg in "$@"; do
+    case "$arg" in
+        --maxWorkers=100%)
+            printf 'yarn-workers-shim: --maxWorkers=100%% -> --maxWorkers=%s\n' "$workers" >&2
+            args+=("--maxWorkers=${workers}")
+            ;;
+        *)
+            args+=("$arg")
+            ;;
+    esac
+done
+
+exec yarn "${args[@]}"
