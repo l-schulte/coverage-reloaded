@@ -2,7 +2,7 @@
 
 Status index for the longitudinal line-coverage collection. Each active project has
 a dedicated `projects/<p>/OVERVIEW.md` with its test infrastructure, coverage
-approach, checklist, results, and known test failures.
+approach, checklist, results, and failure triage.
 
 - Pipeline and design rules: [`AGENTS.md`](AGENTS.md)
 - Collection workflow: [`README.md`](README.md)
@@ -22,7 +22,7 @@ Five items, always in this order:
 | **failed tests doublechecked** | Non-zero-exit runs were inspected and classified. |
 | **complete run** | The full commit history has been processed. |
 | **complete test failure check** | Every failing run has been labeled and assessed. |
-| **complete JEV test failure check** | Automated System 1 labeling via Jev (`failure_labels_jev.csv`) evaluated failing runs. Done if zero problematic labels remain or all flagged issues are audited. |
+| **complete JEV test failure check** | Automated System 1 labeling via Jev (`label_analysis/failure_labels_jev_min.csv`, or `failure_labels_jev_min_dedup.csv` in dedup-keyword mode) evaluated failing runs. Done when the file has no flagged families or `label_analysis/jev_audit.md` is current. |
 
 Symbols: ✅ done, 🟡 work in progress, 🚧 paused (partially processed), 🆘 inclusion criterion not met or at risk, ❌ not done.
 
@@ -37,7 +37,8 @@ Symbols: ✅ done, 🟡 work in progress, 🚧 paused (partially processed), �
 
 ### Failure labels
 
-Labels in `projects/<p>/failure_labels_project.csv`:
+Labels in `projects/<p>/label_analysis/failure_labels_project_min.csv` (primary) and
+`projects/<p>/label_analysis/failure_labels_project_max.csv` (diagnostic window):
 
 | Label | Meaning |
 |---|---|
@@ -59,30 +60,31 @@ Numeric results (commits processed, coverage %, hard errors) and their generatio
 dates live in the per-project Results sections, sourced from
 `stats_output/report.txt`.
 
-| Project                                             | 100 done | failed tests doublechecked | complete run | complete test failure check | complete JEV test failure check |
-| --------------------------------------------------- | -------- | -------------------------- | ------------ | --------------------------- | ------------------------------- |
-| [apollo-client](projects/apollo-client/OVERVIEW.md) | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| [bhima](projects/bhima/OVERVIEW.md)                 | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| [compass](projects/compass/OVERVIEW.md)             | ❌       | ❌                         | ❌           | ❌                          | ❌                              |
-| [flowfuse](projects/flowfuse/OVERVIEW.md)           | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| [gatsby](projects/gatsby/OVERVIEW.md)               | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| [material-ui](projects/material-ui/OVERVIEW.md)     | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| [matrix-js-sdk](projects/matrix-js-sdk/OVERVIEW.md) | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| [moodleapp](projects/moodleapp/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| [n8n](projects/n8n/OVERVIEW.md)                     | ✅       | ✅                         | 🟡           | ❌                          | ❌                              |
-| [opencrvs-core](projects/opencrvs-core/OVERVIEW.md) | ✅       | ✅                         | ✅           | 🟡                          | ❌                              |
-| [openneuro](projects/openneuro/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| [pf2e](projects/pf2e/OVERVIEW.md)                   | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| [sequelize](projects/sequelize/OVERVIEW.md)         | ✅       | 🟡                         | ❌           | ❌                          | ❌                              |
-| [spreed](projects/spreed/OVERVIEW.md)               | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| [uploader](projects/uploader/OVERVIEW.md)           | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| [uwazi](projects/uwazi/OVERVIEW.md)                 | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| [vega-lite](projects/vega-lite/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| [wowanalyzer](projects/wowanalyzer/OVERVIEW.md)     | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| [yari](projects/yari/OVERVIEW.md)                   | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+|  # | Project                                             | 100 done | failed tests doublechecked | complete run | complete test failure check | complete JEV test failure check |
+| -- | --------------------------------------------------- | -------- | -------------------------- | ------------ | --------------------------- | ------------------------------- |
+|  1 | [apollo-client](projects/apollo-client/OVERVIEW.md) | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+|  2 | [bhima](projects/bhima/OVERVIEW.md)                 | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+|  3 | [compass](projects/compass/OVERVIEW.md)             | ✅       | ✅                         | 🟡           | ❌                          | ❌                              |
+|  4 | [desktop](projects/desktop/OVERVIEW.md)             | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+|  5 | [flowfuse](projects/flowfuse/OVERVIEW.md)           | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+|  6 | [gatsby](projects/gatsby/OVERVIEW.md)               | ✅       | ✅                         | 🟡           | 🚧                          | 🚧                              |
+|  7 | [material-ui](projects/material-ui/OVERVIEW.md)     | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+|  8 | [matrix-js-sdk](projects/matrix-js-sdk/OVERVIEW.md) | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+|  9 | [moodleapp](projects/moodleapp/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 10 | [n8n](projects/n8n/OVERVIEW.md)                     | ✅       | ✅                         | ✅           | ✅                          | ❌                              |
+| 11 | [opencrvs-core](projects/opencrvs-core/OVERVIEW.md) | ✅       | ✅                         | 🟡           | 🚧                          | 🚧                              |
+| 12 | [openneuro](projects/openneuro/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 13 | [pf2e](projects/pf2e/OVERVIEW.md)                   | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 14 | [sequelize](projects/sequelize/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 15 | [spreed](projects/spreed/OVERVIEW.md)               | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 16 | [uploader](projects/uploader/OVERVIEW.md)           | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 17 | [uwazi](projects/uwazi/OVERVIEW.md)                 | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 18 | [vega-lite](projects/vega-lite/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 19 | [webpack](projects/webpack/OVERVIEW.md)             | ✅       | ✅                         | ✅           | 🚧 (todo: 6837)             | ❌                              |
+| 20 | [wowanalyzer](projects/wowanalyzer/OVERVIEW.md)     | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 
 ## Cross-cutting infrastructure
-
+^
 - **WayPack Machine** serves each package as it existed at the commit timestamp
   (`/npm/<ts>/<pkg>`, `/yarn/<ts>/<pkg>`, `/pip/<ts>/<pkg>`). It must be running on
   the `mining-net` Docker network. Local overrides live in
@@ -94,10 +96,14 @@ dates live in the per-project Results sections, sourced from
   (`pool: { max: 1, min: 1 }`) to fix a pooled-connection migration race.
 - **`stats.py <project>`** scans `projects/<p>/output/` and writes the CSVs, plots,
   and `stats_output/report.txt` used as the Results source.
-- **`check_failures.py`** and **`collapse_labels.py`** classify non-zero-exit runs
-  and collapse `problematic`/`unclear` rows into error families.
-- **`check_failures_jev.py`** evaluates non-zero-exit runs using the automated System 1
-  model (Jev) into `failure_labels_jev.csv` for independent auditing and work-order generation.
+- **`check_failures_v2.py <project>`** detects failure families in non-zero-exit
+  runs and writes `label_analysis/failure_labels_project_{min,max}.csv` backed by
+  `label_analysis/failure_labels_v2.db`; `--stats` reports the label numbers used
+  by the per-project failure triage.
+- **`check_failures_jev_v2.py`** evaluates failing runs with the automated System 1
+  model (Jev), writing `failure_labels_jev_min.csv` or, in dedup-keyword mode,
+  `failure_labels_jev_min_dedup.csv` (one row per family). Its conclusions are
+  audited in `label_analysis/jev_audit.md`.
 
 ## Host system prerequisites
 
