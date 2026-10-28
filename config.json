@@ -2,6 +2,7 @@
     "start_date": "2021-01-01",
     "end_date": "2026-01-01",
     "max_workers": 10,
+    "launch_delay": 10.0,
     "projects": {
         "spreed": {
             "url": "https://github.com/nextcloud/spreed",
@@ -44,7 +45,15 @@
             "disabled_node_strategies": [
                 "Dockerfile"
             ],
-            "min_node_version": 12
+            "min_node_version": 12,
+            "node_version_overrides": [
+                {
+                    "start_ts": 1673624560,
+                    "end_ts": 1674253981,
+                    "old_version": 14,
+                    "new_version": "16"
+                }
+            ]
         },
         "moodleapp": {
             "url": "https://github.com/moodlehq/moodleapp",
@@ -97,18 +106,6 @@
                     "end_ts": 1636403951,
                     "old_version": "npm@7.20.3",
                     "new_version": "npm@8"
-                }
-            ]
-        },
-        "apostrophe": {
-            "url": "https://github.com/apostrophecms/apostrophe",
-            "container_cpus": 12,
-            "package_manager_version_overrides": [
-                {
-                    "start_ts": 1764500000,
-                    "end_ts": 4102444800,
-                    "old_version": "npm",
-                    "new_version": "pnpm@10.18.0"
                 }
             ]
         },
