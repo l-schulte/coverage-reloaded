@@ -64,7 +64,12 @@ Never invent values. Every number must be traceable to one of these files:
   `label_analysis/v1/`) are **not** read.
 - `projects/<p>/label_analysis/failure_labels_jev_min.csv` — automated System 1
   failure classifications from `check_failures_jev_v2.py`. Only rows with
-  `is_pipeline_issue == True` are counted in the triage table.
+  `is_pipeline_issue == True` are counted in the triage table. When the audit
+  records mode `dedup-keyword`, the source is
+  `failure_labels_jev_min_dedup.csv`: one row per `(suite, keyword)` family (the
+  row's `fingerprint` is the representative). Never compare its row count with
+  the human CSV; the lower count is by design. Family membership is reconstructed
+  from the human CSV when it is needed (`--report` does this).
 - `projects/<p>/label_analysis/jev_audit.md` — the Jev audit written by the
   `jev-failure-analysis` skill. Its `Snapshot` line records the `labeled_at`
   maximum and the fingerprint/flagged counts used to detect staleness. This is
@@ -157,7 +162,8 @@ reports numbers only and does not restate per-family labels.
 | Manual / auto-propagated labels | <n> / <n> |
 | Labeled detections (min) | <n>/<n> (<pct>%) |
 | Labeled runs (min) | <n>/<n> (<pct>%) |
-| Jev pipeline issues | <n> or `n/a (no Jev file)` |
+| Jev mode | <fingerprint / dedup-keyword> |
+| Jev pipeline issues | <n> flagged rows (families in dedup-keyword mode) |
 | Jev audit | <current / outdated / missing / n/a> |
 
 **State:** <complete | in progress | stale | not started>.
@@ -205,7 +211,7 @@ Checklist items (see `AGENTS.md`):
 - **failed tests doublechecked** — non-zero-exit runs were inspected and classified.
 - **complete run** — the full commit history has been processed.
 - **complete test failure check** — every failing run has been labeled and assessed.
-- **complete JEV test failure check** — automated System 1 labeling via Jev (`label_analysis/failure_labels_jev_min.csv`, produced by `check_failures_jev_v2.py`) evaluated failing runs. A project is done (`✅`) when the Jev CSV exists and either it has zero `is_pipeline_issue == True` labels, or `label_analysis/jev_audit.md` is `current` (its `Snapshot` matches both the Jev CSV and `failure_labels_project_min.csv`) and attributes every flagged fingerprint (upstream defect, pipeline defect, or unclear). The audit records the evidence and the label outcome. In progress (`🟡`) if the CSV exists but the audit is `missing`/`outdated` or a flagged family is unattributed; not done (`❌`) if no Jev CSV exists.
+- **complete JEV test failure check** — automated System 1 labeling via Jev (`label_analysis/failure_labels_jev_min.csv`, or `failure_labels_jev_min_dedup.csv` in `dedup-keyword` mode, produced by `check_failures_jev_v2.py`) evaluated failing runs. A project is done (`✅`) when the Jev CSV exists and either it has zero `is_pipeline_issue == True` labels, or `label_analysis/jev_audit.md` is `current` (its `Snapshot` matches the Jev mode, Jev row count, `labeled_at` maximum, and `failure_labels_project_min.csv`) and attributes every flagged family (upstream defect, pipeline defect, or unclear). The audit records the evidence and the label outcome. In progress (`🟡`) if the CSV exists but the audit is `missing`/`outdated` or a flagged family is unattributed; not done (`❌`) if no Jev CSV exists.
 
 Status symbols (used in the root status table and the per-project checklist):
 
@@ -254,13 +260,15 @@ regressions surface).
 Jev audit state (`Jev audit` row):
 
 - `current` — `label_analysis/jev_audit.md` exists and its `Snapshot` line matches
-  both current CSVs: the Jev `labeled_at` maximum, fingerprint count, and flagged
+  both current CSVs: the Jev mode, `labeled_at` maximum, row count, and flagged
   count, plus the human CSV `labeled_at` maximum and fingerprint count.
 - `outdated` — the file exists but either snapshot differs; re-run the Jev audit
-  (and regenerate the Jev CSV first when its fingerprint set differs from
-  `failure_labels_project_min.csv`).
+  (and regenerate the Jev CSV first when its `labeled_at` or the human fingerprint
+  count changed). A Jev row-count difference alone is not staleness in
+  `dedup-keyword` mode; the Jev row count is lower than the human fingerprint
+  count by design.
 - `missing` — the Jev CSV has flagged fingerprints but no audit file.
-- `n/a` — no `label_analysis/failure_labels_jev_min.csv`.
+- `n/a` — no Jev CSV (neither fingerprint mode nor `_dedup.csv`).
 
 ## Protocol
 
@@ -271,7 +279,8 @@ Jev audit state (`Jev audit` row):
    whether `stats_output/report.txt`, `label_analysis/failure_labels_project_min.csv`,
    `label_analysis/failure_labels_project_max.csv`,
    `label_analysis/failure_labels_v2.db`, and
-   `label_analysis/failure_labels_jev_min.csv` exist, plus whether
+   `label_analysis/failure_labels_jev_min.csv` (or
+   `failure_labels_jev_min_dedup.csv`) exist, plus whether
    `label_analysis/jev_audit.md` exists. A project without the v2
    label artifacts is recorded as `not started`; do not inspect legacy v1 files.
 3. Checkpoint: present the active set and the per-project source availability.
@@ -300,18 +309,19 @@ For each active project, build the file from the template:
      Source those rows from `label_analysis/failure_labels_project_min.csv`
      (label, suite, signature, fingerprint, first/last run, `n_runs`). Never list
      `acceptable` or `reevaluated_acceptable` families.
-   - Count `Jev pipeline issues` directly from
-     `label_analysis/failure_labels_jev_min.csv` (`is_pipeline_issue == True`);
-     write `n/a (no Jev file)` when the file is absent.
+   - Count `Jev pipeline issues` from the Jev file recorded by the audit mode.
+     Report flagged rows; note that in `dedup-keyword` mode each row is a family.
+     Never compare row counts with the human CSV.
    - Set the `Jev audit` row from `label_analysis/jev_audit.md`: `current` when
-     its `Snapshot` line matches both current CSVs (Jev and human `labeled_at`
-     maxima, fingerprint counts, flagged count), `outdated` when it differs,
-     `missing` when flags exist without a file, `n/a` when no Jev CSV exists. If
-     the Jev CSV fingerprint set differs from `failure_labels_project_min.csv`,
-     the Jev snapshot predates a re-label: regenerate it (ask first) and audit
-     the fresh file. If the audit is `missing` or `outdated`, perform the audit
-     following the `jev-failure-analysis` skill (Phases 1–3) or ask the user to;
-     do not mark the JEV checklist item `✅` until the audit is `current`.
+     its `Snapshot` line matches both current CSVs (Jev mode, Jev and human
+     `labeled_at` maxima, Jev rows, flagged count, human fingerprints),
+     `outdated` when it differs, `missing` when flags exist without a file, `n/a`
+     when no Jev CSV exists. A Jev row-count difference alone is not staleness in
+     `dedup-keyword` mode. If the Jev `labeled_at` or the human fingerprint count
+     changed, the snapshot predates a re-label: regenerate it (ask first) and
+     audit the fresh file. If the audit is `missing` or `outdated`, perform the
+     audit following the `jev-failure-analysis` skill (Phases 1–3) or ask the user
+     to; do not mark the JEV checklist item `✅` until the audit is `current`.
    - If the v2 artifacts are absent, write `State: not started` and the
      `report.txt` failing-run count only.
 5. Link to `config.json` for configuration; do not copy JSON.
@@ -340,8 +350,8 @@ and the maintenance section pointing at this skill.
   `report.txt` failing-run counts differ, `not started` whenever the v2 label
   artifacts are absent).
 - `Jev audit` is `current` (or `n/a`) whenever the JEV checklist item is `✅`, and
-  the audit `Snapshot` matches both the current `failure_labels_jev_min.csv` and
-  `failure_labels_project_min.csv`.
+  the audit `Snapshot` matches both the current Jev file (mode, rows, `labeled_at`)
+  and `failure_labels_project_min.csv`.
 - No legacy v1 label artifact is linked or cited.
 - All relative links resolve on disk.
 - No `config.json` JSON block is duplicated.
@@ -374,6 +384,9 @@ user explicitly approves.** On approval:
   the `Jev audit` state and links to the file; it never restates the audit's
   per-family findings. If the audit is `missing`/`outdated`, the JEV checklist
   item cannot be `✅`.
+- **Jev row counts are mode-dependent.** In `dedup-keyword` mode the Jev file has
+  one row per family (`_dedup.csv`); never compare its row count with the human
+  CSV or the fingerprint-mode Jev CSV. The lower count is expected.
 - **Root status table is checklist-only.** It never carries numeric results
   (commits, coverage %, hard errors, dates); those live in the per-project
   Results sections.

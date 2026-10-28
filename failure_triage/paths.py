@@ -6,7 +6,8 @@ Canonical layout (v2):
         failure_patterns.json          # live config (read + written by v2)
         failure_labels_project_min.csv # human labels, deduped by fp_min
         failure_labels_project_max.csv # human labels, deduped by fp_max
-        failure_labels_jev_min.csv     # Jev labels (independent)
+        failure_labels_jev_min.csv     # Jev labels (independent), one row/fingerprint
+        failure_labels_jev_min_dedup.csv # --dedup-keyword: one row per family
         failure_labels_v2.db           # failures / labels / runs / meta
         <p>_min.jsonl                  # family cards
         v1/                            # retired v1 artifacts (gitignored)

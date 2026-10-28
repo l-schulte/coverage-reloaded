@@ -21,8 +21,9 @@ Jev evaluates failures statelessly as an uncorrupted second opinion. My job in a
 
 ## Core Context & Files
 
-- **Input label file:** `projects/<p>/label_analysis/failure_labels_jev_min.csv` (`--window max` writes `failure_labels_jev_max.csv`).
-  - Columns: `project, window, run_id, suite, exit_code, line_number, fingerprint, n_runs, keyword, is_pipeline_issue, confidence, env_subsystem, labeled_at`
+- **Input label file (fingerprint mode):** `projects/<p>/label_analysis/failure_labels_jev_min.csv` (`--window max` writes `failure_labels_jev_max.csv`). One row per `fp_min`/`fp_max` fingerprint, so the row count is directly comparable with the human label CSV.
+- **Input label file (dedup-keyword mode):** `projects/<p>/label_analysis/failure_labels_jev_min_dedup.csv` (max: `failure_labels_jev_max_dedup.csv`). One row per `(suite, normalized keyword)` family; the row's `fingerprint` is the family representative. Membership is not stored in the file; it is reconstructed from the human CSV with the same grouping when needed (`--report` does this). **Row counts are not comparable with the human CSV** — one dedup row covers one or more fingerprints.
+  - Columns (both modes): `project, window, run_id, suite, exit_code, line_number, fingerprint, n_runs, keyword, is_pipeline_issue, confidence, env_subsystem, labeled_at`
 - **Reference human labels:** `projects/<p>/label_analysis/failure_labels_project_min.csv` — join on `fingerprint`.
 - **Family cards:** `projects/<p>/label_analysis/<p>_min.jsonl` (from `check_failures_v2.py <p> --window min --analyze`) — the same families as above, with `block`, `n_variants`, `suites`, `first_run`/`last_run`.
 - **Execution script:** `check_failures_jev_v2.py` in the workspace root (implementation: `failure_triage/jev.py`).
@@ -39,6 +40,7 @@ Retired v1 artifacts (`failure_labels_jev.csv`, `failure_labels_project.csv`) ma
 
 - Both Jev and human CSVs are deduped by `fingerprint` (v2: `fp_min` by default, `fp_max` with `--window max`).
 - **Each row is a unique fingerprint, not a single run:** one row covers every run that produced that error block.
+- **`--dedup-keyword` is a different axis.** It groups fingerprints by `(suite, normalized keyword)` and sends one representative per family to the provider. It writes the separate `_dedup.csv` artifact, whose rows are families, not fingerprints. A dedup file naturally has fewer rows than the human CSV; this is not missing coverage. Never compare row counts across modes. Family membership is recovered from the human CSV with the same grouping when it is needed.
 - **`run_id` is merely the exemplar:** the earliest chronological run where the fingerprint appeared. It does NOT mean the failure was confined to that run.
 - **`n_runs` and the DB union indicate the real blast radius:** the CSV `n_runs` column is per fingerprint; `--report` prints a proper union (`COUNT(DISTINCT run_id)` over the group's fingerprints) from the SQLite sidecar. Without the DB it falls back to a sum and warns — never present that fallback as a run count.
 - **Never report exemplar counts as run counts.** Always distinguish:
@@ -87,13 +89,17 @@ the "complete JEV test failure check" checklist item in
 
 Rules:
 
-- Record both snapshots so staleness is detectable: the Jev CSV (`labeled_at`
-  maximum, total fingerprints, flagged count) and the human label CSV it was
-  joined against (`labeled_at` maximum, fingerprint count).
-- Before auditing, confirm the Jev CSV and `failure_labels_project_min.csv` cover
-  the same fingerprint set. A mismatch means the Jev snapshot predates a re-label;
-  regenerate it with `check_failures_jev_v2.py` (ask first — it spends API
-  tokens) and audit the fresh file.
+- Record the mode and both snapshots: `dedup_keyword` (fingerprint vs
+  dedup-keyword), the Jev file path, its `labeled_at` maximum, row count, and
+  flagged count; plus the human label CSV (`labeled_at` maximum, fingerprint
+  count). Do not claim a covered-fingerprint count from the dedup file; if it is
+  needed, compute it from the human CSV with the same grouping.
+- Before auditing, compare the recorded snapshots with the current files. In
+  fingerprint mode the Jev row count should equal the human fingerprint count; in
+  dedup mode the row count is lower by design and a row-count difference is not
+  staleness. A changed `labeled_at` or human fingerprint count means the snapshot
+  is stale: regenerate the Jev file with `check_failures_jev_v2.py` (ask first —
+  it spends API tokens) and audit the fresh file.
 - Cover every flagged fingerprint, grouped by root-cause family. State the
   verdict (`upstream defect`, `pipeline defect`, `unclear`) and the evidence
   (commit hashes, follow-up fix commit, log signature).
@@ -102,9 +108,9 @@ Rules:
   order.
 - When there are zero flagged fingerprints, still write the file with the
   snapshot metadata and `No flagged fingerprints.`
-- Re-write the file whenever the Jev CSV changes (new `labeled_at`, fingerprint
-  count, or flagged count). An audit whose snapshot metadata no longer matches
-  the CSV is outdated and does not satisfy the checklist.
+- Re-write the file whenever the Jev CSV changes (new `labeled_at`, row count, or
+  flagged count). An audit whose snapshot metadata no longer matches the CSV is
+  outdated and does not satisfy the checklist.
 - When no Jev CSV exists, do not write the file; report `n/a (no Jev file)`.
 
 Template:
@@ -112,9 +118,11 @@ Template:
 ```markdown
 # Jev audit — <project>
 
-**Source:** `label_analysis/failure_labels_jev_min.csv`
-**Snapshot:** Jev `labeled_at` max `<ISO>`; fingerprints `<n>`; flagged
-`is_pipeline_issue == True` `<n>` (`<env_subsystem>`: `<n>`, ...)
+**Source:** `label_analysis/failure_labels_jev_min.csv` (fingerprint mode) or
+`label_analysis/failure_labels_jev_min_dedup.csv` (dedup-keyword mode)
+**Snapshot:** mode `<fingerprint / dedup-keyword>`; rows `<n>`; flagged
+`is_pipeline_issue == True` `<n>` (`<env_subsystem>`: `<n>`, ...); Jev
+`labeled_at` max `<ISO>`
 **Human labels:** `label_analysis/failure_labels_project_min.csv` (`labeled_at` max
 `<ISO>`; fingerprints `<n>`)
 
@@ -145,7 +153,7 @@ Follow this structured protocol when asked to analyze Jev's output.
 ### Phase 1 — Summary, Discrepancy Matrix & Cluster Overview
 Bounded scope: compile high-level statistics and cluster disagreements; do NOT inspect individual logs or commit diffs yet.
 
-1. **Aggregate stats:** run `python3 check_failures_jev_v2.py --project <p> --report` (prints fingerprint counts, union runs overall, and a per-`env_subsystem` table). If no Jev CSV exists yet, say so and ask before running without `--report` — that spends API tokens.
+1. **Aggregate stats:** run `python3 check_failures_jev_v2.py --project <p> --report` (prints the mode, rows, covered fingerprints, union runs overall, and a per-`env_subsystem` table). Add `--dedup-keyword` to report the `_dedup.csv` artifact when that mode was used. If no Jev CSV exists yet, say so and ask before running without `--report` — that spends API tokens.
 2. **Discrepancy matrix:** join `failure_labels_jev_min.csv` with human labels in `failure_labels_project_min.csv` on `fingerprint`:
    - Agreement: (acceptable, acceptable), (reevaluated_acceptable, acceptable), (false_positive, …).
    - Discrepancy: Jev `acceptable` vs human `problematic`, Jev `problematic` vs human `acceptable`/`reevaluated_acceptable`, or any other mismatch. Rows missing on one side are "Jev unlabeled" / "human unlabeled", not disagreements.

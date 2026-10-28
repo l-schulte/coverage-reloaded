@@ -1,5 +1,6 @@
 """Suite-span detection, failure collection and the per-project scan."""
 
+import functools
 import os
 import re
 
@@ -108,6 +109,7 @@ def collect_failures(lines, span, min_gap, patterns, excludes, exclude_blocks=No
     return out
 
 
+@functools.lru_cache(maxsize=256)
 def iter_log_lines(project, run_id):
     from .paths import logs_dir
     path = os.path.join(logs_dir(project), run_id + ".log")
@@ -152,12 +154,17 @@ def scan(project, cfg, out_root, min_gap, suite_filter, windows):
             continue
         runs[run_dir] = max(code for _, code in failing)
         spans = _collect_spans(lines)
+        seen_spans = set()
         for stem, code in failing:
             span = _select_span(spans, stem)
             if not span:
                 continue
             if suite_filter and suite_filter not in span[2]:
                 continue
+            span_key = (span[0], span[1])
+            if span_key in seen_spans:
+                continue
+            seen_spans.add(span_key)
             if stem not in resolved:
                 resolved[stem] = resolve_patterns(cfg, stem)
             res = resolved[stem]

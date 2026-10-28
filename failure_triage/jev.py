@@ -4,6 +4,12 @@ Jev remains a separate labeler and a separate artifact
 (`failure_labels_jev_min.csv`). It shares the v2 family definitions (fp_min /
 fp_max) and the SQLite run-set sidecar, but never writes the human label CSVs.
 
+`--dedup-keyword` writes a distinct artifact
+(`failure_labels_jev_min_dedup.csv`) because one row then covers a family of
+fingerprints. The mode is encoded in the file name; family membership is
+reconstructed from the human CSV when needed (`family_index`). Row counts
+across modes are not comparable.
+
 The provider/prompt layer lives in `failure_triage/jev_provider.py` (vendored
 from the v1 labeler when it was archived, now v2-owned); Jev v2 has no
 dependency on the frozen v1 toolchain. v2 only changes detection input,
@@ -53,10 +59,48 @@ def dedup_key(text):
     return " ".join(s.split())
 
 
-def jev_csv_path(project, window):
+def jev_csv_path(project, window, dedup=False):
+    """Jev label artifact.
+
+    ``--dedup-keyword`` writes a separate artifact because one row then
+    represents a family of fingerprints, not a single fingerprint. The file
+    name makes the mode visible so counts are never compared across modes.
+    """
     name = "min" if window == 2 else "max"
+    suffix = "_dedup" if dedup else ""
     return os.path.join(paths.analysis_dir(project),
-                        f"failure_labels_jev_{name}.csv")
+                        f"failure_labels_jev_{name}{suffix}.csv")
+
+
+def family_index(project, window):
+    """Human fingerprints grouped by the dedup-keyword key.
+
+    Returns ``(groups, fp_to_key)`` where ``groups`` maps
+    ``(suite, dedup_key(keyword))`` to its fingerprint list. This reconstructs
+    dedup-family membership from the human CSV, so the Jev artifact needs no
+    extra columns.
+    """
+    rows = store.load_csv(paths.csv_path(project, window))
+    groups = {}
+    for r in rows:
+        key = (r.get("suite", ""), dedup_key(r.get("keyword", "")))
+        groups.setdefault(key, []).append(r["fingerprint"])
+    fp_to_key = {fp: key for key, fps in groups.items() for fp in fps}
+    return groups, fp_to_key
+
+
+def covered_by_rows(project, window, rows):
+    """Fingerprints covered by Jev rows, expanding dedup families."""
+    groups, fp_to_key = family_index(project, window)
+    covered = set()
+    for r in rows:
+        fp = r.get("fingerprint")
+        key = fp_to_key.get(fp)
+        if key is not None and groups.get(key):
+            covered.update(groups[key])
+        elif fp:
+            covered.add(fp)
+    return covered
 
 
 def load_jev_labels(path):
@@ -130,11 +174,15 @@ def build_items(project, window, suite_filter, limit, only_unlabeled,
         print(f"[error] no rows in {paths.csv_path(project, window)}; "
               f"run --build first", file=sys.stderr)
         return [], 0, 0
-    existing = load_jev_labels(jev_csv_path(project, window))
+    existing = load_jev_labels(jev_csv_path(project, window, dedup_keyword))
     candidates = [r for r in rows if not suite_filter or suite_filter in r["suite"]]
     total = len(candidates)
     if only_unlabeled and existing:
-        candidates = [r for r in candidates if r["fingerprint"] not in existing]
+        if dedup_keyword:
+            covered = covered_by_rows(project, window, existing.values())
+        else:
+            covered = set(existing)
+        candidates = [r for r in candidates if r["fingerprint"] not in covered]
     already = total - len(candidates)
 
     dedup_note = ""
@@ -189,10 +237,11 @@ def build_items(project, window, suite_filter, limit, only_unlabeled,
 
 
 async def classify_batch(project, window, provider, api_key, model, items,
-                         existing, concurrency, c_above, c_below):
+                         existing, concurrency, c_above, c_below,
+                         dedup=False):
     sem = asyncio.Semaphore(concurrency)
     write_lock = asyncio.Lock()
-    out_path = jev_csv_path(project, window)
+    out_path = jev_csv_path(project, window, dedup)
     all_rows = dict(existing)
     total = len(items)
     completed = 0
@@ -258,9 +307,9 @@ async def classify_batch(project, window, provider, api_key, model, items,
     return all_rows
 
 
-def print_report(project, window, con):
+def print_report(project, window, con, dedup=False):
     name = "min" if window == 2 else "max"
-    path = jev_csv_path(project, window)
+    path = jev_csv_path(project, window, dedup)
     if not os.path.isfile(path):
         print(f"No Jev labels at {path}. Run without --report first.")
         return
@@ -270,13 +319,33 @@ def print_report(project, window, con):
         return
     issues = [r for r in rows if r.get("is_pipeline_issue", "").lower() == "true"]
     acceptable = [r for r in rows if r.get("is_pipeline_issue", "").lower() == "false"]
+    groups, fp_to_key = family_index(project, window) if dedup else ({}, {})
+    if dedup and not groups:
+        print("[warn] human label CSV missing; dedup family membership cannot "
+              "be reconstructed (row counts are families, not fingerprints)",
+              file=sys.stderr)
+
+    def fps_for(group):
+        if not dedup:
+            return [r["fingerprint"] for r in group if r.get("fingerprint")]
+        fps = set()
+        for r in group:
+            fp = r.get("fingerprint")
+            key = fp_to_key.get(fp)
+            if key is not None and groups.get(key):
+                fps.update(groups[key])
+            elif fp:
+                fps.add(fp)
+        return sorted(fps)
+
+    covered = fps_for(rows)
 
     def union_runs(group):
         if con is None:
             print("[warn] no SQLite sidecar; run counts are per-fingerprint "
                   "sums, not unions", file=sys.stderr)
             return sum(int(r.get("n_runs", 1)) for r in group)
-        fps = [r["fingerprint"] for r in group]
+        fps = fps_for(group)
         runs = set()
         for chunk in store.chunks(fps):
             ph = ",".join("?" * len(chunk))
@@ -286,15 +355,22 @@ def print_report(project, window, con):
             ).fetchall())
         return len(runs)
 
+    mode = "dedup-keyword (one row per family)" if dedup else "fingerprint"
     print("=" * 76)
     print(f" JEV v2 PIPELINE HEALTH — {project} ({name})")
+    print(f" mode: {mode}")
     print("=" * 76)
-    print(f"fingerprints: {len(rows)}  "
-          f"(problematic {len(issues)}, acceptable {len(acceptable)})")
+    if dedup:
+        print(f"rows: {len(rows)} families  covered fingerprints: {len(covered)}  "
+              f"(problematic {len(issues)}, acceptable {len(acceptable)})")
+    else:
+        print(f"fingerprints: {len(rows)}  "
+              f"(problematic {len(issues)}, acceptable {len(acceptable)})")
     print(f"union runs:   problematic {union_runs(issues)}, "
           f"acceptable {union_runs(acceptable)}")
     print("-" * 76)
-    print(f"{'Subsystem':<24} {'Unique':<8} {'Union runs':<10} Sample keyword")
+    unit = "Families" if dedup else "Unique"
+    print(f"{'Subsystem':<24} {unit:<8} {'Union runs':<10} Sample keyword")
     print("-" * 76)
     subsystems = {}
     for r in issues:
@@ -319,8 +395,10 @@ def parse_args(argv=None):
     p.add_argument("--limit", type=int, default=None)
     p.add_argument("--dedup-keyword", action="store_true",
                    help="Group candidates by (suite, normalized keyword) and "
-                        "send one representative per family. Batching only; "
-                        "fingerprints and labels are unaffected.")
+                        "send one representative per family. Writes a separate "
+                        "artifact (failure_labels_jev_<window>_dedup.csv) with "
+                        "one row per family; row counts are not comparable with "
+                        "the human label CSV or the default Jev CSV.")
     p.add_argument("--concurrency", type=int, default=5)
     p.add_argument("--context-above", type=int, default=4)
     p.add_argument("--context-below", type=int, default=35)
@@ -356,7 +434,20 @@ def main(argv=None):
             con = store.open_db(db)
 
     if args.report:
+        default_path = jev_csv_path(args.project, window)
+        dedup_path = jev_csv_path(args.project, window, dedup=True)
+        if args.dedup_keyword:
+            print_report(args.project, window, con, dedup=True)
+            return
+        if os.path.isfile(dedup_path) and not os.path.isfile(default_path):
+            print(f"[note] no fingerprint-level Jev file; "
+                  f"reporting {dedup_path}")
+            print_report(args.project, window, con, dedup=True)
+            return
         print_report(args.project, window, con)
+        if os.path.isfile(dedup_path):
+            print(f"\n[note] separate dedup artifact exists: {dedup_path} "
+                  f"(one row per family; do not compare row counts)")
         return
 
     items, already, total = build_items(
@@ -365,6 +456,12 @@ def main(argv=None):
     )
     name = "min" if window == 2 else "max"
     print(f"Jev v2 — project {args.project} / window {name}")
+    if args.dedup_keyword:
+        print("mode: dedup-keyword -> one row per (suite, normalized keyword) "
+              "family")
+    else:
+        print("mode: fingerprint -> one row per fingerprint")
+    print(f"output: {jev_csv_path(args.project, window, args.dedup_keyword)}")
     print(f"candidates: {total}  already labeled (skipped): {already}  "
           f"to send: {len(items)}")
     if args.limit:
@@ -402,9 +499,14 @@ def main(argv=None):
     provider, api_key = resolve_provider(args.provider)
     print(f"provider: {provider}  model: {args.model}")
 
-    existing = load_jev_labels(jev_csv_path(args.project, window))
+    existing = load_jev_labels(jev_csv_path(
+        args.project, window, args.dedup_keyword))
     asyncio.run(classify_batch(
         args.project, window, provider, api_key, args.model, items,
         existing, args.concurrency, args.context_above, args.context_below,
+        dedup=args.dedup_keyword,
     ))
-    print(f"\nwrote {jev_csv_path(args.project, window)}")
+    print(f"\nwrote {jev_csv_path(args.project, window, args.dedup_keyword)}")
+    if args.dedup_keyword:
+        print("mode: dedup-keyword (one row per (suite, keyword) family; "
+              "do not compare row counts with the human CSV)")

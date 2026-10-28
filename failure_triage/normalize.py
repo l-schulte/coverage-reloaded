@@ -9,7 +9,7 @@ import re
 
 ANSI_RE = re.compile(r"\x1b\[[0-9;?]*[A-Za-z]")
 TIMING_PAREN_RE = re.compile(r"\(\d+(?:\.\d+)?\s*(?:s|ms)\)")
-TIMING_END_RE = re.compile(r"\s+\d+(?:\.\d+)?\s*(?:ms|s)\s*$")
+TIMING_END_RE = re.compile(r"\s+\d+(?:\.\d+)?\s*(?:ms|s)$")
 REPO_PREFIX_RE = re.compile(r"/coverage_reloaded/repo/?")
 SRC = r"[\w./@-]+\.(?:ts|tsx|js|jsx|mjs|cjs|vue|svelte|json)"
 COORD1_RE = re.compile(r"(?P<p>" + SRC + r"):(?P<l>\d+):(?P<c>\d+)")
@@ -40,11 +40,16 @@ def normalize_line(line, prefix_re=None):
     s = s.strip()
     if prefix_re is not None:
         s = prefix_re.sub("", s, count=1)
-    s = TIMING_PAREN_RE.sub("", s)
-    s = TIMING_END_RE.sub("", s)
-    s = REPO_PREFIX_RE.sub("", s)
-    s = COORD1_RE.sub(lambda m: f"{m.group('p')}:<n>:<n>", s)
-    s = COORD2_RE.sub(lambda m: f"{m.group('p')}(<n>,<n>)", s)
+    if "(" in s:
+        s = TIMING_PAREN_RE.sub("", s)
+    if s.endswith(("s", "ms")):
+        s = TIMING_END_RE.sub("", s)
+    if "/coverage_reloaded/repo" in s:
+        s = REPO_PREFIX_RE.sub("", s)
+    if ":" in s:
+        s = COORD1_RE.sub(lambda m: f"{m.group('p')}:<n>:<n>", s)
+    if "(" in s:
+        s = COORD2_RE.sub(lambda m: f"{m.group('p')}(<n>,<n>)", s)
     # Re-strip: removing a timing leaves trailing whitespace, and a line with
     # "(9.8s)" must hash identically to the same line without it.
     return s.strip()

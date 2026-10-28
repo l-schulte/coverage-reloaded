@@ -21,11 +21,13 @@ LABELS = {
 
 def match_auto_rule(lines, fail_line, rules, default_region=12):
     start = fail_line - 1
+    max_region = max((max(default_region, (n or 5) + 4) for _, _, _, n, _ in rules), default=default_region)
+    norm_cache = [normalize_line(l) for l in lines[start:start + max_region]]
     for stored, label, _note, n, rid in rules:
         if not stored:
             continue
         region = max(default_region, (n or 5) + 4)
-        text = "\n".join(normalize_line(l) for l in lines[start:start + region])
+        text = "\n".join(norm_cache[:region])
         try:
             if re.compile(stored).search(text):
                 return label, rid
