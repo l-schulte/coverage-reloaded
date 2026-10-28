@@ -46,6 +46,12 @@ def parse_args():
         help="Maximum number of commits to process.",
     )
     parser.add_argument(
+        "--launch-delay",
+        type=float,
+        default=None,
+        help="Minimum delay in seconds between consecutive container starts. Defaults to config.json launch_delay (10.0s).",
+    )
+    parser.add_argument(
         "--mode",
         type=str,
         choices=[
@@ -83,11 +89,14 @@ def execute(
     max_commits=None,
     commit_hash=None,
     base_path=None,
+    launch_delay=None,
 ):
     cfg = get_config()
     start_date = start_date or cfg.start_date
     end_date = end_date or cfg.end_date
     max_workers = max_workers or cfg.max_workers
+    if launch_delay is None:
+        launch_delay = cfg.launch_delay
     start_date = datetime.fromisoformat(start_date).replace(tzinfo=timezone.utc)
     end_date = datetime.fromisoformat(end_date).replace(tzinfo=timezone.utc)
 
@@ -98,14 +107,18 @@ def execute(
     if mode in ["full", "commits-only"]:
         collect_commits.execute(project, start_date, end_date)
     if mode in ["full", "coverage-only"]:
-        collect_coverage.execute(project, max_workers, max_commits)
+        collect_coverage.execute(
+            project, max_workers, max_commits, launch_delay=launch_delay
+        )
     if mode == "single-commit":
         if not commit_hash:
             logger.error("Commit hash is required for 'single-commit' mode.")
             return
         collect_single_commit.execute(project, commit_hash, base_path)
     if mode == "retry-failed":
-        collect_coverage.execute_failed(project, max_workers, max_commits)
+        collect_coverage.execute_failed(
+            project, max_workers, max_commits, launch_delay=launch_delay
+        )
 
 
 def main():
@@ -124,6 +137,7 @@ def main():
                 args.max_commits,
                 None,  # commit_hash is not applicable for multiple projects
                 args.base_path,
+                args.launch_delay,
             )
     else:
         execute(
@@ -135,6 +149,7 @@ def main():
             args.max_commits,
             args.commit_hash,
             args.base_path,
+            args.launch_delay,
         )
 
 

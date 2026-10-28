@@ -54,7 +54,26 @@ ENV_CONFIG="--env-file .env --env revision=$3 --env timestamp=$4 --env package_m
 # install-and-run.sh (--maxWorkers=1 / --runInBand, per AGENTS.md §7.1), not by
 # core-count detection. docker_run.py sets this to 4; default 20 for manual runs.
 CONTAINER_CPUS=${CONTAINER_CPUS:-20}
-CPU_CONFIG="--cpus=$CONTAINER_CPUS"
+if [ "$CONTAINER_CPUS" = "0" ]; then
+    # Explicit opt-out: CONTAINER_CPUS=0 runs without a CPU quota.
+    echo "NOTICE: CONTAINER_CPUS=0 — running without a --cpus CPU quota"
+    CPU_CONFIG=""
+else
+    # --cpus needs the `cpu` cgroup controller delegated to this session's
+    # cgroup. Rootless hosts often delegate only `memory pids` (e.g. Ubuntu
+    # 22.04 systemd), where podman/docker then abort instantly ("the requested
+    # cgroup controller `cpu` is not available" / NanoCPUs errors) — failing
+    # EVERY container. Detect the delegation here and run uncapped instead;
+    # root sessions and properly delegated hosts keep the quota unchanged.
+    _CGROUP_PATH=$(awk -F: '/^[0-9]+:/ {print $3; exit}' /proc/self/cgroup 2>/dev/null)
+    _CGROUP_CONTROLLERS="/sys/fs/cgroup${_CGROUP_PATH}/cgroup.controllers"
+    if [ -f "$_CGROUP_CONTROLLERS" ] && ! grep -qw "cpu" "$_CGROUP_CONTROLLERS"; then
+        echo "NOTICE: no 'cpu' cgroup controller in $_CGROUP_CONTROLLERS — running without a --cpus CPU quota"
+        CPU_CONFIG=""
+    else
+        CPU_CONFIG="--cpus=$CONTAINER_CPUS"
+    fi
+fi
 
 # When SKIP_BUILD is set (e.g. from docker_run.py), images were already
 # pre-built — skip redundant rebuilds.  Manual CLI invocations never set
@@ -72,18 +91,20 @@ mkdir -p projects/$1/output
 DIND=$($EXECUTOR image inspect $CONTAINER_NAME --format '{{ index .Config.Labels "dind.project" }}' 2>/dev/null || echo "")
 if [ "$DIND" = "true" ]; then
     EXTRA_FLAGS="--privileged"
+    CAP_CONFIG=""
 else
     EXTRA_FLAGS=""
+    CAP_CONFIG="--cap-add=NET_ADMIN"
 fi
 
 if [ "$2" = "shell" ]; then
     # Run an interactive container for testing, executes bash on start
-    $EXECUTOR run --rm -it --network mining-net --cap-add=NET_ADMIN $ENV_CONFIG $CPU_CONFIG $TMPFS_CONFIG $EXTRA_FLAGS -v "$(pwd)/projects/$1/output:$CONTAINER_DIR/coverage" --pids-limit 10000 $CONTAINER_NAME bash
+    $EXECUTOR run --rm -it --network mining-net $CAP_CONFIG $ENV_CONFIG $CPU_CONFIG $TMPFS_CONFIG $EXTRA_FLAGS -v "$(pwd)/projects/$1/output:$CONTAINER_DIR/coverage" --pids-limit 10000 $CONTAINER_NAME bash
 elif [ "$2" = "debug" ]; then
     # Run an interactive container for debugging, executes bash and mounts the debug folder
     mkdir -p projects/$1/debug
-    $EXECUTOR run --rm -it --network mining-net --cap-add=NET_ADMIN $ENV_CONFIG $CPU_CONFIG $TMPFS_CONFIG $EXTRA_FLAGS -v "$(pwd)/projects/$1/output:$CONTAINER_DIR/coverage" -v "$(pwd)/projects/$1/debug:$CONTAINER_DIR" --pids-limit 10000 $CONTAINER_NAME bash
+    $EXECUTOR run --rm -it --network mining-net $CAP_CONFIG $ENV_CONFIG $CPU_CONFIG $TMPFS_CONFIG $EXTRA_FLAGS -v "$(pwd)/projects/$1/output:$CONTAINER_DIR/coverage" -v "$(pwd)/projects/$1/debug:$CONTAINER_DIR" --pids-limit 10000 $CONTAINER_NAME bash
 elif [ "$2" = "exec" ]; then
     # Run the full process non-interactively
-    $EXECUTOR run --rm --network mining-net --cap-add=NET_ADMIN $ENV_CONFIG $CPU_CONFIG $TMPFS_CONFIG $EXTRA_FLAGS -v "$(pwd)/projects/$1/output:$CONTAINER_DIR/coverage" --pids-limit 10000 $CONTAINER_NAME bash execute.sh
+    $EXECUTOR run --rm --network mining-net $CAP_CONFIG $ENV_CONFIG $CPU_CONFIG $TMPFS_CONFIG $EXTRA_FLAGS -v "$(pwd)/projects/$1/output:$CONTAINER_DIR/coverage" --pids-limit 10000 $CONTAINER_NAME bash execute.sh
 fi

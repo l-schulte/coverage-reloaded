@@ -238,6 +238,11 @@ class CoverageReloadedConfig:
     #: collection.  Default: ``4`` (or CPU count minus one when set via CLI).
     max_workers: int = 4
 
+    #: Minimum delay (in seconds) between consecutive container starts to
+    #: avoid CPU and I/O thundering herds when launching parallel runs.
+    #: Default: ``10.0``.
+    launch_delay: float = 10.0
+
     #: Per-project configuration.  Keys are project names (used as directory
     #: names under ``projects/``), values are :class:`ProjectConfig`.
     projects: Dict[str, ProjectConfig] = field(default_factory=dict)
@@ -310,5 +315,6 @@ def load_config(path: str = "config.json") -> CoverageReloadedConfig:
         start_date=raw.get("start_date", "1970-01-01"),
         end_date=raw.get("end_date", "2100-01-01"),
         max_workers=raw.get("max_workers", 4),
+        launch_delay=float(raw.get("launch_delay", 10.0)),
         projects=projects,
     )
