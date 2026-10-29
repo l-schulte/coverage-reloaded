@@ -1,0 +1,121 @@
+commit_hash,timestamp,script_name,script_definition
+4bf7d630d38179192d9cc5e00fbd1513773a034b,1625696242,root:.: build,webpack -c ./config/webpack.config.js
+1f6dfcbfc9d14d9f74ad20bf154e4f6b65594ed6,1704295934,root:.: build,webpack --mode=production -c ./config/webpack.config.js
+4bf7d630d38179192d9cc5e00fbd1513773a034b,1625696242,root:.: build-watch,webpack --mode=development -c ./config/webpack.config.js --watch
+e5984f98d981f316db8596dceae611a49dfa10dc,1647863114,root:.: cover,npm run cover:unit && npm run cover:system && npm run cover:report
+f678e7655d6f52c148b6926ad01e2ea0619b0ac1,1654445461,root:.: cover,npm-run-all --sequential cover:unit cover:system cover:report
+e5984f98d981f316db8596dceae611a49dfa10dc,1647863114,root:.: cover:report,nyc report --reporter=text --reporter html
+e904fc5aa99bcec004cb493d9cd8159a6d6f1718,1653407630,root:.: cover:report,nyc report --reporter=text --reporter html --report-dir './coverage/forge'
+86b1854e16e5ee54ac691e976edefe718434c2b7,1688385691,root:.: cover:report,nyc report --reporter=html --reporter=json -t './coverage/reports'
+e5984f98d981f316db8596dceae611a49dfa10dc,1647863114,root:.: cover:system,nyc --silent npm run test:system
+2eae6f9313e82a2a8b07b444e2155d76e4c94f33,1648592493,root:.: cover:system,nyc --silent --no-clean npm run test:system
+86b1854e16e5ee54ac691e976edefe718434c2b7,1688385691,root:.: cover:system,nyc --silent npm run test:system && nyc report --reporter=json --report-dir ./coverage/reports/system/  && mv ./coverage/reports/system/coverage-final.json ./coverage/reports/system-coverage.json
+e5984f98d981f316db8596dceae611a49dfa10dc,1647863114,root:.: cover:unit,nyc --silent npm run test:unit
+e904fc5aa99bcec004cb493d9cd8159a6d6f1718,1653407630,root:.: cover:unit,npm run cover:unit:forge && npm run cover:unit:frontend
+f678e7655d6f52c148b6926ad01e2ea0619b0ac1,1654445461,root:.: cover:unit,npm-run-all --sequential cover:unit:forge cover:unit:frontend
+e904fc5aa99bcec004cb493d9cd8159a6d6f1718,1653407630,root:.: cover:unit:forge,nyc --silent npm run test:unit:forge
+32e9380a2433f5b66d1604c93553330f64d0c8c2,1653494627,root:.: cover:unit:forge,
+86b1854e16e5ee54ac691e976edefe718434c2b7,1688385691,root:.: cover:unit:forge,nyc --silent npm run test:unit:forge && nyc report --reporter=json --report-dir ./coverage/reports/forge/ && mv ./coverage/reports/forge/coverage-final.json ./coverage/reports/forge-coverage.json
+4de1a795e11b07b5869c2c4f80980caa0bd4bcfd,1652792291,root:.: cover:unit:frontend,vitest --config ./config/vitest.config.ts run --coverage
+32e9380a2433f5b66d1604c93553330f64d0c8c2,1653494627,root:.: cover:unit:frontend,
+86b1854e16e5ee54ac691e976edefe718434c2b7,1688385691,root:.: cover:unit:frontend,vitest --config ./config/vitest.config.ts run --coverage && mv ./coverage/reports/frontend/coverage-final.json ./coverage/reports/frontend-coverage.json
+51e126917ac072178d84af74053c96357574a692,1659086965,root:.: cy:open,cypress open --config-file ./config/cypress.json
+15e753454b95f6b8d720f1b445825742f877594f,1669730989,root:.: cy:open,cypress open --config-file ./config/cypress.config.js
+faa6d835fcbc4d40818d09d4922c78c64d695837,1688033079,root:.: cy:open,
+ab5a80df8eaec0cbff34df9256d4a49e1422e18e,1688462184,root:.: cy:open,
+ee1051ac1c7e5cfeeb4b4bc5d57889832f407361,1687272686,root:.: cy:open:ee,cypress open --config-file ./config/cypress-ee.config.js
+ee1051ac1c7e5cfeeb4b4bc5d57889832f407361,1687272686,root:.: cy:open:os,cypress open --config-file ./config/cypress-os.config.js
+51e126917ac072178d84af74053c96357574a692,1659086965,root:.: cy:run,cypress run --config-file ./config/cypress.json
+15e753454b95f6b8d720f1b445825742f877594f,1669730989,root:.: cy:run,cypress run --config-file ./config/cypress.config.js
+ee1051ac1c7e5cfeeb4b4bc5d57889832f407361,1687272686,root:.: cy:run,npm-run-all --parallel cy:run:os cy:run:ee
+99bda3014ba157e3470563ac99094b7d47996185,1687437958,root:.: cy:run,npm run all --parallel cy:run:os cy:run:ee
+ee1051ac1c7e5cfeeb4b4bc5d57889832f407361,1687272686,root:.: cy:run:ee,cypress run --config-file ./config/cypress-ee.config.js
+ee1051ac1c7e5cfeeb4b4bc5d57889832f407361,1687272686,root:.: cy:run:os,cypress run --config-file ./config/cypress-os.config.js
+bf7a90077d32ec5221bdd572c933b5e18db8f07d,1660751656,root:.: cy:web-server,node ./test/e2e/frontend/test_environment
+ee1051ac1c7e5cfeeb4b4bc5d57889832f407361,1687272686,root:.: cy:web-server,npm-run-all --parallel cy:web-server:os cy:web-server:ee
+99bda3014ba157e3470563ac99094b7d47996185,1687437958,root:.: cy:web-server,npm run all --parallel cy:web-server:os cy:web-server:ee
+ee1051ac1c7e5cfeeb4b4bc5d57889832f407361,1687272686,root:.: cy:web-server:ee,node ./test/e2e/frontend/test_environment_ee
+ee1051ac1c7e5cfeeb4b4bc5d57889832f407361,1687272686,root:.: cy:web-server:os,node ./test/e2e/frontend/test_environment_os
+266838daffb69a44187016765f2e8c7eaf072c8b,1653468773,root:.: cypress:open,cypress open --config-file ./config/cypress.json
+32e9380a2433f5b66d1604c93553330f64d0c8c2,1653494627,root:.: cypress:open,
+3699c030b4909eec57dd12e3fb4a45a9aba77056,1659025238,root:.: cypress:open,
+4b08f6ebf70088b23c0748d11ae169a2cd600b0f,1647607956,root:.: dev:local,cd ../flowforge-driver-localfs && npm install ../flowforge-nr-storage ../flowforge-nr-auth ../flowforge-nr-audit-logger && cd ../flowforge && npm install ../flowforge-driver-localfs
+ece79680ed9bddc022645a084a797d65df918733,1647903105,root:.: dev:local,cd ../flowforge-nr-launcher && npm install ../flowforge-nr-storage ../flowforge-nr-auth ../flowforge-nr-audit-logger && cd ../flowforge-driver-localfs && npm install ../flowforge-nr-launcher && cd ../flowforge && npm install ../flowforge-driver-localfs
+6544c4742d75f6108ce53ac74487048663cf4639,1647950767,root:.: dev:local,cd ../flowforge-nr-launcher && npm install ../flowforge-nr-storage ../flowforge-nr-auth ../flowforge-nr-audit-logger && cd ../flowforge-driver-localfs && npm install ../flowforge-nr-launcher && cd ../flowforge && npm install ../flowforge-driver-localfs ../forge-ui-components
+73b5a1589f111307c3e826c82029153f47982f28,1652726597,root:.: dev:local,cd ../flowforge-nr-launcher && npm install ../flowforge-nr-storage ../flowforge-nr-auth ../flowforge-nr-audit-logger && cd ../flowforge-driver-localfs && npm install ../flowforge-nr-launcher && cd ../flowforge && npm install ../flowforge-driver-localfs ../forge-ui-components && cd ../forge-ui-components && npm install && npm run build && cd ../flowforge-nr-storage && npm install && cd ../flowforge-nr-audit-logger && npm install && cd ../flowforge-nr-auth && npm install
+d8ef8a4381cfaa6ff4af8d468344211c92d4efec,1657120272,root:.: dev:local,
+d8ef8a4381cfaa6ff4af8d468344211c92d4efec,1657120272,root:.: dev:local,
+4bf7d630d38179192d9cc5e00fbd1513773a034b,1625696242,root:.: docs,jsdoc -c ./config/jsdoc.json
+dc1b9ef647980089deaf644e7a4968c4f212239b,1670589652,root:.: docs,
+dc1b9ef647980089deaf644e7a4968c4f212239b,1670589652,root:.: docs,
+dc1b9ef647980089deaf644e7a4968c4f212239b,1670589652,root:.: docs,
+dbe2c40bc70631f75e27beed6aaa5c1986242925,1647610771,root:.: install-stack,mkdir -p var/stacks/${npm_config_vers} && npm install --prefix var/stacks/${npm_config_vers} node-red@${npm_config_vers}
+8d0d7110230d2a0e8205e712324325123e6f5a58,1652208186,root:.: install-stack,node forge/install-stack.js --
+8142b2ee11017d503fae76f2f0ff1904fe48d28d,1652279226,root:.: install-stack,node scripts/install-stack.js --
+325744da7c374539eda7434ab633658453fe9d04,1643322533,root:.: lint,eslint -c .eslintrc forge/**/*.js frontend/**/*.js test/**/*.js --ignore-pattern 'frontend/dist/**'
+9e6994b22dbea96e2ddcaf226ab4ed15f105abd3,1643993927,root:.: lint,eslint -c .eslintrc 'forge/**/*.js' 'frontend/**/*.js' 'test/**/*.js' --ignore-pattern 'frontend/dist/**'
+122e916c42a04d8ea47a263a77a2a6ad19a5bcb8,1647622620,root:.: lint,eslint -c .eslintrc 'forge/**/*.js' 'frontend/**/*.js' 'frontend/**/*.vue' 'test/**/*.js' --ignore-pattern 'frontend/dist/**'
+0dd27b94f19ed723f1af3dc50fbefea66d42e003,1665408737,root:.: lint,"eslint -c .eslintrc ""forge/**/*.js"" ""frontend/**/*.js"" ""frontend/**/*.vue"" ""test/**/*.js"" --ignore-pattern ""frontend/dist/**"""
+325744da7c374539eda7434ab633658453fe9d04,1643322533,root:.: lint:fix,eslint -c .eslintrc forge/**/*.js frontend/**/*.js test/**/*.js --ignore-pattern 'frontend/dist/**' --fix
+9e6994b22dbea96e2ddcaf226ab4ed15f105abd3,1643993927,root:.: lint:fix,eslint -c .eslintrc 'forge/**/*.js' 'frontend/**/*.js' 'test/**/*.js' --ignore-pattern 'frontend/dist/**' --fix
+122e916c42a04d8ea47a263a77a2a6ad19a5bcb8,1647622620,root:.: lint:fix,eslint -c .eslintrc 'forge/**/*.js' 'frontend/**/*.js' 'frontend/**/*.vue' 'test/**/*.js' --ignore-pattern 'frontend/dist/**' --fix
+0dd27b94f19ed723f1af3dc50fbefea66d42e003,1665408737,root:.: lint:fix,"eslint -c .eslintrc ""forge/**/*.js"" ""frontend/**/*.js"" ""frontend/**/*.vue"" ""test/**/*.js"" --ignore-pattern ""frontend/dist/**"" --fix"
+70d0a24550dba64257e4456fbaa7f8be6effe4d8,1674729173,root:.: repl,node forge/app.js --repl
+8a1e8beb4b1fc9cfb97e2d7cb199d7097664d3d5,1634052763,root:.: serve,npm-run-all --parallel build-watch start-watch
+70d0a24550dba64257e4456fbaa7f8be6effe4d8,1674729173,root:.: serve-repl,npm-run-all --parallel build-watch start-watch-repl
+464216789f383f794ea923e802a4164082be7d1d,1702910209,root:.: serve:debug,npm-run-all --parallel build-watch start-watch:debug
+ff3cfdd33ed4bcd8ceeb04937d814f49af671833,1702910570,root:.: serve:debug,
+51e126917ac072178d84af74053c96357574a692,1659086965,root:.: serve:test-env,node ./test/e2e/frontend/test_environment.js
+faa6d835fcbc4d40818d09d4922c78c64d695837,1688033079,root:.: serve:test-env,
+ab5a80df8eaec0cbff34df9256d4a49e1422e18e,1688462184,root:.: serve:test-env,
+4bf7d630d38179192d9cc5e00fbd1513773a034b,1625696242,root:.: start,node forge/app.js
+9b397e418a08ccd52d54fa88c6c02885c4e5563a,1701718061,root:.: start,node forge/app.js --loglevel-verbose
+4410d646a77d7a6cea6eb95956ffd5477791aafa,1701722152,root:.: start,node forge/app.js --loglevel=verbose
+4bf7d630d38179192d9cc5e00fbd1513773a034b,1625696242,root:.: start-watch,NODE_ENV=development nodemon -w forge forge/app.js
+9f05a7a2b18e3f26e8d7d705f4d6d1ff2e9e39db,1627661023,root:.: start-watch,NODE_ENV=development nodemon -w forge -w ee/forge forge/app.js
+dac070ed634f9f48df5991be127f0769f2d06615,1632153127,root:.: start-watch,NODE_ENV=development nodemon -w forge -w ee/forge -i forge/containers/localfs_root forge/app.js
+6397c4fdfbd03d581dcf42da2028d0e64988b96d,1652703009,root:.: start-watch,cross-dev NODE_ENV=development nodemon -w forge -w ee/forge -i forge/containers/localfs_root forge/app.js
+f885d81d0c3585be7fee00291fbfc6df436df07d,1652900393,root:.: start-watch,cross-env NODE_ENV=development nodemon -w forge -w ee/forge -i forge/containers/localfs_root forge/app.js
+70d0a24550dba64257e4456fbaa7f8be6effe4d8,1674729173,root:.: start-watch-repl,cross-env NODE_ENV=development nodemon -w forge -w ee/forge -i forge/containers/localfs_root forge/app.js --repl
+464216789f383f794ea923e802a4164082be7d1d,1702910209,root:.: start-watch:debug,cross-env NODE_ENV=development nodemon --inspect -w forge -w ee/forge -i forge/containers/localfs_root forge/app.js
+ff3cfdd33ed4bcd8ceeb04937d814f49af671833,1702910570,root:.: start-watch:debug,
+4bf7d630d38179192d9cc5e00fbd1513773a034b,1625696242,root:.: test,"echo ""Error: no test specified"" && exit 1"
+a24f9ab6f96be790e7ee758fc27ec688b58654e9,1627596966,root:.: test,mocha ee/test/**/*_spec.js test/**/*_spec.js
+4f6dc19a532aff5dab4609e694bc4c127993ba49,1633957556,root:.: test,mocha test/**/*_spec.js
+325744da7c374539eda7434ab633658453fe9d04,1643322533,root:.: test,npm run lint && mocha test/**/*_spec.js
+e263c495a0301251eef8a48a4da45c4a6015a1e8,1643719160,root:.: test,npm run lint && npm run test:unit
+5b2d3b2c218ba3b980f73cd27b6dd7d3326e9a7c,1643798055,root:.: test,npm run lint && npm run test:unit && npm run test:system
+f678e7655d6f52c148b6926ad01e2ea0619b0ac1,1654445461,root:.: test,npm-run-all --sequential lint test:unit test:system
+d38131815b96b9b06230dcd085a1528acb82f62f,1671121723,root:.: test:docs,node test/e2e/docs/valid-links.js ./docs
+d2754579752ae16b3f04a500f6ef3ca107e7de1b,1671122020,root:.: test:docs,
+266838daffb69a44187016765f2e8c7eaf072c8b,1653468773,root:.: test:e2e,mocha test/system/**/*_spec.js
+32e9380a2433f5b66d1604c93553330f64d0c8c2,1653494627,root:.: test:e2e,
+3699c030b4909eec57dd12e3fb4a45a9aba77056,1659025238,root:.: test:e2e,
+3cabe1c7d2bcb1499dceb93db9f61e18a901e049,1661256093,root:.: test:e2e,
+51e126917ac072178d84af74053c96357574a692,1659086965,root:.: test:e2e:frontend,start-server-and-test serve:test-env http-get://localhost:3000 cy:run
+3cabe1c7d2bcb1499dceb93db9f61e18a901e049,1661256093,root:.: test:e2e:frontend,
+5b2d3b2c218ba3b980f73cd27b6dd7d3326e9a7c,1643798055,root:.: test:system,mocha test/system/**/*_spec.js
+f678e7655d6f52c148b6926ad01e2ea0619b0ac1,1654445461,root:.: test:system,mocha 'test/system/**/*_spec.js'
+c5159d94072e18917508d608b27fa8a83c8722f0,1655469974,root:.: test:system,mocha 'test/system/**/*_spec.js' --timeout 5000
+3fdb747ff199d15d60d0c56f9df0e71dc326f926,1688399934,root:.: test:system,mocha 'test/system/**/*_spec.js' --timeout 10000
+b798cacf49fd32e39fd22ffbb7e8c8b23de94d93,1697701821,root:.: test:system,mocha 'test/system/**/*_spec.js' --timeout 10000 --node-option=unhandled-rejections=strict
+e263c495a0301251eef8a48a4da45c4a6015a1e8,1643719160,root:.: test:unit,mocha test/unit/**/*_spec.js
+e904fc5aa99bcec004cb493d9cd8159a6d6f1718,1653407630,root:.: test:unit,npm run test:unit:forge && npm run test:unit:frontend
+f678e7655d6f52c148b6926ad01e2ea0619b0ac1,1654445461,root:.: test:unit,npm-run-all --sequential test:unit:forge test:unit:frontend
+4de1a795e11b07b5869c2c4f80980caa0bd4bcfd,1652792291,root:.: test:unit:forge,mocha test/unit/forge/**/*_spec.js
+32e9380a2433f5b66d1604c93553330f64d0c8c2,1653494627,root:.: test:unit:forge,
+f678e7655d6f52c148b6926ad01e2ea0619b0ac1,1654445461,root:.: test:unit:forge,mocha 'test/unit/forge/**/*_spec.js'
+c5159d94072e18917508d608b27fa8a83c8722f0,1655469974,root:.: test:unit:forge,mocha 'test/unit/forge/**/*_spec.js' --timeout 5000
+3fdb747ff199d15d60d0c56f9df0e71dc326f926,1688399934,root:.: test:unit:forge,mocha 'test/unit/forge/**/*_spec.js' --timeout 10000
+b798cacf49fd32e39fd22ffbb7e8c8b23de94d93,1697701821,root:.: test:unit:forge,mocha 'test/unit/forge/**/*_spec.js' --timeout 10000 --node-option=unhandled-rejections=strict
+4de1a795e11b07b5869c2c4f80980caa0bd4bcfd,1652792291,root:.: test:unit:frontend,vitest --config ./config/vitest.config.ts test/unit/frontend/**/*.spec.js
+e904fc5aa99bcec004cb493d9cd8159a6d6f1718,1653407630,root:.: test:unit:frontend,vitest run --config ./config/vitest.config.ts test/unit/frontend/**/*.spec.js
+32e9380a2433f5b66d1604c93553330f64d0c8c2,1653494627,root:.: test:unit:frontend,
+b6a5866dc508a3292e9d01fd57ba8e41b008ef07,1700477416,root:.: test:unit:frontend,vitest run --config ./config/vitest.config.ts
+e904fc5aa99bcec004cb493d9cd8159a6d6f1718,1653407630,root:.: test:unit:frontend-watch,vitest --config ./config/vitest.config.ts test/unit/frontend/**/*.spec.js
+32e9380a2433f5b66d1604c93553330f64d0c8c2,1653494627,root:.: test:unit:frontend-watch,
+a9e297582ba3d3c271bc826b6e18e8ea392a1fe1,1700690681,root:.: test:unit:frontend-watch,
+a9e297582ba3d3c271bc826b6e18e8ea392a1fe1,1700690681,root:.: test:unit:frontend-watch,
+32d99f0c0c7dc4e4399863fb1779b4335abc296d,1705526595,root:.: test:unit:frontend-watch,
+32d99f0c0c7dc4e4399863fb1779b4335abc296d,1705526595,root:.: test:unit:frontend-watch,
+426a51001b01e113dd389c0f494fdc8713f80b89,1624980976,timestamp_source,author_timestamp

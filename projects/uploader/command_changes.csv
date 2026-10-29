@@ -1,0 +1,63 @@
+commit_hash,timestamp,script_name,script_definition
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,root:.: av-whitelist,node ./scripts/whitelisting/av-submit.js
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,root:.: build,"concurrently ""yarn build-main"" ""yarn build-renderer"""
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,root:.: build-docs,./scripts/update-gh-pages.sh
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,root:.: build-main,yarn build-main-quiet --progress --profile --colors
+934575d50538c2c66b34dca3beface52e87632c0,1736848213,root:.: build-main,yarn build-main-quiet --progress
+49956e6933e88a7d3cd73903e4883231c6dc6036,1738803168,root:.: build-main,yarn build-main-quiet --progress --profile
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,root:.: build-main-quiet,cross-env NODE_ENV=production webpack --config webpack.config.main.prod.babel.js
+49956e6933e88a7d3cd73903e4883231c6dc6036,1738803168,root:.: build-main-quiet,cross-env NODE_ENV=production webpack --config webpack.config.main.prod.babel.mjs
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,root:.: build-quiet,"concurrently ""yarn build-main-quiet"" ""yarn build-renderer-quiet"""
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,root:.: build-renderer,yarn build-renderer-quiet --progress --profile --colors
+934575d50538c2c66b34dca3beface52e87632c0,1736848213,root:.: build-renderer,yarn build-renderer-quiet --progress
+49956e6933e88a7d3cd73903e4883231c6dc6036,1738803168,root:.: build-renderer,yarn build-renderer-quiet --progress --profile
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,root:.: build-renderer-quiet,cross-env NODE_ENV=production webpack --config webpack.config.renderer.prod.babel.js
+49956e6933e88a7d3cd73903e4883231c6dc6036,1738803168,root:.: build-renderer-quiet,cross-env NODE_ENV=production webpack --config webpack.config.renderer.prod.babel.mjs
+e5afa07b6a60fe667ec2346b48c8bd37703b38b8,1694643392,root:.: build-web,cross-env NODE_ENV=production webpack --config webpack.config.web.dev.babel.js
+4d6bcafe3b8bc9ef3e7e2e33095d685ce2140b81,1694826457,root:.: build-web,
+0be37cf0c1a433f80a46f3e253deff2fadcdb875,1738821939,root:.: build-web,cross-env NODE_ENV=production webpack --config webpack.config.web.dev.babel.mjs
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,root:.: dev,cross-env START_HOT=1 yarn start-renderer-dev
+10763cd0c866698e7a7c04c9cc7957c4fe917510,1617231131,root:.: dev-web,cross-env NODE_ENV=development webpack-dev-server --config webpack.config.web.dev.babel.js
+a6a70717eb1d68137174929c1e40bced96765df8,1619705520,root:.: dev-web,
+a6a70717eb1d68137174929c1e40bced96765df8,1619705520,root:.: dev-web,
+a6a70717eb1d68137174929c1e40bced96765df8,1619705520,root:.: dev-web,
+a6a70717eb1d68137174929c1e40bced96765df8,1619705520,root:.: dev-web,
+7a1718830981866361e91fb7205bbb6844a4d2bd,1630489873,root:.: dev-web,
+7a1718830981866361e91fb7205bbb6844a4d2bd,1630489873,root:.: dev-web,
+423e3befc7795debcfb820835a3b8a20e24d99c0,1674061870,root:.: dev-web,
+423e3befc7795debcfb820835a3b8a20e24d99c0,1674061870,root:.: dev-web,
+9888c88463d4da5ba40a8acc3102c90dd1b280b7,1685721243,root:.: dev-web,
+e5afa07b6a60fe667ec2346b48c8bd37703b38b8,1694643392,root:.: dev-web,cross-env HOT=1 NODE_ENV=development webpack-dev-server --config webpack.config.web.dev.babel.js
+4d6bcafe3b8bc9ef3e7e2e33095d685ce2140b81,1694826457,root:.: dev-web,
+49956e6933e88a7d3cd73903e4883231c6dc6036,1738803168,root:.: dev-web,cross-env HOT=1 NODE_ENV=development webpack serve --config webpack.config.web.dev.babel.mjs
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,root:.: lint,./node_modules/eslint/bin/eslint.js --cache --format=node_modules/eslint-formatter-pretty .
+844fafce4e33f6af8a306afc3ba43d5891a700c0,1609775730,root:.: lint,eslint --cache --format=node_modules/eslint-formatter-pretty .
+494854318da973ed51e172e826a9889ac8121b9b,1655992960,root:.: lint,node ./node_modules/eslint/bin/eslint.js --cache --format=node_modules/eslint-formatter-pretty .
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,root:.: lint-fix,npm run lint -- --fix
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,root:.: package,npm run build-quiet && electron-builder -p always -c electron-builder-publish.js
+3b038c8eadb5c0e14fad593b96c98323c1606c78,1614010675,root:.: package,npm run build-quiet && electron-builder -p always
+0e0b7cb150c94945b64399698c964f043feaae33,1697547926,root:.: package,cross-env NODE_OPTIONS=--openssl-legacy-provider npm run build-quiet && electron-builder -p always -c electron-builder-publish.js
+22b5531fd6f7adb8ada9d2f0d0509ad6136ecb9d,1728571560,root:.: package,yarn build-quiet && electron-builder -p always -c electron-builder-publish.js
+c036f351a2f7eaa16a7d4e85bad6ff815ed56c1d,1597109751,root:.: package-all,npm run build && electron-builder -mwl
+8f98907f47ebe52d19e2f7d98f8d2688a827f172,1634008553,root:.: package-all,
+c036f351a2f7eaa16a7d4e85bad6ff815ed56c1d,1597109751,root:.: package-linux,npm run build && electron-builder --linux
+8f98907f47ebe52d19e2f7d98f8d2688a827f172,1634008553,root:.: package-linux,
+c036f351a2f7eaa16a7d4e85bad6ff815ed56c1d,1597109751,root:.: package-mac,npm run build && electron-builder --mac
+8f98907f47ebe52d19e2f7d98f8d2688a827f172,1634008553,root:.: package-mac,
+c036f351a2f7eaa16a7d4e85bad6ff815ed56c1d,1597109751,root:.: package-win,npm run build && electron-builder --win --x64
+8f98907f47ebe52d19e2f7d98f8d2688a827f172,1634008553,root:.: package-win,
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,root:.: postinstall,"concurrently ""electron-builder install-app-deps"" ""node node_modules/fbjs-scripts/node/check-dev-engines.js package.json"""
+ad430971e4f8fe1223e2cbad0399ab8b2b21466f,1732553969,root:.: postinstall,electron-builder install-app-deps
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,root:.: prepare-qa-build,node -r @babel/register scripts/prepare-qa-build.js
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,root:.: serve-docs,./node_modules/.bin/gitbook serve
+e5afa07b6a60fe667ec2346b48c8bd37703b38b8,1694643392,root:.: server,node server
+4d6bcafe3b8bc9ef3e7e2e33095d685ce2140b81,1694826457,root:.: server,
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,root:.: start,cross-env NODE_ENV=production electron ./app/main.prod.js
+934575d50538c2c66b34dca3beface52e87632c0,1736848213,root:.: start,cross-env NODE_ENV=production electron --no-sandbox ./app/main.prod.js
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,root:.: start-main-dev,cross-env HOT=1 NODE_ENV=development electron -r @babel/register ./app/main.dev.js
+00274f4487238e9ff84559edbe1f7b5c577cfe9d,1718023085,root:.: start-main-dev,cross-env HOT=1 NODE_ENV=development electron --no-sandbox -r @babel/register ./app/main.dev.js
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,root:.: start-renderer-dev,cross-env NODE_ENV=development webpack-dev-server --config webpack.config.renderer.dev.babel.js
+49956e6933e88a7d3cd73903e4883231c6dc6036,1738803168,root:.: start-renderer-dev,cross-env NODE_ENV=development webpack-dev-server --config webpack.config.renderer.dev.babel.mjs
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,root:.: test,cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 jest
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,root:.: test-all,npm run lint && npm run test && npm run build
+be62f46b034ee6456be0f26d2140b1196f862223,1539770396,timestamp_source,author_timestamp

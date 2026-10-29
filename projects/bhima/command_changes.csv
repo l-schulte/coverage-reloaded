@@ -1,0 +1,62 @@
+commit_hash,timestamp,script_name,script_definition
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: app,cross-env NODE_ENV=production gulp build && cd bin && cross-env NODE_ENV=production node server/app.js
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: build,cross-env ./node_modules/.bin/gulp build
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: build:clean,cross-env ./sh/build-init-database.sh
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: build:db,cross-env ./sh/build-database.sh
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: build:docker,cross-env ./sh/docker-init.sh
+0a69e3272ec4162421dcdfaa51af4242c7b68e98,1549025922,root:.: build:docker,
+e4ed220da10c38b0529f7a4e84898fc223d970b0,1641159803,root:.: build:docker,
+572edf5c75def60722e08c5f14d0c158ba15a74b,1715546255,root:.: build:docker,docker compose build
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: build:stock,cross-env ./sh/build-stock-database.sh
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: check:lang,cross-env node ./utilities/translation/tfcomp.js client/src/i18n/en client/src/i18n/fr
+0a69e3272ec4162421dcdfaa51af4242c7b68e98,1549025922,root:.: check:lang,
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: dev,cross-env NODE_ENV=development gulp build && cd bin && cross-env NODE_ENV=development node server/app.js
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: migrate,cross-env ./sh/setup-migration-script.sh
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: release,release-it --disable-metrics
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: test,"cross-env SUITE=""ALL"" ./sh/test.sh"
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: test:clean,./sh/test-clean-reports.sh
+0a69e3272ec4162421dcdfaa51af4242c7b68e98,1549025922,root:.: test:clean,
+97251c7ee8728667a431df7f583fd620ab8e93c9,1691935216,root:.: test:clean-reports,./sh/test-clean-reports.sh
+f6d10f775a58ab99b01822a6159fd41b93925730,1695015944,root:.: test:clean-reports,
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: test:client-unit,"cross-env SUITE=""client-unit"" ./sh/test.sh"
+97251c7ee8728667a431df7f583fd620ab8e93c9,1691935216,root:.: test:e2e,"cross-env SUITE=""end-to-end"" ./sh/test-e2e-pw.sh"
+d519b46e2681c60ccde0747f68605cdd7087eaab,1701339680,root:.: test:e2e,
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: test:e2e-1,"cross-env SUITE=""end-to-end"" TESTS=""test/end-to-end/account/ test/end-to-end/cash/ test/end-to-end/cashboxes/ test/end-to-end/choiceListManagement/ test/end-to-end/configurationAnalysisTools/"" TEST_NUM=1 ./sh/test-e2e.sh"
+0a69e3272ec4162421dcdfaa51af4242c7b68e98,1549025922,root:.: test:e2e-1,
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: test:e2e-2,"cross-env SUITE=""end-to-end"" TESTS=""test/end-to-end/costCenter/ test/end-to-end/creditorGroups/ test/end-to-end/dataCollectorManagement/ test/end-to-end/debtors/ test/end-to-end/depots/ test/end-to-end/displayMetadata/ test/end-to-end/editJournal/ test/end-to-end/employees/ test/end-to-end/employeesConfig/ test/end-to-end/enterprises/ test/end-to-end/entities/ test/end-to-end/errors/ test/end-to-end/exchange/"" TEST_NUM=2 ./sh/test-e2e.sh"
+0a69e3272ec4162421dcdfaa51af4242c7b68e98,1549025922,root:.: test:e2e-2,
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: test:e2e-3,"cross-env SUITE=""end-to-end"" TESTS=""test/end-to-end/fillForm/ test/end-to-end/fiscalYears/ test/end-to-end/functions/ test/end-to-end/grades/ test/end-to-end/holidays/ Test/end-to-end/indicatorsFiles/ test/end-to-end/inventory/ test/end-to-end/invoicingFees/ test/end-to-end/iprTaxes/ test/end-to-end/iprTaxesConfig/ test/end-to-end/journal/"" TEST_NUM=3 ./sh/test-e2e.sh"
+0a69e3272ec4162421dcdfaa51af4242c7b68e98,1549025922,root:.: test:e2e-3,
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: test:e2e-4,"cross-env SUITE=""end-to-end"" TESTS=""test/end-to-end/locations/ test/end-to-end/login/ test/end-to-end/navigation/ test/end-to-end/offdays/ test/end-to-end/patient/"" TEST_NUM=4 ./sh/test-e2e.sh"
+0a69e3272ec4162421dcdfaa51af4242c7b68e98,1549025922,root:.: test:e2e-4,
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: test:e2e-5,"cross-env SUITE=""end-to-end"" TESTS=""test/end-to-end/payrollConfig/ test/end-to-end/payrollProcess/ test/end-to-end/priceList/ test/end-to-end/purchases/ test/end-to-end/reports/ test/end-to-end/rubrics/ test/end-to-end/rubricsConfig/"" TEST_NUM=5 ./sh/test-e2e.sh"
+0a69e3272ec4162421dcdfaa51af4242c7b68e98,1549025922,root:.: test:e2e-5,
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: test:e2e-6,"cross-env SUITE=""end-to-end"" TESTS=""test/end-to-end/stock/"" TEST_NUM=6 ./sh/test-e2e.sh"
+0a69e3272ec4162421dcdfaa51af4242c7b68e98,1549025922,root:.: test:e2e-6,
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: test:e2e-7,"cross-env SUITE=""end-to-end"" TESTS=""test/end-to-end/services/ test/end-to-end/settings/ test/end-to-end/shared/ test/end-to-end/staffingIndice/ test/end-to-end/subsidies/ test/end-to-end/suppliers/ test/end-to-end/surveyForm/ test/end-to-end/tags/ test/end-to-end/transactionType/ test/end-to-end/user/"" TEST_NUM=7 ./sh/test-e2e.sh"
+0a69e3272ec4162421dcdfaa51af4242c7b68e98,1549025922,root:.: test:e2e-7,
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: test:e2e-8,"cross-env SUITE=""end-to-end"" TESTS=""test/end-to-end/verificationLinks/ test/end-to-end/visits/ test/end-to-end/vouchers/ test/end-to-end/ward/ test/end-to-end/weekendConfig/"" TEST_NUM=8 ./sh/test-e2e.sh"
+0a69e3272ec4162421dcdfaa51af4242c7b68e98,1549025922,root:.: test:e2e-8,
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: test:e2e-account,"cross-env SUITE=""end-to-end-account"" TESTS=""test/end-to-end/account/"" TEST_NUM=account ./sh/test-e2e.sh"
+0a69e3272ec4162421dcdfaa51af4242c7b68e98,1549025922,root:.: test:e2e-account,
+f94361e2488b90d69249b4239f9c00273042bf22,1692967087,root:.: test:e2e-account,"cross-env SUITE=""end-to-end-account"" ./sh/test-e2e-pw-account.sh"
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: test:e2e-all,"cross-env SUITE=""end-to-end-all"" ./sh/test-e2e-all.sh"
+0a69e3272ec4162421dcdfaa51af4242c7b68e98,1549025922,root:.: test:e2e-all,
+f94361e2488b90d69249b4239f9c00273042bf22,1692967087,root:.: test:e2e-all,"cross-env SUITE=""end-to-end-all"" ./sh/test-e2e-pw-all.sh"
+97251c7ee8728667a431df7f583fd620ab8e93c9,1691935216,root:.: test:e2e-stock,"cross-env SUITE=""end-to-end-stock"" ./sh/test-e2e-pw-stock.sh"
+d519b46e2681c60ccde0747f68605cdd7087eaab,1701339680,root:.: test:e2e-stock,
+97251c7ee8728667a431df7f583fd620ab8e93c9,1691935216,root:.: test:e2e-trace,"cross-env SUITE=""end-to-end"" ./sh/test-e2e-pw-trace.sh"
+51a609d8b253b02abed8916385b5ebfaeda1c097,1692952732,root:.: test:e2e-trace,
+82f5ef77f65bfcd602542877a449e7add6d62c65,1603102055,root:.: test:ends,"cross-env SUITE=""end-to-end"" ./sh/test.sh"
+a39c41104684b3b29637dcc6b757d831705dfdd3,1692959337,root:.: test:ends,
+a39c41104684b3b29637dcc6b757d831705dfdd3,1692959337,root:.: test:ends,
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: test:install,cross-env ./sh/install-tests.sh
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: test:integration,"cross-env SUITE=""integration"" ./sh/test.sh"
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: test:integration:stock,"cross-env SUITE=""integration-stock"" ./sh/test.sh"
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: test:server-unit,"cross-env SUITE=""server-unit"" ./sh/test.sh"
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: test:show-results,./sh/test-show-results.sh
+0a69e3272ec4162421dcdfaa51af4242c7b68e98,1549025922,root:.: test:show-results,
+0a69e3272ec4162421dcdfaa51af4242c7b68e98,1549025922,root:.: test:show-results,
+4b017da089d9f831408244e4c0dc4c875e68c614,1679084321,root:.: test:show-results,./sh/show-test-results.sh
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,root:.: watch,cross-env ./node_modules/.bin/gulp watch
+9b9b134c2a54ee35c0c2a5c7b8f9f81619e3d802,1546527717,timestamp_source,author_timestamp

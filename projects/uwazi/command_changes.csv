@@ -1,0 +1,173 @@
+commit_hash,timestamp,script_name,script_definition
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: add-migration,./node_modules/.bin/plop --plopfile ./app/api/migrations/plopfile.js migration
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: admin-user,./database/admin_user.sh
+1a407586444eaa9c4e0331577bce90f752c9bdcf,1696947328,root:.: admin-user,node --no-experimental-fetch scripts/bash.js ./database/admin_user.sh
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: blank-state,./database/blank_state.sh
+1a407586444eaa9c4e0331577bce90f752c9bdcf,1696947328,root:.: blank-state,node --no-experimental-fetch scripts/bash.js ./database/blank_state.sh
+a685a03c4a599791239f4cb26c4a26853f0c52ed,1749478655,root:.: blank-state-shared-db,node --no-experimental-fetch scripts/bash.js ./database/blank_state_shared_db.sh
+c1394d9001c6f184bbdc31234d8c91c6f86fdd72,1750429545,root:.: build-production,yarn production-build
+7369360a3481158fa39d2f93a54cd291d4fedcb1,1677254993,root:.: build-storybook,build-storybook
+0be6688c909389bce204a7a5f6316808c851197e,1684814412,root:.: build-storybook,storybook build
+abf43556c00c38f92fabafa7c3fa0e1966d05c35,1681510275,root:.: check-app-types,tsc --noEmit --pretty
+abf43556c00c38f92fabafa7c3fa0e1966d05c35,1681510275,root:.: check-cy-types,tsc --noEmit --pretty --project cypress
+66cde522af7644c7ad5323de2000d63c7f43ff5b,1629324938,root:.: check-translations,node ./checkTranslations.mjs
+62d8425931d4ba7efddb4f36143cb8309d951b87,1629719572,root:.: check-translations,node ./checkTranslations.js
+1cd6edab5815518874000a4f3fe249a32111c3b4,1633559088,root:.: check-translations,node ./scripts/checkTranslations.mjs
+955a8f38feb152e3db13529a4cc70df27bb54ac6,1691438041,root:.: check-translations,node --no-experimental-fetch ./scripts/checkTranslations.mjs
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: check-types,tsc --noEmit --pretty
+d683232f0f3a256930d1509d7f419db1c65aa24b,1676664417,root:.: check-types,"concurrently ""tsc --noEmit --pretty"" ""tsc --noEmit --pretty --project cypress"""
+abf43556c00c38f92fabafa7c3fa0e1966d05c35,1681510275,root:.: check-types,yarn check-cy-types; yarn check-app-types
+bfac3276c40abbf2eaecb2ce25bef1af9fdba9e5,1685052341,root:.: check-types,yarn check-cy-types && yarn check-app-types
+3392e3b3b57fac6795e6e68a1675ffdcef4d4fa9,1669306654,root:.: compare-translations,node ./scripts/compareTranslations.js
+955a8f38feb152e3db13529a4cc70df27bb54ac6,1691438041,root:.: compare-translations,node --no-experimental-fetch ./scripts/compareTranslations.js
+93593af29a5338e8f046dfa6db5e00517270fcd4,1711058674,root:.: compare-translations,
+7369360a3481158fa39d2f93a54cd291d4fedcb1,1677254993,root:.: cy-components,cypress run --component --config video=false
+343cb61795fc7a34ba0510af6a33c0d111f82ab7,1689169376,root:.: cy-components,cypress run --component --config video=false --browser chrome
+7369360a3481158fa39d2f93a54cd291d4fedcb1,1677254993,root:.: cy-e2e,cypress run
+343cb61795fc7a34ba0510af6a33c0d111f82ab7,1689169376,root:.: cy-e2e,cypress run --browser chrome
+d683232f0f3a256930d1509d7f419db1c65aa24b,1676664417,root:.: cypress,cypress open
+012d6b7849f9a9f73de06e2b8a6bc7e8166d6c3b,1733149708,root:.: denormalize-all-entities,tsx ./scripts/scripts.v2/denormalizeAllEntities.ts
+d335cdcd51265230ada2fe53761889ab8fd03372,1668700403,root:.: describe-database,node ./scripts/describeDatabase.mjs
+955a8f38feb152e3db13529a4cc70df27bb54ac6,1691438041,root:.: describe-database,node --no-experimental-fetch ./scripts/describeDatabase.mjs
+bfdff663451368bd89287abd073063eeb9d853fb,1686231881,root:.: dev-queue,node ./scripts/run.js ../app/queueWorker.ts
+955a8f38feb152e3db13529a4cc70df27bb54ac6,1691438041,root:.: dev-queue,node --no-experimental-fetch ./scripts/run.js ../app/queueWorker.ts
+c84083ecb39c2c1ed4afabd41ba4f7aba8afb0e3,1741695686,root:.: dev-queue,node --no-experimental-fetch --inspect=9230 ./scripts/run.js ../app/queueWorker.ts
+c2588874dc5e59e625158ac7a24b552993192eb2,1754048093,root:.: dev-queue,node --no-experimental-fetch --max-old-space-size=512 --inspect=9230 ./scripts/run.js ../app/queueWorker.ts
+8bed8654407666c1d46d29a3d443d2bcd1b369f4,1758611530,root:.: dev-queue,node --no-experimental-fetch --max-old-space-size=1024 --inspect=9230 ./scripts/run.js ../app/queueWorker.ts
+b8a84154d50bc233a6a01f2d2b35ebe471bdf3fa,1762788601,root:.: dev-queue,tsx --no-experimental-fetch --max-old-space-size=1024 --inspect=9230 ./app/queueWorker.ts
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: dev-server,./node_modules/.bin/nodemon --max-http-header-size 20000 ./server.js --ignore 'app/dist/*' --watch 'app/api' --watch 'app/shared' --ext 'ts js tsx'
+368355845c5863143337c51e7712f8731a722768,1665409709,root:.: dev-server,./node_modules/.bin/nodemon ./server.js --ignore 'app/dist/*' --watch 'app/api' --watch 'app/shared' --ext 'ts js tsx'
+955a8f38feb152e3db13529a4cc70df27bb54ac6,1691438041,root:.: dev-server,./node_modules/.bin/nodemon --no-experimental-fetch ./server.js --ignore 'app/dist/*' --watch 'app/api' --watch 'app/shared' --ext 'ts js tsx'
+1803e3216224849d1890c147ff2252d2addfaa81,1740722277,root:.: dev-server,nodemon --inspect --no-experimental-fetch ./server.js --ignore 'app/dist/*' --watch 'app/api' --watch 'app/shared' --ext 'ts js tsx'
+c95c5eaf9570188b16b0b96665e8faca724c838a,1657016452,root:.: dev-worker,node scripts/run.js ../app/worker.ts
+6f984b4b88173452e82397a6f96f37a398bf5d53,1657288746,root:.: dev-worker,node run.js ./app/worker.ts
+bfdff663451368bd89287abd073063eeb9d853fb,1686231881,root:.: dev-worker,node ./scripts/run.js ../app/worker.ts
+955a8f38feb152e3db13529a4cc70df27bb54ac6,1691438041,root:.: dev-worker,node --no-experimental-fetch ./scripts/run.js ../app/worker.ts
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: dump-db,./database/dump_db.sh
+1a407586444eaa9c4e0331577bce90f752c9bdcf,1696947328,root:.: dump-db,node --no-experimental-fetch scripts/bash.js ./database/dump_db.sh
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: e2e,jest --projects nightmare/jest.e2e.config.js -i --verbose true
+0ed72ad9c677fb4dce8e371bd626036f661059de,1676652989,root:.: e2e,
+8619a6acbc62d858194ea77263ab816c417441e3,1676545132,root:.: e2e-cypress-open,echo 'MAKE SURE UWAZI IS RUNNING WITH uwazi_e2e DATABASE AND INDEX'; cypress open
+0ed72ad9c677fb4dce8e371bd626036f661059de,1676652989,root:.: e2e-cypress-open,
+efb20bc37ac93e5cd5994c15dd2efb038379cc53,1707337841,root:.: e2e-fixtures,DATABASE_NAME=uwazi_e2e INDEX_NAME=uwazi_e2e ./uwazi-fixtures/restore.sh
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: e2e-puppeteer,echo 'MAKE SURE UWAZI IS RUNNING WITH uwazi_e2e DATABASE AND INDEX';DATABASE_NAME=uwazi_e2e INDEX_NAME=uwazi_e2e jest --projects e2e/jest.e2e.config.ts -i --verbose true
+b4fbb6ee57bb45f2e1f42b9f139ae5a0d3ef13b8,1643806428,root:.: e2e-puppeteer,yarn e2e-puppeteer-all --roots '<rootDir>/suites'
+7f217f73239f2a063bcb3c6d9006ac3ce11af0a9,1654616148,root:.: e2e-puppeteer,yarn e2e-puppeteer-all --roots '<rootDir>/suite1' '<rootDir>/suite2'
+b4fbb6ee57bb45f2e1f42b9f139ae5a0d3ef13b8,1643806428,root:.: e2e-puppeteer-all,echo 'MAKE SURE UWAZI IS RUNNING WITH uwazi_e2e DATABASE AND INDEX';DATABASE_NAME=uwazi_e2e INDEX_NAME=uwazi_e2e jest --projects e2e/jest.e2e.config.ts -i --verbose true
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: e2e-puppeteer-fixtures,DATABASE_NAME=uwazi_e2e INDEX_NAME=uwazi_e2e ./uwazi-fixtures/restore.sh
+3ccf2e017058ab24a20ab56b4de131a30246098c,1707401345,root:.: e2e-puppeteer-fixtures,
+b4fbb6ee57bb45f2e1f42b9f139ae5a0d3ef13b8,1643806428,root:.: e2e-puppeteer-regression,yarn e2e-puppeteer-all --roots '<rootDir>/regression_suites'
+9ee3b2501b6b83699cad8328a33d529772c76834,1739800842,root:.: e2e-puppeteer-regression,
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: e2e-restore-fixtures,cd nightmare/fixtures; ./restore.sh
+e9fff27cab04b0afaf05d0272786163f54985e55,1697700755,root:.: e2e-restore-fixtures,
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: e2e-show,export SHOW_E2E=1; yarn e2e
+3ccf2e017058ab24a20ab56b4de131a30246098c,1707401345,root:.: e2e-show,
+04de898eda4f70962d781112c7dd7896171119de,1740757542,root:.: elastic-set-tenant-settings,node scripts/run.js ../database/elastic_set_tenant_settings.js
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: emit-types,node emitSchemaTypes.js
+1cd6edab5815518874000a4f3fe249a32111c3b4,1633559088,root:.: emit-types,node scripts/emitSchemaTypes.js
+955a8f38feb152e3db13529a4cc70df27bb54ac6,1691438041,root:.: emit-types,node --no-experimental-fetch scripts/emitSchemaTypes.js
+1cd6edab5815518874000a4f3fe249a32111c3b4,1633559088,root:.: emitSocketEvent,node ./scripts/run.js ./emitSocketEvent.js
+60c016db43361687d51bf1c4258a75473a06c0bc,1633559088,root:.: emitSocketEvent,
+df3617bd2f583dd894dd9b68f454d65bfcc0c0b3,1634609027,root:.: emitSocketEvent,
+955a8f38feb152e3db13529a4cc70df27bb54ac6,1691438041,root:.: emitSocketEvent,node --no-experimental-fetch ./scripts/run.js ./emitSocketEvent.js
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: eslint,"./node_modules/.bin/eslint e2e app --quiet --ext js,ts,tsx"
+d683232f0f3a256930d1509d7f419db1c65aa24b,1676664417,root:.: eslint,"./node_modules/.bin/eslint e2e app cypress --quiet --ext js,ts,tsx"
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: eslint-fulldiff,git diff-index --name-only origin/development | grep ^app/ | grep -v snap | xargs ls -d 2>/dev/null | xargs ./node_modules/.bin/eslint
+897a8d9caee9002147abc0b536e35b16ab14fef7,1719911993,root:.: files-healthcheck,USE_CWD=true node --no-experimental-fetch ./scripts/run.js ../scripts/filesHealthCheck.ts
+bfacd97110650278dc44dffde0fd63058a7b1e3b,1728959624,root:.: files-healthcheck,
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: fixtures,./uwazi-fixtures/restore.sh
+1a407586444eaa9c4e0331577bce90f752c9bdcf,1696947328,root:.: fixtures,node --no-experimental-fetch scripts/bash.js ./uwazi-fixtures/restore.sh
+fa6727a1871f3860dfdc3f2035e3dc4bc2babf75,1723560042,root:.: generateAutomaticTranslationConfig,node --no-experimental-fetch ./scripts/run.js ../scripts/scripts.v2/generateAutomaticTranslationConfig.ts
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: health-check,node --max-http-header-size 20000 run.js ./database/health_check.js
+89ec569a1238dbd1e5f58bfac634beae72761919,1637685830,root:.: health-check,
+89ec569a1238dbd1e5f58bfac634beae72761919,1637685830,root:.: health-check,
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: hot,export HOT=true; export BABEL_ENV=debug; yarn run watch-types & yarn run dev-server & yarn run webpack-server
+e7f6e588e3bd34be9774709a0c08d1d65408b3d3,1636707463,root:.: hot,HOT=true BABEL_ENV=debug yarn run watch-types & yarn run dev-server & yarn run webpack-server
+abf43556c00c38f92fabafa7c3fa0e1966d05c35,1681510275,root:.: hot,export HOT=true; export BABEL_ENV=debug; yarn run watch-types & yarn tailwind-watch & yarn run dev-server & yarn run webpack-server
+bbc90b623f4b5d76123d05378836b6885858fde1,1744648811,root:.: hot,"export HOT=true; export BABEL_ENV=debug; concurrently ""yarn run watch-types"" ""yarn tailwind-watch"" ""yarn run dev-server"" ""yarn run webpack-server"""
+7131b806b9f9e104cbb5a57e51237290c1c3059b,1764077834,root:.: hot,"export HOT=true; export BABEL_ENV=debug; concurrently ""yarn run watch-types"" ""yarn run dev-server"" ""yarn run webpack-server"""
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: hot-debug,export HOT=true; export BABEL_ENV=debug; node --max-http-header-size 20000 --inspect-brk=9229 server.js
+e7f6e588e3bd34be9774709a0c08d1d65408b3d3,1636707463,root:.: hot-debug,HOT=true BABEL_ENV=debug node --max-http-header-size 20000 --inspect-brk=9229 server.js
+368355845c5863143337c51e7712f8731a722768,1665409709,root:.: hot-debug,export HOT=true; export BABEL_ENV=debug; node --inspect-brk=9229 server.js
+955a8f38feb152e3db13529a4cc70df27bb54ac6,1691438041,root:.: hot-debug,export HOT=true; export BABEL_ENV=debug; node --no-experimental-fetch --inspect-brk=9229 server.js
+a7209957c7b5ff638ed4c28d12d0e9f9a442f872,1728635624,root:.: hot-debug,export HOT=true; export BABEL_ENV=debug; node --no-experimental-fetch --inspect-brk=9229 server.js & yarn run webpack-server
+bdd33c5e61efc05a0d335afbaee4325debe9429d,1732183061,root:.: hot-debug,export HOT=true; export BABEL_ENV=debug; node --no-experimental-fetch --inspect=9229 server.js & yarn run webpack-server
+abf43556c00c38f92fabafa7c3fa0e1966d05c35,1681510275,root:.: hot-e2e,DATABASE_NAME=uwazi_e2e INDEX_NAME=uwazi_e2e yarn hot
+2e4bc4bcb5440c20290be80f6238cff6e95cefd0,1697812398,root:.: hot-e2e,DATABASE_NAME=uwazi_e2e INDEX_NAME=uwazi_e2e EXTERNAL_SERVICES=true yarn hot
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: hot-inspect,export HOT=true; export BABEL_ENV=debug; yarn run watch-types & yarn dev-server --inspect & yarn run webpack-server
+e7f6e588e3bd34be9774709a0c08d1d65408b3d3,1636707463,root:.: hot-inspect,HOT=true BABEL_ENV=debug yarn run watch-types & yarn dev-server --inspect & yarn run webpack-server
+dfd52b9958989acd497ff3d98ef969f0af7c8aa8,1660906797,root:.: hot-puppeteer,DATABASE_NAME=uwazi_e2e INDEX_NAME=uwazi_e2e yarn hot
+31708021f33ff26663eb3770b976c5031f9bdb93,1681496885,root:.: hot-puppeteer,
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: import-csv,node --max-http-header-size 20000 run.js ./database/import_csv.js
+1cd6edab5815518874000a4f3fe249a32111c3b4,1633559088,root:.: import-csv,node --max-http-header-size 20000 scripts/run.js ../database/import_csv.js
+368355845c5863143337c51e7712f8731a722768,1665409709,root:.: import-csv,node scripts/run.js ../database/import_csv.js
+955a8f38feb152e3db13529a4cc70df27bb54ac6,1691438041,root:.: import-csv,node --no-experimental-fetch scripts/run.js ../database/import_csv.js
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: import-evidences,node --max-http-header-size 20000 run.js ./database/import_evidences_vault.js
+1cd6edab5815518874000a4f3fe249a32111c3b4,1633559088,root:.: import-evidences,node --max-http-header-size 20000 scripts/run.js ../database/import_evidences_vault.js
+e5d1186d8384470cd5e230fa9ed6f1d20c89a372,1656943791,root:.: import-evidences,
+a9f574e7e01433d5c073d03f9e585cf38fcb9218,1642426212,root:.: install_redis_for_testing,node ./scripts/run.js ./install_redis_for_testing.js
+34203683c3c4c4991e83cf393625c79f455fc791,1672731658,root:.: install_redis_for_testing,
+0264e4aafb5571785cd7054aff2f5615a26e1ec3,1673892401,root:.: ix-config,./database/ix_config.sh
+1a407586444eaa9c4e0331577bce90f752c9bdcf,1696947328,root:.: ix-config,node --no-experimental-fetch scripts/bash.js ./database/ix_config.sh
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: migrate,node --max-http-header-size 20000 run.js ./app/api/migrations/migrate
+1cd6edab5815518874000a4f3fe249a32111c3b4,1633559088,root:.: migrate,node --max-http-header-size 20000 scripts/run.js ../app/api/migrations/migrate
+a9f574e7e01433d5c073d03f9e585cf38fcb9218,1642426212,root:.: migrate,node --max-http-header-size 20000 scripts/run.js ../scripts/migrate.js
+368355845c5863143337c51e7712f8731a722768,1665409709,root:.: migrate,node scripts/run.js ../scripts/migrate.js
+955a8f38feb152e3db13529a4cc70df27bb54ac6,1691438041,root:.: migrate,node --no-experimental-fetch scripts/run.js ../scripts/migrate.js
+c69dd6b81043bfe7f5ea8111820c08d0e8c66dbf,1643711504,root:.: migrate-and-reindex,node --max-http-header-size 20000 scripts/run.js ../scripts/migrate_and_reindex.js
+368355845c5863143337c51e7712f8731a722768,1665409709,root:.: migrate-and-reindex,node scripts/run.js ../scripts/migrate_and_reindex.js
+955a8f38feb152e3db13529a4cc70df27bb54ac6,1691438041,root:.: migrate-and-reindex,node --no-experimental-fetch scripts/run.js ../scripts/migrate_and_reindex.js
+895a4923e3448e9922effc66e86b1e5ab94c8a11,1726432873,root:.: new-files-healthcheck,tsx ./scripts/scripts.v2/filesHealthCheck.ts
+7d0a0821fa362aa88a73f5ae856bada8aab8ba94,1676409856,root:.: prehot,yarn run tailwind
+318fd858e1b9cbdcaeb9072e6c7109f8d89c4571,1680773450,root:.: prehot,
+7d0a0821fa362aa88a73f5ae856bada8aab8ba94,1676409856,root:.: preproduction-build,yarn run tailwind
+56c833694fc7fb86b15afb18facc6648651a4574,1764072740,root:.: preproduction-build,
+7369360a3481158fa39d2f93a54cd291d4fedcb1,1677254993,root:.: prestorybook,yarn tailwind
+56c833694fc7fb86b15afb18facc6648651a4574,1764072740,root:.: prestorybook,
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: prettier,"./node_modules/.bin/prettier --write 'app/**/*.{js,ts,tsx}'"
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: production-build,./webpack/build.sh
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: reindex,node --max-http-header-size 20000 run.js ./database/reindex_elastic.js
+1cd6edab5815518874000a4f3fe249a32111c3b4,1633559088,root:.: reindex,node --max-http-header-size 20000 scripts/run.js ../database/reindex_elastic.js
+368355845c5863143337c51e7712f8731a722768,1665409709,root:.: reindex,node scripts/run.js ../database/reindex_elastic.js
+955a8f38feb152e3db13529a4cc70df27bb54ac6,1691438041,root:.: reindex,node --no-experimental-fetch scripts/run.js ../database/reindex_elastic.js
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: restore-db,./database/restore_db.sh
+1a407586444eaa9c4e0331577bce90f752c9bdcf,1696947328,root:.: restore-db,node --no-experimental-fetch scripts/bash.js ./database/restore_db.sh
+abf43556c00c38f92fabafa7c3fa0e1966d05c35,1681510275,root:.: run-e2e,DATABASE_NAME=uwazi_e2e INDEX_NAME=uwazi_e2e yarn run-production
+2e4bc4bcb5440c20290be80f6238cff6e95cefd0,1697812398,root:.: run-e2e,DATABASE_NAME=uwazi_e2e INDEX_NAME=uwazi_e2e EXTERNAL_SERVICES=true yarn run-production
+92fa600a698c25b29cf5b695f5bba71276dee5c1,1761116360,root:.: run-e2e,NODE_ENV=production DATABASE_NAME=uwazi_e2e INDEX_NAME=uwazi_e2e ROOT_PATH=. EXTERNAL_SERVICES=true yarn run-production
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: run-production,export NODE_ENV=production; node --max-http-header-size 20000 server.js
+1cd6edab5815518874000a4f3fe249a32111c3b4,1633559088,root:.: run-production,NODE_ENV=production node --max-http-header-size 20000 server.js
+368355845c5863143337c51e7712f8731a722768,1665409709,root:.: run-production,NODE_ENV=production node server.js
+955a8f38feb152e3db13529a4cc70df27bb54ac6,1691438041,root:.: run-production,NODE_ENV=production node --no-experimental-fetch server.js
+210933fe9d37acf9ec945e77e60971676d287609,1761033575,root:.: run-production,NODE_ENV=production node --no-experimental-fetch prod/server.js
+40e26a8c4f654d53fd491db34951596c3968953c,1761053669,root:.: run-production-e2e,NODE_ENV=production DATABASE_NAME=uwazi_e2e INDEX_NAME=uwazi_e2e ROOT_PATH=. node --no-experimental-fetch prod/server.js
+c2ebfd0e37b5898524eacc703c5992fd6da04f2c,1761069354,root:.: run-production-e2e,
+dac3fe7cb808cabd5b1d1baa742e5cd366fd9529,1610706164,root:.: run-puppeteer,export DATABASE_NAME=uwazi_e2e; export INDEX_NAME=uwazi_e2e; yarn run-production
+cac81ab415244105ca1650fad8eaff32228dd035,1610977173,root:.: run-puppeteer,
+1cd6edab5815518874000a4f3fe249a32111c3b4,1633559088,root:.: run-puppeteer,DATABASE_NAME=uwazi_e2e INDEX_NAME=uwazi_e2e yarn run-production
+31708021f33ff26663eb3770b976c5031f9bdb93,1681496885,root:.: run-puppeteer,
+7369360a3481158fa39d2f93a54cd291d4fedcb1,1677254993,root:.: storybook,start-storybook -p 6006
+0be6688c909389bce204a7a5f6316808c851197e,1684814412,root:.: storybook,storybook dev -p 6006
+7d0a0821fa362aa88a73f5ae856bada8aab8ba94,1676409856,root:.: tailwind,npx tailwindcss -i ./app/react/App/styles/main.css -o ./app/react/App/styles/globals.css
+a3e326284fa0d429378672bcec3612f5b4a9ddfa,1739248119,root:.: tailwind,touch ./app/react/App/styles/globals.css && npx tailwindcss -i ./app/react/App/styles/main.css -o ./app/react/App/styles/globals.css
+56c833694fc7fb86b15afb18facc6648651a4574,1764072740,root:.: tailwind,
+74214be209dee5ef917e9ea90e7eef19f534eb20,1765955961,root:.: tailwind,npx @tailwindcss/cli -i ./app/react/App/styles/tailwind.css -o ./app/react/App/styles/globals.css
+abf43556c00c38f92fabafa7c3fa0e1966d05c35,1681510275,root:.: tailwind-watch,yarn run tailwind --watch
+1576261d2ecbbcfca5b0bfdfe3a02f516065a163,1750078152,root:.: tailwind-watch,yarn tailwind --watch
+56c833694fc7fb86b15afb18facc6648651a4574,1764072740,root:.: tailwind-watch,
+74214be209dee5ef917e9ea90e7eef19f534eb20,1765955961,root:.: tailwind:watch,npx @tailwindcss/cli -i ./app/react/App/styles/tailwind.css -o ./app/react/App/styles/globals.css --watch
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: test,node --max-http-header-size 20000 ./node_modules/.bin/jest
+417ddc1c2a4773a723ef0cc58564c57777279790,1654856419,root:.: test,node ./node_modules/.bin/jest -w=50%
+955a8f38feb152e3db13529a4cc70df27bb54ac6,1691438041,root:.: test,node --no-experimental-fetch ./node_modules/.bin/jest -w=50%
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: test-debug,node --max-http-header-size 20000 --inspect ./node_modules/.bin/jest --watch --no-cache -i
+417ddc1c2a4773a723ef0cc58564c57777279790,1654856419,root:.: test-debug,node --inspect ./node_modules/.bin/jest --watch --no-cache -i
+955a8f38feb152e3db13529a4cc70df27bb54ac6,1691438041,root:.: test-debug,node --no-experimental-fetch --inspect ./node_modules/.bin/jest --watch --no-cache -i
+58ca4424e1f44aab4f0af27333fc9de01aeb9eb7,1711099416,root:.: update-translations-csv,node --no-experimental-fetch ./scripts/updateTranslationsCSV.mjs
+58ca4424e1f44aab4f0af27333fc9de01aeb9eb7,1711099416,root:.: update-translations-db,node --no-experimental-fetch scripts/run.js ../scripts/updateTranslationsDB.js
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: vault-evidences-template,node --max-http-header-size 20000 run.js ./database/vault_evidences_template.js
+1cd6edab5815518874000a4f3fe249a32111c3b4,1633559088,root:.: vault-evidences-template,node --max-http-header-size 20000 scripts/run.js ../database/vault_evidences_template.js
+e5d1186d8384470cd5e230fa9ed6f1d20c89a372,1656943791,root:.: vault-evidences-template,
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: watch-types,tsc --noEmit --pretty --watch --preserveWatchOutput
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,root:.: webpack-server,node ./webpack/webpack.server.js
+955a8f38feb152e3db13529a4cc70df27bb54ac6,1691438041,root:.: webpack-server,node --no-experimental-fetch ./webpack/webpack.server.js
+bcd4988f90bd05c2c7945db106ae80b183915be9,1603223452,timestamp_source,author_timestamp

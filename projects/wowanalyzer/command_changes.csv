@@ -1,0 +1,96 @@
+commit_hash,timestamp,script_name,script_definition
+b69587f19bf30bf0c443dddec2b95175a5c4aab0,1609476109,root:.: build,react-app-rewired build
+bd58e15539a91356df922d6e9669fdcb0af5d93e,1712757645,root:.: build,vite build
+4894a75092b2687ccbf07fd1e5554c3b4c398717,1673664312,root:.: e2e,playwright test
+97f6901e984289313ab7ee4f824812fda5ab9278,1677279476,root:.: e2e,yarn e2e:setup && playwright test
+263ca8a61b276a7f5113135715f5ae5f56d4a630,1677960649,root:.: e2e,
+498d1e9573a7ce8873d0d98794ab22c981174b07,1721095361,root:.: e2e,pnpm run e2e:setup && playwright test
+4894a75092b2687ccbf07fd1e5554c3b4c398717,1673664312,root:.: e2e:codegen,playwright codegen http://localhost:3000
+263ca8a61b276a7f5113135715f5ae5f56d4a630,1677960649,root:.: e2e:codegen,
+4894a75092b2687ccbf07fd1e5554c3b4c398717,1673664312,root:.: e2e:report,playwright show-report
+263ca8a61b276a7f5113135715f5ae5f56d4a630,1677960649,root:.: e2e:report,
+97f6901e984289313ab7ee4f824812fda5ab9278,1677279476,root:.: e2e:setup,node ./scripts/e2e/generate-configs-bootstrap.js
+263ca8a61b276a7f5113135715f5ae5f56d4a630,1677960649,root:.: e2e:setup,
+bd58e15539a91356df922d6e9669fdcb0af5d93e,1712757645,root:.: e2e:setup,node scripts/e2e/generate-configs-bootstrap.cjs
+f07815391d1748d35420b5ba14c53f7db80f8d91,1760996853,root:.: e2e:setup,tsx scripts/e2e/generate-configs.ts
+b69587f19bf30bf0c443dddec2b95175a5c4aab0,1609476109,root:.: extract,lingui extract --overwrite --clean
+31ae610b0b4ff009eadc61c4e95cab96e7866fc5,1615390990,root:.: extract,lingui extract --overwrite --clean && yarn lint:rest:specific:fix 'src/localization/*/*.json'
+49bb6f14e60e80ccfbaed24edb30b5532934ce9a,1615901262,root:.: extract,"lingui extract --overwrite --clean && yarn lint:rest:specific:fix ""src/localization/*/*.json"""
+be0f4d18cd2aa2c5183bdaab4428e3ffa5355803,1741015112,root:.: generate-talents,npx tsx ./scripts/talents/generate-talents.ts && prettier -w src/common/TALENTS/*.ts
+04c0989ead80d103260a9000b6a91aa848d10d24,1754416164,root:.: generate-talents:ptr,npx tsx ./scripts/talents/generate-talents.ts --ptr && prettier -w src/common/TALENTS/*.ts
+b69587f19bf30bf0c443dddec2b95175a5c4aab0,1609476109,root:.: lint,"eslint . --ext .js,.ts,.tsx"
+81bde50d04641624b936512248be54521c92aa1d,1615028798,root:.: lint,yarn --silent lint:code && yarn --silent lint:rest
+32c0794556f943447c322dd82248f40198e6d336,1656302278,root:.: lint,eslint --format stylish --max-warnings 0 --cache .
+b9bec872eb7de68fba9bdc0f66eec7366c3a0a5d,1679847174,root:.: lint,yarn lint-uncached --cache .
+498d1e9573a7ce8873d0d98794ab22c981174b07,1721095361,root:.: lint,pnpm run lint-uncached --cache .
+b0776600416a98286aaff6e079f24efb7523a6be,1745500624,root:.: lint-baseline,node --experimental-strip-types scripts/lint-baseline/baseline.ts
+b9bec872eb7de68fba9bdc0f66eec7366c3a0a5d,1679847174,root:.: lint-uncached,eslint --format stylish --max-warnings 0
+b0776600416a98286aaff6e079f24efb7523a6be,1745500624,root:.: lint-uncached,eslint --format stylish --max-warnings 0 --no-warn-ignored
+81bde50d04641624b936512248be54521c92aa1d,1615028798,root:.: lint:code,"yarn --silent lint:code:specific '**/*.{js,jsx,ts,tsx}'"
+49bb6f14e60e80ccfbaed24edb30b5532934ce9a,1615901262,root:.: lint:code,"yarn --silent lint:code:specific ""**/*.{js,jsx,ts,tsx}"""
+a17c33c39ba874960118dccb6a4d1bc52f2d5b2f,1662669930,root:.: lint:code,
+81bde50d04641624b936512248be54521c92aa1d,1615028798,root:.: lint:code:specific,CODE_STYLE=true eslint --format stylish --max-warnings 0
+331a97a6880aa797a67e2d1aedc5ca07611f98e7,1615741232,root:.: lint:code:specific,cross-env CODE_STYLE=true eslint --format stylish --max-warnings 0
+a17c33c39ba874960118dccb6a4d1bc52f2d5b2f,1662669930,root:.: lint:code:specific,
+81bde50d04641624b936512248be54521c92aa1d,1615028798,root:.: lint:code:specific:fix,yarn lint:code:specific --fix
+a17c33c39ba874960118dccb6a4d1bc52f2d5b2f,1662669930,root:.: lint:code:specific:fix,
+81bde50d04641624b936512248be54521c92aa1d,1615028798,root:.: lint:fix,"yarn --silent lint:code --fix && prettier --write '**/*.{json,md,css,graphql,yml}'"
+49bb6f14e60e80ccfbaed24edb30b5532934ce9a,1615901262,root:.: lint:fix,"yarn --silent lint:code --fix && prettier --write ""**/*.{json,md,css,graphql,yml}"""
+32c0794556f943447c322dd82248f40198e6d336,1656302278,root:.: lint:fix,yarn lint --fix
+498d1e9573a7ce8873d0d98794ab22c981174b07,1721095361,root:.: lint:fix,pnpm run lint --fix
+81bde50d04641624b936512248be54521c92aa1d,1615028798,root:.: lint:rest,"yarn --silent lint:rest:specific '**/*.{json,md,css,graphql,yml}'"
+49bb6f14e60e80ccfbaed24edb30b5532934ce9a,1615901262,root:.: lint:rest,"yarn --silent lint:rest:specific ""**/*.{json,md,css,graphql,yml}"""
+a17c33c39ba874960118dccb6a4d1bc52f2d5b2f,1662669930,root:.: lint:rest,
+81bde50d04641624b936512248be54521c92aa1d,1615028798,root:.: lint:rest:specific,prettier --check
+a17c33c39ba874960118dccb6a4d1bc52f2d5b2f,1662669930,root:.: lint:rest:specific,
+81bde50d04641624b936512248be54521c92aa1d,1615028798,root:.: lint:rest:specific:fix,prettier --write
+a17c33c39ba874960118dccb6a4d1bc52f2d5b2f,1662669930,root:.: lint:rest:specific:fix,
+b69587f19bf30bf0c443dddec2b95175a5c4aab0,1609476109,root:.: postinstall,patch-package
+10a4f9cfa5eb75619bf8cefdcc9df9bae6ab0b2d,1721316386,root:.: postinstall,
+7e1ffcd9ad866491e7c05ee46111d9b917693fc1,1673624560,root:.: prepare,is-ci || husky install
+ab2c6940191aee1c18f3a9afdffca1656895d45f,1717468020,root:.: prepare,is-ci || husky
+f07815391d1748d35420b5ba14c53f7db80f8d91,1760996853,root:.: preview,vite build && vite preview
+b69587f19bf30bf0c443dddec2b95175a5c4aab0,1609476109,root:.: safestart,yarn && react-app-rewired start
+498d1e9573a7ce8873d0d98794ab22c981174b07,1721095361,root:.: safestart,pnpm install && react-app-rewired start
+40d5746a2d3c34a78c0500c25ade0a3cdfbc1407,1721314599,root:.: safestart,
+b69587f19bf30bf0c443dddec2b95175a5c4aab0,1609476109,root:.: script,set NODE_ENV=development&&babel-node
+c112abc6e764d66c9824ee998c7a4f9e53ba6590,1761089248,root:.: script,
+a5e5f5c5241396edff6e50d4ab00a883ad358b29,1698547427,root:.: sourcemaps,sentry-cli sourcemaps inject build
+1154f53955d788bc7fc926d97c8e3a03c966821b,1698549054,root:.: sourcemaps,yarn sourcemaps:inject && yarn sourcemaps:upload
+743d3287373a57d208115161cfc8271e998395cd,1698549756,root:.: sourcemaps,
+f2c2d58bcf20d656fde886e7bd8a8bc95205d313,1700890181,root:.: sourcemaps,
+5cacef2cd1c5648e0c8d0d788a92173785039231,1712741291,root:.: sourcemaps,
+1154f53955d788bc7fc926d97c8e3a03c966821b,1698549054,root:.: sourcemaps:inject,sentry-cli sourcemaps inject build
+743d3287373a57d208115161cfc8271e998395cd,1698549756,root:.: sourcemaps:inject,
+743d3287373a57d208115161cfc8271e998395cd,1698549756,root:.: sourcemaps:inject,
+6ddd7fad65e891e65a6274952f7d7938914105c4,1701268444,root:.: sourcemaps:inject,
+6ddd7fad65e891e65a6274952f7d7938914105c4,1701268444,root:.: sourcemaps:inject,
+6ddd7fad65e891e65a6274952f7d7938914105c4,1701268444,root:.: sourcemaps:inject,
+1154f53955d788bc7fc926d97c8e3a03c966821b,1698549054,root:.: sourcemaps:upload,"sentry-cli sourcemaps upload build --release ""$SENTRY_RELEASE"""
+743d3287373a57d208115161cfc8271e998395cd,1698549756,root:.: sourcemaps:upload,
+743d3287373a57d208115161cfc8271e998395cd,1698549756,root:.: sourcemaps:upload,
+6ddd7fad65e891e65a6274952f7d7938914105c4,1701268444,root:.: sourcemaps:upload,
+6ddd7fad65e891e65a6274952f7d7938914105c4,1701268444,root:.: sourcemaps:upload,
+6ddd7fad65e891e65a6274952f7d7938914105c4,1701268444,root:.: sourcemaps:upload,
+41414aa5bad10eb4d22ce24da317527d333f1d28,1755882417,root:.: spell-lists:create,node --experimental-strip-types scripts/spell-lists/generate-list.ts
+41414aa5bad10eb4d22ce24da317527d333f1d28,1755882417,root:.: spell-lists:update,node --experimental-strip-types scripts/spell-lists/update-all-lists.ts src/analysis/**/*.ts
+b69587f19bf30bf0c443dddec2b95175a5c4aab0,1609476109,root:.: start,react-app-rewired start
+bd58e15539a91356df922d6e9669fdcb0af5d93e,1712757645,root:.: start,vite
+b69587f19bf30bf0c443dddec2b95175a5c4aab0,1609476109,root:.: test,react-app-rewired test
+bd58e15539a91356df922d6e9669fdcb0af5d93e,1712757645,root:.: test,vitest
+b69587f19bf30bf0c443dddec2b95175a5c4aab0,1609476109,root:.: test:integration,yarn test integrationTests
+32c0794556f943447c322dd82248f40198e6d336,1656302278,root:.: test:integration,yarn test integrationTests --passWithNoTests
+5cacef2cd1c5648e0c8d0d788a92173785039231,1712741291,root:.: test:integration,
+b69587f19bf30bf0c443dddec2b95175a5c4aab0,1609476109,root:.: test:interface,"yarn test --testPathIgnorePatterns ""integrationTests|/src\/parser/"""
+bd58e15539a91356df922d6e9669fdcb0af5d93e,1712757645,root:.: test:interface,"yarn test --exclude ""src/parser/**/*"""
+498d1e9573a7ce8873d0d98794ab22c981174b07,1721095361,root:.: test:interface,"pnpm run test --exclude ""src/parser/**/*"""
+b69587f19bf30bf0c443dddec2b95175a5c4aab0,1609476109,root:.: test:parser,yarn test --testPathIgnorePatterns integrationTests ./src/parser
+66ef03fe7a372479de6bb975ab517f4ed51d602e,1623329427,root:.: test:parser,yarn test ./src/parser --testPathIgnorePatterns integrationTests
+bd58e15539a91356df922d6e9669fdcb0af5d93e,1712757645,root:.: test:parser,yarn test ./src/parser
+498d1e9573a7ce8873d0d98794ab22c981174b07,1721095361,root:.: test:parser,pnpm run test ./src/parser
+b69587f19bf30bf0c443dddec2b95175a5c4aab0,1609476109,root:.: typecheck,tsc
+dd11fd124013c45ff7c6a62515d7fe30a550e82f,1754423955,root:.: update-spell-lists,node --experimental-strip-types scripts/spell-lists/generate-spell-list.ts src/analysis/**/*.ts
+2a8812c2d2bf206503c8115804439f223472fdfc,1755848922,root:.: update-spell-lists,
+b69587f19bf30bf0c443dddec2b95175a5c4aab0,1609476109,timestamp_source,author_timestamp
+88ebff3e0d026cd4cad480dc088c67dc646a5dd1,1611502281,workspaces_package:analysis/paladinretribution: tsc,tsc
+3934b3bae883c714e6c9b265f0c163eefdf30413,1662402121,workspaces_package:analysis/paladinretribution: tsc,

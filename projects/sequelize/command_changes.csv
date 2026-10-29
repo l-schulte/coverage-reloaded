@@ -1,0 +1,438 @@
+commit_hash,timestamp,script_name,script_definition
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: //semantic-release,semantic-release
+dc60533cb98b6870307dbb80631f5cc924c8c8d6,1610937852,root:.: //semantic-release,
+5fdf7765def24a0f7bd0b18b0f5063f581748e7d,1639341710,root:.: build,node ./build.js
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,root:.: build,yarn workspaces run build
+594b03a31f26b8a4f815ed010203189ccb773642,1685690682,root:.: build,yarn workspaces foreach run build
+4558b5f2776fd757a57fb6510acb4253343251d4,1688233565,root:.: build,lerna run build
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: cover,rimraf coverage && npm run teaser && npm run cover-integration && npm run cover-unit && npm run merge-coverage
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: cover,rimraf coverage && yarn teaser && yarn cover-integration && yarn cover-unit && yarn merge-coverage
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: cover,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: cover-integration,"cross-env COVERAGE=true nyc --reporter=lcovonly mocha -t 30000 --exit ""test/integration/**/*.test.js"" && node -e ""require('fs').renameSync('coverage/lcov.info', 'coverage/integration.info')"""
+72f31f6b1daba9b3933c75c663f0f0e003a9653a,1610750733,root:.: cover-integration,"cross-env COVERAGE=true nyc --reporter=lcovonly mocha --require scripts/mocha-bootload -t 30000 --exit ""test/integration/**/*.test.js"" && node -e ""require('fs').renameSync('coverage/lcov.info', 'coverage/integration.info')"""
+aaf32349bacf036af028359a7888cafce916bde1,1624554387,root:.: cover-integration,"cross-env COVERAGE=true nyc --reporter=lcovonly mocha ""test/integration/**/*.test.js"" && node -e ""require('fs').renameSync('coverage/lcov.info', 'coverage/integration.info')"""
+51bc05ae806ee11d36764bdafb4e4645d00e93be,1637261835,root:.: cover-integration,"cross-env COVERAGE=true nyc --reporter=lcovonly yarn mocha ""test/integration/**/*.test.[tj]s"" && node -e ""require('fs').renameSync('coverage/lcov.info', 'coverage/integration.info')"""
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: cover-integration,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: cover-unit,"cross-env COVERAGE=true nyc --reporter=lcovonly mocha -t 30000 --exit ""test/unit/**/*.test.js"" && node -e ""require('fs').renameSync('coverage/lcov.info', 'coverage/unit.info')"""
+72f31f6b1daba9b3933c75c663f0f0e003a9653a,1610750733,root:.: cover-unit,"cross-env COVERAGE=true nyc --reporter=lcovonly mocha --require scripts/mocha-bootload -t 30000 --exit ""test/unit/**/*.test.js"" && node -e ""require('fs').renameSync('coverage/lcov.info', 'coverage/unit.info')"""
+aaf32349bacf036af028359a7888cafce916bde1,1624554387,root:.: cover-unit,"cross-env COVERAGE=true nyc --reporter=lcovonly mocha ""test/unit/**/*.test.js"" && node -e ""require('fs').renameSync('coverage/lcov.info', 'coverage/unit.info')"""
+51bc05ae806ee11d36764bdafb4e4645d00e93be,1637261835,root:.: cover-unit,"cross-env COVERAGE=true nyc --reporter=lcovonly yarn mocha ""test/unit/**/*.test.[tj]s"" && node -e ""require('fs').renameSync('coverage/lcov.info', 'coverage/unit.info')"""
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: cover-unit,
+d7f58a8bafc53fcda11e2f55385c34323eb773fa,1710760169,root:.: delete-changelog,node dev/delete-changelog.mjs
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: docs,rimraf esdoc && esdoc -c docs/esdoc-config.js && cp docs/favicon.ico esdoc/favicon.ico && cp docs/ROUTER.txt esdoc/ROUTER && node docs/run-docs-transforms.js && node docs/redirects/create-redirects.js && rimraf esdoc/file esdoc/source.html
+fe895242b65c158dc8c7376ae7c7fb10ab2b92dc,1648925034,root:.: docs,typedoc
+1a6884a32f9a59ab690deec016e5c250ce1582c5,1642233944,root:.: fix-commit,export TMPFILE=$(mktemp) && grep -v '^#' $(git rev-parse --git-dir)/COMMIT_EDITMSG > $TMPFILE && git commit -e -F $TMPFILE
+87bec3587192602e854f9f89aa239efd4ac41be0,1708279699,root:.: format,npm run format:eslint && npm run format:prettier
+87bec3587192602e854f9f89aa239efd4ac41be0,1708279699,root:.: format:eslint,eslint . --fix --report-unused-disable-directives
+87bec3587192602e854f9f89aa239efd4ac41be0,1708279699,root:.: format:prettier,prettier --write .
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: lint,eslint lib test --quiet
+a9c84d005dbe46529ced3cda47c79619951eb398,1635922349,root:.: lint,eslint lib test --quiet --fix
+9de6dc43af7d15bfe7f50c5c688650cc3f7939fd,1641846337,root:.: lint,eslint . --fix --report-unused-disable-directives
+e863fc1e22713919fe11cebf796f65cf229b1475,1708262719,root:.: lint,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: lint-docs,markdownlint docs
+37eef81efaadb56c7acc45d8f07f798017c43875,1648897693,root:.: lint-docs,
+9de6dc43af7d15bfe7f50c5c688650cc3f7939fd,1641846337,root:.: lint-no-fix,eslint . --quiet --fix --report-unused-disable-directives
+91ada1c56ba4ea33fdfd17a8fca0e30a17c11c09,1642280072,root:.: lint-no-fix,eslint . --quiet --report-unused-disable-directives
+e863fc1e22713919fe11cebf796f65cf229b1475,1708262719,root:.: lint-no-fix,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: merge-coverage,"lcov-result-merger ""coverage/*.info"" ""coverage/lcov.info"""
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: merge-coverage,
+51bc05ae806ee11d36764bdafb4e4645d00e93be,1637261835,root:.: mocha,mocha -r ./test/requireHook
+73c2c0eb74bfa259d0c03fbb36b4bef49a72c246,1637784458,root:.: mocha,mocha -r ./test/registerEsbuild
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: mocha,
+51bc05ae806ee11d36764bdafb4e4645d00e93be,1637261835,root:.: prepare,node ./build.js
+0c31e6658b0fe68c7959f167d00d074a60e6444f,1638530783,root:.: prepare,node ./build.js && husky install
+5fdf7765def24a0f7bd0b18b0f5063f581748e7d,1639341710,root:.: prepare,npm run build && husky install
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: prepare,yarn build && husky install
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,root:.: prepare,husky install
+f4083dedee49ee39249acd2398886c1cb55db198,1706693542,root:.: prepare,husky
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,root:.: publish-all,yarn workspaces run semantic-release
+da828cdd2a4c5bc739be61f381abcd57d6a56934,1673783776,root:.: publish-all,lerna publish --conventional-commits --no-private --yes --create-release github --no-changelog
+f1c15a7bdaf07e3fdde888fa31a54fdff09372c8,1678444095,root:.: publish-all,lerna publish --conventional-commits --no-private --yes --create-release github
+fd403a2e247a3829a0ddad6ea420eaa8ed34d828,1694506427,root:.: reset-all,"concurrently ""npm:reset-*(!all)"""
+fd403a2e247a3829a0ddad6ea420eaa8ed34d828,1694506427,root:.: reset-db2,bash dev/db2/oldest/reset.sh; bash dev/db2/latest/reset.sh
+fd403a2e247a3829a0ddad6ea420eaa8ed34d828,1694506427,root:.: reset-mariadb,bash dev/mariadb/oldest/reset.sh; bash dev/mariadb/latest/reset.sh
+fd403a2e247a3829a0ddad6ea420eaa8ed34d828,1694506427,root:.: reset-mssql,bash dev/mssql/oldest/reset.sh; bash dev/mssql/latest/reset.sh
+fd403a2e247a3829a0ddad6ea420eaa8ed34d828,1694506427,root:.: reset-mysql,bash dev/mysql/oldest/reset.sh; bash dev/mysql/latest/reset.sh
+fd403a2e247a3829a0ddad6ea420eaa8ed34d828,1694506427,root:.: reset-postgres,bash dev/postgres/oldest/reset.sh; bash dev/postgres/latest/reset.sh
+4443d2af14c78b21ff2a70f4aeb69bd9d3f8c2e2,1639078850,root:.: restart-db2,npm run start-db2
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: restart-db2,yarn start-db2
+c7951c902f51bcb76a723f82f0019129e749c8ef,1663442195,root:.: restart-db2,
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: restart-mariadb,npm run start-mariadb
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: restart-mariadb,yarn start-mariadb
+c7951c902f51bcb76a723f82f0019129e749c8ef,1663442195,root:.: restart-mariadb,
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: restart-mssql,npm run start-mssql
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: restart-mssql,yarn start-mssql
+a180291191032cbabdf715e821ef42a76ab874d5,1654674221,root:.: restart-mssql,
+b97ac94282881123a007750ccb0242678204783a,1654675727,root:.: restart-mssql-latest,yarn start-mssql-latest
+c7951c902f51bcb76a723f82f0019129e749c8ef,1663442195,root:.: restart-mssql-latest,
+b97ac94282881123a007750ccb0242678204783a,1654675727,root:.: restart-mssql-oldest,yarn start-mssql-oldest
+c7951c902f51bcb76a723f82f0019129e749c8ef,1663442195,root:.: restart-mssql-oldest,
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: restart-mysql,npm run start-mysql
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: restart-mysql,yarn start-mysql
+c7951c902f51bcb76a723f82f0019129e749c8ef,1663442195,root:.: restart-mysql,
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: restart-postgres,npm run start-postgres
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: restart-postgres,yarn start-postgres
+c7951c902f51bcb76a723f82f0019129e749c8ef,1663442195,root:.: restart-postgres,
+72f31f6b1daba9b3933c75c663f0f0e003a9653a,1610750733,root:.: semantic-release,semantic-release
+9f950cbcbdd659d559496b77c40e0f827b108561,1617513308,root:.: semantic-release,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: setup-mssql,env-cmd $npm_package_options_env_cmd ./scripts/setup-mssql
+9f950cbcbdd659d559496b77c40e0f827b108561,1617513308,root:.: setup-mssql,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: sscce,env-cmd $npm_package_options_env_cmd node sscce.js
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: sscce,node sscce.js
+5081882ca74bd59bcb43aee29775bb6c59ba7e52,1673799892,root:.: sscce,ts-node sscce.ts
+4443d2af14c78b21ff2a70f4aeb69bd9d3f8c2e2,1639078850,root:.: sscce-db2,cross-env DIALECT=db2 node sscce.js
+a4d8a0a98e3316e5f5a3190660a261a3665c7507,1667743048,root:.: sscce-db2,cross-env DIALECT=db2 yarn sscce
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: sscce-mariadb,cross-env DIALECT=mariadb npm run sscce
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: sscce-mariadb,cross-env DIALECT=mariadb node sscce.js
+a4d8a0a98e3316e5f5a3190660a261a3665c7507,1667743048,root:.: sscce-mariadb,cross-env DIALECT=mariadb yarn sscce
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: sscce-mssql,cross-env DIALECT=mssql npm run sscce
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: sscce-mssql,cross-env DIALECT=mssql node sscce.js
+a4d8a0a98e3316e5f5a3190660a261a3665c7507,1667743048,root:.: sscce-mssql,cross-env DIALECT=mssql yarn sscce
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: sscce-mysql,cross-env DIALECT=mysql npm run sscce
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: sscce-mysql,cross-env DIALECT=mysql node sscce.js
+a4d8a0a98e3316e5f5a3190660a261a3665c7507,1667743048,root:.: sscce-mysql,cross-env DIALECT=mysql yarn sscce
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: sscce-postgres,cross-env DIALECT=postgres npm run sscce
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: sscce-postgres,cross-env DIALECT=postgres node sscce.js
+a4d8a0a98e3316e5f5a3190660a261a3665c7507,1667743048,root:.: sscce-postgres,cross-env DIALECT=postgres yarn sscce
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: sscce-postgres-native,cross-env DIALECT=postgres-native node sscce.js
+a4d8a0a98e3316e5f5a3190660a261a3665c7507,1667743048,root:.: sscce-postgres-native,cross-env DIALECT=postgres-native yarn sscce
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: sscce-sqlite,cross-env DIALECT=sqlite npm run sscce
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: sscce-sqlite,cross-env DIALECT=sqlite node sscce.js
+a4d8a0a98e3316e5f5a3190660a261a3665c7507,1667743048,root:.: sscce-sqlite,cross-env DIALECT=sqlite yarn sscce
+0a46c4d6fe0c267192ca18b0e597fbf03b1b405f,1712698401,root:.: sscce-sqlite,
+1fb48a462c96ec64bf8ed19f91662c4d73e1fe3e,1712731459,root:.: sscce-sqlite3,cross-env DIALECT=sqlite3 yarn sscce
+4443d2af14c78b21ff2a70f4aeb69bd9d3f8c2e2,1639078850,root:.: start-db2,bash dev/db2/11.5/start.sh
+c7951c902f51bcb76a723f82f0019129e749c8ef,1663442195,root:.: start-db2,
+50e40a9051b36fb5409f48c4fff2f2b914198443,1678632931,root:.: start-db2-latest,bash dev/db2/latest/start.sh
+6a78558325e9dd800980a2228ffa42668433420c,1663444313,root:.: start-db2-oldest,bash dev/db2/oldest/start.sh
+6a78558325e9dd800980a2228ffa42668433420c,1663444313,root:.: start-latest,"concurrently ""npm:start-*(!db2)-latest"""
+50e40a9051b36fb5409f48c4fff2f2b914198443,1678632931,root:.: start-latest,"concurrently ""npm:start-*(!db2)-latest"" && npm run start-db2-latest"
+c59011cad93e8fe3ae80c9139de98a541ba9e5c6,1690494849,root:.: start-latest,"concurrently ""npm:start-*-latest"""
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: start-mariadb,bash dev/mariadb/10.3/start.sh
+c7951c902f51bcb76a723f82f0019129e749c8ef,1663442195,root:.: start-mariadb,
+6a78558325e9dd800980a2228ffa42668433420c,1663444313,root:.: start-mariadb-latest,bash dev/mariadb/latest/start.sh
+6a78558325e9dd800980a2228ffa42668433420c,1663444313,root:.: start-mariadb-oldest,bash dev/mariadb/oldest/start.sh
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: start-mssql,bash dev/mssql/2019/start.sh
+a180291191032cbabdf715e821ef42a76ab874d5,1654674221,root:.: start-mssql,
+b97ac94282881123a007750ccb0242678204783a,1654675727,root:.: start-mssql-latest,bash dev/mssql/latest/start.sh
+b97ac94282881123a007750ccb0242678204783a,1654675727,root:.: start-mssql-oldest,bash dev/mssql/oldest/start.sh
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: start-mysql,bash dev/mysql/5.7/start.sh
+c7951c902f51bcb76a723f82f0019129e749c8ef,1663442195,root:.: start-mysql,
+7e43212f6f12db8afa3e5ceb9ef5502919effbcc,1635709498,root:.: start-mysql-8,bash dev/mysql/8.0/start.sh
+c7951c902f51bcb76a723f82f0019129e749c8ef,1663442195,root:.: start-mysql-8,
+6a78558325e9dd800980a2228ffa42668433420c,1663444313,root:.: start-mysql-latest,bash dev/mysql/latest/start.sh
+6a78558325e9dd800980a2228ffa42668433420c,1663444313,root:.: start-mysql-oldest,bash dev/mysql/oldest/start.sh
+6a78558325e9dd800980a2228ffa42668433420c,1663444313,root:.: start-oldest,"concurrently ""npm:start-*(!db2)-oldest"" && npm run start-db2-oldest"
+c59011cad93e8fe3ae80c9139de98a541ba9e5c6,1690494849,root:.: start-oldest,"concurrently ""npm:start-*-oldest"""
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: start-postgres,bash dev/postgres/10/start.sh
+c7951c902f51bcb76a723f82f0019129e749c8ef,1663442195,root:.: start-postgres,
+6a78558325e9dd800980a2228ffa42668433420c,1663444313,root:.: start-postgres-latest,bash dev/postgres/latest/start.sh
+6a78558325e9dd800980a2228ffa42668433420c,1663444313,root:.: start-postgres-oldest,bash dev/postgres/oldest/start.sh
+6a78558325e9dd800980a2228ffa42668433420c,1663444313,root:.: stop-all,"concurrently ""npm:stop-*(!all|db2)"" && npm run stop-db2"
+c59011cad93e8fe3ae80c9139de98a541ba9e5c6,1690494849,root:.: stop-all,"concurrently ""npm:stop-*(!all)"""
+4443d2af14c78b21ff2a70f4aeb69bd9d3f8c2e2,1639078850,root:.: stop-db2,bash dev/db2/11.5/stop.sh
+6a78558325e9dd800980a2228ffa42668433420c,1663444313,root:.: stop-db2,bash dev/db2/oldest/stop.sh
+50e40a9051b36fb5409f48c4fff2f2b914198443,1678632931,root:.: stop-db2,bash dev/db2/oldest/stop.sh; bash dev/db2/latest/stop.sh
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: stop-mariadb,bash dev/mariadb/10.3/stop.sh
+6a78558325e9dd800980a2228ffa42668433420c,1663444313,root:.: stop-mariadb,bash dev/mariadb/oldest/stop.sh; bash dev/mariadb/latest/stop.sh
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: stop-mssql,bash dev/mssql/2019/stop.sh
+a180291191032cbabdf715e821ef42a76ab874d5,1654674221,root:.: stop-mssql,
+6a78558325e9dd800980a2228ffa42668433420c,1663444313,root:.: stop-mssql,bash dev/mssql/oldest/stop.sh; bash dev/mssql/latest/stop.sh
+b97ac94282881123a007750ccb0242678204783a,1654675727,root:.: stop-mssql-latest,bash dev/mssql/latest/stop.sh
+c7951c902f51bcb76a723f82f0019129e749c8ef,1663442195,root:.: stop-mssql-latest,
+b97ac94282881123a007750ccb0242678204783a,1654675727,root:.: stop-mssql-oldest,bash dev/mssql/oldest/stop.sh
+c7951c902f51bcb76a723f82f0019129e749c8ef,1663442195,root:.: stop-mssql-oldest,
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: stop-mysql,bash dev/mysql/5.7/stop.sh
+6a78558325e9dd800980a2228ffa42668433420c,1663444313,root:.: stop-mysql,bash dev/mysql/oldest/stop.sh; bash dev/mysql/latest/stop.sh
+cf27c662c59d22ec05e468d16a7634e373d133e4,1641982025,root:.: stop-mysql-8,bash dev/mysql/8.0/stop.sh
+c7951c902f51bcb76a723f82f0019129e749c8ef,1663442195,root:.: stop-mysql-8,
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: stop-postgres,bash dev/postgres/10/stop.sh
+6a78558325e9dd800980a2228ffa42668433420c,1663444313,root:.: stop-postgres,bash dev/postgres/oldest/stop.sh; bash dev/postgres/latest/stop.sh
+1d96a59b2397f1f7e4b196ea281674d71a697e58,1710755905,root:.: sync-exports,lerna run sync-exports
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: teaser,node scripts/teaser
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: teaser,node test/teaser.js
+a4d8a0a98e3316e5f5a3190660a261a3665c7507,1667743048,root:.: teaser,ts-node test/teaser.ts
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: teaser,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test,npm run teaser && npm run test-unit && npm run test-integration
+51bc05ae806ee11d36764bdafb4e4645d00e93be,1637261835,root:.: test,npm run prepare && npm run test-typings && npm run teaser && npm run test-unit && npm run test-integration
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test,yarn prepare && yarn test-typings && yarn teaser && yarn test-unit && yarn test-integration
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-all,npm run test-mariadb && npm run test-mysql && npm run test-sqlite && npm run test-postgres && npm run test-postgres-native && npm run test-mssql
+9f950cbcbdd659d559496b77c40e0f827b108561,1617513308,root:.: test-all,
+4443d2af14c78b21ff2a70f4aeb69bd9d3f8c2e2,1639078850,root:.: test-db2,cross-env DIALECT=db2 npm test
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-db2,cross-env DIALECT=db2 yarn test
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-db2,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-docker,npm run test-docker-unit && npm run test-docker-integration
+9f950cbcbdd659d559496b77c40e0f827b108561,1617513308,root:.: test-docker,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-docker-integration,env-cmd $npm_package_options_env_cmd npm run test-integration
+9f950cbcbdd659d559496b77c40e0f827b108561,1617513308,root:.: test-docker-integration,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-docker-unit,npm run test-unit
+9f950cbcbdd659d559496b77c40e0f827b108561,1617513308,root:.: test-docker-unit,
+1d96a59b2397f1f7e4b196ea281674d71a697e58,1710755905,root:.: test-exports,lerna run test-exports
+04607c4b85db9c590c6b9d735822d3000f063641,1645695953,root:.: test-ibmi,cross-env DIALECT=ibmi yarn test
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-ibmi,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-integration,"mocha --globals setImmediate,clearImmediate --exit --check-leaks --colors -t 30000 --reporter spec ""test/integration/**/*.test.js"""
+72f31f6b1daba9b3933c75c663f0f0e003a9653a,1610750733,root:.: test-integration,"mocha --require scripts/mocha-bootload --globals setImmediate,clearImmediate --exit --check-leaks --colors -t 30000 --reporter spec ""test/integration/**/*.test.js"""
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: test-integration,"mocha --exit --check-leaks --colors -t 30000 --reporter spec ""test/integration/**/*.test.js"""
+aaf32349bacf036af028359a7888cafce916bde1,1624554387,root:.: test-integration,"mocha ""test/integration/**/*.test.js"""
+51bc05ae806ee11d36764bdafb4e4645d00e93be,1637261835,root:.: test-integration,"yarn mocha ""test/integration/**/*.test.[tj]s"""
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-integration,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-integration-all,npm run test-integration-mariadb && npm run test-integration-mysql && npm run test-integration-postgres && npm run test-integration-postgres-native && npm run test-integration-mssql && npm run test-integration-sqlite
+9f950cbcbdd659d559496b77c40e0f827b108561,1617513308,root:.: test-integration-all,
+6a78558325e9dd800980a2228ffa42668433420c,1663444313,root:.: test-integration-all,yarn test-integration-mariadb && yarn test-integration-mysql && yarn test-integration-postgres && yarn test-integration-postgres-native && yarn test-integration-sqlite && yarn test-integration-mssql && yarn test-integration-db2 && yarn test-integration-ibmi && yarn test-integration-snowflake
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-integration-all,
+4443d2af14c78b21ff2a70f4aeb69bd9d3f8c2e2,1639078850,root:.: test-integration-db2,cross-env DIALECT=db2 npm run test-integration
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-integration-db2,cross-env DIALECT=db2 yarn test-integration
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-integration-db2,
+721d56061c801015a8ec91d8e0aed30b5da24497,1711307211,root:.: test-integration-db2,yarn lerna run test-integration-db2
+04607c4b85db9c590c6b9d735822d3000f063641,1645695953,root:.: test-integration-ibmi,cross-env DIALECT=ibmi yarn test-integration
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-integration-ibmi,
+721d56061c801015a8ec91d8e0aed30b5da24497,1711307211,root:.: test-integration-ibmi,yarn lerna run test-integration-ibmi
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-integration-mariadb,cross-env DIALECT=mariadb npm run test-integration
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-integration-mariadb,cross-env DIALECT=mariadb yarn test-integration
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-integration-mariadb,
+721d56061c801015a8ec91d8e0aed30b5da24497,1711307211,root:.: test-integration-mariadb,yarn lerna run test-integration-mariadb
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-integration-mssql,cross-env DIALECT=mssql npm run test-integration
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-integration-mssql,cross-env DIALECT=mssql yarn test-integration
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-integration-mssql,
+721d56061c801015a8ec91d8e0aed30b5da24497,1711307211,root:.: test-integration-mssql,yarn lerna run test-integration-mssql
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-integration-mysql,cross-env DIALECT=mysql npm run test-integration
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-integration-mysql,cross-env DIALECT=mysql yarn test-integration
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-integration-mysql,
+721d56061c801015a8ec91d8e0aed30b5da24497,1711307211,root:.: test-integration-mysql,yarn lerna run test-integration-mysql
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-integration-postgres,cross-env DIALECT=postgres npm run test-integration
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-integration-postgres,cross-env DIALECT=postgres yarn test-integration
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-integration-postgres,
+721d56061c801015a8ec91d8e0aed30b5da24497,1711307211,root:.: test-integration-postgres,yarn lerna run test-integration-postgres
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-integration-postgres-native,cross-env DIALECT=postgres-native npm run test-integration
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-integration-postgres-native,cross-env DIALECT=postgres-native yarn test-integration
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-integration-postgres-native,
+721d56061c801015a8ec91d8e0aed30b5da24497,1711307211,root:.: test-integration-postgres-native,yarn lerna run test-integration-postgres-native
+1556d8467b9238e458a092679255698986aa127b,1638632473,root:.: test-integration-snowflake,cross-env DIALECT=snowflake npm run test-integration
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-integration-snowflake,cross-env DIALECT=snowflake yarn test-integration
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-integration-snowflake,
+721d56061c801015a8ec91d8e0aed30b5da24497,1711307211,root:.: test-integration-snowflake,yarn lerna run test-integration-snowflake
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-integration-sqlite,cross-env DIALECT=sqlite npm run test-integration
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-integration-sqlite,cross-env DIALECT=sqlite yarn test-integration
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-integration-sqlite,
+721d56061c801015a8ec91d8e0aed30b5da24497,1711307211,root:.: test-integration-sqlite,yarn lerna run test-integration-sqlite
+0a46c4d6fe0c267192ca18b0e597fbf03b1b405f,1712698401,root:.: test-integration-sqlite,
+1fb48a462c96ec64bf8ed19f91662c4d73e1fe3e,1712731459,root:.: test-integration-sqlite3,yarn lerna run test-integration-sqlite3
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-mariadb,cross-env DIALECT=mariadb npm test
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-mariadb,cross-env DIALECT=mariadb yarn test
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-mariadb,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-mssql,cross-env DIALECT=mssql npm test
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-mssql,cross-env DIALECT=mssql yarn test
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-mssql,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-mysql,cross-env DIALECT=mysql npm test
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-mysql,cross-env DIALECT=mysql yarn test
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-mysql,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-pgsql,npm run test-postgres
+9f950cbcbdd659d559496b77c40e0f827b108561,1617513308,root:.: test-pgsql,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-postgres,cross-env DIALECT=postgres npm test
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-postgres,cross-env DIALECT=postgres yarn test
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-postgres,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-postgres-native,cross-env DIALECT=postgres-native npm test
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-postgres-native,cross-env DIALECT=postgres-native yarn test
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-postgres-native,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-postgresn,npm run test-postgres-native
+9f950cbcbdd659d559496b77c40e0f827b108561,1617513308,root:.: test-postgresn,
+04607c4b85db9c590c6b9d735822d3000f063641,1645695953,root:.: test-smoke,"yarn mocha ""test/smoke/**/*.test.[tj]s"" --timeout 600000"
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-smoke,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-sqlite,cross-env DIALECT=sqlite npm test
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-sqlite,cross-env DIALECT=sqlite yarn test
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-sqlite,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-typings,tsc -b types/tsconfig.json &&  dtslint --expectOnly types/test
+914279aa0dffa1f6ca40ab3d9f86ea5fa5e7d561,1610834267,root:.: test-typings,tsc -b types/tsconfig.json && tsc -b types/test/tsconfig.json
+51bc05ae806ee11d36764bdafb4e4645d00e93be,1637261835,root:.: test-typings,tsc -b types/tsconfig.json && tsc -b types/test/tsconfig.json && tsc --noEmit --emitDeclarationOnly false && tsc -b test/tsconfig.json
+491ff159cda4aab72bad558fce533fc98e09ae7f,1644397406,root:.: test-typings,tsc --noEmit --emitDeclarationOnly false && tsc -b test/tsconfig.json
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,root:.: test-typings,yarn workspaces run test-typings
+594b03a31f26b8a4f815ed010203189ccb773642,1685690682,root:.: test-typings,yarn workspaces foreach run test-typings
+4558b5f2776fd757a57fb6510acb4253343251d4,1688233565,root:.: test-typings,lerna run test-typings
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-unit,"mocha --globals setImmediate,clearImmediate --exit --check-leaks --colors -t 30000 --reporter spec ""test/unit/**/*.js"""
+72f31f6b1daba9b3933c75c663f0f0e003a9653a,1610750733,root:.: test-unit,"mocha --require scripts/mocha-bootload --globals setImmediate,clearImmediate --exit --check-leaks --colors -t 30000 --reporter spec ""test/unit/**/*.js"""
+830909244e02ff7e0ddaa31166462a30d1f09ec6,1622089086,root:.: test-unit,"mocha --exit --check-leaks --colors -t 30000 --reporter spec ""test/unit/**/*.test.js"""
+aaf32349bacf036af028359a7888cafce916bde1,1624554387,root:.: test-unit,"mocha ""test/unit/**/*.test.js"""
+51bc05ae806ee11d36764bdafb4e4645d00e93be,1637261835,root:.: test-unit,"yarn mocha ""test/unit/**/*.test.[tj]s"""
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,root:.: test-unit,yarn test-unit-esm && yarn workspaces run test-unit
+594b03a31f26b8a4f815ed010203189ccb773642,1685690682,root:.: test-unit,yarn test-unit-esm && yarn workspaces foreach run test-unit
+4558b5f2776fd757a57fb6510acb4253343251d4,1688233565,root:.: test-unit,yarn test-unit-esm && lerna run test-unit
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-unit-all,npm run test-unit-mariadb && npm run test-unit-mysql && npm run test-unit-postgres && npm run test-unit-postgres-native && npm run test-unit-mssql && npm run test-unit-sqlite
+9f950cbcbdd659d559496b77c40e0f827b108561,1617513308,root:.: test-unit-all,
+ad68a5e5f07d7800ece68290de4d15e33ac7579a,1638566302,root:.: test-unit-all,npm run test-unit-mariadb && npm run test-unit-mysql && npm run test-unit-postgres && npm run test-unit-postgres-native && npm run test-unit-mssql && npm run test-unit-sqlite && npm run test-unit-snowflake
+4443d2af14c78b21ff2a70f4aeb69bd9d3f8c2e2,1639078850,root:.: test-unit-all,npm run test-unit-mariadb && npm run test-unit-mysql && npm run test-unit-postgres && npm run test-unit-postgres-native && npm run test-unit-mssql && npm run test-unit-sqlite && npm run test-unit-snowflake && npm run test-unit-db2
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-unit-all,yarn test-unit-mariadb && yarn test-unit-mysql && yarn test-unit-postgres && yarn test-unit-postgres-native && yarn test-unit-mssql && yarn test-unit-sqlite && yarn test-unit-snowflake && yarn test-unit-db2
+04607c4b85db9c590c6b9d735822d3000f063641,1645695953,root:.: test-unit-all,yarn test-unit-mariadb && yarn test-unit-mysql && yarn test-unit-postgres && yarn test-unit-postgres-native && yarn test-unit-mssql && yarn test-unit-sqlite && yarn test-unit-snowflake && yarn test-unit-db2 && test-unit-ibmi
+0d1ee6958e5e638e50866450367925af2b1ba608,1645896248,root:.: test-unit-all,yarn test-unit-mariadb && yarn test-unit-mysql && yarn test-unit-postgres && yarn test-unit-postgres-native && yarn test-unit-mssql && yarn test-unit-sqlite && yarn test-unit-snowflake && yarn test-unit-db2 && yarn test-unit-ibmi
+6a78558325e9dd800980a2228ffa42668433420c,1663444313,root:.: test-unit-all,yarn test-unit-mariadb && yarn test-unit-mysql && yarn test-unit-postgres && yarn test-unit-mssql && yarn test-unit-sqlite && yarn test-unit-snowflake && yarn test-unit-db2 && yarn test-unit-ibmi
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-unit-all,
+4443d2af14c78b21ff2a70f4aeb69bd9d3f8c2e2,1639078850,root:.: test-unit-db2,cross-env DIALECT=db2 npm run test-unit
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-unit-db2,cross-env DIALECT=db2 yarn test-unit
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-unit-db2,
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,root:.: test-unit-esm,mocha test/esm-named-exports.test.js
+04607c4b85db9c590c6b9d735822d3000f063641,1645695953,root:.: test-unit-ibmi,cross-env DIALECT=ibmi yarn test-unit
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-unit-ibmi,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-unit-mariadb,cross-env DIALECT=mariadb npm run test-unit
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-unit-mariadb,cross-env DIALECT=mariadb yarn test-unit
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-unit-mariadb,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-unit-mssql,cross-env DIALECT=mssql npm run test-unit
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-unit-mssql,cross-env DIALECT=mssql yarn test-unit
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-unit-mssql,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-unit-mysql,cross-env DIALECT=mysql npm run test-unit
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-unit-mysql,cross-env DIALECT=mysql yarn test-unit
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-unit-mysql,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-unit-postgres,cross-env DIALECT=postgres npm run test-unit
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-unit-postgres,cross-env DIALECT=postgres yarn test-unit
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-unit-postgres,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-unit-postgres-native,cross-env DIALECT=postgres-native npm run test-unit
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-unit-postgres-native,cross-env DIALECT=postgres-native yarn test-unit
+c7951c902f51bcb76a723f82f0019129e749c8ef,1663442195,root:.: test-unit-postgres-native,
+ad68a5e5f07d7800ece68290de4d15e33ac7579a,1638566302,root:.: test-unit-snowflake,cross-env DIALECT=snowflake npm run test-unit
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-unit-snowflake,cross-env DIALECT=snowflake yarn test-unit
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-unit-snowflake,
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,root:.: test-unit-sqlite,cross-env DIALECT=sqlite npm run test-unit
+682facfd16776a6a993e9cd31ef8735ade0c7453,1644013282,root:.: test-unit-sqlite,cross-env DIALECT=sqlite yarn test-unit
+7472cadd81e6cb70c6c4e5dbf91d808987f04581,1673771968,root:.: test-unit-sqlite,
+87bec3587192602e854f9f89aa239efd4ac41be0,1708279699,root:.: test:format,"concurrently ""npm:test:format:*"""
+87bec3587192602e854f9f89aa239efd4ac41be0,1708279699,root:.: test:format:eslint,eslint . --quiet --report-unused-disable-directives
+87bec3587192602e854f9f89aa239efd4ac41be0,1708279699,root:.: test:format:prettier,prettier --check .
+9ecebef5f29747091e784bf41341e9b9d7a3e671,1593755101,timestamp_source,author_timestamp
+ec00aed29674bb698445c2c7109b229215e96a0c,1712426076,workspaces_package:packages/cli: build,rimraf lib && tsc --project tsconfig.build.json
+ec00aed29674bb698445c2c7109b229215e96a0c,1712426076,workspaces_package:packages/cli: postpack,rimraf oclif.manifest.json
+ec00aed29674bb698445c2c7109b229215e96a0c,1712426076,workspaces_package:packages/cli: prepack,yarn build && oclif manifest && oclif readme
+ec00aed29674bb698445c2c7109b229215e96a0c,1712426076,workspaces_package:packages/cli: prepare,yarn build
+ec00aed29674bb698445c2c7109b229215e96a0c,1712426076,workspaces_package:packages/cli: sync-exports,../../dev/sync-exports.mjs ./src
+ec00aed29674bb698445c2c7109b229215e96a0c,1712426076,workspaces_package:packages/cli: test,"concurrently ""npm:test-*"""
+ec00aed29674bb698445c2c7109b229215e96a0c,1712426076,workspaces_package:packages/cli: test-exports,../../dev/sync-exports.mjs ./src --check-outdated
+ec00aed29674bb698445c2c7109b229215e96a0c,1712426076,workspaces_package:packages/cli: test-typings,tsc --noEmit
+ec00aed29674bb698445c2c7109b229215e96a0c,1712426076,workspaces_package:packages/cli: test-unit,mocha ./**/*.test.ts
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,workspaces_package:packages/core: _test-unit,"yarn mocha ""test/unit/**/*.test.[tj]s"""
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: build,node ./build.js
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,workspaces_package:packages/core: build,../../build-packages.mjs core
+808adebebdaadb81644fd927a3bb146ce472e142,1689608533,workspaces_package:packages/core: build,node ../../build-packages.mjs core
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: cover,rimraf coverage && yarn teaser && yarn cover-integration && yarn cover-unit && yarn merge-coverage
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: cover-integration,"cross-env COVERAGE=true nyc --reporter=lcovonly yarn mocha ""test/integration/**/*.test.[tj]s"" && node -e ""require('fs').renameSync('coverage/lcov.info', 'coverage/integration.info')"""
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: cover-unit,"cross-env COVERAGE=true nyc --reporter=lcovonly yarn mocha ""test/unit/**/*.test.[tj]s"" && node -e ""require('fs').renameSync('coverage/lcov.info', 'coverage/unit.info')"""
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: merge-coverage,"lcov-result-merger ""coverage/*.info"" ""coverage/lcov.info"""
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: mocha,mocha -r ./test/registerEsbuild
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,workspaces_package:packages/core: mocha,mocha -r ../../test/register-esbuild.js
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: teaser,ts-node test/teaser.ts
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test,yarn prepare && yarn test-typings && yarn teaser && yarn test-unit && yarn test-integration
+5b7fd318b3ae9dd7470140479794482b1774e780,1673854967,workspaces_package:packages/core: test,yarn build && yarn test-typings && yarn teaser && yarn test-unit && yarn test-integration
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,workspaces_package:packages/core: test,yarn build && yarn test-typings && yarn teaser && yarn _test-unit && yarn test-integration
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-db2,cross-env DIALECT=db2 yarn test
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-ibmi,cross-env DIALECT=ibmi yarn test
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-integration,"yarn mocha ""test/integration/**/*.test.[tj]s"""
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-integration-all,yarn test-integration-mariadb && yarn test-integration-mysql && yarn test-integration-postgres && yarn test-integration-postgres-native && yarn test-integration-sqlite && yarn test-integration-mssql && yarn test-integration-db2 && yarn test-integration-ibmi && yarn test-integration-snowflake
+1fb48a462c96ec64bf8ed19f91662c4d73e1fe3e,1712731459,workspaces_package:packages/core: test-integration-all,yarn test-integration-mariadb && yarn test-integration-mysql && yarn test-integration-postgres && yarn test-integration-postgres-native && yarn test-integration-sqlite3 && yarn test-integration-mssql && yarn test-integration-db2 && yarn test-integration-ibmi && yarn test-integration-snowflake
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-integration-db2,cross-env DIALECT=db2 yarn test-integration
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-integration-ibmi,cross-env DIALECT=ibmi yarn test-integration
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-integration-mariadb,cross-env DIALECT=mariadb yarn test-integration
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-integration-mssql,cross-env DIALECT=mssql yarn test-integration
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-integration-mysql,cross-env DIALECT=mysql yarn test-integration
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-integration-postgres,cross-env DIALECT=postgres yarn test-integration
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-integration-postgres-native,cross-env DIALECT=postgres-native yarn test-integration
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-integration-snowflake,cross-env DIALECT=snowflake yarn test-integration
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-integration-sqlite,cross-env DIALECT=sqlite yarn test-integration
+0a46c4d6fe0c267192ca18b0e597fbf03b1b405f,1712698401,workspaces_package:packages/core: test-integration-sqlite,
+1fb48a462c96ec64bf8ed19f91662c4d73e1fe3e,1712731459,workspaces_package:packages/core: test-integration-sqlite3,cross-env DIALECT=sqlite3 yarn test-integration
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-mariadb,cross-env DIALECT=mariadb yarn test
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-mssql,cross-env DIALECT=mssql yarn test
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-mysql,cross-env DIALECT=mysql yarn test
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-postgres,cross-env DIALECT=postgres yarn test
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-postgres-native,cross-env DIALECT=postgres-native yarn test
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-smoke,"yarn mocha ""test/smoke/**/*.test.[tj]s"" --timeout 600000"
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-sqlite,cross-env DIALECT=sqlite yarn test
+0a46c4d6fe0c267192ca18b0e597fbf03b1b405f,1712698401,workspaces_package:packages/core: test-sqlite,
+1fb48a462c96ec64bf8ed19f91662c4d73e1fe3e,1712731459,workspaces_package:packages/core: test-sqlite3,cross-env DIALECT=sqlite3 yarn test
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-typings,tsc --noEmit --emitDeclarationOnly false && tsc -b test/tsconfig.json
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,workspaces_package:packages/core: test-typings,tsc --noEmit && tsc -b test/tsconfig.json
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-unit,"yarn mocha ""test/unit/**/*.test.[tj]s"""
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,workspaces_package:packages/core: test-unit,yarn test-unit-all
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-unit-all,yarn test-unit-mariadb && yarn test-unit-mysql && yarn test-unit-postgres && yarn test-unit-mssql && yarn test-unit-sqlite && yarn test-unit-snowflake && yarn test-unit-db2 && yarn test-unit-ibmi
+1fb48a462c96ec64bf8ed19f91662c4d73e1fe3e,1712731459,workspaces_package:packages/core: test-unit-all,yarn test-unit-mariadb && yarn test-unit-mysql && yarn test-unit-postgres && yarn test-unit-mssql && yarn test-unit-sqlite3 && yarn test-unit-snowflake && yarn test-unit-db2 && yarn test-unit-ibmi
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-unit-db2,cross-env DIALECT=db2 yarn test-unit
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,workspaces_package:packages/core: test-unit-db2,cross-env DIALECT=db2 yarn _test-unit
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-unit-ibmi,cross-env DIALECT=ibmi yarn test-unit
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,workspaces_package:packages/core: test-unit-ibmi,cross-env DIALECT=ibmi yarn _test-unit
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-unit-mariadb,cross-env DIALECT=mariadb yarn test-unit
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,workspaces_package:packages/core: test-unit-mariadb,cross-env DIALECT=mariadb yarn _test-unit
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-unit-mssql,cross-env DIALECT=mssql yarn test-unit
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,workspaces_package:packages/core: test-unit-mssql,cross-env DIALECT=mssql yarn _test-unit
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-unit-mysql,cross-env DIALECT=mysql yarn test-unit
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,workspaces_package:packages/core: test-unit-mysql,cross-env DIALECT=mysql yarn _test-unit
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-unit-postgres,cross-env DIALECT=postgres yarn test-unit
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,workspaces_package:packages/core: test-unit-postgres,cross-env DIALECT=postgres yarn _test-unit
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-unit-snowflake,cross-env DIALECT=snowflake yarn test-unit
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,workspaces_package:packages/core: test-unit-snowflake,cross-env DIALECT=snowflake yarn _test-unit
+d2c23ae56fa59fcce76fa2dc9b87b3b40caf538a,1673776901,workspaces_package:packages/core: test-unit-sqlite,cross-env DIALECT=sqlite yarn test-unit
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,workspaces_package:packages/core: test-unit-sqlite,cross-env DIALECT=sqlite yarn _test-unit
+0a46c4d6fe0c267192ca18b0e597fbf03b1b405f,1712698401,workspaces_package:packages/core: test-unit-sqlite,
+1fb48a462c96ec64bf8ed19f91662c4d73e1fe3e,1712731459,workspaces_package:packages/core: test-unit-sqlite3,cross-env DIALECT=sqlite3 yarn _test-unit
+6aa4ceda95fb5fb96abaf6e0de3cd116ade664f9,1711452931,workspaces_package:packages/db2: build,../../build-packages.mjs db2
+6aa4ceda95fb5fb96abaf6e0de3cd116ade664f9,1711452931,workspaces_package:packages/db2: sync-exports,../../dev/sync-exports.mjs ./src
+6aa4ceda95fb5fb96abaf6e0de3cd116ade664f9,1711452931,workspaces_package:packages/db2: test,"concurrently ""npm:test-*"""
+6aa4ceda95fb5fb96abaf6e0de3cd116ade664f9,1711452931,workspaces_package:packages/db2: test-exports,../../dev/sync-exports.mjs ./src --check-outdated
+6aa4ceda95fb5fb96abaf6e0de3cd116ade664f9,1711452931,workspaces_package:packages/db2: test-typings,tsc --noEmit --project tsconfig.json
+21772a5b2aa4eec952f91ba747093cb737af4af9,1711462232,workspaces_package:packages/ibmi: build,../../build-packages.mjs ibmi
+21772a5b2aa4eec952f91ba747093cb737af4af9,1711462232,workspaces_package:packages/ibmi: sync-exports,../../dev/sync-exports.mjs ./src
+21772a5b2aa4eec952f91ba747093cb737af4af9,1711462232,workspaces_package:packages/ibmi: test,"concurrently ""npm:test-*"""
+21772a5b2aa4eec952f91ba747093cb737af4af9,1711462232,workspaces_package:packages/ibmi: test-exports,../../dev/sync-exports.mjs ./src --check-outdated
+21772a5b2aa4eec952f91ba747093cb737af4af9,1711462232,workspaces_package:packages/ibmi: test-typings,tsc --noEmit --project tsconfig.json
+46ea159306c55c7b3c02ac0ba24a2c0dd3dff4d9,1711360254,workspaces_package:packages/mariadb: build,../../build-packages.mjs mariadb
+46ea159306c55c7b3c02ac0ba24a2c0dd3dff4d9,1711360254,workspaces_package:packages/mariadb: sync-exports,../../dev/sync-exports.mjs ./src
+46ea159306c55c7b3c02ac0ba24a2c0dd3dff4d9,1711360254,workspaces_package:packages/mariadb: test,"concurrently ""npm:test-*"""
+46ea159306c55c7b3c02ac0ba24a2c0dd3dff4d9,1711360254,workspaces_package:packages/mariadb: test-exports,../../dev/sync-exports.mjs ./src --check-outdated
+46ea159306c55c7b3c02ac0ba24a2c0dd3dff4d9,1711360254,workspaces_package:packages/mariadb: test-typings,tsc --noEmit --project tsconfig.json
+f05281cd406cba7d14c8770d64261ef6b859d143,1712326794,workspaces_package:packages/mariadb: test-unit,mocha src/**/*.test.ts
+8631f5a51cf81e244f3160d753865bdfa0a2f539,1711494803,workspaces_package:packages/mssql: build,../../build-packages.mjs mssql
+8631f5a51cf81e244f3160d753865bdfa0a2f539,1711494803,workspaces_package:packages/mssql: sync-exports,../../dev/sync-exports.mjs ./src
+8631f5a51cf81e244f3160d753865bdfa0a2f539,1711494803,workspaces_package:packages/mssql: test,"concurrently ""npm:test-*"""
+8631f5a51cf81e244f3160d753865bdfa0a2f539,1711494803,workspaces_package:packages/mssql: test-exports,../../dev/sync-exports.mjs ./src --check-outdated
+8631f5a51cf81e244f3160d753865bdfa0a2f539,1711494803,workspaces_package:packages/mssql: test-typings,tsc --noEmit --project tsconfig.json
+8631f5a51cf81e244f3160d753865bdfa0a2f539,1711494803,workspaces_package:packages/mssql: test-unit,mocha src/**/*.test.ts
+5c7830e976900cca2b8c40535a0e895a66f2d8a6,1711368736,workspaces_package:packages/mysql: build,../../build-packages.mjs mysql
+5c7830e976900cca2b8c40535a0e895a66f2d8a6,1711368736,workspaces_package:packages/mysql: sync-exports,../../dev/sync-exports.mjs ./src
+5c7830e976900cca2b8c40535a0e895a66f2d8a6,1711368736,workspaces_package:packages/mysql: test,"concurrently ""npm:test-*"""
+5c7830e976900cca2b8c40535a0e895a66f2d8a6,1711368736,workspaces_package:packages/mysql: test-exports,../../dev/sync-exports.mjs ./src --check-outdated
+5c7830e976900cca2b8c40535a0e895a66f2d8a6,1711368736,workspaces_package:packages/mysql: test-typings,tsc --noEmit --project tsconfig.json
+f05281cd406cba7d14c8770d64261ef6b859d143,1712326794,workspaces_package:packages/mysql: test-unit,mocha src/**/*.test.ts
+721d56061c801015a8ec91d8e0aed30b5da24497,1711307211,workspaces_package:packages/postgres: build,../../build-packages.mjs postgres
+721d56061c801015a8ec91d8e0aed30b5da24497,1711307211,workspaces_package:packages/postgres: sync-exports,../../dev/sync-exports.mjs ./src
+721d56061c801015a8ec91d8e0aed30b5da24497,1711307211,workspaces_package:packages/postgres: test,"concurrently ""npm:test-*"""
+721d56061c801015a8ec91d8e0aed30b5da24497,1711307211,workspaces_package:packages/postgres: test-exports,../../dev/sync-exports.mjs ./src --check-outdated
+721d56061c801015a8ec91d8e0aed30b5da24497,1711307211,workspaces_package:packages/postgres: test-typings,tsc --noEmit --project tsconfig.json
+721d56061c801015a8ec91d8e0aed30b5da24497,1711307211,workspaces_package:packages/postgres: test-unit,mocha src/**/*.test.ts
+54f1e18748180b72da045066d7a5798f12cb1beb,1711524517,workspaces_package:packages/snowflake: build,../../build-packages.mjs snowflake
+54f1e18748180b72da045066d7a5798f12cb1beb,1711524517,workspaces_package:packages/snowflake: sync-exports,../../dev/sync-exports.mjs ./src
+54f1e18748180b72da045066d7a5798f12cb1beb,1711524517,workspaces_package:packages/snowflake: test,"concurrently ""npm:test-*"""
+54f1e18748180b72da045066d7a5798f12cb1beb,1711524517,workspaces_package:packages/snowflake: test-exports,../../dev/sync-exports.mjs ./src --check-outdated
+54f1e18748180b72da045066d7a5798f12cb1beb,1711524517,workspaces_package:packages/snowflake: test-typings,tsc --noEmit --project tsconfig.json
+1fb48a462c96ec64bf8ed19f91662c4d73e1fe3e,1712731459,workspaces_package:packages/sqlite3: build,../../build-packages.mjs sqlite3
+1fb48a462c96ec64bf8ed19f91662c4d73e1fe3e,1712731459,workspaces_package:packages/sqlite3: sync-exports,../../dev/sync-exports.mjs ./src
+1fb48a462c96ec64bf8ed19f91662c4d73e1fe3e,1712731459,workspaces_package:packages/sqlite3: test,"concurrently ""npm:test-*"""
+1fb48a462c96ec64bf8ed19f91662c4d73e1fe3e,1712731459,workspaces_package:packages/sqlite3: test-exports,../../dev/sync-exports.mjs ./src --check-outdated
+1fb48a462c96ec64bf8ed19f91662c4d73e1fe3e,1712731459,workspaces_package:packages/sqlite3: test-typings,tsc --noEmit --project tsconfig.json
+7ffa7604902a688659c92006e118fe4bad63bcad,1711446905,workspaces_package:packages/sqlite: build,../../build-packages.mjs sqlite
+0a46c4d6fe0c267192ca18b0e597fbf03b1b405f,1712698401,workspaces_package:packages/sqlite: build,
+7ffa7604902a688659c92006e118fe4bad63bcad,1711446905,workspaces_package:packages/sqlite: sync-exports,../../dev/sync-exports.mjs ./src
+0a46c4d6fe0c267192ca18b0e597fbf03b1b405f,1712698401,workspaces_package:packages/sqlite: sync-exports,
+7ffa7604902a688659c92006e118fe4bad63bcad,1711446905,workspaces_package:packages/sqlite: test,"concurrently ""npm:test-*"""
+0a46c4d6fe0c267192ca18b0e597fbf03b1b405f,1712698401,workspaces_package:packages/sqlite: test,
+7ffa7604902a688659c92006e118fe4bad63bcad,1711446905,workspaces_package:packages/sqlite: test-exports,../../dev/sync-exports.mjs ./src --check-outdated
+0a46c4d6fe0c267192ca18b0e597fbf03b1b405f,1712698401,workspaces_package:packages/sqlite: test-exports,
+7ffa7604902a688659c92006e118fe4bad63bcad,1711446905,workspaces_package:packages/sqlite: test-typings,tsc --noEmit --project tsconfig.json
+0a46c4d6fe0c267192ca18b0e597fbf03b1b405f,1712698401,workspaces_package:packages/sqlite: test-typings,
+1d96a59b2397f1f7e4b196ea281674d71a697e58,1710755905,workspaces_package:packages/utils: build,tsc --project tsconfig.build.json
+23a0cb454488f787a44c67bf3408b3ffc02c07cc,1710866298,workspaces_package:packages/utils: build,../../build-packages.mjs utils
+1d96a59b2397f1f7e4b196ea281674d71a697e58,1710755905,workspaces_package:packages/utils: sync-exports,../../dev/sync-exports.mjs ./src
+721d56061c801015a8ec91d8e0aed30b5da24497,1711307211,workspaces_package:packages/utils: sync-exports,../../dev/sync-exports.mjs ./src --multi-entry-points
+1d96a59b2397f1f7e4b196ea281674d71a697e58,1710755905,workspaces_package:packages/utils: test,"concurrently ""npm:test-*"""
+1d96a59b2397f1f7e4b196ea281674d71a697e58,1710755905,workspaces_package:packages/utils: test-exports,../../dev/sync-exports.mjs ./src --check-outdated
+721d56061c801015a8ec91d8e0aed30b5da24497,1711307211,workspaces_package:packages/utils: test-exports,../../dev/sync-exports.mjs ./src --check-outdated --multi-entry-points
+1d96a59b2397f1f7e4b196ea281674d71a697e58,1710755905,workspaces_package:packages/utils: test-typings,tsc --noEmit --project tsconfig.json
+1d96a59b2397f1f7e4b196ea281674d71a697e58,1710755905,workspaces_package:packages/utils: test-unit,mocha src/**/*.test.ts -r ../../test/register-esbuild.js
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,workspaces_package:packages/validator-js: build,../../build-packages.mjs validator-js
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,workspaces_package:packages/validator-js: mocha,mocha -r ../../test/register-esbuild.js
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,workspaces_package:packages/validator-js: test-typings,tsc --noEmit
+d63a09db712035b3cbd7fca89fd2b16cce380179,1673985840,workspaces_package:packages/validator-js: test-unit,"yarn mocha ""test/**/*.test.[tj]s"""

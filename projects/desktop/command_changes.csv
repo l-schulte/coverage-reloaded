@@ -1,0 +1,86 @@
+commit_hash,timestamp,script_name,script_definition
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: build:dev,yarn compile:dev && cross-env NODE_ENV=development ts-node -P script/tsconfig.json script/build.ts
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: build:prod,yarn compile:prod && cross-env NODE_ENV=production ts-node -P script/tsconfig.json script/build.ts
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: check-modified,stop-build
+dd10f86d5a9e827f745ffaaf182bd2c62ef13953,1647253379,root:.: check-modified,
+dd10f86d5a9e827f745ffaaf182bd2c62ef13953,1647253379,root:.: check-modified,
+8f5fc015482ca097b9640c9afb15f1ac097d9165,1625433100,root:.: check:eslint,tsc -P eslint-rules/
+615c6f2f2d92bfd8918d51db66e6eb1e9fa0bcc3,1626951399,root:.: check:eslint,
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: clean-slate,rimraf out node_modules app/node_modules coverage && yarn
+c9a66c6b8654b0111e41ee01735a45a6bf0bd26c,1650337813,root:.: clean-slate,rimraf out node_modules app/node_modules && yarn
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: clean:tslint,rimraf tslint-rules/*.js
+ad973b42dccb35414c22a97b34cbb0347f4cf3a5,1628758133,root:.: clean:tslint,
+ad973b42dccb35414c22a97b34cbb0347f4cf3a5,1628758133,root:.: clean:tslint,
+ad973b42dccb35414c22a97b34cbb0347f4cf3a5,1628758133,root:.: clean:tslint,
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: cli,ts-node --require ./app/test/globals.ts --require ./app/src/cli/dev-commands-global.ts app/src/cli/main.ts
+4bd89c07a72cbc097f2cec5bd38606f82e4e2821,1722282239,root:.: cli,ts-node app/src/cli/main.ts
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: compile:dev,cross-env NODE_ENV=development TS_NODE_PROJECT=script/tsconfig.json parallel-webpack --config app/webpack.development.ts
+224ae143f1c32e4f80ac3970c84baf62e55f1da5,1685529758,root:.: compile:dev,cross-env NODE_ENV=development TS_NODE_PROJECT=script/tsconfig.json NODE_OPTIONS='--openssl-legacy-provider' parallel-webpack --config app/webpack.development.ts
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: compile:prod,cross-env NODE_ENV=production TS_NODE_PROJECT=script/tsconfig.json NODE_OPTIONS='--max_old_space_size=4096' parallel-webpack --config app/webpack.production.ts
+224ae143f1c32e4f80ac3970c84baf62e55f1da5,1685529758,root:.: compile:prod,cross-env NODE_ENV=production TS_NODE_PROJECT=script/tsconfig.json NODE_OPTIONS='--max_old_space_size=4096 --openssl-legacy-provider' parallel-webpack --config app/webpack.production.ts
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: compile:script,tsc -P script/tsconfig.json
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: compile:tslint,tsc -P tslint-rules
+ad973b42dccb35414c22a97b34cbb0347f4cf3a5,1628758133,root:.: compile:tslint,
+ad973b42dccb35414c22a97b34cbb0347f4cf3a5,1628758133,root:.: compile:tslint,
+ad973b42dccb35414c22a97b34cbb0347f4cf3a5,1628758133,root:.: compile:tslint,
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: draft-release,ts-node -P script/tsconfig.json script/draft-release/index.ts
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: draft-release:format,prettier --check --write changelog.json app/package.json && yarn validate-changelog
+c9a66c6b8654b0111e41ee01735a45a6bf0bd26c,1650337813,root:.: draft-release:pr,ts-node -P script/tsconfig.json script/draft-release/draft-pull-request.ts
+fa383f8f3e2ee917a07fdf2f5c3f6cc28af694eb,1654179286,root:.: draft-release:pr,
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: eslint,"eslint --cache --rulesdir ./eslint-rules ""./eslint-rules/**/*.js"" ""./{script,tslint-rules}/**/*.ts{,x}"" ""./app/{src,typings,test}/**/*.{j,t}s{,x}"" ""./changelog.json"""
+d3f27cd5db9cbea9b64c5403b0789094a2cd9a63,1625417602,root:.: eslint,"eslint --cache --rulesdir ./eslint-rules ""./eslint-rules/**/*.js"" ""./script/**/*.ts{,x}"" ""./app/{src,typings,test}/**/*.{j,t}s{,x}"" ""./changelog.json"""
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: eslint-check,eslint --print-config .eslintrc.* | eslint-config-prettier-check
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: generate-octicons,ts-node -P script/tsconfig.json script/generate-octicons.ts
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: lint,yarn prettier && yarn lint:src
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: lint:fix,yarn prettier --write && yarn lint:src:fix
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: lint:src,yarn tslint && yarn eslint-check && yarn eslint
+6564a7d88f1a8f0b88d981165bbe35d4011d57dd,1643733613,root:.: lint:src,yarn eslint-check && yarn eslint
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: lint:src:fix,yarn tslint --fix && yarn eslint --fix
+6564a7d88f1a8f0b88d981165bbe35d4011d57dd,1643733613,root:.: lint:src:fix,yarn eslint --fix
+69c6263cec568ebdb447ed637f985b5203580ff8,1650561020,root:.: markdownlint,"markdownlint **/*.{md,mdx} --config .markdownlint.js --rules node_modules/@github/markdownlint-github --ignore node_modules --ignore gemoji"
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: package,ts-node -P script/tsconfig.json script/package.ts
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: postinstall,ts-node -P script/tsconfig.json script/post-install.ts
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: prettier,"prettier --check ""./**/*.{ts,tsx,js,json,jsx,scss,html,yaml,yml}"""
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: publish,ts-node -P script/tsconfig.json script/publish.ts
+1ff6b70717d6ed6f005e107be0a827dc3ebb49b2,1689373121,root:.: publish,
+2df0807b57ffbb03cd04e056fb5c55bedff9dd35,1690331774,root:.: publish,
+2df0807b57ffbb03cd04e056fb5c55bedff9dd35,1690331774,root:.: publish,
+4c62ff85d6e1d3c38386ca962e8e8236e6a4e038,1696498186,root:.: publish,
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: rebuild-hard:dev,yarn clean-slate && yarn build:dev
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: rebuild-hard:prod,yarn clean-slate && yarn build:prod
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: start,cross-env NODE_ENV=development ts-node -P script/tsconfig.json script/start.ts
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: start:prod,cross-env NODE_ENV=production ts-node -P script/tsconfig.json script/start.ts
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: test,yarn test:unit:cov --runInBand && yarn test:script:cov && yarn test:integration
+ab433b089f8464d8fc1dea4e5bec95f4d0d1e6d1,1642704105,root:.: test,yarn test:unit:cov --runInBand && yarn test:script:cov
+c9a66c6b8654b0111e41ee01735a45a6bf0bd26c,1650337813,root:.: test,yarn test:unit --runInBand && yarn test:script
+96897de48d6815f6afc3681d25ddda185fa689ee,1742987451,root:.: test,node script/test.mjs
+7c9a645b63aed52eccb00be1d2ed0fc62e931a31,1625416539,root:.: test:eslint,jest eslint-rules/tests/*.test.js
+615c6f2f2d92bfd8918d51db66e6eb1e9fa0bcc3,1626951399,root:.: test:eslint,
+6758581d3e46fe62ad6b7b7ea775980180b00a23,1742994296,root:.: test:eslint,node script/test.mjs eslint-rules
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: test:integration,cross-env TEST_ENV=1 ELECTRON_NO_ATTACH_CONSOLE=1 xvfb-maybe --auto-servernum -- jest --testLocationInResults --config ./app/jest.integration.config.js
+ba1af330b437028a7396be02cad944f9d4a33731,1643384660,root:.: test:integration,
+ba1af330b437028a7396be02cad944f9d4a33731,1643384660,root:.: test:integration,
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: test:report,codecov --disable=gcov -f app/coverage/coverage-final.json
+d97fe6c9ef14ffee18e5da560bb4fb24151fc211,1652866019,root:.: test:report,
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: test:review,ts-node  -P script/tsconfig.json script/test-review.ts
+70b67053934aa24a6b4e226313778ca1a84eb7c2,1743064372,root:.: test:review,
+d1bc192fc4e8de8bf5c2fcdc1f9f32a0ccf38b62,1743501145,root:.: test:review,
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: test:script,jest --silent --config ./script/jest.config.js
+6758581d3e46fe62ad6b7b7ea775980180b00a23,1742994296,root:.: test:script,node script/test.mjs script
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: test:script:cov,yarn test:script --coverage
+4686d0006ab535ea3d018c17f223f74d4fe3092b,1651659218,root:.: test:script:cov,yarn test:script
+d97fe6c9ef14ffee18e5da560bb4fb24151fc211,1652866019,root:.: test:script:cov,
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: test:setup,ts-node -P script/tsconfig.json script/test-setup.ts
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: test:unit,cross-env ELECTRON_RUN_AS_NODE=1 ./node_modules/.bin/electron ./node_modules/jest/bin/jest --detectOpenHandles --silent --testLocationInResults --config ./app/jest.unit.config.js
+7613a4ebc23553ae52253e01a2d38b947f047fed,1643890182,root:.: test:unit,cross-env ELECTRON_RUN_AS_NODE=1 NODE_OPTIONS='--max_old_space_size=4096' ./node_modules/.bin/electron ./node_modules/jest/bin/jest  --detectOpenHandles --silent --testLocationInResults --config ./app/jest.unit.config.js
+9e87787d760750456478e4d01d2a22c512518f3f,1644236489,root:.: test:unit,cross-env ELECTRON_RUN_AS_NODE=1 NODE_OPTIONS='--max_old_space_size=4096' ./node_modules/.bin/electron ./node_modules/jest/bin/jest --detectOpenHandles --silent --testLocationInResults --config ./app/jest.unit.config.js
+6758581d3e46fe62ad6b7b7ea775980180b00a23,1742994296,root:.: test:unit,node script/test.mjs
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: test:unit:cov,yarn test:unit --coverage
+4686d0006ab535ea3d018c17f223f74d4fe3092b,1651659218,root:.: test:unit:cov,yarn test:unit
+d97fe6c9ef14ffee18e5da560bb4fb24151fc211,1652866019,root:.: test:unit:cov,
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: tslint,tslint -p .
+b648099bf13316c72ac0a9aadb8d83f94b312eff,1643888968,root:.: tslint,
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,root:.: validate-changelog,ts-node -P script/tsconfig.json script/validate-changelog.ts
+69c6263cec568ebdb447ed637f985b5203580ff8,1650561020,root:.: validate-electron-version,ts-node -P script/tsconfig.json script/validate-electron-version.ts
+dd3c2070349170afb81ebb74ca6966ec2a9f770d,1760021505,root:.: validate-macos-version,ts-node -P script/tsconfig.json script/validate-macos-version.ts
+90d8ef3cd47aee1d25939a0e7b39fa64a761006c,1555075038,timestamp_source,author_timestamp

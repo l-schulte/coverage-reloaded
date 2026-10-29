@@ -1,0 +1,114 @@
+commit_hash,timestamp,script_name,script_definition
+b1f415d3ce6889fcb493b822f7f129879ae96758,1611350131,root:.: betterer,betterer
+34fda233341b1f5db2aa1c0365d9d1e3dd3de016,1616041192,root:.: betterer,betterer --strict
+14f5e23d0587b1ff99b90c5d665e93791330197b,1681097988,root:.: betterer,
+3393a2a0aa1bc7340c7d3d2ffafd29289952c723,1609195126,root:.: build,ts-node ./packs/packbuilder.ts && webpack --mode production
+2ac88d3b2ced71efd5398a594f0ebb9e4e6df814,1611446644,root:.: build,ts-node ./packs/scripts/build.ts && webpack --mode production
+b515ec5fdf52d88e536728c154f4b98c1db99c3d,1615539087,root:.: build,npm run build:packs && webpack --mode production
+98efa681a5587089e60c607c6429a1006ae3a0f3,1681113900,root:.: build,npm run build:packs && vite build
+3a76147953f202426e7b067110cff9a33d202d82,1681150269,root:.: build,npm run build:packs && vite build --logLevel error
+3048e2ad7e797b3dc86021af5b92636004177c9e,1686464811,root:.: build,npm run clean && npm run build:packs && vite build
+23690f114cc0ab4b1f26c978184de31a741a823f,1766036919,root:.: build,pnpm run clean && pnpm run '/build:(?:packs|system)$/'
+ffdae161eda57f664ff72f6322858c6596aa7543,1766088596,root:.: build,"pnpm run clean && pnpm run ""/build:(?:packs|system)$/"""
+efa7453fe22890b62e9197bb08940003a1484558,1766625331,root:.: build,"pnpm run ""/build:(?:packs|system)$/"""
+71fd913d3d8cbbde3f87572c51b1d2402e728c17,1689736036,root:.: build:conditions,esno ./build/conditions.ts
+96c80e14649727bcae2ffb4b8ac3169566b198ef,1701811549,root:.: build:conditions,tsx ./build/conditions.ts
+8451929f6597f688468f379bc0748d54a0f49483,1765409174,root:.: build:conditions,tsx ./build/conditions.ts --system pf2e
+3393a2a0aa1bc7340c7d3d2ffafd29289952c723,1609195126,root:.: build:dev,webpack
+8f47c389b5ef7db45c05c5f608e26154e9f2386b,1614749183,root:.: build:dev,npm run build:packs && webpack
+14f5e23d0587b1ff99b90c5d665e93791330197b,1681097988,root:.: build:dev,
+3393a2a0aa1bc7340c7d3d2ffafd29289952c723,1609195126,root:.: build:packs,ts-node ./packs/packbuilder.ts
+2ac88d3b2ced71efd5398a594f0ebb9e4e6df814,1611446644,root:.: build:packs,ts-node ./packs/scripts/build.ts
+b515ec5fdf52d88e536728c154f4b98c1db99c3d,1615539087,root:.: build:packs,ts-node -r tsconfig-paths/register ./packs/scripts/build.ts
+98efa681a5587089e60c607c6429a1006ae3a0f3,1681113900,root:.: build:packs,node --loader @bleed-believer/path-alias ./packs/scripts/build.ts
+c3ebd23afb365d6bb8a921870cd6df953ac04161,1681229468,root:.: build:packs,esno ./packs/scripts/build.ts
+1275620cf8053de53dcde13594c7b0cbd6a6b9b1,1681497795,root:.: build:packs,esno ./build/build-packs.ts
+96c80e14649727bcae2ffb4b8ac3169566b198ef,1701811549,root:.: build:packs,tsx ./build/build-packs.ts
+c263fb9124b62b28c23b5984b0de01af499caad4,1686688021,root:.: build:packs:json,esno ./build/build-packs.ts json
+96c80e14649727bcae2ffb4b8ac3169566b198ef,1701811549,root:.: build:packs:json,tsx ./build/build-packs.ts json
+8451929f6597f688468f379bc0748d54a0f49483,1765409174,root:.: build:packs:json,tsx ./build/build-packs.ts --json --system pf2e
+23690f114cc0ab4b1f26c978184de31a741a823f,1766036919,root:.: build:packs:json,tsx ./build/build-packs.ts --json
+23690f114cc0ab4b1f26c978184de31a741a823f,1766036919,root:.: build:system,tsx ./build/build-system.ts
+3048e2ad7e797b3dc86021af5b92636004177c9e,1686464811,root:.: clean,esno ./build/clean.ts
+96c80e14649727bcae2ffb4b8ac3169566b198ef,1701811549,root:.: clean,tsx ./build/clean.ts
+31234fe6bd5b7f880f60647a0d7c72e1ad77447d,1766589545,root:.: clean,
+3393a2a0aa1bc7340c7d3d2ffafd29289952c723,1609195126,root:.: docs,typedoc
+14f5e23d0587b1ff99b90c5d665e93791330197b,1681097988,root:.: docs,
+3393a2a0aa1bc7340c7d3d2ffafd29289952c723,1609195126,root:.: extractPacks,node ./packs/extractpacks.js
+2ac88d3b2ced71efd5398a594f0ebb9e4e6df814,1611446644,root:.: extractPacks,node ./packs/scripts/extract.js
+512aa4aa2d2a390a7750adf10d005f004ac0307d,1614498679,root:.: extractPacks,ts-node ./packs/scripts/extract.ts
+8faa30466bdf245bcf14fce9d6dd3469451184e5,1615549034,root:.: extractPacks,ts-node -r tsconfig-paths/register ./packs/scripts/extract.ts
+98efa681a5587089e60c607c6429a1006ae3a0f3,1681113900,root:.: extractPacks,node --loader @bleed-believer/path-alias ./packs/scripts/extract.ts
+c3ebd23afb365d6bb8a921870cd6df953ac04161,1681229468,root:.: extractPacks,esno ./packs/scripts/extract.ts
+1275620cf8053de53dcde13594c7b0cbd6a6b9b1,1681497795,root:.: extractPacks,esno ./build/extract-packs.ts
+96c80e14649727bcae2ffb4b8ac3169566b198ef,1701811549,root:.: extractPacks,tsx ./build/extract-packs.ts
+98efa681a5587089e60c607c6429a1006ae3a0f3,1681113900,root:.: hot,vite serve
+efa7453fe22890b62e9197bb08940003a1484558,1766625331,root:.: hot,tsx ./build/hmr.ts
+0bf8a39e8534fc7091dc3d5b9f5ec61c644696d7,1681187616,root:.: link,ts-node-esm scripts/link.ts
+c3ebd23afb365d6bb8a921870cd6df953ac04161,1681229468,root:.: link,esno scripts/link.ts
+1275620cf8053de53dcde13594c7b0cbd6a6b9b1,1681497795,root:.: link,esno ./build/link-foundry.ts
+96c80e14649727bcae2ffb4b8ac3169566b198ef,1701811549,root:.: link,tsx ./build/link-foundry.ts
+3393a2a0aa1bc7340c7d3d2ffafd29289952c723,1609195126,root:.: lint,eslint ./src --ext .ts
+cf14a263946d29c682ce676c359619cd17c89dfb,1650763811,root:.: lint,eslint ./src --ext .ts && eslint ./static ./system.json --ext .json
+fa6fb6e304e6396534004d3d8f77e0d7242198b5,1676250566,root:.: lint,eslint ./src ./tests ./types --ext .ts && eslint ./static ./system.json --ext .json
+98efa681a5587089e60c607c6429a1006ae3a0f3,1681113900,root:.: lint,eslint ./src ./tests ./types --ext .ts && eslint ./static --ext .json
+1966f3b0e953ae1aae9c37cbf2cd061b8158b200,1682206463,root:.: lint,npm run lint:ts && npm run lint:json
+d24cd913046e01dd7be081257bda07050db5b73a,1693388767,root:.: lint,npm run lint:ts && npm run lint:json && npm run prettier:scss
+f6ac26f2db70624440be5749f0a6070b2bf6d835,1730342712,root:.: lint,npm run lint:ts && npm run lint:json && npm run prettier:scss-svelte
+fbc4a736222eee808b2e04a8966d0b3d62aea515,1742461947,root:.: lint,eslint && npm run prettier:scss-svelte
+3393a2a0aa1bc7340c7d3d2ffafd29289952c723,1609195126,root:.: lint:fix,eslint ./src --ext .ts --fix
+fa6fb6e304e6396534004d3d8f77e0d7242198b5,1676250566,root:.: lint:fix,eslint ./src ./tests ./types --ext .ts --fix
+2f1dec482e627baf3f1223fb72cadb62e513615c,1682284210,root:.: lint:fix,eslint ./build ./src ./tests ./types --ext .ts --fix
+d24cd913046e01dd7be081257bda07050db5b73a,1693388767,root:.: lint:fix,eslint ./build ./src ./tests ./types --ext .ts --fix && prettier --fix
+7d65bcf372bf8ba30324f3613e278e959b988d90,1694616777,root:.: lint:fix,eslint ./build ./src ./tests ./types --ext .ts --fix && prettier src/**/*.scss --write
+77180747f99b24741c45414a76259976e2aacd66,1700016547,root:.: lint:fix,eslint ./build ./src ./tests ./types --ext .ts --fix && prettier src/styles/**/*.scss --write
+7915d3b28be5d06013f6bc95bf53cd8874c26e3f,1702587781,root:.: lint:fix,eslint ./build ./src ./tests ./types --ext .ts --fix && prettier --write src/styles
+563a712b641c67bd2e2ce4a316df179d34e3fcdc,1727748955,root:.: lint:fix,eslint ./build ./src ./tests ./types --fix && prettier --write src/styles
+f6ac26f2db70624440be5749f0a6070b2bf6d835,1730342712,root:.: lint:fix,eslint ./build ./src ./tests ./types --fix && prettier --write src/styles src/**/*.svelte
+fbc4a736222eee808b2e04a8966d0b3d62aea515,1742461947,root:.: lint:fix,eslint --fix && prettier --write src/styles src/**/*.svelte
+1966f3b0e953ae1aae9c37cbf2cd061b8158b200,1682206463,root:.: lint:json,eslint ./static --ext .json --no-eslintrc --plugin json --rule 'json/*: error'
+813145e072253eb4a0d432472e0aa49c14b2185c,1682207000,root:.: lint:json,"eslint ./static --ext .json --no-eslintrc --plugin json --rule ""json/*: error"""
+971aeafdc890d31ea84a2560c4a54a66746ae627,1693363254,root:.: lint:json,"eslint ./static --ext .json --no-eslintrc --plugin json --rule ""json/*: error"" --rule ""linebreak-style: error"""
+563a712b641c67bd2e2ce4a316df179d34e3fcdc,1727748955,root:.: lint:json,eslint -c eslint.json.config.js
+af4677dad3c608b95eb56705238b44711841179f,1742440825,root:.: lint:json,
+1966f3b0e953ae1aae9c37cbf2cd061b8158b200,1682206463,root:.: lint:ts,eslint ./src ./tests ./types --ext .ts
+2f1dec482e627baf3f1223fb72cadb62e513615c,1682284210,root:.: lint:ts,eslint ./build ./src ./tests ./types --ext .ts
+563a712b641c67bd2e2ce4a316df179d34e3fcdc,1727748955,root:.: lint:ts,eslint ./build ./src ./tests ./types
+af4677dad3c608b95eb56705238b44711841179f,1742440825,root:.: lint:ts,
+02188dd9857535038f33e11d2936fbe83b42b6d2,1614513730,root:.: migrate,ts-node -r tsconfig-paths/register ./packs/scripts/run-migration.ts
+98efa681a5587089e60c607c6429a1006ae3a0f3,1681113900,root:.: migrate,node --loader @bleed-believer/path-alias ./packs/scripts/run-migration.ts
+c3ebd23afb365d6bb8a921870cd6df953ac04161,1681229468,root:.: migrate,esno ./packs/scripts/run-migration.ts
+1275620cf8053de53dcde13594c7b0cbd6a6b9b1,1681497795,root:.: migrate,esno ./build/run-migration.ts
+96c80e14649727bcae2ffb4b8ac3169566b198ef,1701811549,root:.: migrate,tsx ./build/run-migration.ts
+b1f415d3ce6889fcb493b822f7f129879ae96758,1611350131,root:.: posttest,betterer
+34fda233341b1f5db2aa1c0365d9d1e3dd3de016,1616041192,root:.: posttest,npm run betterer
+14f5e23d0587b1ff99b90c5d665e93791330197b,1681097988,root:.: posttest,
+3393a2a0aa1bc7340c7d3d2ffafd29289952c723,1609195126,root:.: pretest,eslint ./src --ext .ts
+e15f1760c6ab533e0c40f428a4bd1e8b48abd98a,1616867697,root:.: pretest,eslint ./src --ext .ts && eslint ./packs/scripts --ext .ts
+0d626be30c46f7cb88da48acba6b6a017c15d813,1618848308,root:.: pretest,eslint ./src ./tests ./packs/scripts --ext .ts
+4210770a0832f95964317e7c374bbd082ce62a9f,1618853397,root:.: pretest,eslint ./src ./packs/scripts --ext .ts
+e43b9e13b7ac54eb27797718630eb33683c55645,1619380776,root:.: pretest,eslint ./ --ext .ts
+cf14a263946d29c682ce676c359619cd17c89dfb,1650763811,root:.: pretest,eslint ./ --ext .ts && eslint ./static ./system.json --ext .json
+98efa681a5587089e60c607c6429a1006ae3a0f3,1681113900,root:.: pretest,eslint ./ --ext .ts && eslint ./static --ext .json
+2f1dec482e627baf3f1223fb72cadb62e513615c,1682284210,root:.: pretest,npm run lint
+d24cd913046e01dd7be081257bda07050db5b73a,1693388767,root:.: prettier:scss,prettier --check src/styles/**/*.scss
+7d65bcf372bf8ba30324f3613e278e959b988d90,1694616777,root:.: prettier:scss,prettier src/**/*.scss --check
+7915d3b28be5d06013f6bc95bf53cd8874c26e3f,1702587781,root:.: prettier:scss,prettier --check src/styles
+0e4a7839e2ee05e95f2277b78cf9fdf8d48485f3,1730341783,root:.: prettier:scss,
+f6ac26f2db70624440be5749f0a6070b2bf6d835,1730342712,root:.: prettier:scss-svelte,prettier --check src/styles src/**/*.svelte
+f524ec7f00c25775a7095841fd7e1301504de76b,1632275804,root:.: start,npm run build:packs && webpack serve --hot
+3b434c7679f66e8862ae1baa11f93dc354d67a30,1636828239,root:.: start,
+3b434c7679f66e8862ae1baa11f93dc354d67a30,1636828239,root:.: start,
+720445673a8d931abb50078234e94b5378a7b356,1640159439,root:.: start,
+720445673a8d931abb50078234e94b5378a7b356,1640159439,root:.: start,
+720445673a8d931abb50078234e94b5378a7b356,1640159439,root:.: start,
+720445673a8d931abb50078234e94b5378a7b356,1640159439,root:.: start,
+720445673a8d931abb50078234e94b5378a7b356,1640159439,root:.: start,
+39f71167e8aea826f3ebe84452671cb04acf9ff4,1641642779,root:.: start,
+39f71167e8aea826f3ebe84452671cb04acf9ff4,1641642779,root:.: start,
+14f5e23d0587b1ff99b90c5d665e93791330197b,1681097988,root:.: start,
+3393a2a0aa1bc7340c7d3d2ffafd29289952c723,1609195126,root:.: test,jest
+98efa681a5587089e60c607c6429a1006ae3a0f3,1681113900,root:.: watch,npm run build:packs && vite build --watch --mode development
+3a76147953f202426e7b067110cff9a33d202d82,1681150269,root:.: watch,npm run build:packs && vite build --watch --mode development --logLevel error
+3048e2ad7e797b3dc86021af5b92636004177c9e,1686464811,root:.: watch,npm run clean && npm run build:packs && vite build --watch --mode development
+3393a2a0aa1bc7340c7d3d2ffafd29289952c723,1609195126,timestamp_source,author_timestamp

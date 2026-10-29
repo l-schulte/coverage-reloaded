@@ -1,0 +1,55 @@
+commit_hash,timestamp,script_name,script_definition
+5b73bf3e5d358505176ad7d33c4b8cda92504c38,1609773369,root:.: build,yarn build:dev && yarn build:compile-browser && yarn build:minify-browser
+68317ac836d90fae7bc718a947e81ec90d8d75fb,1696324991,root:.: build,yarn build:dev
+67df2a53c47fe81bf0a8128d3ec1183ea7d0e7aa,1750406910,root:.: build,yarn clean && yarn build:compile && yarn build:types
+5b73bf3e5d358505176ad7d33c4b8cda92504c38,1609773369,root:.: build:compile,"babel -d lib --verbose --extensions "".ts,.js"" src"
+5b73bf3e5d358505176ad7d33c4b8cda92504c38,1609773369,root:.: build:compile-browser,mkdirp dist && browserify -d src/browser-index.js -p [ tsify -p ./tsconfig.json ] -t [ babelify --sourceMaps=inline --presets [ @babel/preset-env @babel/preset-typescript ] ] | exorcist dist/browser-matrix.js.map > dist/browser-matrix.js
+b63af00579b65049d5fc473ace1f9c38ffa23cca,1628157386,root:.: build:compile-browser,mkdirp dist && browserify -d src/browser-index.js -p [ tsify -p ./tsconfig-build.json ] -t [ babelify --sourceMaps=inline --presets [ @babel/preset-env @babel/preset-typescript ] ] | exorcist dist/browser-matrix.js.map > dist/browser-matrix.js
+071d5e71e49ee0eb87f10461fbe3a9eb83087054,1669803868,root:.: build:compile-browser,mkdirp dist && browserify -d src/browser-index.ts -p [ tsify -p ./tsconfig-build.json ] -t [ babelify --sourceMaps=inline --presets [ @babel/preset-env @babel/preset-typescript ] ] | exorcist dist/browser-matrix.js.map > dist/browser-matrix.js
+b76e7ca7826ba3073a42e539204a88f6104d372e,1673203429,root:.: build:compile-browser,mkdir dist && browserify -d src/browser-index.ts -p [ tsify -p ./tsconfig-build.json ] -t [ babelify --sourceMaps=inline --presets [ @babel/preset-env @babel/preset-typescript ] ] | exorcist dist/browser-matrix.js.map > dist/browser-matrix.js
+585ce072609c2413c4db80cc5918dcd438e53a74,1677838725,root:.: build:compile-browser,mkdir dist && BROWSERIFYSWAP_ENV='no-rust-crypto' browserify -d src/browser-index.ts -p [ tsify -p ./tsconfig-build.json ] | exorcist dist/browser-matrix.js.map > dist/browser-matrix.js
+5c45c980e9aca4ad8ae82d2914792a0d585a9092,1696318840,root:.: build:compile-browser,
+5b73bf3e5d358505176ad7d33c4b8cda92504c38,1609773369,root:.: build:dev,yarn clean && git rev-parse HEAD > git-revision.txt && yarn build:compile && yarn build:types
+8367277894ac5380084767d53f9db937792231fe,1750237655,root:.: build:dev,
+5b73bf3e5d358505176ad7d33c4b8cda92504c38,1609773369,root:.: build:minify-browser,terser dist/browser-matrix.js --compress --mangle --source-map --output dist/browser-matrix.min.js
+5c45c980e9aca4ad8ae82d2914792a0d585a9092,1696318840,root:.: build:minify-browser,
+5b73bf3e5d358505176ad7d33c4b8cda92504c38,1609773369,root:.: build:types,tsc --emitDeclarationOnly
+6addc7dd3dc49150fa77cd6c84baf04717df7278,1628177292,root:.: build:types,tsc -p tsconfig-build.json --emitDeclarationOnly
+5b73bf3e5d358505176ad7d33c4b8cda92504c38,1609773369,root:.: clean,rimraf lib dist
+5f0ada957831a15ab1d4943cd0cab6e59c728279,1696328529,root:.: clean,rimraf lib
+a044b74a1d48c21b0d54699de28127f17e3ef4dc,1619615826,root:.: coverage,yarn test --coverage
+5b73bf3e5d358505176ad7d33c4b8cda92504c38,1609773369,root:.: dist,echo 'This is for the release script so it can make assets (browser bundle).' && yarn build
+3139f5729befbf0748a94779c46670dede9ebe38,1696884403,root:.: dist,
+5b73bf3e5d358505176ad7d33c4b8cda92504c38,1609773369,root:.: gendoc,jsdoc -c jsdoc.json -P package.json
+67f343d6f0a2dc9ba963fab96165ea343960331c,1668166684,root:.: gendoc,typedoc
+5b73bf3e5d358505176ad7d33c4b8cda92504c38,1609773369,root:.: lint,yarn lint:types && yarn lint:js
+0c7342cb20c51d049997597b5b96de1744bd7b66,1700836879,root:.: lint,yarn lint:types && yarn lint:js && yarn lint:workflows
+5b73bf3e5d358505176ad7d33c4b8cda92504c38,1609773369,root:.: lint:js,eslint --max-warnings 73 src spec
+88e5c59a8586b5c476bf72e0fc3c7a673ce6ffc5,1614690192,root:.: lint:js,eslint --max-warnings 72 src spec
+75370f78554068f46c6971fabf0fa2656aa504a9,1622798695,root:.: lint:js,eslint --max-warnings 57 src spec
+05d0755b6ab8b818b4c192ddba2a4d3b985bd085,1627052869,root:.: lint:js,eslint --max-warnings 7 src spec
+f8097221e6613e298797e7740abc2009d23e2064,1639059778,root:.: lint:js,eslint --max-warnings 4 src spec
+feb83ba161c32c0519613b88027f573e22efa3aa,1639496090,root:.: lint:js,eslint --max-warnings 0 src spec
+071d5e71e49ee0eb87f10461fbe3a9eb83087054,1669803868,root:.: lint:js,eslint --max-warnings 0 src spec && prettier --check .
+5cf6684129a921295f5593173f16f192336fe0a2,1626731252,root:.: lint:js-fix,eslint --fix src spec
+071d5e71e49ee0eb87f10461fbe3a9eb83087054,1669803868,root:.: lint:js-fix,prettier --loglevel=warn --write . && eslint --fix src spec
+c115e055c680f248d4489fec7e317ea46bff178b,1704217770,root:.: lint:js-fix,prettier --log-level=warn --write . && eslint --fix src spec
+0ff0093380b7f955d50ebed0648358a9b5b06c4e,1712570680,root:.: lint:knip,knip
+5b73bf3e5d358505176ad7d33c4b8cda92504c38,1609773369,root:.: lint:types,tsc --noEmit
+0c7342cb20c51d049997597b5b96de1744bd7b66,1700836879,root:.: lint:workflows,"find .github/workflows -type f \( -iname '*.yaml' -o -iname '*.yml' \) | xargs -I {} sh -c 'echo ""Linting {}""; action-validator ""{}""'"
+b34a36d853efef62e33b09f9dac3e5f4528e6692,1609866709,root:.: postinstall,yarn build:dev
+db49cd8d13950e8cf0689a2e5348aa570d7e99a1,1667479805,root:.: postinstall,patch-package
+a584324a0d2252424170ca36317dfe92845cea7e,1667923351,root:.: postinstall,
+5da072712debddcf8e32aadfe3772ece98654467,1632941229,root:.: prepack,yarn build
+137fd2bd4089a05b364f7b4f3bcfa3c0ee569e31,1632951342,root:.: prepack,
+adaf92162377414df620e004d8c58c67118490ca,1749720519,root:.: prepack,
+f627507b86b6512a213d7d48c627f9b36a48359c,1632938622,root:.: prepare,yarn build
+529d61b5f4829fbd8ef5fcdc2501897782ad5267,1632941052,root:.: prepare,
+5b73bf3e5d358505176ad7d33c4b8cda92504c38,1609773369,root:.: prepublishOnly,yarn build
+8007bc5fe87c907803245b91c657eed586ae847c,1706731654,root:.: prepublishOnly,
+5b73bf3e5d358505176ad7d33c4b8cda92504c38,1609773369,root:.: start,"echo THIS IS FOR LEGACY PURPOSES ONLY. && babel src -w -s -d lib --verbose --extensions "".ts,.js"""
+5b73bf3e5d358505176ad7d33c4b8cda92504c38,1609773369,root:.: test,jest spec/ --coverage --testEnvironment node
+1e7a1dce9056f1e94017968359bd7e58701dfc98,1619611119,root:.: test,jest
+5b73bf3e5d358505176ad7d33c4b8cda92504c38,1609773369,root:.: test:watch,jest spec/ --coverage --testEnvironment node --watch
+1e7a1dce9056f1e94017968359bd7e58701dfc98,1619611119,root:.: test:watch,jest --watch
+5b73bf3e5d358505176ad7d33c4b8cda92504c38,1609773369,timestamp_source,author_timestamp

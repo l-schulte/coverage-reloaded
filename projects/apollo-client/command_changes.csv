@@ -1,0 +1,166 @@
+commit_hash,timestamp,script_name,script_definition
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: build,tsc
+6585f9948569bd4ed768ba8a9cb4563d94988e4f,1738314218,root:.: build,node config/build.ts
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: bundlesize,npm run build && bundlesize
+eff9be8c20e17557b8f8cab0e79934f3be95615b,1589990611,root:.: bundlesize,npm run build && ts-node-script ./config/bundlesize.ts
+6585f9948569bd4ed768ba8a9cb4563d94988e4f,1738314218,root:.: bundlesize,npm run build && node ./config/bundlesize.ts
+eff9be8c20e17557b8f8cab0e79934f3be95615b,1589990611,root:.: changeset-check,changeset status --verbose --since=origin/main
+775570891d360ca81f904ba8f5d6de7ab4f7a35f,1666987377,root:.: changeset-check,
+eff9be8c20e17557b8f8cab0e79934f3be95615b,1589990611,root:.: changeset-publish,npm run build && npm run prepdist:changesets && cd dist && changeset publish
+4f73c5ca15d367aa23f02018d062f221c4506a4d,1666895713,root:.: changeset-publish,npm run build && changeset publish
+775570891d360ca81f904ba8f5d6de7ab4f7a35f,1666987377,root:.: changeset-publish,
+1a5720cfd97f7cfa1a36dac053adaff2e008c333,1670627135,root:.: changeset-publish,npm run build && cp -R .changeset dist && cd dist && echo '.changeset' > .npmignore && changeset publish
+6585f9948569bd4ed768ba8a9cb4563d94988e4f,1738314218,root:.: changeset-publish,node config/build.ts --step=build --step=prepareChangesetsRelease && cd dist && changeset publish
+e5b4c50ea1a76ad3b3d1cd23869aa6e1b7c85643,1748472387,root:.: changeset-publish,npm pkg set 'workspaces[0]'=dist && npm run build && npm run changeset publish
+1192e219b96c7ef10b3398d19b5c2e672ad7726e,1748472787,root:.: changeset-publish,npm pkg set 'workspaces[0]'=dist && npm run build && changeset publish
+eff9be8c20e17557b8f8cab0e79934f3be95615b,1589990611,root:.: changeset-version,changeset version && npm i
+775570891d360ca81f904ba8f5d6de7ab4f7a35f,1666987377,root:.: changeset-version,
+ba347309ad1479420ccbf338152314f8a2990aac,1629401734,root:.: check-DEV,ts-node-script config/checkDEV.ts
+120c1743984ae0e0dda433cd2e2e85ece30a1743,1630098359,root:.: check-DEV,
+5e8b5e09e504e2780e02526acba792b340a571a4,1677259657,root:.: check:format,prettier --check .
+eff9be8c20e17557b8f8cab0e79934f3be95615b,1589990611,root:.: ci:precheck,node config/precheck.js
+6dd58298f4f0a7058369c8c4b8bb641b89a2a251,1623277942,root:.: ci:precheck,
+6dd58298f4f0a7058369c8c4b8bb641b89a2a251,1623277942,root:.: ci:precheck,
+c274f68e034e89d87059b49aba085c92e6fb8ad6,1634073313,root:.: ci:precheck,
+6585f9948569bd4ed768ba8a9cb4563d94988e4f,1738314218,root:.: ci:precheck,node config/precheck.ts
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: clean,rimraf -r dist coverage lib
+eff9be8c20e17557b8f8cab0e79934f3be95615b,1589990611,root:.: clean,rimraf dist coverage lib temp
+bd3fc84b59329c67766830385e83578a26158694,1623276740,root:.: clean,rimraf -r dist coverage lib temp
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: coverage,jest --config ./config/jest.config.js --verbose --coverage
+eff9be8c20e17557b8f8cab0e79934f3be95615b,1589990611,root:.: coverage,node --no-compilation-cache --expose-gc --max_old_space_size=4096 node_modules/.bin/jest --config ./config/jest.config.js --logHeapUsage --coverage --watchAll=false
+6585f9948569bd4ed768ba8a9cb4563d94988e4f,1738314218,root:.: coverage,node --no-compilation-cache --expose-gc --max_old_space_size=4096 node_modules/.bin/jest --config ./config/jest.config.ts --logHeapUsage --coverage --watchAll=false
+4d1ab3aa343820a2bfe6668bfa31fbb5630b8711,1743753601,root:.: coverage,node --experimental-import-meta-resolve --no-compilation-cache --expose-gc --max_old_space_size=4096 node_modules/.bin/jest --config ./config/jest.config.ts --logHeapUsage --coverage --watchAll=false
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: deploy,cd dist && npm publish
+eff9be8c20e17557b8f8cab0e79934f3be95615b,1589990611,root:.: deploy,cd dist && npm publish --tag next
+54082b566ed167554fa957ba4804163b682eceff,1598312814,root:.: deploy,cd dist && npm publish --tag beta
+f15e55c05bf79bf2d7c8b400d39d0ccc93e34ef9,1627060597,root:.: deploy,cd dist && npm publish --tag latest
+dc67e24e725c32ab62b7b3ce223fe211a16970ca,1700649203,root:.: docmodel,tsc && npm run inline-inherit-doc && ts-node-script config/apiExtractor.ts --main-only --generate docModel
+6585f9948569bd4ed768ba8a9cb4563d94988e4f,1738314218,root:.: docmodel,node config/build.ts --step=typescript --step=inlineInheritDoc && node config/apiExtractor.ts --main-only --generate docModel
+5ce6a1de695a069190ca118ae4b2098bba8bf60b,1751468666,root:.: docmodel,npm run clean && node config/build.ts --step=prepareDist --step=addExports --step=typescript --step=inlineInheritDoc --step=deprecateInternals && node config/apiExtractor.ts --main-only --generate docModel
+c7a1b71fb719159352becb948f92d022c9090e6a,1694708838,root:.: extract-api,ts-node-script config/apiExtractor.ts
+4d64a6fa2ad5abe6f7f172c164f5e1fc2cb89829,1695333954,root:.: extract-api,npm run build && ts-node-script config/apiExtractor.ts
+dc67e24e725c32ab62b7b3ce223fe211a16970ca,1700649203,root:.: extract-api,ts-node-script config/apiExtractor.ts --generate apiReport
+44b27a6f79ea5ada8d7b9a1bccfdc5e3444ca927,1701438418,root:.: extract-api,npm run build && ts-node-script config/apiExtractor.ts --generate apiReport
+6585f9948569bd4ed768ba8a9cb4563d94988e4f,1738314218,root:.: extract-api,node config/build.ts --step=typescript --step=inlineInheritDoc && node config/apiExtractor.ts --generate apiReport
+cad511723a1b8b0ac2042cf49435f7affb0dc4e4,1741362301,root:.: extract-api,node config/build.ts --step=prepareDist --step=addExports --step=typescript --step=inlineInheritDoc && node config/apiExtractor.ts --generate apiReport
+7c0cfdcfe03ae34f2375d86ff7ad0c538fcf2114,1747740340,root:.: extract-api,node config/build.ts --step=prepareDist --step=addExports --step=typescript --step=inlineInheritDoc --step=deprecateInternals && node config/apiExtractor.ts --generate apiReport
+1bdf4893abb173c97877c71012afa15f9d3da8e6,1747945225,root:.: extract-api,npm run clean && node config/build.ts --step=prepareDist --step=addExports --step=typescript --step=inlineInheritDoc --step=deprecateInternals && node config/apiExtractor.ts --generate apiReport
+9f9ed93d1960ea80804f713b5a828c05e5b9d098,1752765156,root:.: extract-api,npm run clean && node config/build.ts --step=prepareDist --step=addExports --step=typescript --step=inlineInheritDoc --step=deprecateInternals && npm run extract-api:only
+9f9ed93d1960ea80804f713b5a828c05e5b9d098,1752765156,root:.: extract-api:only,node config/apiExtractor.ts --generate apiReport
+5e8b5e09e504e2780e02526acba792b340a571a4,1677259657,root:.: format,prettier --write .
+dc67e24e725c32ab62b7b3ce223fe211a16970ca,1700649203,root:.: inline-inherit-doc,ts-node-script config/inlineInheritDoc.ts
+1c5a0313d388945aeda93b2c1992ad77f4416fa1,1742482879,root:.: inline-inherit-doc,
+a7566a635c5f48bdfcbb215270dff335cfa6a803,1748458950,root:.: inline-inherit-doc,
+1db7792d6dc015ae75a5a35c674fc685e1be163e,1755748234,root:.: inline-inherit-doc,
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: invariants,ts-node-script config/processInvariants.ts
+1c5a0313d388945aeda93b2c1992ad77f4416fa1,1742482879,root:.: invariants,
+a7566a635c5f48bdfcbb215270dff335cfa6a803,1748458950,root:.: invariants,
+1db7792d6dc015ae75a5a35c674fc685e1be163e,1755748234,root:.: invariants,
+ae5d06ac45ca6584d3c79aa417dae22f37a7d3b6,1737984883,root:.: knip,knip
+eff9be8c20e17557b8f8cab0e79934f3be95615b,1589990611,root:.: lint,eslint '**/__tests__/**/*.[jt]sx'
+5e8b5e09e504e2780e02526acba792b340a571a4,1677259657,root:.: lint,"eslint 'src/**/*.{[jt]s,[jt]sx}'"
+f79bf70acd4d73425cde5d704ea42292906a84ac,1743622103,root:.: lint,"EXTENDED_RULES=1 eslint 'src/**/*.{[jt]s,[jt]sx}'"
+baa6becf598a0c0254f03a227266596b5e801cf8,1753257996,root:.: lint,EXTENDED_RULES=1 eslint src docs
+0715c6a2c7979165f30622d8bbfeca4783fdbfce,1753343397,root:.: lint,EXTENDED_RULES=1 eslint --max-warnings 0 src docs
+cad511723a1b8b0ac2042cf49435f7affb0dc4e4,1741362301,root:.: madge,node ./config/madge.ts
+fa0e958745e9c1ea9fbac99c2af6222a09aad6bd,1715878876,root:.: pkg-pr-new-publish,npm run build && cd dist && pkg-pr-new publish --no-template --compact
+fe2f005c34913ae082b96a807dc240e2785d50bd,1748463636,root:.: pkg-pr-new-publish,
+1db7792d6dc015ae75a5a35c674fc685e1be163e,1755748234,root:.: pkg-pr-new-publish,
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: postbuild,npm run update-version && npm run invariants && npm run sourcemaps && npm run rollup && npm run prepdist && npm run resolve && npm run verify-version
+eff9be8c20e17557b8f8cab0e79934f3be95615b,1589990611,root:.: postbuild,npm run update-version && npm run invariants && npm run sourcemaps && npm run rollup && npm run prepdist && npm run postprocess-dist && npm run verify-version
+ba347309ad1479420ccbf338152314f8a2990aac,1629401734,root:.: postbuild,npm run update-version && npm run invariants && npm run sourcemaps && npm run rollup && npm run prepdist && npm run resolve && npm run check-DEV && npm run verify-version
+dc67e24e725c32ab62b7b3ce223fe211a16970ca,1700649203,root:.: postbuild,npm run update-version && npm run inline-inherit-doc && npm run invariants && npm run sourcemaps && npm run rollup && npm run prepdist && npm run postprocess-dist && npm run verify-version
+1c5a0313d388945aeda93b2c1992ad77f4416fa1,1742482879,root:.: postbuild,
+a7566a635c5f48bdfcbb215270dff335cfa6a803,1748458950,root:.: postbuild,
+1db7792d6dc015ae75a5a35c674fc685e1be163e,1755748234,root:.: postbuild,
+eff9be8c20e17557b8f8cab0e79934f3be95615b,1589990611,root:.: postinstall,patch-package
+eff9be8c20e17557b8f8cab0e79934f3be95615b,1589990611,root:.: postprocess-dist,ts-node-script config/postprocessDist.ts
+6dd58298f4f0a7058369c8c4b8bb641b89a2a251,1623277942,root:.: postprocess-dist,
+6dd58298f4f0a7058369c8c4b8bb641b89a2a251,1623277942,root:.: postprocess-dist,
+c274f68e034e89d87059b49aba085c92e6fb8ad6,1634073313,root:.: postprocess-dist,
+79a4c914d8ef569274c30912af2e087a5087d3db,1639064103,root:.: postprocess-dist,
+1c5a0313d388945aeda93b2c1992ad77f4416fa1,1742482879,root:.: postprocess-dist,
+a7566a635c5f48bdfcbb215270dff335cfa6a803,1748458950,root:.: postprocess-dist,
+1db7792d6dc015ae75a5a35c674fc685e1be163e,1755748234,root:.: postprocess-dist,
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: prebuild,npm run clean
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: predeploy,npm run build
+1c5a0313d388945aeda93b2c1992ad77f4416fa1,1742482879,root:.: predeploy,
+a7566a635c5f48bdfcbb215270dff335cfa6a803,1748458950,root:.: predeploy,
+1db7792d6dc015ae75a5a35c674fc685e1be163e,1755748234,root:.: predeploy,
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: prepdist,node ./config/prepareDist.js
+1c5a0313d388945aeda93b2c1992ad77f4416fa1,1742482879,root:.: prepdist,
+a7566a635c5f48bdfcbb215270dff335cfa6a803,1748458950,root:.: prepdist,
+1db7792d6dc015ae75a5a35c674fc685e1be163e,1755748234,root:.: prepdist,
+eff9be8c20e17557b8f8cab0e79934f3be95615b,1589990611,root:.: prepdist:changesets,ts-node-script config/prepareChangesetsRelease.ts
+1c5a0313d388945aeda93b2c1992ad77f4416fa1,1742482879,root:.: prepdist:changesets,
+a7566a635c5f48bdfcbb215270dff335cfa6a803,1748458950,root:.: prepdist:changesets,
+1db7792d6dc015ae75a5a35c674fc685e1be163e,1755748234,root:.: prepdist:changesets,
+cad511723a1b8b0ac2042cf49435f7affb0dc4e4,1741362301,root:.: publint,publint run --strict dist
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: resolve,ts-node-script config/resolveModuleIds.ts
+88b5109bafa3158cae396c2a211115621dc58831,1644851383,root:.: resolve,
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: rollup,rollup -c ./config/rollup.config.js
+1c5a0313d388945aeda93b2c1992ad77f4416fa1,1742482879,root:.: rollup,
+a7566a635c5f48bdfcbb215270dff335cfa6a803,1748458950,root:.: rollup,
+1db7792d6dc015ae75a5a35c674fc685e1be163e,1755748234,root:.: rollup,
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: sourcemaps,ts-node-script config/rewriteSourceMaps.ts
+1c5a0313d388945aeda93b2c1992ad77f4416fa1,1742482879,root:.: sourcemaps,
+a7566a635c5f48bdfcbb215270dff335cfa6a803,1748458950,root:.: sourcemaps,
+1db7792d6dc015ae75a5a35c674fc685e1be163e,1755748234,root:.: sourcemaps,
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: test,jest --config ./config/jest.config.js
+7d939f80fbc2c419c58a6c55b6a35ee7474d0379,1701355917,root:.: test,node --expose-gc ./node_modules/jest/bin/jest.js --config ./config/jest.config.js
+6585f9948569bd4ed768ba8a9cb4563d94988e4f,1738314218,root:.: test,node --expose-gc ./node_modules/jest/bin/jest.js --config ./config/jest.config.ts
+4d1ab3aa343820a2bfe6668bfa31fbb5630b8711,1743753601,root:.: test,node --expose-gc --experimental-import-meta-resolve ./node_modules/jest/bin/jest.js --config ./config/jest.config.ts
+c3fceda86c5e0f499d0b5fa54ea7dc4c4391ae2c,1747843820,root:.: test,node --expose-gc --experimental-import-meta-resolve --disable-warning=ExperimentalWarning ./node_modules/jest/bin/jest.js --config ./config/jest.config.ts
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: test:ci,npm run test:coverage && npm run test:memory
+eff9be8c20e17557b8f8cab0e79934f3be95615b,1589990611,root:.: test:ci,TEST_ENV=ci npm run test:coverage -- --logHeapUsage && npm run test:memory
+40327da1b9233817fc4760bfbe80cd9d512279a3,1598995275,root:.: test:ci,npm run coverage -- --ci --maxWorkers=2 --reporters=default --reporters=jest-junit
+4f73c5ca15d367aa23f02018d062f221c4506a4d,1666895713,root:.: test:ci,TEST_ENV=ci npm run test:coverage && npm run test:memory
+fa0e958745e9c1ea9fbac99c2af6222a09aad6bd,1715878876,root:.: test:ci,TEST_ENV=ci npm run test:coverage -- --logHeapUsage
+ea633a110b7ffa138a33f68a0b41b0437aee61d8,1748468816,root:.: test:codegen,npm run build -w codegen && graphql-codegen --config ./tests.codegen.ts
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: test:coverage,npm run coverage -- --ci --maxWorkers=2 --reporters=default --reporters=jest-junit
+eff9be8c20e17557b8f8cab0e79934f3be95615b,1589990611,root:.: test:coverage,npm run coverage -- --ci --runInBand --reporters=default --reporters=jest-junit
+26efdeee445ab9424610f70f7686c73a57e5e208,1608119358,root:.: test:coverage,
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: test:debug,BABEL_ENV=server node --inspect-brk node_modules/.bin/jest --config ./config/jest.config.js --runInBand
+eff9be8c20e17557b8f8cab0e79934f3be95615b,1589990611,root:.: test:debug,node --inspect-brk node_modules/.bin/jest --config ./config/jest.config.js --runInBand --testTimeout 99999 --logHeapUsage
+bd3fc84b59329c67766830385e83578a26158694,1623276740,root:.: test:debug,node --inspect-brk node_modules/.bin/jest --config ./config/jest.config.js --runInBand --testTimeout 99999
+1f2ced43262ad9a5a0c27b2d531784c000b07555,1624542106,root:.: test:debug,BABEL_ENV=server node --inspect-brk node_modules/.bin/jest --config ./config/jest.config.js --runInBand --testTimeout 99999
+6585f9948569bd4ed768ba8a9cb4563d94988e4f,1738314218,root:.: test:debug,node --inspect-brk node_modules/.bin/jest --config ./config/jest.config.ts --runInBand --testTimeout 99999 --logHeapUsage
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: test:memory,cd scripts/memory && npm i && npm test
+eff9be8c20e17557b8f8cab0e79934f3be95615b,1589990611,root:.: test:memory,npm i && npm run build && cd scripts/memory && npm i && npm test
+26efdeee445ab9424610f70f7686c73a57e5e208,1608119358,root:.: test:memory,
+d933def986d476cd64321059299ab15031297f04,1732574291,root:.: test:type-benches,find src -name '*.bench.ts' | xargs -n1 tsx
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: test:watch,jest --config ./config/jest.config.js --watch
+6585f9948569bd4ed768ba8a9cb4563d94988e4f,1738314218,root:.: test:watch,jest --config ./config/jest.config.ts --watch
+cad511723a1b8b0ac2042cf49435f7affb0dc4e4,1741362301,root:.: typecheck,tsc --noEmit --project tsconfig.json
+5500c1f779e66b09eb15a07699dbb7a214966785,1741377554,root:.: typecheck,tsc --project config/tsconfig.json; tsc --noEmit --project tsconfig.json
+eff9be8c20e17557b8f8cab0e79934f3be95615b,1589990611,root:.: typedoc,typedoc src/index.ts --json docs/public/docs.json
+50f917a8490efd5f946ebcd7301625179b131e83,1644859318,root:.: typedoc,
+50f917a8490efd5f946ebcd7301625179b131e83,1644859318,root:.: typedoc,
+391af1dd733219b7e1e14cfff9d5e3ce3967242f,1744298063,root:.: typedoc,typedoc src/core/index.ts --json docs/public/docs.json
+60b7e56c6e0593a66c4ffe9c38a6a71aede717f7,1700217672,root:.: update-size-limits,"size-limit --json | jq '. | map(select(.sizeLimit) | { key: .name, value: .size}) | from_entries' | tee .new-size-limits.json; mv .new-size-limits.json .size-limits.json"
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: update-version,node config/version.js update
+1c5a0313d388945aeda93b2c1992ad77f4416fa1,1742482879,root:.: update-version,
+a7566a635c5f48bdfcbb215270dff335cfa6a803,1748458950,root:.: update-version,
+1db7792d6dc015ae75a5a35c674fc685e1be163e,1755748234,root:.: update-version,
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,root:.: verify-version,node config/version.js verify
+1c5a0313d388945aeda93b2c1992ad77f4416fa1,1742482879,root:.: verify-version,
+a7566a635c5f48bdfcbb215270dff335cfa6a803,1748458950,root:.: verify-version,
+1db7792d6dc015ae75a5a35c674fc685e1be163e,1755748234,root:.: verify-version,
+40327da1b9233817fc4760bfbe80cd9d512279a3,1598995275,root:.: watch,"tsc-watch --onSuccess ""npm run postbuild"""
+748e79f29a912590c8ae3c0a393622ea974759a0,1612889286,root:.: watch,
+21818835d1097a72cd7f3223afd51f3e3b126ac8,1571249662,timestamp_source,author_timestamp
+453a262cbb52d117b6aa0a425e06758cd169be1b,1748464263,workspaces_package:codegen: build,tsc
+453a262cbb52d117b6aa0a425e06758cd169be1b,1748464263,workspaces_package:codegen: clean,rimraf dist
+453a262cbb52d117b6aa0a425e06758cd169be1b,1748464263,workspaces_package:codegen: prebuild,npm run clean
+453a262cbb52d117b6aa0a425e06758cd169be1b,1748464263,workspaces_package:codegen: prepack,npm run build
+453a262cbb52d117b6aa0a425e06758cd169be1b,1748464263,workspaces_package:codegen: publint,publint run --strict .
+b8459062caae96447b4867be75a853aa1943ec31,1750872164,workspaces_package:scripts/codemods/ac3-to-ac4: build,tsc -p tsconfig.build.json
+b8459062caae96447b4867be75a853aa1943ec31,1750872164,workspaces_package:scripts/codemods/ac3-to-ac4: clean,rimraf dist
+d1e9503eb58325529f0f0dc8b0cb07cf05431ee3,1755245792,workspaces_package:scripts/codemods/ac3-to-ac4: local:cli,node --import ./src/devLoader.js src/cli.ts
+b8459062caae96447b4867be75a853aa1943ec31,1750872164,workspaces_package:scripts/codemods/ac3-to-ac4: prebuild,npm run clean
+b8459062caae96447b4867be75a853aa1943ec31,1750872164,workspaces_package:scripts/codemods/ac3-to-ac4: prepack,npm run build
+b8459062caae96447b4867be75a853aa1943ec31,1750872164,workspaces_package:scripts/codemods/ac3-to-ac4: publint,publint run --strict .
+b8459062caae96447b4867be75a853aa1943ec31,1750872164,workspaces_package:scripts/codemods/ac3-to-ac4: test,vitest run
+d1e9503eb58325529f0f0dc8b0cb07cf05431ee3,1755245792,workspaces_package:scripts/codemods/ac3-to-ac4: test,NODE_OPTIONS='--import ./src/devLoader.js' vitest run
+b8459062caae96447b4867be75a853aa1943ec31,1750872164,workspaces_package:scripts/codemods/ac3-to-ac4: test:watch,vitest watch
+d1e9503eb58325529f0f0dc8b0cb07cf05431ee3,1755245792,workspaces_package:scripts/codemods/ac3-to-ac4: test:watch,NODE_OPTIONS='--import ./src/devLoader.js' vitest watch

@@ -1,0 +1,234 @@
+commit_hash,timestamp,script_name,script_definition
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: appveyor:benchmark,yarn benchmark --ci
+70da0dd0432299c674e603fd1efd4d321ad1fa60,1642692935,root:.: appveyor:benchmark,
+70da0dd0432299c674e603fd1efd4d321ad1fa60,1642692935,root:.: appveyor:benchmark,
+68f2598befdfba1f417e1c6d1141aa5c98645b39,1678512612,root:.: appveyor:benchmark,
+68f2598befdfba1f417e1c6d1141aa5c98645b39,1678512612,root:.: appveyor:benchmark,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: appveyor:integration,yarn cover:integration --ci %JEST%
+70da0dd0432299c674e603fd1efd4d321ad1fa60,1642692935,root:.: appveyor:integration,
+70da0dd0432299c674e603fd1efd4d321ad1fa60,1642692935,root:.: appveyor:integration,
+68f2598befdfba1f417e1c6d1141aa5c98645b39,1678512612,root:.: appveyor:integration,
+68f2598befdfba1f417e1c6d1141aa5c98645b39,1678512612,root:.: appveyor:integration,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: appveyor:unit,yarn cover:unit --ci %JEST%
+70da0dd0432299c674e603fd1efd4d321ad1fa60,1642692935,root:.: appveyor:unit,
+70da0dd0432299c674e603fd1efd4d321ad1fa60,1642692935,root:.: appveyor:unit,
+68f2598befdfba1f417e1c6d1141aa5c98645b39,1678512612,root:.: appveyor:unit,
+68f2598befdfba1f417e1c6d1141aa5c98645b39,1678512612,root:.: appveyor:unit,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: benchmark,"node --max-old-space-size=4096 --trace-deprecation node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/test/*.benchmark.js"" --runInBand"
+9ecc2f83747728b87cd339663a76c41374a11cd0,1614171383,root:.: benchmark,"node --max-old-space-size=4096 --experimental-vm-modules --trace-deprecation node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/test/*.benchmark.js"" --runInBand"
+93c50a3bf4a3704e5d097d0c7b4aa790b7d932f9,1625563713,root:.: benchmark,"node --max-old-space-size=2048 --experimental-vm-modules --trace-deprecation node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/test/*.benchmark.js"" --runInBand"
+1ca02da83abf50909b28c334b4f46abec33ffb8b,1745260824,root:.: benchmark,"node --max-old-space-size=4096 --experimental-vm-modules --trace-deprecation node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/test/*.benchmark.mjs"" --runInBand"
+5d8f2c99b6dc4ccfa85ad1cc6541def0ff985eef,1745941518,root:.: benchmark,node --max-old-space-size=4096 --experimental-vm-modules --trace-deprecation --hash-seed=1 --random-seed=1 --no-opt --predictable --predictable-gc-schedule --interpreted-frames-native-stack --allow-natives-syntax --expose-gc --no-concurrent-sweeping ./test/BenchmarkTestCases.benchmark.mjs
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: build:examples,cd examples && node buildAll.js
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: code-lint,eslint . --ext '.js' --cache
+85a963a67b5c01b9cdc35fa677c28202985045f9,1623921808,root:.: code-lint,eslint --cache .
+8e9ff66838f59662bf21de7c53249224fb0a3cc9,1741361575,root:.: code-lint,node node_modules/eslint/bin/eslint.js --cache .
+45f0e495e7299cacd8bbfb27c6208bc3a4a6218b,1746046334,root:.: code-lint,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: cover,yarn cover:all && yarn cover:report
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: cover:all,node --max-old-space-size=4096 node_modules/jest-cli/bin/jest --coverage
+9ecc2f83747728b87cd339663a76c41374a11cd0,1614171383,root:.: cover:all,node --expose-gc --max-old-space-size=4096 --experimental-vm-modules node_modules/jest-cli/bin/jest --logHeapUsage --coverage
+4da99d8254ce37a8d04dc6a8295f33e2363bfee1,1624449520,root:.: cover:all,node --max-old-space-size=4096 --experimental-vm-modules node_modules/jest-cli/bin/jest --coverage
+93c50a3bf4a3704e5d097d0c7b4aa790b7d932f9,1625563713,root:.: cover:all,node --max-old-space-size=2048 --experimental-vm-modules node_modules/jest-cli/bin/jest --coverage
+34ec1d87d1d177d30c96d8c0d627488eaac4ba07,1747700762,root:.: cover:all,yarn cover:base --coverage
+34ec1d87d1d177d30c96d8c0d627488eaac4ba07,1747700762,root:.: cover:base,node --expose-gc --max-old-space-size=4096 --experimental-vm-modules node_modules/jest-cli/bin/jest --logHeapUsage
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: cover:basic,"node --max-old-space-size=4096 node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/te{st/TestCasesNormal,st/StatsTestCases,st/ConfigTestCases}.test.js"" --coverage"
+9ecc2f83747728b87cd339663a76c41374a11cd0,1614171383,root:.: cover:basic,"node --expose-gc --max-old-space-size=4096 --experimental-vm-modules node_modules/jest-cli/bin/jest --logHeapUsage --testMatch ""<rootDir>/test/*.basictest.js"" --coverage"
+4da99d8254ce37a8d04dc6a8295f33e2363bfee1,1624449520,root:.: cover:basic,"node --max-old-space-size=4096 --experimental-vm-modules node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/te{st/TestCasesNormal,st/StatsTestCases,st/ConfigTestCases}.test.js"" --coverage"
+5cd2ad26d87deb02ae5f09abad2fed057d9421c8,1625499123,root:.: cover:basic,"node --expose-gc --max-old-space-size=4096 --experimental-vm-modules node_modules/jest-cli/bin/jest --logHeapUsage --testMatch ""<rootDir>/te{st/TestCasesNormal,st/StatsTestCases,st/ConfigTestCases}.test.js"" --coverage"
+93c50a3bf4a3704e5d097d0c7b4aa790b7d932f9,1625563713,root:.: cover:basic,"node --max-old-space-size=2048 --experimental-vm-modules node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/te{st/TestCasesNormal,st/StatsTestCases,st/ConfigTestCases}.test.js"" --coverage"
+34ec1d87d1d177d30c96d8c0d627488eaac4ba07,1747700762,root:.: cover:basic,"yarn cover:base --testMatch ""<rootDir>/test/*.basictest.js"" --coverage"
+b80b612c14d7722b69077cf119aba1d837e1bbd6,1613450667,root:.: cover:clean,rimraf .nyc_output coverage
+54606185134462f005c306ac634336f57dbb69d1,1614171622,root:.: cover:clean,
+54606185134462f005c306ac634336f57dbb69d1,1614171622,root:.: cover:clean,
+54606185134462f005c306ac634336f57dbb69d1,1614171622,root:.: cover:clean,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: cover:integration,"node --max-old-space-size=4096 node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/test/*.test.js"" --coverage"
+9ecc2f83747728b87cd339663a76c41374a11cd0,1614171383,root:.: cover:integration,"node --expose-gc --max-old-space-size=4096 --experimental-vm-modules node_modules/jest-cli/bin/jest --logHeapUsage --testMatch ""<rootDir>/test/*.{basictest,longtest,test}.js"" --coverage"
+4da99d8254ce37a8d04dc6a8295f33e2363bfee1,1624449520,root:.: cover:integration,"node --max-old-space-size=4096 --experimental-vm-modules node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/test/*.test.js"" --coverage"
+5cd2ad26d87deb02ae5f09abad2fed057d9421c8,1625499123,root:.: cover:integration,"node --expose-gc --max-old-space-size=4096 --experimental-vm-modules node_modules/jest-cli/bin/jest --logHeapUsage --testMatch ""<rootDir>/test/*.test.js"" --coverage"
+93c50a3bf4a3704e5d097d0c7b4aa790b7d932f9,1625563713,root:.: cover:integration,"node --max-old-space-size=2048 --experimental-vm-modules node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/test/*.test.js"" --coverage"
+34ec1d87d1d177d30c96d8c0d627488eaac4ba07,1747700762,root:.: cover:integration,"yarn cover:base --testMatch ""<rootDir>/test/*.{basictest,longtest,test}.js"" --coverage"
+9ecc2f83747728b87cd339663a76c41374a11cd0,1614171383,root:.: cover:integration:a,"node --expose-gc --max-old-space-size=4096 --experimental-vm-modules node_modules/jest-cli/bin/jest --logHeapUsage --testMatch ""<rootDir>/test/*.{basictest,test}.js"" --coverage"
+54606185134462f005c306ac634336f57dbb69d1,1614171622,root:.: cover:integration:a,
+54606185134462f005c306ac634336f57dbb69d1,1614171622,root:.: cover:integration:a,
+3b65860614a10b7ac1209e0a947d4693c84537f2,1621758207,root:.: cover:integration:a,
+8bc0927edea5c4db5641e74b861d2e95067f85e1,1624318926,root:.: cover:integration:a,
+f252dc868d441c8163ff5472cce9c6fc5cf9b652,1626187812,root:.: cover:integration:a,"node --expose-gc --max-old-space-size=4096 --experimental-vm-modules node_modules/jest-cli/bin/jest --logHeapUsage --testMatch ""<rootDir>/test/*.test.js"" --coverage"
+34ec1d87d1d177d30c96d8c0d627488eaac4ba07,1747700762,root:.: cover:integration:a,"yarn cover:base --testMatch ""<rootDir>/test/*.{basictest,test}.js"" --coverage"
+9ecc2f83747728b87cd339663a76c41374a11cd0,1614171383,root:.: cover:integration:b,"node --expose-gc --max-old-space-size=4096 --experimental-vm-modules node_modules/jest-cli/bin/jest --logHeapUsage --testMatch ""<rootDir>/test/*.longtest.js"" --coverage"
+54606185134462f005c306ac634336f57dbb69d1,1614171622,root:.: cover:integration:b,
+54606185134462f005c306ac634336f57dbb69d1,1614171622,root:.: cover:integration:b,
+3b65860614a10b7ac1209e0a947d4693c84537f2,1621758207,root:.: cover:integration:b,
+8bc0927edea5c4db5641e74b861d2e95067f85e1,1624318926,root:.: cover:integration:b,
+f252dc868d441c8163ff5472cce9c6fc5cf9b652,1626187812,root:.: cover:integration:b,"node --expose-gc --max-old-space-size=4096 --experimental-vm-modules node_modules/jest-cli/bin/jest --logHeapUsage --testMatch ""<rootDir>/test/*.{basictest,longtest}.js"" --coverage"
+34ec1d87d1d177d30c96d8c0d627488eaac4ba07,1747700762,root:.: cover:integration:b,"yarn cover:base --testMatch ""<rootDir>/test/*.longtest.js"" --coverage"
+b80b612c14d7722b69077cf119aba1d837e1bbd6,1613450667,root:.: cover:merge,nyc merge .nyc_output coverage/coverage-nyc.json && rimraf .nyc_output
+9ecc2f83747728b87cd339663a76c41374a11cd0,1614171383,root:.: cover:merge,yarn mkdirp .nyc_output && nyc merge .nyc_output coverage/coverage-nyc.json && rimraf .nyc_output
+54606185134462f005c306ac634336f57dbb69d1,1614171622,root:.: cover:merge,
+54606185134462f005c306ac634336f57dbb69d1,1614171622,root:.: cover:merge,
+54606185134462f005c306ac634336f57dbb69d1,1614171622,root:.: cover:merge,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: cover:report,istanbul report
+b80b612c14d7722b69077cf119aba1d837e1bbd6,1613450667,root:.: cover:report,nyc report -t coverage
+85a963a67b5c01b9cdc35fa677c28202985045f9,1623921808,root:.: cover:report,nyc report --reporter=lcov  --reporter=text -t coverage
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: cover:types,node node_modules/tooling/type-coverage
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: cover:unit,"node --max-old-space-size=4096 node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/test/*.unittest.js"" --coverage"
+9ecc2f83747728b87cd339663a76c41374a11cd0,1614171383,root:.: cover:unit,"node --max-old-space-size=4096 --experimental-vm-modules node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/test/*.unittest.js"" --coverage"
+93c50a3bf4a3704e5d097d0c7b4aa790b7d932f9,1625563713,root:.: cover:unit,"node --max-old-space-size=2048 --experimental-vm-modules node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/test/*.unittest.js"" --coverage"
+34ec1d87d1d177d30c96d8c0d627488eaac4ba07,1747700762,root:.: cover:unit,"yarn cover:base --testMatch ""<rootDir>/test/*.unittest.js"" --coverage"
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: fix,yarn code-lint --fix && yarn special-lint-fix && yarn pretty-lint-fix
+ea3ba3dfcc118aa6dfd4fa2d86927ea1d47cbe81,1746054160,root:.: fix,yarn fix:code && fix:yarn && fix:special && yarn fmt
+a55ac0ed6d23ea9e47da55137083f0213a1fc59c,1750428484,root:.: fix,yarn fix:code && yarn fix:yarn && yarn fix:special && yarn fmt
+ea3ba3dfcc118aa6dfd4fa2d86927ea1d47cbe81,1746054160,root:.: fix:code,yarn lint:code --fix
+ea3ba3dfcc118aa6dfd4fa2d86927ea1d47cbe81,1746054160,root:.: fix:special,node node_modules/tooling/inherit-types --write && node node_modules/tooling/format-schemas --write && node tooling/generate-runtime-code.js --write && node tooling/generate-wasm-code.js --write && node node_modules/tooling/format-file-header --write && node node_modules/tooling/compile-to-definitions --write && node node_modules/tooling/precompile-schemas --write && node node_modules/tooling/generate-types --no-template-literals --write
+02a1d22db873d24a32d06ac836c1a3124e5bedb0,1751458254,root:.: fix:special,node node_modules/tooling/inherit-types --write && node node_modules/tooling/format-schemas --write && node tooling/generate-runtime-code.js --write && node tooling/generate-wasm-code.js --write && node node_modules/tooling/compile-to-definitions --write && node node_modules/tooling/precompile-schemas --write && node node_modules/tooling/generate-types --no-template-literals --write
+ea3ba3dfcc118aa6dfd4fa2d86927ea1d47cbe81,1746054160,root:.: fix:yarn,yarn-deduplicate -s highest yarn.lock
+ea3ba3dfcc118aa6dfd4fa2d86927ea1d47cbe81,1746054160,root:.: fmt,yarn fmt:base --log-level warn --write
+ea3ba3dfcc118aa6dfd4fa2d86927ea1d47cbe81,1746054160,root:.: fmt:base,node node_modules/prettier/bin/prettier.cjs --cache --ignore-unknown .
+ea3ba3dfcc118aa6dfd4fa2d86927ea1d47cbe81,1746054160,root:.: fmt:check,yarn fmt:base --check
+9ecc2f83747728b87cd339663a76c41374a11cd0,1614171383,root:.: jest,node --expose-gc --max-old-space-size=4096 --experimental-vm-modules --trace-deprecation node_modules/jest-cli/bin/jest --logHeapUsage
+54606185134462f005c306ac634336f57dbb69d1,1614171622,root:.: jest,
+54606185134462f005c306ac634336f57dbb69d1,1614171622,root:.: jest,
+3b65860614a10b7ac1209e0a947d4693c84537f2,1621758207,root:.: jest,
+8bc0927edea5c4db5641e74b861d2e95067f85e1,1624318926,root:.: jest,
+d6dcf0c281ca8cb45c823b635fbfe6db8cc6c1da,1625499728,root:.: jest,
+45f0e495e7299cacd8bbfb27c6208bc3a4a6218b,1746046334,root:.: jest,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: lint,yarn code-lint && yarn special-lint && yarn type-lint && yarn typings-lint && yarn yarn-lint && yarn pretty-lint && yarn spellcheck
+9ecc2f83747728b87cd339663a76c41374a11cd0,1614171383,root:.: lint,yarn code-lint && yarn special-lint && yarn type-lint && yarn typings-test && yarn module-typings-test && yarn yarn-lint && yarn pretty-lint && yarn spellcheck
+ea3ba3dfcc118aa6dfd4fa2d86927ea1d47cbe81,1746054160,root:.: lint,yarn lint:code && yarn lint:special && yarn lint:types && yarn lint:types-test && yarn lint:types-module-test && yarn lint:yarn && yarn fmt:check && yarn lint:spellcheck
+5b2c4ba051f50dac92640f7e04d0a14a4d4dd40f,1764087291,root:.: lint,yarn lint:code && yarn lint:special && yarn lint:types && yarn lint:types-test && yarn lint:types-module-test && yarn lint:types-hot && yarn lint:yarn && yarn fmt:check && yarn lint:spellcheck
+5bf8bc51bcfb49d25b73aae450b246cd8b8b423a,1765970188,root:.: lint,yarn lint:code && yarn lint:special && yarn lint:types && yarn lint:types-test && yarn lint:types-benchmark && yarn lint:types-module-test && yarn lint:types-hot && yarn lint:yarn && yarn fmt:check && yarn lint:spellcheck
+ea3ba3dfcc118aa6dfd4fa2d86927ea1d47cbe81,1746054160,root:.: lint:code,node node_modules/eslint/bin/eslint.js --cache .
+ea3ba3dfcc118aa6dfd4fa2d86927ea1d47cbe81,1746054160,root:.: lint:special,node node_modules/tooling/lockfile-lint && node node_modules/tooling/schemas-lint && node node_modules/tooling/inherit-types && node node_modules/tooling/format-schemas && node tooling/generate-runtime-code.js && node tooling/generate-wasm-code.js && node node_modules/tooling/format-file-header && node node_modules/tooling/compile-to-definitions && node node_modules/tooling/precompile-schemas && node node_modules/tooling/generate-types --no-template-literals
+02a1d22db873d24a32d06ac836c1a3124e5bedb0,1751458254,root:.: lint:special,node node_modules/tooling/lockfile-lint && node node_modules/tooling/schemas-lint && node node_modules/tooling/inherit-types && node node_modules/tooling/format-schemas && node tooling/generate-runtime-code.js && node tooling/generate-wasm-code.js && node node_modules/tooling/compile-to-definitions && node node_modules/tooling/precompile-schemas && node node_modules/tooling/generate-types --no-template-literals
+ea3ba3dfcc118aa6dfd4fa2d86927ea1d47cbe81,1746054160,root:.: lint:spellcheck,"cspell --cache --no-must-find-files --quiet ""**/*.*"""
+ea3ba3dfcc118aa6dfd4fa2d86927ea1d47cbe81,1746054160,root:.: lint:types,tsc
+5bf8bc51bcfb49d25b73aae450b246cd8b8b423a,1765970188,root:.: lint:types-benchmark,tsc -p tsconfig.types.benchmark.json
+5b2c4ba051f50dac92640f7e04d0a14a4d4dd40f,1764087291,root:.: lint:types-hot,tsc -p tsconfig.hot.json
+ea3ba3dfcc118aa6dfd4fa2d86927ea1d47cbe81,1746054160,root:.: lint:types-module-test,tsc -p tsconfig.module.test.json
+ea3ba3dfcc118aa6dfd4fa2d86927ea1d47cbe81,1746054160,root:.: lint:types-test,tsc -p tsconfig.types.test.json
+ea3ba3dfcc118aa6dfd4fa2d86927ea1d47cbe81,1746054160,root:.: lint:yarn,yarn-deduplicate --fail --list -s highest yarn.lock
+9ecc2f83747728b87cd339663a76c41374a11cd0,1614171383,root:.: module-typings-test,tsc -p tsconfig.module.test.json
+54606185134462f005c306ac634336f57dbb69d1,1614171622,root:.: module-typings-test,
+54606185134462f005c306ac634336f57dbb69d1,1614171622,root:.: module-typings-test,
+c3b643aa7998db751595be72f53fa95318ff571d,1623921808,root:.: module-typings-test,
+c3b643aa7998db751595be72f53fa95318ff571d,1623921808,root:.: module-typings-test,
+c3b643aa7998db751595be72f53fa95318ff571d,1623921808,root:.: module-typings-test,
+45f0e495e7299cacd8bbfb27c6208bc3a4a6218b,1746046334,root:.: module-typings-test,
+d2c6b9f8ec430aa4b8effa65ab6d2dd511f29db2,1613956090,root:.: postinstall,husky install
+d0e79dfd48cc63201f03b86a904e51b9366ce274,1613956684,root:.: postinstall,
+d0e79dfd48cc63201f03b86a904e51b9366ce274,1613956684,root:.: postpublish,pinst --enable
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: prelint,yarn setup
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: prepare,husky install
+164c91a6b9f7c33875e0062230c65783771837b7,1612641621,root:.: prepare,
+c5617482b739578b29682f71b9439e26b58ef743,1683716700,root:.: prepare,husky
+d0e79dfd48cc63201f03b86a904e51b9366ce274,1613956684,root:.: prepublish,pinst --disable
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: pretest,yarn lint
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: pretty-lint,yarn pretty-lint-base --check
+45f0e495e7299cacd8bbfb27c6208bc3a4a6218b,1746046334,root:.: pretty-lint,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: pretty-lint-base,"prettier ""*.{ts,json,yml,yaml,md}"" ""{setup,lib,bin,hot,benchmark,tooling,schemas}/**/*.json"" ""examples/*.md"""
+85a963a67b5c01b9cdc35fa677c28202985045f9,1623921808,root:.: pretty-lint-base,prettier --cache .
+c5617482b739578b29682f71b9439e26b58ef743,1683716700,root:.: pretty-lint-base,node node_modules/prettier/bin/prettier.cjs --cache --ignore-unknown .
+75d9094922fdac7d2c68c3c444e7cb9876625a07,1706273948,root:.: pretty-lint-base,node node_modules/prettier/bin/prettier.cjs --cache .
+45f0e495e7299cacd8bbfb27c6208bc3a4a6218b,1746046334,root:.: pretty-lint-base,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: pretty-lint-base-all,"yarn pretty-lint-base ""*.js"" ""{setup,lib,bin,hot,benchmark,tooling,schemas}/**/*.js"" ""test/*.js"" ""test/helpers/*.js"" ""test/{configCases,watchCases,statsCases,hotCases,benchmarkCases}/**/webpack.config.js"" ""examples/**/webpack.config.js"""
+9ecc2f83747728b87cd339663a76c41374a11cd0,1614171383,root:.: pretty-lint-base-all,"yarn pretty-lint-base ""*.js"" ""{setup,lib,bin,hot,benchmark,tooling,schemas}/**/*.js"" ""module.d.ts"" ""test/*.js"" ""test/helpers/*.js"" ""test/{configCases,watchCases,statsCases,hotCases,benchmarkCases}/**/webpack.config.js"" ""examples/**/webpack.config.js"""
+e095f51c463962803ddf49427f8f3994e7109ef4,1635878736,root:.: pretty-lint-base-all,"yarn pretty-lint-base ""*.js"" ""{setup,lib,bin,hot,benchmark,tooling,schemas}/**/*.js"" ""client-types/*.ts"" ""test/*.js"" ""test/helpers/*.js"" ""test/{configCases,watchCases,statsCases,hotCases,benchmarkCases}/**/webpack.config.js"" ""examples/**/webpack.config.js"""
+56d4fb27e3706ec9d293b6a0bfd87619bc7f3f9e,1681862603,root:.: pretty-lint-base-all,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: pretty-lint-fix,yarn pretty-lint-base-all --loglevel warn --write
+85a963a67b5c01b9cdc35fa677c28202985045f9,1623921808,root:.: pretty-lint-fix,yarn pretty-lint-base --loglevel warn --write
+bb10e4b5f026e994c4b5ce3f35e67cd52238c02d,1717666577,root:.: pretty-lint-fix,yarn pretty-lint-base --log-level warn --write
+45f0e495e7299cacd8bbfb27c6208bc3a4a6218b,1746046334,root:.: pretty-lint-fix,
+ea3ba3dfcc118aa6dfd4fa2d86927ea1d47cbe81,1746054160,root:.: report:types,rimraf coverage && yarn cover:types && yarn cover:report && open-cli coverage/lcov-report/index.html
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: setup,node ./setup/setup.js
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: special-lint,node node_modules/tooling/lockfile-lint && node node_modules/tooling/schemas-lint && node node_modules/tooling/inherit-types && node node_modules/tooling/format-schemas && node tooling/generate-runtime-code.js && node node_modules/tooling/format-file-header && node node_modules/tooling/compile-to-definitions && node node_modules/tooling/precompile-schemas && node node_modules/tooling/generate-types --no-template-literals
+f72b803ed635e3b4a0c587c53e170e7cc922b1ce,1564508144,root:.: special-lint,node node_modules/tooling/lockfile-lint && node node_modules/tooling/schemas-lint && node node_modules/tooling/inherit-types && node node_modules/tooling/format-schemas && node tooling/generate-runtime-code.js && node node_modules/tooling/format-file-header && node node_modules/tooling/compile-to-definitions && node node_modules/tooling/generate-types
+427491edbdfd31d0c70b8ce57ef2a4229b26fbce,1588783986,root:.: special-lint,node node_modules/tooling/lockfile-lint && node node_modules/tooling/schemas-lint && node node_modules/tooling/inherit-types && node node_modules/tooling/format-schemas && node tooling/generate-runtime-code.js && node node_modules/tooling/format-file-header && node node_modules/tooling/compile-to-definitions && node node_modules/tooling/generate-types --no-template-literals
+9ecc2f83747728b87cd339663a76c41374a11cd0,1614171383,root:.: special-lint,node node_modules/tooling/lockfile-lint && node node_modules/tooling/schemas-lint && node node_modules/tooling/inherit-types && node node_modules/tooling/format-schemas && node tooling/generate-runtime-code.js && node tooling/generate-wasm-code.js && node node_modules/tooling/format-file-header && node node_modules/tooling/compile-to-definitions && node node_modules/tooling/precompile-schemas && node node_modules/tooling/generate-types --no-template-literals
+91cf8e0988a10cbba3cf98d986e7e53560138635,1680804130,root:.: special-lint,node node_modules/tooling/lockfile-lint && node node_modules/tooling/schemas-lint && node node_modules/tooling/inherit-types && node node_modules/tooling/format-schemas && node tooling/generate-runtime-code.js && node tooling/generate-wasm-code.js && node node_modules/tooling/format-file-header && node node_modules/tooling/compile-to-definitions && node node_modules/tooling/generate-types --no-template-literals
+45f0e495e7299cacd8bbfb27c6208bc3a4a6218b,1746046334,root:.: special-lint,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: special-lint-fix,node node_modules/tooling/inherit-types --write && node node_modules/tooling/format-schemas --write && node tooling/generate-runtime-code.js --write && node node_modules/tooling/format-file-header --write && node node_modules/tooling/compile-to-definitions --write && node node_modules/tooling/precompile-schemas --write && node node_modules/tooling/generate-types --no-template-literals --write
+f72b803ed635e3b4a0c587c53e170e7cc922b1ce,1564508144,root:.: special-lint-fix,node node_modules/tooling/inherit-types --write && node node_modules/tooling/format-schemas --write && node tooling/generate-runtime-code.js --write && node node_modules/tooling/format-file-header --write && node node_modules/tooling/compile-to-definitions --write && node node_modules/tooling/generate-types --write
+427491edbdfd31d0c70b8ce57ef2a4229b26fbce,1588783986,root:.: special-lint-fix,node node_modules/tooling/inherit-types --write && node node_modules/tooling/format-schemas --write && node tooling/generate-runtime-code.js --write && node node_modules/tooling/format-file-header --write && node node_modules/tooling/compile-to-definitions --write && node node_modules/tooling/generate-types --no-template-literals --write
+9ecc2f83747728b87cd339663a76c41374a11cd0,1614171383,root:.: special-lint-fix,node node_modules/tooling/inherit-types --write && node node_modules/tooling/format-schemas --write && node tooling/generate-runtime-code.js --write && node tooling/generate-wasm-code.js --write && node node_modules/tooling/format-file-header --write && node node_modules/tooling/compile-to-definitions --write && node node_modules/tooling/precompile-schemas --write && node node_modules/tooling/generate-types --no-template-literals --write
+f91586df63201fb951d20543b3e9afee7281d6d5,1680803866,root:.: special-lint-fix,node node_modules/tooling/inherit-types --write && node node_modules/tooling/format-schemas --write && node tooling/generate-runtime-code.js --write && node tooling/generate-wasm-code.js --write && node node_modules/tooling/format-file-header --write && node node_modules/tooling/compile-to-definitions --write && node node_modules/tooling/generate-types --no-template-literals --write
+45f0e495e7299cacd8bbfb27c6208bc3a4a6218b,1746046334,root:.: special-lint-fix,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: spellcheck,"cspell ""{.github,benchmark,bin,examples,hot,lib,schemas,setup,tooling}/**/*.{md,yml,yaml,js,json}"" ""*.md"""
+9ecc2f83747728b87cd339663a76c41374a11cd0,1614171383,root:.: spellcheck,"cspell ""**/*"""
+85a963a67b5c01b9cdc35fa677c28202985045f9,1623921808,root:.: spellcheck,"cspell --no-progress ""**"""
+0760dcd655639aa005208e1942014a8f8bfa0993,1680872490,root:.: spellcheck,"cspell ""**"""
+c5617482b739578b29682f71b9439e26b58ef743,1683716700,root:.: spellcheck,"cspell --cache --no-must-find-files --quiet ""**/*.*"""
+45f0e495e7299cacd8bbfb27c6208bc3a4a6218b,1746046334,root:.: spellcheck,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: test,node --max-old-space-size=4096 --trace-deprecation node_modules/jest-cli/bin/jest
+9ecc2f83747728b87cd339663a76c41374a11cd0,1614171383,root:.: test,node --expose-gc --max-old-space-size=4096 --experimental-vm-modules --trace-deprecation node_modules/jest-cli/bin/jest --logHeapUsage
+4da99d8254ce37a8d04dc6a8295f33e2363bfee1,1624449520,root:.: test,node --max-old-space-size=4096 --experimental-vm-modules --trace-deprecation node_modules/jest-cli/bin/jest
+93c50a3bf4a3704e5d097d0c7b4aa790b7d932f9,1625563713,root:.: test,node --max-old-space-size=2048 --experimental-vm-modules --trace-deprecation node_modules/jest-cli/bin/jest
+d681b877478d02fcad2126ef30fa49d815858a4d,1747932306,root:.: test,yarn test:base
+d681b877478d02fcad2126ef30fa49d815858a4d,1747932306,root:.: test:base,node --expose-gc --max-old-space-size=4096 --experimental-vm-modules --trace-deprecation node_modules/jest-cli/bin/jest --logHeapUsage
+0c066808d59e4f9406e11bab4ffa2e0feacbd0e2,1765889919,root:.: test:base:deno,deno --allow-read --allow-env --allow-sys --allow-ffi --allow-write --allow-run --v8-flags='--max-old-space-size=4096' ./node_modules/jest-cli/bin/jest.js --logHeapUsage
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: test:basic,"node --max-old-space-size=4096 --trace-deprecation node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/te{st/TestCasesNormal,st/StatsTestCases,st/ConfigTestCases}.test.js"""
+9ecc2f83747728b87cd339663a76c41374a11cd0,1614171383,root:.: test:basic,"node --expose-gc --max-old-space-size=4096 --experimental-vm-modules --trace-deprecation node_modules/jest-cli/bin/jest --logHeapUsage --testMatch ""<rootDir>/test/*.basictest.js"""
+4da99d8254ce37a8d04dc6a8295f33e2363bfee1,1624449520,root:.: test:basic,"node --max-old-space-size=4096 --experimental-vm-modules --trace-deprecation node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/te{st/TestCasesNormal,st/StatsTestCases,st/ConfigTestCases}.test.js"""
+5cd2ad26d87deb02ae5f09abad2fed057d9421c8,1625499123,root:.: test:basic,"node --expose-gc --max-old-space-size=4096 --experimental-vm-modules --trace-deprecation node_modules/jest-cli/bin/jest --logHeapUsage --testMatch ""<rootDir>/te{st/TestCasesNormal,st/StatsTestCases,st/ConfigTestCases}.test.js"""
+93c50a3bf4a3704e5d097d0c7b4aa790b7d932f9,1625563713,root:.: test:basic,"node --max-old-space-size=2048 --experimental-vm-modules --trace-deprecation node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/te{st/TestCasesNormal,st/StatsTestCases,st/ConfigTestCases}.test.js"""
+34ec1d87d1d177d30c96d8c0d627488eaac4ba07,1747700762,root:.: test:basic,"yarn test --testMatch ""<rootDir>/test/*.basictest.js"""
+d681b877478d02fcad2126ef30fa49d815858a4d,1747932306,root:.: test:basic,"yarn test:base --testMatch ""<rootDir>/test/*.basictest.js"""
+0c066808d59e4f9406e11bab4ffa2e0feacbd0e2,1765889919,root:.: test:basic:deno,"yarn test:base:deno --testMatch ""<rootDir>/test/*.basictest.js"""
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: test:integration,"node --max-old-space-size=4096 --trace-deprecation node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/test/*.test.js"""
+9ecc2f83747728b87cd339663a76c41374a11cd0,1614171383,root:.: test:integration,"node --expose-gc --max-old-space-size=4096 --experimental-vm-modules --trace-deprecation node_modules/jest-cli/bin/jest --logHeapUsage --testMatch ""<rootDir>/test/*.{basictest,longtest,test}.js"""
+4da99d8254ce37a8d04dc6a8295f33e2363bfee1,1624449520,root:.: test:integration,"node --max-old-space-size=4096 --experimental-vm-modules --trace-deprecation node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/test/*.test.js"""
+5cd2ad26d87deb02ae5f09abad2fed057d9421c8,1625499123,root:.: test:integration,"node --expose-gc --max-old-space-size=4096 --experimental-vm-modules --trace-deprecation node_modules/jest-cli/bin/jest --logHeapUsage --testMatch ""<rootDir>/test/*.test.js"""
+93c50a3bf4a3704e5d097d0c7b4aa790b7d932f9,1625563713,root:.: test:integration,"node --max-old-space-size=2048 --experimental-vm-modules --trace-deprecation node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/test/*.test.js"""
+34ec1d87d1d177d30c96d8c0d627488eaac4ba07,1747700762,root:.: test:integration,"yarn test --testMatch ""<rootDir>/test/*.{basictest,longtest,test}.js"""
+d681b877478d02fcad2126ef30fa49d815858a4d,1747932306,root:.: test:integration,"yarn test:base --testMatch ""<rootDir>/test/*.{basictest,longtest,test}.js"""
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: test:unit,"node --max-old-space-size=4096 --trace-deprecation node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/test/*.unittest.js"""
+9ecc2f83747728b87cd339663a76c41374a11cd0,1614171383,root:.: test:unit,"node --max-old-space-size=4096 --experimental-vm-modules --trace-deprecation node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/test/*.unittest.js"""
+93c50a3bf4a3704e5d097d0c7b4aa790b7d932f9,1625563713,root:.: test:unit,"node --max-old-space-size=2048 --experimental-vm-modules --trace-deprecation node_modules/jest-cli/bin/jest --testMatch ""<rootDir>/test/*.unittest.js"""
+34ec1d87d1d177d30c96d8c0d627488eaac4ba07,1747700762,root:.: test:unit,"yarn test --testMatch ""<rootDir>/test/*.unittest.js"""
+d681b877478d02fcad2126ef30fa49d815858a4d,1747932306,root:.: test:unit,"yarn test:base --testMatch ""<rootDir>/test/*.unittest.js"""
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: test:update-snapshots,yarn jest -u
+ea3ba3dfcc118aa6dfd4fa2d86927ea1d47cbe81,1746054160,root:.: test:update-snapshots,yarn test -u
+d681b877478d02fcad2126ef30fa49d815858a4d,1747932306,root:.: test:update-snapshots,yarn test:base -u
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: travis:basic,yarn cover:basic --ci $JEST
+70da0dd0432299c674e603fd1efd4d321ad1fa60,1642692935,root:.: travis:basic,
+70da0dd0432299c674e603fd1efd4d321ad1fa60,1642692935,root:.: travis:basic,
+68f2598befdfba1f417e1c6d1141aa5c98645b39,1678512612,root:.: travis:basic,
+68f2598befdfba1f417e1c6d1141aa5c98645b39,1678512612,root:.: travis:basic,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: travis:benchmark,yarn benchmark --ci
+70da0dd0432299c674e603fd1efd4d321ad1fa60,1642692935,root:.: travis:benchmark,
+70da0dd0432299c674e603fd1efd4d321ad1fa60,1642692935,root:.: travis:benchmark,
+68f2598befdfba1f417e1c6d1141aa5c98645b39,1678512612,root:.: travis:benchmark,
+68f2598befdfba1f417e1c6d1141aa5c98645b39,1678512612,root:.: travis:benchmark,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: travis:integration,yarn cover:integration --ci $JEST
+70da0dd0432299c674e603fd1efd4d321ad1fa60,1642692935,root:.: travis:integration,
+70da0dd0432299c674e603fd1efd4d321ad1fa60,1642692935,root:.: travis:integration,
+68f2598befdfba1f417e1c6d1141aa5c98645b39,1678512612,root:.: travis:integration,
+68f2598befdfba1f417e1c6d1141aa5c98645b39,1678512612,root:.: travis:integration,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: travis:lintunit,yarn lint && yarn cover:unit --ci $JEST
+70da0dd0432299c674e603fd1efd4d321ad1fa60,1642692935,root:.: travis:lintunit,
+70da0dd0432299c674e603fd1efd4d321ad1fa60,1642692935,root:.: travis:lintunit,
+68f2598befdfba1f417e1c6d1141aa5c98645b39,1678512612,root:.: travis:lintunit,
+68f2598befdfba1f417e1c6d1141aa5c98645b39,1678512612,root:.: travis:lintunit,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: type-lint,tsc
+45f0e495e7299cacd8bbfb27c6208bc3a4a6218b,1746046334,root:.: type-lint,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: type-report,rimraf coverage && yarn cover:types && yarn cover:report && open-cli coverage/lcov-report/index.html
+45f0e495e7299cacd8bbfb27c6208bc3a4a6218b,1746046334,root:.: type-report,
+115f41ee8d34ee66f1a2443817dbd013e5ebd4ae,1741904437,root:.: type-validate,tsc -p tsconfig.validation.json
+45f0e495e7299cacd8bbfb27c6208bc3a4a6218b,1746046334,root:.: type-validate,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: typings-lint,tsc -p tsconfig.test.json
+ad62f2fd415232840622acb5f5be753e59d1624a,1635875912,root:.: typings-lint,tsc -p tsconfig.test.json && tsc -p tsconfig.test.esm.json
+6941c519e901629a6dfcd736ac191771cd3ac03e,1635949724,root:.: typings-lint,
+70da0dd0432299c674e603fd1efd4d321ad1fa60,1642692935,root:.: typings-lint,
+68f2598befdfba1f417e1c6d1141aa5c98645b39,1678512612,root:.: typings-lint,
+68f2598befdfba1f417e1c6d1141aa5c98645b39,1678512612,root:.: typings-lint,
+9ecc2f83747728b87cd339663a76c41374a11cd0,1614171383,root:.: typings-test,tsc -p tsconfig.types.test.json
+54606185134462f005c306ac634336f57dbb69d1,1614171622,root:.: typings-test,
+54606185134462f005c306ac634336f57dbb69d1,1614171622,root:.: typings-test,
+c3b643aa7998db751595be72f53fa95318ff571d,1623921808,root:.: typings-test,
+c3b643aa7998db751595be72f53fa95318ff571d,1623921808,root:.: typings-test,
+c3b643aa7998db751595be72f53fa95318ff571d,1623921808,root:.: typings-test,
+45f0e495e7299cacd8bbfb27c6208bc3a4a6218b,1746046334,root:.: typings-test,
+ea3ba3dfcc118aa6dfd4fa2d86927ea1d47cbe81,1746054160,root:.: validate:types,tsc -p tsconfig.validation.json
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: yarn-lint,yarn-deduplicate --fail --list -s highest yarn.lock
+45f0e495e7299cacd8bbfb27c6208bc3a4a6218b,1746046334,root:.: yarn-lint,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,root:.: yarn-lint-fix,yarn-deduplicate -s highest yarn.lock
+45f0e495e7299cacd8bbfb27c6208bc3a4a6218b,1746046334,root:.: yarn-lint-fix,
+f3eb1bce5183b3b8a76d4aa40fa6590750195997,1563353325,timestamp_source,author_timestamp

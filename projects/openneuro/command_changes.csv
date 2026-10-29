@@ -1,0 +1,163 @@
+commit_hash,timestamp,script_name,script_definition
+bb5094a8bf564d979715d73423c1b2ac9558617e,1620337537,root:.: _postinstall,husky install
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,root:.: bootstrap,lerna bootstrap
+13790dee26705e03c0b0803b031feff13d02ee97,1615312921,root:.: build,yarn ultra -r build
+8dc7e85e5f45d62a5f47342dae98e82e683108b3,1616874404,root:.: build,yarn tsc -b
+b25e554f2377395a1eb8f00db35c3903d9491425,1638836025,root:.: build,yarn pnpify tsc -b
+48ef09abe5a99538aa55d04d1d9fe24373d502e9,1637100870,root:.: ci-coverage,jest --coverage && codecov
+349f239bcce0fec07fa1746a453c18094b1bdda9,1651685714,root:.: ci-coverage,jest --coverage --maxWorkers=2 --ci --maxConcurrency=2 && codecov
+6030b62eca51d90eb1e8abb3fbc235287bd544f3,1668555600,root:.: ci-coverage,vitest --coverage && codecov
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,root:.: codecov,codecov
+1f8f3503f8e31e00af4f692ca1d616ee0aa07f43,1637352524,root:.: codecov,
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,root:.: coverage,jest --coverage
+6030b62eca51d90eb1e8abb3fbc235287bd544f3,1668555600,root:.: coverage,vitest --coverage
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,root:.: lint,eslint --cache --ext .jsx --ext .js --ext .ts --ext .tsx packages/
+8dc7e85e5f45d62a5f47342dae98e82e683108b3,1616874404,root:.: lint,eslint --ext .jsx --ext .js --ext .ts --ext .tsx packages/*/src
+aaf17fdd10e9f257eae7604beba16de6d9e4c2b3,1709220550,root:.: lint,eslint
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,root:.: openneuro,node packages/openneuro-cli/src
+f84430360fcd8767981ef42a71405799f0d696e5,1620227014,root:.: postinstall,husky install
+dbbc1c2c6a8ffbf82ce814bce981ccf9fde116fb,1620337411,root:.: postinstall,
+f84430360fcd8767981ef42a71405799f0d696e5,1620227014,root:.: postpublish,pinst --enable
+b25e554f2377395a1eb8f00db35c3903d9491425,1638836025,root:.: prepublish,rm -fr packages/*/dist .build-cache/ && yarn build
+f84430360fcd8767981ef42a71405799f0d696e5,1620227014,root:.: prepublishOnly,pinst --disable
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,root:.: start,docker-compose up --build -V
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,root:.: test,jest
+da20bd35cf2fee3c24fa4b406066325d7ff5cd48,1620178001,root:.: test,jest --maxWorkers=50%
+6030b62eca51d90eb1e8abb3fbc235287bd544f3,1668555600,root:.: test,vitest
+aaf17fdd10e9f257eae7604beba16de6d9e4c2b3,1709220550,root:.: version,"cat cli/deno.json | jq "".version = $(cat lerna.json | jq '.version')"" > cli/deno.json && git add cli/deno.json"
+c4c2f802e66382de6cd89f19dfb416840b2ca5dc,1709315437,root:.: version,
+cd19eee9d89aab57a7df0be14622af95099d7914,1724867911,root:.: version,"cat cli/deno.json | jq "".version = $(cat lerna.json | jq '.version')"" > cli/deno.json"
+e68e58bdbdec6749c4b5c5bf495e6841c0c2c6e2,1731451898,root:.: version,"cat cli/deno.json | jq "".version = $(cat lerna.json | jq '.version')"" > cli/deno.json && git add cli/deno.json && yarn install && git stage yarn.lock"
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,timestamp_source,author_timestamp
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_lerna:packages/openneuro-app: build,webpack --config webpack.prod.js
+13790dee26705e03c0b0803b031feff13d02ee97,1615312921,workspaces_lerna:packages/openneuro-app: build,ts-node ./esbuild.ts
+dbac18e8d3e9d122038bd86cbe7dc0f540281d5f,1616653626,workspaces_lerna:packages/openneuro-app: build,vite build
+1882ff2aad0b8fb382fe9daca36d8582f7a26575,1617847164,workspaces_lerna:packages/openneuro-app: build,vite build --outDir dist/client && vite build --outDir dist/server --ssr server.jsx
+bef89fc1995128eab08eb21dfe9ef846d645cacf,1618331966,workspaces_lerna:packages/openneuro-app: build,yarn vite build --outDir dist/client && yarn vite build --outDir dist/server --ssr server.jsx && cp src/assets/papaya.js src/dist/client/assets
+281eee4edbbb38ff081c39df9714e8cb0447a1c1,1618423903,workspaces_lerna:packages/openneuro-app: build,vite build --outDir dist/client && vite build --outDir dist/server --ssr server.jsx && cp src/assets/papaya.js src/dist/client/assets
+c9e1f90e49e08d68fd2f7fa68160d9fb3ca3a8c2,1650916224,workspaces_lerna:packages/openneuro-app: build,yarn vite build --outDir dist/client && yarn vite build --outDir dist/server --ssr server.jsx
+67961759c3fc670722cdb536debe41c9ee1e2456,1661961036,workspaces_lerna:packages/openneuro-app: build,vite build --outDir dist/client && yarn vite build --outDir dist/server --ssr server.jsx
+b4a46d2054085daffac81ecc3e70b8fbcc282f52,1661961790,workspaces_lerna:packages/openneuro-app: build,vite build --outDir dist/client
+ce21300dcff5ab596f440f31e7859b682302d093,1661966026,workspaces_lerna:packages/openneuro-app: build,vite build --outDir dist
+3d12942c1ab614deafe04ea343476bf2a108c3e4,1664569425,workspaces_lerna:packages/openneuro-app: build,vite build --outDir dist --debug
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_lerna:packages/openneuro-app: lint,eslint --ext .jsx --ext .js src/scripts/
+ae0b1934ec049f564a2c21122fde38ecdb87d5fd,1617940962,workspaces_lerna:packages/openneuro-app: lint,
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_lerna:packages/openneuro-app: start,webpack-dev-server --config webpack.dev.js
+13790dee26705e03c0b0803b031feff13d02ee97,1615312921,workspaces_lerna:packages/openneuro-app: start,ts-node ./esbuild.ts --watch
+dbac18e8d3e9d122038bd86cbe7dc0f540281d5f,1616653626,workspaces_lerna:packages/openneuro-app: start,vite
+23d4722818ef91d0e8d12ac86e34e0acfc938112,1616711906,workspaces_lerna:packages/openneuro-app: start,ts-node-dev ./src/ssr.ts
+bef89fc1995128eab08eb21dfe9ef846d645cacf,1618331966,workspaces_lerna:packages/openneuro-app: start,yarn ts-node-dev ./src/ssr.ts
+3e88513d87c2ca7c5015eb0edf1a414aaf7d6048,1620227726,workspaces_lerna:packages/openneuro-app: start,node --enable-source-maps ./dist/ssr.js
+fe9de9a156c040fd96182d9c34fb8ea3d969b2da,1620241628,workspaces_lerna:packages/openneuro-app: start,nodemon --enable-source-maps ./dist/ssr.js
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_lerna:packages/openneuro-app: test,jest
+ae0b1934ec049f564a2c21122fde38ecdb87d5fd,1617940962,workspaces_lerna:packages/openneuro-app: test,
+13790dee26705e03c0b0803b031feff13d02ee97,1615312921,workspaces_lerna:packages/openneuro-cli: build,tsc -b
+11821914f059ba421946042ff8a580a18d8e986c,1737147173,workspaces_lerna:packages/openneuro-cli: build,
+ab546b91bb208f56bda716d615447c4bdb7a612d,1611339485,workspaces_lerna:packages/openneuro-cli: git-annex-remote-openneuro,node src/index.js
+11821914f059ba421946042ff8a580a18d8e986c,1737147173,workspaces_lerna:packages/openneuro-cli: git-annex-remote-openneuro,
+54d4ae4c703777b4c5200af4cf47b9680d4d9f2c,1610328037,workspaces_lerna:packages/openneuro-cli: git-credential-openneuro,node src/index.js
+11821914f059ba421946042ff8a580a18d8e986c,1737147173,workspaces_lerna:packages/openneuro-cli: git-credential-openneuro,
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_lerna:packages/openneuro-cli: openneuro,node src/index.js
+11821914f059ba421946042ff8a580a18d8e986c,1737147173,workspaces_lerna:packages/openneuro-cli: openneuro,
+67869f95bacbce72f55179c88384289929589408,1618508914,workspaces_lerna:packages/openneuro-cli: postpack,rm src/lerna.json && ln -sf ../../../lerna.json src/lerna.json
+11821914f059ba421946042ff8a580a18d8e986c,1737147173,workspaces_lerna:packages/openneuro-cli: postpack,
+67869f95bacbce72f55179c88384289929589408,1618508914,workspaces_lerna:packages/openneuro-cli: prepack,rm src/lerna.json && cp ../../lerna.json src/lerna.json
+11821914f059ba421946042ff8a580a18d8e986c,1737147173,workspaces_lerna:packages/openneuro-cli: prepack,
+13790dee26705e03c0b0803b031feff13d02ee97,1615312921,workspaces_lerna:packages/openneuro-client: build,tsc -b
+11821914f059ba421946042ff8a580a18d8e986c,1737147173,workspaces_lerna:packages/openneuro-client: build,
+67869f95bacbce72f55179c88384289929589408,1618508914,workspaces_lerna:packages/openneuro-client: postpack,rm src/lerna.json && ln -sf ../../../lerna.json src/lerna.json
+11821914f059ba421946042ff8a580a18d8e986c,1737147173,workspaces_lerna:packages/openneuro-client: postpack,
+67869f95bacbce72f55179c88384289929589408,1618508914,workspaces_lerna:packages/openneuro-client: prepack,rm src/lerna.json && cp ../../lerna.json src/lerna.json
+11821914f059ba421946042ff8a580a18d8e986c,1737147173,workspaces_lerna:packages/openneuro-client: prepack,
+2b0f2971757dacf783cfd339c05b0bbd09f2aa68,1622231397,workspaces_lerna:packages/openneuro-components: build,tsc --build
+8588b62ba4fe4900e5d4750ce2d195f7d5ad9130,1744228145,workspaces_lerna:packages/openneuro-components: build,
+67869f95bacbce72f55179c88384289929589408,1618508914,workspaces_lerna:packages/openneuro-components: build-storybook,build-storybook
+487cc63b158ac83a3adefe2973d56077a432fa74,1661966615,workspaces_lerna:packages/openneuro-components: build-storybook,
+67869f95bacbce72f55179c88384289929589408,1618508914,workspaces_lerna:packages/openneuro-components: storybook,start-storybook -p 6006
+487cc63b158ac83a3adefe2973d56077a432fa74,1661966615,workspaces_lerna:packages/openneuro-components: storybook,
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_lerna:packages/openneuro-indexer: build,tsc
+13790dee26705e03c0b0803b031feff13d02ee97,1615312921,workspaces_lerna:packages/openneuro-indexer: build,tsc -b
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_lerna:packages/openneuro-indexer: openneuro-indexer,ts-node --type-check src/index.ts
+84918241916d7cbf8bd9efce35b8a08fa6dfa116,1620770066,workspaces_lerna:packages/openneuro-indexer: openneuro-indexer,
+5e9e97adf8a00c04ce2356e6fd6b8c8453656ee7,1616878611,workspaces_lerna:packages/openneuro-indexer: start,tsc-watch -b --onSuccess 'node --enable-source-maps ./dist/index.js'
+3e88513d87c2ca7c5015eb0edf1a414aaf7d6048,1620227726,workspaces_lerna:packages/openneuro-indexer: start,node --enable-source-maps ./dist/index.js
+e4a071c84902e1ea61ddb29671c2026e927865af,1649198398,workspaces_lerna:packages/openneuro-search: build,tsc -b
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_lerna:packages/openneuro-server: build,tsc
+13790dee26705e03c0b0803b031feff13d02ee97,1615312921,workspaces_lerna:packages/openneuro-server: build,tsc -b
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_lerna:packages/openneuro-server: lint,eslint src
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_lerna:packages/openneuro-server: start,./node_modules/.bin/ts-node src/server.js
+13790dee26705e03c0b0803b031feff13d02ee97,1615312921,workspaces_lerna:packages/openneuro-server: start,yarn build && node ./dist/server.js
+bb50e872878eec330737cad1f468cd9abad7a20e,1616041625,workspaces_lerna:packages/openneuro-server: start,yarn build && node --enable-source-maps ./dist/server.js
+5e9e97adf8a00c04ce2356e6fd6b8c8453656ee7,1616878611,workspaces_lerna:packages/openneuro-server: start,yarn tsc-watch -b --onSuccess 'node --enable-source-maps ./dist/server.js'
+bef89fc1995128eab08eb21dfe9ef846d645cacf,1618331966,workspaces_lerna:packages/openneuro-server: start,yarn tsc-watch -b --onSuccess 'yarn node --enable-source-maps ./dist/server.js'
+3e88513d87c2ca7c5015eb0edf1a414aaf7d6048,1620227726,workspaces_lerna:packages/openneuro-server: start,nodemon --watch ./dist --enable-source-maps ./dist/server.js
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_lerna:packages/openneuro-server: test,jest
+bef89fc1995128eab08eb21dfe9ef846d645cacf,1618331966,workspaces_lerna:packages/openneuro-server: test,yarn jest
+3a42bfbcfd2e6e313757b8d4a6fb9c8e0820b1d7,1668619242,workspaces_lerna:packages/openneuro-server: test,
+3a42bfbcfd2e6e313757b8d4a6fb9c8e0820b1d7,1668619242,workspaces_lerna:packages/openneuro-server: test,
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_package:packages/openneuro-app: build,webpack --config webpack.prod.js
+13790dee26705e03c0b0803b031feff13d02ee97,1615312921,workspaces_package:packages/openneuro-app: build,ts-node ./esbuild.ts
+dbac18e8d3e9d122038bd86cbe7dc0f540281d5f,1616653626,workspaces_package:packages/openneuro-app: build,vite build
+1882ff2aad0b8fb382fe9daca36d8582f7a26575,1617847164,workspaces_package:packages/openneuro-app: build,vite build --outDir dist/client && vite build --outDir dist/server --ssr server.jsx
+bef89fc1995128eab08eb21dfe9ef846d645cacf,1618331966,workspaces_package:packages/openneuro-app: build,yarn vite build --outDir dist/client && yarn vite build --outDir dist/server --ssr server.jsx && cp src/assets/papaya.js src/dist/client/assets
+281eee4edbbb38ff081c39df9714e8cb0447a1c1,1618423903,workspaces_package:packages/openneuro-app: build,vite build --outDir dist/client && vite build --outDir dist/server --ssr server.jsx && cp src/assets/papaya.js src/dist/client/assets
+c9e1f90e49e08d68fd2f7fa68160d9fb3ca3a8c2,1650916224,workspaces_package:packages/openneuro-app: build,yarn vite build --outDir dist/client && yarn vite build --outDir dist/server --ssr server.jsx
+67961759c3fc670722cdb536debe41c9ee1e2456,1661961036,workspaces_package:packages/openneuro-app: build,vite build --outDir dist/client && yarn vite build --outDir dist/server --ssr server.jsx
+b4a46d2054085daffac81ecc3e70b8fbcc282f52,1661961790,workspaces_package:packages/openneuro-app: build,vite build --outDir dist/client
+ce21300dcff5ab596f440f31e7859b682302d093,1661966026,workspaces_package:packages/openneuro-app: build,vite build --outDir dist
+3d12942c1ab614deafe04ea343476bf2a108c3e4,1664569425,workspaces_package:packages/openneuro-app: build,vite build --outDir dist --debug
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_package:packages/openneuro-app: lint,eslint --ext .jsx --ext .js src/scripts/
+ae0b1934ec049f564a2c21122fde38ecdb87d5fd,1617940962,workspaces_package:packages/openneuro-app: lint,
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_package:packages/openneuro-app: start,webpack-dev-server --config webpack.dev.js
+13790dee26705e03c0b0803b031feff13d02ee97,1615312921,workspaces_package:packages/openneuro-app: start,ts-node ./esbuild.ts --watch
+dbac18e8d3e9d122038bd86cbe7dc0f540281d5f,1616653626,workspaces_package:packages/openneuro-app: start,vite
+23d4722818ef91d0e8d12ac86e34e0acfc938112,1616711906,workspaces_package:packages/openneuro-app: start,ts-node-dev ./src/ssr.ts
+bef89fc1995128eab08eb21dfe9ef846d645cacf,1618331966,workspaces_package:packages/openneuro-app: start,yarn ts-node-dev ./src/ssr.ts
+3e88513d87c2ca7c5015eb0edf1a414aaf7d6048,1620227726,workspaces_package:packages/openneuro-app: start,node --enable-source-maps ./dist/ssr.js
+fe9de9a156c040fd96182d9c34fb8ea3d969b2da,1620241628,workspaces_package:packages/openneuro-app: start,nodemon --enable-source-maps ./dist/ssr.js
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_package:packages/openneuro-app: test,jest
+ae0b1934ec049f564a2c21122fde38ecdb87d5fd,1617940962,workspaces_package:packages/openneuro-app: test,
+13790dee26705e03c0b0803b031feff13d02ee97,1615312921,workspaces_package:packages/openneuro-cli: build,tsc -b
+11821914f059ba421946042ff8a580a18d8e986c,1737147173,workspaces_package:packages/openneuro-cli: build,
+ab546b91bb208f56bda716d615447c4bdb7a612d,1611339485,workspaces_package:packages/openneuro-cli: git-annex-remote-openneuro,node src/index.js
+11821914f059ba421946042ff8a580a18d8e986c,1737147173,workspaces_package:packages/openneuro-cli: git-annex-remote-openneuro,
+54d4ae4c703777b4c5200af4cf47b9680d4d9f2c,1610328037,workspaces_package:packages/openneuro-cli: git-credential-openneuro,node src/index.js
+11821914f059ba421946042ff8a580a18d8e986c,1737147173,workspaces_package:packages/openneuro-cli: git-credential-openneuro,
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_package:packages/openneuro-cli: openneuro,node src/index.js
+11821914f059ba421946042ff8a580a18d8e986c,1737147173,workspaces_package:packages/openneuro-cli: openneuro,
+67869f95bacbce72f55179c88384289929589408,1618508914,workspaces_package:packages/openneuro-cli: postpack,rm src/lerna.json && ln -sf ../../../lerna.json src/lerna.json
+11821914f059ba421946042ff8a580a18d8e986c,1737147173,workspaces_package:packages/openneuro-cli: postpack,
+67869f95bacbce72f55179c88384289929589408,1618508914,workspaces_package:packages/openneuro-cli: prepack,rm src/lerna.json && cp ../../lerna.json src/lerna.json
+11821914f059ba421946042ff8a580a18d8e986c,1737147173,workspaces_package:packages/openneuro-cli: prepack,
+13790dee26705e03c0b0803b031feff13d02ee97,1615312921,workspaces_package:packages/openneuro-client: build,tsc -b
+11821914f059ba421946042ff8a580a18d8e986c,1737147173,workspaces_package:packages/openneuro-client: build,
+67869f95bacbce72f55179c88384289929589408,1618508914,workspaces_package:packages/openneuro-client: postpack,rm src/lerna.json && ln -sf ../../../lerna.json src/lerna.json
+11821914f059ba421946042ff8a580a18d8e986c,1737147173,workspaces_package:packages/openneuro-client: postpack,
+67869f95bacbce72f55179c88384289929589408,1618508914,workspaces_package:packages/openneuro-client: prepack,rm src/lerna.json && cp ../../lerna.json src/lerna.json
+11821914f059ba421946042ff8a580a18d8e986c,1737147173,workspaces_package:packages/openneuro-client: prepack,
+2b0f2971757dacf783cfd339c05b0bbd09f2aa68,1622231397,workspaces_package:packages/openneuro-components: build,tsc --build
+8588b62ba4fe4900e5d4750ce2d195f7d5ad9130,1744228145,workspaces_package:packages/openneuro-components: build,
+67869f95bacbce72f55179c88384289929589408,1618508914,workspaces_package:packages/openneuro-components: build-storybook,build-storybook
+487cc63b158ac83a3adefe2973d56077a432fa74,1661966615,workspaces_package:packages/openneuro-components: build-storybook,
+67869f95bacbce72f55179c88384289929589408,1618508914,workspaces_package:packages/openneuro-components: storybook,start-storybook -p 6006
+487cc63b158ac83a3adefe2973d56077a432fa74,1661966615,workspaces_package:packages/openneuro-components: storybook,
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_package:packages/openneuro-indexer: build,tsc
+13790dee26705e03c0b0803b031feff13d02ee97,1615312921,workspaces_package:packages/openneuro-indexer: build,tsc -b
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_package:packages/openneuro-indexer: openneuro-indexer,ts-node --type-check src/index.ts
+84918241916d7cbf8bd9efce35b8a08fa6dfa116,1620770066,workspaces_package:packages/openneuro-indexer: openneuro-indexer,
+5e9e97adf8a00c04ce2356e6fd6b8c8453656ee7,1616878611,workspaces_package:packages/openneuro-indexer: start,tsc-watch -b --onSuccess 'node --enable-source-maps ./dist/index.js'
+3e88513d87c2ca7c5015eb0edf1a414aaf7d6048,1620227726,workspaces_package:packages/openneuro-indexer: start,node --enable-source-maps ./dist/index.js
+e4a071c84902e1ea61ddb29671c2026e927865af,1649198398,workspaces_package:packages/openneuro-search: build,tsc -b
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_package:packages/openneuro-server: build,tsc
+13790dee26705e03c0b0803b031feff13d02ee97,1615312921,workspaces_package:packages/openneuro-server: build,tsc -b
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_package:packages/openneuro-server: lint,eslint src
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_package:packages/openneuro-server: start,./node_modules/.bin/ts-node src/server.js
+13790dee26705e03c0b0803b031feff13d02ee97,1615312921,workspaces_package:packages/openneuro-server: start,yarn build && node ./dist/server.js
+bb50e872878eec330737cad1f468cd9abad7a20e,1616041625,workspaces_package:packages/openneuro-server: start,yarn build && node --enable-source-maps ./dist/server.js
+5e9e97adf8a00c04ce2356e6fd6b8c8453656ee7,1616878611,workspaces_package:packages/openneuro-server: start,yarn tsc-watch -b --onSuccess 'node --enable-source-maps ./dist/server.js'
+bef89fc1995128eab08eb21dfe9ef846d645cacf,1618331966,workspaces_package:packages/openneuro-server: start,yarn tsc-watch -b --onSuccess 'yarn node --enable-source-maps ./dist/server.js'
+3e88513d87c2ca7c5015eb0edf1a414aaf7d6048,1620227726,workspaces_package:packages/openneuro-server: start,nodemon --watch ./dist --enable-source-maps ./dist/server.js
+26874672b1eeb75e2aaf3ec8dc23dd12ffc39663,1609985827,workspaces_package:packages/openneuro-server: test,jest
+bef89fc1995128eab08eb21dfe9ef846d645cacf,1618331966,workspaces_package:packages/openneuro-server: test,yarn jest
+3a42bfbcfd2e6e313757b8d4a6fb9c8e0820b1d7,1668619242,workspaces_package:packages/openneuro-server: test,
+3a42bfbcfd2e6e313757b8d4a6fb9c8e0820b1d7,1668619242,workspaces_package:packages/openneuro-server: test,

@@ -1,0 +1,77 @@
+commit_hash,timestamp,script_name,script_definition
+d9991bea06e8ed4df4989415cd9307221c6f2b11,1607953837,root:.: build,ionic build
+3a117e49bf612bf64d18bfff4b5842a846998548,1608724423,root:.: build,ng build
+801cf3e59bb5fedb66cc424ed9d83fa88d2c8731,1619607826,root:.: build,npx ionic-app-scripts build
+eb0738cb0f442b7140009ff4d396bf3741e052da,1678184899,root:.: build,NODE_OPTIONS=--max-old-space-size=8192 ionic build --configuration=development
+eaa2130699b43ec808186043dadc0eda5e908d0f,1707993685,root:.: build,ionic build --configuration=development
+d9991bea06e8ed4df4989415cd9307221c6f2b11,1607953837,root:.: build:prod,ionic build --prod
+3a117e49bf612bf64d18bfff4b5842a846998548,1608724423,root:.: build:prod,ng build --prod
+2212ae5955dc6fa380e4ae87f2683f71475c5e28,1608806823,root:.: build:prod,NODE_ENV=production ionic build --prod
+3f2c32748aeaf4c1f2d2218d437ec0fe1c887586,1754296933,root:.: build:prod,NODE_OPTIONS=--max-old-space-size=8192 NODE_ENV=production ionic build --prod
+2212ae5955dc6fa380e4ae87f2683f71475c5e28,1608806823,root:.: build:test,NODE_ENV=testing ionic build --configuration=testing
+368bbfceb782afdf368b798f1b153d28b253f7f9,1619014616,root:.: build:test,NODE_ENV=testing ionic build
+3f2c32748aeaf4c1f2d2218d437ec0fe1c887586,1754296933,root:.: build:test,NODE_OPTIONS=--max-old-space-size=8192 NODE_ENV=testing ionic build --configuration=testing
+801cf3e59bb5fedb66cc424ed9d83fa88d2c8731,1619607826,root:.: clean,npx ionic-app-scripts clean
+801cf3e59bb5fedb66cc424ed9d83fa88d2c8731,1619607826,root:.: desktop.dist,npx electron-builder -p never
+801cf3e59bb5fedb66cc424ed9d83fa88d2c8731,1619607826,root:.: desktop.pack,npx electron-builder --dir
+801cf3e59bb5fedb66cc424ed9d83fa88d2c8731,1619607826,root:.: dev,ionic serve
+2212ae5955dc6fa380e4ae87f2683f71475c5e28,1608806823,root:.: dev:android,ionic cordova run android --livereload
+ec867198332615007e3a4ba440f8b60117f1600a,1669715180,root:.: dev:android,ionic cordova run android --livereload --external --ssl
+eb0738cb0f442b7140009ff4d396bf3741e052da,1678184899,root:.: dev:android,"concurrently ""npm run dev:android:app"" ""npm run dev:android:cordova"""
+eb0738cb0f442b7140009ff4d396bf3741e052da,1678184899,root:.: dev:android:app,ionic cordova run android --livereload --external --ssl
+eb0738cb0f442b7140009ff4d396bf3741e052da,1678184899,root:.: dev:android:cordova,npm run dev --prefix cordova-plugin-moodleapp
+2212ae5955dc6fa380e4ae87f2683f71475c5e28,1608806823,root:.: dev:ios,ionic cordova run ios
+801cf3e59bb5fedb66cc424ed9d83fa88d2c8731,1619607826,root:.: dev:ios,ionic cordova run ios --livereload
+adca594247984deb3217b138e0f166a3ff0000eb,1628085709,root:.: dev:ios,ionic cordova run ios --livereload --external
+801cf3e59bb5fedb66cc424ed9d83fa88d2c8731,1619607826,root:.: ionic:build,node --max-old-space-size=16384 ./node_modules/@ionic/app-scripts/bin/ionic-app-scripts.js build
+801cf3e59bb5fedb66cc424ed9d83fa88d2c8731,1619607826,root:.: ionic:build:after,npx gulp copy-component-templates
+d9991bea06e8ed4df4989415cd9307221c6f2b11,1607953837,root:.: ionic:build:before,gulp
+3a117e49bf612bf64d18bfff4b5842a846998548,1608724423,root:.: ionic:build:before,npx gulp
+d9991bea06e8ed4df4989415cd9307221c6f2b11,1607953837,root:.: ionic:serve,gulp watch & ng serve
+3a117e49bf612bf64d18bfff4b5842a846998548,1608724423,root:.: ionic:serve,npx gulp watch & ng serve
+2212ae5955dc6fa380e4ae87f2683f71475c5e28,1608806823,root:.: ionic:serve,./scripts/serve.sh
+8e7b1482054eb59fe333e274f136b4cb92e7b365,1617201226,root:.: ionic:serve,gulp watch & NODE_OPTIONS=--max-old-space-size=4096 ng serve
+801cf3e59bb5fedb66cc424ed9d83fa88d2c8731,1619607826,root:.: ionic:serve,npx gulp watch & npx ionic-app-scripts serve -b --devapp --address=0.0.0.0
+1da073eefa5abe4f203f6d475bea7d38dfe302e2,1646383338,root:.: ionic:serve,cross-env-shell ./scripts/serve.sh
+d9991bea06e8ed4df4989415cd9307221c6f2b11,1607953837,root:.: ionic:serve:before,gulp
+3a117e49bf612bf64d18bfff4b5842a846998548,1608724423,root:.: ionic:serve:before,npx gulp
+801cf3e59bb5fedb66cc424ed9d83fa88d2c8731,1619607826,root:.: ionic:watch:before,npx gulp
+eb0738cb0f442b7140009ff4d396bf3741e052da,1678184899,root:.: lang:create-langindex,./scripts/create_langindex.sh
+eb0738cb0f442b7140009ff4d396bf3741e052da,1678184899,root:.: lang:detect-langpacks,./scripts/update_langpacks.sh detect
+eb0738cb0f442b7140009ff4d396bf3741e052da,1678184899,root:.: lang:update-langpacks,./scripts/update_langpacks.sh
+d9991bea06e8ed4df4989415cd9307221c6f2b11,1607953837,root:.: lint,ng lint
+2212ae5955dc6fa380e4ae87f2683f71475c5e28,1608806823,root:.: lint,NODE_OPTIONS=--max-old-space-size=4096 ng lint
+801cf3e59bb5fedb66cc424ed9d83fa88d2c8731,1619607826,root:.: lint,npx ionic-app-scripts lint
+ec867198332615007e3a4ba440f8b60117f1600a,1669715180,root:.: lint,NODE_OPTIONS=--max-old-space-size=8192 ng lint
+d9991bea06e8ed4df4989415cd9307221c6f2b11,1607953837,root:.: ng,ng
+30b26adbd6401625b6febd61d006459aa6e67ebd,1652272606,root:.: postinstall,patch-package
+eb0738cb0f442b7140009ff4d396bf3741e052da,1678184899,root:.: postinstall,patch-package && cd cordova-plugin-moodleapp && npm install
+801cf3e59bb5fedb66cc424ed9d83fa88d2c8731,1619607826,root:.: postionic:build,npx gulp copy-component-templates
+801cf3e59bb5fedb66cc424ed9d83fa88d2c8731,1619607826,root:.: preionic:build,npx gulp
+2212ae5955dc6fa380e4ae87f2683f71475c5e28,1608806823,root:.: prod:android,NODE_ENV=production ionic cordova run android --prod
+801cf3e59bb5fedb66cc424ed9d83fa88d2c8731,1619607826,root:.: prod:android,ionic cordova run android --aot
+045cd0b92413895a47b7fad8627680c8fb426ed8,1623315673,root:.: prod:android,NODE_ENV=production ionic cordova run android --aot
+eb0738cb0f442b7140009ff4d396bf3741e052da,1678184899,root:.: prod:android,npm run prod --prefix cordova-plugin-moodleapp && NODE_ENV=production ionic cordova run android --prod
+2212ae5955dc6fa380e4ae87f2683f71475c5e28,1608806823,root:.: prod:ios,NODE_ENV=production ionic cordova run ios --prod
+801cf3e59bb5fedb66cc424ed9d83fa88d2c8731,1619607826,root:.: prod:ios,ionic cordova run ios --aot
+045cd0b92413895a47b7fad8627680c8fb426ed8,1623315673,root:.: prod:ios,NODE_ENV=production ionic cordova run ios --aot
+2212ae5955dc6fa380e4ae87f2683f71475c5e28,1608806823,root:.: serve:test,NODE_ENV=testing ionic serve --no-open
+7ea44364e15ecb0280fb9e512791990b5815779a,1626859786,root:.: serve:test,
+801cf3e59bb5fedb66cc424ed9d83fa88d2c8731,1619607826,root:.: setup,npm install && npx cordova prepare && npx gulp
+d9991bea06e8ed4df4989415cd9307221c6f2b11,1607953837,root:.: start,ionic serve
+3a117e49bf612bf64d18bfff4b5842a846998548,1608724423,root:.: start,ng serve
+2212ae5955dc6fa380e4ae87f2683f71475c5e28,1608806823,root:.: start,ionic serve --browser=$MOODLE_APP_BROWSER
+801cf3e59bb5fedb66cc424ed9d83fa88d2c8731,1619607826,root:.: start,npm run dev
+eb0738cb0f442b7140009ff4d396bf3741e052da,1678184899,root:.: start,ionic serve --browser=$MOODLE_APP_BROWSER --ssl
+30b26adbd6401625b6febd61d006459aa6e67ebd,1652272606,root:.: storybook,start-storybook -p 6006
+d41fab4b895d1a4a91002565cc08b91adb147eb8,1710764521,root:.: storybook,
+d9991bea06e8ed4df4989415cd9307221c6f2b11,1607953837,root:.: test,jest --verbose
+2212ae5955dc6fa380e4ae87f2683f71475c5e28,1608806823,root:.: test,NODE_ENV=testing gulp && jest --verbose
+d9991bea06e8ed4df4989415cd9307221c6f2b11,1607953837,root:.: test:ci,jest -ci --runInBand --verbose
+2212ae5955dc6fa380e4ae87f2683f71475c5e28,1608806823,root:.: test:ci,NODE_ENV=testing gulp && jest -ci --runInBand --verbose
+d9991bea06e8ed4df4989415cd9307221c6f2b11,1607953837,root:.: test:coverage,jest --coverage
+2212ae5955dc6fa380e4ae87f2683f71475c5e28,1608806823,root:.: test:coverage,NODE_ENV=testing gulp && jest --coverage
+d9991bea06e8ed4df4989415cd9307221c6f2b11,1607953837,root:.: test:watch,jest --watch
+2212ae5955dc6fa380e4ae87f2683f71475c5e28,1608806823,root:.: test:watch,NODE_ENV=testing gulp watch & jest --watch
+801cf3e59bb5fedb66cc424ed9d83fa88d2c8731,1619607826,root:.: windows.store,npx electron-windows-store --input-directory .\desktop\dist\win-unpacked --output-directory .\desktop\store -a .\resources\desktop -m .\desktop\assets\windows\AppXManifest.xml --package-version 0.0.0.0 --package-name MoodleDesktop
+d9991bea06e8ed4df4989415cd9307221c6f2b11,1607953837,timestamp_source,author_timestamp

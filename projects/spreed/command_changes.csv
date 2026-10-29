@@ -1,0 +1,164 @@
+commit_hash,timestamp,script_name,script_definition
+dd75306e9feae6b4ef2eb135ec2a048e2423609d,1656954194,root:.: analyze,npm run analyze:stats && npm run analyze:serve
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: analyze,
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: analyze,
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: analyze,
+2c2ee8c27d3d08e0ca546d28b85fb0c5d8526c4b,1676859435,root:.: analyze,
+2c2ee8c27d3d08e0ca546d28b85fb0c5d8526c4b,1676859435,root:.: analyze,
+dc3b01519fb08b2329c4eea55986ac4e3d10c3da,1678877692,root:.: analyze,
+dc3b01519fb08b2329c4eea55986ac4e3d10c3da,1678877692,root:.: analyze,
+dc3b01519fb08b2329c4eea55986ac4e3d10c3da,1678877692,root:.: analyze,
+dc3b01519fb08b2329c4eea55986ac4e3d10c3da,1678877692,root:.: analyze,
+1896c1bd163b75ba6da833778483ae2e7e1353ff,1690227548,root:.: analyze,
+50b4982a1e806ae1a1ca68a345125022a8f41102,1690808582,root:.: analyze,
+64cb988a418e420f49fac1edadfd25a0bc80e8ee,1691757374,root:.: analyze,
+64cb988a418e420f49fac1edadfd25a0bc80e8ee,1691757374,root:.: analyze,
+7c1d6d5ebb0565fbcb6365b84cf108ebb4b5ac39,1692782223,root:.: analyze,
+7c1d6d5ebb0565fbcb6365b84cf108ebb4b5ac39,1692782223,root:.: analyze,
+33b774b299572ee6874e74bd30c937c3dca78f3c,1758475895,root:.: analyze,rspack build --env production --analyze
+dd75306e9feae6b4ef2eb135ec2a048e2423609d,1656954194,root:.: analyze:report,webpack-bundle-analyzer js/stats.json js/ --mode static --report js/stats/report.html
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: analyze:report,
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: analyze:report,
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: analyze:report,
+2c2ee8c27d3d08e0ca546d28b85fb0c5d8526c4b,1676859435,root:.: analyze:report,
+2c2ee8c27d3d08e0ca546d28b85fb0c5d8526c4b,1676859435,root:.: analyze:report,
+dc3b01519fb08b2329c4eea55986ac4e3d10c3da,1678877692,root:.: analyze:report,
+dc3b01519fb08b2329c4eea55986ac4e3d10c3da,1678877692,root:.: analyze:report,
+dc3b01519fb08b2329c4eea55986ac4e3d10c3da,1678877692,root:.: analyze:report,
+dc3b01519fb08b2329c4eea55986ac4e3d10c3da,1678877692,root:.: analyze:report,
+1896c1bd163b75ba6da833778483ae2e7e1353ff,1690227548,root:.: analyze:report,
+50b4982a1e806ae1a1ca68a345125022a8f41102,1690808582,root:.: analyze:report,
+64cb988a418e420f49fac1edadfd25a0bc80e8ee,1691757374,root:.: analyze:report,
+64cb988a418e420f49fac1edadfd25a0bc80e8ee,1691757374,root:.: analyze:report,
+7c1d6d5ebb0565fbcb6365b84cf108ebb4b5ac39,1692782223,root:.: analyze:report,
+7c1d6d5ebb0565fbcb6365b84cf108ebb4b5ac39,1692782223,root:.: analyze:report,
+0b5d7dffdd9b28288ea125fd54b5490a4a25cbdd,1759396993,root:.: analyze:report,
+3706e1e9281d1ca336f63a2ad35d2256a284bef5,1759761906,root:.: analyze:report,
+dd75306e9feae6b4ef2eb135ec2a048e2423609d,1656954194,root:.: analyze:serve,webpack-bundle-analyzer js/stats.json js/
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: analyze:serve,
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: analyze:serve,
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: analyze:serve,
+2c2ee8c27d3d08e0ca546d28b85fb0c5d8526c4b,1676859435,root:.: analyze:serve,
+2c2ee8c27d3d08e0ca546d28b85fb0c5d8526c4b,1676859435,root:.: analyze:serve,
+dc3b01519fb08b2329c4eea55986ac4e3d10c3da,1678877692,root:.: analyze:serve,
+dc3b01519fb08b2329c4eea55986ac4e3d10c3da,1678877692,root:.: analyze:serve,
+dc3b01519fb08b2329c4eea55986ac4e3d10c3da,1678877692,root:.: analyze:serve,
+dc3b01519fb08b2329c4eea55986ac4e3d10c3da,1678877692,root:.: analyze:serve,
+1896c1bd163b75ba6da833778483ae2e7e1353ff,1690227548,root:.: analyze:serve,
+50b4982a1e806ae1a1ca68a345125022a8f41102,1690808582,root:.: analyze:serve,
+64cb988a418e420f49fac1edadfd25a0bc80e8ee,1691757374,root:.: analyze:serve,
+64cb988a418e420f49fac1edadfd25a0bc80e8ee,1691757374,root:.: analyze:serve,
+7c1d6d5ebb0565fbcb6365b84cf108ebb4b5ac39,1692782223,root:.: analyze:serve,
+7c1d6d5ebb0565fbcb6365b84cf108ebb4b5ac39,1692782223,root:.: analyze:serve,
+0b5d7dffdd9b28288ea125fd54b5490a4a25cbdd,1759396993,root:.: analyze:serve,
+3706e1e9281d1ca336f63a2ad35d2256a284bef5,1759761906,root:.: analyze:serve,
+dd75306e9feae6b4ef2eb135ec2a048e2423609d,1656954194,root:.: analyze:stats,npm run build -- --json js/stats.json
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: analyze:stats,
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: analyze:stats,
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: analyze:stats,
+2c2ee8c27d3d08e0ca546d28b85fb0c5d8526c4b,1676859435,root:.: analyze:stats,
+2c2ee8c27d3d08e0ca546d28b85fb0c5d8526c4b,1676859435,root:.: analyze:stats,
+dc3b01519fb08b2329c4eea55986ac4e3d10c3da,1678877692,root:.: analyze:stats,
+dc3b01519fb08b2329c4eea55986ac4e3d10c3da,1678877692,root:.: analyze:stats,
+dc3b01519fb08b2329c4eea55986ac4e3d10c3da,1678877692,root:.: analyze:stats,
+dc3b01519fb08b2329c4eea55986ac4e3d10c3da,1678877692,root:.: analyze:stats,
+1896c1bd163b75ba6da833778483ae2e7e1353ff,1690227548,root:.: analyze:stats,
+50b4982a1e806ae1a1ca68a345125022a8f41102,1690808582,root:.: analyze:stats,
+64cb988a418e420f49fac1edadfd25a0bc80e8ee,1691757374,root:.: analyze:stats,
+64cb988a418e420f49fac1edadfd25a0bc80e8ee,1691757374,root:.: analyze:stats,
+7c1d6d5ebb0565fbcb6365b84cf108ebb4b5ac39,1692782223,root:.: analyze:stats,
+7c1d6d5ebb0565fbcb6365b84cf108ebb4b5ac39,1692782223,root:.: analyze:stats,
+33b774b299572ee6874e74bd30c937c3dca78f3c,1758475895,root:.: analyze:stats,rspack build --env production --json js/stats.json
+4f1bb9467087da6f3ee7990d37f0d7dd99722e70,1584446192,root:.: build,NODE_ENV=production webpack --progress --config webpack.prod.js
+a2af7fc61377cf966311563722cb24c60d2500da,1591205322,root:.: build,NODE_ENV=production webpack --progress --config webpack.js
+274e3a2f552abcee9d025aec77f834ebc0536f60,1602179878,root:.: build,webpack --node-env production --progress
+858ba1dfb39abab0ca8f14b7a8d2eecc79a2a6da,1664234184,root:.: build,node --max-old-space-size=4096 ./node_modules/webpack/bin/webpack.js --node-env production --progress
+5ee6def001afdbb72a2fb4efcf2818dc0dddaaa8,1737642343,root:.: build,"NODE_OPTIONS=""--max-old-space-size=4096"" webpack --node-env production --progress"
+33b774b299572ee6874e74bd30c937c3dca78f3c,1758475895,root:.: build,rspack build --env production
+4f1bb9467087da6f3ee7990d37f0d7dd99722e70,1584446192,root:.: dev,NODE_ENV=development webpack --config webpack.dev.js
+a2af7fc61377cf966311563722cb24c60d2500da,1591205322,root:.: dev,NODE_ENV=development webpack --config webpack.js
+274e3a2f552abcee9d025aec77f834ebc0536f60,1602179878,root:.: dev,webpack --node-env development --progress
+858ba1dfb39abab0ca8f14b7a8d2eecc79a2a6da,1664234184,root:.: dev,node --max-old-space-size=4096 ./node_modules/webpack/bin/webpack.js --node-env development --progress
+5ee6def001afdbb72a2fb4efcf2818dc0dddaaa8,1737642343,root:.: dev,"NODE_OPTIONS=""--max-old-space-size=4096"" webpack --node-env development --progress"
+33b774b299572ee6874e74bd30c937c3dca78f3c,1758475895,root:.: dev,rspack build --env development
+4f1bb9467087da6f3ee7990d37f0d7dd99722e70,1584446192,root:.: lint,"eslint --ext .js,.vue src"
+858ba1dfb39abab0ca8f14b7a8d2eecc79a2a6da,1664234184,root:.: lint,"eslint --ext .js,.ts,.vue src"
+a07736499f2188bc6fea0e1384f08e0706147fb6,1715671897,root:.: lint,eslint
+4f1bb9467087da6f3ee7990d37f0d7dd99722e70,1584446192,root:.: lint:fix,"eslint --ext .js,.vue src --fix"
+858ba1dfb39abab0ca8f14b7a8d2eecc79a2a6da,1664234184,root:.: lint:fix,"eslint --ext .js,.ts,.vue src --fix"
+a07736499f2188bc6fea0e1384f08e0706147fb6,1715671897,root:.: lint:fix,eslint --fix
+f8017cffda296ebbacc67153757f921bdef7de0b,1758101526,root:.: opengrep,opengrep --opengrep-ignore-pattern=noopengrep --error --exclude '*.php' --exclude 'docs' --include '*.vue' --include '*.js' --include '*.ts' --exclude-rule 'javascript.vue.security.audit.xss.templates.avoid-v-html.avoid-v-html' --exclude-rule 'javascript.lang.security.detect-insecure-websocket.detect-insecure-websocket'
+2df968749d20c357759943e9c14349437615307d,1758184244,root:.: opengrep,opengrep --opengrep-ignore-pattern=noopengrep --error --exclude '*.php' --exclude 'docs' --include '*.vue' --include '*.js' --include '*.ts' --exclude-rule 'javascript.vue.security.audit.xss.templates.avoid-v-html.avoid-v-html' .
+3ca6db838809985556c7e1374a0a91cc93818f15,1758185403,root:.: opengrep,opengrep --opengrep-ignore-pattern=noopengrep --error --exclude '*.php' --exclude 'docs' --include '*.vue' --include '*.js' --include '*.ts' --exclude-rule 'javascript.vue.security.audit.xss.templates.avoid-v-html.avoid-v-html'
+dd75306e9feae6b4ef2eb135ec2a048e2423609d,1656954194,root:.: serve,webpack serve --node-env development --progress --allowed-hosts all
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: serve,
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: serve,
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: serve,
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: serve,
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: serve,
+858ba1dfb39abab0ca8f14b7a8d2eecc79a2a6da,1664234184,root:.: serve,node --max-old-space-size=4096 ./node_modules/webpack/bin/webpack.js serve --node-env development --progress --allowed-hosts all
+2c2ee8c27d3d08e0ca546d28b85fb0c5d8526c4b,1676859435,root:.: serve,
+2c2ee8c27d3d08e0ca546d28b85fb0c5d8526c4b,1676859435,root:.: serve,
+dc3b01519fb08b2329c4eea55986ac4e3d10c3da,1678877692,root:.: serve,
+dc3b01519fb08b2329c4eea55986ac4e3d10c3da,1678877692,root:.: serve,
+7f51262ce668d95543cb3a6461588234413496e5,1681986104,root:.: serve,
+1cf363570474b531bd45e34b3e14b2fd589a2117,1682928582,root:.: serve,npx webpack serve --node-env development --progress --config webpack.config.js --env dev_server --allowed-hosts all
+5ee6def001afdbb72a2fb4efcf2818dc0dddaaa8,1737642343,root:.: serve,"NODE_OPTIONS=""--max-old-space-size=4096"" webpack serve --node-env development --progress --allowed-hosts all"
+33b774b299572ee6874e74bd30c937c3dca78f3c,1758475895,root:.: serve,NODE_ENV=development rspack serve
+4f1bb9467087da6f3ee7990d37f0d7dd99722e70,1584446192,root:.: stylelint,stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue
+858ba1dfb39abab0ca8f14b7a8d2eecc79a2a6da,1664234184,root:.: stylelint,"stylelint ""css/*.css"" ""css/*.scss"" ""src/**/*.scss"" ""src/**/*.vue"""
+d313f6a8a63b948e742cc75f9100fd5dd59a6fae,1755182065,root:.: stylelint,"stylelint ""src/**/*.scss"" ""src/**/*.vue"""
+4f1bb9467087da6f3ee7990d37f0d7dd99722e70,1584446192,root:.: stylelint:fix,stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue --fix
+858ba1dfb39abab0ca8f14b7a8d2eecc79a2a6da,1664234184,root:.: stylelint:fix,"stylelint ""css/*.css"" ""css/*.scss"" ""src/**/*.scss"" ""src/**/*.vue"" --fix"
+d313f6a8a63b948e742cc75f9100fd5dd59a6fae,1755182065,root:.: stylelint:fix,"stylelint ""src/**/*.scss"" ""src/**/*.vue"" --fix"
+dd75306e9feae6b4ef2eb135ec2a048e2423609d,1656954194,root:.: test,jest
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: test,
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: test,
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: test,
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: test,
+ef03ac4d879eef29242c71fd2a7e1785e1f0e840,1656954348,root:.: test,
+2c2ee8c27d3d08e0ca546d28b85fb0c5d8526c4b,1676859435,root:.: test,
+2c2ee8c27d3d08e0ca546d28b85fb0c5d8526c4b,1676859435,root:.: test,
+a235945ae312536b58e35f35051787caeda209ce,1678792129,root:.: test,TZ=UTC jest
+85a41dd9eae687d9ed4196c9666c1868b66ef721,1678903520,root:.: test,
+b72c8e18e1eb0c087a1a013c75713548f234722c,1722939329,root:.: test,vitest
+4f1bb9467087da6f3ee7990d37f0d7dd99722e70,1584446192,root:.: test:coverage,TZ=UTC vue-cli-service test:unit --coverage
+274e3a2f552abcee9d025aec77f834ebc0536f60,1602179878,root:.: test:coverage,TZ=UTC jest --coverage
+0e0808366be2df8ce9fdf8c0b5f9fbb3bab92000,1606479283,root:.: test:coverage,
+5d5d87f0e04c9722ebe3756c1971edd54e5c6e85,1611235265,root:.: test:coverage,
+5d5d87f0e04c9722ebe3756c1971edd54e5c6e85,1611235265,root:.: test:coverage,
+5d5d87f0e04c9722ebe3756c1971edd54e5c6e85,1611235265,root:.: test:coverage,
+5d5d87f0e04c9722ebe3756c1971edd54e5c6e85,1611235265,root:.: test:coverage,
+5d5d87f0e04c9722ebe3756c1971edd54e5c6e85,1611235265,root:.: test:coverage,
+5d5d87f0e04c9722ebe3756c1971edd54e5c6e85,1611235265,root:.: test:coverage,
+5d5d87f0e04c9722ebe3756c1971edd54e5c6e85,1611235265,root:.: test:coverage,
+5d5d87f0e04c9722ebe3756c1971edd54e5c6e85,1611235265,root:.: test:coverage,
+dd75306e9feae6b4ef2eb135ec2a048e2423609d,1656954194,root:.: test:coverage,jest --coverage
+b72c8e18e1eb0c087a1a013c75713548f234722c,1722939329,root:.: test:coverage,vitest run --coverage
+4f1bb9467087da6f3ee7990d37f0d7dd99722e70,1584446192,root:.: test:unit,TZ=UTC vue-cli-service test:unit
+09341afb037a24ae34b3c667df1395aff0eb690e,1585081731,root:.: test:unit,vue-cli-service test:unit
+274e3a2f552abcee9d025aec77f834ebc0536f60,1602179878,root:.: test:unit,TZ=UTC jest
+8d817cd16f75775d5de221920886d453cc07f940,1680092503,root:.: test:unit,
+4f1bb9467087da6f3ee7990d37f0d7dd99722e70,1584446192,root:.: test:watch,TZ=UTC vue-cli-service test:unit --watchAll
+09341afb037a24ae34b3c667df1395aff0eb690e,1585081731,root:.: test:watch,vue-cli-service test:unit --watchAll
+274e3a2f552abcee9d025aec77f834ebc0536f60,1602179878,root:.: test:watch,TZ=UTC jest test:unit --watchAll
+dd75306e9feae6b4ef2eb135ec2a048e2423609d,1656954194,root:.: test:watch,jest --watch
+a235945ae312536b58e35f35051787caeda209ce,1678792129,root:.: test:watch,TZ=UTC jest --watch
+292251d667c737b331354964bd07e3d71e80e036,1680098011,root:.: test:watch,TZ=UTC jest --watchAll
+4a6552067fa95e73bb02b070ca1148ffad291ba6,1756290444,root:.: test:watch,
+858ba1dfb39abab0ca8f14b7a8d2eecc79a2a6da,1664234184,root:.: typescript:check,vue-tsc --noEmit
+910087c5a6976da425861a6dce6589a8017a70f7,1692279087,root:.: typescript:check,tsc --noEmit
+858ba1dfb39abab0ca8f14b7a8d2eecc79a2a6da,1664234184,root:.: typescript:generate,npx openapi-typescript -t
+910087c5a6976da425861a6dce6589a8017a70f7,1692279087,root:.: typescript:generate,"npx openapi-typescript ""./openapi*.json"" --immutable -t -o src/types/openapi/"
+5343c4655cd34df25b32cf443c0d90e7122d5ca9,1699419415,root:.: typescript:generate-core-types,./src/types/generate-core-types.sh
+02cc3a2a927baebeac7c02da76d126e18fbc229d,1715683083,root:.: typescript:generate-core-types,
+02cc3a2a927baebeac7c02da76d126e18fbc229d,1715683083,root:.: typescript:generate-core-types,
+02cc3a2a927baebeac7c02da76d126e18fbc229d,1715683083,root:.: typescript:generate-core-types,
+02cc3a2a927baebeac7c02da76d126e18fbc229d,1715683083,root:.: typescript:generate-core-types,
+4f1bb9467087da6f3ee7990d37f0d7dd99722e70,1584446192,root:.: watch,NODE_ENV=development webpack --progress --watch --config webpack.dev.js
+a2af7fc61377cf966311563722cb24c60d2500da,1591205322,root:.: watch,NODE_ENV=development webpack --progress --watch --config webpack.js
+274e3a2f552abcee9d025aec77f834ebc0536f60,1602179878,root:.: watch,webpack --node-env development --progress --watch
+858ba1dfb39abab0ca8f14b7a8d2eecc79a2a6da,1664234184,root:.: watch,node --max-old-space-size=4096 ./node_modules/webpack/bin/webpack.js --node-env development --progress --watch
+5ee6def001afdbb72a2fb4efcf2818dc0dddaaa8,1737642343,root:.: watch,"NODE_OPTIONS=""--max-old-space-size=4096"" webpack --node-env development --progress --watch"
+33b774b299572ee6874e74bd30c937c3dca78f3c,1758475895,root:.: watch,rspack build --env development --watch
+4f1bb9467087da6f3ee7990d37f0d7dd99722e70,1584446192,timestamp_source,author_timestamp

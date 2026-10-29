@@ -1,0 +1,1218 @@
+commit_hash,timestamp,script_name,script_definition
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: bootstrap,"npm-run-all -s check-versions ""lerna-prepare -- --{@}"" --"
+f8c5141bf72108a53338fd01514522ae7a1b37bf,1631612626,root:.: bootstrap,"cross-env COMPILER_OPTIONS=""GATSBY_MAJOR=4"" npm-run-all -s check-versions ""lerna-prepare -- --{@}"" --"
+25f79b6c3719fdf09584ade620a05c66ba2a697c,1665593128,root:.: bootstrap,"cross-env COMPILER_OPTIONS=""GATSBY_MAJOR=5"" npm-run-all -s check-versions ""lerna-prepare -- --{@}"" --"
+df1226576b911be0f962c149c0bcbad279d9f806,1686555238,root:.: bootstrap,"cross-env COMPILER_OPTIONS=""GATSBY_MAJOR=5"" npm-run-all -s ""lerna-prepare -- --{@}"" --"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: check-repo-fields,babel-node scripts/check-repo-fields.js
+a179e760f41c64ccf60d88d9705a534548e47c41,1628181842,root:.: check-repo-fields,node scripts/check-repo-fields.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: check-versions,babel-node scripts/check-versions.js
+a179e760f41c64ccf60d88d9705a534548e47c41,1628181842,root:.: check-versions,node scripts/check-versions.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: format,npm run format:code && npm run format:other && npm run format:svg
+0fb0390ef41f771d21c3829e91cc3f683044b696,1668498850,root:.: format,npm run format:code && npm run format:other
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: format:code,npm run lint:code -- --fix
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: format:other,npm run prettier -- --write
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: format:svg,node scripts/format-svg.js
+88b9dc5243999e7d817292647216ca20e529db07,1668466382,root:.: format:svg,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: hooks:install,node node_modules/husky/husky.js install
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: hooks:uninstall,node node_modules/husky/husky.js uninstall
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: jest,jest
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: jest:inspect,node --inspect node_modules/.bin/jest --runInBand
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: jest:inspect-brk,node --inspect-brk node_modules/.bin/jest --runInBand
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: lerna,lerna
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: lerna-prepare,lerna run prepare
+df1226576b911be0f962c149c0bcbad279d9f806,1686555238,root:.: lerna-prepare,lerna run prepare --ignore gatsby-core-utils
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: lint,npm-run-all --continue-on-error -p lint:code lint:docs lint:other
+0fb0390ef41f771d21c3829e91cc3f683044b696,1668498850,root:.: lint,npm-run-all --continue-on-error -p lint:code lint:other
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: lint:code,"eslint --cache --ext .js,.jsx,.ts,.tsx ."
+8da5ebc79d85c7c7e4c7bd8d90fc13ef8ff3bf8c,1614091720,root:.: lint:code,"eslint --ext .js,.jsx,.ts,.tsx ."
+88c6993a5dfc764ba95d8548126f9a8068220a80,1634151683,root:.: lint:code,"eslint --ext .js,.jsx,.ts,.tsx --quiet ."
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: lint:docs,"remark docs/{contributing,docs,tutorial}"
+88b9dc5243999e7d817292647216ca20e529db07,1668466382,root:.: lint:docs,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: lint:other,npm run prettier -- --check
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: lint:scripts,sh scripts/lint-shell-scripts.sh
+88b9dc5243999e7d817292647216ca20e529db07,1668466382,root:.: lint:scripts,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: markdown,"md-magic --path ""starters/**/*.md"""
+16d91f3aa507c0f20af3ab797c90b4fb5011cf0f,1667899807,root:.: markdown,"md-magic --path ""starters/**/README.md"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: plop,plop
+88b9dc5243999e7d817292647216ca20e529db07,1668466382,root:.: plop,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: postmarkdown,"prettier --write ""starters/**/*.md"""
+16d91f3aa507c0f20af3ab797c90b4fb5011cf0f,1667899807,root:.: postmarkdown,"prettier --write ""starters/**/README.md"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: prebootstrap,yarn
+df1226576b911be0f962c149c0bcbad279d9f806,1686555238,root:.: prebootstrap,"yarn && npm run check-versions && cross-env COMPILER_OPTIONS=""GATSBY_MAJOR=5"" lerna run prepare --scope gatsby-core-utils"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: prepublishOnly,node scripts/check-publish-access
+c7274a276d275ae4dfb062cc415531a742c39821,1625218575,root:.: prepublishOnly,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: prettier,"prettier ""**/*.{md,css,scss,yaml,yml}"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: publish,"echo ""Use 'yarn publish-next' or 'yarn publish-release' instead of 'yarn run publish'"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: publish-canary,lerna publish --canary --yes
+8a68d8f27ab7c500ee01eb9cd2d0b8f672b6cef0,1625218613,root:.: publish-canary,node scripts/check-publish-access && lerna publish --canary --yes
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: publish-next,"node scripts/clear-package-dir prerelease --verbose && lerna publish prerelease --pre-dist-tag=next --preid=next --allow-branch=master --message=""chore(release): Publish next"""
+8a68d8f27ab7c500ee01eb9cd2d0b8f672b6cef0,1625218613,root:.: publish-next,"node scripts/check-publish-access && node scripts/clear-package-dir prerelease --verbose && lerna publish prerelease --pre-dist-tag=next --preid=next --allow-branch=master --message=""chore(release): Publish next"""
+f8c5141bf72108a53338fd01514522ae7a1b37bf,1631612626,root:.: publish-next,"node scripts/check-publish-access && node scripts/clear-package-dir prerelease --verbose && cross-env COMPILER_OPTIONS=""GATSBY_MAJOR=4"" lerna publish prerelease --pre-dist-tag=next --preid=next --allow-branch=master --message=""chore(release): Publish next"""
+df367326547f412563985766cd85dc56acc46b61,1631742751,root:.: publish-next,"node scripts/check-publish-access && node scripts/clear-package-dir prerelease --verbose && cross-env COMPILER_OPTIONS=""GATSBY_MAJOR=4"" lerna publish from-git prerelease --pre-dist-tag=next --preid=zz-next --allow-branch=master --message=""chore(release): Publish next"""
+80fd8384ecfb8e907b6d2b8e3d093ab493ce9cd9,1631744388,root:.: publish-next,"node scripts/check-publish-access && node scripts/clear-package-dir prerelease --verbose && cross-env COMPILER_OPTIONS=""GATSBY_MAJOR=4"" lerna publish prerelease --pre-dist-tag=next --preid=zz-next --allow-branch=master --message=""chore(release): Publish next"""
+25f79b6c3719fdf09584ade620a05c66ba2a697c,1665593128,root:.: publish-next,"node scripts/check-publish-access && node scripts/clear-package-dir prerelease --verbose && cross-env COMPILER_OPTIONS=""GATSBY_MAJOR=5"" lerna publish prerelease --pre-dist-tag=next --preid=next --allow-branch=master --message=""chore(release): Publish next"""
+9d2c5f008a6348354fe1e26773068aaf0ca451b9,1628598111,root:.: publish-premajor,node scripts/release-next-major.js publish
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: publish-preminor,"node scripts/clear-package-dir preminor --verbose && lerna publish preminor --pre-dist-tag=next --preid=next --force-publish --allow-branch=master --message=""chore(release): Publish next pre-minor"""
+8a68d8f27ab7c500ee01eb9cd2d0b8f672b6cef0,1625218613,root:.: publish-preminor,"node scripts/check-publish-access && node scripts/clear-package-dir preminor --verbose && lerna publish preminor --pre-dist-tag=next --preid=next --force-publish --allow-branch=master --message=""chore(release): Publish next pre-minor"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: publish-rc,"node scripts/clear-package-dir prerelease --verbose && lerna publish prerelease --pre-dist-tag=rc --preid=rc --message=""chore(release): Publish rc"""
+8a68d8f27ab7c500ee01eb9cd2d0b8f672b6cef0,1625218613,root:.: publish-rc,"node scripts/check-publish-access && node scripts/clear-package-dir prerelease --verbose && lerna publish prerelease --pre-dist-tag=rc --preid=rc --message=""chore(release): Publish rc"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: publish-release,node scripts/clear-package-dir patch --verbose && lerna publish patch
+8a68d8f27ab7c500ee01eb9cd2d0b8f672b6cef0,1625218613,root:.: publish-release,node scripts/check-publish-access && node scripts/clear-package-dir patch --verbose && lerna publish patch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: test,npm-run-all -s lint jest test:peril
+8cc09702f9a2767c51cf5267233108c07e4ac073,1652259479,root:.: test,npm-run-all --npm-path npm -s lint jest test:peril
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: test:coverage,jest --coverage
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: test:integration,jest --config=integration-tests/jest.config.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: test:peril,cd peril && yarn test
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: test:update,jest --updateSnapshot
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: test:watch,jest --watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: typecheck,node ./scripts/check-ts
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: update-dictionary,node ./scripts/update-dictionary.js
+88b9dc5243999e7d817292647216ca20e529db07,1668466382,root:.: update-dictionary,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: version,"prettier --write ""**/CHANGELOG.md"""
+417df15230be368a9db91f2ad1a9bc0442733177,1629992150,root:.: version,"node ./scripts/gatsby-changelog-generator/lerna-version-lifecycle.js && prettier --write ""**/CHANGELOG.md"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,root:.: watch,lerna run watch --no-sort --stream --concurrency 999
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,timestamp_source,author_timestamp
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/babel-plugin-remove-graphql-queries: build,"babel src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/babel-plugin-remove-graphql-queries: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/babel-plugin-remove-graphql-queries: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+a179e760f41c64ccf60d88d9705a534548e47c41,1628181842,workspaces_lerna:packages/babel-preset-gatsby-package: build,"babel src --out-dir dist/ --ignore ""**/__tests__"" --ignore ""**/__mocks__"" --extensions "".ts,.js"""
+77e9aabdff5156d4f037b1b36dbb351bfe043be4,1628254144,workspaces_lerna:packages/babel-preset-gatsby-package: build,
+a179e760f41c64ccf60d88d9705a534548e47c41,1628181842,workspaces_lerna:packages/babel-preset-gatsby-package: prepare,cross-env NODE_ENV=production npm run build
+a179e760f41c64ccf60d88d9705a534548e47c41,1628181842,workspaces_lerna:packages/babel-preset-gatsby-package: watch,"babel -w src --out-dir dist/ --ignore ""**/__tests__"" --extensions "".ts,.js"""
+b116f7e423462e570a909253e9d8882e001d6d61,1682490190,workspaces_lerna:packages/babel-preset-gatsby-package: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/babel-preset-gatsby: build,"babel src --out-dir . --ignore ""**/__tests__"" --ignore ""**/utils/path-serializer.ts"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/babel-preset-gatsby: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/babel-preset-gatsby: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --ignore ""**/utils/path-serializer.ts"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/create-gatsby: build,microbundle -i src/index.ts --no-pkg-main --target=node -f=cjs --sourcemap=false --compress --alias worker_threads=@ascorbic/worker-threads-shim
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/create-gatsby: import-plugin-options,node ./scripts/import-options-schema.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/create-gatsby: prepare,yarn build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/create-gatsby: watch,microbundle -i src/index.ts --no-pkg-main --target=node -f=cjs --alias worker_threads=@ascorbic/worker-threads-shim --watch
+b2d4aefa7716e3ef02a19b530a8a7e4678d086e1,1690213953,workspaces_lerna:packages/gatsby-adapter-netlify: build,"babel src --out-dir dist/ --ignore ""**/__tests__"" --extensions "".ts"""
+b2d4aefa7716e3ef02a19b530a8a7e4678d086e1,1690213953,workspaces_lerna:packages/gatsby-adapter-netlify: prepare,cross-env NODE_ENV=production npm run build && npm run typegen
+b2d4aefa7716e3ef02a19b530a8a7e4678d086e1,1690213953,workspaces_lerna:packages/gatsby-adapter-netlify: typegen,"rimraf --glob ""dist/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir dist/"
+b2d4aefa7716e3ef02a19b530a8a7e4678d086e1,1690213953,workspaces_lerna:packages/gatsby-adapter-netlify: watch,"babel -w src --out-dir dist/ --ignore ""**/__tests__"" --extensions "".ts"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-admin: build,node ../gatsby/dist/bin/gatsby.js build --prefix-paths
+17a3f9f69ae2710f4aeef27603226281f2713281,1632832272,workspaces_lerna:packages/gatsby-admin: build,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-admin: develop,gatsby develop
+17a3f9f69ae2710f4aeef27603226281f2713281,1632832272,workspaces_lerna:packages/gatsby-admin: develop,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-admin: postbuild,ncp public ../gatsby/gatsby-admin-public
+17a3f9f69ae2710f4aeef27603226281f2713281,1632832272,workspaces_lerna:packages/gatsby-admin: postbuild,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-admin: prebuild,rimraf public
+17a3f9f69ae2710f4aeef27603226281f2713281,1632832272,workspaces_lerna:packages/gatsby-admin: prebuild,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-admin: watch,"nodemon --watch src --ext js,ts,tsx,json --exec ""yarn run build"""
+17a3f9f69ae2710f4aeef27603226281f2713281,1632832272,workspaces_lerna:packages/gatsby-admin: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-cli: build,npm-run-all -p build:babel build:rollup
+8cc09702f9a2767c51cf5267233108c07e4ac073,1652259479,workspaces_lerna:packages/gatsby-cli: build,npm-run-all --npm-path npm -p build:babel build:rollup
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-cli: build:babel,"babel src --out-dir lib --ignore ""**/__tests__"" --ignore ""src/reporter/loggers/ink/**/*"" --extensions "".ts,.js,.tsx"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-cli: build:rollup,rollup -c
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-cli: postinstall,node scripts/postinstall.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-cli: prepare,cross-env NODE_ENV=production npm run build && npm run typegen
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-cli: typegen,"rimraf ""lib/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir lib/"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-cli: watch,npm-run-all -p watch:babel watch:rollup
+8cc09702f9a2767c51cf5267233108c07e4ac073,1652259479,workspaces_lerna:packages/gatsby-cli: watch,npm-run-all --npm-path npm -p watch:babel watch:rollup
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-cli: watch:babel,npm run build:babel -- --watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-cli: watch:rollup,npm run build:rollup -- -w
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-codemods: build,"babel src --out-dir . --ignore ""**/__tests__"""
+275b3562c235372ee8a43ae93a94cf91b9569d06,1664521677,workspaces_lerna:packages/gatsby-codemods: build,"babel src --out-dir . --ignore ""**/__tests__""  --extensions "".ts,.tsx,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-codemods: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-codemods: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+275b3562c235372ee8a43ae93a94cf91b9569d06,1664521677,workspaces_lerna:packages/gatsby-codemods: watch,"babel -w src --out-dir . --ignore ""**/__tests__""  --extensions "".ts,.tsx,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-core-utils: build,"babel src --out-dir dist/ --ignore ""**/__tests__"" --ignore ""**/__mocks__"" --extensions "".ts"""
+6df573f7582c195cf03d0da7cc5de32f090e9875,1657017999,workspaces_lerna:packages/gatsby-core-utils: build,npm-run-all --npm-path npm -s build:*
+6df573f7582c195cf03d0da7cc5de32f090e9875,1657017999,workspaces_lerna:packages/gatsby-core-utils: build:cjs,"babel src --out-dir dist/ --ignore ""**/__tests__"" --ignore ""**/__mocks__"" --extensions "".ts"""
+6df573f7582c195cf03d0da7cc5de32f090e9875,1657017999,workspaces_lerna:packages/gatsby-core-utils: build:mjs,"cross-env BABEL_ENV=modern babel src --out-dir dist/ --ignore ""**/__tests__"" --ignore ""**/__mocks__"" --extensions "".ts"" --out-file-extension .mjs"
+6df573f7582c195cf03d0da7cc5de32f090e9875,1657017999,workspaces_lerna:packages/gatsby-core-utils: clean,del-cli dist/*
+6df573f7582c195cf03d0da7cc5de32f090e9875,1657017999,workspaces_lerna:packages/gatsby-core-utils: prebuild,npm-run-all --npm-path npm clean
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-core-utils: prepare,cross-env NODE_ENV=production npm run build && npm run typegen
+df1226576b911be0f962c149c0bcbad279d9f806,1686555238,workspaces_lerna:packages/gatsby-core-utils: prepare,cross-env NODE_ENV=production npm-run-all --npm-path npm -s build typegen
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-core-utils: typegen,tsc --emitDeclarationOnly --declaration --declarationDir dist/
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-core-utils: watch,"babel -w src --out-dir dist/ --ignore ""**/__tests__"" --extensions "".ts"""
+6df573f7582c195cf03d0da7cc5de32f090e9875,1657017999,workspaces_lerna:packages/gatsby-core-utils: watch,npm-run-all --npm-path npm -p watch:*
+6df573f7582c195cf03d0da7cc5de32f090e9875,1657017999,workspaces_lerna:packages/gatsby-core-utils: watch:cjs,"babel -w src --out-dir dist/ --ignore ""**/__tests__"" --ignore ""**/__mocks__"" --extensions "".ts"""
+6df573f7582c195cf03d0da7cc5de32f090e9875,1657017999,workspaces_lerna:packages/gatsby-core-utils: watch:mjs,"cross-env BABEL_ENV=modern babel -w src --out-dir dist/ --ignore ""**/__tests__"" --ignore ""**/__mocks__"" --extensions "".ts"" --out-file-extension .mjs"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-cypress: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-cypress: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-cypress: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-design-tokens: build,npm run build:tokens && npm run build:theme && npm run build:theme-gatsbyjs-org
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-design-tokens: build:theme,"(microbundle build src/theme.js -o dist/theme.js --sourcemap=false -f es,cjs) || node -e ""console.log('\nMicrobundle failed, make sure you\'re using node version 10.16 or higher\n');process.exit(1)"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-design-tokens: build:theme-gatsbyjs-org,"(microbundle build src/theme-gatsbyjs-org.js -o dist/theme-gatsbyjs-org.js --sourcemap=false -f es,cjs) || node -e ""console.log('\nMicrobundle failed, make sure you\'re using node version 10.16 or higher\n');process.exit(1)"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-design-tokens: build:tokens,"(microbundle build --sourcemap=false -f es,cjs && agadoo dist/index.esm.js) || node -e ""console.log('\nMicrobundle failed, make sure you\'re using node version 10.16 or higher\n');process.exit(1)"""
+55978cf3edfa47c1b20bb9a5543457f1df442e43,1680529490,workspaces_lerna:packages/gatsby-design-tokens: build:tokens,"(microbundle build --sourcemap=false -f es,cjs) || node -e ""console.log('\nMicrobundle failed, make sure you\'re using node version 10.16 or higher\n');process.exit(1)"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-design-tokens: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-design-tokens: watch,"microbundle watch src/index.js src/theme.js src/theme-gatsbyjs-org.js --sourcemap=false -f es,cjs"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-dev-cli: build,"babel src --out-dir dist --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-dev-cli: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-dev-cli: test,"echo ""Error: no test specified"" && exit 1"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-dev-cli: watch,"babel -w src --out-dir dist --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-graphiql-explorer: build,npm-run-all --parallel build:app build:babel
+8cc09702f9a2767c51cf5267233108c07e4ac073,1652259479,workspaces_lerna:packages/gatsby-graphiql-explorer: build,npm-run-all --npm-path npm --parallel build:app build:babel
+55a601d759589286fb99e97db0ba095a1e6ed894,1666094059,workspaces_lerna:packages/gatsby-graphiql-explorer: build,webpack --config ./src/webpack.config.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-graphiql-explorer: build:app,webpack --config ./src/app/webpack.config.js
+eb9a3301f3c889f5d304889f461e3ec8567b3d11,1666083720,workspaces_lerna:packages/gatsby-graphiql-explorer: build:app,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-graphiql-explorer: build:babel,"babel src/index.js --out-dir . --ignore ""**/__tests__"""
+eb9a3301f3c889f5d304889f461e3ec8567b3d11,1666083720,workspaces_lerna:packages/gatsby-graphiql-explorer: build:babel,
+55a601d759589286fb99e97db0ba095a1e6ed894,1666094059,workspaces_lerna:packages/gatsby-graphiql-explorer: clean,del-cli dist/*
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-graphiql-explorer: prepare,cross-env NODE_ENV=production npm run build
+55a601d759589286fb99e97db0ba095a1e6ed894,1666094059,workspaces_lerna:packages/gatsby-graphiql-explorer: prepare,cross-env NODE_ENV=production npm run clean && npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-graphiql-explorer: test,"echo ""Error: no test specified"" && exit 1"
+eb9a3301f3c889f5d304889f461e3ec8567b3d11,1666083720,workspaces_lerna:packages/gatsby-graphiql-explorer: test,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-graphiql-explorer: watch,npm-run-all --parallel watch:app watch:babel
+8cc09702f9a2767c51cf5267233108c07e4ac073,1652259479,workspaces_lerna:packages/gatsby-graphiql-explorer: watch,npm-run-all --npm-path npm --parallel watch:app watch:babel
+55a601d759589286fb99e97db0ba095a1e6ed894,1666094059,workspaces_lerna:packages/gatsby-graphiql-explorer: watch,npm run build -- --watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-graphiql-explorer: watch:app,npm run build:app -- --watch
+eb9a3301f3c889f5d304889f461e3ec8567b3d11,1666083720,workspaces_lerna:packages/gatsby-graphiql-explorer: watch:app,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-graphiql-explorer: watch:babel,npm run build:babel -- --watch
+eb9a3301f3c889f5d304889f461e3ec8567b3d11,1666083720,workspaces_lerna:packages/gatsby-graphiql-explorer: watch:babel,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-image: build,"babel src --out-dir . --ignore ""**/__tests__"""
+971fa82d1ce6bfafbcc49f161fe5308932ff18d3,1628024356,workspaces_lerna:packages/gatsby-image: build,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-image: prepare,cross-env NODE_ENV=production npm run build
+971fa82d1ce6bfafbcc49f161fe5308932ff18d3,1628024356,workspaces_lerna:packages/gatsby-image: prepare,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-image: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+971fa82d1ce6bfafbcc49f161fe5308932ff18d3,1628024356,workspaces_lerna:packages/gatsby-image: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-legacy-polyfills: build,npm-run-all -p build:*
+8cc09702f9a2767c51cf5267233108c07e4ac073,1652259479,workspaces_lerna:packages/gatsby-legacy-polyfills: build,npm-run-all --npm-path npm -p build:*
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-legacy-polyfills: build:exclude,"cpy ""src/exclude.js"" ""./dist"""
+2ea80c02e464fe9306f6a1eccbb6c74983a76208,1673275809,workspaces_lerna:packages/gatsby-legacy-polyfills: build:exclude,cpy 'exclude.js' '../dist' --cwd=./src
+c91ed287fd319a345c2f27877e20656826767e92,1712749779,workspaces_lerna:packages/gatsby-legacy-polyfills: build:exclude,"cpy ""exclude.js"" ""../dist"" --cwd=./src"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-legacy-polyfills: build:polyfills,microbundle -f iife -i src/polyfills.js --no-sourcemap --external=none
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-legacy-polyfills: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-legacy-polyfills: watch,npm-run-all -p watch:*
+8cc09702f9a2767c51cf5267233108c07e4ac073,1652259479,workspaces_lerna:packages/gatsby-legacy-polyfills: watch,npm-run-all --npm-path npm -p watch:*
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-legacy-polyfills: watch:exclude,"npm run build:exclude && chokidar ""src/exclude.js"" -c ""npm run build:exclude"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-legacy-polyfills: watch:polyfills,microbundle -f iife -i src/polyfills.js --no-sourcemap --external=none --watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-link: build,"babel src --out-dir . --ignore ""**/__tests__"""
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_lerna:packages/gatsby-link: build,"microbundle -f cjs,modern --jsx React.createElement --generateTypes false"
+abb0baac94dee30043d669ac39a88a830784603b,1659623346,workspaces_lerna:packages/gatsby-link: build,npm-run-all --npm-path npm -s build:cjs build:esm
+5a88dbbd170a33b2d8dbae40debe8278537c962a,1666856390,workspaces_lerna:packages/gatsby-link: build,"microbundle -i src/index.js -f cjs,modern --jsx React.createElement --generateTypes false"
+abb0baac94dee30043d669ac39a88a830784603b,1659623346,workspaces_lerna:packages/gatsby-link: build:cjs,microbundle -f cjs --jsx React.createElement --generateTypes false  -i src/index-cjs.js -o dist/index.js
+4fadb28b5a78542966c4f7e06dbc645855b9e1e8,1666798196,workspaces_lerna:packages/gatsby-link: build:cjs,
+abb0baac94dee30043d669ac39a88a830784603b,1659623346,workspaces_lerna:packages/gatsby-link: build:esm,microbundle -f modern --jsx React.createElement --generateTypes false -o dist/index.mjs
+4fadb28b5a78542966c4f7e06dbc645855b9e1e8,1666798196,workspaces_lerna:packages/gatsby-link: build:esm,
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_lerna:packages/gatsby-link: clean,del-cli dist/*
+320efb77079f7adf4c89b885a7f34e4cc3951906,1661519921,workspaces_lerna:packages/gatsby-link: postbuild,"prepend-directive --files=dist/index.js,dist/index.modern.mjs --directive=""client export"""
+7f1b57c5a5849b3bc997957b3370c3119e79d279,1666707073,workspaces_lerna:packages/gatsby-link: postbuild,"prepend-directive --files=dist/index.js,dist/index.modern.mjs --directive=""use client"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-link: prepare,cross-env NODE_ENV=production npm run build
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_lerna:packages/gatsby-link: prepare,cross-env NODE_ENV=production npm run clean && npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-link: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_lerna:packages/gatsby-link: watch,npm run build watch --no-compress
+abb0baac94dee30043d669ac39a88a830784603b,1659623346,workspaces_lerna:packages/gatsby-link: watch,npm-run-all --npm-path npm -p watch:cjs watch:esm
+abb0baac94dee30043d669ac39a88a830784603b,1659623346,workspaces_lerna:packages/gatsby-link: watch:cjs,npm run build:cjs watch --no-compress
+4fadb28b5a78542966c4f7e06dbc645855b9e1e8,1666798196,workspaces_lerna:packages/gatsby-link: watch:cjs,
+abb0baac94dee30043d669ac39a88a830784603b,1659623346,workspaces_lerna:packages/gatsby-link: watch:esm,npm run build:esm watch --no-compress
+4fadb28b5a78542966c4f7e06dbc645855b9e1e8,1666798196,workspaces_lerna:packages/gatsby-link: watch:esm,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-page-utils: build,"babel src --out-dir dist/ --ignore ""**/__tests__"" --extensions "".ts"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-page-utils: prepare,cross-env NODE_ENV=production npm run build && npm run typegen
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-page-utils: typegen,"rimraf ""dist/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir dist/"
+644cb735354709155140e668d35fea92a9cf9ddf,1680520439,workspaces_lerna:packages/gatsby-page-utils: typegen,"rimraf --glob ""dist/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir dist/"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-page-utils: watch,"babel -w src --out-dir dist/ --ignore ""**/__tests__"" --extensions "".ts"""
+08d6090e98d697ea3ceda8472067d3acf0619b25,1653318018,workspaces_lerna:packages/gatsby-parcel-config: version,node ../../scripts/pin-version.js
+459fab40f318e09e112eef2e8673e869dc28e1d5,1653051089,workspaces_lerna:packages/gatsby-parcel-namer-relative-to-cwd: build,"babel src --out-dir lib/ --ignore ""**/__tests__"" --extensions "".ts"""
+459fab40f318e09e112eef2e8673e869dc28e1d5,1653051089,workspaces_lerna:packages/gatsby-parcel-namer-relative-to-cwd: prepare,cross-env NODE_ENV=production npm run build
+459fab40f318e09e112eef2e8673e869dc28e1d5,1653051089,workspaces_lerna:packages/gatsby-parcel-namer-relative-to-cwd: watch,"babel -w src --out-dir lib/ --ignore ""**/__tests__"" --extensions "".ts"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-benchmark-reporting: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-benchmark-reporting: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-benchmark-reporting: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-canonical-urls: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-canonical-urls: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-canonical-urls: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-catch-links: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-catch-links: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-catch-links: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-coffeescript: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-coffeescript: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-coffeescript: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-create-client-paths: build,"babel src --out-dir . --ignore ""**/__tests__"""
+500d17a957f4ae0bd9beb63ee437675a2945d71c,1647229540,workspaces_lerna:packages/gatsby-plugin-create-client-paths: build,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-create-client-paths: prepare,cross-env NODE_ENV=production npm run build
+500d17a957f4ae0bd9beb63ee437675a2945d71c,1647229540,workspaces_lerna:packages/gatsby-plugin-create-client-paths: prepare,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-create-client-paths: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+500d17a957f4ae0bd9beb63ee437675a2945d71c,1647229540,workspaces_lerna:packages/gatsby-plugin-create-client-paths: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-cxs: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-cxs: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-cxs: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-emotion: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-emotion: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-emotion: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-facebook-analytics: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-facebook-analytics: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-facebook-analytics: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-feed: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-feed: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-feed: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-flow: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-flow: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-flow: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-fullstory: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-fullstory: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-fullstory: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+db5ba5b00d3c5911010c8542f61206980d14aa8c,1613733903,workspaces_lerna:packages/gatsby-plugin-gatsby-cloud: build,"babel src --out-dir . --ignore ""**/__tests__"""
+b2c30db1b83d5275c698d3b131832518833d07fc,1628267254,workspaces_lerna:packages/gatsby-plugin-gatsby-cloud: build,"babel src --out-dir . --ignore ""**/__tests__"" && npm run clean && npm run copy-type-declarations"
+17e86980518d672d1bffca59163bd934be4decb2,1642706168,workspaces_lerna:packages/gatsby-plugin-gatsby-cloud: build,"babel src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"" && npm run clean && npm run copy-type-declarations"
+e3d57c0fb8ab8a89b29fd613a519340574b1239a,1652997734,workspaces_lerna:packages/gatsby-plugin-gatsby-cloud: build,"babel src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+b2c30db1b83d5275c698d3b131832518833d07fc,1628267254,workspaces_lerna:packages/gatsby-plugin-gatsby-cloud: clean,rimraf ./components/index.d.ts
+b1168aff8856ff28e3c42d1ee13ef7a9686f7048,1631524356,workspaces_lerna:packages/gatsby-plugin-gatsby-cloud: clean,del-cli ./components/index.d.ts
+3fcfa0a669997b3547f81e011f4f9ff78ca74e3b,1652982825,workspaces_lerna:packages/gatsby-plugin-gatsby-cloud: clean,
+b2c30db1b83d5275c698d3b131832518833d07fc,1628267254,workspaces_lerna:packages/gatsby-plugin-gatsby-cloud: copy-type-declarations,cp src/components/index.d.ts components/index.d.ts
+a66d77493e89f1629da2e2d8c5ea6395bbf067fc,1628788033,workspaces_lerna:packages/gatsby-plugin-gatsby-cloud: copy-type-declarations,cpy src/components/index.d.ts components/index.d.ts
+b1168aff8856ff28e3c42d1ee13ef7a9686f7048,1631524356,workspaces_lerna:packages/gatsby-plugin-gatsby-cloud: copy-type-declarations,cpy src/components/index.d.ts components/
+17e86980518d672d1bffca59163bd934be4decb2,1642706168,workspaces_lerna:packages/gatsby-plugin-gatsby-cloud: copy-type-declarations,cpy src/components/index.d.ts components
+3fcfa0a669997b3547f81e011f4f9ff78ca74e3b,1652982825,workspaces_lerna:packages/gatsby-plugin-gatsby-cloud: copy-type-declarations,
+db5ba5b00d3c5911010c8542f61206980d14aa8c,1613733903,workspaces_lerna:packages/gatsby-plugin-gatsby-cloud: prepare,cross-env NODE_ENV=production npm run build
+db5ba5b00d3c5911010c8542f61206980d14aa8c,1613733903,workspaces_lerna:packages/gatsby-plugin-gatsby-cloud: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+17e86980518d672d1bffca59163bd934be4decb2,1642706168,workspaces_lerna:packages/gatsby-plugin-gatsby-cloud: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-glamor: build,"babel src --out-dir . --ignore ""**/__tests__"""
+bc3410bff0c31be8e4aba5ce45fd49d93d25118f,1628058831,workspaces_lerna:packages/gatsby-plugin-glamor: build,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-glamor: prepare,cross-env NODE_ENV=production npm run build
+bc3410bff0c31be8e4aba5ce45fd49d93d25118f,1628058831,workspaces_lerna:packages/gatsby-plugin-glamor: prepare,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-glamor: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+bc3410bff0c31be8e4aba5ce45fd49d93d25118f,1628058831,workspaces_lerna:packages/gatsby-plugin-glamor: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-google-analytics: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-google-analytics: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-google-analytics: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-google-gtag: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-google-gtag: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-google-gtag: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-google-tagmanager: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-google-tagmanager: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-google-tagmanager: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-graphql-config: build,"babel src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+e7fc88b024c84a3e9f732deec7441621024e1f95,1652949569,workspaces_lerna:packages/gatsby-plugin-graphql-config: build,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-graphql-config: prepare,cross-env NODE_ENV=production npm run build
+e7fc88b024c84a3e9f732deec7441621024e1f95,1652949569,workspaces_lerna:packages/gatsby-plugin-graphql-config: prepare,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-graphql-config: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+e7fc88b024c84a3e9f732deec7441621024e1f95,1652949569,workspaces_lerna:packages/gatsby-plugin-graphql-config: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-guess-js: build,"babel src --out-dir . --ignore ""**/__tests__"""
+79518c4e1e8d7559f49a46f192ea87584dd4bbfc,1612436953,workspaces_lerna:packages/gatsby-plugin-guess-js: build,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-guess-js: prepare,cross-env NODE_ENV=production npm run build
+79518c4e1e8d7559f49a46f192ea87584dd4bbfc,1612436953,workspaces_lerna:packages/gatsby-plugin-guess-js: prepare,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-guess-js: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+79518c4e1e8d7559f49a46f192ea87584dd4bbfc,1612436953,workspaces_lerna:packages/gatsby-plugin-guess-js: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-image: build,npm-run-all -s clean -p build:*
+8cc09702f9a2767c51cf5267233108c07e4ac073,1652259479,workspaces_lerna:packages/gatsby-plugin-image: build,npm-run-all --npm-path npm -s clean -p build:*
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-image: build:browser,"microbundle -i src/index.browser.ts -f cjs,modern,es --jsx React.createElement -o dist/gatsby-image.browser --define SERVER=false"
+9a912956a5ea66be7281f6263928b64f20ff1d53,1651742854,workspaces_lerna:packages/gatsby-plugin-image: build:browser,"microbundle -i src/index.browser.ts -f cjs,modern --jsx React.createElement -o dist/gatsby-image.browser --define SERVER=false"
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_lerna:packages/gatsby-plugin-image: build:browser,"microbundle -i src/index.browser.ts -f cjs,modern --jsx React.createElement --jsxFragment React.Fragment -o dist/gatsby-image.browser --define SERVER=false"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-image: build:browser-compat,"microbundle -i src/components/compat.browser.tsx -f cjs,modern,es --jsx React.createElement -o dist/gatsby-image.compat.browser --define SERVER=false"
+12da9782a2ac8c3120e1c0cfa0661d43dc2c3ca5,1610471562,workspaces_lerna:packages/gatsby-plugin-image: build:browser-compat,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-image: build:gatsby-node,tsc --jsx react --downlevelIteration true --skipLibCheck true --esModuleInterop true --outDir dist/ src/gatsby-node.ts src/babel-plugin-parse-static-images.ts src/resolver-utils.ts src/types.d.ts
+0ac0ac840957b92be447d61e46b1b8bcd2bcfacd,1611580915,workspaces_lerna:packages/gatsby-plugin-image: build:gatsby-node,tsc --jsx react --downlevelIteration true --skipLibCheck true --esModuleInterop true --outDir dist/ src/gatsby-node.ts src/babel-plugin-parse-static-images.ts src/resolver-utils.ts src/types.d.ts -d --declarationDir dist/src
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-image: build:gatsby-ssr,"microbundle -i src/gatsby-ssr.tsx -f cjs -o ./[name].js --no-pkg-main --jsx React.createElement --no-compress --external=common-tags,react --no-sourcemap"
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_lerna:packages/gatsby-plugin-image: build:gatsby-ssr,"microbundle -i src/gatsby-ssr.tsx -f cjs -o ./[name].js --no-pkg-main --jsx React.createElement --jsxFragment React.Fragment --no-compress --external=common-tags,react --no-sourcemap"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-image: build:server,"microbundle -f cjs,es --jsx React.createElement --define SERVER=true"
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_lerna:packages/gatsby-plugin-image: build:server,"microbundle -f cjs,es --jsx React.createElement --jsxFragment React.Fragment --define SERVER=true"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-image: build:server-compat,"microbundle -i src/components/compat.tsx -f cjs,es --jsx React.createElement -o dist/gatsby-image.compat --define SERVER=true"
+12da9782a2ac8c3120e1c0cfa0661d43dc2c3ca5,1610471562,workspaces_lerna:packages/gatsby-plugin-image: build:server-compat,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-image: clean,del-cli dist/*
+320efb77079f7adf4c89b885a7f34e4cc3951906,1661519921,workspaces_lerna:packages/gatsby-plugin-image: postbuild,"prepend-directive --files=dist/gatsby-image.browser.js,dist/gatsby-image.browser.modern.js --directive=""client export"""
+7f1b57c5a5849b3bc997957b3370c3119e79d279,1666707073,workspaces_lerna:packages/gatsby-plugin-image: postbuild,"prepend-directive --files=dist/gatsby-image.browser.js,dist/gatsby-image.browser.modern.js --directive=""use client"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-image: prepare,yarn build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-image: test,jest
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-image: test:watch,jest --watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-image: watch,run-p watch:*
+9a912956a5ea66be7281f6263928b64f20ff1d53,1651742854,workspaces_lerna:packages/gatsby-plugin-image: watch,npm-run-all -s clean -p watch:*
+8cc09702f9a2767c51cf5267233108c07e4ac073,1652259479,workspaces_lerna:packages/gatsby-plugin-image: watch,npm-run-all --npm-path npm -s clean -p watch:*
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-image: watch:browser,yarn build:browser --no-compress watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-image: watch:browser-compat,yarn build:browser-compat --no-compress watch
+12da9782a2ac8c3120e1c0cfa0661d43dc2c3ca5,1610471562,workspaces_lerna:packages/gatsby-plugin-image: watch:browser-compat,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-image: watch:gatsby-node,yarn build:gatsby-node --watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-image: watch:gatsby-ssr,yarn build:gatsby-ssr watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-image: watch:server,yarn build:server --no-compress watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-image: watch:server-compat,yarn build:server-compat --no-compress watch
+12da9782a2ac8c3120e1c0cfa0661d43dc2c3ca5,1610471562,workspaces_lerna:packages/gatsby-plugin-image: watch:server-compat,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-jss: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-jss: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-jss: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-layout: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-layout: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-layout: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-less: build,"babel src --out-dir . --ignore ""**/__tests__,theme-test.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-less: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-less: watch,"babel -w src --out-dir . --ignore ""**/__tests__,theme-test.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-lodash: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-lodash: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-lodash: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-manifest: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-manifest: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-manifest: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+c92db36642268d1ee50c11ea568f836c7e5b4a03,1660135402,workspaces_lerna:packages/gatsby-plugin-mdx: build,"babel src --out-dir dist/ --ignore ""**/__tests__"" --ignore ""**/__mocks__"" --extensions "".ts"""
+c92db36642268d1ee50c11ea568f836c7e5b4a03,1660135402,workspaces_lerna:packages/gatsby-plugin-mdx: clean,del-cli dist/*
+c92db36642268d1ee50c11ea568f836c7e5b4a03,1660135402,workspaces_lerna:packages/gatsby-plugin-mdx: prepare,cross-env NODE_ENV=production npm run clean && npm run build && npm run typegen
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-mdx: test,jest
+c92db36642268d1ee50c11ea568f836c7e5b4a03,1660135402,workspaces_lerna:packages/gatsby-plugin-mdx: typegen,tsc --emitDeclarationOnly --declaration --declarationDir dist/
+c92db36642268d1ee50c11ea568f836c7e5b4a03,1660135402,workspaces_lerna:packages/gatsby-plugin-mdx: watch,"babel -w src --out-dir dist/ --ignore ""**/__tests__"" --extensions "".ts,.tsx"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-netlify-cms: build,"babel src --out-dir . --ignore ""**/__tests__"""
+6d1d97e7fb0c32e2f676babe7f904828bec289df,1702542940,workspaces_lerna:packages/gatsby-plugin-netlify-cms: build,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-netlify-cms: prepare,cross-env NODE_ENV=production npm run build
+6d1d97e7fb0c32e2f676babe7f904828bec289df,1702542940,workspaces_lerna:packages/gatsby-plugin-netlify-cms: prepare,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-netlify-cms: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+6d1d97e7fb0c32e2f676babe7f904828bec289df,1702542940,workspaces_lerna:packages/gatsby-plugin-netlify-cms: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-netlify: build,"babel src --out-dir . --ignore ""**/__tests__"""
+14298e77a590978dcec5099e379fd0e5d39d6430,1631258984,workspaces_lerna:packages/gatsby-plugin-netlify: build,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-netlify: prepare,cross-env NODE_ENV=production npm run build
+14298e77a590978dcec5099e379fd0e5d39d6430,1631258984,workspaces_lerna:packages/gatsby-plugin-netlify: prepare,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-netlify: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+14298e77a590978dcec5099e379fd0e5d39d6430,1631258984,workspaces_lerna:packages/gatsby-plugin-netlify: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-nprogress: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-nprogress: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-nprogress: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-offline: build,npm run build:src && npm run build:sw-append
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-offline: build:src,"babel src --out-dir . --ignore ""**/__tests__,src/sw-append.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-offline: build:sw-append,cpx -v src/sw-append.js .
+af6632b08e7867d5304cfb13448c2086fb622543,1639120877,workspaces_lerna:packages/gatsby-plugin-offline: build:sw-append,cpy src/sw-append.js .
+2ea80c02e464fe9306f6a1eccbb6c74983a76208,1673275809,workspaces_lerna:packages/gatsby-plugin-offline: build:sw-append,cpy 'sw-append.js' '../' --cwd=./src
+c91ed287fd319a345c2f27877e20656826767e92,1712749779,workspaces_lerna:packages/gatsby-plugin-offline: build:sw-append,"cpy ""sw-append.js"" ""../"" --cwd=./src"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-offline: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-offline: watch,npm run build:sw-append -- --watch & npm run build:src -- --watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-page-creator: build,"babel src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-page-creator: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-page-creator: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-postcss: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-postcss: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-postcss: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-preact: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-preact: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-preact: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-preload-fonts: build,"babel src --out-dir . --ignore ""**/__tests__"" --ignore **/__mocks__"
+e7ec728536d365344a7d53c9248d65a5f2d24c80,1673488974,workspaces_lerna:packages/gatsby-plugin-preload-fonts: build,"babel src --out-dir . --ignore ""**/__tests__"" --ignore ""**/__mocks__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-preload-fonts: clean,del-cli index.js prepare
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-preload-fonts: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-preload-fonts: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --ignore **/__mocks__"
+e7ec728536d365344a7d53c9248d65a5f2d24c80,1673488974,workspaces_lerna:packages/gatsby-plugin-preload-fonts: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --ignore ""**/__mocks__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-react-css-modules: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-react-css-modules: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-react-css-modules: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-react-helmet: build,"babel src --out-dir . --ignore ""**/__tests__"",**/__mocks__"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-react-helmet: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-react-helmet: watch,"babel -w src --out-dir . --ignore ""**/__tests__"",**/__mocks__"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-remove-trailing-slashes: build,"babel src --out-dir . --ignore ""**/__tests__"""
+cc548c083a0424e90888cf03b457991b230e89b0,1658906829,workspaces_lerna:packages/gatsby-plugin-remove-trailing-slashes: build,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-remove-trailing-slashes: prepare,cross-env NODE_ENV=production npm run build
+cc548c083a0424e90888cf03b457991b230e89b0,1658906829,workspaces_lerna:packages/gatsby-plugin-remove-trailing-slashes: prepare,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-remove-trailing-slashes: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+cc548c083a0424e90888cf03b457991b230e89b0,1658906829,workspaces_lerna:packages/gatsby-plugin-remove-trailing-slashes: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-sass: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-sass: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-sass: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-sharp: build,"babel src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-sharp: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-sharp: watch,"babel -w src --out-dir . --ignore ""**/__tests__""  --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-sitemap: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-sitemap: prepare,cross-env NODE_ENV=production npm run build
+3d65a1cf0e5859890a98a61b0dcab7a40bdf5832,1618835085,workspaces_lerna:packages/gatsby-plugin-sitemap: test,jest
+3d65a1cf0e5859890a98a61b0dcab7a40bdf5832,1618835085,workspaces_lerna:packages/gatsby-plugin-sitemap: test:watch,jest --watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-sitemap: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-styled-components: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-styled-components: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-styled-components: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-styled-jsx: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-styled-jsx: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-styled-jsx: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-styletron: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-styletron: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-styletron: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-stylus: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-stylus: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-stylus: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-subfont: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-subfont: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-subfont: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-twitter: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-twitter: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-twitter: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-typescript: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-typescript: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-typescript: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-typography: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-typography: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-typography: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-utils: build,"babel src --out-dir dist/ --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-utils: prepare,cross-env NODE_ENV=production npm run build && npm run typegen
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-utils: typegen,"rimraf ""dist/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir dist/"
+0bfacac61ff06546c364ecd6379e2136c9f76394,1680530999,workspaces_lerna:packages/gatsby-plugin-utils: typegen,"rimraf --glob ""dist/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir dist/"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-plugin-utils: watch,"babel -w src --out-dir dist/ --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-react-router-scroll: build,"babel src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.tsx"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-react-router-scroll: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-react-router-scroll: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.tsx"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-recipes: build,rollup -c
+fb530ecccd45037b664525c5a7d18ea13f64a540,1639055080,workspaces_lerna:packages/gatsby-recipes: build,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-recipes: prebuild,rimraf dist
+fb530ecccd45037b664525c5a7d18ea13f64a540,1639055080,workspaces_lerna:packages/gatsby-recipes: prebuild,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-recipes: prepare,npm run build
+fb530ecccd45037b664525c5a7d18ea13f64a540,1639055080,workspaces_lerna:packages/gatsby-recipes: prepare,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-recipes: prewatch,rimraf dist
+fb530ecccd45037b664525c5a7d18ea13f64a540,1639055080,workspaces_lerna:packages/gatsby-recipes: prewatch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-recipes: test,jest
+fb530ecccd45037b664525c5a7d18ea13f64a540,1639055080,workspaces_lerna:packages/gatsby-recipes: test,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-recipes: test:watch,jest --watch
+fb530ecccd45037b664525c5a7d18ea13f64a540,1639055080,workspaces_lerna:packages/gatsby-recipes: test:watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-recipes: watch,rollup -c -w
+fb530ecccd45037b664525c5a7d18ea13f64a540,1639055080,workspaces_lerna:packages/gatsby-recipes: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-autolink-headers: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-autolink-headers: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-autolink-headers: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-code-repls: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-code-repls: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-code-repls: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-copy-linked-files: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-copy-linked-files: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-copy-linked-files: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-custom-blocks: build,"babel --out-dir . --ignore ""**/__tests__"" src"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-custom-blocks: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-custom-blocks: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-embed-snippet: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-embed-snippet: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-embed-snippet: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-graphviz: build,"babel --out-dir . src --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-graphviz: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-graphviz: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-images-contentful: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-images-contentful: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-images-contentful: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-images: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-images: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-images: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-katex: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-katex: prepare,cross-env NODE_ENV=production npm run build
+15f359affe1188eee3b31dc482111e3326929e76,1622745260,workspaces_lerna:packages/gatsby-remark-katex: test,jest src/__tests__/index.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-katex: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-prismjs: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-prismjs: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-prismjs: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-responsive-iframe: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-responsive-iframe: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-responsive-iframe: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-smartypants: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-smartypants: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-remark-smartypants: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+a88703f4de47c0ba9db48914bc2e0df73440dc92,1652965289,workspaces_lerna:packages/gatsby-script: build,"babel src --extensions "".js,.jsx,.ts,.tsx"" --out-dir dist --ignore ""**/__tests__"""
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_lerna:packages/gatsby-script: build,"microbundle -f cjs,modern --jsx React.createElement"
+0ef331d30eab0731457b6607c9320e2818eb1677,1663328616,workspaces_lerna:packages/gatsby-script: build,"microbundle -f cjs,modern --jsx React.createElement && tsc --emitDeclarationOnly --declaration --declarationDir dist"
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_lerna:packages/gatsby-script: clean,del-cli dist/*
+320efb77079f7adf4c89b885a7f34e4cc3951906,1661519921,workspaces_lerna:packages/gatsby-script: postbuild,"prepend-directive --files=dist/index.js,dist/index.modern.mjs --directive=""client export"""
+7f1b57c5a5849b3bc997957b3370c3119e79d279,1666707073,workspaces_lerna:packages/gatsby-script: postbuild,"prepend-directive --files=dist/index.js,dist/index.modern.mjs --directive=""use client"""
+a88703f4de47c0ba9db48914bc2e0df73440dc92,1652965289,workspaces_lerna:packages/gatsby-script: prepare,cross-env NODE_ENV=production npm run build && npm run typegen
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_lerna:packages/gatsby-script: prepare,cross-env NODE_ENV=production npm run clean && npm run build
+a88703f4de47c0ba9db48914bc2e0df73440dc92,1652965289,workspaces_lerna:packages/gatsby-script: typegen,"rimraf ""dist/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir dist/"
+f66604aa86cbf28b4c530920ae0186dd7447f32d,1656659620,workspaces_lerna:packages/gatsby-script: typegen,
+a88703f4de47c0ba9db48914bc2e0df73440dc92,1652965289,workspaces_lerna:packages/gatsby-script: watch,"babel -w src --extensions "".js,.jsx,.ts,.tsx"" --out-dir dist --ignore ""**/__tests__"""
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_lerna:packages/gatsby-script: watch,"microbundle watch -f cjs,modern --jsx React.createElement --no-compress"
+a3fa646eb6b51004ef9e85a32f7be1cf2d0cc2db,1642492033,workspaces_lerna:packages/gatsby-sharp: build,"babel src --out-file dist/index.js --ignore ""**/__tests__"" --extensions "".ts,.js"""
+0ef331d30eab0731457b6607c9320e2818eb1677,1663328616,workspaces_lerna:packages/gatsby-sharp: build,"babel src --out-dir dist --ignore ""**/__tests__"" --extensions "".ts,.js"""
+a3fa646eb6b51004ef9e85a32f7be1cf2d0cc2db,1642492033,workspaces_lerna:packages/gatsby-sharp: prepare,cross-env NODE_ENV=production npm-run-all -s build typegen
+8cc09702f9a2767c51cf5267233108c07e4ac073,1652259479,workspaces_lerna:packages/gatsby-sharp: prepare,cross-env NODE_ENV=production npm-run-all --npm-path npm -s build typegen
+a3fa646eb6b51004ef9e85a32f7be1cf2d0cc2db,1642492033,workspaces_lerna:packages/gatsby-sharp: typegen,tsc --emitDeclarationOnly --declaration --declarationDir dist/
+a3fa646eb6b51004ef9e85a32f7be1cf2d0cc2db,1642492033,workspaces_lerna:packages/gatsby-sharp: watch,"babel -w src --out-file dist/index.js --ignore ""**/__tests__"" --extensions "".ts,.js"""
+0ef331d30eab0731457b6607c9320e2818eb1677,1663328616,workspaces_lerna:packages/gatsby-sharp: watch,"babel -w src --out-dir dist --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-contentful: build,babel src --out-dir . --ignore **/__tests__ --ignore **/__fixtures__
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-contentful: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-contentful: watch,babel -w src --out-dir . --ignore **/__tests__ --ignore **/__fixtures__
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-drupal: build,"babel src --out-dir . --ignore ""**/__tests__"""
+3e8bb5ae2b8b56d426cd37d0e7751dc9186bd4aa,1673478354,workspaces_lerna:packages/gatsby-source-drupal: build,"babel src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-drupal: prepare,cross-env NODE_ENV=production npm run build
+3e8bb5ae2b8b56d426cd37d0e7751dc9186bd4aa,1673478354,workspaces_lerna:packages/gatsby-source-drupal: test,npx jest ./src/__tests__ --runInBand
+3e8bb5ae2b8b56d426cd37d0e7751dc9186bd4aa,1673478354,workspaces_lerna:packages/gatsby-source-drupal: test:watch,npx jest --watch ./src/__tests__ --runInBand
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-drupal: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+3e8bb5ae2b8b56d426cd37d0e7751dc9186bd4aa,1673478354,workspaces_lerna:packages/gatsby-source-drupal: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-faker: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-faker: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-faker: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-filesystem: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-filesystem: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-filesystem: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-graphql: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-graphql: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-graphql: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-hacker-news: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-hacker-news: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-hacker-news: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-lever: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-lever: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-lever: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-medium: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-medium: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-medium: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-mongodb: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-mongodb: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-mongodb: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-npm-package-search: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-npm-package-search: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-npm-package-search: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-shopify: build,"babel src --out-dir . --ignore ""**/__tests__"""
+76a040d31fc956de26b07d9284713963dfa1cb07,1623883304,workspaces_lerna:packages/gatsby-source-shopify: build,tsc --outDir .
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-shopify: prepare,cross-env NODE_ENV=production npm run build
+76a040d31fc956de26b07d9284713963dfa1cb07,1623883304,workspaces_lerna:packages/gatsby-source-shopify: prepublish,yarn build && cp ../README.md .
+9e58577f3dfa0a1414f9f4a93408b14f4bbb1233,1623940891,workspaces_lerna:packages/gatsby-source-shopify: prepublish,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-shopify: watch,npm run build -- --watch
+76a040d31fc956de26b07d9284713963dfa1cb07,1623883304,workspaces_lerna:packages/gatsby-source-shopify: watch,tsc-watch --outDir .
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-wikipedia: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-wikipedia: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-wikipedia: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-wordpress: build,"babel src --out-dir . --ignore ""**/__tests__"""
+862637be84622d945ec21c72b208c0a657c0f130,1612400003,workspaces_lerna:packages/gatsby-source-wordpress: build,"rimraf dist && babel src --out-dir dist --ignore **/__tests__ --extensions "".ts,.js"" --source-maps && npm run generate-plugin-options-docs"
+862637be84622d945ec21c72b208c0a657c0f130,1612400003,workspaces_lerna:packages/gatsby-source-wordpress: docker-rebuild,./docker/rebuild.sh
+08dfb37577510ba8d4900c487cea7301fb7667f8,1619442960,workspaces_lerna:packages/gatsby-source-wordpress: docker-rebuild,
+862637be84622d945ec21c72b208c0a657c0f130,1612400003,workspaces_lerna:packages/gatsby-source-wordpress: docker-start,docker-compose up --build --force-recreate -V --remove-orphans
+08dfb37577510ba8d4900c487cea7301fb7667f8,1619442960,workspaces_lerna:packages/gatsby-source-wordpress: docker-start,
+862637be84622d945ec21c72b208c0a657c0f130,1612400003,workspaces_lerna:packages/gatsby-source-wordpress: generate-plugin-options-docs,node ./generate-plugin-options-docs.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-wordpress: prepare,cross-env NODE_ENV=production npm run build
+862637be84622d945ec21c72b208c0a657c0f130,1612400003,workspaces_lerna:packages/gatsby-source-wordpress: prepare,npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-source-wordpress: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+862637be84622d945ec21c72b208c0a657c0f130,1612400003,workspaces_lerna:packages/gatsby-source-wordpress: watch,"npm run build && babel -w src --out-dir dist --ignore **/__tests__ --verbose --extensions "".ts,.js"" --source-maps"
+ef1681a692ab47f6ced462a7aca7e2ab287ee66f,1632330982,workspaces_lerna:packages/gatsby-source-wordpress: watch,"npm run build && babel -w src --out-dir dist --ignore **/__tests__ --extensions "".ts,.js"" --source-maps"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-telemetry: build,"babel src --out-dir lib --ignore ""**/__tests__"",""**/__mocks__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-telemetry: jest,jest
+ae2ffe8d642b15bcf9db59c5c26cee494cf76016,1639832567,workspaces_lerna:packages/gatsby-telemetry: jest,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-telemetry: postinstall,node src/postinstall.js || true
+41d8aef435e86b3130a0a0f82c669895ad866690,1729595722,workspaces_lerna:packages/gatsby-telemetry: postinstall,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-telemetry: prepare,cross-env NODE_ENV=production npm run build && npm run typegen
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-telemetry: typegen,"rimraf ""lib/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir lib/"
+617a3d4e87c1ec061bc877173b158cdcb64f367d,1680514066,workspaces_lerna:packages/gatsby-telemetry: typegen,"rimraf --glob ""lib/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir lib/"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-telemetry: watch,"babel -w src --out-dir lib --ignore ""**/__tests__"",""**/__mocks__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-asciidoc: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-asciidoc: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-asciidoc: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-csv: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-csv: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-csv: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-documentationjs: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-documentationjs: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-documentationjs: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-excel: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-excel: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-excel: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-hjson: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-hjson: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-hjson: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-javascript-frontmatter: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-javascript-frontmatter: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-javascript-frontmatter: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-javascript-static-exports: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-javascript-static-exports: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-javascript-static-exports: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-json: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-json: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-json: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-pdf: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-pdf: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-pdf: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-react-docgen: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-react-docgen: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-react-docgen: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-remark: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-remark: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-remark: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-screenshot: build,"babel src --out-dir . --ignore ""**/__tests__"" --ignore lambda"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-screenshot: build-lambda-package,npm run prepare-lambda-package && cd lambda-dist && zip -rq ../lambda-package.zip .
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-screenshot: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-screenshot: prepare-lambda-package,rm -rf lambda-dist && mkdir lambda-dist && cp lambda/package.json lambda-dist/package.json && cp lambda/screenshot.js lambda-dist/screenshot.js && cp lambda/index.js lambda-dist/index.js && cd lambda-dist && npm install --production
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-screenshot: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --ignore lambda"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-sharp: build,"babel src --out-dir . --ignore ""**/__tests__""  --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-sharp: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-sharp: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-sqip: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-sqip: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-sqip: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-toml: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-toml: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-toml: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-xml: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-xml: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-xml: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-yaml: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-yaml: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby-transformer-yaml: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+a82f6dbe354f2e82a5d944727622ddb0bb44e05d,1624972240,workspaces_lerna:packages/gatsby-worker: build,"babel src --out-dir dist/ --ignore ""**/__tests__"" --extensions "".ts,.js"""
+a82f6dbe354f2e82a5d944727622ddb0bb44e05d,1624972240,workspaces_lerna:packages/gatsby-worker: prepare,cross-env NODE_ENV=production npm run build && npm run typegen
+a82f6dbe354f2e82a5d944727622ddb0bb44e05d,1624972240,workspaces_lerna:packages/gatsby-worker: typegen,"rimraf ""dist/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir dist/"
+c06f98cf5264c0657a76028e030fb27fd8a21854,1680514113,workspaces_lerna:packages/gatsby-worker: typegen,"rimraf --glob ""dist/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir dist/"
+a82f6dbe354f2e82a5d944727622ddb0bb44e05d,1624972240,workspaces_lerna:packages/gatsby-worker: watch,"babel -w src --out-dir dist/ --ignore ""**/__tests__""  --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby: build,npm run build:types && npm run build:src && npm run build:internal-plugins && npm run build:rawfiles && npm run build:cjs
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby: build:cjs,"babel cache-dir --out-dir cache-dir/commonjs --ignore ""**/__tests__"" --ignore ""**/__mocks__"""
+d86cd9ffd460f0840bc8ce572b628fb82d8004f8,1621268040,workspaces_lerna:packages/gatsby: build:cjs,"babel cache-dir --out-dir cache-dir/commonjs --ignore ""**/__tests__"" --ignore ""**/__mocks__"" && copyfiles -u 1 cache-dir/**/*.json cache-dir/commonjs"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby: build:internal-plugins,copyfiles -u 1 src/internal-plugins/**/package.json dist
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby: build:rawfiles,copyfiles -u 1 src/internal-plugins/**/raw_* dist
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby: build:src,"babel src --out-dir dist --source-maps --verbose --ignore ""**/gatsby-cli.js,src/internal-plugins/dev-404-page/raw_dev-404-page.js,**/__tests__,**/__mocks__"" --extensions "".ts,.js"""
+a88703f4de47c0ba9db48914bc2e0df73440dc92,1652965289,workspaces_lerna:packages/gatsby: build:src,"babel src --out-dir dist --source-maps --verbose --ignore ""**/gatsby-cli.js,src/internal-plugins/dev-404-page/raw_dev-404-page.js,**/__tests__,**/__mocks__"" --extensions "".ts,.tsx,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby: build:types,tsc --emitDeclarationOnly --declaration --declarationDir dist
+51af0b9bc6ae1ff374bb59ea0b5b6ec6270b38ee,1625482027,workspaces_lerna:packages/gatsby: build:types,tsc --emitDeclarationOnly --declaration --declarationDir dist && node scripts/check-declaration.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby: clean-test-bundles,find test/ -type f -name bundle.js* -exec rm -rf {} +
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby: postbuild,node scripts/output-api-file.js && yarn workspace gatsby-admin build
+edb8ffcd7726f3a18f8981963d1926a912c55fda,1632933809,workspaces_lerna:packages/gatsby: postbuild,node scripts/output-api-file.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby: postinstall,node scripts/postinstall.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby: prebuild,rimraf dist && rimraf cache-dir/commonjs
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby: prepare,cross-env NODE_ENV=production npm run build
+f6298068b3b4e0528c006bcc3d163a9873e76783,1620725834,workspaces_lerna:packages/gatsby: typecheck,tsc --noEmit
+08d6090e98d697ea3ceda8472067d3acf0619b25,1653318018,workspaces_lerna:packages/gatsby: version,node ../../scripts/pin-version.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_lerna:packages/gatsby: watch,rimraf dist && mkdir dist && npm run build:internal-plugins && npm run build:rawfiles && npm run build:src -- --watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/babel-plugin-remove-graphql-queries: build,"babel src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/babel-plugin-remove-graphql-queries: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/babel-plugin-remove-graphql-queries: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+a179e760f41c64ccf60d88d9705a534548e47c41,1628181842,workspaces_package:packages/babel-preset-gatsby-package: build,"babel src --out-dir dist/ --ignore ""**/__tests__"" --ignore ""**/__mocks__"" --extensions "".ts,.js"""
+77e9aabdff5156d4f037b1b36dbb351bfe043be4,1628254144,workspaces_package:packages/babel-preset-gatsby-package: build,
+a179e760f41c64ccf60d88d9705a534548e47c41,1628181842,workspaces_package:packages/babel-preset-gatsby-package: prepare,cross-env NODE_ENV=production npm run build
+a179e760f41c64ccf60d88d9705a534548e47c41,1628181842,workspaces_package:packages/babel-preset-gatsby-package: watch,"babel -w src --out-dir dist/ --ignore ""**/__tests__"" --extensions "".ts,.js"""
+b116f7e423462e570a909253e9d8882e001d6d61,1682490190,workspaces_package:packages/babel-preset-gatsby-package: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/babel-preset-gatsby: build,"babel src --out-dir . --ignore ""**/__tests__"" --ignore ""**/utils/path-serializer.ts"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/babel-preset-gatsby: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/babel-preset-gatsby: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --ignore ""**/utils/path-serializer.ts"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/create-gatsby: build,microbundle -i src/index.ts --no-pkg-main --target=node -f=cjs --sourcemap=false --compress --alias worker_threads=@ascorbic/worker-threads-shim
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/create-gatsby: import-plugin-options,node ./scripts/import-options-schema.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/create-gatsby: prepare,yarn build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/create-gatsby: watch,microbundle -i src/index.ts --no-pkg-main --target=node -f=cjs --alias worker_threads=@ascorbic/worker-threads-shim --watch
+b2d4aefa7716e3ef02a19b530a8a7e4678d086e1,1690213953,workspaces_package:packages/gatsby-adapter-netlify: build,"babel src --out-dir dist/ --ignore ""**/__tests__"" --extensions "".ts"""
+b2d4aefa7716e3ef02a19b530a8a7e4678d086e1,1690213953,workspaces_package:packages/gatsby-adapter-netlify: prepare,cross-env NODE_ENV=production npm run build && npm run typegen
+b2d4aefa7716e3ef02a19b530a8a7e4678d086e1,1690213953,workspaces_package:packages/gatsby-adapter-netlify: typegen,"rimraf --glob ""dist/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir dist/"
+b2d4aefa7716e3ef02a19b530a8a7e4678d086e1,1690213953,workspaces_package:packages/gatsby-adapter-netlify: watch,"babel -w src --out-dir dist/ --ignore ""**/__tests__"" --extensions "".ts"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-admin: build,node ../gatsby/dist/bin/gatsby.js build --prefix-paths
+17a3f9f69ae2710f4aeef27603226281f2713281,1632832272,workspaces_package:packages/gatsby-admin: build,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-admin: develop,gatsby develop
+17a3f9f69ae2710f4aeef27603226281f2713281,1632832272,workspaces_package:packages/gatsby-admin: develop,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-admin: postbuild,ncp public ../gatsby/gatsby-admin-public
+17a3f9f69ae2710f4aeef27603226281f2713281,1632832272,workspaces_package:packages/gatsby-admin: postbuild,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-admin: prebuild,rimraf public
+17a3f9f69ae2710f4aeef27603226281f2713281,1632832272,workspaces_package:packages/gatsby-admin: prebuild,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-admin: watch,"nodemon --watch src --ext js,ts,tsx,json --exec ""yarn run build"""
+17a3f9f69ae2710f4aeef27603226281f2713281,1632832272,workspaces_package:packages/gatsby-admin: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-cli: build,npm-run-all -p build:babel build:rollup
+8cc09702f9a2767c51cf5267233108c07e4ac073,1652259479,workspaces_package:packages/gatsby-cli: build,npm-run-all --npm-path npm -p build:babel build:rollup
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-cli: build:babel,"babel src --out-dir lib --ignore ""**/__tests__"" --ignore ""src/reporter/loggers/ink/**/*"" --extensions "".ts,.js,.tsx"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-cli: build:rollup,rollup -c
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-cli: postinstall,node scripts/postinstall.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-cli: prepare,cross-env NODE_ENV=production npm run build && npm run typegen
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-cli: typegen,"rimraf ""lib/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir lib/"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-cli: watch,npm-run-all -p watch:babel watch:rollup
+8cc09702f9a2767c51cf5267233108c07e4ac073,1652259479,workspaces_package:packages/gatsby-cli: watch,npm-run-all --npm-path npm -p watch:babel watch:rollup
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-cli: watch:babel,npm run build:babel -- --watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-cli: watch:rollup,npm run build:rollup -- -w
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-codemods: build,"babel src --out-dir . --ignore ""**/__tests__"""
+275b3562c235372ee8a43ae93a94cf91b9569d06,1664521677,workspaces_package:packages/gatsby-codemods: build,"babel src --out-dir . --ignore ""**/__tests__""  --extensions "".ts,.tsx,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-codemods: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-codemods: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+275b3562c235372ee8a43ae93a94cf91b9569d06,1664521677,workspaces_package:packages/gatsby-codemods: watch,"babel -w src --out-dir . --ignore ""**/__tests__""  --extensions "".ts,.tsx,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-core-utils: build,"babel src --out-dir dist/ --ignore ""**/__tests__"" --ignore ""**/__mocks__"" --extensions "".ts"""
+6df573f7582c195cf03d0da7cc5de32f090e9875,1657017999,workspaces_package:packages/gatsby-core-utils: build,npm-run-all --npm-path npm -s build:*
+6df573f7582c195cf03d0da7cc5de32f090e9875,1657017999,workspaces_package:packages/gatsby-core-utils: build:cjs,"babel src --out-dir dist/ --ignore ""**/__tests__"" --ignore ""**/__mocks__"" --extensions "".ts"""
+6df573f7582c195cf03d0da7cc5de32f090e9875,1657017999,workspaces_package:packages/gatsby-core-utils: build:mjs,"cross-env BABEL_ENV=modern babel src --out-dir dist/ --ignore ""**/__tests__"" --ignore ""**/__mocks__"" --extensions "".ts"" --out-file-extension .mjs"
+6df573f7582c195cf03d0da7cc5de32f090e9875,1657017999,workspaces_package:packages/gatsby-core-utils: clean,del-cli dist/*
+6df573f7582c195cf03d0da7cc5de32f090e9875,1657017999,workspaces_package:packages/gatsby-core-utils: prebuild,npm-run-all --npm-path npm clean
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-core-utils: prepare,cross-env NODE_ENV=production npm run build && npm run typegen
+df1226576b911be0f962c149c0bcbad279d9f806,1686555238,workspaces_package:packages/gatsby-core-utils: prepare,cross-env NODE_ENV=production npm-run-all --npm-path npm -s build typegen
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-core-utils: typegen,tsc --emitDeclarationOnly --declaration --declarationDir dist/
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-core-utils: watch,"babel -w src --out-dir dist/ --ignore ""**/__tests__"" --extensions "".ts"""
+6df573f7582c195cf03d0da7cc5de32f090e9875,1657017999,workspaces_package:packages/gatsby-core-utils: watch,npm-run-all --npm-path npm -p watch:*
+6df573f7582c195cf03d0da7cc5de32f090e9875,1657017999,workspaces_package:packages/gatsby-core-utils: watch:cjs,"babel -w src --out-dir dist/ --ignore ""**/__tests__"" --ignore ""**/__mocks__"" --extensions "".ts"""
+6df573f7582c195cf03d0da7cc5de32f090e9875,1657017999,workspaces_package:packages/gatsby-core-utils: watch:mjs,"cross-env BABEL_ENV=modern babel -w src --out-dir dist/ --ignore ""**/__tests__"" --ignore ""**/__mocks__"" --extensions "".ts"" --out-file-extension .mjs"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-cypress: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-cypress: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-cypress: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-design-tokens: build,npm run build:tokens && npm run build:theme && npm run build:theme-gatsbyjs-org
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-design-tokens: build:theme,"(microbundle build src/theme.js -o dist/theme.js --sourcemap=false -f es,cjs) || node -e ""console.log('\nMicrobundle failed, make sure you\'re using node version 10.16 or higher\n');process.exit(1)"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-design-tokens: build:theme-gatsbyjs-org,"(microbundle build src/theme-gatsbyjs-org.js -o dist/theme-gatsbyjs-org.js --sourcemap=false -f es,cjs) || node -e ""console.log('\nMicrobundle failed, make sure you\'re using node version 10.16 or higher\n');process.exit(1)"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-design-tokens: build:tokens,"(microbundle build --sourcemap=false -f es,cjs && agadoo dist/index.esm.js) || node -e ""console.log('\nMicrobundle failed, make sure you\'re using node version 10.16 or higher\n');process.exit(1)"""
+55978cf3edfa47c1b20bb9a5543457f1df442e43,1680529490,workspaces_package:packages/gatsby-design-tokens: build:tokens,"(microbundle build --sourcemap=false -f es,cjs) || node -e ""console.log('\nMicrobundle failed, make sure you\'re using node version 10.16 or higher\n');process.exit(1)"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-design-tokens: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-design-tokens: watch,"microbundle watch src/index.js src/theme.js src/theme-gatsbyjs-org.js --sourcemap=false -f es,cjs"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-dev-cli: build,"babel src --out-dir dist --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-dev-cli: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-dev-cli: test,"echo ""Error: no test specified"" && exit 1"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-dev-cli: watch,"babel -w src --out-dir dist --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-graphiql-explorer: build,npm-run-all --parallel build:app build:babel
+8cc09702f9a2767c51cf5267233108c07e4ac073,1652259479,workspaces_package:packages/gatsby-graphiql-explorer: build,npm-run-all --npm-path npm --parallel build:app build:babel
+55a601d759589286fb99e97db0ba095a1e6ed894,1666094059,workspaces_package:packages/gatsby-graphiql-explorer: build,webpack --config ./src/webpack.config.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-graphiql-explorer: build:app,webpack --config ./src/app/webpack.config.js
+eb9a3301f3c889f5d304889f461e3ec8567b3d11,1666083720,workspaces_package:packages/gatsby-graphiql-explorer: build:app,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-graphiql-explorer: build:babel,"babel src/index.js --out-dir . --ignore ""**/__tests__"""
+eb9a3301f3c889f5d304889f461e3ec8567b3d11,1666083720,workspaces_package:packages/gatsby-graphiql-explorer: build:babel,
+55a601d759589286fb99e97db0ba095a1e6ed894,1666094059,workspaces_package:packages/gatsby-graphiql-explorer: clean,del-cli dist/*
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-graphiql-explorer: prepare,cross-env NODE_ENV=production npm run build
+55a601d759589286fb99e97db0ba095a1e6ed894,1666094059,workspaces_package:packages/gatsby-graphiql-explorer: prepare,cross-env NODE_ENV=production npm run clean && npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-graphiql-explorer: test,"echo ""Error: no test specified"" && exit 1"
+eb9a3301f3c889f5d304889f461e3ec8567b3d11,1666083720,workspaces_package:packages/gatsby-graphiql-explorer: test,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-graphiql-explorer: watch,npm-run-all --parallel watch:app watch:babel
+8cc09702f9a2767c51cf5267233108c07e4ac073,1652259479,workspaces_package:packages/gatsby-graphiql-explorer: watch,npm-run-all --npm-path npm --parallel watch:app watch:babel
+55a601d759589286fb99e97db0ba095a1e6ed894,1666094059,workspaces_package:packages/gatsby-graphiql-explorer: watch,npm run build -- --watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-graphiql-explorer: watch:app,npm run build:app -- --watch
+eb9a3301f3c889f5d304889f461e3ec8567b3d11,1666083720,workspaces_package:packages/gatsby-graphiql-explorer: watch:app,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-graphiql-explorer: watch:babel,npm run build:babel -- --watch
+eb9a3301f3c889f5d304889f461e3ec8567b3d11,1666083720,workspaces_package:packages/gatsby-graphiql-explorer: watch:babel,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-image: build,"babel src --out-dir . --ignore ""**/__tests__"""
+971fa82d1ce6bfafbcc49f161fe5308932ff18d3,1628024356,workspaces_package:packages/gatsby-image: build,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-image: prepare,cross-env NODE_ENV=production npm run build
+971fa82d1ce6bfafbcc49f161fe5308932ff18d3,1628024356,workspaces_package:packages/gatsby-image: prepare,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-image: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+971fa82d1ce6bfafbcc49f161fe5308932ff18d3,1628024356,workspaces_package:packages/gatsby-image: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-legacy-polyfills: build,npm-run-all -p build:*
+8cc09702f9a2767c51cf5267233108c07e4ac073,1652259479,workspaces_package:packages/gatsby-legacy-polyfills: build,npm-run-all --npm-path npm -p build:*
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-legacy-polyfills: build:exclude,"cpy ""src/exclude.js"" ""./dist"""
+2ea80c02e464fe9306f6a1eccbb6c74983a76208,1673275809,workspaces_package:packages/gatsby-legacy-polyfills: build:exclude,cpy 'exclude.js' '../dist' --cwd=./src
+c91ed287fd319a345c2f27877e20656826767e92,1712749779,workspaces_package:packages/gatsby-legacy-polyfills: build:exclude,"cpy ""exclude.js"" ""../dist"" --cwd=./src"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-legacy-polyfills: build:polyfills,microbundle -f iife -i src/polyfills.js --no-sourcemap --external=none
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-legacy-polyfills: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-legacy-polyfills: watch,npm-run-all -p watch:*
+8cc09702f9a2767c51cf5267233108c07e4ac073,1652259479,workspaces_package:packages/gatsby-legacy-polyfills: watch,npm-run-all --npm-path npm -p watch:*
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-legacy-polyfills: watch:exclude,"npm run build:exclude && chokidar ""src/exclude.js"" -c ""npm run build:exclude"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-legacy-polyfills: watch:polyfills,microbundle -f iife -i src/polyfills.js --no-sourcemap --external=none --watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-link: build,"babel src --out-dir . --ignore ""**/__tests__"""
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_package:packages/gatsby-link: build,"microbundle -f cjs,modern --jsx React.createElement --generateTypes false"
+abb0baac94dee30043d669ac39a88a830784603b,1659623346,workspaces_package:packages/gatsby-link: build,npm-run-all --npm-path npm -s build:cjs build:esm
+5a88dbbd170a33b2d8dbae40debe8278537c962a,1666856390,workspaces_package:packages/gatsby-link: build,"microbundle -i src/index.js -f cjs,modern --jsx React.createElement --generateTypes false"
+abb0baac94dee30043d669ac39a88a830784603b,1659623346,workspaces_package:packages/gatsby-link: build:cjs,microbundle -f cjs --jsx React.createElement --generateTypes false  -i src/index-cjs.js -o dist/index.js
+4fadb28b5a78542966c4f7e06dbc645855b9e1e8,1666798196,workspaces_package:packages/gatsby-link: build:cjs,
+abb0baac94dee30043d669ac39a88a830784603b,1659623346,workspaces_package:packages/gatsby-link: build:esm,microbundle -f modern --jsx React.createElement --generateTypes false -o dist/index.mjs
+4fadb28b5a78542966c4f7e06dbc645855b9e1e8,1666798196,workspaces_package:packages/gatsby-link: build:esm,
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_package:packages/gatsby-link: clean,del-cli dist/*
+320efb77079f7adf4c89b885a7f34e4cc3951906,1661519921,workspaces_package:packages/gatsby-link: postbuild,"prepend-directive --files=dist/index.js,dist/index.modern.mjs --directive=""client export"""
+7f1b57c5a5849b3bc997957b3370c3119e79d279,1666707073,workspaces_package:packages/gatsby-link: postbuild,"prepend-directive --files=dist/index.js,dist/index.modern.mjs --directive=""use client"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-link: prepare,cross-env NODE_ENV=production npm run build
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_package:packages/gatsby-link: prepare,cross-env NODE_ENV=production npm run clean && npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-link: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_package:packages/gatsby-link: watch,npm run build watch --no-compress
+abb0baac94dee30043d669ac39a88a830784603b,1659623346,workspaces_package:packages/gatsby-link: watch,npm-run-all --npm-path npm -p watch:cjs watch:esm
+abb0baac94dee30043d669ac39a88a830784603b,1659623346,workspaces_package:packages/gatsby-link: watch:cjs,npm run build:cjs watch --no-compress
+4fadb28b5a78542966c4f7e06dbc645855b9e1e8,1666798196,workspaces_package:packages/gatsby-link: watch:cjs,
+abb0baac94dee30043d669ac39a88a830784603b,1659623346,workspaces_package:packages/gatsby-link: watch:esm,npm run build:esm watch --no-compress
+4fadb28b5a78542966c4f7e06dbc645855b9e1e8,1666798196,workspaces_package:packages/gatsby-link: watch:esm,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-page-utils: build,"babel src --out-dir dist/ --ignore ""**/__tests__"" --extensions "".ts"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-page-utils: prepare,cross-env NODE_ENV=production npm run build && npm run typegen
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-page-utils: typegen,"rimraf ""dist/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir dist/"
+644cb735354709155140e668d35fea92a9cf9ddf,1680520439,workspaces_package:packages/gatsby-page-utils: typegen,"rimraf --glob ""dist/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir dist/"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-page-utils: watch,"babel -w src --out-dir dist/ --ignore ""**/__tests__"" --extensions "".ts"""
+08d6090e98d697ea3ceda8472067d3acf0619b25,1653318018,workspaces_package:packages/gatsby-parcel-config: version,node ../../scripts/pin-version.js
+459fab40f318e09e112eef2e8673e869dc28e1d5,1653051089,workspaces_package:packages/gatsby-parcel-namer-relative-to-cwd: build,"babel src --out-dir lib/ --ignore ""**/__tests__"" --extensions "".ts"""
+459fab40f318e09e112eef2e8673e869dc28e1d5,1653051089,workspaces_package:packages/gatsby-parcel-namer-relative-to-cwd: prepare,cross-env NODE_ENV=production npm run build
+459fab40f318e09e112eef2e8673e869dc28e1d5,1653051089,workspaces_package:packages/gatsby-parcel-namer-relative-to-cwd: watch,"babel -w src --out-dir lib/ --ignore ""**/__tests__"" --extensions "".ts"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-benchmark-reporting: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-benchmark-reporting: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-benchmark-reporting: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-canonical-urls: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-canonical-urls: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-canonical-urls: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-catch-links: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-catch-links: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-catch-links: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-coffeescript: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-coffeescript: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-coffeescript: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-create-client-paths: build,"babel src --out-dir . --ignore ""**/__tests__"""
+500d17a957f4ae0bd9beb63ee437675a2945d71c,1647229540,workspaces_package:packages/gatsby-plugin-create-client-paths: build,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-create-client-paths: prepare,cross-env NODE_ENV=production npm run build
+500d17a957f4ae0bd9beb63ee437675a2945d71c,1647229540,workspaces_package:packages/gatsby-plugin-create-client-paths: prepare,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-create-client-paths: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+500d17a957f4ae0bd9beb63ee437675a2945d71c,1647229540,workspaces_package:packages/gatsby-plugin-create-client-paths: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-cxs: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-cxs: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-cxs: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-emotion: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-emotion: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-emotion: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-facebook-analytics: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-facebook-analytics: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-facebook-analytics: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-feed: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-feed: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-feed: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-flow: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-flow: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-flow: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-fullstory: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-fullstory: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-fullstory: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+db5ba5b00d3c5911010c8542f61206980d14aa8c,1613733903,workspaces_package:packages/gatsby-plugin-gatsby-cloud: build,"babel src --out-dir . --ignore ""**/__tests__"""
+b2c30db1b83d5275c698d3b131832518833d07fc,1628267254,workspaces_package:packages/gatsby-plugin-gatsby-cloud: build,"babel src --out-dir . --ignore ""**/__tests__"" && npm run clean && npm run copy-type-declarations"
+17e86980518d672d1bffca59163bd934be4decb2,1642706168,workspaces_package:packages/gatsby-plugin-gatsby-cloud: build,"babel src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"" && npm run clean && npm run copy-type-declarations"
+e3d57c0fb8ab8a89b29fd613a519340574b1239a,1652997734,workspaces_package:packages/gatsby-plugin-gatsby-cloud: build,"babel src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+b2c30db1b83d5275c698d3b131832518833d07fc,1628267254,workspaces_package:packages/gatsby-plugin-gatsby-cloud: clean,rimraf ./components/index.d.ts
+b1168aff8856ff28e3c42d1ee13ef7a9686f7048,1631524356,workspaces_package:packages/gatsby-plugin-gatsby-cloud: clean,del-cli ./components/index.d.ts
+3fcfa0a669997b3547f81e011f4f9ff78ca74e3b,1652982825,workspaces_package:packages/gatsby-plugin-gatsby-cloud: clean,
+b2c30db1b83d5275c698d3b131832518833d07fc,1628267254,workspaces_package:packages/gatsby-plugin-gatsby-cloud: copy-type-declarations,cp src/components/index.d.ts components/index.d.ts
+a66d77493e89f1629da2e2d8c5ea6395bbf067fc,1628788033,workspaces_package:packages/gatsby-plugin-gatsby-cloud: copy-type-declarations,cpy src/components/index.d.ts components/index.d.ts
+b1168aff8856ff28e3c42d1ee13ef7a9686f7048,1631524356,workspaces_package:packages/gatsby-plugin-gatsby-cloud: copy-type-declarations,cpy src/components/index.d.ts components/
+17e86980518d672d1bffca59163bd934be4decb2,1642706168,workspaces_package:packages/gatsby-plugin-gatsby-cloud: copy-type-declarations,cpy src/components/index.d.ts components
+3fcfa0a669997b3547f81e011f4f9ff78ca74e3b,1652982825,workspaces_package:packages/gatsby-plugin-gatsby-cloud: copy-type-declarations,
+db5ba5b00d3c5911010c8542f61206980d14aa8c,1613733903,workspaces_package:packages/gatsby-plugin-gatsby-cloud: prepare,cross-env NODE_ENV=production npm run build
+db5ba5b00d3c5911010c8542f61206980d14aa8c,1613733903,workspaces_package:packages/gatsby-plugin-gatsby-cloud: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+17e86980518d672d1bffca59163bd934be4decb2,1642706168,workspaces_package:packages/gatsby-plugin-gatsby-cloud: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-glamor: build,"babel src --out-dir . --ignore ""**/__tests__"""
+bc3410bff0c31be8e4aba5ce45fd49d93d25118f,1628058831,workspaces_package:packages/gatsby-plugin-glamor: build,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-glamor: prepare,cross-env NODE_ENV=production npm run build
+bc3410bff0c31be8e4aba5ce45fd49d93d25118f,1628058831,workspaces_package:packages/gatsby-plugin-glamor: prepare,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-glamor: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+bc3410bff0c31be8e4aba5ce45fd49d93d25118f,1628058831,workspaces_package:packages/gatsby-plugin-glamor: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-google-analytics: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-google-analytics: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-google-analytics: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-google-gtag: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-google-gtag: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-google-gtag: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-google-tagmanager: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-google-tagmanager: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-google-tagmanager: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-graphql-config: build,"babel src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+e7fc88b024c84a3e9f732deec7441621024e1f95,1652949569,workspaces_package:packages/gatsby-plugin-graphql-config: build,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-graphql-config: prepare,cross-env NODE_ENV=production npm run build
+e7fc88b024c84a3e9f732deec7441621024e1f95,1652949569,workspaces_package:packages/gatsby-plugin-graphql-config: prepare,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-graphql-config: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+e7fc88b024c84a3e9f732deec7441621024e1f95,1652949569,workspaces_package:packages/gatsby-plugin-graphql-config: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-guess-js: build,"babel src --out-dir . --ignore ""**/__tests__"""
+79518c4e1e8d7559f49a46f192ea87584dd4bbfc,1612436953,workspaces_package:packages/gatsby-plugin-guess-js: build,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-guess-js: prepare,cross-env NODE_ENV=production npm run build
+79518c4e1e8d7559f49a46f192ea87584dd4bbfc,1612436953,workspaces_package:packages/gatsby-plugin-guess-js: prepare,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-guess-js: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+79518c4e1e8d7559f49a46f192ea87584dd4bbfc,1612436953,workspaces_package:packages/gatsby-plugin-guess-js: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-image: build,npm-run-all -s clean -p build:*
+8cc09702f9a2767c51cf5267233108c07e4ac073,1652259479,workspaces_package:packages/gatsby-plugin-image: build,npm-run-all --npm-path npm -s clean -p build:*
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-image: build:browser,"microbundle -i src/index.browser.ts -f cjs,modern,es --jsx React.createElement -o dist/gatsby-image.browser --define SERVER=false"
+9a912956a5ea66be7281f6263928b64f20ff1d53,1651742854,workspaces_package:packages/gatsby-plugin-image: build:browser,"microbundle -i src/index.browser.ts -f cjs,modern --jsx React.createElement -o dist/gatsby-image.browser --define SERVER=false"
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_package:packages/gatsby-plugin-image: build:browser,"microbundle -i src/index.browser.ts -f cjs,modern --jsx React.createElement --jsxFragment React.Fragment -o dist/gatsby-image.browser --define SERVER=false"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-image: build:browser-compat,"microbundle -i src/components/compat.browser.tsx -f cjs,modern,es --jsx React.createElement -o dist/gatsby-image.compat.browser --define SERVER=false"
+12da9782a2ac8c3120e1c0cfa0661d43dc2c3ca5,1610471562,workspaces_package:packages/gatsby-plugin-image: build:browser-compat,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-image: build:gatsby-node,tsc --jsx react --downlevelIteration true --skipLibCheck true --esModuleInterop true --outDir dist/ src/gatsby-node.ts src/babel-plugin-parse-static-images.ts src/resolver-utils.ts src/types.d.ts
+0ac0ac840957b92be447d61e46b1b8bcd2bcfacd,1611580915,workspaces_package:packages/gatsby-plugin-image: build:gatsby-node,tsc --jsx react --downlevelIteration true --skipLibCheck true --esModuleInterop true --outDir dist/ src/gatsby-node.ts src/babel-plugin-parse-static-images.ts src/resolver-utils.ts src/types.d.ts -d --declarationDir dist/src
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-image: build:gatsby-ssr,"microbundle -i src/gatsby-ssr.tsx -f cjs -o ./[name].js --no-pkg-main --jsx React.createElement --no-compress --external=common-tags,react --no-sourcemap"
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_package:packages/gatsby-plugin-image: build:gatsby-ssr,"microbundle -i src/gatsby-ssr.tsx -f cjs -o ./[name].js --no-pkg-main --jsx React.createElement --jsxFragment React.Fragment --no-compress --external=common-tags,react --no-sourcemap"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-image: build:server,"microbundle -f cjs,es --jsx React.createElement --define SERVER=true"
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_package:packages/gatsby-plugin-image: build:server,"microbundle -f cjs,es --jsx React.createElement --jsxFragment React.Fragment --define SERVER=true"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-image: build:server-compat,"microbundle -i src/components/compat.tsx -f cjs,es --jsx React.createElement -o dist/gatsby-image.compat --define SERVER=true"
+12da9782a2ac8c3120e1c0cfa0661d43dc2c3ca5,1610471562,workspaces_package:packages/gatsby-plugin-image: build:server-compat,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-image: clean,del-cli dist/*
+320efb77079f7adf4c89b885a7f34e4cc3951906,1661519921,workspaces_package:packages/gatsby-plugin-image: postbuild,"prepend-directive --files=dist/gatsby-image.browser.js,dist/gatsby-image.browser.modern.js --directive=""client export"""
+7f1b57c5a5849b3bc997957b3370c3119e79d279,1666707073,workspaces_package:packages/gatsby-plugin-image: postbuild,"prepend-directive --files=dist/gatsby-image.browser.js,dist/gatsby-image.browser.modern.js --directive=""use client"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-image: prepare,yarn build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-image: test,jest
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-image: test:watch,jest --watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-image: watch,run-p watch:*
+9a912956a5ea66be7281f6263928b64f20ff1d53,1651742854,workspaces_package:packages/gatsby-plugin-image: watch,npm-run-all -s clean -p watch:*
+8cc09702f9a2767c51cf5267233108c07e4ac073,1652259479,workspaces_package:packages/gatsby-plugin-image: watch,npm-run-all --npm-path npm -s clean -p watch:*
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-image: watch:browser,yarn build:browser --no-compress watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-image: watch:browser-compat,yarn build:browser-compat --no-compress watch
+12da9782a2ac8c3120e1c0cfa0661d43dc2c3ca5,1610471562,workspaces_package:packages/gatsby-plugin-image: watch:browser-compat,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-image: watch:gatsby-node,yarn build:gatsby-node --watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-image: watch:gatsby-ssr,yarn build:gatsby-ssr watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-image: watch:server,yarn build:server --no-compress watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-image: watch:server-compat,yarn build:server-compat --no-compress watch
+12da9782a2ac8c3120e1c0cfa0661d43dc2c3ca5,1610471562,workspaces_package:packages/gatsby-plugin-image: watch:server-compat,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-jss: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-jss: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-jss: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-layout: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-layout: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-layout: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-less: build,"babel src --out-dir . --ignore ""**/__tests__,theme-test.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-less: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-less: watch,"babel -w src --out-dir . --ignore ""**/__tests__,theme-test.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-lodash: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-lodash: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-lodash: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-manifest: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-manifest: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-manifest: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+c92db36642268d1ee50c11ea568f836c7e5b4a03,1660135402,workspaces_package:packages/gatsby-plugin-mdx: build,"babel src --out-dir dist/ --ignore ""**/__tests__"" --ignore ""**/__mocks__"" --extensions "".ts"""
+c92db36642268d1ee50c11ea568f836c7e5b4a03,1660135402,workspaces_package:packages/gatsby-plugin-mdx: clean,del-cli dist/*
+c92db36642268d1ee50c11ea568f836c7e5b4a03,1660135402,workspaces_package:packages/gatsby-plugin-mdx: prepare,cross-env NODE_ENV=production npm run clean && npm run build && npm run typegen
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-mdx: test,jest
+c92db36642268d1ee50c11ea568f836c7e5b4a03,1660135402,workspaces_package:packages/gatsby-plugin-mdx: typegen,tsc --emitDeclarationOnly --declaration --declarationDir dist/
+c92db36642268d1ee50c11ea568f836c7e5b4a03,1660135402,workspaces_package:packages/gatsby-plugin-mdx: watch,"babel -w src --out-dir dist/ --ignore ""**/__tests__"" --extensions "".ts,.tsx"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-netlify-cms: build,"babel src --out-dir . --ignore ""**/__tests__"""
+6d1d97e7fb0c32e2f676babe7f904828bec289df,1702542940,workspaces_package:packages/gatsby-plugin-netlify-cms: build,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-netlify-cms: prepare,cross-env NODE_ENV=production npm run build
+6d1d97e7fb0c32e2f676babe7f904828bec289df,1702542940,workspaces_package:packages/gatsby-plugin-netlify-cms: prepare,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-netlify-cms: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+6d1d97e7fb0c32e2f676babe7f904828bec289df,1702542940,workspaces_package:packages/gatsby-plugin-netlify-cms: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-netlify: build,"babel src --out-dir . --ignore ""**/__tests__"""
+14298e77a590978dcec5099e379fd0e5d39d6430,1631258984,workspaces_package:packages/gatsby-plugin-netlify: build,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-netlify: prepare,cross-env NODE_ENV=production npm run build
+14298e77a590978dcec5099e379fd0e5d39d6430,1631258984,workspaces_package:packages/gatsby-plugin-netlify: prepare,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-netlify: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+14298e77a590978dcec5099e379fd0e5d39d6430,1631258984,workspaces_package:packages/gatsby-plugin-netlify: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-nprogress: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-nprogress: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-nprogress: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-offline: build,npm run build:src && npm run build:sw-append
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-offline: build:src,"babel src --out-dir . --ignore ""**/__tests__,src/sw-append.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-offline: build:sw-append,cpx -v src/sw-append.js .
+af6632b08e7867d5304cfb13448c2086fb622543,1639120877,workspaces_package:packages/gatsby-plugin-offline: build:sw-append,cpy src/sw-append.js .
+2ea80c02e464fe9306f6a1eccbb6c74983a76208,1673275809,workspaces_package:packages/gatsby-plugin-offline: build:sw-append,cpy 'sw-append.js' '../' --cwd=./src
+c91ed287fd319a345c2f27877e20656826767e92,1712749779,workspaces_package:packages/gatsby-plugin-offline: build:sw-append,"cpy ""sw-append.js"" ""../"" --cwd=./src"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-offline: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-offline: watch,npm run build:sw-append -- --watch & npm run build:src -- --watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-page-creator: build,"babel src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-page-creator: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-page-creator: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-postcss: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-postcss: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-postcss: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-preact: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-preact: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-preact: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-preload-fonts: build,"babel src --out-dir . --ignore ""**/__tests__"" --ignore **/__mocks__"
+e7ec728536d365344a7d53c9248d65a5f2d24c80,1673488974,workspaces_package:packages/gatsby-plugin-preload-fonts: build,"babel src --out-dir . --ignore ""**/__tests__"" --ignore ""**/__mocks__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-preload-fonts: clean,del-cli index.js prepare
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-preload-fonts: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-preload-fonts: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --ignore **/__mocks__"
+e7ec728536d365344a7d53c9248d65a5f2d24c80,1673488974,workspaces_package:packages/gatsby-plugin-preload-fonts: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --ignore ""**/__mocks__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-react-css-modules: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-react-css-modules: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-react-css-modules: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-react-helmet: build,"babel src --out-dir . --ignore ""**/__tests__"",**/__mocks__"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-react-helmet: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-react-helmet: watch,"babel -w src --out-dir . --ignore ""**/__tests__"",**/__mocks__"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-remove-trailing-slashes: build,"babel src --out-dir . --ignore ""**/__tests__"""
+cc548c083a0424e90888cf03b457991b230e89b0,1658906829,workspaces_package:packages/gatsby-plugin-remove-trailing-slashes: build,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-remove-trailing-slashes: prepare,cross-env NODE_ENV=production npm run build
+cc548c083a0424e90888cf03b457991b230e89b0,1658906829,workspaces_package:packages/gatsby-plugin-remove-trailing-slashes: prepare,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-remove-trailing-slashes: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+cc548c083a0424e90888cf03b457991b230e89b0,1658906829,workspaces_package:packages/gatsby-plugin-remove-trailing-slashes: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-sass: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-sass: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-sass: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-sharp: build,"babel src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-sharp: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-sharp: watch,"babel -w src --out-dir . --ignore ""**/__tests__""  --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-sitemap: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-sitemap: prepare,cross-env NODE_ENV=production npm run build
+3d65a1cf0e5859890a98a61b0dcab7a40bdf5832,1618835085,workspaces_package:packages/gatsby-plugin-sitemap: test,jest
+3d65a1cf0e5859890a98a61b0dcab7a40bdf5832,1618835085,workspaces_package:packages/gatsby-plugin-sitemap: test:watch,jest --watch
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-sitemap: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-styled-components: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-styled-components: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-styled-components: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-styled-jsx: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-styled-jsx: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-styled-jsx: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-styletron: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-styletron: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-styletron: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-stylus: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-stylus: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-stylus: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-subfont: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-subfont: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-subfont: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-twitter: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-twitter: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-twitter: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-typescript: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-typescript: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-typescript: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-typography: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-typography: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-typography: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-utils: build,"babel src --out-dir dist/ --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-utils: prepare,cross-env NODE_ENV=production npm run build && npm run typegen
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-utils: typegen,"rimraf ""dist/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir dist/"
+0bfacac61ff06546c364ecd6379e2136c9f76394,1680530999,workspaces_package:packages/gatsby-plugin-utils: typegen,"rimraf --glob ""dist/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir dist/"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-plugin-utils: watch,"babel -w src --out-dir dist/ --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-react-router-scroll: build,"babel src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.tsx"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-react-router-scroll: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-react-router-scroll: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.tsx"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-recipes: build,rollup -c
+fb530ecccd45037b664525c5a7d18ea13f64a540,1639055080,workspaces_package:packages/gatsby-recipes: build,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-recipes: prebuild,rimraf dist
+fb530ecccd45037b664525c5a7d18ea13f64a540,1639055080,workspaces_package:packages/gatsby-recipes: prebuild,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-recipes: prepare,npm run build
+fb530ecccd45037b664525c5a7d18ea13f64a540,1639055080,workspaces_package:packages/gatsby-recipes: prepare,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-recipes: prewatch,rimraf dist
+fb530ecccd45037b664525c5a7d18ea13f64a540,1639055080,workspaces_package:packages/gatsby-recipes: prewatch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-recipes: test,jest
+fb530ecccd45037b664525c5a7d18ea13f64a540,1639055080,workspaces_package:packages/gatsby-recipes: test,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-recipes: test:watch,jest --watch
+fb530ecccd45037b664525c5a7d18ea13f64a540,1639055080,workspaces_package:packages/gatsby-recipes: test:watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-recipes: watch,rollup -c -w
+fb530ecccd45037b664525c5a7d18ea13f64a540,1639055080,workspaces_package:packages/gatsby-recipes: watch,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-autolink-headers: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-autolink-headers: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-autolink-headers: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-code-repls: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-code-repls: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-code-repls: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-copy-linked-files: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-copy-linked-files: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-copy-linked-files: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-custom-blocks: build,"babel --out-dir . --ignore ""**/__tests__"" src"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-custom-blocks: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-custom-blocks: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-embed-snippet: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-embed-snippet: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-embed-snippet: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-graphviz: build,"babel --out-dir . src --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-graphviz: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-graphviz: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-images-contentful: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-images-contentful: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-images-contentful: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-images: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-images: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-images: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-katex: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-katex: prepare,cross-env NODE_ENV=production npm run build
+15f359affe1188eee3b31dc482111e3326929e76,1622745260,workspaces_package:packages/gatsby-remark-katex: test,jest src/__tests__/index.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-katex: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-prismjs: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-prismjs: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-prismjs: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-responsive-iframe: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-responsive-iframe: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-responsive-iframe: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-smartypants: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-smartypants: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-remark-smartypants: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+a88703f4de47c0ba9db48914bc2e0df73440dc92,1652965289,workspaces_package:packages/gatsby-script: build,"babel src --extensions "".js,.jsx,.ts,.tsx"" --out-dir dist --ignore ""**/__tests__"""
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_package:packages/gatsby-script: build,"microbundle -f cjs,modern --jsx React.createElement"
+0ef331d30eab0731457b6607c9320e2818eb1677,1663328616,workspaces_package:packages/gatsby-script: build,"microbundle -f cjs,modern --jsx React.createElement && tsc --emitDeclarationOnly --declaration --declarationDir dist"
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_package:packages/gatsby-script: clean,del-cli dist/*
+320efb77079f7adf4c89b885a7f34e4cc3951906,1661519921,workspaces_package:packages/gatsby-script: postbuild,"prepend-directive --files=dist/index.js,dist/index.modern.mjs --directive=""client export"""
+7f1b57c5a5849b3bc997957b3370c3119e79d279,1666707073,workspaces_package:packages/gatsby-script: postbuild,"prepend-directive --files=dist/index.js,dist/index.modern.mjs --directive=""use client"""
+a88703f4de47c0ba9db48914bc2e0df73440dc92,1652965289,workspaces_package:packages/gatsby-script: prepare,cross-env NODE_ENV=production npm run build && npm run typegen
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_package:packages/gatsby-script: prepare,cross-env NODE_ENV=production npm run clean && npm run build
+a88703f4de47c0ba9db48914bc2e0df73440dc92,1652965289,workspaces_package:packages/gatsby-script: typegen,"rimraf ""dist/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir dist/"
+f66604aa86cbf28b4c530920ae0186dd7447f32d,1656659620,workspaces_package:packages/gatsby-script: typegen,
+a88703f4de47c0ba9db48914bc2e0df73440dc92,1652965289,workspaces_package:packages/gatsby-script: watch,"babel -w src --extensions "".js,.jsx,.ts,.tsx"" --out-dir dist --ignore ""**/__tests__"""
+5bd3063a1e72c6f98447bfac2bf767cca781330b,1656668077,workspaces_package:packages/gatsby-script: watch,"microbundle watch -f cjs,modern --jsx React.createElement --no-compress"
+a3fa646eb6b51004ef9e85a32f7be1cf2d0cc2db,1642492033,workspaces_package:packages/gatsby-sharp: build,"babel src --out-file dist/index.js --ignore ""**/__tests__"" --extensions "".ts,.js"""
+0ef331d30eab0731457b6607c9320e2818eb1677,1663328616,workspaces_package:packages/gatsby-sharp: build,"babel src --out-dir dist --ignore ""**/__tests__"" --extensions "".ts,.js"""
+a3fa646eb6b51004ef9e85a32f7be1cf2d0cc2db,1642492033,workspaces_package:packages/gatsby-sharp: prepare,cross-env NODE_ENV=production npm-run-all -s build typegen
+8cc09702f9a2767c51cf5267233108c07e4ac073,1652259479,workspaces_package:packages/gatsby-sharp: prepare,cross-env NODE_ENV=production npm-run-all --npm-path npm -s build typegen
+a3fa646eb6b51004ef9e85a32f7be1cf2d0cc2db,1642492033,workspaces_package:packages/gatsby-sharp: typegen,tsc --emitDeclarationOnly --declaration --declarationDir dist/
+a3fa646eb6b51004ef9e85a32f7be1cf2d0cc2db,1642492033,workspaces_package:packages/gatsby-sharp: watch,"babel -w src --out-file dist/index.js --ignore ""**/__tests__"" --extensions "".ts,.js"""
+0ef331d30eab0731457b6607c9320e2818eb1677,1663328616,workspaces_package:packages/gatsby-sharp: watch,"babel -w src --out-dir dist --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-contentful: build,babel src --out-dir . --ignore **/__tests__ --ignore **/__fixtures__
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-contentful: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-contentful: watch,babel -w src --out-dir . --ignore **/__tests__ --ignore **/__fixtures__
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-drupal: build,"babel src --out-dir . --ignore ""**/__tests__"""
+3e8bb5ae2b8b56d426cd37d0e7751dc9186bd4aa,1673478354,workspaces_package:packages/gatsby-source-drupal: build,"babel src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-drupal: prepare,cross-env NODE_ENV=production npm run build
+3e8bb5ae2b8b56d426cd37d0e7751dc9186bd4aa,1673478354,workspaces_package:packages/gatsby-source-drupal: test,npx jest ./src/__tests__ --runInBand
+3e8bb5ae2b8b56d426cd37d0e7751dc9186bd4aa,1673478354,workspaces_package:packages/gatsby-source-drupal: test:watch,npx jest --watch ./src/__tests__ --runInBand
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-drupal: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+3e8bb5ae2b8b56d426cd37d0e7751dc9186bd4aa,1673478354,workspaces_package:packages/gatsby-source-drupal: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-faker: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-faker: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-faker: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-filesystem: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-filesystem: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-filesystem: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-graphql: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-graphql: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-graphql: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-hacker-news: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-hacker-news: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-hacker-news: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-lever: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-lever: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-lever: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-medium: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-medium: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-medium: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-mongodb: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-mongodb: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-mongodb: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-npm-package-search: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-npm-package-search: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-npm-package-search: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-shopify: build,"babel src --out-dir . --ignore ""**/__tests__"""
+76a040d31fc956de26b07d9284713963dfa1cb07,1623883304,workspaces_package:packages/gatsby-source-shopify: build,tsc --outDir .
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-shopify: prepare,cross-env NODE_ENV=production npm run build
+76a040d31fc956de26b07d9284713963dfa1cb07,1623883304,workspaces_package:packages/gatsby-source-shopify: prepublish,yarn build && cp ../README.md .
+9e58577f3dfa0a1414f9f4a93408b14f4bbb1233,1623940891,workspaces_package:packages/gatsby-source-shopify: prepublish,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-shopify: watch,npm run build -- --watch
+76a040d31fc956de26b07d9284713963dfa1cb07,1623883304,workspaces_package:packages/gatsby-source-shopify: watch,tsc-watch --outDir .
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-wikipedia: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-wikipedia: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-wikipedia: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-wordpress: build,"babel src --out-dir . --ignore ""**/__tests__"""
+862637be84622d945ec21c72b208c0a657c0f130,1612400003,workspaces_package:packages/gatsby-source-wordpress: build,"rimraf dist && babel src --out-dir dist --ignore **/__tests__ --extensions "".ts,.js"" --source-maps && npm run generate-plugin-options-docs"
+862637be84622d945ec21c72b208c0a657c0f130,1612400003,workspaces_package:packages/gatsby-source-wordpress: docker-rebuild,./docker/rebuild.sh
+08dfb37577510ba8d4900c487cea7301fb7667f8,1619442960,workspaces_package:packages/gatsby-source-wordpress: docker-rebuild,
+862637be84622d945ec21c72b208c0a657c0f130,1612400003,workspaces_package:packages/gatsby-source-wordpress: docker-start,docker-compose up --build --force-recreate -V --remove-orphans
+08dfb37577510ba8d4900c487cea7301fb7667f8,1619442960,workspaces_package:packages/gatsby-source-wordpress: docker-start,
+862637be84622d945ec21c72b208c0a657c0f130,1612400003,workspaces_package:packages/gatsby-source-wordpress: generate-plugin-options-docs,node ./generate-plugin-options-docs.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-wordpress: prepare,cross-env NODE_ENV=production npm run build
+862637be84622d945ec21c72b208c0a657c0f130,1612400003,workspaces_package:packages/gatsby-source-wordpress: prepare,npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-source-wordpress: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+862637be84622d945ec21c72b208c0a657c0f130,1612400003,workspaces_package:packages/gatsby-source-wordpress: watch,"npm run build && babel -w src --out-dir dist --ignore **/__tests__ --verbose --extensions "".ts,.js"" --source-maps"
+ef1681a692ab47f6ced462a7aca7e2ab287ee66f,1632330982,workspaces_package:packages/gatsby-source-wordpress: watch,"npm run build && babel -w src --out-dir dist --ignore **/__tests__ --extensions "".ts,.js"" --source-maps"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-telemetry: build,"babel src --out-dir lib --ignore ""**/__tests__"",""**/__mocks__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-telemetry: jest,jest
+ae2ffe8d642b15bcf9db59c5c26cee494cf76016,1639832567,workspaces_package:packages/gatsby-telemetry: jest,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-telemetry: postinstall,node src/postinstall.js || true
+41d8aef435e86b3130a0a0f82c669895ad866690,1729595722,workspaces_package:packages/gatsby-telemetry: postinstall,
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-telemetry: prepare,cross-env NODE_ENV=production npm run build && npm run typegen
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-telemetry: typegen,"rimraf ""lib/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir lib/"
+617a3d4e87c1ec061bc877173b158cdcb64f367d,1680514066,workspaces_package:packages/gatsby-telemetry: typegen,"rimraf --glob ""lib/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir lib/"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-telemetry: watch,"babel -w src --out-dir lib --ignore ""**/__tests__"",""**/__mocks__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-asciidoc: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-asciidoc: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-asciidoc: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-csv: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-csv: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-csv: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-documentationjs: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-documentationjs: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-documentationjs: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-excel: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-excel: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-excel: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-hjson: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-hjson: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-hjson: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-javascript-frontmatter: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-javascript-frontmatter: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-javascript-frontmatter: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-javascript-static-exports: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-javascript-static-exports: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-javascript-static-exports: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-json: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-json: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-json: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-pdf: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-pdf: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-pdf: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-react-docgen: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-react-docgen: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-react-docgen: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-remark: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-remark: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-remark: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-screenshot: build,"babel src --out-dir . --ignore ""**/__tests__"" --ignore lambda"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-screenshot: build-lambda-package,npm run prepare-lambda-package && cd lambda-dist && zip -rq ../lambda-package.zip .
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-screenshot: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-screenshot: prepare-lambda-package,rm -rf lambda-dist && mkdir lambda-dist && cp lambda/package.json lambda-dist/package.json && cp lambda/screenshot.js lambda-dist/screenshot.js && cp lambda/index.js lambda-dist/index.js && cd lambda-dist && npm install --production
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-screenshot: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --ignore lambda"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-sharp: build,"babel src --out-dir . --ignore ""**/__tests__""  --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-sharp: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-sharp: watch,"babel -w src --out-dir . --ignore ""**/__tests__"" --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-sqip: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-sqip: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-sqip: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-toml: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-toml: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-toml: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-xml: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-xml: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-xml: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-yaml: build,"babel src --out-dir . --ignore ""**/__tests__"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-yaml: prepare,cross-env NODE_ENV=production npm run build
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby-transformer-yaml: watch,"babel -w src --out-dir . --ignore ""**/__tests__"""
+a82f6dbe354f2e82a5d944727622ddb0bb44e05d,1624972240,workspaces_package:packages/gatsby-worker: build,"babel src --out-dir dist/ --ignore ""**/__tests__"" --extensions "".ts,.js"""
+a82f6dbe354f2e82a5d944727622ddb0bb44e05d,1624972240,workspaces_package:packages/gatsby-worker: prepare,cross-env NODE_ENV=production npm run build && npm run typegen
+a82f6dbe354f2e82a5d944727622ddb0bb44e05d,1624972240,workspaces_package:packages/gatsby-worker: typegen,"rimraf ""dist/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir dist/"
+c06f98cf5264c0657a76028e030fb27fd8a21854,1680514113,workspaces_package:packages/gatsby-worker: typegen,"rimraf --glob ""dist/**/*.d.ts"" && tsc --emitDeclarationOnly --declaration --declarationDir dist/"
+a82f6dbe354f2e82a5d944727622ddb0bb44e05d,1624972240,workspaces_package:packages/gatsby-worker: watch,"babel -w src --out-dir dist/ --ignore ""**/__tests__""  --extensions "".ts,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby: build,npm run build:types && npm run build:src && npm run build:internal-plugins && npm run build:rawfiles && npm run build:cjs
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby: build:cjs,"babel cache-dir --out-dir cache-dir/commonjs --ignore ""**/__tests__"" --ignore ""**/__mocks__"""
+d86cd9ffd460f0840bc8ce572b628fb82d8004f8,1621268040,workspaces_package:packages/gatsby: build:cjs,"babel cache-dir --out-dir cache-dir/commonjs --ignore ""**/__tests__"" --ignore ""**/__mocks__"" && copyfiles -u 1 cache-dir/**/*.json cache-dir/commonjs"
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby: build:internal-plugins,copyfiles -u 1 src/internal-plugins/**/package.json dist
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby: build:rawfiles,copyfiles -u 1 src/internal-plugins/**/raw_* dist
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby: build:src,"babel src --out-dir dist --source-maps --verbose --ignore ""**/gatsby-cli.js,src/internal-plugins/dev-404-page/raw_dev-404-page.js,**/__tests__,**/__mocks__"" --extensions "".ts,.js"""
+a88703f4de47c0ba9db48914bc2e0df73440dc92,1652965289,workspaces_package:packages/gatsby: build:src,"babel src --out-dir dist --source-maps --verbose --ignore ""**/gatsby-cli.js,src/internal-plugins/dev-404-page/raw_dev-404-page.js,**/__tests__,**/__mocks__"" --extensions "".ts,.tsx,.js"""
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby: build:types,tsc --emitDeclarationOnly --declaration --declarationDir dist
+51af0b9bc6ae1ff374bb59ea0b5b6ec6270b38ee,1625482027,workspaces_package:packages/gatsby: build:types,tsc --emitDeclarationOnly --declaration --declarationDir dist && node scripts/check-declaration.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby: clean-test-bundles,find test/ -type f -name bundle.js* -exec rm -rf {} +
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby: postbuild,node scripts/output-api-file.js && yarn workspace gatsby-admin build
+edb8ffcd7726f3a18f8981963d1926a912c55fda,1632933809,workspaces_package:packages/gatsby: postbuild,node scripts/output-api-file.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby: postinstall,node scripts/postinstall.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby: prebuild,rimraf dist && rimraf cache-dir/commonjs
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby: prepare,cross-env NODE_ENV=production npm run build
+f6298068b3b4e0528c006bcc3d163a9873e76783,1620725834,workspaces_package:packages/gatsby: typecheck,tsc --noEmit
+08d6090e98d697ea3ceda8472067d3acf0619b25,1653318018,workspaces_package:packages/gatsby: version,node ../../scripts/pin-version.js
+7378fcfa9b4ee6c173c4fecd5eb90efdcc0f7ff3,1609751862,workspaces_package:packages/gatsby: watch,rimraf dist && mkdir dist && npm run build:internal-plugins && npm run build:rawfiles && npm run build:src -- --watch
