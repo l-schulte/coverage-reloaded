@@ -21,7 +21,7 @@
 *lcov_sanity_report.csv
 *failure_labels_collapsed*.csv
 # retired v1 labels + double-check artifacts (kept out of git by decision)
-projects/**/label_analysis/v1/
+**/**/label_analysis/v1/
 
 **/tmp/
 **/debug/
