@@ -1,0 +1,1173 @@
+{
+  "general": {
+    "patterns": [
+      "\u25cf",
+      "Failed Suites",
+      "Unhandled Errors",
+      "\u276f\\s+\\S+\\s+>\\s",
+      "\u00d7\\s+.*>\\s"
+    ],
+    "exclude": [
+      "\u25cf\\s*Console",
+      "FAIL\\s+\\S+\\s+>"
+    ]
+  },
+  "suites": {},
+  "fingerprint": {
+    "strip_package_prefix": true
+  },
+  "auto_classify": [
+    {
+      "match": "n8n:\\ \\ \\ \\ \\ thrown:\\ \"Exceeded\\ timeout\\ of\\ 30000\\ ms\\ for\\ a\\ test",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "ac5221162dc4"
+    },
+    {
+      "match": "n8n:\\ \\ \\ \\ \\ getaddrinfo\\ EAI_AGAIN\\ api\\.nodemailer\\.com",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "377b04670426"
+    },
+    {
+      "match": "n8n:\\ \\ \\ \\ \\ thrown:\\ \"Exceeded\\ timeout\\ of\\ 5000\\ ms\\ for\\ a\\ hook",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "306c452e02dc"
+    },
+    {
+      "match": "n8n:\\ \\ \\ \\ \\ thrown:\\ \"Exceeded\\ timeout\\ of\\ 5000\\ ms\\ for\\ a\\ test",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "586ffc7a1fd1"
+    },
+    {
+      "match": "n8n:\\ \\ \\ \\ \\ thrown:\\ \"Exceeded\\ timeout\\ of\\ 30000\\ ms\\ for\\ a\\ hook",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "a8440d666598"
+    },
+    {
+      "match": "n8n:\\ \\ \\ \\ \\ TypeError:\\ n8n_core_1\\.UserSettings\\.getUserN8nFolderDowloadedNodesPath\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "6b1dbb7f33d7"
+    },
+    {
+      "match": "n8n:\\ \\ \\ \\ \\ expect\\(received\\)\\.rejects\\.toThrow\\(expected\\)\\\nn8n:\\ \\ \\ \\ \\ Expected\\ substring:\\ \"Package\\ not\\ found\\ in\\ npm\"\\\nn8n:\\ \\ \\ \\ \\ Received\\ message:\\ \\ \\ \"n8n_core_1\\.UserSettings\\.getUserN8nFolderDowloadedNodesPath\\ is\\ not\\ a\\ function\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "9d7605a1b00f"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ thrown:\\ \"Exceeded\\ timeout\\ of\\ 5000\\ ms\\ for\\ a\\ hook",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "e0510028a27e"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ ConnectionNotFoundError:\\ Connection\\ \"\"\\ was\\ not\\ found\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "0920d48c60d2"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "eb40921d7d13"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ thrown:\\ \"Exceeded\\ timeout\\ of\\ 5000\\ ms\\ for\\ a\\ test",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "df3214c791aa"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ assign\\ to\\ read\\ only\\ property\\ 'performance'\\ of\\ object\\ '\\[object\\ global\\]'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4e98a174ea88"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'trackN8nStop'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "cabd293a4c84"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ '.*'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "bbd8df62c562"
+    },
+    {
+      "match": "n8n:test:\\ \\ \\ \\ \\ Attempted\\ to\\ log\\ \"query\\ is\\ slow:",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "2cc826c9853e"
+    },
+    {
+      "match": "n8n:test:\\ \\ \\ \\ \\ Attempted\\ to\\ log\\ \"execution\\ time:\\ \\d+\"\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "54da5a8fd5b2"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ Encryption\\ key\\ is\\ missing\\ or\\ was\\ not\\ set",
+      "label": "reevaluated_acceptable",
+      "note": "genuine upstream test setup omission in workflows.controller.ee.test.ts fixed in 6242cac53b",
+      "lines": 2,
+      "id": "1547db40f3c2"
+    },
+    {
+      "match": "n8n\\-workflow:test:\\\nn8n\\-workflow:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality\\\nn8n\\-workflow:test:\\\nn8n\\-workflow:test:\\ \\ \\ \\ \\ Expected:\\ true\\\nn8n\\-workflow:test:\\ \\ \\ \\ \\ Received:\\ false",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "c97cabcc009f"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBeTruthy\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a8b8e02e2a57"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ QueryFailedError:\\ SQLITE_CONSTRAINT:\\ NOT\\ NULL\\ constraint\\ failed:\\ settings\\.loadOnStartup",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "34c9011f259c"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ thrown:\\ \"Exceeded\\ timeout\\ of\\ 10000\\ ms\\ for\\ a\\ hook",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "6bed870372b9"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ thrown:\\ \"Exceeded\\ timeout\\ of\\ 5000\\ ms\\ for\\ a\\ test",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "d19ad9f97d81"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ EntityMetadataNotFoundError:\\ No\\ metadata\\ for\\ \".*\"\\ was\\ found\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6a16058bc0f0"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ thrown:\\ \"Exceeded\\ timeout\\ of\\ 10000\\ ms\\ for\\ a\\ test",
+      "label": "problematic",
+      "note": "reassessed: env timeout (flaky 0.5-5.5%); was mislabelled acceptable",
+      "lines": 2,
+      "id": "ec95d3b5986c"
+    },
+    {
+      "match": "n8n\\-workflow:test:\\\nn8n\\-workflow:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBeLessThan\\(expected\\)\\\nn8n\\-workflow:test:\\\nn8n\\-workflow:test:\\ \\ \\ \\ \\ Expected:\\ <\\ 721\\\nn8n\\-workflow:test:\\ \\ \\ \\ \\ Received:\\ \\ \\ 1297",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "8dd2e40055dd"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ expected\\ 200\\ \"OK\",\\ got\\ 404\\ \"Not\\ Found\"",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "21175cbe25c9"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.rejects\\.toThrowError\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "39e4811356e2"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "00d137b80c90"
+    },
+    {
+      "match": "@n8n/config:test:\\\n@n8n/config:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "eab6dd028eac"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ Binary\\ Data\\ Manager\\ not\\ initialized",
+      "label": "reevaluated_acceptable",
+      "note": "upstream test setup omission in publicApi/workflows.test.ts",
+      "lines": 2,
+      "id": "548ab0e58d06"
+    },
+    {
+      "match": "\u23af\\ Failed\\ Suites",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "fb668f1e5879"
+    },
+    {
+      "match": "\u23af\u23af\u23af\u23af\u23af\u23af\\ Unhandled\\ Errors",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "6122c5596b39"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expected\\ \"spy\"\\ to\\ be\\ called\\ 1\\ times",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "9bf8fb9f61b8"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expected\\ \"spy\"\\ to\\ be\\ called\\ at\\ least\\ once",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "8f5e6897a2b8"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ Test\\ timed\\ out\\ in\\ 5000ms\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "875831ad3098"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:.*\u2192\\ Unable\\ to\\ find\\ an\\ element\\ by:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "c794e80ba2a6"
+    },
+    {
+      "match": "n8n\\-design\\-system:test:\\ \\ \\ \\ \\ \\ \u2192\\ Test\\ timed\\ out\\ in\\ 5000ms\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "51ab662478eb"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ Test\\ timed\\ out\\ in\\ 10000ms\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "8571ef03674d"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expect\\(received\\)\\.toBeVisible\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "b9075b3825f7"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expected\\ \\[.*\\]\\ to\\ deeply\\ equal\\ \\[.*\\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "07e5a35fdfd4"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expected\\ \\d+\\ to\\ be\\ \\d+\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "83f6b5c70c5f"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expected\\ \"spy\"\\ to\\ be\\ called\\ with\\ arguments",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "9e2eee6f27b1"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expect\\(element\\)\\.toHaveTextContent\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "c26d408c91b2"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ Can't\\ connect\\ to\\ n8n\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "02d8ceb9e1c1"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ Invalid\\ navigation\\ guard",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "228271307ab6"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expect\\(element\\)\\.toHaveAttribute\\(",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "ce0042c2e28f"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expect\\(element\\)\\.toHaveClass\\(",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "ce0042c2e28r"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ '.*'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "366dec5b3f16"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ cannot\\ find\\ configuration\\ param\\ 'queue\\.bull'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8a3a1ec4289b"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ expect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledWith\\(\\.\\.\\.expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "caf0b95a4dbc"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ Hook\\ timed\\ out\\ in\\ 10000ms\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "fb706894033a"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ QueryFailedError:\\ SQLITE_ERROR:\\ no\\ such\\ table:\\ project",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "a6aed4534a74"
+    },
+    {
+      "match": "n8n\\-core:test:\\\nn8n\\-core:test:\\ \\ \\ \\ \\ thrown:\\ \"Exceeded\\ timeout\\ of\\ 5000\\ ms\\ for\\ a\\ test",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "225bee0595f3"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.not\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "01d75db5013d"
+    },
+    {
+      "match": "@n8n/json\\-schema\\-to\\-zod:test:\\\n@n8n/json\\-schema\\-to\\-zod:test:\\ \\ \\ \\ \\ Cannot\\ find\\ module\\ '\\./json\\-schema\\-to\\-zod\\.js'\\ from\\ 'src/index\\.ts'",
+      "label": "reevaluated_acceptable",
+      "note": "genuine upstream barrel export typo in src/index.ts fixed in 28487edb13",
+      "lines": 2,
+      "id": "81905310d9ae"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expected\\ \"spy\"\\ to\\ not\\ be\\ called\\ at\\ all,\\ but\\ actually\\ been\\ called\\ 1\\ times",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "aab83f7d802f"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "71827e755aa4"
+    },
+    {
+      "match": "@n8n/task\\-runner:test:\\\n@n8n/task\\-runner:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBeNull\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4d93be818f28"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expect\\(element\\)\\.toHaveValue\\(Line\\ 1",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "6ea80bc7eab3"
+    },
+    {
+      "match": "@n8n/task\\-runner:test:\\\n@n8n/task\\-runner:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBeCloseTo\\(expected,\\ precision\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "085c2c6a9676"
+    },
+    {
+      "match": "@n8n/task\\-runner:test:\\\n@n8n/task\\-runner:test:\\ \\ \\ \\ \\ RangeError:\\ The\\ value\\ of\\ \"options\\.timeout\"\\ is\\ out\\ of\\ range\\.\\ It\\ must\\ be\\ an\\ integer\\.\\ Received\\ NaN",
+      "label": "reevaluated_acceptable",
+      "note": "genuine upstream test mock bug (missing taskTimeout: 60) fixed in b479f14ef5",
+      "lines": 2,
+      "id": "d06fd1c66782"
+    },
+    {
+      "match": "@n8n/task\\-runner:test:\\\n@n8n/task\\-runner:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.rejects\\.toThrow\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "399611d04384"
+    },
+    {
+      "match": "@n8n/task\\-runner:test:\\\n@n8n/task\\-runner:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "601875621c1e"
+    },
+    {
+      "match": "@n8n/task\\-runner:test:\\\n@n8n/task\\-runner:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.resolves\\.toBeDefined\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d2bd66f5c81a"
+    },
+    {
+      "match": "n8n:test:\\ \\ \\ \\ \\ \\ \\ at\\ Object\\.require\\ \\(src/scaling/worker\\-server\\.ts:17:1\\)\\\nn8n:test:\\ \\ \\ \\ \\ \\ \\ at\\ Object\\.<anonymous>\\ \\(src/scaling/__tests__/worker\\-server\\.test\\.ts:13:1\\)\\\nn8n:test:\\\nn8n:test:\\\nn8n:test:\\ \\ \\ console\\.warn\\\nn8n:test:\\ \\ \\ \\ \\ Could\\ not\\ ensure\\ settings\\ file\\ permissions:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'mode'\\)\\.\\ To\\ skip\\ this\\ check,\\ set\\ N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 6,
+      "id": "c316a78a4825"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ TypeError:\\ mockedNodes\\ is\\ not\\ iterable",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1006cd885b2d"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expect\\(element\\)\\.not\\.toBeDisabled\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "71062e09db99"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ assert\\(received\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e783071ccb1d"
+    },
+    {
+      "match": "n8n\\-core:test:\\\nn8n\\-core:test:\\ \\ \\ \\ \\ Data\\ for\\ node\\ is\\ missing",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "00f93bf92f0a"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ '.*'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4a0715cca0b7"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBeInstanceOf\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "28a60ef702b3"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ expect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledTimes\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6c5708858283"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ Unable\\ to\\ find\\ an\\ element\\ with\\ the\\ text",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "26f355ef2da0"
+    },
+    {
+      "match": "@n8n/task\\-runner:test:\\\n@n8n/task\\-runner:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toStrictEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "acdee1d5c2dd"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ Declarative\\ nodes\\ should\\ been\\ handled\\ as\\ regular\\ nodes",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "943833e0634c"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toThrowError\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "28bcdfc58f0b"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toThrow\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "28a55b29792c"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expected\\ \"makeRestApiRequest\"\\ to\\ be\\ called\\ with\\ arguments:\\ \\[\\ \\{\\ baseUrl:\\ '/rest',\\ \u2026\\(1\\)\\ \\},\\ \u2026\\(3\\)\\ \\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "65188de7a181"
+    },
+    {
+      "match": "@n8n/chat:test:\\ \\ \\ \\ \\ \\ \u2192\\ Test\\ timed\\ out\\ in\\ 5000ms\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "e31744adb1d2"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toHaveLength\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0b6e8e3bc315"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expect\\(element\\)\\.toHaveValue\\(Message\\ 2\\)\\\nn8n\\-editor\\-ui:test:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "47da7d416baa"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expected\\ null\\ not\\ to\\ be\\ null",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "3dbf9174808c"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expect\\(element\\)\\.toHaveValue\\(test@ema\\.il\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "3a11fa18097d"
+    },
+    {
+      "match": "@n8n/design\\-system:test:\\ \\ \\ \\ \\ \\ \u2192\\ Test\\ timed\\ out\\ in\\ 5000ms\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "4bca2927aeca"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBeCloseTo\\(expected,\\ precision\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "339b3693a8ba"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expect\\(element\\)\\.not\\.toHaveValue\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "b1ed93c3baac"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expected\\ '\\{foo\\(\\)\\}'\\ to\\ deeply\\ equal\\ 'foo\\(\\)'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "3b7e11715fde"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "66ac948dfed6"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ thrown:\\ \"Exceeded\\ timeout\\ of\\ 5000\\ ms\\ for\\ a\\ hook",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "a034b5ba9141"
+    },
+    {
+      "match": "@n8n/n8n\\-nodes\\-langchain:test:\\\n@n8n/n8n\\-nodes\\-langchain:test:\\ \\ \\ \\ \\ thrown:\\ \"Exceeded\\ timeout\\ of\\ 5000\\ ms\\ for\\ a\\ hook",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "11892405482e"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ expect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledWith\\(\\.\\.\\.expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f21bea5eec92"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ AssertionError\\ \\[ERR_ASSERTION\\]:\\ Mocks\\ not\\ yet\\ satisfied:",
+      "label": "reevaluated_acceptable",
+      "note": "upstream workerIdleMemoryLimit 1GB regression on Dec 15 2025 reverted in 3acba8e541",
+      "lines": 2,
+      "id": "40568b0c27f6"
+    },
+    {
+      "match": "@n8n/n8n\\-nodes\\-langchain:test:\\\n@n8n/n8n\\-nodes\\-langchain:test:\\ \\ \\ \\ \\ thrown:\\ \"Exceeded\\ timeout\\ of\\ 5000\\ ms\\ for\\ a\\ test",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "2e49522fe1de"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ TypeError:\\ \\(0\\ ,\\ Helpers_1\\.getWorkflowFilenames\\)\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "eed60cab49fa"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expected\\ \\[\\ \u2026\\(11\\)\\ \\]\\ to\\ have\\ a\\ length\\ of\\ 5\\ but\\ got\\ 11",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "f6adfc5b7dae"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expected\\ 'Jan\\ 1,\\ 2025,\\ 00:00:00'\\ to\\ deeply\\ equal\\ 'Jan\\ 1,\\ 00:00:00'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "383c4357781b"
+    },
+    {
+      "match": "@n8n/design\\-system:test:\\ \\ \\ \\ \\ \\ \u2192\\ Timed\\ out\\ in\\ waitFor\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "4765a9d250ee"
+    },
+    {
+      "match": "@n8n/client\\-oauth2:test:\\\n@n8n/client\\-oauth2:test:\\ \\ \\ \\ \\ thrown:\\ \"Exceeded\\ timeout\\ of\\ 5000\\ ms\\ for\\ a\\ test",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "890211fd63cd"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ Attempted\\ to\\ log\\ \"Node\\ Gmail\\ \\-\\ Drafts\\ \\-\\ Create",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "b8cade5c4c24"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ destructure\\ property\\ 'driver'\\ of\\ 'queryRunner\\.connection'\\ as\\ it\\ is\\ undefined\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "4894744a5b29"
+    },
+    {
+      "match": "n8n\\-core:test:\\\nn8n\\-core:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c5b7d3b481fa"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expected\\ '.*\\-\\d+'\\ to\\ be\\ '.*\\-\\d+'\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "336e7f415fdc"
+    },
+    {
+      "match": "@n8n/n8n\\-nodes\\-langchain:test:\\\n@n8n/n8n\\-nodes\\-langchain:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBeGreaterThanOrEqual\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "09dbca19dc19"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expect\\(element\\)\\.toHaveValue\\(Test\\ Node\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "a0ebf2917bbd"
+    },
+    {
+      "match": "n8n\\-workflow:test:\\ \\ \\ \\ \\ \\ \u2192\\ expected\\ a\\ thrown\\ error\\ to\\ be\\ ExpressionError:\\ access\\ to\\ env\\ vars\\ denied\\ \\{\\ \u2026\\(8\\)\\ \\}",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "94cba957d2df"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ Unable\\ to\\ find\\ role=\"heading\"\\ and\\ name\\ \"Upgrade\\ to\\ access\\ more\\ detailed\\ insights\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "2f03a64a1128"
+    },
+    {
+      "match": "@n8n/ai\\-workflow\\-builder:test:\\\n@n8n/ai\\-workflow\\-builder:test:\\ \\ \\ \\ \\ SyntaxError:\\ packages/@n8n/ai\\-workflow\\-builder\\.ee/src/tools/utils/test/connection\\.utils\\.test\\.ts:\\ Unexpected\\ token,\\ expected\\ \"from\"\\ \\(1:12\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "daf28c42dec1"
+    },
+    {
+      "match": "@n8n/ai\\-workflow\\-builder:test:\\\n@n8n/ai\\-workflow\\-builder:test:\\ \\ \\ \\ \\ SyntaxError:\\ packages/@n8n/ai\\-workflow\\-builder\\.ee/src/tools/test/update\\-node\\-parameters\\.tool\\.test\\.ts:\\ Unexpected\\ token,\\ expected\\ \"from\"\\ \\(1:12\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a23f384a7feb"
+    },
+    {
+      "match": "@n8n/permissions:test:\\\n@n8n/permissions:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toMatchSnapshot\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e0a4293d7bfa"
+    },
+    {
+      "match": "@n8n/codemirror\\-lang\\-sql:test:\\\n@n8n/codemirror\\-lang\\-sql:test:\\ \\ \\ \\ \\ TypeError:\\ state\\.languageDataAt\\(\\.\\.\\.\\)\\[0\\]\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a3429a1a0c9a"
+    },
+    {
+      "match": "@n8n/codemirror\\-lang\\-sql:test:\\\n@n8n/codemirror\\-lang\\-sql:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "cc5b13942e73"
+    },
+    {
+      "match": "n8n\\-workflow:test:\\ \\ \\ \\ \\ \\ \u2192\\ Test\\ timed\\ out\\ in\\ 5000ms\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "d5e14e599057"
+    },
+    {
+      "match": "@n8n/eslint\\-plugin\\-community\\-nodes:test:\\ \\ \\ \\ \\ \\ \u2192\\ Test\\ timed\\ out\\ in\\ 5000ms\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "fde11eb0fba9"
+    },
+    {
+      "match": "@n8n/design\\-system:test:\\ \\ \\ \\ \\ \\ \u2192\\ expect\\(element\\)\\.toHaveTextContent\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "7a015387a18a"
+    },
+    {
+      "match": "@n8n/backend\\-common:test:\\\n@n8n/backend\\-common:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b833386144ba"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toMatchObject\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "03a282eced0d"
+    },
+    {
+      "match": "n8n\\-core:test:\\\nn8n\\-core:test:\\ \\ \\ \\ \\ NodeOperationError:\\ Test\\ error",
+      "label": "reevaluated_acceptable",
+      "note": "upstream unit test assertion mismatch in get-input-connection-data.test.ts fixed in d9f208e9d9",
+      "lines": 2,
+      "id": "13a299a261a7"
+    },
+    {
+      "match": "n8n\\-core:test:\\\nn8n\\-core:test:\\ \\ \\ \\ \\ NodeOperationError:\\ Execution\\ was\\ cancelled",
+      "label": "reevaluated_acceptable",
+      "note": "upstream unit test assertion mismatch in get-input-connection-data.test.ts fixed in d9f208e9d9",
+      "lines": 2,
+      "id": "5078a22f188a"
+    },
+    {
+      "match": "n8n\\-core:test:\\\nn8n\\-core:test:\\ \\ \\ \\ \\ NodeOperationError:\\ Execution\\ failed",
+      "label": "reevaluated_acceptable",
+      "note": "upstream unit test assertion mismatch in get-input-connection-data.test.ts fixed in d9f208e9d9",
+      "lines": 2,
+      "id": "cbce82c7ce1a"
+    },
+    {
+      "match": "@n8n/n8n\\-nodes\\-langchain:test:\\\n@n8n/n8n\\-nodes\\-langchain:test:\\ \\ \\ \\ \\ expect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledWith\\(\\.\\.\\.expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ed99e46b7355"
+    },
+    {
+      "match": "@n8n/n8n\\-nodes\\-langchain:test:\\\n@n8n/n8n\\-nodes\\-langchain:test:\\ \\ \\ \\ \\ NodeOperationError:\\ The\\ \"text\"\\ parameter\\ is\\ empty\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "36e77f2c8186"
+    },
+    {
+      "match": "@n8n/api\\-types:test:\\\n@n8n/api\\-types:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e7bceeb26b43"
+    },
+    {
+      "match": "n8n\\-core:test:\\\nn8n\\-core:test:\\ \\ \\ \\ \\ getaddrinfo\\ ENOTFOUND\\ api\\.example\\.com",
+      "label": "reevaluated_acceptable",
+      "note": "upstream workerIdleMemoryLimit 1GB regression on Dec 15 2025 reverted in 3acba8e541",
+      "lines": 2,
+      "id": "2106d4dac9dc"
+    },
+    {
+      "match": "n8n\\-core:test:\\\nn8n\\-core:test:\\ \\ \\ \\ \\ getaddrinfo\\ ENOTFOUND\\ test\\.local",
+      "label": "reevaluated_acceptable",
+      "note": "upstream workerIdleMemoryLimit 1GB regression on Dec 15 2025 reverted in 3acba8e541",
+      "lines": 2,
+      "id": "872e03449936"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ NodeApiError:\\ Nock:\\ Disallowed\\ net\\ connect\\ for\\ \"sheets\\.googleapis\\.com:443/v4/spreadsheets/testDocumentId\\?fields=sheets\\.properties\"",
+      "label": "reevaluated_acceptable",
+      "note": "upstream workerIdleMemoryLimit 1GB regression on Dec 15 2025 reverted in 3acba8e541",
+      "lines": 2,
+      "id": "04b4a7f91f58"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ Data\\ for\\ node\\ \"No\\ Operation,\\ do\\ nothing\"\\ is\\ missing!",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e719450a5951"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ Data\\ for\\ node\\ \"With\\ Options\"\\ is\\ missing!",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5f479c16c2f5"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ Data\\ for\\ node\\ \"HTTP\\ Request\\ with\\ query\"\\ is\\ missing!",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6751acf08456"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ Data\\ for\\ node\\ \".*\"\\ is\\ missing!",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "cdc71b96f3fc"
+    },
+    {
+      "match": "Cannot find module '\\./json-schema-to-zod\\.js'",
+      "label": "reevaluated_acceptable",
+      "note": "upstream window 2024-10-17..2024-12-02: commit 86a94b5523 added './json-schema-to-zod.js' which the root jest config cannot resolve; removed again by 28487edb13. Dev-facing, not our setup.",
+      "lines": 5,
+      "id": "f1c0a9e00001"
+    },
+    {
+      "match": "\u2192\\ Test\\ timed\\ out\\ in\\ 5000ms\\.",
+      "label": "problematic",
+      "note": "generic vitest 5s test timeout (no package prefix) - covers packages without a specific rule, e.g. @n8n/node-cli",
+      "lines": 1,
+      "id": "1674e41d2e51"
+    },
+    {
+      "match": "n8n\\-design\\-system:\\ \\ \\ \\ \\ \\ \u2192\\ Cannot\\ read\\ property\\ 'child'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "e7376f6416a6",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ properties\\ of\\ null\\ \\(reading\\ 'errorWorkflow'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "64fa2d55da45",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n\\-design\\-system:test:\\ \\ \\ \\ \\ \\ \u2192\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'child'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e7b455986019",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n\\-design\\-system:test:\\ \\ \\ \\ \\ \\ \u2192\\ Snapshot\\ `.*`\\ mismatched",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "1beee2815942",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n\\-design\\-system:test:\\ \\ \\ \\ \\ \\ \u2192\\ expect\\(received\\)\\.not\\.toBeVisible\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "2389e2d2ab74",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n\\-design\\-system:test:\\ \\ \\ \\ \\ \\ \u2192\\ Unable\\ to\\ find\\ an\\ element\\ with\\ the\\ role\\ \"dialog\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "045c446ded5f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n\\-design\\-system:test:\\ \\ \\ \\ \\ \\ \u2192\\ Found\\ multiple\\ elements\\ with\\ the\\ role\\ \".*\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "3eaa647415f1",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ EntityNotFoundError:\\ Could\\ not\\ find\\ any\\ entity\\ of\\ type\\ \"User\"\\ matching:\\ \\{",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d0f5e3dc2592",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expect\\(element\\)\\.toBeEnabled\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "da0209d6a36b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n\\-design\\-system:test:\\ \\ \\ \\ \\ \\ \u2192\\ Found\\ multiple\\ elements\\ with\\ the\\ text:\\ Button\\ 1",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "8d08495db384",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ observer\\.observe\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "b809c7064b1c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ Cannot\\ read\\ properties\\ of\\ null\\ \\(reading\\ '\\$el'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "9402998244e2",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ Found\\ multiple\\ elements\\ by:\\ \\[data\\-test\\-id=\"resource\\-mapper\\-container\"\\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "d5bc8c3b0ce4",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.not\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "19b36b319d09",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n:test:\\\nn8n:test:\\ \\ \\ \\ \\ TransactionNotStartedError:\\ Transaction\\ is\\ not\\ started\\ yet,\\ start\\ transaction\\ before\\ committing\\ or\\ rolling\\ it\\ back\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "683ac6c5f0a7",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@n8n/ai\\-workflow\\-builder:test:\\\n@n8n/ai\\-workflow\\-builder:test:\\ \\ \\ \\ \\ SyntaxError:\\ ",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "2b9f9af25e3a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@n8n/task\\-runner:test:\\\n@n8n/task\\-runner:test:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'description'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8cd4445dad74",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n\\-workflow:test:\\ \\ \\ \\ \\ \\ \u2192\\ expected\\ a\\ thrown\\ error\\ to\\ be\\ ExpressionError:\\ access\\ to\\ env\\ vars\\ denied\\ \\{\\ \u2026\\(7\\)\\ \\}",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "0069d11f2252",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expected\\ \"wrappedAction\"\\ to\\ be\\ called\\ with\\ arguments:\\ \\[\\ 'rsa'\\ \\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "d86ce1e8e3fa",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n\\-core:test:\\\nn8n\\-core:test:\\ \\ \\ \\ \\ SyntaxError:\\ Unexpected\\ end\\ of\\ JSON\\ input",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "62573c574046",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ workflowsStore\\.setWorkflowExecutionData\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "263f3f7f121f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n\\-editor\\-ui:test:\\ \\ \\ \\ \\ \\ \u2192\\ expected\\ '.*'\\ to\\ be\\ null",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "ba0e99347abf",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toMatchSnapshot\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c3c6c3a46f6c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "n8n\\-nodes\\-base:test:\\\nn8n\\-nodes\\-base:test:\\ \\ \\ \\ \\ expect\\(received\\)\\.toHaveLength\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c05ff747656b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@n8n/n8n\\-nodes\\-langchain:test:\\\n@n8n/n8n\\-nodes\\-langchain:test:\\ \\ \\ \\ \\ Failed\\ to\\ connect\\ to\\ Zep\\ server\\.\\ Please\\ check\\ that:",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "7bcd9f73b443",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@n8n/n8n\\-nodes\\-langchain:test:\\\n@n8n/n8n\\-nodes\\-langchain:test:\\ \\ \\ \\ \\ Status\\ code:\\ 401\\\n@n8n/n8n\\-nodes\\-langchain:test:\\ \\ \\ \\ \\ Body:\\ \"unauthorized\\\\n\"",
+      "label": "unclear",
+      "note": "",
+      "lines": 3,
+      "id": "2f3908033c1f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    }
+  ],
+  "min_gap": 2
+}
