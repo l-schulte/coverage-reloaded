@@ -14,8 +14,6 @@
 *.jsonl
 
 *additional_information.csv
-*commits.csv
-*command_changes.csv
 *old_commits.csv
 *dashboard-index.json
 *lcov_sanity_report.csv
@@ -36,6 +34,8 @@
 projects/**/archive/
 projects/**/label_analysis/v1/
 archive/**/archive/
+archive/**/commits.csv
+archive/**/command_changes.csv
 
 node_modules/
 **/node_modules/
