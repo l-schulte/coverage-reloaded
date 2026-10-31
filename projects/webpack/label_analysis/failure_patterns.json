@@ -1,0 +1,1491 @@
+{
+  "general": {
+    "patterns": [
+      "\u25cf",
+      "FATAL ERROR:"
+    ],
+    "exclude": [
+      "\u25cf\\s*Console",
+      "\u25cf\\s*Cannot log after tests are done",
+      "Test Suites:",
+      "Tests:",
+      "Snapshots:",
+      "Ran all test suites"
+    ]
+  },
+  "min_gap": 5,
+  "suites": {},
+  "auto_classify": [
+    {
+      "match": "\\\nErrors\\ while\\ compiling:\\\n\\\nmoduleIdentifier\\ =\\ test/configCases/asset\\-modules/https\\-url/loaders/md\\-lo\\.\\.\\.;\\ moduleName\\ =\\ https://raw\\.githubusercontent\\.com/webpack/webpack/master/CODE_OF_CONDUCT\\.md;\\ message\\ =\\ Module\\ build\\ failed\\ \\(from\\ \\./loaders/md\\-loader\\.js\\):",
+      "label": "reevaluated_acceptable",
+      "note": "Compile error on the CODE_OF_CONDUCT http(s) fixture before the mock was in place; re-run in the same era passes.",
+      "lines": 4,
+      "id": "46dbf4d62aa1"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchInlineSnapshot\\(snapshot\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "2e3b67b97477"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledWith\\(\\.\\.\\.expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0d406ad9cf6d"
+    },
+    {
+      "match": "\\\nErrors\\ while\\ compiling:\\\n\\\nmessage\\ =\\ Invalid\\ configuration\\ object\\.\\ Webpack\\ has\\ been\\ initialized\\ using\\ a\\ configuration\\ object\\.\\.\\.;\\ stack\\ =\\ ValidationError:\\ Invalid\\ configuration\\ object\\.\\ Webpack\\ has\\ been\\ initialized\\ using\\ a\\ configuration\\ object\\ that\\ does\\ not\\ match\\ the\\ API\\ schema\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "0e60641b0ed0"
+    },
+    {
+      "match": "\\\nmodule\\ property\\ was\\ removed\\ from\\ Dependency\\ \\(use\\ compilation\\.moduleGraph\\.getModule\\(dependency\\)\\ instead\\)",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "33be934acfd7"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n\\\nExpected:\\ 100\\\nReceived:\\ 1000",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "03c967b0271d"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchSnapshot\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "40ab622ac7b1"
+    },
+    {
+      "match": "\\\ngetaddrinfo\\ EAI_AGAIN\\ raw\\.githubusercontent\\.com",
+      "label": "reevaluated_acceptable",
+      "note": "Container DNS failure (EAI_AGAIN) on an external URL; environment, not the commit. Re-run with the mock/DNS in place.",
+      "lines": 2,
+      "id": "55ff75c03a58"
+    },
+    {
+      "match": "\\\nWarnings\\ while\\ compiling:\\\n\\\nmoduleIdentifier\\ =\\ node_modules/coffee\\-loader/dist/cjs\\.js",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "c1bcac3319c7"
+    },
+    {
+      "match": "\\\nWarnings\\ while\\ compiling:\\\n\\\nmoduleIdentifier\\ =\\ test/configCases/asset\\-modules/http\\-url/loaders/css\\-lo",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "3bdada48c706"
+    },
+    {
+      "match": "\\\nWarnings\\ while\\ compiling:\\\n\\\nmoduleIdentifier\\ =\\ data:application/node,module\\.exports",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "7d72e6d0d248"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n\\\nExpected:\\ true\\\nReceived:\\ false",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "f707e68116b7"
+    },
+    {
+      "match": "\\\nconnect\\ ECONNREFUSED\\ 127\\.0\\.0\\.1:39161",
+      "label": "reevaluated_acceptable",
+      "note": "Local test-server port race (ECONNREFUSED 127.0.0.1); the rest of the suite runs, no coverage effect.",
+      "lines": 2,
+      "id": "39ec838de7e3"
+    },
+    {
+      "match": "\\\nAborted\\ because\\ \\./index\\.js\\ is\\ not\\ accepted\\\nUpdate\\ propagation:\\ \\./index\\.js",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "df30b1cf0583"
+    },
+    {
+      "match": "\\\nErrors/Warnings\\ during\\ build:\\\n<w>\\ \\[webpack\\.cache\\.PackFileCacheStrategy\\]\\ Caching\\ failed\\ for\\ pack:\\ RangeError\\ \\[ERR_OUT_OF_RANGE\\]:\\ The\\ value\\ of\\ \"offset\"\\ is\\ out\\ of\\ range\\.\\ It\\ must\\ be\\ >=\\ 0\\ and\\ <=\\ 2982\\.\\ Received\\ 2983",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "11beda23c342"
+    },
+    {
+      "match": "\\\nValidationError:\\ Invalid\\ configuration\\ object\\.\\ Webpack\\ has\\ been\\ initialized\\ using\\ a\\ configuration\\ object\\ that\\ does\\ not\\ match\\ the\\ API\\ schema\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d581252a7764"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.not\\.toContain\\(expected\\)\\ //\\ indexOf",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "615b0b315494"
+    },
+    {
+      "match": "\\\nErrors/Warnings\\ during\\ build:\\\n<i>\\ \\[webpack\\.Clean\\]\\ \\[test/js/ConfigCacheTestCases/clean/dry/this/dir/should/be/removed/file\\.ext\\]\\ will\\ be\\ removed\\ in\\ non\\-dry\\ mode",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "52cb9c06f9dd"
+    },
+    {
+      "match": "\\\nRangeError:\\ The\\ value\\ of\\ \"offset\"\\ is\\ out\\ of\\ range\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0f6d63b04295"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.resolves\\.toMatchInlineSnapshot\\(snapshot\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7bad399425ae"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n\\\nExpected:\\ true\\\nReceived:\\ null",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "1d677f84bbd2"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ Unexpected\\ token\\\nin\\ JSON\\ at\\ position\\ \\d+",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "43f9588b43ca"
+    },
+    {
+      "match": "SyntaxError:\\ missing\\ .\\ after\\ ",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "43f9588b43ca"
+    },
+    {
+      "match": "\\\nCall\\ retries\\ were\\ exceeded",
+      "label": "reevaluated_acceptable",
+      "note": "jest-worker failed to spawn one test file (Call retries were exceeded); the remaining suites and lcov are complete.",
+      "lines": 2,
+      "id": "4cb2b30e4836"
+    },
+    {
+      "match": "\\\nReferenceError:\\ MyLibrary\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0734cc7a5706"
+    },
+    {
+      "match": "\\\nevalmachine\\.<anonymous>:109\\\n/\\*\\*\\*\\*\\*\\*/\\ \\\t\\\t\\\t\\\t\\\tdef\\[key\\]\\ =\\ \\(value\\[key\\]\\)\\ =>\\ \\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "98dfbac7d13e"
+    },
+    {
+      "match": "/\\*\\*\\*\\*\\*\\*/\\ \\\t\\\t\\\t\\\t\\\tdef\\[key\\]\\ =\\ \\(value\\[key\\]\\)\\ =>\\ \\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "21f4d3ea6aa5"
+    },
+    {
+      "match": "Cannot find module '\\.\\./\\.\\./schemas/plugins/optimize/MergeDuplicateChunksPlugin\\.check\\.js'",
+      "label": "acceptable",
+      "note": "commit 0ab5b9e00ca: missing compiled MergeDuplicateChunksPlugin schema",
+      "lines": 5,
+      "id": "667b247dbd6e"
+    },
+    {
+      "match": "You may need an appropriate loader to handle this file type",
+      "label": "acceptable",
+      "note": "commit b520904482a: incomplete acorn parser rewrite in JavascriptParser",
+      "lines": 5,
+      "id": "a650910e1b4d"
+    },
+    {
+      "match": "request should be a string or object with loader and options",
+      "label": "acceptable",
+      "note": "commit 29bd40e9792: missing descriptionFileData null-check in NormalModuleFactory",
+      "lines": 5,
+      "id": "bec5be79ccb5"
+    },
+    {
+      "match": "Right-hand side of 'instanceof' is not callable",
+      "label": "acceptable",
+      "note": "commit 6c0056c2075: circular import in CommonJsRequireContextDependency",
+      "lines": 5,
+      "id": "814dfb9dfb6f"
+    },
+    {
+      "match": "Cannot read properties of undefined \\(reading 'externalType'\\)",
+      "label": "acceptable",
+      "note": "commit 406ec4f7a85: ExternalModule refactor regression",
+      "lines": 5,
+      "id": "dedeefaccf2e"
+    },
+    {
+      "match": "ENOENT: no such file or directory, open 'test/js/",
+      "label": "acceptable",
+      "note": "cascade failure: bundle.js not emitted because compilation failed",
+      "lines": 5,
+      "id": "abb4f7704625"
+    },
+    {
+      "match": "No source available",
+      "label": "acceptable",
+      "note": "commit 29bd40e9792: NormalModule runtime dummy stub for unhandled loader",
+      "lines": 5,
+      "id": "09c795e548e0"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ set\\ property\\ 'result'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c6fbaf03a358",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toContain\\(expected\\)\\ //\\ indexOf",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7212035e7ee0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "20959dd79a77",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nWarnings\\ while\\ compiling:\\\n\\\n.*https://raw\\.githubusercontent\\.com/webpack/webpack/master/CODE_OF_CONDUCT\\.md;",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "bdb8bb00c928",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.not\\.toMatch\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "54809fd41ab6",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBeGreaterThan\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d43f1702c239",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n:\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 45000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 45000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
+      "label": "reevaluated_acceptable",
+      "note": "Known unresolved environment artefact (2026-10-30): the wall-clock budget is hardcoded in the project's own harness (it(name, fn, N) / jest.setTimeout), so an instrumented run in our container can exceed it. Accepted because coverage is not affected: the lines the timed-out test would execute are also executed by sibling tests of the same suite at that commit, so the run's summed LH stays within 0.5% of same-layout neighbouring runs (median 0.0%). Re-running 35 archived timeout runs reproduced 30 with identical timeout counts, i.e. deterministic and not host contention. See OVERVIEW 'Known gaps'.",
+      "lines": 2,
+      "id": "8b129963900a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nconnect\\ ECONNREFUSED\\ 127\\.0\\.0\\.1:34307",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "99473536e09d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nErrors/Warnings\\ during\\ build:\\\n<i>\\ \\[webpack\\.Clean\\]\\ \\[test/js/ConfigTestCases/clean/dry/this/dir/should/be/removed/file\\.ext\\]\\ will\\ be\\ removed\\ in\\ non\\-dry\\ mode",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "dfe38d114bd0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nERROR\\ in\\ .*\\ from\\ Terser\\\nInvalid\\ function\\ parameter",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "0a4c0bb471c2",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nErrors\\ while\\ compiling:\\\n\\\nmessage\\ =\\ bundle\\.js\\ from\\ Terser",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "d9f1508fb672",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nMore\\ errors\\ while\\ compiling\\ than\\ expected:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b9ccd873ba26",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nErrors\\ while\\ compiling:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6ef59f52773a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "SyntaxError:\\ Invalid\\ destructuring\\ assignment\\ target",
+      "label": "acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "03fe7a3291a2",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nShould\\ have\\ found\\ at\\ least\\ one\\ bundle\\ file\\ per\\ webpack\\ config\\\n",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "c66707f1cbae",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "SyntaxError:\\ Invalid\\ or\\ unexpected\\ token",
+      "label": "acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "03fe7a3291ab",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "SyntaxError:\\ Missing\\ catch\\ or\\ finally\\ after\\ try",
+      "label": "acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "03fe7a3291aa",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'length'\\ of\\ null",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4a354801aa64",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'pck'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8b2095e02dba",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nModule\\ build\\ failed:\\ Error:\\ Final\\ loader\\ \\(unknown\\)\\ didn't\\ return\\ a\\ Buffer\\ or\\ String",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "348c0c621de1",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nLess\\ errors\\ while\\ compiling\\ than\\ expected:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b57fe5b87031",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9834ceed2111",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ convert\\ undefined\\ or\\ null\\ to\\ object",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "bfecfd56511a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n:\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 20000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 20000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f9132a279abf",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nSome\\ modules\\ were\\ not\\ cached:",
+      "label": "reevaluated_acceptable",
+      "note": "The listed modules are legitimately [not cacheable] at those commits; dev-facing assertion, not an artefact.",
+      "lines": 2,
+      "id": "fde6c84c874a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ 'destroy'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9bc7eab5b9f6",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBeLessThan\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ddfe526ea839",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n:\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
+      "label": "reevaluated_acceptable",
+      "note": "Known unresolved environment artefact (2026-10-30): the wall-clock budget is hardcoded in the project's own harness (it(name, fn, N) / jest.setTimeout), so an instrumented run in our container can exceed it. Accepted because coverage is not affected: the lines the timed-out test would execute are also executed by sibling tests of the same suite at that commit, so the run's summed LH stays within 0.5% of same-layout neighbouring runs (median 0.0%). Re-running 35 archived timeout runs reproduced 30 with identical timeout counts, i.e. deterministic and not host contention. See OVERVIEW 'Known gaps'.",
+      "lines": 2,
+      "id": "7c14e6976990",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n:\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 10000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 10000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
+      "label": "reevaluated_acceptable",
+      "note": "Known unresolved environment artefact (2026-10-30): the wall-clock budget is hardcoded in the project's own harness (it(name, fn, N) / jest.setTimeout), so an instrumented run in our container can exceed it. Accepted because coverage is not affected: the lines the timed-out test would execute are also executed by sibling tests of the same suite at that commit, so the run's summed LH stays within 0.5% of same-layout neighbouring runs (median 0.0%). Re-running 35 archived timeout runs reproduced 30 with identical timeout counts, i.e. deterministic and not host contention. See OVERVIEW 'Known gaps'.",
+      "lines": 2,
+      "id": "c00234df0031",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n_require\\(vm\\)\\ called\\ after\\ all\\ tests\\ have\\ completed",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "94c07ea21222",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nPrettyFormatPluginError:\\ prettyFormat\\ is\\ not\\ a\\ functionTypeError:\\ prettyFormat\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "29aa89f0471c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ jestDiff\\ is\\ not\\ a\\ function",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "88c413446802",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nNo\\ tests\\ exported\\ by\\ test\\ case",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "565038f4dc1f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nProblem\\ communicating\\ active\\ modules\\ to\\ the\\ server:\\ Error:\\ connect\\ ECONNREFUSED\\ 127\\.0\\.0\\.1:44333\\ undefined:undefined:undefined\\ undefined",
+      "label": "reevaluated_acceptable",
+      "note": "Hot-update server connection race between worker and server; no coverage effect beyond the failed case.",
+      "lines": 2,
+      "id": "a007255acf55",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nProblem\\ communicating\\ active\\ modules\\ to\\ the\\ server:\\ Error:\\ connect\\ ECONNREFUSED\\ 127\\.0\\.0\\.1:\\d+\\ undefined:undefined:undefined\\ undefined",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "3ed929e0a2dd",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nLess\\ errors\\ \\(\\d+\\ instead\\ of\\ \\d+\\)\\ while\\ compiling\\ than\\ expected:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5cff0d33a01b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 5000\\ ms\\ for\\ a\\ test\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Known unresolved environment artefact (2026-10-30): the wall-clock budget is hardcoded in the project's own harness (it(name, fn, N) / jest.setTimeout), so an instrumented run in our container can exceed it. Accepted because coverage is not affected: the lines the timed-out test would execute are also executed by sibling tests of the same suite at that commit, so the run's summed LH stays within 0.5% of same-layout neighbouring runs (median 0.0%). Re-running 35 archived timeout runs reproduced 30 with identical timeout counts, i.e. deterministic and not host contention. See OVERVIEW 'Known gaps'.",
+      "lines": 2,
+      "id": "01656c4c245f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTest\\ functions\\ cannot\\ both\\ take\\ a\\ 'done'\\ callback\\ and\\ return\\ something\\.\\ Either\\ use\\ a\\ 'done'\\ callback,\\ or\\ return\\ a\\ promise\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d20d86eb6476",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nReferenceError:\\ jasmine\\ is\\ not\\ defined",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7f41e6f82ed7",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nRangeError:\\ WebAssembly\\.instantiate\\(\\):\\ Out\\ of\\ memory:\\ wasm\\ memory",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6e61a357fa71",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 20000\\ ms\\ for\\ a\\ hook\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Known unresolved environment artefact (2026-10-30): the wall-clock budget is hardcoded in the project's own harness (it(name, fn, N) / jest.setTimeout), so an instrumented run in our container can exceed it. Accepted because coverage is not affected: the lines the timed-out test would execute are also executed by sibling tests of the same suite at that commit, so the run's summed LH stays within 0.5% of same-layout neighbouring runs (median 0.0%). Re-running 35 archived timeout runs reproduced 30 with identical timeout counts, i.e. deterministic and not host contention. See OVERVIEW 'Known gaps'.",
+      "lines": 2,
+      "id": "59371cc3b516",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nFor\\ the\\ selected\\ environment\\ is\\ no\\ default\\ ESM\\ chunk\\ format\\ available:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6ca647114b12",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nReferenceError:\\ require\\ is\\ not\\ defined",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "fec82560c64d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ '.*'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "eb45879617cc",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nErrors/Warnings\\ during\\ build:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "22b1eaba6efb",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nDeprecations\\ while\\ compiling:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a8a228db743c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nLess\\ deprecations\\ \\(\\d+\\ instead\\ of\\ \\d+\\)\\ while\\ compiling\\ than\\ expected:",
+      "label": "reevaluated_acceptable",
+      "note": "Fewer deprecations reported than the snapshot expects at a branch-intermediate commit; dev-facing.",
+      "lines": 2,
+      "id": "e761599c6d3e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nNo\\ browserslist\\ config\\ found\\ to\\ handle\\ the\\ 'browserslist'\\ target\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ec3f5b57fc92",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nReferenceError:\\ __webpack_async_exports__\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c3543e155496",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCompileError:\\ WebAssembly\\.instantiate\\(\\):\\ Compiling\\ function\\ \\#0\\ failed:\\ memory\\ instruction\\ with\\ no\\ memory\\ @\\+27",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "87f977ed0212",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n:\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 60000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 60000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
+      "label": "reevaluated_acceptable",
+      "note": "Known unresolved environment artefact (2026-10-30): the wall-clock budget is hardcoded in the project's own harness (it(name, fn, N) / jest.setTimeout), so an instrumented run in our container can exceed it. Accepted because coverage is not affected: the lines the timed-out test would execute are also executed by sibling tests of the same suite at that commit, so the run's summed LH stays within 0.5% of same-layout neighbouring runs (median 0.0%). Re-running 35 archived timeout runs reproduced 30 with identical timeout counts, i.e. deterministic and not host contention. See OVERVIEW 'Known gaps'.",
+      "lines": 2,
+      "id": "ec58ad767904",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "FATAL\\ ERROR:\\ CALL_AND_RETRY_LAST\\ Allocation\\ failed\\ \\-\\ JavaScript\\ heap\\ out\\ of\\ memory",
+      "label": "reevaluated_acceptable",
+      "note": "V8 heap OOM at the project's own --max-old-space-size=4096 on the wasm-heavy commit 1632420870; reproduced on re-run, needs a commit-scoped heap bump.",
+      "lines": 0,
+      "id": "56c6703bdaa0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nMore\\ errors\\ \\(\\d+\\ instead\\ of\\ \\d+\\)\\ while\\ compiling\\ than\\ expected:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "54e4b5324169",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ '.*'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "034a269e15dd",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 20000\\ ms\\ for\\ a\\ test\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Known unresolved environment artefact (2026-10-30): the wall-clock budget is hardcoded in the project's own harness (it(name, fn, N) / jest.setTimeout), so an instrumented run in our container can exceed it. Accepted because coverage is not affected: the lines the timed-out test would execute are also executed by sibling tests of the same suite at that commit, so the run's summed LH stays within 0.5% of same-layout neighbouring runs (median 0.0%). Re-running 35 archived timeout runs reproduced 30 with identical timeout counts, i.e. deterministic and not host contention. See OVERVIEW 'Known gaps'.",
+      "lines": 2,
+      "id": "55b70dd8655e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ __webpack_modules__\\[moduleId\\]\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5ee2a1c90414",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ execOptions\\.factory\\.call\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e6e7b09bb57f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ .*\\.factory\\.call\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "40f2c41c5464",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ .*\\[.*\\]\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7fbbefbb4d35",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ null\\ \\(reading\\ 'backend'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4b6edf999cbd",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nLess\\ warnings\\ \\(\\d+\\ instead\\ of\\ \\d+\\)\\ while\\ compiling\\ than\\ expected:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "21741a4194c1",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": ">\\ \\d+\\ \\|\\ \\\t+it\\(\\.\\.\\.args\\);",
+      "label": "acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "6de0b2e65ee9",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\./loader!\\./\\d+/a'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "264061204f7c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ .*\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f86a1265ca5c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 10000\\ ms\\ for\\ a\\ test\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Known unresolved environment artefact (2026-10-30): the wall-clock budget is hardcoded in the project's own harness (it(name, fn, N) / jest.setTimeout), so an instrumented run in our container can exceed it. Accepted because coverage is not affected: the lines the timed-out test would execute are also executed by sibling tests of the same suite at that commit, so the run's summed LH stays within 0.5% of same-layout neighbouring runs (median 0.0%). Re-running 35 archived timeout runs reproduced 30 with identical timeout counts, i.e. deterministic and not host contention. See OVERVIEW 'Known gaps'.",
+      "lines": 2,
+      "id": "47922635412b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toHaveProperty\\(path,\\ value\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f18d3de3654d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./\\.\\./\\.\\./js/config/dll\\-plugin/manifest0\\.json'\\ from\\ '.*\\/webpack\\.config\\.js'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f44a9d810172",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCode\\ 1:\\ \\ \\ \\ \\ \\[webpack\\.cache\\.PackFileCacheStrategy\\]\\ No\\ pack\\ exists\\ at\\ test/js/buildDepsCache/default\\-development\\.pack:\\ Error:\\ ENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ stat\\ 'test/js/buildDepsCache/default\\-development/index\\.pack'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a85c818ac63b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "SyntaxError:\\ Cannot\\ use\\ import\\ statement\\ outside\\ a\\ module",
+      "label": "acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "0f495ddf5c5a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nError\\ \\[ERR_MODULE_NOT_FOUND\\]:\\ Cannot\\ find\\ module\\ 'test/js/ConfigTestCases/trusted\\-types/web\\-worker/module'\\ imported\\ from\\ .*",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4ee055b6c926",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nError\\ \\[ERR_MODULE_NOT_FOUND\\]:\\ Cannot\\ find\\ module\\ '.*'\\ imported\\ from\\ .*",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "77b6aab6b6a5",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "SyntaxError:\\ Cannot\\ use\\ 'import\\.meta'\\ outside\\ a\\ module",
+      "label": "acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "3c6f9312c077",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"ERROR\\ in\\ \\[entry\\]\\ \\[initial\\]\\ d\\.js",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "59e35627036d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "message\\ =\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'get'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "713be4360739",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nAborted\\ because\\ \\./context\\-import\\.js\\ is\\ not\\ accepted",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "26ac3eb4fad2",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\ncheck\\(\\)\\ is\\ only\\ allowed\\ in\\ idle\\ status",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0791e00698dd",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\naborted",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "325a768c8d0b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nProblem\\ communicating\\ active\\ modules\\ to\\ the\\ server:\\ aborted\\ undefined:undefined:undefined\\ undefined",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e231eb627976",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nExpected\\ done\\ to\\ be\\ called\\ once,\\ but\\ it\\ was\\ called\\ multiple\\ times\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "15bd20cce379",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Pack\\ got\\ invalid\\ because\\ of\\ write\\ to:\\ ",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8c43c3efdbad",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 30000\\ ms\\ for\\ a\\ test\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Known unresolved environment artefact (2026-10-30): the wall-clock budget is hardcoded in the project's own harness (it(name, fn, N) / jest.setTimeout), so an instrumented run in our container can exceed it. Accepted because coverage is not affected: the lines the timed-out test would execute are also executed by sibling tests of the same suite at that commit, so the run's summed LH stays within 0.5% of same-layout neighbouring runs (median 0.0%). Re-running 35 archived timeout runs reproduced 30 with identical timeout counts, i.e. deterministic and not host contention. See OVERVIEW 'Known gaps'.",
+      "lines": 2,
+      "id": "f6ddd7af10ea",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.not\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "54fe778a97fe",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ scandir\\ '.*assets/img'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d99bbb1905e4",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toHaveLength\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "67ca0224bf20",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'test/js/module/side\\-effects/issue\\-11673/__webpack_require__\\.p1\\.bundle\\.mjs'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b6b9472b7a17",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'test/js/production\\ with\\ usedExports\\ global/side\\-effects/issue\\-11673/__webpack_require__\\.p141\\.bundle\\.js'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "fd945a80c2db",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'test/js/.*'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4cac3254724d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Cannot\\ find\\ module\\ 'test/js/.*'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "efe6e556d699",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nERROR\\ in\\ main\\\nModule\\ not\\ found:\\ Error:\\ Can't\\ resolve\\ '\\./index\\.js'\\ in\\ 'test/statsCases/all\\-stats\\ copy'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "40f3b3f47ba3",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nMore\\ warnings\\ \\(\\d+\\ instead\\ of\\ \\d+\\)\\ while\\ compiling\\ than\\ expected:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "cec9280ea941",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '!raw\\-loader!less\\-loader!\\./less/stylesheet\\.less'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "2e485cdf0edd",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nChunkLoadError:\\ Loading\\ chunk\\ .*\\ failed\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "eee5c6c5f04e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 30000\\ ms\\ for\\ a\\ test\\ while\\ waiting\\ for\\ `done\\(\\)`\\ to\\ be\\ called\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Known unresolved environment artefact (2026-10-30): the wall-clock budget is hardcoded in the project's own harness (it(name, fn, N) / jest.setTimeout), so an instrumented run in our container can exceed it. Accepted because coverage is not affected: the lines the timed-out test would execute are also executed by sibling tests of the same suite at that commit, so the run's summed LH stays within 0.5% of same-layout neighbouring runs (median 0.0%). Re-running 35 archived timeout runs reproduced 30 with identical timeout counts, i.e. deterministic and not host contention. See OVERVIEW 'Known gaps'.",
+      "lines": 2,
+      "id": "f4c83d228f22",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nWarning\\ 0:\\ message\\ =\\ chunk\\ css",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5db61c94fad7",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nERROR\\ in\\ external\\ \"https://fonts\\.googleapis\\.com/css\\?family=Open\\+Sans\"",
+      "label": "reevaluated_acceptable",
+      "note": "External font request in a test fixture (fonts.googleapis.com); network dependency of the fixture.",
+      "lines": 2,
+      "id": "4cd2786221c2",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nWarnings\\ while\\ compiling:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5c058efcf706",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ open\\ 'D:/output\\.js'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "063fca68f4b4",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatch\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8574f30e3c75",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBeTypeOf\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f495c3214710",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nShould\\ not\\ be\\ loaded",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0b443e6a033c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 20000\\ ms\\ for\\ a\\ test\\ while\\ waiting\\ for\\ `done\\(\\)`\\ to\\ be\\ called\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Known unresolved environment artefact (2026-10-30): the wall-clock budget is hardcoded in the project's own harness (it(name, fn, N) / jest.setTimeout), so an instrumented run in our container can exceed it. Accepted because coverage is not affected: the lines the timed-out test would execute are also executed by sibling tests of the same suite at that commit, so the run's summed LH stays within 0.5% of same-layout neighbouring runs (median 0.0%). Re-running 35 archived timeout runs reproduced 30 with identical timeout counts, i.e. deterministic and not host contention. See OVERVIEW 'Known gaps'.",
+      "lines": 2,
+      "id": "78ee1941b180",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nReferenceError:\\ __WEBPACK_EXTERNAL_createRequire\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "78ff7d5fc888",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 45000\\ ms\\ for\\ a\\ test\\ while\\ waiting\\ for\\ `done\\(\\)`\\ to\\ be\\ called\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Known unresolved environment artefact (2026-10-30): the wall-clock budget is hardcoded in the project's own harness (it(name, fn, N) / jest.setTimeout), so an instrumented run in our container can exceed it. Accepted because coverage is not affected: the lines the timed-out test would execute are also executed by sibling tests of the same suite at that commit, so the run's summed LH stays within 0.5% of same-layout neighbouring runs (median 0.0%). Re-running 35 archived timeout runs reproduced 30 with identical timeout counts, i.e. deterministic and not host contention. See OVERVIEW 'Known gaps'.",
+      "lines": 2,
+      "id": "b2805863086b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBeTruthy\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "93b750a8e067",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nValidation\\ didn't\\ fail",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e6f71efd4e1e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nModule\\ build\\ failed\\ \\(from\\ \\.\\./\\.\\./node_modules/css\\-loader/dist/cjs\\.js\\):",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ee6c2494760f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nLinkError:\\ WebAssembly\\.instantiate\\(\\):.*\\ error:\\ function\\ import\\ requires\\ a\\ callable",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "14f20da43dd2",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nLinkError:\\ WebAssembly\\.instantiate\\(\\):\\ .*\\ error:\\ memory\\ import\\ must\\ be\\ a\\ WebAssembly\\.Memory\\ object",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "33f4c35ce040",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nReferenceError:\\ Cannot\\ access\\ '.*'\\ before\\ initialization",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8a65a18ec0e0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.rejects\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "775cd3355660",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nERROR\\ in\\ dll\\ alpha\\ alpha\\[2\\]",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "14d6da3a0e4c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ '\\.\\./dll/dist/alpha\\-manifest\\.json'\\ from\\ 'examples/dll\\-user/webpack\\.config\\.js'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "2179bd2b5b7b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Unexpected\\ token\\ .*\\ .*,\\ expected\\ punc\\ .*",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "d3dd0a4f92bd",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nERROR\\ in\\ \\./example\\.js\\ \\+\\ 1\\ modules",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9b6339c06c99",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Class\\ constructor\\ Test\\ cannot\\ be\\ invoked\\ without\\ 'new'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "cdf69e115dec",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nReferenceError:\\ .*\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "134f6a5f0282",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ The\\ \"paths\\[0\\]\"\\ argument\\ must\\ be\\ of\\ type\\ string\\.\\ Received\\ function\\ resolve",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c9284750bcee",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "SyntaxError:\\ Unexpected\\ identifier\\ '__WEBPACK_MODULE_REFERENCE__",
+      "label": "acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "dedf4865f93d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nModule\\ build\\ failed\\ \\(from\\ \\./loaders/import\\-module/loader\\.js\\):\\\nHookWebpackError:\\ missing\\ \\)\\ after\\ argument\\ list",
+      "label": "acceptable",
+      "note": "",
+      "lines": 3,
+      "id": "9e8368f10396",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "SyntaxError:\\ Unexpected\\ string",
+      "label": "acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "9e8368f1039d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "SyntaxError:\\ Unexpected\\ identifier",
+      "label": "acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "9e8368f1039d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Class\\ constructors\\ cannot\\ be\\ invoked\\ without\\ 'new'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "60bb639804fd",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ The\\ \"path\"\\ argument\\ must\\ be\\ of\\ type\\ string\\ or\\ an\\ instance\\ of\\ Buffer\\ or\\ URL\\.\\ Received\\ function\\ readFileSync",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0c1aa96669c0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchSnapshot\\(hint\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7fbf643dc00b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nModule\\ build\\ failed\\ \\(from\\ \\.\\./\\.\\./node_modules/coffee\\-loader/dist/cjs\\.js\\):",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "97e90ff4289f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nERROR\\ in\\ external\\ \"external\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ae1183645d5b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'external\\-module'\\ from\\ 'test/ConfigTestCases\\.template\\.js'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8c9f4339d27e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nExpected\\ snapshot\\ to\\ be\\ valid\\ but\\ it\\ is\\ invalid:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f51350ecf822",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Invalid\\ value\\ \"undefined\"\\ for\\ header\\ \"if\\-none\\-match\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "91cc46c3183d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 60000\\ ms\\ for\\ a\\ test\\ while\\ waiting\\ for\\ `done\\(\\)`\\ to\\ be\\ called\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Known unresolved environment artefact (2026-10-30): the wall-clock budget is hardcoded in the project's own harness (it(name, fn, N) / jest.setTimeout), so an instrumented run in our container can exceed it. Accepted because coverage is not affected: the lines the timed-out test would execute are also executed by sibling tests of the same suite at that commit, so the run's summed LH stays within 0.5% of same-layout neighbouring runs (median 0.0%). Re-running 35 archived timeout runs reproduced 30 with identical timeout counts, i.e. deterministic and not host contention. See OVERVIEW 'Known gaps'.",
+      "lines": 2,
+      "id": "7ad218971aa4",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 40000\\ ms\\ for\\ a\\ test\\ while\\ waiting\\ for\\ `done\\(\\)`\\ to\\ be\\ called\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Known unresolved environment artefact (2026-10-30): the wall-clock budget is hardcoded in the project's own harness (it(name, fn, N) / jest.setTimeout), so an instrumented run in our container can exceed it. Accepted because coverage is not affected: the lines the timed-out test would execute are also executed by sibling tests of the same suite at that commit, so the run's summed LH stays within 0.5% of same-layout neighbouring runs (median 0.0%). Re-running 35 archived timeout runs reproduced 30 with identical timeout counts, i.e. deterministic and not host contention. See OVERVIEW 'Known gaps'.",
+      "lines": 2,
+      "id": "f0d32a6bcd0f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nRangeError:\\ Maximum\\ call\\ stack\\ size\\ exceeded",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "40ba5ce9621c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "SyntaxError:\\ Unexpected\\ token\\ 'export'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "79d1cd312e91",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toHaveProperty\\(path\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "991b2dc1e2a3",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ null\\ \\(reading\\ 'type'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "588151b4186d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Module\\ parse\\ failed",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ccbd2578798b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.rejects\\.toMatchObject\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "35f8859ce3a9",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    }
+  ]
+}
