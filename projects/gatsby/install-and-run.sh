@@ -8,6 +8,15 @@ source /coverage_reloaded/resolve-and-pin.sh
 cd /coverage_reloaded/repo
 
 resolve_and_pin "release-assets.githubusercontent.com"
+resolve_and_pin "objects.githubusercontent.com"
+resolve_and_pin "codeload.github.com"
+
+# gatsby-plugin-webfonts runs onPreBootstrap during the `gatsby` package postbuild
+# and downloads the stylesheet plus font files. Containers lose DNS after enough
+# resolution attempts (EAI_AGAIN), which aborts the install phase before any test
+# runs. Pin both hosts so the download resolves reliably.
+resolve_and_pin "fonts.googleapis.com"
+resolve_and_pin "fonts.gstatic.com"
 
 # Gatsby's telemetry repository-id utility (packages/gatsby-telemetry/src/repository-id.ts)
 # hashes `git config --local --get remote.origin.url`. The snapshot in
@@ -30,6 +39,19 @@ export PUPPETEER_SKIP_DOWNLOAD=true
 # unconstrained worker pools exceed LMDB's default maxReaders (126) during bootstrap
 # builds (gatsby-admin), throwing MDB_READERS_FULL. Matches Gatsby's CI (CircleCI = 2).
 export GATSBY_CPU_COUNT=2
+
+# ── Relay upstream CI's LMDB datastore flag (2022-06-28 .. 2022-10-18) ───────
+# In this window Gatsby only used the LMDB datastore when
+# GATSBY_EXPERIMENTAL_LMDB_STORE was set; upstream CI exported it
+# (.circleci/config.yml: GATSBY_EXPERIMENTAL_LMDB_STORE: 1). Without it the
+# suite runs on the in-memory store, which holds nodes strongly, so the
+# WeakRef-based "works correctly if GC happen mid running" tests in
+# packages/gatsby/src/schema/__tests__/queries.js can never pass.
+# Gated on that test's presence so the flag stays inert in every other era.
+if [ -f packages/gatsby/src/schema/__tests__/queries.js ] && \
+   grep -q "GC happen mid running" packages/gatsby/src/schema/__tests__/queries.js; then
+    export GATSBY_EXPERIMENTAL_LMDB_STORE=1
+fi
 
 # ── Dependency installation ───────────────────────────────────────────────────
 
@@ -163,7 +185,7 @@ fi
 # offline without modifying any repository source files.
 
 if [ -f packages/gatsby-source-contentful/src/__tests__/extend-node-type.js ] && \
-   grep -q "iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAMAAAC5ge+k" packages/gatsby-source-contentful/src/__tests__/extend-node-type.js; then
+   grep -q "k8iqpp6u0ior" packages/gatsby-source-contentful/src/__tests__/extend-node-type.js; then
     print_header 2 "Pre-populating Contentful image cache for unmocked CDN test"
     CACHE_DIR="/coverage_reloaded/repo/.cache/remote_cache/images"
     mkdir -p "$CACHE_DIR"
@@ -184,6 +206,31 @@ data:image/jpg;base64,/9j/4AAQSkZJRgABAQIAHAAcAAD/2wBDABALDA4MChAODQ4SERATGCgaGB
 EOF
 
     cp -f "$CACHE_DIR"/*.base64 packages/gatsby-source-contentful/.cache/remote_cache/images/ 2>/dev/null || true
+fi
+
+
+# ── Fix Jest collectCoverageFrom to include TypeScript ────────────────────────
+# In jest.config.js, coverageDirs hardcodes `src/**/*.js`, strictly omitting all
+# TypeScript (.ts/.tsx) files across the monorepo. Patch to include {js,jsx,ts,tsx}.
+if [ -f jest.config.js ] && grep -q 'src/\*\*/\*\.js' jest.config.js; then
+    print_header 2 "Fixing jest.config.js coverageDirs to include TypeScript ({js,jsx,ts,tsx})"
+    sed -i 's|src/\*\*/\*\.js|src/**/*.{js,jsx,ts,tsx}|g' jest.config.js
+fi
+
+
+# ── Avoid babel-plugin-lodash / Istanbul collision on specific TS files ───────
+# When collectCoverageFrom includes TypeScript files, Istanbul coverage instrumentation
+# collides with babel-plugin-lodash's AST replacement of named imports, throwing:
+# "ReferenceError: Container is falsy" on js-chunk-names.ts and load-internal-plugins.ts.
+# Rewriting to direct submodule imports bypasses babel-plugin-lodash's AST replacement
+# in these files while preserving 100% full Istanbul coverage on them.
+if [ -f packages/gatsby/src/utils/js-chunk-names.ts ] && grep -q 'import { kebabCase as _kebabCase } from "lodash"' packages/gatsby/src/utils/js-chunk-names.ts; then
+    print_header 2 "Rewriting lodash import in js-chunk-names.ts to avoid Istanbul AST collision"
+    sed -i 's|import { kebabCase as _kebabCase } from "lodash"|import _kebabCase from "lodash/kebabCase"|g' packages/gatsby/src/utils/js-chunk-names.ts
+fi
+if [ -f packages/gatsby/src/bootstrap/load-plugins/load-internal-plugins.ts ] && grep -q 'import { uniqWith, isEqual } from "lodash"' packages/gatsby/src/bootstrap/load-plugins/load-internal-plugins.ts; then
+    print_header 2 "Rewriting lodash import in load-internal-plugins.ts to avoid Istanbul AST collision"
+    sed -i 's|import { uniqWith, isEqual } from "lodash"|import uniqWith from "lodash/uniqWith"; import isEqual from "lodash/isEqual"|g' packages/gatsby/src/bootstrap/load-plugins/load-internal-plugins.ts
 fi
 
 

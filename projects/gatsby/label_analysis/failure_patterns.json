@@ -1,0 +1,423 @@
+{
+  "general": {
+    "patterns": [
+      "\u25cf"
+    ],
+    "exclude": [
+      "\u25cf\\s*Console",
+      "Test Suites:",
+      "Tests:",
+      "Snapshots:",
+      "Ran all test suites",
+      "\u25cf.*console\\.(log|warn|error|info)"
+    ],
+    "exclude_blocks": []
+  },
+  "auto_classify": [
+    {
+      "match": "\\\nTypeError:\\ \\(0\\ ,\\ _gatsbyCoreUtils\\.getCIName\\)\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ead4b0147266",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledTimes\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "55426e58efc8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchInlineSnapshot\\(snapshot\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "40b30c4fafc9",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchSnapshot\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "3fa5638f5dd8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toHaveLength\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e639730771ca",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ property\\ '(map|find|0|every)'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5f92bc3c5ad0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "9b4490be330c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n:\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 30000ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 30000ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "a7567832efc8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n:\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 20000ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 20000ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "1ded4d0e04c9",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n:\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 35000ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 35000ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "986e15fd3faf",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\.assertions\\(1\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "299a3c31513a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBeFalsy\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d321def9fc46",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ open\\ '//\\.cache/schema\\.gql'",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6c2fbfce4682",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nExpected\\ undefined\\ to\\ be\\ a\\ GraphQL\\ schema\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "0f2d2d78c111",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ _fsExtra\\.default\\.readFileSync\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e66c3b2c9af3",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ '(getNodeById|withContext|getNodesByIds|getAllNodes|getTypes|replaceFiltersCache|getType|createPageDependency)'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "cc3e0b45c9f6",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ '(setParserPlugins|toString|getQueryType|path|destroy|stream)'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "cc3e0b45c9fa",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.resolves\\.toEqual\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "db5deeaaebc0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "14c8b4bb5167",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nError\\ loading\\ a\\ result\\ for\\ the\\ page\\ query\\ in\\ \"/foo\"\\.\\ Query\\ was\\ not\\ run\\ and\\ no\\ cached\\ result\\ was\\ found\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "83fd39d8a38d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toBeCalledWith\\(\\.\\.\\.expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c43d3affcacf",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ open\\ 'wat'",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream v4 pre-major mock omission for component wat; fixed in 4712acc619",
+      "lines": 2,
+      "id": "a3f857727372",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Joi\\.subPlugins\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ad89633dbaf1",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nUnhandled\\ error\\.\\ \\(TimeoutError:\\ Timeout\\ awaiting\\ 'send'\\ for",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream fake timers race with Got HTTP socket timers; deleted upstream in 19b0304e0a",
+      "lines": 2,
+      "id": "98b0f4d10fa8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toBeCalledTimes\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1a3d053e4737",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Unable\\ to\\ download\\ asset\\ from\\ https://images\\.ctfassets\\.net/k8iqpp6u0ior/3ljGfnpegOnBTFGhV07iC1/94257340bda15ad4ca8462da3a8afa07/347966\\-contentful\\-logo\\-wordmark\\-dark__1_\\-4cd185\\-original\\-1582664935__1_\\.png\\?w=20\\&h=97\\&q=50\\.\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'verbose'\\)",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "cb6cf47a860f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toSatisfyAll\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "fbc512112cd9",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 35000\\ ms\\ for\\ a\\ hook\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e06bcb166507",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nRequestError:\\ Nock:\\ Disallowed\\ net\\ connect\\ for\\ \"external\\.com:80/dog\\.jpg\"",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "a8257dab4525",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nYour\\ test\\ suite\\ must\\ contain\\ at\\ least\\ one\\ test\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "cad21bd844ac",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nwrite\\ EPIPE",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream worker IPC pipe race during .end()/.restart() teardown",
+      "lines": 2,
+      "id": "3dc6c4c89ab6",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nReferenceError:\\ .*\\.ts:\\ Container\\ is\\ falsy",
+      "label": "problematic",
+      "note": "Babel-plugin-lodash / Istanbul TypeScript coverage AST collision (fixed in install-and-run.sh)",
+      "lines": 2,
+      "id": "a02cd93317c2",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 30000\\ ms\\ for\\ a\\ test\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "35849015aa12",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 15000\\ ms\\ for\\ a\\ hook\\.",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream test timeout defect (15s); bumped to 60s upstream in 0a80cd6d61",
+      "lines": 2,
+      "id": "99b119708743",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ \\(0\\ ,\\ _diagnostic\\(\\.\\.\\.\\)\\.anyToDiagnostic\\)\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d2138af773d7",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toMatchSnapshot\\(properties\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1b7fe9d17353",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 30000\\ ms\\ for\\ a\\ t\\ \\ console\\.warn",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "8b7c9fb1b34f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 30000\\ ms\\ for\\ a\\ test\\ while\\ waiting\\ for\\ `done\\(\\)`\\ to\\ be\\ called\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "d1c5dfe8d246",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 60000\\ ms\\ for\\ a\\ hook\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "c6bdeaf195f7",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toBeCalled\\(\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ce2eff62a024",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ WorkerBackend\\ is\\ not\\ a\\ constructor",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a07e295e4789",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toBeUndefined\\(\\)",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "80d01d08df77",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 15000\\ ms\\ for\\ a\\ test\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "dbcc1caa7eaa",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ Object\\ \\{\\\n\"context\":\\ Object\\ \\{\\\n\"sourceMessage\":\\ \"Could\\ not\\ source\\ from\\ bulk\\ operation\",",
+      "label": "unclear",
+      "note": "",
+      "lines": 4,
+      "id": "e1bd93046a6a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nInvalid\\ argument:\\ MDB_BAD_RSLOT:\\ Invalid\\ reuse\\ of\\ reader\\ locktable\\ slot:\\ The\\ reader\\ lock\\ pid\\ 0,\\ txn\\ \\-1,\\ doesn't\\ match\\ env\\ pid\\ d*",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "931fb5ac3791",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    }
+  ]
+}
