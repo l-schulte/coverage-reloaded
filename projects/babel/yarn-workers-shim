@@ -1,11 +1,46 @@
 #!/bin/bash
 workers="${BABEL_JEST_WORKERS:-2}"
-args=()
 
+# Locate the underlying yarn binary (excluding this shim and /tmp/shim-bin)
+REAL_YARN=""
+for p in $(type -ap yarn); do
+    if [ "$p" != "$0" ] && [ "$p" != "/coverage_reloaded/yarn-workers-shim" ] && [[ "$p" != *"/shim-bin/yarn"* ]]; then
+        REAL_YARN="$p"
+        break
+    fi
+done
+if [ -z "$REAL_YARN" ]; then
+    REAL_YARN="/usr/local/bin/yarn"
+fi
+
+# 1. Check if this is an explicit Jest invocation
+is_jest_command=false
+if [ "$1" = "jest" ] || { [ "$1" = "run" ] && [ "$2" = "jest" ]; }; then
+    is_jest_command=true
+fi
+
+# 2. Check if a worker argument is already present anywhere
+has_max_workers=false
 for arg in "$@"; do
     case "$arg" in
-        --maxWorkers=100%)
-            printf 'yarn-workers-shim: --maxWorkers=100%% -> --maxWorkers=%s\n' "$workers" >&2
+        --maxWorkers|--maxWorkers=*)
+            has_max_workers=true
+            break
+            ;;
+    esac
+done
+
+# If it's neither a direct Jest run nor already specifying workers, pass through untouched
+if [ "$is_jest_command" = false ] && [ "$has_max_workers" = false ]; then
+    exec "$REAL_YARN" "$@"
+fi
+
+# Rewrite or inject --maxWorkers
+args=()
+for arg in "$@"; do
+    case "$arg" in
+        --maxWorkers=*)
+            printf 'yarn-workers-shim: %s -> --maxWorkers=%s\n' "$arg" "$workers" >&2
             args+=("--maxWorkers=${workers}")
             ;;
         *)
@@ -14,4 +49,9 @@ for arg in "$@"; do
     esac
 done
 
-exec yarn "${args[@]}"
+if [ "$is_jest_command" = true ] && [ "$has_max_workers" = false ]; then
+    printf 'yarn-workers-shim: injecting --maxWorkers=%s for jest\n' "$workers" >&2
+    args+=("--maxWorkers=${workers}")
+fi
+
+exec "$REAL_YARN" "${args[@]}"

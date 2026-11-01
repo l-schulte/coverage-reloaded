@@ -1,0 +1,22 @@
+commit_hash,timestamp,script_name,script_definition
+31ca15ef58f800283284b34fdd22a05f5025b348,1607555229,root:.: bootstrap,make bootstrap
+31ca15ef58f800283284b34fdd22a05f5025b348,1607555229,root:.: build,make build
+31ca15ef58f800283284b34fdd22a05f5025b348,1607555229,root:.: codesandbox:build,make build-no-bundle
+31ca15ef58f800283284b34fdd22a05f5025b348,1607555229,root:.: fix,make fix
+31ca15ef58f800283284b34fdd22a05f5025b348,1607555229,root:.: lint,make lint
+f893b333a8dc42908eed80841cec305b7b3c2227,1633360094,root:.: postinstall,husky install
+5fed5af537ad0510657405a1a8bf8d1948b634c7,1686667728,root:.: postinstall,
+1e4777bf7a1a8ab17f880db31a2e220ad18240a0,1704727709,root:.: postinstall,node scripts/postinstall.js
+5f74b510ff251af5bf7fbbf25c1c934ffcb6df52,1686676930,root:.: prepare,is-ci || husky install
+d1088dc21ccab4d83c83182259ef5682718e6b2d,1704719055,root:.: prepare,
+31ca15ef58f800283284b34fdd22a05f5025b348,1607555229,root:.: test,make test
+4b8447461b4564355f45fb978bc313760e0647d4,1715854732,root:.: test-only,make test-only
+31ca15ef58f800283284b34fdd22a05f5025b348,1607555229,root:.: test:esm,node test/esm/index.js
+0d6063f1b9c837838ddefc2c623ac9fd594fa7f0,1609714744,root:.: test:esm,node test/esm/index.mjs
+6a471decc3f4b5aef54dfca596e3f6d3843c8cf6,1614193443,root:.: test:runtime:bundlers,node test/runtime-integration/bundlers.cjs
+6a471decc3f4b5aef54dfca596e3f6d3843c8cf6,1614193443,root:.: test:runtime:generate-absolute-runtime,node test/runtime-integration/generate-absolute-runtime.cjs
+6a471decc3f4b5aef54dfca596e3f6d3843c8cf6,1614193443,root:.: test:runtime:node,node test/runtime-integration/node.cjs
+31ca15ef58f800283284b34fdd22a05f5025b348,1607555229,root:.: version,yarn --immutable-cache && git add yarn.lock
+31ca15ef58f800283284b34fdd22a05f5025b348,1607555229,timestamp_source,author_timestamp
+31ca15ef58f800283284b34fdd22a05f5025b348,1607555229,workspaces_package:packages/babel-compat-data: build-data,./scripts/download-compat-table.sh && node ./scripts/build-data.js && node ./scripts/build-modules-support.js && node ./scripts/build-bugfixes-targets.js
+3c00926bfc46fb1ddc9b35a40486c721b1ed0371,1744419924,workspaces_package:packages/babel-compat-data: build-data,./scripts/download-compat-table.sh && node ./scripts/build-data.mjs && node ./scripts/build-modules-support.mjs && node ./scripts/build-bugfixes-targets.mjs

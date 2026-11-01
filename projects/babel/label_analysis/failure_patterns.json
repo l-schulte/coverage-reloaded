@@ -1,0 +1,261 @@
+{
+  "general": {
+    "patterns": [
+      "\u25cf",
+      "^\\s*\\w*Error\\b"
+    ],
+    "exclude": [
+      "^\\s*\u25cf\\s*Console\\b",
+      "^Error:\\s*$",
+      "^Error: write EPIPE\\b",
+      "^\\s*at\\s",
+      "^\\s*Test Suites:",
+      "^\\s*Tests:",
+      "^\\s*Snapshots:",
+      "^\\s*Time:"
+    ],
+    "exclude_blocks": [
+      {
+        "start": "^\\s*Summary of all failing tests\\s*$",
+        "end": "^\\s*Test Suites:"
+      }
+    ]
+  },
+  "suites": {},
+  "auto_classify": [
+    {
+      "match": "Expected\\ .*\\.txt\\ to\\ match\\ transform\\ output\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7ee5f4bc12a4",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ Unsyntactic\\ break\\ \\(\\d+:\\d+\\)\\ !==\\ SyntaxError:\\ Unsyntactic\\ break\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4c88224bdadd",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ Missing\\ semicolon\\ \\(\\d+:\\d+\\)\\ !==\\ SyntaxError:\\ Missing\\ semicolon\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6c698dacb0a6",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ 'return'\\ outside\\ of\\ function\\ \\(\\d+:\\d+\\)\\ !==\\ SyntaxError:\\ 'return'\\ outside\\ of\\ function\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "e61d177edaf8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nfalse\\ !==\\ true\\ \\(beforeExpr/type/1/tokens\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "15aec9719e40",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ Unexpected\\ token\\ \\(1:9\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0ee804b50927",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Expected\\ .*\\.mjs\\ to\\ match\\ transform\\ output\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "3c00385a98d8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Expected\\ .*\\.js\\ to\\ match\\ transform\\ output\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "3c00385a98f8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n\\[BABEL\\]\\ .*\\.mjs:\\ Requires\\ Babel\\ \"\\^7\\.16\\.0\",\\ but\\ was\\ loaded\\ with\\ \"7\\.15\\.8\"\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "2efbdf585ae0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ \".*\"\\ \".*\":\\ stderr:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "c9515e5868cc",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ babel\\.loadOptions\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "e4cb1486b6b0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ expect\\(received\\)\\.toMatchInlineSnapshot\\(snapshot\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "d80f59a55320",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "SyntaxError:\\ Unexpected\\ token\\ /\\ in\\ JSON\\ at\\ position\\ 0",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "f6186b55d2f1",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "JestAssertionError:\\ Expected\\ .*\\ to\\ match\\ transform\\ output\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "4528687de690",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Cannot\\ find\\ package\\ 'babel\\-plugin\\-proposal\\-class\\-properties'",
+      "label": "reevaluated_acceptable",
+      "note": "reevaluated_acceptable 2026-10-31: upstream breakage, not our pipeline. PR #15570 (79fa18149e, 2023-05-22) added decorators 2023-05 fixtures whose options.json referenced renamed 'proposal-*' plugin packages that no longer exist on the Babel 8 main branch. Upstream's own follow-up ced7be82b9 'Fix tests after merging PRs' renamed them to 'transform-*' (9 files); that run is green. Dev-facing; window = 79fa18149e..920b78c0 only.",
+      "lines": 0,
+      "id": "0086a1b318db",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Cannot\\ find\\ package\\ 'babel\\-plugin\\-proposal\\-class\\-static\\-block'",
+      "label": "reevaluated_acceptable",
+      "note": "reevaluated_acceptable 2026-10-31: same incident as rule 0086a1b318db (PR #15570 stale 'proposal-*' plugin names, fixed upstream by ced7be82b9). Dev-facing.",
+      "lines": 0,
+      "id": "0086a1b318dr",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ _index\\.BINARY_OPERATORS\\ is\\ not\\ iterable\\ \\(cannot\\ read\\ property\\ undefined\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8851a50e793e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError\\ \\[ERR_ASSERTION\\]:\\ A\\ fatal\\ parsing\\ error\\ occurred:\\ Parsing\\ error:\\ @babel/eslint\\-parser@7\\.24\\.6\\ does\\ not\\ support\\ @babel/core@undefined\\.\\ Please\\ upgrade\\ to\\ @babel/core@\\*\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "f0073b32b8a7",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ destructure\\ property\\ 'message'\\ of\\ 'WorkerClient\\[\\#worker_threads\\]\\.receiveMessageOnPort\\(\\.\\.\\.\\)'\\ as\\ it\\ is\\ undefined\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "6767764c755e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "ReferenceError:.*\\ regeneratorRuntime\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "4c241f8f421d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nSyntaxError:\\ Unexpected\\ eval\\ or\\ arguments\\ in\\ strict\\ mode",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "be51d658c385",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nReferenceError:\\ require\\ is\\ not\\ defined\\ in\\ ES\\ module\\ scope,\\ you\\ can\\ use\\ import\\ instead",
+      "label": "reevaluated_acceptable",
+      "note": "reevaluated_acceptable 2026-10-31: upstream breakage in PR #17205 landing sequence (2025-03-28). Intermediate commits moved regenerator's CJS test fixtures into a '\"type\": \"module\"' package while jest testRegex collected test/regenerator-fixtures/*.js as suites; CJS-in-ESM -> 'require is not defined'. Upstream's own ab3fef3d61 added test/regenerator-fixtures/package.json = {\"type\":\"commonjs\"}; green. CAVEAT: this body is generic - if it recurs outside a dev-facing fixture era, re-check for env/module-type damage before trusting the auto-label.",
+      "lines": 2,
+      "id": "260a44684c35",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nYour\\ test\\ suite\\ must\\ contain\\ at\\ least\\ one\\ test\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "210c338090e8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ packages/babel\\-plugin\\-transform\\-regenerator/test/fixtures/regression/displayName/exec\\.js:\\ expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "49bc03b7e2d1",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ .*\\.js:\\ Property\\ params\\[\\d+\\]\\ of\\ FunctionExpression\\ expected\\ node\\ to\\ be\\ of\\ a\\ type\\ \\[\"FunctionParameter\"\\]\\ but\\ instead\\ got\\ \"VoidPattern\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "1ed6b0dcb82b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ expect\\(received\\)\\.toBeLessThan\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "bc899484b462",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    }
+  ]
+}
