@@ -403,8 +403,8 @@
     },
     {
       "match": "\\\nthrown:\\ Object\\ \\{\\\n\"context\":\\ Object\\ \\{\\\n\"sourceMessage\":\\ \"Could\\ not\\ source\\ from\\ bulk\\ operation\",",
-      "label": "unclear",
-      "note": "",
+      "label": "problematic",
+      "note": "rare MSW bulk operation socket escape flake",
       "lines": 4,
       "id": "e1bd93046a6a",
       "generated_by": "check_failures_v2",
@@ -412,10 +412,37 @@
     },
     {
       "match": "\\\nInvalid\\ argument:\\ MDB_BAD_RSLOT:\\ Invalid\\ reuse\\ of\\ reader\\ locktable\\ slot:\\ The\\ reader\\ lock\\ pid\\ 0,\\ txn\\ \\-1,\\ doesn't\\ match\\ env\\ pid\\ d*",
+      "label": "problematic",
+      "note": "Native LMDB 2.5.3 reader locktable slot reuse race (MDB_BAD_RSLOT)",
+      "lines": 2,
+      "id": "931fb5ac3791",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Attempted\\ to\\ log\\ \"FetchError\\ \\{\\\nmessage:\\ 'request\\ to\\ http://test\\.com/events\\ failed,\\ reason:\\ getaddrinfo\\ ENOTFOUND\\ test\\.com',",
       "label": "unclear",
       "note": "",
       "lines": 2,
-      "id": "931fb5ac3791",
+      "id": "62716fff8fec",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Attempted\\ to\\ log\\ \"FetchError\\ \\{\\\nmessage:\\ 'request\\ to\\ http://test\\.com/events\\ failed,\\ reason:\\ getaddrinfo\\ EAI_AGAIN\\ test\\.com',",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "da62df1055f2",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 30000\\ ms\\ for\\ a\\ hook\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "95e3af9a123f",
       "generated_by": "check_failures_v2",
       "window": "min"
     }

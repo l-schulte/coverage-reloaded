@@ -218,6 +218,54 @@ if [ -f jest.config.js ] && grep -q 'src/\*\*/\*\.js' jest.config.js; then
 fi
 
 
+# ── Collect coverage from package-root sources outside src/ ───────────────────
+# Upstream's collectCoverageFrom globs only packages/*/src/**, so a package that
+# keeps its sources at the package root never appears in LCOV even though its test
+# suites run and load that code. The study's exposure variable is "lines reached
+# by tests", not the coverage scope upstream chose to report, so the glob is
+# extended for such a package.
+#
+# gatsby-plugin-mdx is the case that matters: 35 sources (index.js, gatsby-node.js,
+# gatsby-browser.js, gatsby-ssr.js, loaders/**, utils/**, constants.js, ...) sit at
+# the package root from 2021-01-04 until 2022-08-10, during which its test files
+# (__tests__/gatsby-node.js, loaders/mdx-loader.test.js, mdx-renderer.test.js,
+# utils/__tests__/**) execute normally but contribute no coverage. The v4 rewrite
+# (3c0dd6d238, 2022-08-10) moves the sources under src/, after which the existing
+# src glob covers them and this block stays inert.
+#
+# The negations are scoped to the package so no other path's inclusion changes:
+# test files, fixtures and mocks of that package are not added as coverage targets.
+if [ -f jest.config.js ] && \
+   [ -d packages/gatsby-plugin-mdx ] && [ ! -d packages/gatsby-plugin-mdx/src ] && \
+   grep -q 'collectCoverageFrom: coverageDirs,' jest.config.js; then
+    print_header 2 "Extending collectCoverageFrom to gatsby-plugin-mdx package-root sources"
+    node -e '
+const fs = require("fs")
+const configPath = "jest.config.js"
+const anchor = "collectCoverageFrom: coverageDirs,"
+const config = fs.readFileSync(configPath, "utf8")
+if (!config.includes(anchor)) {
+  throw new Error("collectCoverageFrom anchor not found in jest.config.js")
+}
+const pkg = "<rootDir>/packages/gatsby-plugin-mdx"
+const globs = [
+  "`" + pkg + "/**/*.{js,jsx,ts,tsx}`",
+  "`!" + pkg + "/**/node_modules/**`",
+  "`!" + pkg + "/**/dist/**`",
+  "`!" + pkg + "/**/__tests__/**`",
+  "`!" + pkg + "/**/__mocks__/**`",
+  "`!" + pkg + "/**/fixtures/**`",
+  "`!" + pkg + "/**/*.test.{js,jsx,ts,tsx}`",
+]
+fs.writeFileSync(
+  configPath,
+  config.replace(anchor, "collectCoverageFrom: coverageDirs.concat([" + globs.join(", ") + "]),")
+)
+console.log("EXTENDED collectCoverageFrom: " + globs.length + " globs for gatsby-plugin-mdx")
+'
+fi
+
+
 # ── Avoid babel-plugin-lodash / Istanbul collision on specific TS files ───────
 # When collectCoverageFrom includes TypeScript files, Istanbul coverage instrumentation
 # collides with babel-plugin-lodash's AST replacement of named imports, throwing:

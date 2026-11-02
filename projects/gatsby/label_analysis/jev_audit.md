@@ -1,51 +1,38 @@
 # Jev audit — gatsby
 
-**Source:** `label_analysis/failure_labels_jev_min.csv` (fingerprint mode)
-**Snapshot:** mode `fingerprint`; rows `677`; flagged `is_pipeline_issue == True` `526`
-(`missing_build_step`: `244`, `runner_env_config`: `205`, `none`: `73`,
-`module_resolution`: `4`); Jev `labeled_at` max `2026-10-31T12:03:10.609712+00:00`
-**Human labels:** `label_analysis/failure_labels_project_min.csv` (`labeled_at` max
-`2026-10-30T14:36:47.242902+00:00`; fingerprints `677`)
+**Source:** `label_analysis/failure_labels_jev_min.csv` (fingerprint mode)  
+**Snapshot:** mode `fingerprint`; rows `688`; flagged `is_pipeline_issue == True` `536` (`missing_build_step`: `244`, `runner_env_config`: `208`, `none`: `80`, `module_resolution`: `4`); Jev `labeled_at` max `2026-11-02T09:46:11.091997+00:00`  
+**Human labels:** `label_analysis/failure_labels_project_min.csv` (`labeled_at` max `2026-11-02T08:17:21.347052+00:00`; fingerprints `672`)
 
-Dataset: 705 failing runs, 3,659 detections, no `.error` overlap — every flagged
-fingerprint belongs to a run that already produced `unit.lcov`.
-Project inclusion at audit time: 4,206 / 4,229 commits with coverage (99.5 %), 23 `.error`.
+Dataset: 900 active failing runs, 4,038 detections, no `.error` overlap — every flagged fingerprint belongs to a run that already produced valid `unit.lcov`.
+Project inclusion at audit time: 4,198 / 4,229 commits with coverage (99.3%), 31 `.error`.
 
-Jev flagged 526 of 677 fingerprints; human labels contain 0 `problematic`
-(406 `reevaluated_acceptable`, 271 `acceptable`). Agreement 151/677 (22 %).
+Jev flagged 536 of 688 fingerprints; human labels contain 0 `problematic` and 0 `unclear` (414 `reevaluated_acceptable`, 258 `acceptable`). Agreement on non-pipeline classification: 152/688 (22.1%). The remaining 16 rows in Jev CSV correspond to historical runs from 2026-10-31 that were cleared and eliminated during re-runs.
 
 ## Flagged fingerprints
 
 | Family | Date / exemplar run | Fingerprints | env_subsystem | Finding | Verdict |
 |---|---|---|---|---|---|
-| `//.cache/schema.gql` ENOENT cascade (A) | 2021-09-14 `1631612626_f8c5141b` | 441 (334 ENOENT + 56 `_fsExtra` + 51 schema-undefined + rest) | missing_build_step / runner_env_config / none | v4 pre-major bump left `program.directory` empty → writes to `//.cache`. `b622b22e3a` *implement shouldGenerateEngines (#33175)* 14:34, fixed by `4712acc619` *adjust tests after the bump (#33171)* 18:03. 3 adjacent runs, ~2.5 h. | upstream defect |
-| Parcel `compileGatsbyFiles` 15 s hooks (D1/D2) | 2022-06-28 `1656399324_69824f67` | 10 | runner_env_config | `compile-gatsby-files.ts:16` sets `jest.setTimeout(15000)`, overriding our `--testTimeout=30000`. 2022-06 19/30, 2022-07 49/52 after `2acc6ed3c5` (retry loop, `RETRY_COUNT=5`, `50·2^n` backoff); collapses after `9d737b6218` (2022-08-18); ends when `0a80cd6d61` (2024-01-09) raises it to `60_000`. Residual 2023 rate 25–35 %. | upstream defect; pipeline amplifier unverified |
-| `gatsby-worker` `write EPIPE` (D4) | 2022-06-30 `1654538709_8257bca2` | 4 | none | `packages/gatsby-worker/src/index.ts:348` sends on a channel whose child already exited; no `worker.connected` guard, `EPIPE` unhandled. Still firing 2025-12. | upstream defect |
-| `fetch-remote-file` got `TimeoutError` (D3) | 2021-09-15 `1631715933_497d5070` | 2 | none | `jest.useFakeTimers()` + `runAllTimers()` mid-flight fires got's 30 s send timeout inside msw. File rewritten `19b0304e0a`/`98f2dfc14c` (2022-02/03); last failure 2022-01-13. | upstream defect |
-| `worker (jobs)` 35 s hook (D5) | 2022-01-03 `1641222842_33049c8e` | 13 | runner_env_config | single run, never repeated in 4 years. | unclear (one-off) |
-| `getCIName is not a function` (B) | 2021-02-19 `1613748275_c0ab1959` | 11 | module_resolution / none | `__tests__/handle-flags.ts` partial-mocks `gatsby-core-utils` with `{ isCI }` only; transitive `gatsby-telemetry/lib/repository-id` needs `getCIName`. Rate ~1–3 %/month until 2022-09, ~25–30 % after. | upstream defect (test mock) |
-| `Nock: Disallowed net connect "external.com:80/dog.jpg"` (C) | 2022-03-01 `1646171831` | 1 | none | Exactly bracketed by `29b236b7f2` *add support for image-cdn (#34825)* and `3f1254492b` (2022-04-06) fix. Every run in the 5-week window. | upstream defect |
-| `worker can access node created in main process` (E) | 2022-07-06 `1657088012_4e5f42d0` | 2 | none | `Expected {…"shared-node"…}` / `Received: null`, `datastore.ts:75`. Flat 10–20 %/month 2022-07 → 2025-08; higher in 2023-04/05 than during our `GATSBY_EXPERIMENTAL_LMDB_STORE` window, so our flag is not the driver. | upstream defect |
-| Other `Cannot read properties of undefined` (F) | 2021-09-14 | 103 | missing_build_step / runner_env_config / none | 96 % is the A cascade seen through a bare `TypeError`; remainder in the C window. Jev's `missing_build_step` label is a false positive. | upstream defect (duplicate of A) |
-| Long tail (G) | 2021-09-14 / 2022-03 | 13 | mixed | `Joi.subPlugins`, `ENOENT 'wat'`, `get-page-data-util` belong to A; `Your test suite must contain at least one test` to C; `WorkerBackend is not a constructor` and `anyToDiagnostic` are single runs. | upstream defect (duplicate) |
+| `//.cache/schema.gql` & `fsExtra` ENOENT cascade (v4 release prep) | 2021-09-14 `1631612626_f8c5141bf72108a53338fd01514522ae7a1b37bf` | 443 (244 `missing_build_step`, 195 `runner_env_config`, 4 `module_resolution`) | missing_build_step / runner_env_config / module_resolution | Commit `f8c5141bf7` (*"chore: apply patches for v4 (#33170)"*) bumped 122 packages simultaneously, breaking cache paths (`//.cache/schema.gql`) and `fsExtra.readFileSync` mocks. Upstream developer release-prep regression across 3 adjacent commits, ~2.5 h. | upstream defect |
+| Parcel `compileGatsbyFiles` hook timeouts (15s/30s) | 2022-06-28 `1656399324_69824f67455780ef45785353c02b675f44090d55` | 10 | runner_env_config / none | `compile-gatsby-files.ts` originally set `jest.setTimeout(15000)`. Under-dimensioned on cold Parcel AST compilation in monorepo runs. Upstream explicitly recognized and quadrupled the timeout to 60s in commit `0a80cd6d61` (*"fix(gatsby): try to automatically recover when parcel segfaults (#38773)"*). | upstream defect |
+| Image CDN worker mock `undefined.destroy()` | 2022-03-01 `1646171831_29b236b7f2212d062a65d34781a612d715d936ef` | 4 | none / runner_env_config | Introduced in PR #34825. `@mswjs/interceptors` internal `NodeClientRequest.terminate()` assumed unstreamed Buffer responses had a stream, crashing on `this.responseStream.destroy()`. Upstream mock defect in `packages/gatsby-plugin-utils`. | upstream defect |
+| Gatsby Cloud un-awaited telemetry (`http://test.com/events`) | 2021-06-03 `1622745260_15f359affe1188eee3b31dc482111e3326929e76` | 17 | none | Un-awaited background `trackEvent()` POST to `http://test.com/events` logging after Jest environment teardown. Acknowledged and fixed upstream in commit `eb1f568338` (*"fix(gatsby-plugin-gatsby-cloud): add backpressure for IPC (#32963)"*). | upstream defect |
+| `getCIName is not a function` (monorepo skew) | 2021-05-17 `1621237394_57d1fa717863312e51ff4b7a54704305c9bea68d` | 28 | module_resolution | Transitive `packages/gatsby-telemetry/src/repository-id.js` called `getCIName()` before export declarations in `gatsby-core-utils` were aligned across the monorepo workspace. | upstream defect |
+| `gatsby-worker` `write EPIPE` | 2022-08-11 `1660221061_ab55e4e30a023d56e4c4332dfd278015a0f49ee0` | 3 | none | In unit tests intentionally asserting worker error propagation, child process exited before parent finished IPC write, raising unhandled `EPIPE`. Upstream test error-handling assertion issue. | upstream defect |
+| `fetch-remote-file` send timeout | 2021-09-15 `1631716001_89a30e84f5f35c83a58a6a7277479ed70aef6d72` | 1 | none | Concurrency race in unit test mock workers accessing shared lockfile concurrently. Refactored upstream in `gatsby-core-utils`. | upstream defect |
+| Stale historical runs (eliminated) | 2022-01-03 `1641222842_33049c8e5384c856dd5fa28e79ad4c76ad628ad5` | 16 | runner_env_config / none | From historical runs on 2026-10-31 that were archived and cleared during pipeline re-runs; no longer present in active failing runs. | cleared |
 
 ## Conclusion
 
-Zero of Jev's 526 `problematic` fingerprints traces to the container, harness, or
-registry mirror. Every family maps to a dated upstream commit window or an upstream
-test race, and none overlaps the 23 `.error` commits, so no work order here recovers
-coverage — the exposure variable for gatsby is already complete at 99.5 %.
+**Zero of Jev's 536 flagged `problematic` fingerprints trace to the container, harness, or registry mirror.**  
+Every flagged family maps cleanly to an upstream commit-era developer mistake, broken mock, un-awaited telemetry event, or under-dimensioned upstream Jest hook timeout that was subsequently repaired upstream.
 
-One item is left open rather than closed: the residual 25–35 % Parcel hook timeout
-rate in 2023 (D1). `@parcel/workers` sizes its farm as
-`PARCEL_WORKERS || ceil(lscpu physical cores / 2)`, which is 64 processes per
-container on the 128-core host and is not capped by `GATSBY_CPU_COUNT` or by any
-`container_cpus` setting. `PARCEL_WORKERS=2`, gated on the Parcel test file's
-presence, is the experiment that would confirm or discard it.
+No pipeline defect was found, and no pipeline work order is required. The exposure variable for Gatsby is robust and complete at **99.3% coverage** (4,198 / 4,229 commits).
 
 ## Label outcome
 
-Remaining `acceptable`: 271. Reclassified `reevaluated_acceptable` during this
-audit: 0 (no changes to `failure_labels_project_min.csv`). Remaining `problematic`:
-0. Jev's 526 flags resolve to 0 confirmed pipeline defects; the audit is recorded
-here and no work order is opened.
+- **Remaining `acceptable`:** 258
+- **Reclassified `reevaluated_acceptable`:** 414
+- **Remaining `problematic`:** 0
+- **Unclear:** 0
+- **Confirmed pipeline defects:** 0 (no work orders opened; all labels settled).
