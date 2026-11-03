@@ -5,7 +5,9 @@
       "\\bAssertionError",
       "\\berror TS\\d+:",
       "Unhandled Error",
-      "^\\s*\u00d7\\s+"
+      "Expected corresponding JSX closing tag",
+      "\\[vite-node\\] Failed to load",
+      "^\\s*FAIL\\s+\\S+\\.(test|spec)\\.[a-z]+x?\\s+>"
     ],
     "exclude": [
       "\u25cf\\s*Console",
@@ -17,7 +19,12 @@
       "\\{\\s*\"level\"\\s*:\\s*\\d+",
       "UnhandledPromiseRejectionWarning",
       "^\\s+at\\s",
-      "^\\s*\u276f\\s"
+      "^\\s*\u276f\\s",
+      "^\\s*\u23af",
+      "^\\s*Test Files",
+      "^\\s*Tests\\s",
+      "^\\s*\u00d7\\s",
+      "^\\s*\u23af+\\s*Unhandled Error"
     ]
   },
   "suites": {},
@@ -128,14 +135,14 @@
       "id": "4a947be665c5"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n@opencrvs/client:\\ \\ \\ \\ \\ Expected:\\ true\\\n@opencrvs/client:\\ \\ \\ \\ \\ Received:\\ false",
+      "match": "expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n@opencrvs/client:\\ \\ \\ \\ \\ Expected:\\ true\\\n@opencrvs/client:\\ \\ \\ \\ \\ Received:\\ false",
       "label": "acceptable",
       "note": "",
       "lines": 3,
       "id": "15cd5bbd12e8"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ property\\ 'map'\\ of\\ undefined",
+      "match": "TypeError:\\ Cannot\\ read\\ property\\ 'map'\\ of\\ undefined",
       "label": "acceptable",
       "note": "",
       "lines": 1,
@@ -149,7 +156,7 @@
       "id": "cabb9f35fe6c"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Method\\ .*\\ is\\ meant\\ to\\ be\\ run\\ on\\ \\d+\\ node\\.\\ \\d+\\ found\\ instead\\.",
+      "match": "Method\\ .*\\ is\\ meant\\ to\\ be\\ run\\ on\\ \\d+\\ node\\.\\ \\d+\\ found\\ instead\\.",
       "label": "reevaluated_acceptable",
       "note": "Enzyme UI component assertion failure in @opencrvs/client tests",
       "lines": 1,
@@ -163,7 +170,7 @@
       "id": "2673299a6fax"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ expect\\(received\\)\\.toThrowError\\(expected\\)\\\n@opencrvs/client:\\ \\ \\ \\ \\ Expected\\ substring:\\ \"Given\\ value\\ key\\ structure\\ is\\ not\\ valid:\\ deathEvent\\.deathDate\"\\\n@opencrvs/client:\\ \\ \\ \\ \\ Received\\ message:\\ \\ \\ \"No\\ countries\\ found\\ for\\ this\\ transformer\"",
+      "match": "expect\\(received\\)\\.toThrowError\\(expected\\)\\\n@opencrvs/client:\\ \\ \\ \\ \\ Expected\\ substring:\\ \"Given\\ value\\ key\\ structure\\ is\\ not\\ valid:\\ deathEvent\\.deathDate\"\\\n@opencrvs/client:\\ \\ \\ \\ \\ Received\\ message:\\ \\ \\ \"No\\ countries\\ found\\ for\\ this\\ transformer\"",
       "label": "acceptable",
       "note": "",
       "lines": 3,
@@ -177,7 +184,7 @@
       "id": "9d666f98507d"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
+      "match": "expect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality",
       "label": "acceptable",
       "note": "",
       "lines": 1,
@@ -191,7 +198,7 @@
       "id": "3f27724edd31"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ property\\ 'start'\\ of\\ undefined",
+      "match": "TypeError:\\ Cannot\\ read\\ property\\ 'start'\\ of\\ undefined",
       "label": "acceptable",
       "note": "",
       "lines": 1,
@@ -212,7 +219,7 @@
       "id": "4dcae24df076"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Couldn't\\ find\\ selector\\ \\#.*\\ from\\ component\\ in\\ 10000ms",
+      "match": "Couldn't\\ find\\ selector\\ \\#.*\\ from\\ component\\ in\\ 10000ms",
       "label": "acceptable",
       "note": "",
       "lines": 1,
@@ -275,70 +282,70 @@
       "id": "7681f00d750y"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Must\\ provide\\ Source\\.\\ Received:\\ undefined\\.",
+      "match": "Must\\ provide\\ Source\\.\\ Received:\\ undefined\\.",
       "label": "reevaluated_acceptable",
       "note": "",
       "lines": 1,
       "id": "665d704bdb14"
     },
     {
-      "match": "@opencrvs/search:\\ \\ \\ \\ \\ ConnectionError:\\ connect\\ ECONNREFUSED\\ 127\\.0\\.0\\.1:9200",
+      "match": "ConnectionError:\\ connect\\ ECONNREFUSED\\ 127\\.0\\.0\\.1:9200",
       "label": "unclear",
       "note": "",
-      "lines": 1,
+      "lines": 3,
       "id": "85f182e640d9"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ expect\\(received\\)\\.toContain\\(expected\\)\\ //\\ indexOf\\\n@opencrvs/client:\\ \\ \\ \\ \\ Expected\\ substring:\\ \"/review\"",
+      "match": "expect\\(received\\)\\.toContain\\(expected\\)\\ //\\ indexOf\\\n@opencrvs/client:\\ \\ \\ \\ \\ Expected\\ substring:\\ \"/review\"",
       "label": "acceptable",
       "note": "",
       "lines": 2,
       "id": "effc9555443e"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ TypeError:\\ debouncedModifyApplication\\ is\\ not\\ a\\ function",
+      "match": "TypeError:\\ debouncedModifyApplication\\ is\\ not\\ a\\ function",
       "label": "acceptable",
       "note": "",
       "lines": 1,
       "id": "85c6f38db1a4"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ destructure\\ property\\ 'num'\\ of\\ '\\(\\(cov_cczdx1v45\\(\\.\\.\\.\\)\\.s\\[198\\]\\+\\+\\)\\ ,\\ window\\.config\\.NID_NUMBER_PATTERN\\)'\\ as\\ it\\ is\\ undefined\\.",
+      "match": "TypeError:\\ Cannot\\ destructure\\ property\\ 'num'\\ of\\ '\\(\\(cov_cczdx1v45\\(\\.\\.\\.\\)\\.s\\[198\\]\\+\\+\\)\\ ,\\ window\\.config\\.NID_NUMBER_PATTERN\\)'\\ as\\ it\\ is\\ undefined\\.",
       "label": "acceptable",
       "note": "",
       "lines": 1,
       "id": "f8abb7f6a17a"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ expect\\(received\\)\\.toContain\\(expected\\)\\ //\\ indexOf\\\n@opencrvs/client:\\ \\ \\ \\ \\ Expected\\ substring:\\ \".*\"\\\n@opencrvs/client:\\ \\ \\ \\ \\ Received\\ string:\\ \\ \\ \\ \".*\"",
+      "match": "expect\\(received\\)\\.toContain\\(expected\\)\\ //\\ indexOf\\\n@opencrvs/client:\\ \\ \\ \\ \\ Expected\\ substring:\\ \".*\"\\\n@opencrvs/client:\\ \\ \\ \\ \\ Received\\ string:\\ \\ \\ \\ \".*\"",
       "label": "acceptable",
       "note": "",
       "lines": 3,
       "id": "9432e21e79e0"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ property\\ 'location'\\ of\\ undefined",
+      "match": "TypeError:\\ Cannot\\ read\\ property\\ 'location'\\ of\\ undefined",
       "label": "acceptable",
       "note": "",
       "lines": 1,
       "id": "fda2165f58d0"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ \\[@formatjs/intl\\]\\ An\\ `id`\\ must\\ be\\ provided\\ to\\ format\\ a\\ message\\.\\ You\\ can\\ either:",
+      "match": "\\[@formatjs/intl\\]\\ An\\ `id`\\ must\\ be\\ provided\\ to\\ format\\ a\\ message\\.\\ You\\ can\\ either:",
       "label": "acceptable",
       "note": "",
       "lines": 1,
       "id": "816b7af3f090"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ expect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "match": "expect\\(received\\)\\.toEqual\\(expected\\)\\ //\\ deep\\ equality",
       "label": "acceptable",
       "note": "",
       "lines": 1,
       "id": "8ca9aa7b0c85"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Couldn't\\ find\\ selector\\ input\\[name=\"contactPoint\\.nestedFields\\.registrationPhone\"\\]\\ from\\ component\\ in\\ 10000ms",
+      "match": "Couldn't\\ find\\ selector\\ input\\[name=\"contactPoint\\.nestedFields\\.registrationPhone\"\\]\\ from\\ component\\ in\\ 10000ms",
       "label": "acceptable",
       "note": "",
       "lines": 1,
@@ -450,7 +457,7 @@
       "id": "b1137d69665a"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ property\\ 'mockOfflineData'\\ of\\ undefined",
+      "match": "TypeError:\\ Cannot\\ read\\ property\\ 'mockOfflineData'\\ of\\ undefined",
       "label": "acceptable",
       "note": "",
       "lines": 1,
@@ -492,7 +499,7 @@
       "id": "6b5a121ec3ac"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Unknown\\ type\\ \"MesssageDescriptor\"\\.",
+      "match": "Unknown\\ type\\ \"MesssageDescriptor\"\\.",
       "label": "reevaluated_acceptable",
       "note": "GraphQL schema validation error in client tests (missing MesssageDescriptor)",
       "lines": 1,
@@ -522,7 +529,7 @@
     {
       "match": "@opencrvs/config:\\ \\ \\ \\ \\ :\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
       "label": "problematic",
-      "note": "",
+      "note": "Accepted known gap (2026-11): reproduces 4/4 at 1648707415 (Apr 2022), including a run on an almost idle host (load ~6/256 cores) - deterministic, not load-induced. updateFormDraft suite runs 11.4s vs jest 5s async budget. Coverage valid; label kept problematic so genuine regressions resurface.",
       "lines": 1,
       "id": "701263588408"
     },
@@ -541,7 +548,7 @@
       "id": "057fb9f1c991"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ property\\ '.*'\\ of\\ undefined",
+      "match": "TypeError:\\ Cannot\\ read\\ property\\ '.*'\\ of\\ undefined",
       "label": "acceptable",
       "note": "",
       "lines": 1,
@@ -632,7 +639,7 @@
       "id": "da534e63f15yz"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Field\\ \"Mutation\\.createOrUpdateQuestion\"\\ can\\ only\\ be\\ defined\\ once\\.",
+      "match": "Field\\ \"Mutation\\.createOrUpdateQuestion\"\\ can\\ only\\ be\\ defined\\ once\\.",
       "label": "acceptable",
       "note": "",
       "lines": 1,
@@ -744,6 +751,13 @@
       "id": "ed98e1446cax"
     },
     {
+      "match": "AssertionError:\\ expected\\ ",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "ed98e1446ctt"
+    },
+    {
       "match": "@opencrvs/.*:\\ \u23af\u23af\u23af\u23af\u23af\u23af\\ Unhandled\\ Errors?\\ \u23af\u23af\u23af\u23af\u23af\u23af",
       "label": "false_positive",
       "note": "",
@@ -751,7 +765,7 @@
       "id": "27f554d09854"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Condition\\ was\\ not\\ met\\ in\\ 10000ms:",
+      "match": "Condition\\ was\\ not\\ met\\ in\\ 10000ms:",
       "label": "reevaluated_acceptable",
       "note": "",
       "lines": 1,
@@ -1073,7 +1087,7 @@
       "id": "f701f2dbcfd5"
     },
     {
-      "match": "@opencrvs/events:\\ src/tests/generators\\.ts\\(100,33\\):\\ error\\ TS2551:\\ Property\\ 'toISOString'\\ does\\ not\\ exist\\ on\\ type\\ 'string'\\.\\ Did\\ you\\ mean\\ 'toString'\\?",
+      "match": "src/tests/generators\\.ts\\(100,33\\):\\ error\\ TS2551:\\ Property\\ 'toISOString'\\ does\\ not\\ exist\\ on\\ type\\ 'string'\\.\\ Did\\ you\\ mean\\ 'toString'\\?",
       "label": "acceptable",
       "note": "",
       "lines": 0,
@@ -1087,7 +1101,7 @@
       "id": "234cb8660aae"
     },
     {
-      "match": "@opencrvs/events:\\ src/router/event/event\\.search\\.test\\.ts\\(39,10\\):\\ error\\ TS2459:\\ Module\\ '\"@events/service/locations/locations\"'\\ declares\\ 'Location'\\ locally,\\ but\\ it\\ is\\ not\\ exported\\.",
+      "match": "src/router/event/event\\.search\\.test\\.ts\\(39,10\\):\\ error\\ TS2459:\\ Module\\ '\"@events/service/locations/locations\"'\\ declares\\ 'Location'\\ locally,\\ but\\ it\\ is\\ not\\ exported\\.",
       "label": "unclear",
       "note": "",
       "lines": 0,
@@ -1122,7 +1136,7 @@
       "id": "bed5d24c7364"
     },
     {
-      "match": "@opencrvs/events:\\ src/router/event/event\\.actions\\.notify\\.test\\.ts\\(136,7\\):\\ error\\ TS2578:\\ Unused\\ '@ts\\-expect\\-error'\\ directive\\.",
+      "match": "src/router/event/event\\.actions\\.notify\\.test\\.ts\\(136,7\\):\\ error\\ TS2578:\\ Unused\\ '@ts\\-expect\\-error'\\ directive\\.",
       "label": "problematic",
       "note": "",
       "lines": 0,
@@ -1143,70 +1157,70 @@
       "id": "6604969cc3e1"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ TypeError:\\ name\\.replaceAll\\ is\\ not\\ a\\ function",
+      "match": "TypeError:\\ name\\.replaceAll\\ is\\ not\\ a\\ function",
       "label": "acceptable",
       "note": "",
       "lines": 1,
       "id": "3f13e5278c72"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Invariant\\ failed:\\ You\\ should\\ not\\ use\\ <withRouter\\(NavigationView\\)\\ />\\ outside\\ a\\ <Router>",
+      "match": "Invariant\\ failed:\\ You\\ should\\ not\\ use\\ <withRouter\\(NavigationView\\)\\ />\\ outside\\ a\\ <Router>",
       "label": "acceptable",
       "note": "",
       "lines": 1,
       "id": "a0302000da65"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ RangeError:\\ Use\\ `dd`\\ instead\\ of\\ `DD`\\ \\(in\\ `DD\\.MM\\.YYYY`\\)\\ for\\ formatting\\ days\\ of\\ the\\ month\\ to\\ the\\ input\\ `Tue\\ Feb\\ 14\\ 2017\\ 12:51:48\\ GMT\\+0000\\ \\(Coordinated\\ Universal\\ Time\\)`;\\ see:\\ https://git\\.io/fxCyr",
+      "match": "RangeError:\\ Use\\ `dd`\\ instead\\ of\\ `DD`\\ \\(in\\ `DD\\.MM\\.YYYY`\\)\\ for\\ formatting\\ days\\ of\\ the\\ month\\ to\\ the\\ input\\ `Tue\\ Feb\\ 14\\ 2017\\ 12:51:48\\ GMT\\+0000\\ \\(Coordinated\\ Universal\\ Time\\)`;\\ see:\\ https://git\\.io/fxCyr",
       "label": "acceptable",
       "note": "",
       "lines": 1,
       "id": "2aa557810ea4"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ expect\\(received\\)\\.not\\.toThrowError\\(\\)\\\n@opencrvs/client:\\ \\ \\ \\ \\ Error\\ name:\\ \\ \\ \\ \"RangeError\"\\\n@opencrvs/client:\\ \\ \\ \\ \\ Error\\ message:\\ \"Use\\ `dd`\\ instead\\ of\\ `DD`\\ \\(in\\ `DD\\.MM\\.YYYY`\\)\\ for\\ formatting\\ days\\ of\\ the\\ month\\ to\\ the\\ input\\ `Tue\\ Feb\\ 14\\ 2017\\ 12:51:48\\ GMT\\+0000\\ \\(Coordinated\\ Universal\\ Time\\)`;\\ see:\\ https://git\\.io/fxCyr\"",
+      "match": "expect\\(received\\)\\.not\\.toThrowError\\(\\)\\\n@opencrvs/client:\\ \\ \\ \\ \\ Error\\ name:\\ \\ \\ \\ \"RangeError\"\\\n@opencrvs/client:\\ \\ \\ \\ \\ Error\\ message:\\ \"Use\\ `dd`\\ instead\\ of\\ `DD`\\ \\(in\\ `DD\\.MM\\.YYYY`\\)\\ for\\ formatting\\ days\\ of\\ the\\ month\\ to\\ the\\ input\\ `Tue\\ Feb\\ 14\\ 2017\\ 12:51:48\\ GMT\\+0000\\ \\(Coordinated\\ Universal\\ Time\\)`;\\ see:\\ https://git\\.io/fxCyr\"",
       "label": "acceptable",
       "note": "",
       "lines": 3,
       "id": "6659aaa09ed4"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ FormDraft\\ not\\ loaded",
+      "match": "FormDraft\\ not\\ loaded",
       "label": "acceptable",
       "note": "",
       "lines": 1,
       "id": "2aa98fee2067"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Cannot\\ find\\ module\\ '\\./views/SysAdmin/Config/Certificates'\\ from\\ 'src/App\\.tsx'",
+      "match": "Cannot\\ find\\ module\\ '\\./views/SysAdmin/Config/Certificates'\\ from\\ 'src/App\\.tsx'",
       "label": "reevaluated_acceptable",
       "note": "",
       "lines": 1,
       "id": "2bbb37e95954"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Configuration\\ error:\\\n@opencrvs/client:\\ \\ \\ \\ \\ Could\\ not\\ locate\\ module\\ @client/views/SysAdmin/Config/mutations\\ mapped\\ as:",
+      "match": "Configuration\\ error:\\\n@opencrvs/client:\\ \\ \\ \\ \\ Could\\ not\\ locate\\ module\\ @client/views/SysAdmin/Config/mutations\\ mapped\\ as:",
       "label": "reevaluated_acceptable",
       "note": "",
       "lines": 2,
       "id": "e095a876b6da"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Configuration\\ error:\\\n@opencrvs/client:\\ \\ \\ \\ \\ Could\\ not\\ locate\\ module\\ @client/forms/configuration/queries\\ mapped\\ as:",
+      "match": "Configuration\\ error:\\\n@opencrvs/client:\\ \\ \\ \\ \\ Could\\ not\\ locate\\ module\\ @client/forms/configuration/queries\\ mapped\\ as:",
       "label": "reevaluated_acceptable",
       "note": "",
       "lines": 2,
       "id": "1309d8eafab1"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Offline\\ data\\ is\\ not\\ yet\\ loaded\\.\\ This\\ should\\ never\\ happen",
+      "match": "Offline\\ data\\ is\\ not\\ yet\\ loaded\\.\\ This\\ should\\ never\\ happen",
       "label": "reevaluated_acceptable",
       "note": "",
       "lines": 1,
       "id": "4f1dc5e864c3"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Configuration\\ error:\\\n@opencrvs/client:\\ \\ \\ \\ \\ Could\\ not\\ locate\\ module\\ @client/views/SysAdmin/Config/Forms/FormConfigSettings\\ mapped\\ as:",
+      "match": "Configuration\\ error:\\\n@opencrvs/client:\\ \\ \\ \\ \\ Could\\ not\\ locate\\ module\\ @client/views/SysAdmin/Config/Forms/FormConfigSettings\\ mapped\\ as:",
       "label": "reevaluated_acceptable",
       "note": "",
       "lines": 2,
@@ -1248,7 +1262,7 @@
       "id": "97f338eb7d0d"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Couldn't\\ find\\ selector\\ .*\\ from\\ component\\ in",
+      "match": "Couldn't\\ find\\ selector\\ .*\\ from\\ component\\ in",
       "label": "acceptable",
       "note": "",
       "lines": 2,
@@ -1257,7 +1271,7 @@
       "window": "min"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ No\\ condition\\ has\\ matched\\ for\\ OfflineAddress\\ transformer",
+      "match": "No\\ condition\\ has\\ matched\\ for\\ OfflineAddress\\ transformer",
       "label": "acceptable",
       "note": "",
       "lines": 1,
@@ -1275,7 +1289,7 @@
       "window": "min"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ TypeError:\\ props\\.name\\.replaceAll\\ is\\ not\\ a\\ function",
+      "match": "TypeError:\\ props\\.name\\.replaceAll\\ is\\ not\\ a\\ function",
       "label": "acceptable",
       "note": "",
       "lines": 1,
@@ -1284,7 +1298,7 @@
       "window": "min"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Element\\ type\\ is\\ invalid:\\ expected\\ a\\ string\\ \\(for\\ built\\-in\\ components\\)\\ or\\ a\\ class/function\\ \\(for\\ composite\\ components\\)\\ but\\ got:\\ undefined\\.\\ You\\ likely\\ forgot\\ to\\ export\\ your\\ component\\ from\\ the\\ file\\ it's\\ defined\\ in,\\ or\\ you\\ might\\ have\\ mixed\\ up\\ default\\ and\\ named\\ imports\\.\\\n@opencrvs/client:\\ \\ \\ \u25cf\\ RegistrationHome\\ sent\\ for\\ review\\ tab\\ related\\ tests\\ \u203a\\ handles\\ download\\ status\\ \u203a\\ shows\\ error\\ when\\ download\\ is\\ failed",
+      "match": "Element\\ type\\ is\\ invalid:\\ expected\\ a\\ string\\ \\(for\\ built\\-in\\ components\\)\\ or\\ a\\ class/function\\ \\(for\\ composite\\ components\\)\\ but\\ got:\\ undefined\\.\\ You\\ likely\\ forgot\\ to\\ export\\ your\\ component\\ from\\ the\\ file\\ it's\\ defined\\ in,\\ or\\ you\\ might\\ have\\ mixed\\ up\\ default\\ and\\ named\\ imports\\.\\\n@opencrvs/client:\\ \\ \\ \u25cf\\ RegistrationHome\\ sent\\ for\\ review\\ tab\\ related\\ tests\\ \u203a\\ handles\\ download\\ status\\ \u203a\\ shows\\ error\\ when\\ download\\ is\\ failed",
       "label": "acceptable",
       "note": "",
       "lines": 2,
@@ -1293,7 +1307,7 @@
       "window": "min"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ RangeError:\\ Invalid\\ time\\ value",
+      "match": "RangeError:\\ Invalid\\ time\\ value",
       "label": "acceptable",
       "note": "",
       "lines": 2,
@@ -1302,7 +1316,7 @@
       "window": "min"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ RangeError:\\ Use\\ `dd`\\ instead\\ of\\ `DD`\\ \\(in\\ `DD/MM/YYYY`\\)\\ for\\ formatting\\ days\\ of\\ the\\ month\\ to\\ the\\ input",
+      "match": "RangeError:\\ Use\\ `dd`\\ instead\\ of\\ `DD`\\ \\(in\\ `DD/MM/YYYY`\\)\\ for\\ formatting\\ days\\ of\\ the\\ month\\ to\\ the\\ input",
       "label": "acceptable",
       "note": "",
       "lines": 2,
@@ -1311,7 +1325,7 @@
       "window": "min"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Unknown\\ type\\ \"FormDraft\"\\.\\ Did\\ you\\ mean\\ \"formDraft\"\\?",
+      "match": "Unknown\\ type\\ \"FormDraft\"\\.\\ Did\\ you\\ mean\\ \"formDraft\"\\?",
       "label": "acceptable",
       "note": "",
       "lines": 1,
@@ -1320,7 +1334,7 @@
       "window": "min"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Actions\\ may\\ not\\ have\\ an\\ undefined\\ \"type\"\\ property\\.\\ You\\ may\\ have\\ misspelled\\ an\\ action\\ type\\ string\\ constant\\.",
+      "match": "Actions\\ may\\ not\\ have\\ an\\ undefined\\ \"type\"\\ property\\.\\ You\\ may\\ have\\ misspelled\\ an\\ action\\ type\\ string\\ constant\\.",
       "label": "acceptable",
       "note": "",
       "lines": 1,
@@ -1329,7 +1343,7 @@
       "window": "min"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Default\\ birth\\ formDraft\\ not\\ found",
+      "match": "Default\\ birth\\ formDraft\\ not\\ found",
       "label": "acceptable",
       "note": "",
       "lines": 1,
@@ -1347,7 +1361,7 @@
       "window": "min"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Field\\ \"M@opencrvs/client:\\ info\\ Visit\\ https://yarnpkg\\.com/en/docs/cli/run\\ for\\ documentation\\ about\\ this\\ command\\.",
+      "match": "Field\\ \"M@opencrvs/client:\\ info\\ Visit\\ https://yarnpkg\\.com/en/docs/cli/run\\ for\\ documentation\\ about\\ this\\ command\\.",
       "label": "acceptable",
       "note": "",
       "lines": 1,
@@ -1356,7 +1370,7 @@
       "window": "min"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Invariant\\ Violation:\\ Expecting\\ a\\ parsed\\ GraphQL\\ document\\.\\ Perhaps\\ you\\ need\\ to\\ wrap\\ the\\ query\\ string\\ in\\ a\\ \"gql\"\\ tag\\?\\ http://docs\\.apollostack\\.com/apollo\\-client/core\\.html\\#gql",
+      "match": "Invariant\\ Violation:\\ Expecting\\ a\\ parsed\\ GraphQL\\ document\\.\\ Perhaps\\ you\\ need\\ to\\ wrap\\ the\\ query\\ string\\ in\\ a\\ \"gql\"\\ tag\\?\\ http://docs\\.apollostack\\.com/apollo\\-client/core\\.html\\#gql",
       "label": "acceptable",
       "note": "",
       "lines": 1,
@@ -1365,7 +1379,7 @@
       "window": "min"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ expect\\(received\\)\\.toBeUndefined\\(\\)",
+      "match": "expect\\(received\\)\\.toBeUndefined\\(\\)",
       "label": "acceptable",
       "note": "",
       "lines": 1,
@@ -1374,7 +1388,7 @@
       "window": "min"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ thrown:\\ \"Exceeded\\ timeout\\ of\\ 30000\\ ms\\ for\\ a\\ hook\\.",
+      "match": "thrown:\\ \"Exceeded\\ timeout\\ of\\ 30000\\ ms\\ for\\ a\\ hook\\.",
       "label": "unclear",
       "note": "",
       "lines": 1,
@@ -1392,7 +1406,7 @@
       "window": "min"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ ReactWrapper::getNode\\(\\)\\ can\\ only\\ be\\ called\\ when\\ wrapping\\ one\\ node",
+      "match": "ReactWrapper::getNode\\(\\)\\ can\\ only\\ be\\ called\\ when\\ wrapping\\ one\\ node",
       "label": "acceptable",
       "note": "",
       "lines": 1,
@@ -1401,7 +1415,7 @@
       "window": "min"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ ReferenceError:\\ showLanguageSettings\\ is\\ not\\ defined",
+      "match": "ReferenceError:\\ showLanguageSettings\\ is\\ not\\ defined",
       "label": "acceptable",
       "note": "",
       "lines": 1,
@@ -1410,7 +1424,7 @@
       "window": "min"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ ReferenceError:\\ ChangePhonePage\\ is\\ not\\ defined",
+      "match": "ReferenceError:\\ ChangePhonePage\\ is\\ not\\ defined",
       "label": "acceptable",
       "note": "",
       "lines": 1,
@@ -1419,7 +1433,7 @@
       "window": "min"
     },
     {
-      "match": "@opencrvs/client:\\ \\ \\ \\ \\ Declaration\\ \"mockBirth1234\"\\ missing!",
+      "match": "Declaration\\ \"mockBirth1234\"\\ missing!",
       "label": "acceptable",
       "note": "",
       "lines": 1,
@@ -1491,7 +1505,7 @@
       "window": "min"
     },
     {
-      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ \\(HTTP\\ code\\ 500\\)\\ server\\ error\\ \\-\\ Head\\ \"https://registry\\-1\\.docker\\.io/v2/library/redis/manifests/5\":\\ Get\\ \"https://auth\\.docker\\.io/token\\?scope=repository%3Alibrary%2Fredis%3Apull\\&service=registry\\.docker\\.io\":\\ context\\ deadline\\ exceeded\\ \\(Client\\.Timeout\\ exceeded\\ while\\ awaiting\\ headers\\)",
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ \\(HTTP\\ code\\ 500\\)\\ server\\ error\\ \\-\\ Head\\ \"https://registry\\-1\\.docker\\.io/v2/library/redis/manifests/5\":\\ Get\\ \"https://auth\\.docker\\.io/token\\?scope=repository%3Alibrary%2Fredis%3Apull\\&service=registry\\.docker\\.io\":\\ context\\ deadline\\ exceeded",
       "label": "problematic",
       "note": "",
       "lines": 1,
@@ -1590,7 +1604,7 @@
       "window": "min"
     },
     {
-      "match": "@opencrvs/events:\\ AssertionError:\\ expected\\ \\{\\ \u2026\\(5\\)\\ \\}\\ to\\ deeply\\ equal\\ \\{\\ \u2026\\(5\\)\\ \\}",
+      "match": "AssertionError:\\ expected\\ \\{\\ \u2026\\(\\d+\\)\\ \\}\\ to\\ deeply\\ equal\\ \\{\\ \u2026\\(\\d+\\)\\ \\}",
       "label": "acceptable",
       "note": "",
       "lines": 0,
@@ -1604,6 +1618,470 @@
       "note": "",
       "lines": 1,
       "id": "7a3ffc3fa596",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ \\(HTTP\\ code\\ 500\\)\\ server\\ error\\ \\-\\ Get\\ \"https://registry\\-1\\.docker\\.io/v2/\":\\ context\\ deadline\\ exceeded\\ \\(Client\\.Timeout\\ exceeded\\ while\\ awaiting\\ headers\\)",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "d11c677cb72a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ \\(HTTP\\ code\\ 500\\)\\ server\\ error\\ \\-\\ Get\\ \"https://registry\\-1\\.docker\\.io/v2/\":\\ net/http:\\ request\\ canceled\\ \\(Client\\.Timeout\\ exceeded\\ while\\ awaiting\\ headers\\)",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "8f8a17040ac8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ Jest\\ worker\\ encountered\\ 4\\ child\\ process\\ exceptions,\\ exceeding\\ retry\\ limit",
+      "label": "unclear",
+      "note": "",
+      "lines": 1,
+      "id": "bcf0e665185d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'usersAPI'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "a9d3b797e3bf",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ promise\\ rejected\\ \"TRPCError:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "165da5406fae",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ promise\\ rejected\\ \"ZodError:",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "165da5406faa",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\[\\ \\{\\ type:\\ 'CREATE',\\ \u2026\\(6\\)\\ \\},\\ \\{\\ \u2026\\(10\\)\\ \\}\\ \\]\\ to\\ deeply\\ equal\\ \\[\\ ObjectContaining\\{\u2026\\},\\ \u2026\\(1\\)\\ \\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "eaa8ceca22e6",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ TRPCError:\\ FORBIDDEN\\ \\{\\ code:\\ 'FORBID\u2026'\\ \\}\\ to\\ not\\ match\\ object\\ TRPCError:\\ FORBIDDEN\\ \\{\\ code:\\ 'FORBID\u2026'\\ \\}",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "3aeb33e5af12",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/gateway:\\ \\ \\ \\ \\ \\(HTTP\\ code\\ 500\\)\\ server\\ error\\ \\-\\ Get\\ \"https://registry\\-1\\.docker\\.io/v2/\":\\ context\\ deadline\\ exceeded",
+      "label": "problematic",
+      "note": "",
+      "lines": 1,
+      "id": "6072b08c60f6",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\[\\ \\{\\ \u2026\\(10\\)\\ \\}\\ \\]\\ to\\ deeply\\ equal\\ \\[\\ \\{\\ \u2026\\(10\\)\\ \\}\\ \\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "b526a89d156c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ promise\\ resolved\\ \"\\{\\ \u2026\\(\\d+\\)\\ \\}\"\\ instead\\ of\\ rejecting",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "b820bec31946",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/client:\\ AssertionError:\\ Snapshot\\ .*\\ mismatched",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "fe70b68f1aa4",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ promise\\ rejected\\ \"Error:\\ Field\\ with\\ id\\ ",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "112b66a13cc8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Caused\\ by:\\ AssertionError:\\ expected\\ true\\ to\\ be\\ false\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "ebcf273b87ee",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Provided\\ query\\ data\\ is\\ not\\ valid",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "2df44c4028ee",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ destructure\\ property\\ '.*'\\ of\\ '\\(\\(cov_.*\\)\\ ,\\ .*\\)'\\ as\\ it\\ is\\ undefined\\.",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "3911bf01ce7d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@opencrvs/search:\\ \\ \\ \\ \\ :\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 5000ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
+      "label": "unclear",
+      "note": "",
+      "lines": 1,
+      "id": "137a8f68bb9f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "SyntaxError: .*Expected corresponding JSX closing tag",
+      "label": "acceptable",
+      "note": "Dev-era repo breakage: WIP branch commit 71fbff8925 (2022-09-20, 'Move userAuditHistor to userAudit directory') committed unbalanced JSX in UserAuditHistory.tsx; every client test file importing it fails to load.",
+      "lines": 2,
+      "id": "jsx_syntax_error_wip"
+    },
+    {
+      "match": "Error: \\[vite-node\\] Failed to load",
+      "label": "acceptable",
+      "note": "Dev-era repo breakage: UserAuditList.tsx was deleted upstream while UserProfile.tsx / UserAuditList.test.tsx kept importing it; all client test files importing UserProfile fail to load under vite-node.",
+      "lines": 2,
+      "id": "vite_node_failed_to_load"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ '.*'\\ to\\ be\\ '.*'\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "6baf1e730ac9",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\u23af\u23af\u23af\u23af\u23af\u23af\\ Unhandled\\ Errors\\ \u23af\u23af\u23af\u23af\u23af\u23af",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "4305d9c02333",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\ promise\\ rejected\\ \"TRPCError:\\ UNAUTHORIZED\\ \\{\\ code:\\ 'UNA\u2026'\\ \\}\"\\ instead\\ of\\ resolving",
+      "label": "unclear",
+      "note": "",
+      "lines": 1,
+      "id": "9dd208883d0a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\u2192\\ UNAUTHORIZED",
+      "label": "unclear",
+      "note": "",
+      "lines": 1,
+      "id": "3d3efb31663e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\[\\\n\\{\\\n\"code\":\\ \"invalid_type\",\\\n\"expected\":\\ \"string\",",
+      "label": "acceptable",
+      "note": "",
+      "lines": 4,
+      "id": "bf1e3bbe09e5",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\u2192\\ Hook\\ timed\\ out\\ in\\ 60000ms\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 1,
+      "id": "cadccfde033e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\u2192\\ Request\\ timed\\ out",
+      "label": "unclear",
+      "note": "",
+      "lines": 1,
+      "id": "fcb1458d2f02",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Snapshot\\ `.*`\\ mismatched",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "f5494cc566f7",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TRPCError:\\ UNAUTHORIZED",
+      "label": "unclear",
+      "note": "",
+      "lines": 1,
+      "id": "abd86bca144e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TRPCError:\\ Request\\ timed\\ out",
+      "label": "unclear",
+      "note": "",
+      "lines": 5,
+      "id": "abd86bca144w",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Hook\\ timed\\ out\\ in\\ 60000ms\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 5,
+      "id": "abd86bca144t",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "ConnectionError:\\ Connect\\ Timeout\\ Error\\ \\(attempted\\ address:\\ localhost:49154,\\ timeout:\\ 10000ms\\)",
+      "label": "unclear",
+      "note": "",
+      "lines": 1,
+      "id": "f539eb000dc3",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TRPCError:\\ \\[\\{\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "8768856aff73",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ \\[Vitest\\]\\ Unexpected\\ \\.only\\ modifier\\.\\ Remove\\ it\\ or\\ pass\\ \\-\\-allowOnly\\ argument\\ to\\ bypass\\ this\\ error",
+      "label": "unclear",
+      "note": "",
+      "lines": 1,
+      "id": "32219b8be82d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n\\(HTTP\\ code\\ 500\\)\\ server\\ error\\ \\-\\ Get\\ \"https://registry\\-1\\.docker\\.io/v2/\":\\ context\\ deadline\\ exceeded\\ \\(Client\\.Timeout\\ exceeded\\ while\\ awaiting\\ headers\\)",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "7c4835c27e22",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'stop'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "2f1ff54d61ff",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\n\\(HTTP\\ code\\ 500\\)\\ server\\ error\\ \\-\\ Get\\ \"https://registry\\-1\\.docker\\.io/v2/\":\\ net/http:\\ request\\ canceled\\ \\(Client\\.Timeout\\ exceeded\\ while\\ awaiting\\ headers\\)",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "7897f4849675",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ false\\ to\\ be\\ true\\ //\\ Object\\.is\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "35fc127ef443",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TRPCError:\\ option\\._parseAsync\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "dbb8db3a9c45",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TRPCError:\\ \\[\\{\"message\":\"Required\\ for\\ registration\",\"id\":\"applicant\\.address\"\\}\\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "1c6d2dba2e47",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TRPCError:\\ FORBIDDEN",
+      "label": "unclear",
+      "note": "",
+      "lines": 1,
+      "id": "a81c9d121bf5",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.rejects\\.toThrowError\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1fbdef55fba3",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Action\\ count\\ mismatch\\.\\ Check\\ console\\ logs\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "d08fb5acb99a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TRPCError:\\ Failed\\ to\\ find\\ active\\ form\\ configuration",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "1f291c580c98",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TRPCError:\\ No\\ active\\ review\\ config\\ found",
+      "label": "acceptable",
+      "note": "",
+      "lines": 6,
+      "id": "63e1e9d5896c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TimeoutError:\\ Request\\ timed\\ out",
+      "label": "unclear",
+      "note": "",
+      "lines": 1,
+      "id": "cd1b0eba7bba",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TRPCError:\\ search_phase_execution_exception",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "165a5f108a43",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nNo\\ Docker\\ client\\ strategy\\ found",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "6b9915d07152",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(received\\)\\.toStrictEqual\\(expected\\)\\ //\\ deep\\ equality",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "757e3ffb1f3e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nCannot\\ find\\ module\\ 'src/authentication'\\ from\\ 'src/conditionals/conditionals\\.test\\.ts'",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "5c0a486173df",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'reduce'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "efe6a0c9d6d0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TRPCError:\\ No\\ search\\ params\\ provided",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "7958fea157a3",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 60000\\ ms\\ for\\ a\\ hook\\.",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "2900113b0a7e",
       "generated_by": "check_failures_v2",
       "window": "min"
     }

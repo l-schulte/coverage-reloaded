@@ -13,12 +13,20 @@
 //     `--coverage.enabled=true --coverage.reporter=lcov` form and cap
 //     parallelism with the VITEST_MAX_THREADS / VITEST_MIN_THREADS env vars
 //     (--no-threads would break per-file isolation: shared localStorage mocks
-//     leak across test files).
+//     leak across test files). The cap is ONE worker: with >= 2 concurrent
+//     workers, tinypool's stale-task-response race ("Error: Unexpected message
+//     from Worker: { taskId, result: undefined, error: null }" thrown in
+//     WorkerInfo.onMessage) hard-kills the runner mid-suite at a ~5-10% rate,
+//     silently truncating coverage. Repro 2/2 at 2 workers, 0/N at 1 worker.
 //   - vitest >= 1 (events): vitest 2.x requires the separate provider package
 //     `@vitest/coverage-v8`. We keep `--coverage --coverage.reporter=lcov
 //     --maxWorkers=2` and record the provider (pinned to the vitest version
 //     resolved from the lockfile) in `.coverage-providers.json`; install-and-run.sh
 //     installs it out-of-tree so the frozen workspace install is not disturbed.
+//   - every vitest >= 0.31.2 additionally gets `--coverage.reportOnFailure=true`:
+//     from 0.34.0 the default is false, so one failing test makes vitest skip
+//     the coverage report entirely and the package disappears from lcov even
+//     though its whole suite ran.
 
 var fs = require('fs');
 var path = require('path');
@@ -65,6 +73,40 @@ function getVitestMajor(pkg) {
 	var m = String(spec).match(/(\d+)\./);
 	if (!m) return null;
 	return parseInt(m[1], 10);
+}
+
+// `--coverage.reportOnFailure` exists since vitest 0.31.2, and from 0.34.0 its
+// default is FALSE: when any test fails, vitest exits without writing the
+// coverage report at all. The suite has fully run, but the package contributes
+// nothing to lcov - e.g. @opencrvs/events failing one assertion drops all ~49
+// of its files from the commit's coverage while the run still looks normal.
+// Always generate the report on failure so a developer-facing test failure
+// only changes coverage through the code it exercises.
+var REPORT_ON_FAILURE_MIN = [0, 31, 2];
+
+// Version of the vitest a package resolves to: the lockfile pin when present,
+// otherwise the declared spec (e.g. "^2.1.5"). Returns [major, minor, patch].
+function getVitestVersionParts(pkg) {
+	var spec = (pkg.devDependencies || {}).vitest || (pkg.dependencies || {}).vitest;
+	if (!spec) return null; // not a vitest package: no flag to add, no error
+	var resolved = getLockfileVitestVersion(spec) || String(spec);
+	var m = String(resolved).match(/(\d+)\.(\d+)(?:\.(\d+))?/);
+	if (!m) {
+		throw new Error('[patch-coverage] cannot determine the vitest version from spec "' +
+			spec + '" — refusing to guess whether --coverage.reportOnFailure is supported');
+	}
+	return [parseInt(m[1], 10), parseInt(m[2], 10), parseInt(m[3] || '0', 10)];
+}
+
+// Whether the package's vitest understands --coverage.reportOnFailure.
+function supportsReportOnFailure(pkg) {
+	var v = getVitestVersionParts(pkg);
+	if (!v) return false;
+	for (var i = 0; i < 3; i++) {
+		if (v[i] > REPORT_ON_FAILURE_MIN[i]) return true;
+		if (v[i] < REPORT_ON_FAILURE_MIN[i]) return false;
+	}
+	return true;
 }
 
 // Resolve the exact vitest version that the committed yarn.lock pins for the
@@ -119,7 +161,7 @@ function resolveProviderVersion(spec) {
 
 // Patch a single (non-chained) script segment that contains a test runner.
 // This is the inner logic that appends coverage flags to one command.
-function patchRunner(s, vitestMajor) {
+function patchRunner(s, vitestMajor, reportOnFailure) {
 	// Vitest runner
 	if (s.indexOf('vitest') >= 0) {
 		if (vitestMajor >= 1) {
@@ -128,6 +170,9 @@ function patchRunner(s, vitestMajor) {
 			}
 			if (s.indexOf('--coverage.reporter=lcov') < 0 && s.indexOf('--coverageReporters') < 0) {
 				s = s + ' --coverage.reporter=lcov';
+			}
+			if (reportOnFailure && s.indexOf('reportOnFailure') < 0) {
+				s = s + ' --coverage.reportOnFailure=true';
 			}
 			// --minWorkers must accompany --maxWorkers: vitest 2.x derives
 			// minThreads from minWorkers (unset -> full CPU count), which
@@ -149,8 +194,11 @@ function patchRunner(s, vitestMajor) {
 		if (s.indexOf('--coverage.reporter=lcov') < 0 && s.indexOf('--coverageReporters') < 0) {
 			s = s + ' --coverage.reporter=lcov';
 		}
+		if (reportOnFailure && s.indexOf('reportOnFailure') < 0) {
+			s = s + ' --coverage.reportOnFailure=true';
+		}
 		if (s.indexOf('VITEST_MAX_THREADS') < 0) {
-			s = 'VITEST_MAX_THREADS=2 VITEST_MIN_THREADS=2 ' + s;
+			s = 'VITEST_MAX_THREADS=1 VITEST_MIN_THREADS=1 ' + s;
 		}
 		return s;
 	}
@@ -176,7 +224,7 @@ function raiseHeap(s) {
 	return s.replace(/--max[-_]old[-_]space[-_]size=\d+/g, '--max-old-space-size=' + HEAP_MB);
 }
 
-function patchScript(s, vitestMajor) {
+function patchScript(s, vitestMajor, reportOnFailure) {
 	if (typeof s !== 'string' || s.trim() === '') return s;
 
 	// Normalise any inline heap cap so it cannot override the global heap.
@@ -188,6 +236,10 @@ function patchScript(s, vitestMajor) {
 	}
 	if (s.indexOf('test-storybook') >= 0) {
 		return 'node -e "console.log(\'[patch-coverage] skipping storybook test suite\'); process.exit(0)"';
+	}
+	// Unconfigured default test stubs (e.g. echo "Error: no test specified" && exit 1)
+	if (s.indexOf('no test specified') >= 0) {
+		return 'node -e "console.log(\'[patch-coverage] skipping unconfigured test stub\'); process.exit(0)"';
 	}
 
 	// test:compilation scripts (tsc --noEmit) — skip, they're typechecks
@@ -214,21 +266,37 @@ function patchScript(s, vitestMajor) {
 		for (var i = 0; i < parts.length; i++) {
 			var seg = parts[i];
 			var hasRunner = (seg.indexOf('vitest') >= 0 || seg.indexOf('jest') >= 0 || seg.indexOf('craco test') >= 0);
-			patchedParts.push(hasRunner ? patchRunner(seg, vitestMajor) : seg);
+			patchedParts.push(hasRunner ? patchRunner(seg, vitestMajor, reportOnFailure) : seg);
 		}
 		return patchedParts.join(' && ');
 	}
 
 	// Simple (non-chained) script — patch directly
-	return patchRunner(s, vitestMajor);
+	return patchRunner(s, vitestMajor, reportOnFailure);
 }
 
 function patchRoot(pkg) {
 	var s = (pkg.scripts || {}).test || '';
 	if (/lerna run test/.test(s)) {
 		if (s.indexOf('--no-bail') < 0) {
-			pkg.scripts.test = s + ' --no-bail --concurrency=1';
+			s += ' --no-bail --concurrency=1';
 		}
+		// Lerna >= 7 is Nx-backed even when the repo neither ships nx.json nor
+		// lists nx as a direct dependency (Lerna bundles Nx since v5, and from
+		// v8 the Nx task runner defaults to --nx-bail=true, which bails the
+		// remaining packages on the first failing one -> silent partial run).
+		// Older Lerna versions (3.x) do not understand --nx-bail, so the flag
+		// is only appended when the pinned lerna major is >= 7.
+		var lernaRange = (pkg.devDependencies && pkg.devDependencies.lerna) ||
+			(pkg.dependencies && pkg.dependencies.lerna) || '';
+		var lernaMajor = parseInt((lernaRange.match(/(\d+)/) || [])[1] || '0', 10);
+		var hasNx = fs.existsSync(path.join(process.cwd(), 'nx.json')) ||
+			(pkg.devDependencies && pkg.devDependencies.nx) ||
+			lernaMajor >= 7;
+		if (hasNx && s.indexOf('--nx-bail') < 0) {
+			s += ' --nx-bail=false';
+		}
+		pkg.scripts.test = s;
 	}
 }
 
@@ -280,12 +348,13 @@ for (var d = 0; d < dirs.length; d++) {
 		}
 	} else {
 		var vitestMajor = getVitestMajor(pkg);
+		var vitestReportOnFailure = supportsReportOnFailure(pkg);
 		var vitestSpec = (pkg.devDependencies || {}).vitest || (pkg.dependencies || {}).vitest;
 		Object.keys(scripts).forEach(function (name) {
 			if (!isPatchableScriptName(name)) return;
 			var def = scripts[name];
 			if (typeof def !== 'string') return;
-			var patched = patchScript(def, vitestMajor);
+			var patched = patchScript(def, vitestMajor, vitestReportOnFailure);
 			if (patched !== def) {
 				scripts[name] = patched;
 				didPatch = true;
