@@ -1,6 +1,7 @@
 import argparse
 from datetime import datetime, timezone
 import logging
+import os
 
 from src import collect_commits, collect_coverage, collect_single_commit
 from src.config import get_config
@@ -76,6 +77,12 @@ def parse_args():
         required=False,
         help="Base path for project repositories and outputs.",
     )
+    parser.add_argument(
+        "--skip-build",
+        action="store_true",
+        default=False,
+        help="Skip pre-building Docker images.",
+    )
 
     return parser.parse_args()
 
@@ -123,6 +130,8 @@ def execute(
 
 def main():
     args = parse_args()
+    if args.skip_build:
+        os.environ["SKIP_BUILD"] = "true"
 
     if args.project == "all":
         cfg = get_config()

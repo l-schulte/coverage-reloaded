@@ -40,10 +40,16 @@ from src.project_metadata.node.strategies import (
 STRATEGIES: list[tuple[str, NodeVersionStrategy]] = [
     (".nvmrc", nvmrc.get_node_version),
     ("package.json", package_json.get_node_version),
-    ("GitHub Actions workflow", github_actions.get_node_version),
     ("pnpm-lock.yaml", pnpm_lock.get_node_version),
     (".tool-version", tool_version.get_node_version),
+    # GitHub Actions ranks below `.circleci/config.yml`: a CI container image pin
+    # such as `cimg/node:22.10` names an exact Node release, whereas a GitHub
+    # Actions `node-version:` entry is frequently a bare major (or `22.x`) that
+    # discards the minor. Only babel (and n8n) resolve from GitHub Actions, so
+    # lowering it is contained; raising `.circleci/config.yml` above
+    # `pnpm-lock.yaml`/`.tool-version` would not be.
     (".circleci/config.yml", circleci.get_node_version),
+    ("GitHub Actions workflow", github_actions.get_node_version),
     (".travis.yml", travis.get_node_version),
     ("Dockerfile", docker.get_node_version),
     ("build/npm/preinstall.js", preinstall.get_node_version),

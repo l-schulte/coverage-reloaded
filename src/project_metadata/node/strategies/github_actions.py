@@ -8,16 +8,10 @@ specific Node major that ``engines.node`` ranges (``>=``) do not pin down
 the highest available LTS).
 
 Sources (tried in priority order):
-1. ``.github/workflows/units-tests-reusable.yml`` — the reusable test
-   workflow's ``on.workflow_call.inputs.nodeVersion.default`` (e.g. ``20.x``).
-2. ``.github/workflows/ci-pull-requests.yml`` / ``.github/workflows/ci-master.yml``
-   — the matrix row flagged with ``collectCoverage``
-   (``matrix.node-version == 'X'``), or a single unambiguous literal
-   ``node-version:`` value on setup-node steps.
-
-The strategy is deliberately conservative: ambiguous multi-version matrices
-without a coverage flag return ``None`` so the caller falls through to the next
-strategy, preserving legacy behaviour for early-era repos.
+1. Reusable test workflow's ``on.workflow_call.inputs.nodeVersion.default`` (e.g. ``20.x``).
+2. Coverage guard (``collectCoverage: ${{ matrix.node-version == 'X' }}``).
+3. CI test workflows (e.g. ``ci.yml``, ``test.yml``, ``main.yml``) — highest tested
+   LTS major (falling back to highest tested non-LTS major).
 """
 
 import re
@@ -26,19 +20,42 @@ from typing import Optional
 
 import yaml
 
-from src.project_metadata.helper import get_file_content
+from src.project_metadata.helper import get_file_content, resolve_wildcard_at_commit
 from src.project_metadata.node.parse_version import (
     find_matching_version_from_version_string,
 )
+from src.project_metadata.node.releases_data import get_node_releases
 
 REUSABLE_WORKFLOW_PATHS = [
     ".github/workflows/units-tests-reusable.yml",
+    ".github/workflows/test-unit-reusable.yml",
 ]
 
-PR_WORKFLOW_PATHS = [
+CI_WORKFLOW_PATHS = [
     ".github/workflows/ci-pull-requests.yml",
     ".github/workflows/ci-master.yml",
+    ".github/workflows/ci.yml",
+    ".github/workflows/ci.yaml",
+    ".github/workflows/test.yml",
+    ".github/workflows/test.yaml",
+    ".github/workflows/tests.yml",
+    ".github/workflows/tests.yaml",
+    ".github/workflows/main.yml",
+    ".github/workflows/main.yaml",
+    ".github/workflows/build.yml",
+    ".github/workflows/build.yaml",
 ]
+
+NON_CI_NAME_PATTERNS = (
+    "release",
+    "triage",
+    "lock",
+    "label",
+    "publish",
+    "stale",
+    "dependabot",
+    "codeql",
+)
 
 # Captures a literal node-version value, e.g.:
 #   node-version: 16.x
@@ -50,10 +67,67 @@ RE_NODE_VERSION_VALUE = re.compile(r"node-version:\s*(\[[^\]]*\]|[^\s#]+)")
 
 # Captures the version singled out by a collectCoverage guard:
 #   collectCoverage: ${{ matrix.node-version == '20.x' }}
-RE_COVERAGE_GUARD = re.compile(r"node-version\s*==\s*['\"]?([\d.]+x?)['\"]?")
+RE_COVERAGE_GUARD = re.compile(
+    r"(?:collectCoverage|coverage)[^\n]*node(?:-version)?\s*==\s*['\"]?([\d.]+x?)['\"]?",
+    re.IGNORECASE,
+)
 
-# Matches plain CI version tokens: 16, 16.x, 22.4, '22.x' — group(1) is the major.
-RE_VERSION_TOKEN = re.compile(r"^\s*['\"]?(\d+)(?:\.(?:x|\d+))?['\"]?\s*$")
+# Matches plain CI version tokens: 16, 16.x, 22.4, 22.4.1, '22.x' — group(1) is
+# the whole token, including any minor/patch components.
+RE_VERSION_TOKEN = re.compile(r"^\s*['\"]?(\d+(?:\.(?:x|\d+)){0,2})['\"]?\s*$")
+
+RE_MAJOR = re.compile(r"^\d+")
+
+
+def _major(version_str: str) -> Optional[str]:
+    """Return only the Node major of a CI token (``22.4.1`` -> ``22``).
+
+    Used for the LTS-membership test, which must compare majors —
+    ``node_releases.json`` is keyed by major only (``v22``).
+    """
+    m = RE_MAJOR.match(version_str.strip().lstrip("'\""))
+    return m.group(0) if m else None
+
+
+def _version_key(version_str: str) -> tuple[int, tuple[int, ...]]:
+    """Total ordering for CI tokens: by major, then by version specificity.
+
+    ``22`` < ``22.5`` < ``22.11``. A plain ``sorted(..., key=int)`` is not enough
+    once minors are preserved, and leaving ties to ``set`` ordering makes the
+    chosen token depend on hash randomisation.
+    """
+    major = _major(version_str)
+    parts: list[int] = []
+    for chunk in version_str.strip().lstrip("'\"").split("."):
+        if chunk.isdigit():
+            parts.append(int(chunk))
+        else:
+            break
+    return (int(major) if major else -1, tuple(parts))
+
+
+def _normalise(version_str: str) -> Optional[str]:
+    """Map a CI version token to a Node version, keeping its specificity.
+
+    ``22.4.1`` -> ``22.4.1``, ``22.4`` -> ``22.4``, ``22.x`` / ``22`` -> ``22``.
+
+    The minor/patch is deliberately preserved: a workflow that pins
+    ``node-version: 22.10`` names an exact Node release, and truncating it to
+    ``22`` makes the container install the newest 22.x instead, which can be
+    years ahead of the commit. ``project_metadata`` decides whether to keep the
+    exact version (``use_exact_node_version``) or truncate to the major.
+    """
+    m = RE_VERSION_TOKEN.match(version_str.strip())
+    if m:
+        token = m.group(1)
+        # `22.x` is just the major: drop trailing `.x` placeholders.
+        while token.endswith(".x"):
+            token = token[: -len(".x")]
+        return token or None
+    # Quoted / range forms such as `"18.20.0"` or `>=14` — strip the quotes the
+    # regex above tolerates but the parser below does not.
+    version = find_matching_version_from_version_string(version_str.strip().strip("'\""))
+    return version or None
 
 
 def _extract_workflow_call_default(content: str) -> Optional[str]:
@@ -75,13 +149,13 @@ def _extract_workflow_call_default(content: str) -> Optional[str]:
     inputs = workflow_call.get("inputs")
     if not isinstance(inputs, dict):
         return None
-    node_version_input = inputs.get("nodeVersion")
-    if not isinstance(node_version_input, dict):
-        return None
-    default = node_version_input.get("default")
-    if not isinstance(default, str) or not default.strip():
-        return None
-    return default.strip()
+    for k in ("nodeVersion", "node-version", "node"):
+        node_version_input = inputs.get(k)
+        if isinstance(node_version_input, dict):
+            default = node_version_input.get("default")
+            if isinstance(default, str) and default.strip():
+                return default.strip()
+    return None
 
 
 def _extract_coverage_matrix_version(content: str) -> Optional[str]:
@@ -107,18 +181,24 @@ def _extract_literal_node_versions(content: str) -> list[str]:
             )
         else:
             versions.append(raw.strip().strip("'\""))
-    return versions
+    return [v for v in versions if v != "*"]
 
 
-def _normalise(version_str: str) -> Optional[str]:
-    """Map a CI version token like ``16.x`` / ``20`` to a Node major string."""
-    m = RE_VERSION_TOKEN.match(version_str.strip())
-    if m:
-        return m.group(1)
-    version = find_matching_version_from_version_string(version_str)
-    if version:
-        return version.split(".")[0]
-    return None
+def _get_workflow_paths(repo_path: str, commit_hash: str) -> list[str]:
+    """Return candidate CI workflow paths to inspect."""
+    paths = list(CI_WORKFLOW_PATHS)
+    try:
+        discovered = resolve_wildcard_at_commit(
+            repo_path, commit_hash, ".github/workflows/*"
+        )
+        for p in discovered:
+            if (p.endswith(".yml") or p.endswith(".yaml")) and p not in paths:
+                base = p.rsplit("/", 1)[-1].lower()
+                if not any(pattern in base for pattern in NON_CI_NAME_PATTERNS):
+                    paths.append(p)
+    except Exception:
+        pass
+    return paths
 
 
 def get_node_version(
@@ -143,8 +223,9 @@ def get_node_version(
             if version:
                 return version
 
-    # Priority 2: PR / master workflows — coverage guard, then unambiguous literal.
-    for wf in PR_WORKFLOW_PATHS:
+    # Priority 2: CI workflows — coverage guard, then highest tested LTS major.
+    lts_majors = set(get_node_releases(lts_only=True).keys())
+    for wf in _get_workflow_paths(repo_path, commit_hash):
         content = get_file_content(repo_path, commit_hash, wf)
         if not content:
             continue
@@ -157,16 +238,18 @@ def get_node_version(
                 return version
 
         literals = _extract_literal_node_versions(content)
-        distinct = sorted(
-            set(literals), key=lambda v: int(_normalise(v) or 0)
-        )
+        # Rank on the full version (major, then specificity) and test LTS
+        # membership on the *major* — `node_releases.json` is keyed by major.
+        distinct = sorted(set(literals), key=_version_key)
         if not distinct:
             continue
-        # A single literal is unambiguous. For a matrix (e.g. [14.x, 16.x])
-        # pick the highest tested major: it is the newest version the project
-        # itself validates against and avoids resolving to a pre-OpenSSL-3
-        # release that violates engines.
-        chosen = distinct[-1]
+
+        # Prefer the highest tested LTS release (even major). Fall back to highest
+        # tested non-LTS release if no LTS release is present in the workflow.
+        lts_candidates = [
+            v for v in distinct if f"v{_major(v)}" in lts_majors
+        ]
+        chosen = lts_candidates[-1] if lts_candidates else distinct[-1]
         version = _normalise(chosen)
         if version:
             return version

@@ -345,12 +345,16 @@ process_files "$execute_function"
 # yarn.lock files often contain resolved URLs to central repositories.
 # Workaround 1: remove those lines to let yarn resolve them via the configured registry (waypack & verdaccio).
 # [ -f "yarn.lock" ] && sed -i '/^  resolved/d' yarn.lock
-# Workaround 2: replace URLs with waypack URL (https://registry.yarnpkg.com/)
+# Workaround 2: replace URLs with waypack URL (https://registry.yarnpkg.com/ and
+# https://registry.npmjs.org/ -- mixed lockfiles such as opencrvs-core's contain
+# both hosts; yarn fetches tarballs from the verbatim resolved URL, so an
+# unrewritten npmjs entry bypasses waypack and is fetched direct from the
+# flaky campus egress. The path layout of both hosts is identical.)
 # bnpm.byted.org is an internal mirror some upstream lockfiles reference
 # (e.g. webpack 93d12eb); it is unreachable from the container.
 match_patterns=('yarn.lock' '*/yarn.lock')
 ignore_patterns=('*/node_modules/*')
-execute_function='sed -i "s|resolved \"https://registry.yarnpkg.com/|resolved \"'"$WAYPACK_YARN_REGISTRY"'|g; s|resolved \"http://bnpm.byted.org/|resolved \"'"$WAYPACK_YARN_REGISTRY"'|g" {}'
+execute_function='sed -i "s|resolved \"https://registry.yarnpkg.com/|resolved \"'"$WAYPACK_YARN_REGISTRY"'|g; s|resolved \"https://registry.npmjs.org/|resolved \"'"$WAYPACK_YARN_REGISTRY"'|g; s|resolved \"http://registry.npmjs.org/|resolved \"'"$WAYPACK_YARN_REGISTRY"'|g; s|resolved \"http://bnpm.byted.org/|resolved \"'"$WAYPACK_YARN_REGISTRY"'|g" {}'
 process_files "$execute_function"
 # execute_function='sed -i "/^[[:space:]]*integrity /d" {}'
 # process_files "$execute_function"

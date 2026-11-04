@@ -1,6 +1,7 @@
 import csv
 import logging
 import concurrent.futures
+import threading
 import time
 import os
 import random
@@ -14,6 +15,41 @@ logger = logging.getLogger(__name__)
 
 COMMITS_CSV_FILE = "commits.csv"
 WORKSPACE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+class LaunchThrottle:
+    """Thread-safe rate-limiter that paces container launches.
+
+    Ensures that at least ``interval`` seconds elapse between any two
+    consecutive container starts, preventing CPU and I/O thundering herds
+    when launching parallel workers.
+    """
+
+    def __init__(self, interval: float = 10.0):
+        self.interval = max(0.0, float(interval))
+        self.lock = threading.Lock()
+        self.last_launch = 0.0
+
+    def wait(self):
+        """Wait until at least ``self.interval`` seconds have passed since the last launch."""
+        if self.interval <= 0:
+            return
+        sleep_time = 0.0
+        with self.lock:
+            now = time.time()
+            if self.last_launch == 0.0:
+                # The very first container launch starts immediately without delay.
+                self.last_launch = now
+            else:
+                target_time = max(now, self.last_launch + self.interval)
+                sleep_time = target_time - now
+                self.last_launch = target_time
+
+        if sleep_time > 0:
+            logger.debug(
+                f"Pacing container launch: waiting {sleep_time:.1f}s (launch_delay={self.interval}s)..."
+            )
+            time.sleep(sleep_time)
 
 
 def parse_args():
@@ -33,6 +69,13 @@ def parse_args():
     )
     parser.add_argument(
         "--project", type=str, required=False, help="Project name or path."
+    )
+    parser.add_argument(
+        "--launch-delay",
+        type=float,
+        required=False,
+        help="Minimum delay in seconds between consecutive container starts. Defaults to config.json launch_delay (10.0s).",
+        default=None,
     )
     return parser.parse_args()
 
@@ -56,13 +99,17 @@ def _setup_project(project):
     return project_config.projectID or project, output_path, logs_path
 
 
-def _run_commits(commits, max_workers, output_path, logs_path, desc):
+def _run_commits(commits, max_workers, output_path, logs_path, desc, launch_delay=None):
     """Run *commits* through the docker pipeline in a thread pool.
 
     Returns the number of successful commits.
     """
     if not commits:
         return 0
+
+    cfg = get_config()
+    if launch_delay is None:
+        launch_delay = cfg.launch_delay
 
     # Pre-build Docker images once so docker-run.sh can skip redundant builds.
     project = commits[0][0]  # project is index 0 in the commit tuple
@@ -71,20 +118,21 @@ def _run_commits(commits, max_workers, output_path, logs_path, desc):
     start = time.time()
     logger.info(
         f"Processing {len(commits)} commits with {max_workers} workers "
-        f"- start time: {time.ctime(start)}"
+        f"(launch delay: {launch_delay}s) - start time: {time.ctime(start)}"
     )
 
     successful = 0
     completed = 0
     total = len(commits)
 
+    throttle = LaunchThrottle(interval=launch_delay)
+
+    def _run_with_throttle(commit):
+        throttle.wait()
+        return docker_run_script(commit, WORKSPACE_PATH, logs_path, output_path)
+
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-        futures = [
-            executor.submit(
-                docker_run_script, commit, WORKSPACE_PATH, logs_path, output_path
-            )
-            for commit in commits
-        ]
+        futures = [executor.submit(_run_with_throttle, commit) for commit in commits]
 
         progress = tqdm.tqdm(total=total, desc=desc)
         for future in concurrent.futures.as_completed(futures):
@@ -100,7 +148,7 @@ def _run_commits(commits, max_workers, output_path, logs_path, desc):
     return successful
 
 
-def execute(project, max_workers, max_commits=None):
+def execute(project, max_workers, max_commits=None, launch_delay=None):
     setup = _setup_project(project)
     if setup is None:
         return
@@ -155,10 +203,17 @@ def execute(project, max_workers, max_commits=None):
                 if max_commits and len(commits) >= max_commits:
                     break
 
-    _run_commits(commits, max_workers, output_path, logs_path, "Processing commits...")
+    _run_commits(
+        commits,
+        max_workers,
+        output_path,
+        logs_path,
+        "Processing commits...",
+        launch_delay=launch_delay,
+    )
 
 
-def execute_failed(project, max_workers, max_commits=None):
+def execute_failed(project, max_workers, max_commits=None, launch_delay=None):
     """Retry all previously failed commits for a project.
 
     Scans the project's ``logs/`` directory for ``.error`` files and
@@ -238,6 +293,7 @@ def execute_failed(project, max_workers, max_commits=None):
         output_path,
         logs_path,
         "Retrying failed commits...",
+        launch_delay=launch_delay,
     )
 
     # delete the .error files for successfully retried commits
@@ -255,7 +311,12 @@ def execute_failed(project, max_workers, max_commits=None):
 
 def main():
     args = parse_args()
-    execute(args.project, args.max_workers, args.max_commits)
+    execute(
+        args.project,
+        args.max_workers,
+        args.max_commits,
+        launch_delay=args.launch_delay,
+    )
 
 
 if __name__ == "__main__":

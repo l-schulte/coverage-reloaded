@@ -43,6 +43,12 @@ def pre_build_images(commits, project, workspace_path):
     image per version plus one project image per version.  Must be called
     before the thread pool so that docker-run.sh can skip redundant builds.
     """
+    if os.environ.get("SKIP_BUILD", "").lower() in ("true", "1"):
+        logger.info(
+            f"Skipping pre-building Docker images for project {project} (SKIP_BUILD is set)"
+        )
+        return
+
     unique_nodes = {commit[4] for commit in commits}  # node is index 4
     logger.info(
         f"Pre-building Docker images for project {project} with {len(unique_nodes)} nodes: {unique_nodes}"

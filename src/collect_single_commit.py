@@ -64,7 +64,12 @@ def execute(project, commit_hash, base_path=None):
         + f"\tPackage Manager: {package_manager} (from {package_manager_source})"
     )
 
-    timestamp = str(int(commit_data.committer_date.timestamp()))
+    # Use the same timestamp source as the commit ledger (commits.csv).
+    # extract_project_metadata() applies the project's configured
+    # timestamp_source (author_timestamp unless overridden), while the raw
+    # committer date differs for rebased / cherry-picked commits and would name
+    # the output directory with a timestamp that does not match the ledger.
+    timestamp = str(int(commit_info["timestamp"]))
 
     success = docker_run_script(
         (
