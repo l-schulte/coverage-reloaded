@@ -41,6 +41,8 @@ RUN curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dea
     rm -rf /var/lib/apt/lists/*
 
 COPY cypress-coverage-configs /coverage_reloaded/cypress-coverage-configs
+COPY ./cypress_tools/cypress-patcher.sh /coverage_reloaded/cypress-patcher.sh
+RUN chmod +x /coverage_reloaded/cypress-patcher.sh
 
 COPY ./repo /coverage_reloaded/repo
 COPY ./install-and-run.sh /coverage_reloaded/install-and-run.sh

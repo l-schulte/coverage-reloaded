@@ -43,7 +43,7 @@
 ## Checklist
 
 - [x] 100 done (2967/100)
-- [x] failed tests doublechecked (true exit codes restored across 3,140 output directories via `helper/fix_compass_exit_codes.py`)
+- [x] failed tests doublechecked (true exit codes restored across 3,140 output directories via `projects/compass/fix_compass_exit_codes.py`)
 - [x] complete run (6,260/6,260 commits processed, 0 pending)
 - [x] complete test failure check (176 fingerprints, 100 % labeled, 0 problematic, 0 unclear)
 - [x] complete JEV test failure check (176/176 fingerprints labeled; audit current, see [`label_analysis/jev_audit.md`](label_analysis/jev_audit.md))
