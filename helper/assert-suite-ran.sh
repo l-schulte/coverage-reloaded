@@ -167,6 +167,15 @@ assert_suite_ran() {
                 [ -n "$evidence" ] && verdict="ran"
             fi
             ;;
+        karma)
+            evidence=$(_asr_grep -m1 -E '(^|[^0-9])0 tests completed' || true)
+            if [ -n "$evidence" ]; then
+                verdict="zero"
+            else
+                evidence=$(_asr_grep -m1 -E '(^|[^0-9])[1-9][0-9]* tests completed' || true)
+                [ -n "$evidence" ] && verdict="ran"
+            fi
+            ;;
         *)
             # Unknown runner label: fall through to the generic strict check.
             ;;
