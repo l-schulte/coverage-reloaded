@@ -3,8 +3,15 @@
 import csv
 import os
 import sqlite3
+import sys
 
 from . import paths
+
+# A single 6-line failure block can embed a whole stats dump (webpack's
+# max window reaches ~270 KB). The csv module's default 128 KiB field limit
+# makes --build crash when it re-reads such a CSV to preserve labels, so the
+# limit is raised here for every CSV this package touches.
+csv.field_size_limit(min(sys.maxsize, 2**31 - 1))
 
 CSV_FIELDS = [
     "project", "window", "run_id", "suite", "exit_code", "line_number",
@@ -89,9 +96,20 @@ def open_db(path):
     return con
 
 
-def write_db(con, failures, runs, label_rows):
+def write_db(con, failures, runs, label_rows, windows=None):
     con.execute("DELETE FROM failures")
     con.execute("DELETE FROM runs")
+    # Labels mirror the CSVs, so the rows of the window(s) being written must be
+    # rebuilt as well: INSERT OR REPLACE alone keeps rows for fingerprints that
+    # no longer exist (archived runs) and would report a label distribution the
+    # CSVs no longer have. Only the written windows are cleared, so a
+    # single-window build does not drop the other window's labels.
+    windows = windows or sorted({row[0] for row in label_rows})
+    if windows:
+        con.execute(
+            f"DELETE FROM labels WHERE window IN ({','.join('?' * len(windows))})",
+            list(windows),
+        )
     con.executemany(
         "INSERT OR IGNORE INTO failures VALUES (?,?,?,?,?,?,?)",
         [(f["run_id"], f["suite"], f["line"], f["fp_min"], f["fp_max"],

@@ -58,7 +58,8 @@ def do_build(project, cfg, args, con, windows):
                                       r["labeled_at"], r["auto_rule_id"]))
         print(f"wrote {paths.csv_path(project, w)} ({len(rows)} fingerprints)")
     if con is not None:
-        store.write_db(con, failures, runs, label_rows_db)
+        store.write_db(con, failures, runs, label_rows_db,
+                       windows=["min" if w == 2 else "max" for w in windows])
         unique = con.execute("SELECT COUNT(*) FROM failures").fetchone()[0]
         print(f"wrote {args.db or paths.db_path(project)} "
               f"({len(failures)} detections -> {unique} unique tuples, {len(runs)} runs)")

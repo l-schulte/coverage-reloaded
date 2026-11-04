@@ -127,6 +127,22 @@ def test_scan_splits_distinct_errors(tmp_path, monkeypatch):
         assert rec["runs"] == {"1000_abc"}
 
 
+def test_scan_skips_duplicate_span_in_same_run(tmp_path, monkeypatch):
+    """Monorepo runs where multiple package exit codes map to the same
+    root test span should only scan the span once."""
+    proj = _write_fixture(tmp_path, monkeypatch)
+    # Add a second failing package exit code pointing to the same run
+    (proj / "output" / "1000_abc" / "pkg_b_unit.exit_code").write_text("1")
+    cfg = json.loads((proj / "failure_patterns.json").read_text())
+    families, failures, runs = detect.scan(
+        "_t", cfg, str(proj / "output"), 5, None, [2],
+    )
+    # Both 'unit.exit_code' and 'pkg_b_unit.exit_code' map to the same [SUITE_START] unit span.
+    # The span must only be scanned once (2 failures, not 4).
+    assert len(failures) == 2
+    assert failures[0]["suite"] in ("unit", "pkg_b_unit")
+
+
 def test_csv_roundtrip_multiline_block(tmp_path, monkeypatch):
     monkeypatch.setattr(paths, "REPO_ROOT", str(tmp_path))
     path = tmp_path / "labels.csv"
@@ -210,3 +226,82 @@ def test_crosscheck_writes_artifact(tmp_path, monkeypatch):
     assert "agree: 1, disagree: 0" in art
     assert "1 detection pairs labeled differently across windows" in art
     assert art.index("## Verdict") > 0
+
+
+def test_jev_dedup_artifact_is_separate():
+    from failure_triage import jev
+
+    default = jev.jev_csv_path("_t", 2)
+    dedup = jev.jev_csv_path("_t", 2, dedup=True)
+    assert default.endswith("failure_labels_jev_min.csv")
+    assert dedup.endswith("failure_labels_jev_min_dedup.csv")
+    assert default != dedup
+
+
+def test_jev_dedup_coverage_reconstructs_family(monkeypatch):
+    from failure_triage import jev
+
+    human = [
+        {"suite": "unit", "keyword": "one", "fingerprint": "a"},
+        {"suite": "unit", "keyword": "one", "fingerprint": "b"},
+        {"suite": "unit", "keyword": "two", "fingerprint": "c"},
+    ]
+    monkeypatch.setattr(jev.store, "load_csv", lambda path: human)
+    rows = [{"fingerprint": "a", "suite": "unit", "keyword": "one"}]
+    assert jev.covered_by_rows("_t", 2, rows) == {"a", "b"}
+
+
+def test_jev_save_roundtrip_keeps_base_schema(tmp_path):
+    from failure_triage import jev
+
+    path = str(tmp_path / "failure_labels_jev_min_dedup.csv")
+    jev.save_jev_labels(path, [{
+        "project": "_t", "window": "min", "run_id": "1000_abc",
+        "suite": "unit", "exit_code": "1", "line_number": "10",
+        "fingerprint": "a", "n_runs": "2", "keyword": "one",
+        "is_pipeline_issue": "False", "confidence": "0.9",
+        "env_subsystem": "none", "labeled_at": "2026-01-01T00:00:00+00:00",
+    }])
+    loaded = jev.load_jev_labels(path)
+    assert set(loaded["a"]) == set(jev.JEV_FIELDS)
+
+
+def test_jev_dedup_error_artifact_is_separate():
+    from failure_triage import jev
+
+    default = jev.jev_csv_path("_t", 2)
+    keyword = jev.jev_csv_path("_t", 2, "keyword")
+    error = jev.jev_csv_path("_t", 2, "error")
+    assert keyword.endswith("failure_labels_jev_min_dedup.csv")
+    assert error.endswith("failure_labels_jev_min_dedup_error.csv")
+    assert len({default, keyword, error}) == 3
+
+
+def test_jev_dedup_error_keys_on_error_line(monkeypatch):
+    from failure_triage import jev
+
+    human = [
+        {"suite": "unit", "keyword": "test one", "fingerprint": "a",
+         "block": "● test one\n\nTypeError: boom at 1"},
+        {"suite": "unit", "keyword": "test two", "fingerprint": "b",
+         "block": "● test two\n\nTypeError: boom at 2"},
+    ]
+    monkeypatch.setattr(jev.store, "load_csv", lambda path: human)
+    rows = [{"fingerprint": "a", "suite": "unit", "keyword": "test one"}]
+    # same normalized error line -> one family, so both fingerprints are covered
+    assert jev.covered_by_rows("_t", 2, rows, "error") == {"a", "b"}
+
+
+def test_jev_dedup_error_falls_back_for_generic_header(monkeypatch):
+    from failure_triage import jev
+
+    human = [
+        {"suite": "unit", "keyword": "test one", "fingerprint": "a",
+         "block": "● test one\n\nErrors while compiling:"},
+        {"suite": "unit", "keyword": "test two", "fingerprint": "b",
+         "block": "● test two\n\nErrors while compiling:"},
+    ]
+    monkeypatch.setattr(jev.store, "load_csv", lambda path: human)
+    rows = [{"fingerprint": "a", "suite": "unit", "keyword": "test one"}]
+    # generic header -> key falls back to the test name, so 'b' is not covered
+    assert jev.covered_by_rows("_t", 2, rows, "error") == {"a"}

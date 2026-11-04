@@ -43,6 +43,23 @@ def clean_ansi(line: str) -> str:
     return ANSI_RE.sub("", line).rstrip()
 
 
+# A single log line can be enormous: AssertionError blocks routinely print a whole
+# serialized DOM tree on one line (observed: 24,064 chars in
+# projects/compass/logs/1637159547_*.log). Sending it verbatim makes Eden AI reject
+# the request with `max_tokens_exceeded`, so one fingerprint stays unlabeled forever.
+# Clip per line and in total; the head of an assertion carries the expected/received
+# header, which is what the classifier needs.
+MAX_LINE_CHARS = 400
+MAX_SNIPPET_CHARS = 8000
+
+
+def clip_text(line: str, limit: int = MAX_LINE_CHARS) -> str:
+    line = clean_ansi(line)
+    if len(line) <= limit:
+        return line
+    return f"{line[:limit]} …[+{len(line) - limit} chars]"
+
+
 def env_signals(text_lines: List[str]) -> List[str]:
     hits = []
     for pat in ENV_PATTERNS:
@@ -66,16 +83,18 @@ def build_state_for_item(
     snippet_lines = []
     for i in range(lo, hi + 1):
         prefix = "▶ " if i == fail_line else "  "
-        snippet_lines.append(f"{prefix}{i:5}: {clean_ansi(lines[i - 1])}")
+        snippet_lines.append(f"{prefix}{i:5}: {clip_text(lines[i - 1])}")
 
     snippet = "\n".join(snippet_lines)
+    if len(snippet) > MAX_SNIPPET_CHARS:
+        snippet = f"{snippet[:MAX_SNIPPET_CHARS]} …[snippet truncated]"
     env_hits = env_signals(lines[lo - 1: hi])
 
     return {
         "project": item["project"],
         "suite": suite_name,
         "exit_code": item["exit_code"],
-        "trigger_line": item["text"],
+        "trigger_line": clip_text(item["text"]),
         "env_indicators": ", ".join(env_hits) if env_hits else "none",
         "log_snippet": snippet,
         "context": (

@@ -106,11 +106,31 @@ class TestNormalise:
             ("16.x", "16"),
             ("'22.x'", "22"),
             ("20", "20"),
-            ("22.4", "22"),
+            # Specificity is preserved: a workflow that pins `node-version: 22.4`
+            # names a minor, and truncating it to `22` would make the container
+            # install the newest 22.x instead.
+            ("22.4", "22.4"),
+            ("22.4.1", "22.4.1"),
+            ("'22.5'", "22.5"),
+            ('"18.20.0"', "18.20.0"),
         ],
     )
     def test_normalise(self, token, expected):
         assert github_actions._normalise(token) == expected
+
+    @pytest.mark.parametrize(
+        "token,expected",
+        [
+            ("16.x", "16"),
+            ("'22.x'", "22"),
+            ("20", "20"),
+            ("22.4", "22"),
+            ("22.4.1", "22"),
+            ('"18.20.0"', "18"),
+        ],
+    )
+    def test_major(self, token, expected):
+        assert github_actions._major(token) == expected
 
 
 class TestGetNodeVersion:
@@ -150,15 +170,36 @@ class TestGetNodeVersion:
         self._patch(monkeypatch, {})
         assert github_actions.get_node_version("repo", "abc") is None
 
-    def test_legacy_matrix_workflow_returns_none(self, monkeypatch):
-        # tests.yml (legacy) is not scanned, so early-era repos fall through.
+    def test_workflow_tests_yml_is_scanned(self, monkeypatch):
+        # tests.yml is scanned and extracts the highest tested LTS version
         self._patch(
             monkeypatch,
             {
                 ".github/workflows/tests.yml": PR_WORKFLOW_MATRIX,
             },
         )
-        assert github_actions.get_node_version("repo", "abc") is None
+        assert github_actions.get_node_version("repo", "abc") == "16"
+
+    def test_prefers_lts_over_non_lts(self, monkeypatch):
+        # Matrix with non-LTS 17 and LTS 16 selects LTS 16
+        workflow_with_odd = """\
+jobs:
+  test:
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 17.x]
+    steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+"""
+        self._patch(
+            monkeypatch,
+            {
+                ".github/workflows/ci.yml": workflow_with_odd,
+            },
+        )
+        assert github_actions.get_node_version("repo", "abc") == "16"
 
 
 if __name__ == "__main__":
