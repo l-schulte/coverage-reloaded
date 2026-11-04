@@ -32,7 +32,7 @@ LCOV_SANITY.md
 **/output*/
 **/results*/
 **/stats_output/
-**/bin*
+**/bin*/
 **/pending_archive/
 projects/**/archive/
 projects/**/label_analysis/v1/

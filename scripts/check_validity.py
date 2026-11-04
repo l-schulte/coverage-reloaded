@@ -38,7 +38,7 @@ import re
 import sys
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECTS_DIR = BASE_DIR / "projects"
 
 # ── Runner summary patterns (mirror helper/assert-suite-ran.sh) ──────────────
