@@ -49,7 +49,7 @@ Never invent values. Every number must be traceable to one of these files:
 - `projects/<p>/stats_output/report.txt` — the canonical Results numbers
   (commits processed, without/with test failures, not applicable, hard errors,
   coverage %). Use the generated date from this file. **Regenerate it fresh on
-  every invocation** by running `python stats.py <p> --report-only` before
+  every invocation** by running `python scripts/stats.py <p> --report-only` before
   reading it; this rewrites `report.txt` from the current `output/` state and
   deletes any stale plots.
 - `projects/<p>/stats_output/` — CSVs and plots; link to the directory.
@@ -58,7 +58,7 @@ Never invent values. Every number must be traceable to one of these files:
   `label`, `n_runs`, `auto_rule_id`, `first_run`/`last_run`, `keyword`, and
   `block`. `failure_labels_project_max.csv` is the diagnostic window. Regenerate
   the aggregate numbers fresh on every invocation with
-  `python check_failures_v2.py <p> --stats` (read-only, backed by
+  `python scripts/check_failures_v2.py <p> --stats` (read-only, backed by
   `label_analysis/failure_labels_v2.db`) before reading either CSV. Legacy v1
   artifacts (`failure_labels_project.csv`, `failure_labels_collapsed_*.csv`,
   `label_analysis/v1/`) are **not** read.
@@ -140,7 +140,7 @@ Full statistics and plots: [`stats_output/`](stats_output/).
 
 ## Failure triage
 
-Source: `python check_failures_v2.py <p> --stats` (window `min`, run <date>) and
+Source: `python scripts/check_failures_v2.py <p> --stats` (window `min`, run <date>) and
 `stats_output/report.txt` (generated <date>). Labels:
 [`failure_labels_project_min.csv`](label_analysis/failure_labels_project_min.csv)
 (primary) and [`failure_labels_project_max.csv`](label_analysis/failure_labels_project_max.csv)
@@ -293,12 +293,12 @@ For each active project, build the file from the template:
 2. **Preserve or populate `## Development style`:**
    - **Do NOT re-analyze development style on routine maintenance invocations.** If `## Development style` is already present in `projects/<p>/OVERVIEW.md`, preserve it as-is.
    - Only perform the git log analysis (first-parent parent count, PR syntax patterns, direct commit JS/TS impact, issue reference rate) when creating a new project overview for the first time or when explicitly requested by the user.
-3. Regenerate `stats_output/report.txt` by running `python stats.py <p> --report-only`
+3. Regenerate `stats_output/report.txt` by running `python scripts/stats.py <p> --report-only`
    (fresh numbers from the current `output/` state; stale plots are deleted).
    Then pull Results from it. If the command fails, write
    `Results: pending (no stats_output)`.
 4. **Build `## Failure triage` from the v2 label source.**
-   - Run `python check_failures_v2.py <p> --stats` fresh and take every label
+   - Run `python scripts/check_failures_v2.py <p> --stats` fresh and take every label
      number from its output (`failing runs`, `fingerprints`, `labeled`,
      `labels`, `coverage`). Do not hand-count CSV rows and do not read legacy
      v1 files; ignore the `v1 reference` line.

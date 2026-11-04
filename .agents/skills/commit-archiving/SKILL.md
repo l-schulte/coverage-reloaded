@@ -57,18 +57,18 @@ The subfolder name must be a concise, self-explanatory `snake_case` identifier d
 
 ## Tooling
 
-Use the repository script `archive_fixed_commits.py`:
+Use the repository script `scripts/archive_fixed_commits.py`:
 
 ```bash
 # 1. Preview changes (dry-run):
-python3 archive_fixed_commits.py <project> <archive_name> \
+python3 scripts/archive_fixed_commits.py <project> <archive_name> \
     --reason "<what failed and why>" \
     --fix "<how install-and-run.sh or Dockerfile was modified>" \
     [--commits <hash1> <hash2> ... | --commits-file <file> | --grep-log "<pattern>"] \
     --dry-run
 
 # 2. Execute archive move:
-python3 archive_fixed_commits.py <project> <archive_name> \
+python3 scripts/archive_fixed_commits.py <project> <archive_name> \
     --reason "<what failed and why>" \
     --fix "<how install-and-run.sh or Dockerfile was modified>" \
     [--commits <hash1> <hash2> ... | --commits-file <file> | --grep-log "<pattern>"]
@@ -96,10 +96,10 @@ python3 archive_fixed_commits.py <project> <archive_name> \
 ### Phase 1 — Blast Radius & Dry-Run Verification
 
 1. Check if `projects/<project>/archive/<speaking_name>/` already exists. If it exists, choose a distinct name or confirm whether appending is intended (`--allow-existing`).
-2. Run `archive_fixed_commits.py` with `--dry-run`:
+2. Run `scripts/archive_fixed_commits.py` with `--dry-run`:
 
 ```bash
-python3 archive_fixed_commits.py <project> <speaking_name> \
+python3 scripts/archive_fixed_commits.py <project> <speaking_name> \
     --reason "<reason>" \
     --fix "<fix>" \
     --dry-run \
@@ -134,7 +134,7 @@ Once the user approves:
 1. Run the archive command without `--dry-run`:
 
 ```bash
-python3 archive_fixed_commits.py <project> <speaking_name> \
+python3 scripts/archive_fixed_commits.py <project> <speaking_name> \
     --reason "<reason>" \
     --fix "<fix>" \
     [target selection options]

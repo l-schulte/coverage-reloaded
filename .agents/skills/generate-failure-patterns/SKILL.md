@@ -188,7 +188,7 @@ Rules for composition:
      script only reads the legacy root path.
    - for a migrated project (patterns in `label_analysis/`), rely on step 3 (manual log
      sampling) before approval, and validate after approval with
-     `python3 check_failures_v2.py <name> --window min --build` followed by
+     `python3 scripts/check_failures_v2.py <name> --window min --build` followed by
      `--progress` (detection/fingerprint counts) — mention that this step writes the
      CSVs and DB, so it runs only on the user's go-ahead.
 3. **Verify the anchors reveal the true error:** for a sample of detected `(run_id, line)`

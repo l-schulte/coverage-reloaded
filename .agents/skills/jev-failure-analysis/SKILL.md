@@ -9,7 +9,7 @@ metadata:
 
 ## What I do
 
-I analyze the output of the automated System 1 labeler ([`check_failures_jev_v2.py`](../../check_failures_jev_v2.py)) stored in `projects/<p>/label_analysis/failure_labels_jev_min.csv`.
+I analyze the output of the automated System 1 labeler ([`scripts/check_failures_jev_v2.py`](../../scripts/check_failures_jev_v2.py)) stored in `projects/<p>/label_analysis/failure_labels_jev_min.csv`.
 
 Jev evaluates failures statelessly as an uncorrupted second opinion. My job in a new session is to:
 1. **Audit Jev's `problematic` verdicts** against the project's git history to perform **causal attribution** (differentiating our pipeline bugs from commit-era developer mistakes).
@@ -25,8 +25,8 @@ Jev evaluates failures statelessly as an uncorrupted second opinion. My job in a
 - **Input label file (dedup-keyword mode):** `projects/<p>/label_analysis/failure_labels_jev_min_dedup.csv` (max: `failure_labels_jev_max_dedup.csv`). One row per `(suite, normalized keyword)` family; the row's `fingerprint` is the family representative. Membership is not stored in the file; it is reconstructed from the human CSV with the same grouping when needed (`--report` does this). **Row counts are not comparable with the human CSV** — one dedup row covers one or more fingerprints.
   - Columns (both modes): `project, window, run_id, suite, exit_code, line_number, fingerprint, n_runs, keyword, is_pipeline_issue, confidence, env_subsystem, labeled_at`
 - **Reference human labels:** `projects/<p>/label_analysis/failure_labels_project_min.csv` — join on `fingerprint`.
-- **Family cards:** `projects/<p>/label_analysis/<p>_min.jsonl` (from `check_failures_v2.py <p> --window min --analyze`) — the same families as above, with `block`, `n_variants`, `suites`, `first_run`/`last_run`.
-- **Execution script:** `check_failures_jev_v2.py` in the workspace root (implementation: `failure_triage/jev.py`).
+- **Family cards:** `projects/<p>/label_analysis/<p>_min.jsonl` (from `scripts/check_failures_v2.py <p> --window min --analyze`) — the same families as above, with `block`, `n_variants`, `suites`, `first_run`/`last_run`.
+- **Execution script:** `scripts/check_failures_jev_v2.py` (implementation: `scripts/failure_triage/jev.py`).
   - Flags: `--project <p>`, `--window min|max`, `--limit <N>`, `--report`, `--dry-run`, `--all`, `--suite`, `--dedup-keyword`, `--dedup-error`, `--concurrency`, `--provider {auto,edenai,typesafe}`, `--model typesafe/jev-latest`, `--yes`, `--self-test`.
   - Routes either through Eden AI (`EDENAI_API_KEY` from `.env`, endpoint `POST /v3/alpha/decisions`, model `typesafe/jev-latest`) or direct TypeSafe (`TYPESAFE_API_KEY`).
   - Reuses the v2 fingerprints and SQLite sidecar (`projects/<p>/label_analysis/failure_labels_v2.db`), **never writes the human label CSVs**, and prints the number of items before spending API tokens. `--dry-run` never calls the API; `--yes` skips the confirmation (use only when the count is already known).
@@ -159,7 +159,7 @@ Follow this structured protocol when asked to analyze Jev's output.
 ### Phase 1 — Summary, Discrepancy Matrix & Cluster Overview
 Bounded scope: compile high-level statistics and cluster disagreements; do NOT inspect individual logs or commit diffs yet.
 
-1. **Aggregate stats:** run `python3 check_failures_jev_v2.py --project <p> --report` (prints the mode, rows, covered fingerprints, union runs overall, and a per-`env_subsystem` table). Add `--dedup-keyword` to report the `_dedup.csv` artifact when that mode was used. If no Jev CSV exists yet, say so and ask before running without `--report` — that spends API tokens.
+1. **Aggregate stats:** run `python3 scripts/check_failures_jev_v2.py --project <p> --report` (prints the mode, rows, covered fingerprints, union runs overall, and a per-`env_subsystem` table). Add `--dedup-keyword` to report the `_dedup.csv` artifact when that mode was used. If no Jev CSV exists yet, say so and ask before running without `--report` — that spends API tokens.
 2. **Discrepancy matrix:** join `failure_labels_jev_min.csv` with human labels in `failure_labels_project_min.csv` on `fingerprint`:
    - Agreement: (acceptable, acceptable), (reevaluated_acceptable, acceptable), (false_positive, …).
    - Discrepancy: Jev `acceptable` vs human `problematic`, Jev `problematic` vs human `acceptable`/`reevaluated_acceptable`, or any other mismatch. Rows missing on one side are "Jev unlabeled" / "human unlabeled", not disagreements.

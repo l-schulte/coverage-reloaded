@@ -40,15 +40,15 @@ root. Every v2 artifact lives under `projects/<p>/label_analysis/`:
 Commands:
 
 ```bash
-python3 check_failures_v2.py <p> --build --window both    # scans output/, writes CSVs + DB (preserves existing labels)
-python3 check_failures_v2.py <p> --progress --window both # labeled/manual/auto + fingerprint, detection, run coverage
-python3 check_failures_v2.py <p> --stats                  # fingerprint statistics + union-run sanity
-python3 check_failures_v2.py <p> --window min --analyze   # writes label_analysis/<p>_min.jsonl
-python3 check_failures_v2.py <p> --window min --auto-classify
-python3 check_failures_v2.py <p> --window min --verify     # drops stale fingerprints, then falls into labeling
-python3 check_failures_v2.py <p> --window min --review <label>
-python3 check_failures_v2.py <p> --window min --report-env # fingerprints whose context hits ENV_PATTERNS
-python3 check_failures_v2.py <p> --crosscheck-v1          # optional consistency check against retired v1 labels
+python3 scripts/check_failures_v2.py <p> --build --window both    # scans output/, writes CSVs + DB (preserves existing labels)
+python3 scripts/check_failures_v2.py <p> --progress --window both # labeled/manual/auto + fingerprint, detection, run coverage
+python3 scripts/check_failures_v2.py <p> --stats                  # fingerprint statistics + union-run sanity
+python3 scripts/check_failures_v2.py <p> --window min --analyze   # writes label_analysis/<p>_min.jsonl
+python3 scripts/check_failures_v2.py <p> --window min --auto-classify
+python3 scripts/check_failures_v2.py <p> --window min --verify     # drops stale fingerprints, then falls into labeling
+python3 scripts/check_failures_v2.py <p> --window min --review <label>
+python3 scripts/check_failures_v2.py <p> --window min --report-env # fingerprints whose context hits ENV_PATTERNS
+python3 scripts/check_failures_v2.py <p> --crosscheck-v1          # optional consistency check against retired v1 labels
 ```
 
 Per commit, a container runs `projects/<p>/install-and-run.sh`; logs are at
@@ -147,11 +147,11 @@ Bounded scope: get the data ready, no assessment yet.
      `generate-failure-patterns` skill and stop.
 2. **Build + recover auto labels** (state what it writes first; these commands
    write labels/rules, so proceed on the user's go-ahead):
-   `python3 check_failures_v2.py <p> --build --window both`, then
-   `python3 check_failures_v2.py <p> --window min --auto-classify` (recovers every
+   `python3 scripts/check_failures_v2.py <p> --build --window both`, then
+   `python3 scripts/check_failures_v2.py <p> --window min --auto-classify` (recovers every
    auto label from `failure_patterns.json` for free; manual labels are redone by
    hand, which is expected).
-3. **Family cards.** `python3 check_failures_v2.py <p> --window min --analyze` —
+3. **Family cards.** `python3 scripts/check_failures_v2.py <p> --window min --analyze` —
    each card carries `window, fingerprint, label, n_runs, n_variants, suites,
    first_run, last_run, example_run, line, keyword, block, auto_rule_id`. Read the
    JSONL instead of the multi-GB logs.
@@ -233,7 +233,7 @@ Process one selected `unclear` or `problematic` family at a time (prioritizing t
    - **Locate it:** (a) `install-and-run.sh` conditional edit (preferred), (b) `Dockerfile` system dep, or (c) document as known failure in `projects/<p>/OVERVIEW.md` "Known Test Failures" if unfixable.
    - **Exposure impact:** note whether it silently under-measures coverage (bail risk) or is an acceptable visible partial result.
 7. **Close the loop after a fix is applied and re-run.** Once the user has applied a fix and re-run the affected commits:
-   - Tell the user to run `python3 check_failures_v2.py <p> --window min --verify`. This drops labels whose fingerprint no longer occurs in the current output, then falls straight into the normal labeling flow, so only newly-changed failures are re-presented. The family's `auto_classify` rule stays `problematic`, so a regression is re-detected and resurfaces rather than being hidden — never relabel a real pipeline defect to `reevaluated_acceptable` just to clear it from the view.
+   - Tell the user to run `python3 scripts/check_failures_v2.py <p> --window min --verify`. This drops labels whose fingerprint no longer occurs in the current output, then falls straight into the normal labeling flow, so only newly-changed failures are re-presented. The family's `auto_classify` rule stays `problematic`, so a regression is re-detected and resurfaces rather than being hidden — never relabel a real pipeline defect to `reevaluated_acceptable` just to clear it from the view.
    - After re-labeling, run `--build --window both` and `--progress --window both`, then continue with the remaining families.
 
 **Checkpoint (per family):** Show the verdict + fix recommendation. Ask: *"Accept, modify, or skip this family?"* Always offer these three. Do not move on until answered.

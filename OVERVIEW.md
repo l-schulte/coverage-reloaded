@@ -94,13 +94,13 @@ dates live in the per-project Results sections, sourced from
   standard probe for time-dependent failures.
 - **`projects/flowfuse/pool-shim.js`** forces a single SQLite `:memory:` connection
   (`pool: { max: 1, min: 1 }`) to fix a pooled-connection migration race.
-- **`stats.py <project>`** scans `projects/<p>/output/` and writes the CSVs, plots,
+- **`scripts/stats.py <project>`** scans `projects/<p>/output/` and writes the CSVs, plots,
   and `stats_output/report.txt` used as the Results source.
-- **`check_failures_v2.py <project>`** detects failure families in non-zero-exit
+- **`scripts/check_failures_v2.py <project>`** detects failure families in non-zero-exit
   runs and writes `label_analysis/failure_labels_project_{min,max}.csv` backed by
   `label_analysis/failure_labels_v2.db`; `--stats` reports the label numbers used
   by the per-project failure triage.
-- **`check_failures_jev_v2.py`** evaluates failing runs with the automated System 1
+- **`scripts/check_failures_jev_v2.py`** evaluates failing runs with the automated System 1
   model (Jev), writing `failure_labels_jev_min.csv`, or one row per family in
   `failure_labels_jev_min_dedup.csv` (dedup-keyword) or
   `failure_labels_jev_min_dedup_error.csv` (dedup-error). Its conclusions are
