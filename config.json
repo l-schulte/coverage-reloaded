@@ -1,203 +1,240 @@
 {
-    "start_date": "2021-01-01",
-    "end_date": "2026-01-01",
-    "max_workers": 10,
-    "launch_delay": 10.0,
-    "projects": {
-        "spreed": {
-            "url": "https://github.com/nextcloud/spreed",
-            "min_pm_version": {
-                "npm": "8"
-            }
-        },
-        "material-ui": {
-            "url": "https://github.com/mui/material-ui",
-            "disabled_node_strategies": [
-                "pnpm-lock.yaml"
-            ],
-            "use_exact_node_version": true,
-            "node_version_overrides": [
-                {
-                    "start_ts": 1754389274,
-                    "end_ts": 1757319331,
-                    "new_version": "20.18"
-                }
-            ]
-        },
-        "pf2e": {
-            "url": "https://github.com/foundryvtt/pf2e",
-            "node_version_lts_offset_months": 1
-        },
-        "bhima": {
-            "url": "https://github.com/third-culture-software/bhima",
-            "package_manager_version_overwrite": "npm"
-        },
-        "gatsby": {
-            "url": "https://github.com/gatsbyjs/gatsby"
-        },
-        "flowfuse": {
-            "url": "https://github.com/FlowFuse/flowfuse",
-            "node_version_delay_months": 24,
-            "min_node_version": 14
-        },
-        "wowanalyzer": {
-            "url": "https://github.com/wowanalyzer/wowanalyzer",
-            "disabled_node_strategies": [
-                "Dockerfile"
-            ],
-            "min_node_version": 12,
-            "node_version_overrides": [
-                {
-                    "start_ts": 1673624560,
-                    "end_ts": 1674253981,
-                    "old_version": 14,
-                    "new_version": "16"
-                }
-            ]
-        },
-        "moodleapp": {
-            "url": "https://github.com/moodlehq/moodleapp",
-            "disabled_node_strategies": [
-                "Angular compatibility"
-            ]
-        },
-        "uwazi": {
-            "url": "https://github.com/huridocs/uwazi",
-            "container_cpus": 12,
-            "node_version_overrides": [
-                {
-                    "start_ts": 1626742218,
-                    "end_ts": 1659708655,
-                    "old_version": 16,
-                    "new_version": "14"
-                }
-            ]
-        },
-        "vega-lite": {
-            "url": "https://github.com/vega/vega-lite"
-        },
-        "openneuro": {
-            "url": "https://github.com/openneuroorg/openneuro",
-            "min_node_version": 12,
-            "node_version_overrides": [
-                {
-                    "start_ts": 0,
-                    "end_ts": 1579737759,
-                    "new_version": "10"
-                }
-            ]
-        },
-        "n8n": {
-            "url": "https://github.com/n8n-io/n8n",
-            "node_version_lts_offset_months": 6,
-            "disabled_node_strategies": [
-                "package.json"
-            ],
-            "container_cpus": 12
-        },
-        "opencrvs-core": {
-            "url": "https://github.com/opencrvs/opencrvs-core"
-        },
-        "apollo-client": {
-            "url": "https://github.com/apollographql/apollo-client",
-            "package_manager_version_overrides": [
-                {
-                    "start_ts": 1627914966,
-                    "end_ts": 1636403951,
-                    "old_version": "npm@7.20.3",
-                    "new_version": "npm@8"
-                }
-            ]
-        },
-        "matrix-js-sdk": {
-            "url": "https://github.com/matrix-org/matrix-js-sdk",
-            "node_version_overrides": [
-                {
-                    "start_ts": 1658323000,
-                    "end_ts": 1675957462,
-                    "new_version": "16"
-                }
-            ]
-        },
-        "uploader": {
-            "url": "https://github.com/tidepool-org/uploader",
-            "min_node_version": 12
-        },
-        "sequelize": {
-            "url": "https://github.com/sequelize/sequelize",
-            "node_version_lts_offset_months": 0,
-            "node_version_delay_months": 0,
-            "disabled_node_strategies": [
-                "package.json"
-            ],
-            "node_version_overrides": [
-                {
-                    "start_ts": 1761609600,
-                    "end_ts": 1767225600,
-                    "old_version": 24,
-                    "new_version": "22"
-                }
-            ]
-        },
-        "compass": {
-            "url": "https://github.com/mongodb-js/compass",
-            "use_first_node_version": true,
-            "package_manager_version_overrides": [
-                {
-                    "start_ts": 1623779898,
-                    "end_ts": 1659951736,
-                    "old_version": "npm@7.16.0",
-                    "new_version": "npm@8"
-                }
-            ]
-        },
-        "desktop": {
-            "url": "https://github.com/desktop/desktop",
-            "use_exact_node_version": true
-        },
-        "webpack": {
-            "url": "https://github.com/webpack/webpack",
-            "node_version_overrides": [
-                {
-                    "start_ts": 0,
-                    "end_ts": 1767225600,
-                    "old_version": 22,
-                    "new_version": "22.20"
-                },
-                {
-                    "start_ts": 0,
-                    "end_ts": 1767225600,
-                    "old_version": 24,
-                    "new_version": "24.7"
-                }
-            ]
-        },
-        "babel": {
-            "url": "https://github.com/babel/babel",
-            "use_exact_node_version": true,
-            "package_manager_skip_engines": true,
-            "package_manager_version_overrides": [
-                {
-                    "start_ts": 0,
-                    "end_ts": 1631823825,
-                    "old_version": "yarn",
-                    "new_version": "yarn@2.4.0"
-                }
-            ],
-            "node_version_overrides": [
-                {
-                    "start_ts": 1699976189,
-                    "end_ts": 1705689684,
-                    "old_version": 16,
-                    "new_version": "18"
-                },
-                {
-                    "start_ts": 1757088750,
-                    "end_ts": 4102444800,
-                    "old_version": 20,
-                    "new_version": "22"
-                }
-            ]
+  "start_date": "2021-01-01",
+  "end_date": "2026-01-01",
+  "max_workers": 10,
+  "launch_delay": 10.0,
+  "projects": {
+    "spreed": {
+      "url": "https://github.com/nextcloud/spreed",
+      "min_pm_version": {
+        "npm": "8"
+      }
+    },
+    "material-ui": {
+      "url": "https://github.com/mui/material-ui",
+      "disabled_node_strategies": [
+        "pnpm-lock.yaml"
+      ],
+      "use_exact_node_version": true,
+      "node_version_overrides": [
+        {
+          "start_ts": 1754389274,
+          "end_ts": 1757319331,
+          "new_version": "20.18"
         }
+      ]
+    },
+    "pf2e": {
+      "url": "https://github.com/foundryvtt/pf2e",
+      "node_version_lts_offset_months": 1
+    },
+    "bhima": {
+      "url": "https://github.com/third-culture-software/bhima",
+      "package_manager_version_overwrite": "npm"
+    },
+    "gatsby": {
+      "url": "https://github.com/gatsbyjs/gatsby"
+    },
+    "flowfuse": {
+      "url": "https://github.com/FlowFuse/flowfuse",
+      "node_version_delay_months": 24,
+      "min_node_version": 14
+    },
+    "wowanalyzer": {
+      "url": "https://github.com/wowanalyzer/wowanalyzer",
+      "disabled_node_strategies": [
+        "Dockerfile"
+      ],
+      "min_node_version": 12,
+      "node_version_overrides": [
+        {
+          "start_ts": 1673624560,
+          "end_ts": 1674253981,
+          "old_version": 14,
+          "new_version": "16"
+        }
+      ]
+    },
+    "moodleapp": {
+      "url": "https://github.com/moodlehq/moodleapp",
+      "disabled_node_strategies": [
+        "Angular compatibility"
+      ]
+    },
+    "uwazi": {
+      "url": "https://github.com/huridocs/uwazi",
+      "container_cpus": 12,
+      "node_version_overrides": [
+        {
+          "start_ts": 1626742218,
+          "end_ts": 1659708655,
+          "old_version": 16,
+          "new_version": "14"
+        }
+      ]
+    },
+    "vega-lite": {
+      "url": "https://github.com/vega/vega-lite"
+    },
+    "openneuro": {
+      "url": "https://github.com/openneuroorg/openneuro",
+      "min_node_version": 12,
+      "node_version_overrides": [
+        {
+          "start_ts": 0,
+          "end_ts": 1579737759,
+          "new_version": "10"
+        }
+      ]
+    },
+    "n8n": {
+      "url": "https://github.com/n8n-io/n8n",
+      "node_version_lts_offset_months": 6,
+      "disabled_node_strategies": [
+        "package.json"
+      ],
+      "container_cpus": 12
+    },
+    "opencrvs-core": {
+      "url": "https://github.com/opencrvs/opencrvs-core"
+    },
+    "apollo-client": {
+      "url": "https://github.com/apollographql/apollo-client",
+      "package_manager_version_overrides": [
+        {
+          "start_ts": 1627914966,
+          "end_ts": 1636403951,
+          "old_version": "npm@7.20.3",
+          "new_version": "npm@8"
+        }
+      ]
+    },
+    "matrix-js-sdk": {
+      "url": "https://github.com/matrix-org/matrix-js-sdk",
+      "node_version_overrides": [
+        {
+          "start_ts": 1658323000,
+          "end_ts": 1675957462,
+          "new_version": "16"
+        }
+      ]
+    },
+    "uploader": {
+      "url": "https://github.com/tidepool-org/uploader",
+      "min_node_version": 12
+    },
+    "sequelize": {
+      "url": "https://github.com/sequelize/sequelize",
+      "node_version_lts_offset_months": 0,
+      "node_version_delay_months": 0,
+      "disabled_node_strategies": [
+        "package.json"
+      ],
+      "node_version_overrides": [
+        {
+          "start_ts": 1761609600,
+          "end_ts": 1767225600,
+          "old_version": 24,
+          "new_version": "22"
+        }
+      ]
+    },
+    "compass": {
+      "url": "https://github.com/mongodb-js/compass",
+      "use_first_node_version": true,
+      "package_manager_version_overrides": [
+        {
+          "start_ts": 1623779898,
+          "end_ts": 1659951736,
+          "old_version": "npm@7.16.0",
+          "new_version": "npm@8"
+        }
+      ],
+      "node_version_overrides": [
+        {
+          "start_ts": 1720926597,
+          "end_ts": 1723212099,
+          "old_version": 18,
+          "new_version": "18.19.1"
+        }
+      ]
+    },
+    "desktop": {
+      "url": "https://github.com/desktop/desktop",
+      "use_exact_node_version": true
+    },
+    "webpack": {
+      "url": "https://github.com/webpack/webpack",
+      "node_version_overrides": [
+        {
+          "start_ts": 0,
+          "end_ts": 1767225600,
+          "old_version": 20,
+          "new_version": "20.9"
+        },
+        {
+          "start_ts": 0,
+          "end_ts": 1767225600,
+          "old_version": 22,
+          "new_version": "22.20"
+        },
+        {
+          "start_ts": 0,
+          "end_ts": 1767225600,
+          "old_version": 24,
+          "new_version": "24.7"
+        }
+      ]
+    },
+    "babel": {
+      "url": "https://github.com/babel/babel",
+      "use_exact_node_version": true,
+      "package_manager_skip_engines": true,
+      "package_manager_version_overrides": [
+        {
+          "start_ts": 0,
+          "end_ts": 1631823825,
+          "old_version": "yarn",
+          "new_version": "yarn@2.4.0"
+        }
+      ],
+      "node_version_overrides": [
+        {
+          "start_ts": 1633360094,
+          "end_ts": 1650458247,
+          "old_version": 16,
+          "new_version": "16"
+        },
+        {
+          "start_ts": 1727372878,
+          "end_ts": 1729156880,
+          "old_version": 20,
+          "new_version": "20.18"
+        },
+        {
+          "start_ts": 1731025803,
+          "end_ts": 1734116101,
+          "old_version": 22,
+          "new_version": "22.11"
+        }
+      ]
+    },
+    "prebid": {
+      "url": "https://github.com/prebid/Prebid.js",
+      "node_version_overrides": [
+        {
+          "start_ts": 1706640086,
+          "end_ts": 1718318484,
+          "old_version": 12,
+          "new_version": "16"
+        },
+        {
+          "start_ts": 1718318485,
+          "end_ts": 1718540142,
+          "old_version": 12,
+          "new_version": "20"
+        }
+      ]
     }
+  }
 }

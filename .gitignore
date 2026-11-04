@@ -13,6 +13,8 @@
 *.db
 *.jsonl
 
+LCOV_SANITY.md
+
 *additional_information.csv
 *old_commits.csv
 *dashboard-index.json
@@ -31,6 +33,7 @@
 **/results*/
 **/stats_output/
 **/bin*
+**/pending_archive/
 projects/**/archive/
 projects/**/label_analysis/v1/
 archive/**/archive/

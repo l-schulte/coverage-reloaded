@@ -22,7 +22,7 @@ Five items, always in this order:
 | **failed tests doublechecked** | Non-zero-exit runs were inspected and classified. |
 | **complete run** | The full commit history has been processed. |
 | **complete test failure check** | Every failing run has been labeled and assessed. |
-| **complete JEV test failure check** | Automated System 1 labeling via Jev (`label_analysis/failure_labels_jev_min.csv`, or `failure_labels_jev_min_dedup.csv` in dedup-keyword mode) evaluated failing runs. Done when the file has no flagged families or `label_analysis/jev_audit.md` is current. |
+| **complete JEV test failure check** | Automated System 1 labeling via Jev (`label_analysis/failure_labels_jev_min.csv`, or `failure_labels_jev_min_dedup.csv` in dedup-keyword mode, or `failure_labels_jev_min_dedup_error.csv` in dedup-error mode) evaluated failing runs. Done when the file has no flagged families or `label_analysis/jev_audit.md` is current. |
 
 Symbols: ✅ done, 🟡 work in progress, 🚧 paused (partially processed), 🆘 inclusion criterion not met or at risk, ❌ not done.
 
@@ -63,26 +63,25 @@ dates live in the per-project Results sections, sourced from
 |  # | Project                                             | 100 done | failed tests doublechecked | complete run | complete test failure check | complete JEV test failure check |
 | -- | --------------------------------------------------- | -------- | -------------------------- | ------------ | --------------------------- | ------------------------------- |
 |  1 | [apollo-client](projects/apollo-client/OVERVIEW.md) | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-|  2 | [babel](projects/babel/OVERVIEW.md)                 | ✅       | ✅                         | ❌           | ❌                          | ❌                              |
+|  2 | [babel](projects/babel/OVERVIEW.md)                 | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 |  3 | [bhima](projects/bhima/OVERVIEW.md)                 | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-|  4 | [compass](projects/compass/OVERVIEW.md)             | ✅       | ✅                         | 🟡           | ❌                          | ❌                              |
+|  4 | [compass](projects/compass/OVERVIEW.md)             | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 |  5 | [desktop](projects/desktop/OVERVIEW.md)             | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 |  6 | [flowfuse](projects/flowfuse/OVERVIEW.md)           | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-|  7 | [gatsby](projects/gatsby/OVERVIEW.md)               | ✅       | ✅                         | 🟡           | 🚧                          | 🚧                              |
+|  7 | [gatsby](projects/gatsby/OVERVIEW.md)               | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 |  8 | [material-ui](projects/material-ui/OVERVIEW.md)     | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 |  9 | [matrix-js-sdk](projects/matrix-js-sdk/OVERVIEW.md) | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 | 10 | [moodleapp](projects/moodleapp/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| 11 | [n8n](projects/n8n/OVERVIEW.md)                     | ✅       | ✅                         | ✅           | ✅                          | ❌                              |
-| 12 | [opencrvs-core](projects/opencrvs-core/OVERVIEW.md) | ✅       | ✅                         | 🟡           | 🚧                          | 🚧                              |
-| 13 | [openneuro](projects/openneuro/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| 14 | [pf2e](projects/pf2e/OVERVIEW.md)                   | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| 15 | [sequelize](projects/sequelize/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| 16 | [spreed](projects/spreed/OVERVIEW.md)               | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| 17 | [uploader](projects/uploader/OVERVIEW.md)           | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| 18 | [uwazi](projects/uwazi/OVERVIEW.md)                 | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| 19 | [vega-lite](projects/vega-lite/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
-| 20 | [webpack](projects/webpack/OVERVIEW.md)             | ✅       | ✅                         | ✅           | 🚧 (todo: 6837)             | ❌                              |
-| 21 | [wowanalyzer](projects/wowanalyzer/OVERVIEW.md)     | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 11 | [openneuro](projects/openneuro/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 12 | [pf2e](projects/pf2e/OVERVIEW.md)                   | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 13 | [prebid](projects/prebid/OVERVIEW.md)               | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 14 | [sequelize](projects/sequelize/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 15 | [spreed](projects/spreed/OVERVIEW.md)               | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 16 | [uploader](projects/uploader/OVERVIEW.md)           | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 17 | [uwazi](projects/uwazi/OVERVIEW.md)                 | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 18 | [vega-lite](projects/vega-lite/OVERVIEW.md)         | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 19 | [webpack](projects/webpack/OVERVIEW.md)             | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
+| 20 | [wowanalyzer](projects/wowanalyzer/OVERVIEW.md)     | ✅       | ✅                         | ✅           | ✅                          | ✅                              |
 
 ## Cross-cutting infrastructure
 ^
@@ -102,8 +101,9 @@ dates live in the per-project Results sections, sourced from
   `label_analysis/failure_labels_v2.db`; `--stats` reports the label numbers used
   by the per-project failure triage.
 - **`check_failures_jev_v2.py`** evaluates failing runs with the automated System 1
-  model (Jev), writing `failure_labels_jev_min.csv` or, in dedup-keyword mode,
-  `failure_labels_jev_min_dedup.csv` (one row per family). Its conclusions are
+  model (Jev), writing `failure_labels_jev_min.csv`, or one row per family in
+  `failure_labels_jev_min_dedup.csv` (dedup-keyword) or
+  `failure_labels_jev_min_dedup_error.csv` (dedup-error). Its conclusions are
   audited in `label_analysis/jev_audit.md`.
 
 ## Host system prerequisites
