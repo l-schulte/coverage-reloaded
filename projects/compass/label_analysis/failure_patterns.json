@@ -1,0 +1,913 @@
+{
+  "general": {
+    "patterns": [
+      "\\bAssertionError\\b",
+      "\\b[A-Za-z0-9_]*Error:",
+      "All files\\s*\\|\\s*0\\s*\\|\\s*0\\s*\\|\\s*0\\s*\\|\\s*0",
+      "skipping (?:standalone )?electron smoke suite"
+    ],
+    "exclude": [
+      "npm ERR!",
+      "lerna (?:ERR!|notice|info|success)",
+      "^[\\s\u2502@\\w/-]*[\u2714\u2713]",
+      "\\bmain\\.js\\.map\\b",
+      "^\\s*at\\s+",
+      "^\\s*(\\+|-)\\s",
+      "^\\s*(?:Test Suites|Tests):",
+      "^\\[SUITE_"
+    ],
+    "exclude_blocks": []
+  },
+  "suites": {
+    "test": {
+      "remove_patterns": [],
+      "add_patterns": [],
+      "remove_exclude": [],
+      "add_exclude": []
+    }
+  },
+  "auto_classify": [
+    {
+      "match": "@mongodb\\-js/compass\\-metrics:\\ \\ \\ \\ \\ \\ Error:\\ queryTxt\\ ECONNREFUSED\\ _cloud\\-netblocks\\.googleusercontent\\.com",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "80b068a5de32",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Cannot\\ find\\ module\\ '.*\\.js'\\.\\ Please\\ verify\\ that\\ the\\ package\\.json\\ has\\ a\\ valid\\ \"main\"\\ entry",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "b19d04baff90",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ spawn\\ node_modules/electron/dist/electron\\ ENOENT",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "d7af551daccf",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Cannot\\ find\\ module\\ '.*index\\.js'",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "c52b1fea34ad",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "mongodb\\-runner:bin:mongodb\\-runner\\-worker\\.js\\ Unexpected\\ error\\.\\ Exiting\\.\\ Error:\\ Command\\ failed:\\ mongod\\ \\-\\-setParameter\\ enableTestCommands=1\\ \\-\\-port\\ 27018\\ \\-\\-dbpath\\ /root/\\.mongodb/data/standalone\\ \\-\\-logpath\\ /root/\\.mongodb/runner/standalone\\.log",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "bca6dc96296b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\{.*\\}\\ to\\ deeply\\ equal\\ \\{.*\\}",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "0aa4058e7c39",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Timeout\\ of\\ \\d+ms\\ exceeded\\.\\ For\\ async\\ tests\\ and\\ hooks,\\ ensure\\ \"done\\(\\)\"\\ is\\ called;\\ if\\ returning\\ a\\ Promise,\\ ensure\\ it\\ resolves\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "803eefa079fd",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ 'getaddrinfo\\ EAI_AGAIN\\ nonexistent\\-ssh\u2026'\\ to\\ equal\\ 'getaddrinfo\\ ENOTFOUND\\ nonexistent\\-ssh\u2026'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "10e1d6ba9707",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ Target\\ cannot\\ be\\ null\\ or\\ undefined\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "bf724556c849",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-import\\-export:\\ mongodb\\-runner:bin:mongodb\\-runner\\-worker\\.js\\ Unexpected\\ error\\.\\ Exiting\\.\\ Error:\\ Command\\ failed:\\ mongod\\ \\-\\-setParameter\\ enableTestCommands=1\\ \\-\\-port\\ 27018\\ \\-\\-dbpath\\ /root/\\.mongodb/data/standalone\\ \\-\\-logpath\\ /root/\\.mongodb/runner/standalone\\.log",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "905bf8a2fa59",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "MongoNetworkError:\\ connect\\ ECONNREFUSED\\ 127\\.0\\.0\\.1:27018",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "f570c2a08cc3",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "MongoNotConnectedError:\\ MongoClient\\ must\\ be\\ connected\\ to\\ perform\\ this\\ operation",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "0d323b172129",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Cannot\\ read\\ property\\ 'elements'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "c6f57219e35d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Could\\ not\\ locate\\ the\\ bindings\\ file\\.\\ Tried:",
+      "label": "problematic",
+      "note": "Our setup: mongodb-client-encryption's native addon (mongocrypt.node) is never built because npm install --ignore-scripts suppresses its prebuild-install/node-gyp step and upstream node-rebuild covers only kerberos/keytar/interruptor. In driver-v4 eras data-service requires the module at import, so the whole package suite dies. Fixed by a presence-guarded 'npm rebuild mongodb-client-encryption --unsafe-perm' in install-and-run.sh.",
+      "lines": 0,
+      "id": "54cc3dd5700c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "FetchError:\\ request\\ to\\ https://downloads\\.mongodb\\.org/full\\.json\\ failed,\\ reason:\\ getaddrinfo\\ EAI_AGAIN\\ downloads\\.mongodb\\.org",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "537788c2f60d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ property\\ 'getCSFLEMode'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "9d96b4893fa4",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Client\\ not\\ yet\\ initialized",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "038fae55353b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\-\\d+\\ to\\ equal\\ \\+\\d+",
+      "label": "acceptable",
+      "note": "",
+      "lines": 5,
+      "id": "519b332ba3a7",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ Document\\{.*\\}\\ to\\ not\\ equal\\ Document\\{.*\\}",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "62e30d181910",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ done\\(\\)\\ called\\ multiple\\ times\\ in\\ hook\\ <SSHTunnel\\ \"after\\ each\"\\ hook\\ in\\ \"SSHTunnel\">\\ of\\ file\\ packages/ssh\\-tunnel/src/index\\.spec\\.ts;\\ in\\ addition,\\ done\\(\\)\\ received\\ error:\\ Error:\\ connect\\ ECONNREFUSED\\ 127\\.0\\.0\\.1:36449",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "8c5b06b77c4c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-import\\-export:\\ \\ \\ \\ \\ Error:\\ foo",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "05e3f3da523c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-crud:\\ \\ \\ \\ \\ \\ Error:\\ Didn't\\ expect\\ update\\ to\\ error\\.\\ Errored\\ with\\ message:\\ An\\ error\\ occured\\ when\\ attempting\\ to\\ update\\ the\\ document",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "adbc3e79742a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ done\\(\\)\\ called\\ multiple\\ times\\ in\\ hook\\ .*\\ in\\ addition,\\ done\\(\\)\\ received\\ error:\\ \\[Error:\\ ENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ scandir\\ .*\\]\\ \\{",
+      "label": "reevaluated_acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "1a5273f74cdb",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Uncaught\\ Error:\\ ENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ scandir\\ .*",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "caf0629e1bc8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "You\\ likely\\ forgot\\ to\\ export\\ your\\ component\\ from\\ the\\ file\\ it's\\ defined\\ in,\\ or\\ you\\ might\\ have\\ mixed\\ up\\ default\\ and\\ named\\ imports\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "936bbabd4aa9",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ textRange\\(\\.\\.\\.\\)\\.getClientRects\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "a63292c2ee7e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-connections:\\ \\ \\ \\ \\ \\ \\ AssertionError:\\ expected\\ false\\ to\\ equal\\ true",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "145a3cc58503",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-import\\-export:\\ \\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'dropCollection'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "acd4d3c91b4c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-import\\-export:\\ \\ \\ \\ \\ \\ MongoBulkWriteError:\\ Invalid\\ BSON\\ column\\ in\\ element\\ with\\ field\\ name\\ 'documents\\.0\\.binaries\\.compressedTimeSeries'\\ in\\ object\\ with\\ unknown\\ _id",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "44cd6a00c6d7",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ ENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ open\\ '/tmp/s.*'",
+      "label": "reevaluated_acceptable",
+      "note": "Upstream CI flake, 2023-05-15..2023-05-18 (097c9604c5..dd6960eabb): 097c9604c5 duplicated the temp.createWriteStream()/readFile(output.path) assertion inside a unix/windows loop, so the read-back races the temp write stream (ENOENT on /tmp/s-*). Mongo chased it as 'importCSV CI flake' (#4394) and removed the assertion in 2fe2a32345 (#4397). Dev-facing test race, valid coverage.",
+      "lines": 0,
+      "id": "f8c871a644c0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-crud:\\ Attempt\\ 1\\ failed\\ Error:\\ port\\ 27022\\ is\\ open",
+      "label": "false_positive",
+      "note": "Benign transient notice from compass-crud's posttest stop-test-mdb-server: the script kills mongod, polls the port, attempt 1 loses the race and the retry succeeds ('27022 is closed'). Upstream's own retry, no coverage impact.",
+      "lines": 0,
+      "id": "1dba0079fa13",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "mongodb\\-data\\-service:\\ Attempt\\ \\d+\\ failed\\ MongoServerSelectionError:\\ connect\\ ECONNREFUSED\\ 127\\.0\\.0\\.1:27021",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "2badedc1983d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "mongodb\\-data\\-service:\\ Error:\\ All\\ the\\ attempts\\ failed\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "a4a153820b33",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-crud:\\ Server\\ port\\ is\\ already\\ closed,\\ the\\ server\\ has\\ been\\ killed\\ or\\ crashed\\ Error:\\ port\\ 27022\\ is\\ closed",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "06e84225b9a5",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-shell:\\ \\ \\ \\ \\ \\ \\ AssertionError:\\ expected\\ 'none'\\ to\\ equal\\ 'flex'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "f8bade72fe7a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "done\\(\\)\\ called\\ multiple\\ times\\ in\\ test\\ <store\\ .*>\\ of\\ file\\ ",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "4ccbbded64f6",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "mongodb\\-data\\-service:\\ \\ \\ \\ \\ \\ \\ AssertionError:\\ expected\\ promise\\ to\\ be\\ rejected\\ with\\ an\\ error\\ including\\ 'Unrecognized\\ pipeline\\ stage\\ name:\\ \\\\'\\$\u2026'\\ but\\ got\\ '\\$listSearchIndexes\\ stage\\ is\\ only\\ allo\u2026'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "b076df5c687a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "mongodb\\-data\\-service:\\ \\ \\ \\ \\ \\ MongoMissingDependencyError:\\ Auto\\-encryption\\ requested,\\ but\\ the\\ module\\ is\\ not\\ installed\\.\\ Please\\ add\\ `mongodb\\-client\\-encryption`\\ as\\ a\\ dependency\\ of\\ your\\ project",
+      "label": "problematic",
+      "note": "Same root cause as 54cc3dd5700c, surfaced by driver v6: checkForMongoCrypt cannot require mongodb-client-encryption because its native addon was never built. Fixed by the presence-guarded 'npm rebuild mongodb-client-encryption --unsafe-perm' in install-and-run.sh.",
+      "lines": 0,
+      "id": "6e89cccd470f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-crud:\\ \\ \\ \\ \\ \\ Uncaught\\ TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'key'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "c85384580bda",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "mongodb\\-data\\-service:\\ \\ \\ \\ \\ \\ FetchError:\\ request\\ to\\ https://fastdl\\.mongodb\\.org/linux/mongodb\\-linux\\-x86_64.*\\.tgz\\ failed,\\ reason:\\ getaddrinfo\\ EAI_AGAIN\\ fastdl\\.mongodb\\.org",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "4dc5e14002a6",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Expected\\ key\\ descriptor\\ but\\ found\\ \"\"\\ in\\ \"\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "bac7dc68e023",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Could\\ not\\ parse\\ CSS\\ stylesheet",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "70448f0375d3",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-databases\\-collections:\\ Error:\\ Uncaught\\ \\[TypeError:\\ instance\\.removeListener\\ is\\ not\\ a\\ function\\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "b8ddbdc84d91",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-databases\\-collections:\\ \\ \\ \\ \\ at\\ processImmediate\\ \\(node:internal/timers:466:21\\)\\ TypeError:\\ instance\\.removeListener\\ is\\ not\\ a\\ function",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "9793e8591bcc",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-crud:\\ \\ \\ \\ \\ \\ Uncaught\\ TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'getPreferences'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "1662e1082990",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-web:\\ \\ \\ Error:\\ Unable\\ to\\ find\\ role=\"tree\"",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "d5ee97bf0a1f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ ENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ open\\ '/tmp/compass\\-export\\-json\\-test/test\\-\\d+/test\\-abort\\.exported\\.ejson'",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "c59a3fcd7e0d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-sidebar:\\ TypeError:\\ \\(0\\ ,\\ provider_2\\.createNoopLoggerAndTelemetry\\)\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "deb0ced44a77",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-telemetry:\\ \\ \\ \\ \\ \\ \\ AssertionError:\\ expected\\ \\[\\]\\ to\\ deeply\\ equal\\ \\[\\ \\{\\ event:\\ 'Test\\ Event2',\\ \u2026\\(1\\)\\ \\}\\ \\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "e8d29a23f0f8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-crud:\\ \\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'before'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "dc06171cc99e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-crud:\\ \\ \\ \\ \\ \\ MongoWriteConcernError:\\ operation\\ was\\ interrupted",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "d1ea42fdd8fd",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-schema\\-validation:\\ \u2716\\ ERROR:\\ ReferenceError:\\ require\\ is\\ not\\ defined\\ in\\ ES\\ module\\ scope,\\ you\\ can\\ use\\ import\\ instead",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "f53f057db3ea",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-web:\\ \\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'map'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "afacf2938e6a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TestingLibraryElementError:\\ Unable\\ to\\ find\\ an\\ element\\ by:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "6a3ebf6241c0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TestingLibraryElementError:\\ Unable\\ to\\ find\\ an\\ element\\ with the\\ text:",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "6a3ebf6241cr",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\[\\ 'name',\\ 'age'\\ \\]\\ to\\ deeply\\ equal\\ \\[.*\\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "1d95e4600dc1",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Auto\\-encryption\\ requested,\\ but\\ the\\ module\\ is\\ not\\ installed",
+      "label": "problematic",
+      "note": "Same root cause as 54cc3dd5700c, surfaced by driver v6: checkForMongoCrypt cannot require mongodb-client-encryption because its native addon was never built. Fixed by the presence-guarded 'npm rebuild mongodb-client-encryption --unsafe-perm' in install-and-run.sh.",
+      "lines": 0,
+      "id": "6a97bc27dc47",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "skipping (?:standalone )?electron smoke suite",
+      "label": "acceptable",
+      "note": "Deliberate exclusion: patch-coverage.js replaces electron-only test scripts with a no-op that prints this line. Electron suites run inside Chromium, where line coverage cannot be collected, so no tests execute and no .lcov is emitted. Recorded so the exclusion stays auditable (OVERVIEW.md 'Known gaps').",
+      "lines": 0,
+      "id": "24e1817d97d7",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-instance:\\s+All files\\s*\\|\\s*0\\s*\\|\\s*0\\s*\\|\\s*0\\s*\\|\\s*0",
+      "label": "acceptable",
+      "note": "Documented gap (OVERVIEW.md 'Known gaps'): upstream deleted src/plugin.spec.js in 1a6ac32a1b while leaving the test glob scoped to src/, so the suite matched no files. Not recoverable without fabricating a deleted upstream test.",
+      "lines": 0,
+      "id": "cb311cdc8b76",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "hadron\\-ipc:\\s+All files\\s*\\|\\s*0\\s*\\|\\s*0\\s*\\|\\s*0\\s*\\|\\s*0",
+      "label": "acceptable",
+      "note": "Documented exclusion (OVERVIEW.md 'Known gaps'): the package's test script is an electron-mocha / hadron-build smoke suite neutralized by patch-coverage.js, so no tests run and no .lcov is emitted. Expected state, not a measurement defect.",
+      "lines": 0,
+      "id": "0a3f511e956e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "hadron\\-auto\\-update\\-manager:\\s+All files\\s*\\|\\s*0\\s*\\|\\s*0\\s*\\|\\s*0\\s*\\|\\s*0",
+      "label": "acceptable",
+      "note": "Documented exclusion (OVERVIEW.md 'Known gaps'): the package's test script is an electron-mocha / hadron-build smoke suite neutralized by patch-coverage.js, so no tests run and no .lcov is emitted. Expected state, not a measurement defect.",
+      "lines": 0,
+      "id": "feb408e92171",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "^mongodb\\-compass:\\s+All files\\s*\\|\\s*0\\s*\\|\\s*0\\s*\\|\\s*0\\s*\\|\\s*0",
+      "label": "acceptable",
+      "note": "Documented exclusion (OVERVIEW.md 'Known gaps'): the package's test script is an electron-mocha / hadron-build smoke suite neutralized by patch-coverage.js, so no tests run and no .lcov is emitted. Expected state, not a measurement defect.",
+      "lines": 0,
+      "id": "2351af88d24a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-saved\\-aggregations\\-queries:\\s+All files\\s*\\|\\s*0\\s*\\|\\s*0\\s*\\|\\s*0\\s*\\|\\s*0",
+      "label": "acceptable",
+      "note": "Documented exclusion (OVERVIEW.md 'Known gaps'): the package's test script is an electron-mocha / hadron-build smoke suite neutralized by patch-coverage.js, so no tests run and no .lcov is emitted. Expected state, not a measurement defect.",
+      "lines": 0,
+      "id": "1c18402e6853",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "All files\\s*\\|\\s*0\\s*\\|\\s*0\\s*\\|\\s*0\\s*\\|\\s*0",
+      "label": "problematic",
+      "note": "A package reported an all-zero coverage table, i.e. nyc instrumented nothing. Root cause found: the package ships a .nycrc with \"instrument\": false (valid only for mocha-webpack/babel-istanbul builds) while its suite runs plain mocha, so the package silently contributes no LCOV at all. Fixed in patch-coverage.js by repairing such .nycrc files when the test script no longer uses mocha-webpack.",
+      "lines": 0,
+      "id": "d3e0f3ca37fb",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Attempt\\s+\\d+\\s+failed\\s+Error:\\s+port\\s+\\d+\\s+is\\s+open",
+      "label": "false_positive",
+      "note": "Benign transient notice from compass-crud's posttest stop-test-mdb-server: the script kills mongod, polls the port, attempt 1 loses the race and the retry succeeds ('27022 is closed'). Upstream's own retry, no coverage impact.",
+      "lines": 0,
+      "id": "85a1ae9827e2",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "FetchError:\\ network\\ timeout\\ at:\\ http://waypack:3000/request/https://ip\\-ranges\\.amazonaws\\.com/ip\\-ranges\\.json",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "c21d2e2d3d22",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "mongodb\\-js\\-metrics:\\ \\ \\ \\ \\ \\ Error:\\ socket\\ hang\\ up",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "3e57d6e77b90",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "mongodb\\-js\\-metrics:\\ \\ \\ \\ \\ \\ Uncaught\\ AssertionError\\ \\[ERR_ASSERTION\\]:\\ ifError\\ got\\ unwanted\\ exception:\\ socket\\ hang\\ up",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "cb89066bd9ef",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "FetchError:\\ request\\ to\\ http://waypack:3000/request/https://ip\\-ranges\\.amazonaws\\.com/ip\\-ranges\\.json\\ failed,\\ reason:\\ socket\\ hang\\ up",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "f405b0838eed",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Command\\ failed\\ with\\ ENOENT:\\ docker\\-compose\\ \\-p\\ community\\-.*\\ \\-f\\ docker\\-compose\\.yaml\\ up\\ \\-d\\ \\-\\-force\\-recreate\\ \\-\\-remove\\-orphans",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "ce0bb785d971",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "mongodb\\-connection\\-model:\\ \\ \\ \\ \\ \\ AssertionError:\\ expected\\ \\[Error:\\ queryTxt\\ ECONNREFUSED\\ compass\\-data\\-sets\\.e06dc\\.mongodb\\.net\\]\\ to\\ not\\ exist",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "346106a66f93",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-indexes:\\ Error:\\ Uncaught\\ \\[RangeError:\\ Maximum\\ call\\ stack\\ size\\ exceeded\\]",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "fd9dbf1af7ba",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-indexes:\\ \\ \\ \\ \\ at\\ processTimers\\ \\(internal/timers\\.js:<n>:<n>\\)\\ RangeError:\\ Maximum\\ call\\ stack\\ size\\ exceeded",
+      "label": "false_positive",
+      "note": "",
+      "lines": 0,
+      "id": "021358e6930b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "mongodb\\-data\\-service:\\ \\ \\ \\ \\ \\ AssertionError:\\ expected\\ 'getaddrinfo\\ EAI_AGAIN\\ compass\\-tests\\.fakehost\\.localhost'\\ to\\ match\\ /\\(All\\ configured\\ authentication\\ methods\\ failed\\|ENOTFOUND\\ compass\\-tests\\\\\\.fakehost\\\\\\.localhost\\)/",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "6f256083b683",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ .*\\ to\\ not\\ exist",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "6f256083b68e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Could\\ not\\ load\\ worker\\ TypeError:\\ name\\.split\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "693477c8e4c5",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ .*\\ to\\ not\\ equal\\ .*",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "6f256083b68e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/ssh\\-tunnel:\\ \\ \\ \\ \\ \\ \\ AssertionError:\\ expected\\ 'getaddrinfo\\ EAI_AGAIN\\ nonexistent\\-ssh\\-server\\.test'\\ to\\ equal\\ 'getaddrinfo\\ ENOTFOUND\\ nonexistent\\-ssh\\-server\\.test'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "ea5e335a544a",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-crud:\\ AssertionError:\\ expected\\ \\-1\\ to\\ equal\\ 0",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "8d22a0cde98f",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ a\\.throwAnErrorNow\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "02398d50b669",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/ssh\\-tunnel:\\ \\ \\ \\ \\ \\ Uncaught\\ Error:\\ connect\\ ECONNREFUSED\\ 127\\.0\\.0\\.1:\\d+",
+      "label": "problematic",
+      "note": "",
+      "lines": 0,
+      "id": "6a7b09ec85b5",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/ssh\\-tunnel:\\ \\ \\ Error:\\ done\\(\\)\\ called\\ multiple\\ times\\ in\\ test\\ <SSHTunnel\\ fails\\ on\\ listen\\ call\\ if\\ ssh\\ server\\ is\\ not\\ available>\\ of\\ file\\ packages/ssh\\-tunnel/src/index\\.spec\\.ts;\\ in\\ addition,\\ done\\(\\)\\ received\\ error:\\ AssertionError:\\ expected\\ 'Server\\ is\\ not\\ running\\.'\\ to\\ equal\\ 'getaddrinfo\\ ENOTFOUND\\ nonexistent\\-ssh",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "b40bb92ff6d7",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-crud:\\ AssertionError:\\ expected\\ null\\ to\\ equal\\ \\+0",
+      "label": "acceptable",
+      "note": "",
+      "lines": 1,
+      "id": "dd8d33e5346c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-crud:\\ \\(node:\\d+\\)\\ UnhandledPromiseRejectionWarning:\\ TypeError:\\ Cannot\\ read\\ property\\ 'key'\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "5e8798f207f9",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "mongodb\\-connection\\-model:\\ \\ \\ \\ \\ \\ Uncaught\\ AssertionError:\\ expected\\ 'Server\\ record\\ does\\ not\\ share\\ hostname\u2026'\\ to\\ include\\ 'Property\\ \\\\'socketTimeoutMS\\\\'\\ must\\ be\\ \u2026'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "1e881f04d7a8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-crud:\\ \\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ property\\ 'args'\\ of\\ null",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "01c9cd55ddde",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-connections:\\ \\ \\ \\ \\ \\ \\ AssertionError:\\ expected\\ 'rgb\\(33,\\ 49,\\ 60\\)'\\ to\\ equal\\ 'rgb\\(255,\\ 255,\\ 255\\)'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "028e784a3707",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-crud:\\ \\ \\ \\ \\ \\ \\ AssertionError:\\ expected\\ \\[\\]\\ to\\ have\\ a\\ length\\ of\\ 1\\ but\\ got\\ \\+0",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "1211302136a5",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-logging:\\ \\ \\ \\ \\ \\ \\ AssertionError:\\ expected\\ \\[\\]\\ to\\ deeply\\ equal\\ \\[\\ \\{\\ event:\\ 'Test\\ Event2',\\ \u2026\\(1\\)\\ \\}\\ \\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "9af197c80b31",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-web:\\ \\ \\ \\ \\ \\ TypeError:\\ fetch\\ failed",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "1e0bb83c2fbd",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "mongodb\\-data\\-service:\\ \\ \\ \\ \\ \\ TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined\\ \\(reading\\ 'some'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "753151ec01d9",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-import\\-export:\\ \\ \\ \\ \\ \\ AssertionError:\\ expected\\ ''\\ to\\ be\\ an\\ instance\\ of\\ Error",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "2b97f96395f7",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "@mongodb\\-js/compass\\-crud:\\ \\ \\ Error:\\ Timeout\\ reached\\ before\\ all\\ state\\ transitions",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "bac08dbca024",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "mongodb\\-data\\-service:\\ \\ \\ \\ \\ \\ AssertionError:\\ expected\\ 'getaddrinfo\\ EAI_AGAIN\\ compass\\-tests\\.f\u2026'\\ to\\ match\\ /\\(All\\ configured\\ authentication\\ methods\\ failed\\|ENOTFOUND\\ compass\\-tests\\\\\\.fakehost\\\\\\.localhost\\)/",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "f80a118e7372",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "mongodb\\-data\\-service:\\ \\ \\ \\ \\ \\ AssertionError:\\ expected\\ 'getaddrinfo\\ EAI_AGAIN\\ compass\\-tests\\.f\u2026'\\ to\\ match\\ /\\(All\\ configured\\ authentication\\ methods\\ failed\\|ENOTFOUND\\ compass\\-tests\\\\\\.fakehost\\\\\\.localhost\\)\\|ECONNREFUSED\\ 127\\.0\\.0\\.1:22/",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "32941896b71e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "mongodb\\-data\\-service:\\ \\ \\ \\ \\ \\ Error:\\ Command\\ failed\\ with\\ exit\\ code\\ 1:\\ docker\\-compose\\ \\-p\\ community\\-.*\\ \\-f\\ docker\\-compose\\.yaml\\ up\\ \\-d\\ \\-\\-force\\-recreate\\ \\-\\-remove\\-orphans",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "5963ce3ad125",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\-js/compass\\-indexes:\\ Error:\\ Uncaught\\ \\[RangeError:\\ Maximum\\ call\\ stack\\ size\\ exceeded\\]",
+      "label": "unclear",
+      "note": "",
+      "lines": 0,
+      "id": "ca36bfd0b163",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "mongodb\\-connection\\-model:\\ \\ \\ \\ \\ \\ Error:\\ done\\(\\)\\ called\\ multiple\\ times\\ in\\ test\\ <connection\\ model\\ parser\\ should\\ parse\\ URI\\ components\\ such\\ as\\ prefix\\ should\\ set\\ only\\ one\\ hostname\\ without\\ decorating\\ it\\ with\\ the\\ replica\\ set\\ info>\\ of\\ file\\ packages/connection\\-model/test/parse\\-uri\\-components\\.test\\.js",
+      "label": "acceptable",
+      "note": "",
+      "lines": 0,
+      "id": "6d97dde4cd0c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    }
+  ]
+}
