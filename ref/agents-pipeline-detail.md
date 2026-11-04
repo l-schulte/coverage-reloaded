@@ -59,10 +59,11 @@ Temporal registry: serves each package **as it existed at the commit's timestamp
 
 **`find-and-move-lcov.sh` signature:**
 ```bash
-bash ../find-and-move-lcov.sh [TEST_TYPE] [PREPEND_PATHS] [TEST_EXIT_CODE]
+bash ../find-and-move-lcov.sh [TEST_TYPE] [PREPEND_PATHS] [TEST_EXIT_CODE] [STRIP_PREFIX]
 # $1 TEST_TYPE       — label → filename (e.g. "unit" → unit.lcov.info)
 # $2 PREPEND_PATHS   — "true" for workspace monorepos
 # $3 TEST_EXIT_CODE  — stored as <TEST_TYPE>.exit_code sidecar
+# $4 STRIP_PREFIX    — optional prefix to strip from SF: paths (e.g. "bin/")
 ```
 
 Finds all `lcov.info` under `$REPOPATH` (excluding `node_modules`), strips `$REPOPATH` and `co_re_*` prefixes from `SF:` lines, optionally prepends workspace-relative paths, moves to `$COVERAGE_REPORT_PATH`. **Exits 1 if no `lcov.info` found.**

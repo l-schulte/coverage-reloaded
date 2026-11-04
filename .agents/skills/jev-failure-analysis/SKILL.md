@@ -27,7 +27,7 @@ Jev evaluates failures statelessly as an uncorrupted second opinion. My job in a
 - **Reference human labels:** `projects/<p>/label_analysis/failure_labels_project_min.csv` — join on `fingerprint`.
 - **Family cards:** `projects/<p>/label_analysis/<p>_min.jsonl` (from `check_failures_v2.py <p> --window min --analyze`) — the same families as above, with `block`, `n_variants`, `suites`, `first_run`/`last_run`.
 - **Execution script:** `check_failures_jev_v2.py` in the workspace root (implementation: `failure_triage/jev.py`).
-  - Flags: `--project <p>`, `--window min|max`, `--limit <N>`, `--report`, `--dry-run`, `--all`, `--suite`, `--dedup-keyword`, `--concurrency`, `--provider {auto,edenai,typesafe}`, `--model typesafe/jev-latest`, `--yes`, `--self-test`.
+  - Flags: `--project <p>`, `--window min|max`, `--limit <N>`, `--report`, `--dry-run`, `--all`, `--suite`, `--dedup-keyword`, `--dedup-error`, `--concurrency`, `--provider {auto,edenai,typesafe}`, `--model typesafe/jev-latest`, `--yes`, `--self-test`.
   - Routes either through Eden AI (`EDENAI_API_KEY` from `.env`, endpoint `POST /v3/alpha/decisions`, model `typesafe/jev-latest`) or direct TypeSafe (`TYPESAFE_API_KEY`).
   - Reuses the v2 fingerprints and SQLite sidecar (`projects/<p>/label_analysis/failure_labels_v2.db`), **never writes the human label CSVs**, and prints the number of items before spending API tokens. `--dry-run` never calls the API; `--yes` skips the confirmation (use only when the count is already known).
 - **Run logs:** `projects/<p>/logs/<run_id>.log` (where `run_id = <timestamp>_<commit_hash>`).
@@ -40,6 +40,12 @@ Retired v1 artifacts (`failure_labels_jev.csv`, `failure_labels_project.csv`) ma
 
 - Both Jev and human CSVs are deduped by `fingerprint` (v2: `fp_min` by default, `fp_max` with `--window max`).
 - **Each row is a unique fingerprint, not a single run:** one row covers every run that produced that error block.
+- **`--dedup-error` groups on the failure itself.** It keys on the normalized error line of the
+  block (`failure_labels_jev_<window>_dedup_error.csv`), falling back to the test name when the block
+  only carries a generic header (`Errors while compiling:`, `Warnings while compiling:`,
+  `Deprecations while compiling:`, `InfrastructureLogs while compiling:`, `No source available`),
+  because those headers hide the underlying cause. Same rules apply: one row per family, never
+  compare row counts across modes.
 - **`--dedup-keyword` is a different axis.** It groups fingerprints by `(suite, normalized keyword)` and sends one representative per family to the provider. It writes the separate `_dedup.csv` artifact, whose rows are families, not fingerprints. A dedup file naturally has fewer rows than the human CSV; this is not missing coverage. Never compare row counts across modes. Family membership is recovered from the human CSV with the same grouping when it is needed.
 - **`run_id` is merely the exemplar:** the earliest chronological run where the fingerprint appeared. It does NOT mean the failure was confined to that run.
 - **`n_runs` and the DB union indicate the real blast radius:** the CSV `n_runs` column is per fingerprint; `--report` prints a proper union (`COUNT(DISTINCT run_id)` over the group's fingerprints) from the SQLite sidecar. Without the DB it falls back to a sum and warns — never present that fallback as a run count.

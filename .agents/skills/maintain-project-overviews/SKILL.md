@@ -162,8 +162,8 @@ reports numbers only and does not restate per-family labels.
 | Manual / auto-propagated labels | <n> / <n> |
 | Labeled detections (min) | <n>/<n> (<pct>%) |
 | Labeled runs (min) | <n>/<n> (<pct>%) |
-| Jev mode | <fingerprint / dedup-keyword> |
-| Jev pipeline issues | <n> flagged rows (families in dedup-keyword mode) |
+| Jev mode | <fingerprint / dedup-keyword / dedup-error> |
+| Jev pipeline issues | <n> flagged rows (families in a dedup mode) |
 | Jev audit | <current / outdated / missing / n/a> |
 
 **State:** <complete | in progress | stale | not started>.

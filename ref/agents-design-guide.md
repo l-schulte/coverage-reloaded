@@ -11,7 +11,7 @@ Runs inside `$REPOPATH` (`/coverage_reloaded/repo`):
 - **Branch on `$IS_NPM_MAIN_PM` / `$IS_YARN_MAIN_PM` / `$IS_PNPM_MAIN_PM`** — never guess the PM.
 - **Detect what to run by inspecting the checked-out commit's `package.json` scripts and config files** — not by assuming time ranges.
 - `set +e` before tests; capture exit code; **restore `set -e` immediately** before calling `find-and-move-lcov.sh`.
-- Call `bash ../find-and-move-lcov.sh [TEST_TYPE] [PREPEND_PATHS] [EXIT_CODE]` after **each** suite.
+- Call `bash ../find-and-move-lcov.sh [TEST_TYPE] [PREPEND_PATHS] [EXIT_CODE] [STRIP_PREFIX]` after **each** suite.
 - `npx` must pin the registry. **Project dependencies** (jest, vitest, etc.) go through WayPack: `npx --registry=$WAYPACK_NPM_REGISTRY jest …`. **Our own tooling** (c8, nyc) goes through Verdaccio: `npx --registry=$VERDACCIO_REGISTRY c8 …`. Never bare `npx`.
 - **Do NOT modify** `execute.sh`, `find-and-move-lcov.sh`, `logging.sh` unless the change clearly benefits all projects.
 
@@ -74,7 +74,7 @@ Then branch:
 
 ## Parallelism
 
-Add `--maxWorkers=1` (jest/vitest) or `--runInBand` (jest) to every test invocation. Parallel execution causes PID exhaustion, port conflicts (EADDRINUSE), and intermittent failures. Exception only for purely computational suites with no subprocesses, network, or file I/O contention.
+Add `--maxWorkers=1` (jest/vitest) or `--runInBand` (jest) to every test invocation. Parallel execution causes PID exhaustion, port conflicts (EADDRINUSE), and intermittent failures. `--maxWorkers=2` is acceptable when purely sequential execution causes timeout errors in slow suites.
 
 ## Suite exclusions
 
