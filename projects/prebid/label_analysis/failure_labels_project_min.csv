@@ -1,0 +1,958 @@
+project,window,run_id,suite,exit_code,line_number,keyword,label,labeled_at,fingerprint,n_runs,n_variants,example_variant_fp,auto_rule_id,first_run,last_run,block
+prebid,min,1609890560_56d9930966ae6e21ecc8f562e463d0b76e8f728a,build_unit,1,292,      ✖ adds s2sConfig video.ext.prebid to request for ORTB,acceptable,2026-11-04T08:36:21.601098+00:00,d827bbc75bbb699a,2,1,b4f8f849aa58f903,,1609890560_56d9930966ae6e21ecc8f562e463d0b76e8f728a,1623747321_d649149b181223ba42423fb19a8b569ebbdd97fc,"✖ adds s2sConfig video.ext.prebid to request for ORTB
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected { Object (query) } to have own property 'ext'"
+prebid,min,1611787431_438b0b0c62f91fbf1ecea928083f068da221f94c,build_unit,1,293,        ✖ and merges domain and page with the config site value,acceptable,2026-11-04T08:36:38.859454+00:00,219adb60c765c776,1,1,ab9b804f03581e7d,,1611787431_438b0b0c62f91fbf1ecea928083f068da221f94c,1611787431_438b0b0c62f91fbf1ecea928083f068da221f94c,"✖ and merges domain and page with the config site value
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected undefined to exist"
+prebid,min,1611844296_4f2af660066308f166b10da2c11220205f45ab3b,build_unit,1,292,"      ✖ when userId is defined on bids, it's properties should be copied to user.ext.tpid properties",acceptable,2026-11-04T08:36:56.412232+00:00,fa8d4c4ca4da125f,1,1,673769dcee973883,,1611844296_4f2af660066308f166b10da2c11220205f45ab3b,1611844296_4f2af660066308f166b10da2c11220205f45ab3b,"✖ when userId is defined on bids, it's properties should be copied to user.ext.tpid properties
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+TypeError: Cannot read properties of undefined (reading 'ext')"
+prebid,min,1611850974_a926dee9e108ca4b8792ba8992a9bca7c2f42781,build_unit,1,292,      ✖ should set the default bidResponse currency when not specified in OpenRTB,acceptable,2026-11-04T08:37:09.691429+00:00,b811b3b99933eb9f,1,1,a06a707bf6137f35,,1611850974_a926dee9e108ca4b8792ba8992a9bca7c2f42781,1611850974_a926dee9e108ca4b8792ba8992a9bca7c2f42781,"✖ should set the default bidResponse currency when not specified in OpenRTB
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertError: expected spy to be called once but was called 0 times"
+prebid,min,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,build_unit,1,292,      ✖ adds limit to the cookie_sync request if userSyncLimit is greater than 0,reevaluated_acceptable,2026-11-04T08:37:31.106425+00:00,966bf3c5fa05e7ec,1,1,2f1c43622e94d269,fa78501b97af,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,"✖ adds limit to the cookie_sync request if userSyncLimit is greater than 0
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+ReferenceError: _s2sConfig is not defined"
+prebid,min,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,build_unit,1,299,      ✖ does not add limit to cooke_sync request if userSyncLimit is missing or 0,reevaluated_acceptable,2026-11-04T08:37:31.122522+00:00,0aae0b4c55109c3f,1,1,230c6f9add7e1cae,fa78501b97af,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,"✖ does not add limit to cooke_sync request if userSyncLimit is missing or 0
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+ReferenceError: _s2sConfig is not defined"
+prebid,min,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,build_unit,1,307,        ✖ check gdpr info gets added into cookie_sync request: have consent data,reevaluated_acceptable,2026-11-04T08:37:31.135121+00:00,39b17b947674b07d,1,1,d2409498f18cb69b,fa78501b97af,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,"✖ check gdpr info gets added into cookie_sync request: have consent data
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+ReferenceError: _s2sConfig is not defined"
+prebid,min,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,build_unit,1,314,        ✖ check gdpr info gets added into cookie_sync request: have consent data but gdprApplies is false,reevaluated_acceptable,2026-11-04T08:37:31.140465+00:00,463b0e0f59225e5d,1,1,b64fcf64c3896d0f,fa78501b97af,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,"✖ check gdpr info gets added into cookie_sync request: have consent data but gdprApplies is false
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+ReferenceError: _s2sConfig is not defined"
+prebid,min,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,build_unit,1,321,        ✖ checks gdpr info gets added to cookie_sync request: consent data unknown,reevaluated_acceptable,2026-11-04T08:37:31.145624+00:00,29897084c1255ad0,1,1,f18311cdf3d03f0a,fa78501b97af,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,"✖ checks gdpr info gets added to cookie_sync request: consent data unknown
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+ReferenceError: _s2sConfig is not defined"
+prebid,min,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,build_unit,1,329,        ✖ is added to cookie_sync request when in bidRequest,reevaluated_acceptable,2026-11-04T08:37:31.150676+00:00,045ae8cbe80a8620,1,1,6ac63bb2ac66d2c8,fa78501b97af,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,"✖ is added to cookie_sync request when in bidRequest
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+ReferenceError: _s2sConfig is not defined"
+prebid,min,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,build_unit,1,345,      ✖ should set correct bidder names to bidders property when using an alias for that bidder,reevaluated_acceptable,2026-11-04T08:37:31.155726+00:00,d5e40586b654bfd5,1,1,72fa4468980bb344,fa78501b97af,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,"✖ should set correct bidder names to bidders property when using an alias for that bidder
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+ReferenceError: _s2sConfig is not defined"
+prebid,min,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,build_unit,1,352,      ✖ should add cooperative sync flag to cookie_sync request if property is present,acceptable,2026-11-04T08:37:41.523015+00:00,74788a22a2c01655,2,1,c755b3f3955253a0,,1612178824_25dd35c99f404390242133b84245bb5cafeb7d7b,1621276194_59313368e39276193963f19f702e2d79761ee1d2,"✖ should add cooperative sync flag to cookie_sync request if property is present
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected undefined to equal false"
+prebid,min,1612299938_99c1256f53cf95ed75f2d85ac2a249d801836ae9,build_unit,1,292,      ✖ passes schain object in request,acceptable,2026-11-04T08:37:41.537082+00:00,5c4570388093c00a,1,1,ad6f23b2c605f4cc,be32e92d3888,1612299938_99c1256f53cf95ed75f2d85ac2a249d801836ae9,1612299938_99c1256f53cf95ed75f2d85ac2a249d801836ae9,"✖ passes schain object in request
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+TypeError: Cannot read properties of undefined (reading 'ext')"
+prebid,min,1612331841_17ce37606611012726576150bd1f185295f0032e,build_unit,1,293,        ✖ creates xhr to Parrable that synchronizes the ID,acceptable,2026-11-04T08:38:02.041863+00:00,42325eaf0cfdff15,2,2,7b3a86aaa1a5a159,,1612331841_17ce37606611012726576150bd1f185295f0032e,1612361026_97e5351c2ed0900557bc09277cce33a4db1a4678,"✖ creates xhr to Parrable that synchronizes the ID
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+Error: Failed to execute 'atob' on 'Window': The string to be decoded is not correctly encoded."
+prebid,min,1612331841_17ce37606611012726576150bd1f185295f0032e,build_unit,1,301,"        ✖ should not send ""imp.ext.context.data.pbadslot"" if ""fpd.context.pbAdSlot"" is empty string",acceptable,2026-11-04T08:38:08.011719+00:00,e9dd522f5e47640f,1,1,286ca6450247de2d,,1612331841_17ce37606611012726576150bd1f185295f0032e,1612331841_17ce37606611012726576150bd1f185295f0032e,"✖ should not send ""imp.ext.context.data.pbadslot"" if ""fpd.context.pbAdSlot"" is empty string
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected undefined to be an array"
+prebid,min,1613478688_c94ee670446776db0e6f6ad50379fe8e59ba323f,build_unit,1,292,      ✖ should set the bidResponse currency to whats in the PBS response,acceptable,2026-11-04T08:38:08.028226+00:00,bb6e238120de4472,1,1,e2ec48d5f83370d3,5844bbda7ee5,1613478688_c94ee670446776db0e6f6ad50379fe8e59ba323f,1613478688_c94ee670446776db0e6f6ad50379fe8e59ba323f,"✖ should set the bidResponse currency to whats in the PBS response
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertError: expected spy to be called once but was called 0 times"
+prebid,min,1613558659_dc83f3b13dbff0509768723063659767250f69f2,build_unit,1,293,"        ✖ should not send ""imp.ext.context.data.adserver.adslot"" if ""fpd.context.adserver.adSlot"" is undefined",acceptable,2026-11-04T08:38:08.033731+00:00,e617cf8b9baf0501,1,1,8417f0829cd6c018,c4eeddd6a3f8,1613558659_dc83f3b13dbff0509768723063659767250f69f2,1613558659_dc83f3b13dbff0509768723063659767250f69f2,"✖ should not send ""imp.ext.context.data.adserver.adslot"" if ""fpd.context.adserver.adSlot"" is undefined
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected undefined to be an array"
+prebid,min,1614204651_ee3fa3e520bd62a91e408f065b720a56d2b85948,build_unit,1,293,        ✖ check gdpr info gets added into cookie_sync request: have consent data but gdprApplies is false,acceptable,2026-11-04T08:38:15.443772+00:00,91abab13d7a634df,1,1,0440af1c603177a4,,1614204651_ee3fa3e520bd62a91e408f065b720a56d2b85948,1614204651_ee3fa3e520bd62a91e408f065b720a56d2b85948,"✖ check gdpr info gets added into cookie_sync request: have consent data but gdprApplies is false
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected undefined to equal 0"
+prebid,min,1614943505_f51ce4e87d6771850bc9d63863891e84bf10a53a,build_unit,1,293,        ✖ should correctly pass bidfloor and bidfloorcur,acceptable,2026-11-04T08:38:26.132731+00:00,2dec04633c13b89f,1,1,8b8ee6ffefd5b821,be32e92d3888,1614943505_f51ce4e87d6771850bc9d63863891e84bf10a53a,1614943505_f51ce4e87d6771850bc9d63863891e84bf10a53a,"✖ should correctly pass bidfloor and bidfloorcur
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+TypeError: Cannot read properties of undefined (reading '0')"
+prebid,min,1615412191_41b8607a004c111093a8143992b0191f1ff3bd44,build_unit,1,293,"        ✖ should send ""imp.ext.data.pbadslot"" if ""ortb2Imp.ext.data.pbadslot"" value is a non-empty string",acceptable,2026-11-04T08:38:26.161041+00:00,22d17b58ac23b4d8,1,1,3a50bf6c6d110ea2,c4eeddd6a3f8,1615412191_41b8607a004c111093a8143992b0191f1ff3bd44,1615412191_41b8607a004c111093a8143992b0191f1ff3bd44,"✖ should send ""imp.ext.data.pbadslot"" if ""ortb2Imp.ext.data.pbadslot"" value is a non-empty string
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected undefined to be an array"
+prebid,min,1615906612_70a41a51ac945b90c47224c294e64fc35742d604,build_unit,1,405,      ✖ handles response cache from ext.prebid.cache.vastXml,acceptable,2026-11-04T08:38:26.173550+00:00,d7be0e911b22e083,2,1,8c722d28edd6dcf1,5844bbda7ee5,1615906612_70a41a51ac945b90c47224c294e64fc35742d604,1616606483_f03e95a736a7289d8d11d79d9d9c91212136ec49,"✖ handles response cache from ext.prebid.cache.vastXml
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertError: expected spy to be called once but was called 0 times"
+prebid,min,1616071646_595fc0a08b5f97a319b81f8099394623218efe7c,build_unit,1,405,      ✖ always add ext.prebid.targeting.includebidderkeys: false for ORTB,acceptable,2026-11-04T08:38:26.186086+00:00,639603f25c3d3728,1,1,65b6a5d15122c564,be32e92d3888,1616071646_595fc0a08b5f97a319b81f8099394623218efe7c,1616071646_595fc0a08b5f97a319b81f8099394623218efe7c,"✖ always add ext.prebid.targeting.includebidderkeys: false for ORTB
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+TypeError: Cannot read properties of undefined (reading 'prebid')"
+prebid,min,1616183826_e2663937dd413cb1b32998f8bfae9b9d2148e812,build_unit,1,405,      ✖ adds device.w and device.h even if the config lacks a device object,acceptable,2026-11-04T08:38:36.375308+00:00,85813fb774bebef1,1,1,7c2960c66e4ab987,,1616183826_e2663937dd413cb1b32998f8bfae9b9d2148e812,1616183826_e2663937dd413cb1b32998f8bfae9b9d2148e812,"✖ adds device.w and device.h even if the config lacks a device object
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected undefined to deeply equal { w: 100, h: 100 }"
+prebid,min,1616514884_089b26458f4df9bf4e3421d904ed0e4f27a17496,build_unit,1,405,"      ✖ accepts config property ""partner"" as string",acceptable,2026-11-04T08:38:36.388934+00:00,e71a5b1057aa9325,1,1,1b37bb28b174f5ce,be32e92d3888,1616514884_089b26458f4df9bf4e3421d904ed0e4f27a17496,1616514884_089b26458f4df9bf4e3421d904ed0e4f27a17496,"✖ accepts config property ""partner"" as string
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+TypeError: Cannot read properties of undefined (reading 'replace')"
+prebid,min,1616603753_1dc7c05497514410f7abed5636f0d3bf43cffa5c,build_unit,1,406,"        ✖ should not send ""imp.ext.data.pbadslot"" if ""ortb2Imp.ext"" is undefined",acceptable,2026-11-04T08:38:36.401341+00:00,e3c793dcbe6c8a3b,1,1,32086eaeffa3e700,c4eeddd6a3f8,1616603753_1dc7c05497514410f7abed5636f0d3bf43cffa5c,1616603753_1dc7c05497514410f7abed5636f0d3bf43cffa5c,"✖ should not send ""imp.ext.data.pbadslot"" if ""ortb2Imp.ext"" is undefined
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected undefined to be an array"
+prebid,min,1616688279_c2f20466eb83053c21d630acf8f6b8a280325b0a,build_unit,1,404,    ✖ merkleId,acceptable,2026-11-04T08:38:49.972980+00:00,efaaf19b60539f56,1,1,bfc6e8161fb50878,90578512d46c,1616688279_c2f20466eb83053c21d630acf8f6b8a280325b0a,1616688279_c2f20466eb83053c21d630acf8f6b8a280325b0a,"✖ merkleId
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected { Object (source, uids) } to deeply equal { Object (source, uids) }"
+prebid,min,1616688279_c2f20466eb83053c21d630acf8f6b8a280325b0a,build_unit,1,424,    ✖ britepoolId,acceptable,2026-11-04T08:38:49.988668+00:00,e8e111047b5c9b12,1,1,91968261f162aede,90578512d46c,1616688279_c2f20466eb83053c21d630acf8f6b8a280325b0a,1616688279_c2f20466eb83053c21d630acf8f6b8a280325b0a,"✖ britepoolId
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected { Object (source, uids) } to deeply equal { Object (source, uids) }"
+prebid,min,1616688279_c2f20466eb83053c21d630acf8f6b8a280325b0a,build_unit,1,449,            ✖ send the Britepool id if it is present,acceptable,2026-11-04T08:38:50.000961+00:00,83ae82b415723f13,3,1,02ce3a2b3d0edc9a,90578512d46c,1616688279_c2f20466eb83053c21d630acf8f6b8a280325b0a,1616689148_ec752ee2606911581555d4d570a0ffc32fff3b91,"✖ send the Britepool id if it is present
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected [ Array(1) ] to deeply equal [ Array(1) ]"
+prebid,min,1616688279_c2f20466eb83053c21d630acf8f6b8a280325b0a,build_unit,1,471,      ✖ test hook from britepoolid cookies,acceptable,2026-11-04T08:38:50.012778+00:00,885ed3c09edca1eb,8,1,067e4d688db3abaf,90578512d46c,1616688279_c2f20466eb83053c21d630acf8f6b8a280325b0a,1616698489_f42f6d8923f8294e3427f8f5bedbe36da2a57a2e,"✖ test hook from britepoolid cookies
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected { Object (source, uids) } to deeply equal { Object (source, uids) }"
+prebid,min,1616688279_c2f20466eb83053c21d630acf8f6b8a280325b0a,build_unit,1,499,      ✖ test hook from merkleId cookies,acceptable,2026-11-04T08:38:50.024784+00:00,229b288b7282a4cd,8,1,46a133fd8db212f0,90578512d46c,1616688279_c2f20466eb83053c21d630acf8f6b8a280325b0a,1616698489_f42f6d8923f8294e3427f8f5bedbe36da2a57a2e,"✖ test hook from merkleId cookies
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected { Object (source, uids) } to deeply equal { Object (source, uids) }"
+prebid,min,1616689111_c422dc9397df5880cc7c706f0de1f8923cf7506e,build_unit,1,404,    ✖ liveIntentId; getValue call and ext,acceptable,2026-11-04T08:38:50.036774+00:00,2959b036fb310aee,1,1,819e6bb879ef9ddd,90578512d46c,1616689111_c422dc9397df5880cc7c706f0de1f8923cf7506e,1616689111_c422dc9397df5880cc7c706f0de1f8923cf7506e,"✖ liveIntentId; getValue call and ext
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected { Object (source, uids, ...) } to deeply equal { Object (source, uids, ...) }"
+prebid,min,1616689111_c422dc9397df5880cc7c706f0de1f8923cf7506e,build_unit,1,424,    ✖ liveIntentId; getValue call and NO ext,acceptable,2026-11-04T08:38:50.045038+00:00,36ec47b651ccc1de,1,1,fe5c3f7ec6373821,90578512d46c,1616689111_c422dc9397df5880cc7c706f0de1f8923cf7506e,1616689111_c422dc9397df5880cc7c706f0de1f8923cf7506e,"✖ liveIntentId; getValue call and NO ext
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected { Object (source, uids) } to deeply equal { Object (source, uids) }"
+prebid,min,1616689148_ec752ee2606911581555d4d570a0ffc32fff3b91,build_unit,1,408,            ✖ send the LiveIntent id if it is present,acceptable,2026-11-04T08:38:50.053762+00:00,1e09b02a97b9a1a0,1,1,5759f71ce6d90b10,90578512d46c,1616689148_ec752ee2606911581555d4d570a0ffc32fff3b91,1616689148_ec752ee2606911581555d4d570a0ffc32fff3b91,"✖ send the LiveIntent id if it is present
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected [ Array(1) ] to deeply equal [ Array(1) ]"
+prebid,min,1616689148_ec752ee2606911581555d4d570a0ffc32fff3b91,build_unit,1,453,          ✖ should make a well-formed video request,acceptable,2026-11-04T08:39:06.276562+00:00,26bacc3e962de7c7,4,1,2aadd862c1c1dbdb,,1616689148_ec752ee2606911581555d4d570a0ffc32fff3b91,1616698011_10efcdda8340343491aa5764113eee12bed40749,"✖ should make a well-formed video request
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected 3 to equal 1"
+prebid,min,1616689148_ec752ee2606911581555d4d570a0ffc32fff3b91,build_unit,1,467,      ✖ test hook from liveIntentId html5,acceptable,2026-11-04T08:39:06.284449+00:00,f025745df9f53ab5,6,1,d727cba32f8a3056,90578512d46c,1616689148_ec752ee2606911581555d4d570a0ffc32fff3b91,1616698489_f42f6d8923f8294e3427f8f5bedbe36da2a57a2e,"✖ test hook from liveIntentId html5
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected { Object (source, uids) } to deeply equal { Object (source, uids) }"
+prebid,min,1616689148_ec752ee2606911581555d4d570a0ffc32fff3b91,build_unit,1,495,      ✖ test hook from liveIntentId cookie,acceptable,2026-11-04T08:39:06.289819+00:00,19b05b6b32a840d7,6,1,50f8c6448f75aef1,90578512d46c,1616689148_ec752ee2606911581555d4d570a0ffc32fff3b91,1616698489_f42f6d8923f8294e3427f8f5bedbe36da2a57a2e,"✖ test hook from liveIntentId cookie
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected { Object (source, uids) } to deeply equal { Object (source, uids) }"
+prebid,min,1616689148_ec752ee2606911581555d4d570a0ffc32fff3b91,build_unit,1,523,      ✖ test hook from liveIntentId html5,acceptable,2026-11-04T08:39:06.295201+00:00,024fc2a07b50a772,6,1,37d8b010ee473aa9,90578512d46c,1616689148_ec752ee2606911581555d4d570a0ffc32fff3b91,1616698489_f42f6d8923f8294e3427f8f5bedbe36da2a57a2e,"✖ test hook from liveIntentId html5
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected { Object (source, uids, ...) } to deeply equal { Object (source, uids, ...) }"
+prebid,min,1616689148_ec752ee2606911581555d4d570a0ffc32fff3b91,build_unit,1,551,      ✖ test hook from liveIntentId cookie,acceptable,2026-11-04T08:39:06.300246+00:00,0b635c17ffe42df7,6,1,67e320812ff04a43,90578512d46c,1616689148_ec752ee2606911581555d4d570a0ffc32fff3b91,1616698489_f42f6d8923f8294e3427f8f5bedbe36da2a57a2e,"✖ test hook from liveIntentId cookie
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected { Object (source, uids, ...) } to deeply equal { Object (source, uids, ...) }"
+prebid,min,1616697694_ea44e2108c6070469c6ea2e76fae68e95300fa80,build_unit,1,408,            ✖ send the identity-link id if it is present,acceptable,2026-11-04T08:39:06.305434+00:00,ceffa665afdcaf3b,1,1,73f910acd89c1da7,90578512d46c,1616697694_ea44e2108c6070469c6ea2e76fae68e95300fa80,1616697694_ea44e2108c6070469c6ea2e76fae68e95300fa80,"✖ send the identity-link id if it is present
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected [ Array(1) ] to deeply equal [ Array(1) ]"
+prebid,min,1616697737_d44f2985f3f17e38b97ba790d807b1e802246b23,build_unit,1,405,      ✖ Verify unifiedid and liveramp,acceptable,2026-11-04T08:39:20.140745+00:00,af6e83dc46785ae7,2,1,4eec2ff4fabee34c,,1616697737_d44f2985f3f17e38b97ba790d807b1e802246b23,1616698011_10efcdda8340343491aa5764113eee12bed40749,"✖ Verify unifiedid and liveramp
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected { Object (id, imp, ...) } to have deep nested property 'user.ext.eids' of [ Array(2) ], but got [ Array(2) ]"
+prebid,min,1616697737_d44f2985f3f17e38b97ba790d807b1e802246b23,build_unit,1,426,    ✖ identityLink,acceptable,2026-11-04T08:39:20.159886+00:00,e0ae8c43692d8240,1,1,e2efc5504c2d2f51,90578512d46c,1616697737_d44f2985f3f17e38b97ba790d807b1e802246b23,1616697737_d44f2985f3f17e38b97ba790d807b1e802246b23,"✖ identityLink
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected { Object (source, uids) } to deeply equal { Object (source, uids) }"
+prebid,min,1616697737_d44f2985f3f17e38b97ba790d807b1e802246b23,build_unit,1,464,      ✖ test hook from identityLink html5,acceptable,2026-11-04T08:39:20.173133+00:00,17b5429cf67951a8,4,1,7780a9cb4f5519f3,90578512d46c,1616697737_d44f2985f3f17e38b97ba790d807b1e802246b23,1616698489_f42f6d8923f8294e3427f8f5bedbe36da2a57a2e,"✖ test hook from identityLink html5
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected { Object (source, uids) } to deeply equal { Object (source, uids) }"
+prebid,min,1616697737_d44f2985f3f17e38b97ba790d807b1e802246b23,build_unit,1,492,      ✖ test hook from identityLink cookie,acceptable,2026-11-04T08:39:20.186167+00:00,bb0215a5d48dcc28,4,1,a3333f4eba5cde0f,90578512d46c,1616697737_d44f2985f3f17e38b97ba790d807b1e802246b23,1616698489_f42f6d8923f8294e3427f8f5bedbe36da2a57a2e,"✖ test hook from identityLink cookie
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected { Object (source, uids) } to deeply equal { Object (source, uids) }"
+prebid,min,1617003223_d2e5956838c688fdef6525698c767bfcf5f7264b,build_unit,1,406,        ✖ check gdpr info gets added into cookie_sync request: have consent data,acceptable,2026-11-04T08:39:32.037297+00:00,a7691373c9cd0d65,1,1,47488c2f515f5b92,b3ae1baed851,1617003223_d2e5956838c688fdef6525698c767bfcf5f7264b,1617003223_d2e5956838c688fdef6525698c767bfcf5f7264b,"✖ check gdpr info gets added into cookie_sync request: have consent data
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected undefined to equal 1"
+prebid,min,1617985255_c34d8532cc1d316cae9bb22c4b6b4a798ce36053,build_unit,1,292,      ✖ should not call triggerPixel if the wurl cache does not contain the winning bid,acceptable,2026-11-04T08:39:32.049685+00:00,dd7f977356873b36,1,1,7bc1f8245d3ce854,5844bbda7ee5,1617985255_c34d8532cc1d316cae9bb22c4b6b4a798ce36053,1617985255_c34d8532cc1d316cae9bb22c4b6b4a798ce36053,"✖ should not call triggerPixel if the wurl cache does not contain the winning bid
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertError: expected spy to be called once but was called 0 times"
+prebid,min,1618215491_80de5946442650e9b5c82f1ca1a2c443fe1583c1,build_unit,1,293,        ✖ and overrides publisher and page,acceptable,2026-11-04T08:39:32.062766+00:00,24c5139426a04380,1,1,46af7142b011d074,45b3462e7d15,1618215491_80de5946442650e9b5c82f1ca1a2c443fe1583c1,1618215491_80de5946442650e9b5c82f1ca1a2c443fe1583c1,"✖ and overrides publisher and page
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected undefined to exist"
+prebid,min,1618329632_c83bc53a8239bc828e81622d4567174a82a29b48,build_unit,1,292,      ✖ always add ext.prebid.targeting.includewinners: true for ORTB,acceptable,2026-11-04T08:39:32.068331+00:00,6c8703f6da00cb3d,1,1,2558f06170afdb68,be32e92d3888,1618329632_c83bc53a8239bc828e81622d4567174a82a29b48,1618329632_c83bc53a8239bc828e81622d4567174a82a29b48,"✖ always add ext.prebid.targeting.includewinners: true for ORTB
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+TypeError: Cannot read properties of undefined (reading 'prebid')"
+prebid,min,1618495224_d18c6a874bf1465cf9f8427f65a2fa21c05a2454,build_unit,1,293,        ✖ should call user sync url with the gdprConsent - case 0,acceptable,2026-11-04T08:39:41.029178+00:00,cff45164ec253844,1,1,b674fe22cc957f7e,,1618495224_d18c6a874bf1465cf9f8427f65a2fa21c05a2454,1618495224_d18c6a874bf1465cf9f8427f65a2fa21c05a2454,"✖ should call user sync url with the gdprConsent - case 0
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected 'https://s2.adxpremium.services/graphql' to include 'gdpr=1'"
+prebid,min,1618584489_f65fe744bc4b80990d83e699e00b92436ce92f3e,build_unit,1,293,        ✖ should call user sync url with the gdprConsent - case 2,acceptable,2026-11-04T08:39:41.042453+00:00,86b3d4af78447381,1,1,272dec5a5428719b,856589e39b60,1618584489_f65fe744bc4b80990d83e699e00b92436ce92f3e,1618584489_f65fe744bc4b80990d83e699e00b92436ce92f3e,"✖ should call user sync url with the gdprConsent - case 2
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected 'https://s2.adxpremium.services/graphql' to include 'gdpr=1'"
+prebid,min,1618918455_e174e2735453a1ddab3a3ab374af5df6a63771bf,build_unit,1,292,      ✖ should pass through default adserverTargeting if present in bidObject for banner request,acceptable,2026-11-04T08:39:41.054897+00:00,785f37bc1f50edff,1,1,68e2ee25a719d0fe,5844bbda7ee5,1618918455_e174e2735453a1ddab3a3ab374af5df6a63771bf,1618918455_e174e2735453a1ddab3a3ab374af5df6a63771bf,"✖ should pass through default adserverTargeting if present in bidObject for banner request
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertError: expected spy to be called once but was called 0 times"
+prebid,min,1619090377_08b7e8db877a33ef880f417d271a102f3fff41ae,build_unit,1,290,      ✖ should not add outstrean without renderer,acceptable,2026-11-04T08:39:41.060135+00:00,bc2f2aed10025401,1,1,0d09d8f4a11a7488,be32e92d3888,1619090377_08b7e8db877a33ef880f417d271a102f3fff41ae,1619090377_08b7e8db877a33ef880f417d271a102f3fff41ae,"✖ should not add outstrean without renderer
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+TypeError: Cannot read properties of undefined (reading '0')"
+prebid,min,1619496526_6971384856dc9bead48df1acb7d2f600384f8bfb,build_unit,1,292,"      ✖ accepts config property ""partners"" as a string list",acceptable,2026-11-04T08:39:41.065475+00:00,7e6319ef6c323d38,1,1,f836b529466f29b6,be32e92d3888,1619496526_6971384856dc9bead48df1acb7d2f600384f8bfb,1619496526_6971384856dc9bead48df1acb7d2f600384f8bfb,"✖ accepts config property ""partners"" as a string list
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+TypeError: Cannot read properties of undefined (reading 'replace')"
+prebid,min,1620849166_5215ade32747facd4fb4c4f932d44b9b49c9daa7,build_unit,1,293,        ✖ should track that bidder as the winner,acceptable,2026-11-04T08:39:41.070675+00:00,af26a99be5a49c4c,1,1,c7cd6a54956c0f1a,be32e92d3888,1620849166_5215ade32747facd4fb4c4f932d44b9b49c9daa7,1620849166_5215ade32747facd4fb4c4f932d44b9b49c9daa7,"✖ should track that bidder as the winner
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+TypeError: Cannot read properties of undefined (reading 'adUnits')"
+prebid,min,1621892046_01dc3c6e989b7ebadc8ab41834fbf16f7966776c,build_unit,1,293,      ✖ should build page info,acceptable,2026-11-04T08:39:45.092314+00:00,cebb9570ca395e84,1,1,63f3a61d64a41d71,,1621892046_01dc3c6e989b7ebadc8ab41834fbf16f7966776c,1621892046_01dc3c6e989b7ebadc8ab41834fbf16f7966776c,"✖ should build page info
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+SyntaxError: Unexpected token 'p', ""partner"":1""... is not valid JSON"
+prebid,min,1622071584_b72e584a024446f1502a74b8c788006ac110f333,build_unit,1,294,        ✖ is added to cookie_sync request when in bidRequest,acceptable,2026-11-04T08:39:57.509175+00:00,d6a4bc0c1cf2fb40,1,1,ca235b0eaee1eaa6,,1622071584_b72e584a024446f1502a74b8c788006ac110f333,1622071584_b72e584a024446f1502a74b8c788006ac110f333,"✖ is added to cookie_sync request when in bidRequest
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected undefined to equal '1YNN'"
+prebid,min,1622115641_7baf4b08cc79c5cdeab04bd6e0efb34762e17bea,build_unit,1,291,      ✖ should call triggerPixel if wurl is defined,acceptable,2026-11-04T08:39:57.526089+00:00,53e4e111ca05f84e,1,1,68b876bc16acb93c,5844bbda7ee5,1622115641_7baf4b08cc79c5cdeab04bd6e0efb34762e17bea,1622115641_7baf4b08cc79c5cdeab04bd6e0efb34762e17bea,"✖ should call triggerPixel if wurl is defined
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertError: expected spy to be called once but was called 0 times"
+prebid,min,1622205695_9c484c029a9b899f95d7adddcd0fb5adb494c77c,build_unit,1,293,      ✖ should pick fields according to server configuration,acceptable,2026-11-04T08:39:57.538710+00:00,f6c85ad9f3f2a701,1,1,0173a1044e012567,be32e92d3888,1622205695_9c484c029a9b899f95d7adddcd0fb5adb494c77c,1622205695_9c484c029a9b899f95d7adddcd0fb5adb494c77c,"✖ should pick fields according to server configuration
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+TypeError: Cannot read properties of undefined (reading '0')"
+prebid,min,1622217552_6f81c1617aaa44ec68670887d8bd0fb032f720b1,build_unit,1,295,"        ✖ ""before each"" hook for ""should not have responded""",acceptable,2026-11-04T08:39:57.551518+00:00,4a202781513f6e2b,1,1,b960a71f002ede35,be32e92d3888,1622217552_6f81c1617aaa44ec68670887d8bd0fb032f720b1,1622217552_6f81c1617aaa44ec68670887d8bd0fb032f720b1,"✖ ""before each"" hook for ""should not have responded""
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+TypeError: Cannot read properties of undefined (reading 'adUnits')"
+prebid,min,1622550006_5c9e149ecc83ccbda53673c0a1e4cf680766e56d,build_unit,1,293,      ✖ should omit fields according to server configuration,acceptable,2026-11-04T08:39:57.562978+00:00,9df007827af55d93,1,1,04729a6fea676533,be32e92d3888,1622550006_5c9e149ecc83ccbda53673c0a1e4cf680766e56d,1622550006_5c9e149ecc83ccbda53673c0a1e4cf680766e56d,"✖ should omit fields according to server configuration
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+TypeError: Cannot read properties of undefined (reading '0')"
+prebid,min,1623688235_64885cb4f19765993ce0e293e6c214787a5edf15,build_unit,1,294,        ✖ is added to ortb2 request when in bidRequest,acceptable,2026-11-04T08:39:57.568904+00:00,d0c763155f34e6f4,1,1,bc98e94c84cfdd37,be32e92d3888,1623688235_64885cb4f19765993ce0e293e6c214787a5edf15,1623688235_64885cb4f19765993ce0e293e6c214787a5edf15,"✖ is added to ortb2 request when in bidRequest
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+TypeError: Cannot read properties of undefined (reading 'ext')"
+prebid,min,1623851508_551d9430d378decf7149408abdfd5b3785e81985,build_unit,1,294,"        ✖ should send both ""adslot"" and ""name"" from ""imp.ext.data.adserver"" if ""ortb2Imp.ext.data.adserver.adslot"" and ""ortb2Imp.ext.data.adserver.name"" values are non-empty strings",acceptable,2026-11-04T08:39:57.574409+00:00,e24bea73cc415928,1,1,6ac91998d92dee22,c4eeddd6a3f8,1623851508_551d9430d378decf7149408abdfd5b3785e81985,1623851508_551d9430d378decf7149408abdfd5b3785e81985,"✖ should send both ""adslot"" and ""name"" from ""imp.ext.data.adserver"" if ""ortb2Imp.ext.data.adserver.adslot"" and ""ortb2Imp.ext.data.adserver.name"" values are non-empty strings
+HeadlessChrome 120.0.6099 (Linux 0.0.0)
+AssertionError: expected undefined to be an array"
+prebid,min,1624488995_e6433030c8dcc7a6dd4b80bd320cf3df9da411e1,build_unit,1,268,"        ✖ should not send ""imp.ext.data.pbadslot"" if ""ortb2Imp.ext.data.pbadslot"" is empty string",acceptable,2026-11-04T08:40:21.967139+00:00,f6381a95f2837f2d,1,1,5534b27bdd7d1761,c4eeddd6a3f8,1624488995_e6433030c8dcc7a6dd4b80bd320cf3df9da411e1,1624488995_e6433030c8dcc7a6dd4b80bd320cf3df9da411e1,"✖ should not send ""imp.ext.data.pbadslot"" if ""ortb2Imp.ext.data.pbadslot"" is empty string
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected undefined to be an array"
+prebid,min,1624606895_7057f54f1cf6d358e0a8fc79217fc7927b7daaa3,build_unit,1,267,      ✖ should not add outstrean without renderer,acceptable,2026-11-04T08:40:21.977711+00:00,ad4cfea9433ad768,1,1,49e6aa67fe43d9cd,be32e92d3888,1624606895_7057f54f1cf6d358e0a8fc79217fc7927b7daaa3,1624606895_7057f54f1cf6d358e0a8fc79217fc7927b7daaa3,"✖ should not add outstrean without renderer
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading '0')"
+prebid,min,1624854992_04378c07402bb6f8076fa806b6052fc8fbfea586,build_unit,1,267,      ✖ overrides request.ext.prebid properties using s2sConfig video.ext.prebid values for ORTB,acceptable,2026-11-04T08:40:21.983592+00:00,cb2bf8872f588cec,1,1,047749e511c8eb9c,53220b46e46e,1624854992_04378c07402bb6f8076fa806b6052fc8fbfea586,1624854992_04378c07402bb6f8076fa806b6052fc8fbfea586,"✖ overrides request.ext.prebid properties using s2sConfig video.ext.prebid values for ORTB
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { Object (query) } to have own property 'ext'"
+prebid,min,1624894897_66bfe22b5b929f5d215f3b62b005782e7066ec03,build_unit,1,268,"        ✖ should not send ""imp.ext.data.adserver.adslot"" if ""ortb2Imp.ext.data.adserver.adslot"" is undefined",acceptable,2026-11-04T08:40:21.989451+00:00,6a86ecf3c4361126,1,1,e1e59f606312be0d,c4eeddd6a3f8,1624894897_66bfe22b5b929f5d215f3b62b005782e7066ec03,1624894897_66bfe22b5b929f5d215f3b62b005782e7066ec03,"✖ should not send ""imp.ext.data.adserver.adslot"" if ""ortb2Imp.ext.data.adserver.adslot"" is undefined
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected undefined to be an array"
+prebid,min,1624968835_4f3dda050d94b48d878106b074d4995eee2b49d7,build_unit,1,267,      ✖ handles response cache from ext.prebid.targeting with wurl and removes invalid targeting,acceptable,2026-11-04T08:40:21.994972+00:00,0179c114a69c27ef,1,1,a92a9ffa66d746d1,5844bbda7ee5,1624968835_4f3dda050d94b48d878106b074d4995eee2b49d7,1624968835_4f3dda050d94b48d878106b074d4995eee2b49d7,"✖ handles response cache from ext.prebid.targeting with wurl and removes invalid targeting
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected spy to be called once but was called 0 times"
+prebid,min,1625151228_86489e19b201ab0a31f91ada7f42e163fea5b51e,build_unit,1,267,"      ✖ should send ""auction"" event without all the fields that were set to undefined",acceptable,2026-11-04T08:40:40.573346+00:00,bda745435dbd0148,1,1,dd71e65736cb0c50,,1625151228_86489e19b201ab0a31f91ada7f42e163fea5b51e,1625151228_86489e19b201ab0a31f91ada7f42e163fea5b51e,"✖ should send ""auction"" event without all the fields that were set to undefined
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+Error: INVALID_STATE_ERR - 4"
+prebid,min,1625564172_498e7486548066d601a7550e6b689aa0b7ba0e97,build_unit,1,267,      ✖ handles response cache from ext.prebid.cache.vastXml,acceptable,2026-11-04T08:40:40.590106+00:00,174067fe5d0b9ea4,1,1,fc1074d829b394e2,5844bbda7ee5,1625564172_498e7486548066d601a7550e6b689aa0b7ba0e97,1625564172_498e7486548066d601a7550e6b689aa0b7ba0e97,"✖ handles response cache from ext.prebid.cache.vastXml
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected spy to be called once but was called 0 times"
+prebid,min,1625682355_ebaa5e55cc4e4b4737167493459849cb2615eac6,build_unit,1,268,"        ✖ should not send ""imp.ext.data.adserver.adslot"" if ""ortb2Imp.ext"" is undefined",acceptable,2026-11-04T08:40:40.603703+00:00,76047e9b66d2c53f,1,1,9316eeda97138e74,c4eeddd6a3f8,1625682355_ebaa5e55cc4e4b4737167493459849cb2615eac6,1625682355_ebaa5e55cc4e4b4737167493459849cb2615eac6,"✖ should not send ""imp.ext.data.adserver.adslot"" if ""ortb2Imp.ext"" is undefined
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected undefined to be an array"
+prebid,min,1626069799_f150d713e8a5d4b17be5aed0c4f5dd71eba64596,build_unit,1,274,"        ✖ should not send ""imp.ext.data.adserver.adslot"" if ""ortb2Imp.ext.data.adserver.adslot"" is empty string",acceptable,2026-11-04T08:40:40.616771+00:00,3e64ed76f9916c3a,1,1,bbb6b3765d44e20a,c4eeddd6a3f8,1626069799_f150d713e8a5d4b17be5aed0c4f5dd71eba64596,1626069799_f150d713e8a5d4b17be5aed0c4f5dd71eba64596,"✖ should not send ""imp.ext.data.adserver.adslot"" if ""ortb2Imp.ext.data.adserver.adslot"" is empty string
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected undefined to be an array"
+prebid,min,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,build_unit,1,274,      ✖ handles OpenRTB native responses,acceptable,2026-11-04T08:40:40.630163+00:00,cd0f9107c06f0a8f,1,1,78ddf094bd30a7dc,5844bbda7ee5,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,"✖ handles OpenRTB native responses
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected spy to be called once but was called 0 times"
+prebid,min,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,build_unit,1,283,      ✖ should call triggerPixel if wurl is defined,acceptable,2026-11-04T08:40:58.613056+00:00,4ca9bcee5d3a93af,1,1,494e0f143220e202,,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,"✖ should call triggerPixel if wurl is defined
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected false to be true"
+prebid,min,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,build_unit,1,297,      ✖ should get correct bid response,acceptable,2026-11-04T08:40:58.632597+00:00,3195a003234ae987,1,1,813aa9f7c221213e,be32e92d3888,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,"✖ should get correct bid response
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'domParent')"
+prebid,min,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,build_unit,1,306,      ✖ should add params,acceptable,2026-11-04T08:40:58.639755+00:00,c049f334e4131972,1,1,d67ecf65dac62b38,be32e92d3888,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,"✖ should add params
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'domParent')"
+prebid,min,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,build_unit,1,316,    ✖ should not add native bids that do not have required assets,acceptable,2026-11-04T08:41:34.456613+00:00,8f9f3b00c6d425e9,1,1,52d00a22c80ff13a,7eafd99a33df,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,"✖ should not add native bids that do not have required assets
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected true to equal false"
+prebid,min,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,build_unit,1,329,    ✖ catches invalid instream bids,acceptable,2026-11-04T08:41:34.476237+00:00,ea378d7323fda8b6,1,1,66fc1bcb138c6d73,7eafd99a33df,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,"✖ catches invalid instream bids
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected true to equal false"
+prebid,min,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,build_unit,1,341,    ✖ catches invalid bids when prebid-cache is disabled,acceptable,2026-11-04T08:41:34.493179+00:00,342e63af07e3bad0,1,1,7b9152a20753849b,7eafd99a33df,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,"✖ catches invalid bids when prebid-cache is disabled
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected true to equal false"
+prebid,min,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,build_unit,1,353,    ✖ catches invalid outstream bids,acceptable,2026-11-04T08:41:34.511604+00:00,01e40b2a356d85d5,1,1,d313a08d1f7ebfa4,7eafd99a33df,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,1626248362_f9707279da3ebc660e18d2dcef7c4b4919dcb3a6,"✖ catches invalid outstream bids
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected true to equal false"
+prebid,min,1626362016_485c0e75008d03469db94b837f37612615b5aa6d,build_unit,1,273,      ✖ should get correct bid response,acceptable,2026-11-04T08:41:34.530552+00:00,a9947e90b4485aea,1,1,b8a675093f16b059,90578512d46c,1626362016_485c0e75008d03469db94b837f37612615b5aa6d,1626362016_485c0e75008d03469db94b837f37612615b5aa6d,"✖ should get correct bid response
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected [ Array(1) ] to deeply equal [ Array(1) ]"
+prebid,min,1626362016_485c0e75008d03469db94b837f37612615b5aa6d,build_unit,1,292,      ✖ should get correct multi bid response,acceptable,2026-11-04T08:41:34.538846+00:00,8306086ad5d7a634,1,1,2737d1bb807e6c96,90578512d46c,1626362016_485c0e75008d03469db94b837f37612615b5aa6d,1626362016_485c0e75008d03469db94b837f37612615b5aa6d,"✖ should get correct multi bid response
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected [ Array(3) ] to deeply equal [ Array(3) ]"
+prebid,min,1626362016_485c0e75008d03469db94b837f37612615b5aa6d,build_unit,1,329,      ✖ should get correct video bid response,acceptable,2026-11-04T08:41:34.545224+00:00,e6826428b39fea59,1,1,b28a498770ba73b9,90578512d46c,1626362016_485c0e75008d03469db94b837f37612615b5aa6d,1626362016_485c0e75008d03469db94b837f37612615b5aa6d,"✖ should get correct video bid response
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected [ Array(2) ] to deeply equal [ Array(2) ]"
+prebid,min,1626362016_485c0e75008d03469db94b837f37612615b5aa6d,build_unit,1,357,      ✖ complicated case,acceptable,2026-11-04T08:41:34.550868+00:00,437977004800f43d,1,1,09f253b455f8b63b,90578512d46c,1626362016_485c0e75008d03469db94b837f37612615b5aa6d,1626362016_485c0e75008d03469db94b837f37612615b5aa6d,"✖ complicated case
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected [ Array(4) ] to deeply equal [ Array(4) ]"
+prebid,min,1626362016_485c0e75008d03469db94b837f37612615b5aa6d,build_unit,1,403,      ✖ response with ext.bidder.grid.demandSource,acceptable,2026-11-04T08:41:34.556547+00:00,e5b065b76edab8ca,1,1,015e848efbcb8a73,90578512d46c,1626362016_485c0e75008d03469db94b837f37612615b5aa6d,1626362016_485c0e75008d03469db94b837f37612615b5aa6d,"✖ response with ext.bidder.grid.demandSource
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected [ Array(1) ] to deeply equal [ Array(1) ]"
+prebid,min,1626794805_42529cd476c7176468cb6ce5848269a0b9971444,build_unit,1,273,      ✖ should log message if coppa is set,acceptable,2026-11-04T08:41:58.311850+00:00,7ba1f0395bc7384e,29,1,7a86fb906493af77,,1626794805_42529cd476c7176468cb6ce5848269a0b9971444,1637235134_23f4da7b503d8e87da52837d454e62c22589c2d1,"✖ should log message if coppa is set
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected 'ID-Library:  ' to equal 'PubCommonId: IDs not provided for coppa requests, exiting PubCommonId'"
+prebid,min,1626968287_ea26df58056ff497e74dbb28c46e925f9da3a942,build_unit,1,274,"        ✖ should send ""imp.ext.data.pbadslot"" if ""ortb2Imp.ext.data.pbadslot"" value is a non-empty string",acceptable,2026-11-04T08:41:58.323867+00:00,090369e817195e96,1,1,c16cdb66e9662570,c4eeddd6a3f8,1626968287_ea26df58056ff497e74dbb28c46e925f9da3a942,1626968287_ea26df58056ff497e74dbb28c46e925f9da3a942,"✖ should send ""imp.ext.data.pbadslot"" if ""ortb2Imp.ext.data.pbadslot"" value is a non-empty string
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected undefined to be an array"
+prebid,min,1627565085_0f7d5fbe1e63c66aa6ce1febb199321ced72fde0,build_unit,1,274,        ✖ should log an error and continue to callback if ajax request errors,acceptable,2026-11-04T08:42:17.511067+00:00,408338d66fc92e51,1,1,c61364ee95ff67e4,,1627565085_0f7d5fbe1e63c66aa6ce1febb199321ced72fde0,1627565085_0f7d5fbe1e63c66aa6ce1febb199321ced72fde0,"✖ should log an error and continue to callback if ajax request errors
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected 'https://s2.adxpremium.services/graphql' to include 'h.parrable.com'"
+prebid,min,1627572710_0896f790a4e85bb14a5982074905d2e2805071d6,build_unit,1,273,      ✖ should not call triggerPixel if the wurl cache does not contain the winning bid,acceptable,2026-11-04T08:42:17.531439+00:00,abb72e0c47930e97,1,1,30fa314c548f8f17,5844bbda7ee5,1627572710_0896f790a4e85bb14a5982074905d2e2805071d6,1627572710_0896f790a4e85bb14a5982074905d2e2805071d6,"✖ should not call triggerPixel if the wurl cache does not contain the winning bid
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected spy to be called once but was called 0 times"
+prebid,min,1628155583_3ce5f9c3ef0874c3425372f24b97274a7cb4785d,build_unit,1,273,      ✖ handles response cache from ext.prebid.targeting,acceptable,2026-11-04T08:42:17.546625+00:00,cf70d7d78562e8e7,1,1,d1994ee18c5b36b7,5844bbda7ee5,1628155583_3ce5f9c3ef0874c3425372f24b97274a7cb4785d,1628155583_3ce5f9c3ef0874c3425372f24b97274a7cb4785d,"✖ handles response cache from ext.prebid.targeting
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected spy to be called once but was called 0 times"
+prebid,min,1628511735_3d4a1391f4fc50763c6e30168c313d01d370bdfe,build_unit,1,273,      ✖ skips pbs alias when skipPbsAliasing is enabled in adapter,acceptable,2026-11-04T08:42:17.560731+00:00,ecff1eaea2e9fe67,1,1,0ea358c3312daac8,90578512d46c,1628511735_3d4a1391f4fc50763c6e30168c313d01d370bdfe,1628511735_3d4a1391f4fc50763c6e30168c313d01d370bdfe,"✖ skips pbs alias when skipPbsAliasing is enabled in adapter
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected undefined to deeply equal { Object (prebid) }"
+prebid,min,1628792597_7f5a3be54e1525d493647652e5fa15b2fe8f40e1,build_unit,1,273,      ✖ passes schain object in request,acceptable,2026-11-04T08:42:17.573703+00:00,11f530c8d0c3d898,1,1,c18416281a11a321,be32e92d3888,1628792597_7f5a3be54e1525d493647652e5fa15b2fe8f40e1,1628792597_7f5a3be54e1525d493647652e5fa15b2fe8f40e1,"✖ passes schain object in request
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'ext')"
+prebid,min,1628950004_95e3400cdfbdd1fdc55daaff24883a792aed3076,build_unit,1,273,      ✖ adds native request for OpenRTB,acceptable,2026-11-04T08:42:17.585609+00:00,99be079d2fd30b4d,2,2,0367c61129b502c7,be32e92d3888,1628950004_95e3400cdfbdd1fdc55daaff24883a792aed3076,1629119055_6aa63d6a9f941971bd730e4a21026e6ae4d2a32e,"✖ adds native request for OpenRTB
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading '0')"
+prebid,min,1629343251_e9a6b69c888ea8a2c69caac0114206dfcba9056f,build_unit,1,273,      ✖ adds device and app objects to request,acceptable,2026-11-04T08:42:17.594228+00:00,4fceb3fe88281cea,1,1,d6076e166fedc40b,90578512d46c,1629343251_e9a6b69c888ea8a2c69caac0114206dfcba9056f,1629343251_e9a6b69c888ea8a2c69caac0114206dfcba9056f,"✖ adds device and app objects to request
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected undefined to deeply equal { Object (ifa, w, ...) }"
+prebid,min,1629837900_54d537ddac94eadcd56676a1dd260729aca5cf09,build_unit,1,273,      ✖ converts video mediaType properties into openRTB format,acceptable,2026-11-04T08:42:17.602925+00:00,adf464e07ba2f1eb,1,1,c4ff4d03f96bb7c9,be32e92d3888,1629837900_54d537ddac94eadcd56676a1dd260729aca5cf09,1629837900_54d537ddac94eadcd56676a1dd260729aca5cf09,"✖ converts video mediaType properties into openRTB format
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading '0')"
+prebid,min,1630520884_68c2a4d83d145d35c04c1cb549b55e79bcbef933,build_unit,1,273,"      ✖ when userId is defined on bids, it's properties should be copied to user.ext.tpid properties",acceptable,2026-11-04T08:42:17.611391+00:00,b2211dadf5736707,1,1,4b040624d9d2e81f,be32e92d3888,1630520884_68c2a4d83d145d35c04c1cb549b55e79bcbef933,1630520884_68c2a4d83d145d35c04c1cb549b55e79bcbef933,"✖ when userId is defined on bids, it's properties should be copied to user.ext.tpid properties
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'ext')"
+prebid,min,1631296231_2b921539c0dd58fdc0743083266e2ab352fe7bde,build_unit,1,271,      ✖ Logger: post-timeout check with bid response,acceptable,2026-11-04T08:42:17.619940+00:00,ca27d51b103d2413,2,1,18a94742b062e887,d231290b1ead,1631296231_2b921539c0dd58fdc0743083266e2ab352fe7bde,1635280327_36200d8040a0704475366c04bc80ddd83d13e568,"✖ Logger: post-timeout check with bid response
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected 2 to equal 1"
+prebid,min,1631796753_66a76a15eb4d5b637d0aae1a4d9005c78a84249e,build_unit,1,275,      ✖ should make an ajax call with the original cpm,acceptable,2026-11-04T08:42:28.015028+00:00,e4ea4ae8afd215dc,1,1,940abda1169c6cf7,,1631796753_66a76a15eb4d5b637d0aae1a4d9005c78a84249e,1631796753_66a76a15eb4d5b637d0aae1a4d9005c78a84249e,"✖ should make an ajax call with the original cpm
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected 'https://s2.adxpremium.services/graphql' to equal 'http://example.com/win/1.1'"
+prebid,min,1631815123_76f708a8a16adcbd344db330c37d885261eecba0,build_unit,1,273,      ✖ always add ext.prebid.targeting.includebidderkeys: false for ORTB,acceptable,2026-11-04T08:42:28.036323+00:00,e9af101c835cb3e9,1,1,1988fade72f05724,be32e92d3888,1631815123_76f708a8a16adcbd344db330c37d885261eecba0,1631815123_76f708a8a16adcbd344db330c37d885261eecba0,"✖ always add ext.prebid.targeting.includebidderkeys: false for ORTB
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'prebid')"
+prebid,min,1633021181_0ee71d2e2a68159dad931e00bf7d3af18bcf2833,build_unit,1,272,      ✖ should build bid requests by video,reevaluated_acceptable,2026-11-04T08:42:54.665437+00:00,dc82aa18d4853a78,1,1,aa5d488f65bd15b5,3d6b21d3a9c5,1633021181_0ee71d2e2a68159dad931e00bf7d3af18bcf2833,1633021181_0ee71d2e2a68159dad931e00bf7d3af18bcf2833,"✖ should build bid requests by video
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: utils is not defined"
+prebid,min,1633021181_0ee71d2e2a68159dad931e00bf7d3af18bcf2833,build_unit,1,278,      ✖ should build bid requests by banner,reevaluated_acceptable,2026-11-04T08:42:54.681455+00:00,3e3fd006b2b8e3c0,1,1,de339926477d6e57,3d6b21d3a9c5,1633021181_0ee71d2e2a68159dad931e00bf7d3af18bcf2833,1633021181_0ee71d2e2a68159dad931e00bf7d3af18bcf2833,"✖ should build bid requests by banner
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: utils is not defined"
+prebid,min,1633021181_0ee71d2e2a68159dad931e00bf7d3af18bcf2833,build_unit,1,284,      ✖ should take 1x1 size,reevaluated_acceptable,2026-11-04T08:42:54.694989+00:00,90759181dbd406f4,1,1,07b6d82c2d4821f8,3d6b21d3a9c5,1633021181_0ee71d2e2a68159dad931e00bf7d3af18bcf2833,1633021181_0ee71d2e2a68159dad931e00bf7d3af18bcf2833,"✖ should take 1x1 size
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: utils is not defined"
+prebid,min,1633021181_0ee71d2e2a68159dad931e00bf7d3af18bcf2833,build_unit,1,290,      ✖ The referrer should be the last,reevaluated_acceptable,2026-11-04T08:42:54.708098+00:00,bd86b60fc8cf7279,1,1,3a10b02f3a77b2c8,3d6b21d3a9c5,1633021181_0ee71d2e2a68159dad931e00bf7d3af18bcf2833,1633021181_0ee71d2e2a68159dad931e00bf7d3af18bcf2833,"✖ The referrer should be the last
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: utils is not defined"
+prebid,min,1633021181_0ee71d2e2a68159dad931e00bf7d3af18bcf2833,build_unit,1,296,      ✖ should get imuid,reevaluated_acceptable,2026-11-04T08:42:54.721054+00:00,88e4cdb75268a674,1,1,8ccd5eac8252212e,3d6b21d3a9c5,1633021181_0ee71d2e2a68159dad931e00bf7d3af18bcf2833,1633021181_0ee71d2e2a68159dad931e00bf7d3af18bcf2833,"✖ should get imuid
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: utils is not defined"
+prebid,min,1634236625_ff188769cc096d949ef7d9f07d3130588a72c87f,build_unit,1,273,"        ✖ ""before each"" hook for ""should track the ad width and height""",acceptable,2026-11-04T08:42:54.732269+00:00,2caa15f002b1b7f8,1,1,74c9cf30585d7ffe,be32e92d3888,1634236625_ff188769cc096d949ef7d9f07d3130588a72c87f,1634236625_ff188769cc096d949ef7d9f07d3130588a72c87f,"✖ ""before each"" hook for ""should track the ad width and height""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'adUnits')"
+prebid,min,1634745342_fdfe85e49ad93d3b1bf1efb8ebe31f43ebc5b44d,build_unit,1,272,      ✖ should include the local time and timezone offset,acceptable,2026-11-04T08:42:54.740980+00:00,7aec4e9499b357da,223,1,7958d64c54599fa5,7eafd99a33df,1634745342_fdfe85e49ad93d3b1bf1efb8ebe31f43ebc5b44d,1641492137_55b9d66abd840e1e6014d9c8ff12f1f770b62e07,"✖ should include the local time and timezone offset
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected false to be true"
+prebid,min,1635968126_2dbe76f08a0ad2f05dd6d8e10c7626c182a66d33,build_unit,1,297,        ✖ should track the auction Id,acceptable,2026-11-04T08:42:54.749613+00:00,acca6aab50ba31be,1,1,6ed9b0e07fef6e00,be32e92d3888,1635968126_2dbe76f08a0ad2f05dd6d8e10c7626c182a66d33,1635968126_2dbe76f08a0ad2f05dd6d8e10c7626c182a66d33,"✖ should track the auction Id
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'auctionId')"
+prebid,min,1636464396_3e343edb9892a8d974fc3d07ab8a4f431e42dc52,build_unit,1,282,      ✖ Returns valid URL,reevaluated_acceptable,2026-11-04T08:43:21.869637+00:00,ba9a00766b8c0232,1,1,bdcefdbafc5ac1b8,a50e883fbf12,1636464396_3e343edb9892a8d974fc3d07ab8a4f431e42dc52,1636464396_3e343edb9892a8d974fc3d07ab8a4f431e42dc52,"✖ Returns valid URL
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected 'https://v5demo.datablocks.net/openrtb/?sid=7560' to equal 'https://7560.v5demo.datablocks.net/openrtb/?sid=7560'"
+prebid,min,1636712212_2e00b2199938a25fa3af6ddabef1dcef12106234,build_unit,1,297,"        ✖ ""before each"" hook for ""should track the timeout value ie timeLimit""",acceptable,2026-11-04T08:43:21.883778+00:00,8ecd3560f8906f1c,1,1,81cc39e8802ca6c7,be32e92d3888,1636712212_2e00b2199938a25fa3af6ddabef1dcef12106234,1636712212_2e00b2199938a25fa3af6ddabef1dcef12106234,"✖ ""before each"" hook for ""should track the timeout value ie timeLimit""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'adUnits')"
+prebid,min,1637227469_2b81fdba9cd54218eb08163a9454d8bd04adf220,build_unit,1,299,        ✖ bidder done event,acceptable,2026-11-04T08:43:21.897416+00:00,cc399830f5d8ffaf,1,1,7f2eb042061c3356,d231290b1ead,1637227469_2b81fdba9cd54218eb08163a9454d8bd04adf220,1637227469_2b81fdba9cd54218eb08163a9454d8bd04adf220,"✖ bidder done event
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected 2 to equal 1"
+prebid,min,1637235134_23f4da7b503d8e87da52837d454e62c22589c2d1,build_unit,1,299,        ✖ bid timeout event,acceptable,2026-11-04T08:43:21.903543+00:00,dc84045b8f413c4f,1,1,e0b5b52b7625b5e7,d231290b1ead,1637235134_23f4da7b503d8e87da52837d454e62c22589c2d1,1637235134_23f4da7b503d8e87da52837d454e62c22589c2d1,"✖ bid timeout event
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected 2 to equal 1"
+prebid,min,1637235134_23f4da7b503d8e87da52837d454e62c22589c2d1,build_unit,1,340,      ✖ should get correct bid response when type is video,acceptable,2026-11-04T08:43:21.909493+00:00,f3063e27a153176c,1,1,fbe88b941fcf9e37,90578512d46c,1637235134_23f4da7b503d8e87da52837d454e62c22589c2d1,1637235134_23f4da7b503d8e87da52837d454e62c22589c2d1,"✖ should get correct bid response when type is video
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected [ Array(1) ] to deeply equal [ Array(1) ]"
+prebid,min,1637255653_ad90df53f995e6f23998eba15cf42802470d4575,build_unit,1,284,      ✖ should save bidId if it exists,acceptable,2026-11-04T08:43:21.915483+00:00,13371f39300f75a3,3,1,69058705f0e45363,7eafd99a33df,1637255653_ad90df53f995e6f23998eba15cf42802470d4575,1752512173_e81fa771da30bc323406de5fe864408d99bbe4a4,"✖ should save bidId if it exists
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected false to be true"
+prebid,min,1637590420_dd33c8ce96b8118c88ca71a0c5a22f0d14e991ec,build_unit,1,298,      ✖ should call the remote server when getId is called,reevaluated_acceptable,2026-11-04T08:43:39.896847+00:00,1fa264519ba89e91,1,1,ed7bffef598ec1da,a50e883fbf12,1637590420_dd33c8ce96b8118c88ca71a0c5a22f0d14e991ec,1637590420_dd33c8ce96b8118c88ca71a0c5a22f0d14e991ec,"✖ should call the remote server when getId is called
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected 'https://id5-sync.com/g/v2/173.json' to equal 'https://id.crwdcntrl.net/id'"
+prebid,min,1638364206_eaa275a3e07508255fd1ce40e57c3d5379067ffc,build_unit,1,300,          ✖ should call the remote server when getId is called,acceptable,2026-11-04T08:43:39.907471+00:00,fd36d89837dab124,1,1,0cf83e29f3768446,7eafd99a33df,1638364206_eaa275a3e07508255fd1ce40e57c3d5379067ffc,1638364206_eaa275a3e07508255fd1ce40e57c3d5379067ffc,"✖ should call the remote server when getId is called
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected false to be true"
+prebid,min,1639682312_02d0f54ff55410604ae09b808906fbfacb6981bd,build_unit,1,298,      ✖ should generate a valid single POST request for multiple bid requests,acceptable,2026-11-04T08:43:45.320205+00:00,7fdc374b6d262ce1,1,1,8d4bd021f3a5f82b,,1639682312_02d0f54ff55410604ae09b808906fbfacb6981bd,1639682312_02d0f54ff55410604ae09b808906fbfacb6981bd,"✖ should generate a valid single POST request for multiple bid requests
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected '6.5.0' to equal '6.5.0-pre'"
+prebid,min,1639683436_4e3173e2f66d820259b946a00a2052732309d44e,build_unit,1,298,      ✖ should generate a valid single POST request for multiple bid requests,acceptable,2026-11-04T08:44:38.042059+00:00,c8f3ae54267b7a45,1,1,26d09e103b4f47cd,,1639683436_4e3173e2f66d820259b946a00a2052732309d44e,1639683436_4e3173e2f66d820259b946a00a2052732309d44e,"✖ should generate a valid single POST request for multiple bid requests
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected '6.6.0-pre' to equal '6.5.0-pre'"
+prebid,min,1647557708_3f99fa7b0b253c4730faf145d7f542c181a7b158,build_unit,1,269,"    ✖ ""before all"" hook",acceptable,2026-11-04T08:44:51.400251+00:00,7cc452808c8fc7a1,1,1,e10935d0454bf91b,,1647557708_3f99fa7b0b253c4730faf145d7f542c181a7b158,1647557708_3f99fa7b0b253c4730faf145d7f542c181a7b158,"✖ ""before all"" hook
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined"
+prebid,min,1650638313_6e7804391ded403205799c79c79932364ce22844,build_unit,1,274,      ✖ should call the ID5 server with signature field from stored object,acceptable,2026-11-04T08:45:26.920698+00:00,95119d9a50a39983,2,2,1e79dd5bc1f5f7b9,f735f181de2d,1650638313_6e7804391ded403205799c79c79932364ce22844,1651783071_2697d17bb9340b7eb478bc8cabd903c2d4938677,"✖ should call the ID5 server with signature field from stored object
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+SyntaxError: Unexpected token '&', ""&tbx=%257B""... is not valid JSON"
+prebid,min,1651668598_68a3c4e4e4982de6039bdcaf5841be8e32632d5e,build_unit,1,274,      ✖ should call the ID5 server with no signature field when no stored object,acceptable,2026-11-04T08:45:26.937057+00:00,83d526cf8a9c899d,1,1,f3cb3f3f62b3e603,f735f181de2d,1651668598_68a3c4e4e4982de6039bdcaf5841be8e32632d5e,1651668598_68a3c4e4e4982de6039bdcaf5841be8e32632d5e,"✖ should call the ID5 server with no signature field when no stored object
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+SyntaxError: Unexpected token '&', ""&tbx=%257B""... is not valid JSON"
+prebid,min,1652276911_a6044804a1ff9e8f87cbbf551417a36392edc970,build_unit,1,274,      ✖ should call the ID5 server with pd field when pd config is set,acceptable,2026-11-04T08:45:26.951991+00:00,1b57faaac4add4f0,1,1,96f91aa9cb8b4d10,f735f181de2d,1652276911_a6044804a1ff9e8f87cbbf551417a36392edc970,1652276911_a6044804a1ff9e8f87cbbf551417a36392edc970,"✖ should call the ID5 server with pd field when pd config is set
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+SyntaxError: Unexpected token '&', ""&tbx=%257B""... is not valid JSON"
+prebid,min,1654780497_5f9d9d0095df0a4d795f5c52dcd658b42760e47b,build_unit,1,270,        ✖ should build a request with floorPrices,acceptable,2026-11-04T08:45:26.965041+00:00,60628747c878d8f4,1,1,ca51321a45d9663c,90578512d46c,1654780497_5f9d9d0095df0a4d795f5c52dcd658b42760e47b,1654780497_5f9d9d0095df0a4d795f5c52dcd658b42760e47b,"✖ should build a request with floorPrices
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected [ { …(3) } ] to deeply equal [ { …(3) } ]"
+prebid,min,1658750158_40e5747b746b79939a98dce2f21c7cb09e5da0c4,build_unit,1,268,      ✖ register_iframe_pixel_if_iframeEnabled_is_true,reevaluated_acceptable,2026-11-04T08:45:44.184916+00:00,5485b438d2cfbf08,1,1,c12338846dbc924f,a50e883fbf12,1658750158_40e5747b746b79939a98dce2f21c7cb09e5da0c4,1658750158_40e5747b746b79939a98dce2f21c7cb09e5da0c4,"✖ register_iframe_pixel_if_iframeEnabled_is_true
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected 'https://ads-sg.momagic.com/jsp/usersy…' to equal 'http://ads.momagic.com/jsp/usersync.j…'"
+prebid,min,1667923048_152ca5202b1d3a3f3c4365038f3b7f7445dd8a44,build_unit,1,277,      ✖ Valid bid request - default,acceptable,2026-11-04T08:45:44.194392+00:00,87b0b26e1641d9c8,2,2,0c4beb1b45d1e51f,be32e92d3888,1667923048_152ca5202b1d3a3f3c4365038f3b7f7445dd8a44,1671637196_77647180e5fc3c8058adcf5d642499ad3146b495,"✖ Valid bid request - default
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'length')"
+prebid,min,1667923048_152ca5202b1d3a3f3c4365038f3b7f7445dd8a44,build_unit,1,284,      ✖ Valid bid request - custom,acceptable,2026-11-04T08:45:44.206455+00:00,5709c868e49eb336,2,2,45f045b3b767e0ea,be32e92d3888,1667923048_152ca5202b1d3a3f3c4365038f3b7f7445dd8a44,1671637196_77647180e5fc3c8058adcf5d642499ad3146b495,"✖ Valid bid request - custom
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'length')"
+prebid,min,1667923048_152ca5202b1d3a3f3c4365038f3b7f7445dd8a44,build_unit,1,291,      ✖ Valid bid request - sizes old style,acceptable,2026-11-04T08:45:44.211956+00:00,c2d3bccce51844df,2,2,4e2c933af2a986e3,be32e92d3888,1667923048_152ca5202b1d3a3f3c4365038f3b7f7445dd8a44,1671637196_77647180e5fc3c8058adcf5d642499ad3146b495,"✖ Valid bid request - sizes old style
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'length')"
+prebid,min,1667923048_152ca5202b1d3a3f3c4365038f3b7f7445dd8a44,build_unit,1,298,      ✖ Valid bid request - sizes old style - no media type,acceptable,2026-11-04T08:45:44.217811+00:00,f698a8e76498bd0a,2,2,5c10cc43e26b0ea0,be32e92d3888,1667923048_152ca5202b1d3a3f3c4365038f3b7f7445dd8a44,1671637196_77647180e5fc3c8058adcf5d642499ad3146b495,"✖ Valid bid request - sizes old style - no media type
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'length')"
+prebid,min,1667923048_152ca5202b1d3a3f3c4365038f3b7f7445dd8a44,build_unit,1,306,      ✖ should transmit correct data,acceptable,2026-11-04T08:45:44.223340+00:00,6a2677eb4540ad6f,2,2,33af83df198c706f,be32e92d3888,1667923048_152ca5202b1d3a3f3c4365038f3b7f7445dd8a44,1671637196_77647180e5fc3c8058adcf5d642499ad3146b495,"✖ should transmit correct data
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'length')"
+prebid,min,1667923048_152ca5202b1d3a3f3c4365038f3b7f7445dd8a44,build_unit,1,322,      ✖ Valid video mediaTypes,acceptable,2026-11-04T08:45:44.229587+00:00,1e8c774e005789b5,2,2,35c0494f3f9b8135,be32e92d3888,1667923048_152ca5202b1d3a3f3c4365038f3b7f7445dd8a44,1671637196_77647180e5fc3c8058adcf5d642499ad3146b495,"✖ Valid video mediaTypes
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'length')"
+prebid,min,1670342774_1c63ed92a1435244a2fd08fa491ba22c636165ed,build_unit,1,271,      ✖ should build video request,acceptable,2026-11-04T08:45:44.236443+00:00,6daca3e058dcf633,14,1,cc9a8720b12a583a,90578512d46c,1670342774_1c63ed92a1435244a2fd08fa491ba22c636165ed,1762776845_99c6ec3def28d545c0431c0301a9ecb5aff9efd4,"✖ should build video request
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { method: 'POST', …(2) } to deeply equal { method: 'POST', …(2) }"
+prebid,min,1671139227_77ba4ece1dce547c3ca824d43b79e6529c843aa6,build_unit,1,270,    ✖ should return segments for bidder if GDPR consent is true and there is cached segments stored which is not expired,acceptable,2026-11-04T08:45:44.242067+00:00,ec4eb2e00c6b9044,9,1,7c1980fab07c11b8,90578512d46c,1671139227_77ba4ece1dce547c3ca824d43b79e6529c843aa6,1671600734_5950984cf2aebdc1ea0f18c14ee057ddd79f1df7,"✖ should return segments for bidder if GDPR consent is true and there is cached segments stored which is not expired
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected [] to deeply equal [ Array(1) ]"
+prebid,min,1674481395_2741fe9b2bacebedacd7ed7edf7db304fc5dafd2,build_unit,1,275,            ✖ should add device.sua if available,acceptable,2026-11-04T08:45:44.248019+00:00,4323ce88427832fc,3,3,099b5232235bbc82,be32e92d3888,1674481395_2741fe9b2bacebedacd7ed7edf7db304fc5dafd2,1674500738_eafc9887bddc467596496e2d2c3d9f1259d912a8,"✖ should add device.sua if available
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'sua')"
+prebid,min,1675788403_58d79e5291ded734b36d106d2bfb14a0db685d82,build_unit,1,1281,      ✖ has the right fields filled,acceptable,2026-11-04T08:45:55.144440+00:00,0427cbb0a8cc3f90,2,1,702c744637d2f156,,1675788403_58d79e5291ded734b36d106d2bfb14a0db685d82,1675795084_324764f91072ef65e77b15f88e05252f4a7b08f9,"✖ has the right fields filled
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected undefined to be truthy"
+prebid,min,1675788403_58d79e5291ded734b36d106d2bfb14a0db685d82,build_unit,1,1291,      ✖ should configure the site object,acceptable,2026-11-04T08:45:55.156527+00:00,7dd3d5a74e59c7a7,2,1,74b6b336f928e990,0139c238ba86,1675788403_58d79e5291ded734b36d106d2bfb14a0db685d82,1675795084_324764f91072ef65e77b15f88e05252f4a7b08f9,"✖ should configure the site object
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected undefined to equal 'localhost'"
+prebid,min,1675788403_58d79e5291ded734b36d106d2bfb14a0db685d82,build_unit,1,1303,      ✖ should configure site with ortb2,acceptable,2026-11-04T08:45:55.162378+00:00,b226532fe86c7705,2,1,49dd064067d5ac4e,90578512d46c,1675788403_58d79e5291ded734b36d106d2bfb14a0db685d82,1675795084_324764f91072ef65e77b15f88e05252f4a7b08f9,"✖ should configure site with ortb2
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { publisher: { …(2) }, id: '876' } to deeply equal { Object (domain, id, ...) }"
+prebid,min,1676491106_23fe08397668f252c774213a3be14617264a4e8d,build_unit,1,1348,      ✖ test auctionEnd,acceptable,2026-11-04T08:46:07.208962+00:00,cdb2c6b98745725b,1,1,bbc7af1575955640,,1676491106_23fe08397668f252c774213a3be14617264a4e8d,1676491106_23fe08397668f252c774213a3be14617264a4e8d,"✖ test auctionEnd
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected track to be called 4 times but was called 5 times"
+prebid,min,1677261574_99ffff27e11b2c984dad2dc8256e930d548f5535,build_unit,1,1283,          ✖ should make a well-formed video request,acceptable,2026-11-04T08:46:07.241555+00:00,88cb182f347a8f43,3,1,33c9a7593fbb2fa8,0139c238ba86,1677261574_99ffff27e11b2c984dad2dc8256e930d548f5535,1677512405_fb422447762bee34036e4cbf28020deb2591b72a,"✖ should make a well-formed video request
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected undefined to equal 'BOJ/P2HOJ/P2HABABMAAAAAZ+A=='"
+prebid,min,1677261574_99ffff27e11b2c984dad2dc8256e930d548f5535,build_unit,1,1295,          ✖ should include coppa flag in video bid request,acceptable,2026-11-04T08:46:07.254901+00:00,6f1d5ac87ca0e943,3,3,68d06301851bce93,be32e92d3888,1677261574_99ffff27e11b2c984dad2dc8256e930d548f5535,1677512405_fb422447762bee34036e4cbf28020deb2591b72a,"✖ should include coppa flag in video bid request
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'coppa')"
+prebid,min,1678117684_9140dc41dd87d84eca93f8321f08e9179bf2f59c,build_unit,1,1306,        ✖ Request params check for video ad,acceptable,2026-11-04T08:46:07.269326+00:00,35eb161f4a6712bd,1,1,58f1e5fa32bcce6c,be32e92d3888,1678117684_9140dc41dd87d84eca93f8321f08e9179bf2f59c,1678117684_9140dc41dd87d84eca93f8321f08e9179bf2f59c,"✖ Request params check for video ad
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'data')"
+prebid,min,1678117684_9140dc41dd87d84eca93f8321f08e9179bf2f59c,build_unit,1,1312,          ✖ should check for valid video mediaType in request,acceptable,2026-11-04T08:46:07.282652+00:00,478cf8c7e3cc3f23,1,1,29ed02c59c7c4a7d,be32e92d3888,1678117684_9140dc41dd87d84eca93f8321f08e9179bf2f59c,1678117684_9140dc41dd87d84eca93f8321f08e9179bf2f59c,"✖ should check for valid video mediaType in request
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'mediaType')"
+prebid,min,1678117684_9140dc41dd87d84eca93f8321f08e9179bf2f59c,build_unit,1,1318,        ✖ Should consider video params from mediaType object of bid,acceptable,2026-11-04T08:46:07.294312+00:00,aa7ef509c3696b00,1,1,b1d8126dcb4c3b14,be32e92d3888,1678117684_9140dc41dd87d84eca93f8321f08e9179bf2f59c,1678117684_9140dc41dd87d84eca93f8321f08e9179bf2f59c,"✖ Should consider video params from mediaType object of bid
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'data')"
+prebid,min,1682956591_2edd264082b2baf0511def2b1fb5c326bad3b3cf,build_unit,1,1313,      ✖ should send additional request with adUnits with withCriteo parameter,acceptable,2026-11-04T08:46:07.305841+00:00,b20e498869ed9b3d,1,1,14c0c81777ab27bd,90578512d46c,1682956591_2edd264082b2baf0511def2b1fb5c326bad3b3cf,1682956591_2edd264082b2baf0511def2b1fb5c326bad3b3cf,"✖ should send additional request with adUnits with withCriteo parameter
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '22edbae2733bf6', …(5) } to deeply equal { id: '22edbae2733bf6', …(5) }"
+prebid,min,1682956591_2edd264082b2baf0511def2b1fb5c326bad3b3cf,build_unit,1,1332,      ✖ all id must be a string,acceptable,2026-11-04T08:46:27.081748+00:00,8ec5d89a86a4b8ce,1,1,e90e9917181948ee,,1682956591_2edd264082b2baf0511def2b1fb5c326bad3b3cf,1682956591_2edd264082b2baf0511def2b1fb5c326bad3b3cf,"✖ all id must be a string
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Attempted to wrap getDataFromLocalStorage which is already wrapped"
+prebid,min,1685630653_129f6f6b825cedd6efe8480b60f6731a613b4ef5,build_unit,1,1317,          ✖ Makes an ajax GET request to the production API endpoint with stored puid when id is stale,acceptable,2026-11-04T08:46:27.133408+00:00,0fc752780298ce90,2,1,53c6241b9c440ce1,90578512d46c,1685630653_129f6f6b825cedd6efe8480b60f6731a613b4ef5,1685642607_0a7ca9f6782263020f590a15daf003c49e47df89,"✖ Makes an ajax GET request to the production API endpoint with stored puid when id is stale
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { v: '1', '1p': '0', gdpr: '1', …(8) } to deeply equal { …(9) }"
+prebid,min,1685630653_129f6f6b825cedd6efe8480b60f6731a613b4ef5,build_unit,1,1337,          ✖ Makes an ajax GET request to the production API endpoint without the stored puid after 30 days,acceptable,2026-11-04T08:46:27.151604+00:00,5b17680052a04339,2,1,376eca3d2e54a4ff,90578512d46c,1685630653_129f6f6b825cedd6efe8480b60f6731a613b4ef5,1685642607_0a7ca9f6782263020f590a15daf003c49e47df89,"✖ Makes an ajax GET request to the production API endpoint without the stored puid after 30 days
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { v: '1', '1p': '0', gdpr: '1', …(7) } to deeply equal { …(8) }"
+prebid,min,1685630653_129f6f6b825cedd6efe8480b60f6731a613b4ef5,build_unit,1,1357,          ✖ Makes an ajax GET request to the production API endpoint with provided puid,acceptable,2026-11-04T08:46:27.169931+00:00,d5b52386b67b2ec3,2,1,03c156ad839260d8,90578512d46c,1685630653_129f6f6b825cedd6efe8480b60f6731a613b4ef5,1685642607_0a7ca9f6782263020f590a15daf003c49e47df89,"✖ Makes an ajax GET request to the production API endpoint with provided puid
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { v: '1', '1p': '0', gdpr: '1', …(8) } to deeply equal { pixelId: '1234', …(8) }"
+prebid,min,1691705672_52996a6c7bdfa4b1c40d8631cc73dde7e5e3c0d8,build_unit,1,547,    ✖ Verify extra parameters,acceptable,2026-11-04T08:46:38.577589+00:00,8c3a4b9744f85f8b,2,1,ffbc066ca99e5021,,1691705672_52996a6c7bdfa4b1c40d8631cc73dde7e5e3c0d8,1691743182_e1acefe45a251c49eae3b538b71eea973bf5d860,"✖ Verify extra parameters
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { ae: undefined } to be undefined"
+prebid,min,1691705672_52996a6c7bdfa4b1c40d8631cc73dde7e5e3c0d8,build_unit,1,557,    ✖ Verify impression/slot level first party data,acceptable,2026-11-04T08:46:38.602463+00:00,32f05b168a27e209,2,1,beb5d6c5eb8c37ce,90578512d46c,1691705672_52996a6c7bdfa4b1c40d8631cc73dde7e5e3c0d8,1691743182_e1acefe45a251c49eae3b538b71eea973bf5d860,"✖ Verify impression/slot level first party data
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { data: { …(2) }, ae: undefined, …(1) } to deeply equal { prebid: { …(2) }, data: { …(2) } }"
+prebid,min,1694035206_8793813597af845ce8d370384c289f481336f659,build_unit,1,556,"    ✖ ""after each"" hook for ""succeeds when params have accountId""",acceptable,2026-11-04T08:48:42.339103+00:00,108f9a90243e9baa,3,3,4afe8cc5d2880183,,1694035206_8793813597af845ce8d370384c289f481336f659,1694095107_e1441a4fdf2375ebb13ae88475e887378380bb19,"✖ ""after each"" hook for ""succeeds when params have accountId""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: xhr.restore is not a function"
+prebid,min,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,build_unit,1,574,      ✖ should send request with correct structure,reevaluated_acceptable,2026-11-04T08:48:49.062018+00:00,1376e7d497f312ea,2,2,2c8d4b99a2342cac,597c15fd045c,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,1696354950_b7ff9fe201cce20e8e82dfebe9981d1917e888f6,"✖ should send request with correct structure
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: (0 , _utils.getAdUnitSizes) is not a function"
+prebid,min,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,build_unit,1,582,      ✖ should build basic request structure,reevaluated_acceptable,2026-11-04T08:48:49.083124+00:00,6d6f00f9314e1f4e,2,2,cde647b39408aeb0,597c15fd045c,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,1696354950_b7ff9fe201cce20e8e82dfebe9981d1917e888f6,"✖ should build basic request structure
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: (0 , _utils.getAdUnitSizes) is not a function"
+prebid,min,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,build_unit,1,590,      ✖ should build request with schain,reevaluated_acceptable,2026-11-04T08:48:49.089443+00:00,737bb72d821402ad,2,2,6188c63d838c970d,597c15fd045c,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,1696354950_b7ff9fe201cce20e8e82dfebe9981d1917e888f6,"✖ should build request with schain
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: (0 , _utils.getAdUnitSizes) is not a function"
+prebid,min,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,build_unit,1,598,      ✖ should build request with location,reevaluated_acceptable,2026-11-04T08:48:49.095620+00:00,92951930f6d3caa0,2,2,2b56d4b630b4b3ac,597c15fd045c,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,1696354950_b7ff9fe201cce20e8e82dfebe9981d1917e888f6,"✖ should build request with location
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: (0 , _utils.getAdUnitSizes) is not a function"
+prebid,min,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,build_unit,1,606,      ✖ should build request with ortb2 info,reevaluated_acceptable,2026-11-04T08:48:49.101631+00:00,f1eb4ffcf29ac86d,2,2,93facae566dfaa6b,597c15fd045c,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,1696354950_b7ff9fe201cce20e8e82dfebe9981d1917e888f6,"✖ should build request with ortb2 info
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: (0 , _utils.getAdUnitSizes) is not a function"
+prebid,min,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,build_unit,1,614,      ✖ should build request with ortb2Imp info,reevaluated_acceptable,2026-11-04T08:48:49.107714+00:00,ff0c07a059a2f9b7,2,2,e57b2428229412c7,597c15fd045c,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,1696354950_b7ff9fe201cce20e8e82dfebe9981d1917e888f6,"✖ should build request with ortb2Imp info
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: (0 , _utils.getAdUnitSizes) is not a function"
+prebid,min,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,build_unit,1,622,      ✖ should build request with valid bidfloor,reevaluated_acceptable,2026-11-04T08:48:49.113910+00:00,8dcfba660bbbb841,2,2,5c9fc8a4a149532e,597c15fd045c,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,1696354950_b7ff9fe201cce20e8e82dfebe9981d1917e888f6,"✖ should build request with valid bidfloor
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: (0 , _utils.getAdUnitSizes) is not a function"
+prebid,min,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,build_unit,1,630,      ✖ should build request with gdpr consent data if applies,reevaluated_acceptable,2026-11-04T08:48:49.120024+00:00,988d74c81dd7eb01,2,2,7de57426bfa87041,597c15fd045c,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,1696354950_b7ff9fe201cce20e8e82dfebe9981d1917e888f6,"✖ should build request with gdpr consent data if applies
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: (0 , _utils.getAdUnitSizes) is not a function"
+prebid,min,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,build_unit,1,638,      ✖ should build request with usp consent data if applies,reevaluated_acceptable,2026-11-04T08:48:49.126188+00:00,e42a8ce69775a7fa,2,2,7d75a09d5bbd6369,597c15fd045c,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,1696354950_b7ff9fe201cce20e8e82dfebe9981d1917e888f6,"✖ should build request with usp consent data if applies
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: (0 , _utils.getAdUnitSizes) is not a function"
+prebid,min,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,build_unit,1,646,      ✖ should build request with coppa 1,reevaluated_acceptable,2026-11-04T08:48:49.132166+00:00,b74ab0447498cab5,2,2,b23d96328107224c,597c15fd045c,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,1696354950_b7ff9fe201cce20e8e82dfebe9981d1917e888f6,"✖ should build request with coppa 1
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: (0 , _utils.getAdUnitSizes) is not a function"
+prebid,min,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,build_unit,1,654,      ✖ should build request with extended ids,reevaluated_acceptable,2026-11-04T08:48:49.138042+00:00,d27c69ce5f16da01,2,2,2ccd5f1fff84d071,597c15fd045c,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,1696354950_b7ff9fe201cce20e8e82dfebe9981d1917e888f6,"✖ should build request with extended ids
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: (0 , _utils.getAdUnitSizes) is not a function"
+prebid,min,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,build_unit,1,662,      ✖ should build request with video,reevaluated_acceptable,2026-11-04T08:48:49.144051+00:00,85585cad80b38b19,2,2,a1f9204644707fae,597c15fd045c,1696345719_a2fc26a34447fa0cbd5ba30cbc4f0ef9fe684155,1696354950_b7ff9fe201cce20e8e82dfebe9981d1917e888f6,"✖ should build request with video
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: (0 , _utils.getAdUnitSizes) is not a function"
+prebid,min,1698420707_8eff469e79f788c9d496abeac9d64d96c3347d06,build_unit,1,592,        ✖ API responds with an error: the module storage should not be set,acceptable,2026-11-04T08:49:11.732252+00:00,1b0d28d80bf6891b,1,1,1ec6a1e1689d47ce,,1698420707_8eff469e79f788c9d496abeac9d64d96c3347d06,1698420707_8eff469e79f788c9d496abeac9d64d96c3347d06,"✖ API responds with an error: the module storage should not be set
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+Error: Uncaught SyntaxError: Unexpected end of JSON input (http://localhost:9876/context.html:1)"
+prebid,min,1702398914_048f735ccea9907ca72f068042bd35394c58689b,build_unit,1,777,      ✖ Pubmatic Won: No tracker fired,acceptable,2026-11-04T08:49:11.743219+00:00,508205176c21435b,3,1,9ff45ba96fece9e0,d231290b1ead,1702398914_048f735ccea9907ca72f068042bd35394c58689b,1702401218_5dbbf1ba39ae894cc9628ac1e9aafc62e79feef9,"✖ Pubmatic Won: No tracker fired
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected 2 to equal 1"
+prebid,min,1714415749_428ae3bc61044ab23f1553d02ec35351d2914553,build_unit,1,1055,    ✖ should call sync pixels if request by backend,acceptable,2026-11-04T08:49:11.758048+00:00,9f469690fcb8c6a7,2,1,dc0c6271da925c02,7eafd99a33df,1714415749_428ae3bc61044ab23f1553d02ec35351d2914553,1752512173_e81fa771da30bc323406de5fe864408d99bbe4a4,"✖ should call sync pixels if request by backend
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected false to be true"
+prebid,min,1714656664_8c72bc2239e3f9adbb14b40ec211b2be8eb8a0fb,build_unit,1,765,      ✖ should make a bidRequest by HTTP method,acceptable,2026-11-04T08:49:11.777196+00:00,0d7d97d971f9b6eb,16,16,2b6dc9b3c37c9816,be32e92d3888,1714656664_8c72bc2239e3f9adbb14b40ec211b2be8eb8a0fb,1715093361_ff458c5d1feac0df3a2f654406bb9ee1bb1fee80,"✖ should make a bidRequest by HTTP method
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'match')"
+prebid,min,1714656664_8c72bc2239e3f9adbb14b40ec211b2be8eb8a0fb,build_unit,1,798,      ✖ should add dsa information to the request via bidderRequest.params.dsa,acceptable,2026-11-04T08:49:11.790330+00:00,010bdc5305a13804,16,16,5cb3ab9387b9eb6f,be32e92d3888,1714656664_8c72bc2239e3f9adbb14b40ec211b2be8eb8a0fb,1715093361_ff458c5d1feac0df3a2f654406bb9ee1bb1fee80,"✖ should add dsa information to the request via bidderRequest.params.dsa
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'match')"
+prebid,min,1720090754_0110b3c47d13c80bd59078068b61cce5b55dde3e,build_unit,1,648,      ✖ user agent is other,acceptable,2026-11-04T08:49:11.800212+00:00,3eb9c905befcb18c,16,1,5966f7c518238835,d231290b1ead,1720090754_0110b3c47d13c80bd59078068b61cce5b55dde3e,1720456119_5d2fc68a0abfe200a219179fafd21dea50657722,"✖ user agent is other
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected 3 to equal 6"
+prebid,min,1721343092_dc6c0c35ead5f44f3fc35852a84956a6c9036bed,build_unit,1,648,      ✖ sends bid requests to the correct endpoint,reevaluated_acceptable,2026-11-04T08:49:34.266506+00:00,492459fbecd94215,1,1,8b6e8bccee4d0405,a50e883fbf12,1721343092_dc6c0c35ead5f44f3fc35852a84956a6c9036bed,1721343092_dc6c0c35ead5f44f3fc35852a84956a6c9036bed,"✖ sends bid requests to the correct endpoint
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected 'https://bidders-us.adelphic.net/d/rtb…' to equal 'https://bidders-us-east-1.adelphic.ne…'"
+prebid,min,1726779016_8b1d121b3ee9b6f55f600b423d897c67cab97c59,build_unit,1,1758,      ✖ should request server config and send page data,acceptable,2026-11-04T08:49:34.278925+00:00,39af1d8d29e71b40,36,36,05059d7db3031999,be32e92d3888,1726779016_8b1d121b3ee9b6f55f600b423d897c67cab97c59,1745625825_50e5a2109562bb57d5514ce2eea92c3e5187012b,"✖ should request server config and send page data
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'requestBody')"
+prebid,min,1726779016_8b1d121b3ee9b6f55f600b423d897c67cab97c59,build_unit,1,1764,"      ✖ should send an ""auction"" event to the server",acceptable,2026-11-04T08:49:34.285249+00:00,d44a0b017fe26293,36,1,bcb1f101010dc157,d231290b1ead,1726779016_8b1d121b3ee9b6f55f600b423d897c67cab97c59,1745625825_50e5a2109562bb57d5514ce2eea92c3e5187012b,"✖ should send an ""auction"" event to the server
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected 2 to equal 3"
+prebid,min,1726779016_8b1d121b3ee9b6f55f600b423d897c67cab97c59,build_unit,1,1776,      ✖ should push events to a queue and process them once server configuration returns,acceptable,2026-11-04T08:49:34.291553+00:00,4f0c41aa23be640d,36,36,053b6c027de54a48,be32e92d3888,1726779016_8b1d121b3ee9b6f55f600b423d897c67cab97c59,1745625825_50e5a2109562bb57d5514ce2eea92c3e5187012b,"✖ should push events to a queue and process them once server configuration returns
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'requestBody')"
+prebid,min,1726779016_8b1d121b3ee9b6f55f600b423d897c67cab97c59,build_unit,1,1786,      ✖ should mark bid winner and send to the server along with the auction data,acceptable,2026-11-04T08:49:50.315581+00:00,d77ffa58cfdd9e6c,36,1,9276a854a8a23437,,1726779016_8b1d121b3ee9b6f55f600b423d897c67cab97c59,1745625825_50e5a2109562bb57d5514ce2eea92c3e5187012b,"✖ should mark bid winner and send to the server along with the auction data
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected [ { fetch: { …(5) }, …(13) }, …(2) ] to have a length of 4 but got 3"
+prebid,min,1726779016_8b1d121b3ee9b6f55f600b423d897c67cab97c59,build_unit,1,1798,      ✖ should take BID_WON_TIMEOUT from server config if exists,acceptable,2026-11-04T08:50:32.341811+00:00,7010f508579d13aa,36,1,74f913d1497ded15,55813f966585,1726779016_8b1d121b3ee9b6f55f600b423d897c67cab97c59,1745625825_50e5a2109562bb57d5514ce2eea92c3e5187012b,"✖ should take BID_WON_TIMEOUT from server config if exists
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected [ { fetch: { …(5) }, …(13) }, …(1) ] to have a length of 3 but got 2"
+prebid,min,1726779016_8b1d121b3ee9b6f55f600b423d897c67cab97c59,build_unit,1,1810,"      ✖ should send a ""bidWon"" event to the server",acceptable,2026-11-04T08:50:32.365103+00:00,64093dda2cd8babc,36,1,9c5759b0ef1a459f,55813f966585,1726779016_8b1d121b3ee9b6f55f600b423d897c67cab97c59,1745625825_50e5a2109562bb57d5514ce2eea92c3e5187012b,"✖ should send a ""bidWon"" event to the server
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected [ { fetch: { …(5) }, …(13) }, …(3) ] to have a length of 5 but got 4"
+prebid,min,1726779016_8b1d121b3ee9b6f55f600b423d897c67cab97c59,build_unit,1,1822,      ✖ should sent adRenderFailed to the server,acceptable,2026-11-04T08:50:32.378932+00:00,4cf285a9f428be45,36,1,bc3f60289a954dd3,55813f966585,1726779016_8b1d121b3ee9b6f55f600b423d897c67cab97c59,1745625825_50e5a2109562bb57d5514ce2eea92c3e5187012b,"✖ should sent adRenderFailed to the server
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected [ { fetch: { …(5) }, …(13) }, …(3) ] to have a length of 5 but got 4"
+prebid,min,1726779016_8b1d121b3ee9b6f55f600b423d897c67cab97c59,build_unit,1,1834,      ✖ should pick fields according to server configuration,acceptable,2026-11-04T08:50:32.392370+00:00,deea5c8a35f074cd,36,36,0755b563bc1be3c2,be32e92d3888,1726779016_8b1d121b3ee9b6f55f600b423d897c67cab97c59,1745625825_50e5a2109562bb57d5514ce2eea92c3e5187012b,"✖ should pick fields according to server configuration
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'requestBody')"
+prebid,min,1726779016_8b1d121b3ee9b6f55f600b423d897c67cab97c59,build_unit,1,1844,      ✖ should omit fields from raw data according to server configuration,acceptable,2026-11-04T08:50:32.398713+00:00,1ee2d03ead571bd1,36,36,0617e73f3cb86109,be32e92d3888,1726779016_8b1d121b3ee9b6f55f600b423d897c67cab97c59,1745625825_50e5a2109562bb57d5514ce2eea92c3e5187012b,"✖ should omit fields from raw data according to server configuration
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'requestBody')"
+prebid,min,1726779016_8b1d121b3ee9b6f55f600b423d897c67cab97c59,build_unit,1,1854,      ✖ should send raw events based on server configuration,acceptable,2026-11-04T08:50:32.404522+00:00,489c0872961a5c3e,36,36,027ca9b64848d5ce,be32e92d3888,1726779016_8b1d121b3ee9b6f55f600b423d897c67cab97c59,1745625825_50e5a2109562bb57d5514ce2eea92c3e5187012b,"✖ should send raw events based on server configuration
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'requestBody')"
+prebid,min,1727876936_ffbe78711ba82c40e57df2714d2559cfe0e0ea40,build_unit,1,674,      ✖ Returns general data valid,acceptable,2026-11-04T08:51:01.405791+00:00,c885c8fa1f8b75db,4,1,1285cc5103b1ac40,,1727876936_ffbe78711ba82c40e57df2714d2559cfe0e0ea40,1728299620_edf14ba09f0374b7f77fb2ceec0147782ccd8e95,"✖ Returns general data valid
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { deviceWidth: 1512, …(11) } to have keys 'deviceWidth', 'deviceHeight', 'language', 'secure', 'host', 'page', 'placements', 'coppa', 'ccpa', 'gdpr', and 'tmax'"
+prebid,min,1728579365_9965e0e654e55d2cfdb13721c41717b49352362b,build_unit,1,674,      ✖ should connect to the implementation script once it loads,acceptable,2026-11-04T08:50:45.058385+00:00,fbf8f4b023df8902,2,1,c4b95b9d8764c396,7eafd99a33df,1728579365_9965e0e654e55d2cfdb13721c41717b49352362b,1728588920_b301a328d904b95420ec2ee64b43f74cbb6517ce,"✖ should connect to the implementation script once it loads
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected false to be true"
+prebid,min,1731988884_7c95dc0e74f4505667bb546384c248a55f7a336d,build_unit,1,681,      ✖ should build post request for video,acceptable,2026-11-04T08:50:45.066408+00:00,dc2cfd844192bee1,5,1,2b7c34bd225a3dd8,90578512d46c,1731988884_7c95dc0e74f4505667bb546384c248a55f7a336d,1732118060_09f963212823052de9f0857eb2935bee8c43f30a,"✖ should build post request for video
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: 'bid-video', secure: 1, …(1) } to deeply equal { id: 'bid-video', …(1) }"
+prebid,min,1732206045_e11a5111b2be931e29f64b3ac1c1a6d529dd3f7e,build_unit,1,683,        ✖ marks the bid object as used for the given adUnitCode/adId combination,acceptable,2026-11-04T08:51:34.318898+00:00,5ceeb9065419e1ea,2,1,77bf8160911df59f,,1732206045_e11a5111b2be931e29f64b3ac1c1a6d529dd3f7e,1735854917_7e0cda11ceffd0c78fbf8829ef1f184a9d05a92b,"✖ marks the bid object as used for the given adUnitCode/adId combination
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+expected emit to not have been called but was called 6 times"
+prebid,min,1733346119_438522e96097a1ee7b4ac303a538d685cc63d95a,build_unit,1,1785,        ✖ marks a bid object as used for the given adId,acceptable,2026-11-04T08:51:34.338566+00:00,48cb7605acfd209c,4,1,68582cfe2a0074c8,a1e57d630670,1733346119_438522e96097a1ee7b4ac303a538d685cc63d95a,1740663809_49699ea4f743a91a4a7884d6c31b162c8cd48d5a,"✖ marks a bid object as used for the given adId
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+expected emit to not have been called but was called 6 times"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,637,      ✖ should properly sync fields if both present,acceptable,2026-11-04T08:51:48.478169+00:00,865b1ed5930ccd51,1,1,b74ad718939fa239,,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should properly sync fields if both present
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,643,      ✖ should omit sync if mediaType not present on adUnit,acceptable,2026-11-04T08:51:48.497889+00:00,b0403cc00b80bde0,1,1,d3cf720037e49a28,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should omit sync if mediaType not present on adUnit
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,649,      ✖ should properly sync if mediaTypes is not present on any of side,acceptable,2026-11-04T08:51:48.512855+00:00,86ee64e02d3d0ee0,1,1,0681223cbc929225,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should properly sync if mediaTypes is not present on any of side
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,655,      ✖ should not create empty banner object on ortb2Imp if there was nothing to copy,acceptable,2026-11-04T08:51:48.527739+00:00,4422a789df5623ed,1,1,f1f1ea730d0c18e2,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should not create empty banner object on ortb2Imp if there was nothing to copy
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,664,        ✖ should delete banner mediaType if it does not contain sizes or sizeConfig property,acceptable,2026-11-04T08:51:48.542086+00:00,5fc10f4e50f0d783,1,1,7f51be1637f69d30,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should delete banner mediaType if it does not contain sizes or sizeConfig property
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,676,"        ✖ should log an error message if mediaTypes.banner does not contain ""sizes"" or ""sizeConfig"" property",acceptable,2026-11-04T08:51:48.552833+00:00,b2158b8f3ac5773b,1,1,3963eb8e40d433e6,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should log an error message if mediaTypes.banner does not contain ""sizes"" or ""sizeConfig"" property
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,688,"        ✖ should call function ""validateBannerMediaType"" if mediaTypes.sizes is present",acceptable,2026-11-04T08:51:48.563440+00:00,0bd261ab034b78ca,1,1,73940153bd102347,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should call function ""validateBannerMediaType"" if mediaTypes.sizes is present
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,700,        ✖ should delete mediaTypes.banner object if it's property sizeConfig is not declared as an array,acceptable,2026-11-04T08:51:48.574228+00:00,98c6cca703d066a6,1,1,40d663336b673593,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should delete mediaTypes.banner object if it's property sizeConfig is not declared as an array
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,712,        ✖ should log an error message if sizeConfig property in mediaTypes.banner object is not declared as an array,acceptable,2026-11-04T08:51:48.584988+00:00,989ecbb9fa112c2e,1,1,289501391d6640be,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should log an error message if sizeConfig property in mediaTypes.banner object is not declared as an array
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,724,"        ✖ should delete mediaTypes.banner object if it's property sizeConfig does not contain the required properties ""minViewPort"" and ""sizes""",acceptable,2026-11-04T08:51:48.591455+00:00,82473ac01c021eed,1,1,f23fd5a343403f3c,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should delete mediaTypes.banner object if it's property sizeConfig does not contain the required properties ""minViewPort"" and ""sizes""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,736,"        ✖ should log an error message if sizeConfig property in mediaTypes.banner object does not contain the required properties ""minViewPort"" and ""sizes""",acceptable,2026-11-04T08:51:48.597905+00:00,964f0be2fb87fcc4,1,1,22bc8e51b7512b9b,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should log an error message if sizeConfig property in mediaTypes.banner object does not contain the required properties ""minViewPort"" and ""sizes""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,748,        ✖ should delete mediaTypes.banner object if it's property sizeConfig has declared minViewPort property which is NOT an Array of two integers,acceptable,2026-11-04T08:51:48.604316+00:00,566c36278296cb3f,1,1,fc9079abba4e4ec4,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should delete mediaTypes.banner object if it's property sizeConfig has declared minViewPort property which is NOT an Array of two integers
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,760,        ✖ should log an error message if sizeConfig has declared property minViewPort which is not an array of two integers,acceptable,2026-11-04T08:51:48.610872+00:00,f8ce96de3be530f6,1,1,afa42d52a84faeec,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should log an error message if sizeConfig has declared property minViewPort which is not an array of two integers
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,772,"        ✖ should delete mediaTypes.banner object if it's property sizeConfig has declared sizes property which is not in the format, [[vw1, vh1], [vw2, vh2]], where vw is viewport width and vh is viewport height",acceptable,2026-11-04T08:51:48.617542+00:00,827553c34726efbb,1,1,e6d2eb68bd4c0197,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should delete mediaTypes.banner object if it's property sizeConfig has declared sizes property which is not in the format, [[vw1, vh1], [vw2, vh2]], where vw is viewport width and vh is viewport height
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,784,"        ✖ should log an error message if sizeConfig has declared property sizes which is not in the format, [[vw1, vh1], [vw2, vh2]], where vw is viewport width and vh is viewport height",acceptable,2026-11-04T08:51:48.623905+00:00,7ca8749dce132621,1,1,c197da770a346bda,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should log an error message if sizeConfig has declared property sizes which is not in the format, [[vw1, vh1], [vw2, vh2]], where vw is viewport width and vh is viewport height
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,796,"        ✖ should convert sizeConfig.sizes to an array of array, i.e., [360, 600] to [[360, 600]]",acceptable,2026-11-04T08:51:48.630385+00:00,f74ff8ce973f0276,1,1,22f7e9770788fa95,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should convert sizeConfig.sizes to an array of array, i.e., [360, 600] to [[360, 600]]
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,808,"        ✖ should allow empty array declaration in sizeConfig.sizes to indicate ""No valid sizes for this size bucket"", and convert it to an array of array, i.e, [] to [[]]",acceptable,2026-11-04T08:51:48.637093+00:00,e45988bc7be6a4a4,1,1,f25c415e1982eab6,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should allow empty array declaration in sizeConfig.sizes to indicate ""No valid sizes for this size bucket"", and convert it to an array of array, i.e, [] to [[]]
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,820,"        ✖ should log an error message if ""sizes"" in sizeConfig is not declared as an array",acceptable,2026-11-04T08:51:48.643834+00:00,af56261d73512385,1,1,5d26ec102c0fe8d3,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should log an error message if ""sizes"" in sizeConfig is not declared as an array
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,832,        ✖ should NOT delete mediaTypes.banner object if sizeConfig object is declared correctly,acceptable,2026-11-04T08:51:48.650356+00:00,9d3fe91e19cc8c42,1,1,69530374146657aa,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should NOT delete mediaTypes.banner object if sizeConfig object is declared correctly
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,845,"        ✖ should call function ""validateVideoMediaType"" if mediaTypes.video.playerSize is present in the Ad Unit (PART - 1)",acceptable,2026-11-04T08:51:48.656850+00:00,d58ed100b5c0104d,1,1,f7b77ad7f4d482f8,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should call function ""validateVideoMediaType"" if mediaTypes.video.playerSize is present in the Ad Unit (PART - 1)
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,855,"        ✖ should call function ""validateVideoMediaType"" if mediaTypes.video.playerSize"" is present in the Ad Unit (PART - 2)",acceptable,2026-11-04T08:51:48.663335+00:00,3133ad3ef80a2fff,1,1,ade3dc1f9dac935a,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should call function ""validateVideoMediaType"" if mediaTypes.video.playerSize"" is present in the Ad Unit (PART - 2)
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,867,        ✖ should delete mediaTypes.video.sizeConfig property if sizeConfig is not declared as an array,acceptable,2026-11-04T08:51:48.669742+00:00,982c92e7a71d2bfb,1,1,0b28b564eac549a0,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should delete mediaTypes.video.sizeConfig property if sizeConfig is not declared as an array
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,877,"        ✖ should delete mediaTypes.video.sizeConfig property if sizeConfig does not contain the required properties ""minViewPort"" and ""playerSize""",acceptable,2026-11-04T08:51:48.679971+00:00,0490a5b12793f165,1,1,1a117943de5038ef,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should delete mediaTypes.video.sizeConfig property if sizeConfig does not contain the required properties ""minViewPort"" and ""playerSize""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,887,        ✖ should delete mediaTypes.video.sizeConfig property if sizeConfig has declared minViewPort property which is NOT an Array of two integers,acceptable,2026-11-04T08:51:48.686761+00:00,78e50e6951d38efb,1,1,01cf52630d9cb0eb,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should delete mediaTypes.video.sizeConfig property if sizeConfig has declared minViewPort property which is NOT an Array of two integers
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,897,"        ✖ should delete mediaTypes.video.sizeConfig property if sizeConfig has declared ""playerSize"" property which is not in the format, [[vw1, vh1]], where vw is viewport width and vh is viewport height",acceptable,2026-11-04T08:51:48.693604+00:00,b796bd27f0123907,1,1,8efdc5aa15821351,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should delete mediaTypes.video.sizeConfig property if sizeConfig has declared ""playerSize"" property which is not in the format, [[vw1, vh1]], where vw is viewport width and vh is viewport height
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,907,"        ✖ should convert sizeConfig.playerSize to an array of array, i.e., [360, 600] to [[360, 600]]",acceptable,2026-11-04T08:51:48.700044+00:00,641cd0e1ccf621dc,1,1,1492695cf13c7413,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should convert sizeConfig.playerSize to an array of array, i.e., [360, 600] to [[360, 600]]
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,917,"        ✖ should convert mediaTypes.video.playerSize to an array of array, i.e., [360, 600] to [[360, 600]]",acceptable,2026-11-04T08:51:48.706496+00:00,da3af5d21122ea6a,1,1,6d5b417bb6f7f215,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should convert mediaTypes.video.playerSize to an array of array, i.e., [360, 600] to [[360, 600]]
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,927,        ✖ should NOT delete mediaTypes.video.sizeConfig property if sizeConfig property is declared correctly,acceptable,2026-11-04T08:51:48.712964+00:00,c99d6daba9967dfe,1,1,2977c6b153f544bd,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should NOT delete mediaTypes.video.sizeConfig property if sizeConfig property is declared correctly
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,938,"        ✖ should call function ""validateNativeMediaTypes"" if mediaTypes.native is defined",acceptable,2026-11-04T08:51:48.719902+00:00,8257d1ed45046d15,1,1,da9cf56de7c73412,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should call function ""validateNativeMediaTypes"" if mediaTypes.native is defined
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,948,"        ✖ should call function ""validateNativeMediaTypes"" if mediaTypes.native is defined (PART - 1)",acceptable,2026-11-04T08:51:48.726444+00:00,a3f9bd3484b8654c,1,1,346fbb47ff004079,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should call function ""validateNativeMediaTypes"" if mediaTypes.native is defined (PART - 1)
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,958,"        ✖ should call function ""validateNativeMediaTypes"" if mediaTypes.native is defined (PART - 2)",acceptable,2026-11-04T08:51:48.732935+00:00,fc35e044e0d49eeb,1,1,76a8a6b7caddefac,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should call function ""validateNativeMediaTypes"" if mediaTypes.native is defined (PART - 2)
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,968,"        ✖ should delete mediaTypes.native.sizeConfig property if sizeConfig does not contain the required properties ""minViewPort"" and ""active""",acceptable,2026-11-04T08:51:48.739473+00:00,e643018d868c50c0,1,1,6fa00e2ac4237e78,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should delete mediaTypes.native.sizeConfig property if sizeConfig does not contain the required properties ""minViewPort"" and ""active""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,978,        ✖ should delete mediaTypes.native.sizeConfig property if sizeConfig[].minViewPort is NOT an array of TWO integers,acceptable,2026-11-04T08:51:48.746060+00:00,6ca9deb8740aa3d7,1,1,f2a8217ec436f134,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should delete mediaTypes.native.sizeConfig property if sizeConfig[].minViewPort is NOT an array of TWO integers
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,988,        ✖ should delete mediaTypes.native.sizeConfig property if sizeConfig[].active is NOT a Boolean,acceptable,2026-11-04T08:51:48.752779+00:00,f1fd3dd29c440c4e,1,1,c28ecb5ae4cc4a8f,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should delete mediaTypes.native.sizeConfig property if sizeConfig[].active is NOT a Boolean
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,998,        ✖ should NOT delete mediaTypes.native.sizeConfig property if sizeConfig property is declared correctly,acceptable,2026-11-04T08:51:48.759329+00:00,efbef9d150ce1152,1,1,8e91d2ff26d9faf1,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should NOT delete mediaTypes.native.sizeConfig property if sizeConfig property is declared correctly
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,1010,      ✖ should execute callback after timeout,acceptable,2026-11-04T08:52:27.501906+00:00,ef560dba6981a0ba,1,1,892ab845745b8178,,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should execute callback after timeout
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: executeCallback called: expected false to be truthy"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,1020,"      ✖ ""after each"" hook for ""should execute callback after timeout""",acceptable,2026-11-04T08:52:39.901621+00:00,181c2828c959266e,1,1,16420d64c1db2c55,,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ ""after each"" hook for ""should execute callback after timeout""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot set properties of undefined (setting 'getBidsReceived')"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,1026,        ✖ should log warning message and execute callback if bidRequests is empty,acceptable,2026-11-04T08:53:07.767448+00:00,b057b78a8bfccbc7,1,1,6a280a7a6b955b14,891c4ded95fc,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should log warning message and execute callback if bidRequests is empty
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected warning message was logged: expected false to be truthy"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,1037,"        ✖ ""before each"" hook for ""should log message when adUnits not configured""",acceptable,2026-11-04T08:53:24.327249+00:00,04746f87cfd6b37e,1,1,f331c1daf3de707b,3dd6968f04ad,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ ""before each"" hook for ""should log message when adUnits not configured""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Attempted to wrap logMessage which is already wrapped"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,1050,"        ✖ ""after each"" hook for ""should log message when adUnits not configured""",acceptable,2026-11-04T08:53:37.173812+00:00,d3c2748afa5bbd1f,1,1,5a05d76d074cdf24,,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ ""after each"" hook for ""should log message when adUnits not configured""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: utils.logInfo.restore is not a function"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,1056,        ✖ bidders that support one of the declared formats are allowed to participate,acceptable,2026-11-04T08:53:37.194412+00:00,38333837cdacd607,1,1,ed5d1ab601eb78b9,3dd6968f04ad,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ bidders that support one of the declared formats are allowed to participate
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected callBids to be called once but was called 0 times"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,1065,"        ✖ ""before all"" hook for ""should callBids if a native adUnit has all native bidders""",acceptable,2026-11-04T08:53:37.209649+00:00,e4dc9eaa4ba76230,1,1,59bc1403586b15b9,3dd6968f04ad,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ ""before all"" hook for ""should callBids if a native adUnit has all native bidders""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Attempted to wrap newAuction which is already wrapped"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,1079,        ✖ should not queue bid requests when a previous bid request is in process,acceptable,2026-11-04T08:53:37.216525+00:00,5f6a8ae0555a2535,1,1,d9d585e548533f2f,891c4ded95fc,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should not queue bid requests when a previous bid request is in process
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: When two requests for bids are made both should be callBids immediately: expected false to be truthy"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,1090,      ✖ passes ortb2 fragments to createAuction,acceptable,2026-11-04T09:00:17.482050+00:00,904e615a2ad3e730,1,1,f224d3b24505dd5e,,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ passes ortb2 fragments to createAuction
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected createAuction to be called with arguments"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,1100,        ✖ should allow creation of a fpd.context.pbAdSlot property on adUnits from inside the event handler,acceptable,2026-11-04T09:00:35.476029+00:00,272af022c848be20,1,1,72ab999821fb87a1,5844bbda7ee5,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should allow creation of a fpd.context.pbAdSlot property on adUnits from inside the event handler
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected beforeRequestBidsHandler to be called once but was called 0 times"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,1116,        ✖ should not create a context property on adUnits if not added by handler,acceptable,2026-11-04T09:00:35.494975+00:00,e391b115adb6a909,1,1,c7c1cc93a161f117,5844bbda7ee5,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should not create a context property on adUnits if not added by handler
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected beforeRequestBidsHandler to be called once but was called 0 times"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,1132,      ✖ should omit sync if video mediaType not present on adUnit,acceptable,2026-11-04T08:54:03.160101+00:00,6335dfd968cf3cce,1,1,9544a341c26ae4ba,8a0abf18cb73,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should omit sync if video mediaType not present on adUnit
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,build_unit,1,1144,      ✖ should not create empty video object on ortb2Imp if there was nothing to copy,reevaluated_acceptable,2026-11-04T08:50:45.075868+00:00,4832a52755be6f79,1,1,75efa286c3d3f889,90b89d7d74d6,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,1733751240_05d9c7485c22a940f61f41c07b59f2456370b057,"✖ should not create empty video object on ortb2Imp if there was nothing to copy
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+ReferenceError: deepAccess is not defined"
+prebid,min,1735230486_6e42abee5b52ec65520fdf585a93420754f0807a,build_unit,1,656,      ✖ should build banner request for each size,acceptable,2026-11-04T08:50:45.077636+00:00,4489ea24d566206f,13,1,a5dd2d223846bee8,90578512d46c,1735230486_6e42abee5b52ec65520fdf585a93420754f0807a,1762776845_99c6ec3def28d545c0431c0301a9ecb5aff9efd4,"✖ should build banner request for each size
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { method: 'POST', …(2) } to deeply equal { method: 'POST', …(2) }"
+prebid,min,1737045317_e0fe3ac3701460263fa0cfe0567bb752c420702d,build_unit,1,497,        ✖ marks the winning bid object as used for the given adUnitCode,acceptable,2026-11-04T08:54:03.160616+00:00,57b5fe6a92f7b6f8,1,1,5634964fe39245ee,a1e57d630670,1737045317_e0fe3ac3701460263fa0cfe0567bb752c420702d,1737045317_e0fe3ac3701460263fa0cfe0567bb752c420702d,"✖ marks the winning bid object as used for the given adUnitCode
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+expected emit to not have been called but was called 6 times"
+prebid,min,1739978315_53288b69d1b30b2edbc13de423650ebb4234ca40,build_unit,1,500,"          ✖ ""before each"" hook for ""should handle resize request""",acceptable,2026-11-04T09:01:14.082986+00:00,192430a8af87db3e,7,7,037b3d889ede076c,be32e92d3888,1739978315_53288b69d1b30b2edbc13de423650ebb4234ca40,1757338835_4869104583e962e9eeac0ce12c7a4230ef6d465f,"✖ ""before each"" hook for ""should handle resize request""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of null (reading 'appendChild')"
+prebid,min,1739978315_53288b69d1b30b2edbc13de423650ebb4234ca40,build_unit,1,512,      ✖ returns a node at the top of the target by default,acceptable,2026-11-04T08:50:45.083510+00:00,b8262129739a0f62,2,2,f12cbf06cc3690b0,be32e92d3888,1739978315_53288b69d1b30b2edbc13de423650ebb4234ca40,1748610501_4cc6d14a3c773d2c915232af300388fa915f3ac5,"✖ returns a node at the top of the target by default
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'firstChild')"
+prebid,min,1740702173_59467c0a562b6b8ad175a16454397e984d45545a,build_unit,1,20070,      ✖ should return an array of interpreted banner responses,acceptable,2026-11-04T08:50:45.089716+00:00,1013759aec379174,4,1,e5ccd5efd13374a5,90578512d46c,1740702173_59467c0a562b6b8ad175a16454397e984d45545a,1740935209_2ad1d23452bd1804eb0fad406fc0e26de1ce8112,"✖ should return an array of interpreted banner responses
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { mediaType: 'banner', …(17) } to deeply equal { …(17) }"
+prebid,min,1742820399_34704a079d779faf90a94c101689937f21b74af3,build_unit,1,20169,      ✖ should return proper banner imp,acceptable,2026-11-04T08:50:45.108254+00:00,887850daaf0f9fd5,13,1,c24b18cca26b74e0,90578512d46c,1742820399_34704a079d779faf90a94c101689937f21b74af3,1749605350_87d042f5f8f9ea3a1405f00b707e038817b4ccd9,"✖ should return proper banner imp
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected 'Mozilla/5.0 (Windows NT 10.0; Win64; …' to deeply equal 'Mozilla/5.0 (X11; Linux x86_64) Apple…'"
+prebid,min,1742820399_34704a079d779faf90a94c101689937f21b74af3,build_unit,1,20181,      ✖ should return proper native imp,acceptable,2026-11-04T08:50:45.108325+00:00,c5da6ab368400885,13,1,1accd916cf50c5ca,90578512d46c,1742820399_34704a079d779faf90a94c101689937f21b74af3,1749605350_87d042f5f8f9ea3a1405f00b707e038817b4ccd9,"✖ should return proper native imp
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected 'Mozilla/5.0 (Windows NT 10.0; Win64; …' to deeply equal 'Mozilla/5.0 (X11; Linux x86_64) Apple…'"
+prebid,min,1742820399_34704a079d779faf90a94c101689937f21b74af3,build_unit,1,20193,      ✖ should return proper native imp with image altered,acceptable,2026-11-04T08:50:45.108386+00:00,4fce26f4fbf913ad,13,1,69d7c42d188b60b5,90578512d46c,1742820399_34704a079d779faf90a94c101689937f21b74af3,1749605350_87d042f5f8f9ea3a1405f00b707e038817b4ccd9,"✖ should return proper native imp with image altered
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected 'Mozilla/5.0 (Windows NT 10.0; Win64; …' to deeply equal 'Mozilla/5.0 (X11; Linux x86_64) Apple…'"
+prebid,min,1742820399_34704a079d779faf90a94c101689937f21b74af3,build_unit,1,20205,      ✖ should return proper native imp with sponsoredBy,acceptable,2026-11-04T08:50:45.108446+00:00,68d39433522f417c,13,1,d349f5fe1972ee52,90578512d46c,1742820399_34704a079d779faf90a94c101689937f21b74af3,1749605350_87d042f5f8f9ea3a1405f00b707e038817b4ccd9,"✖ should return proper native imp with sponsoredBy
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected 'Mozilla/5.0 (Windows NT 10.0; Win64; …' to deeply equal 'Mozilla/5.0 (X11; Linux x86_64) Apple…'"
+prebid,min,1742820399_34704a079d779faf90a94c101689937f21b74af3,build_unit,1,20217,      ✖ should return proper banner request,acceptable,2026-11-04T08:50:45.108513+00:00,1ce398ba1b757b50,13,1,925194dbb3321ede,90578512d46c,1742820399_34704a079d779faf90a94c101689937f21b74af3,1749605350_87d042f5f8f9ea3a1405f00b707e038817b4ccd9,"✖ should return proper banner request
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected 'Mozilla/5.0 (Windows NT 10.0; Win64; …' to deeply equal 'Mozilla/5.0 (X11; Linux x86_64) Apple…'"
+prebid,min,1746211738_456ab20d12ef15df994278d7166ff8f88c38d403,build_unit,1,597,      ✖ should have valid user sync with iframeEnabled,acceptable,2026-11-04T08:50:45.119840+00:00,cc2cf6b256e3136c,6,1,7b03f655e4439617,90578512d46c,1746211738_456ab20d12ef15df994278d7166ff8f88c38d403,1746537405_124b7105406f934a9014355e4ff936df94aac141,"✖ should have valid user sync with iframeEnabled
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected [ { type: 'iframe', …(1) } ] to deeply equal [ { type: 'iframe', …(1) } ]"
+prebid,min,1746211738_456ab20d12ef15df994278d7166ff8f88c38d403,build_unit,1,614,      ✖ should have valid user sync with cid on response,acceptable,2026-11-04T08:50:45.119898+00:00,35fc3f637538a8fa,6,1,16f56ea4f9f2bbd9,90578512d46c,1746211738_456ab20d12ef15df994278d7166ff8f88c38d403,1746537405_124b7105406f934a9014355e4ff936df94aac141,"✖ should have valid user sync with cid on response
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected [ { type: 'iframe', …(1) } ] to deeply equal [ { type: 'iframe', …(1) } ]"
+prebid,min,1746211738_456ab20d12ef15df994278d7166ff8f88c38d403,build_unit,1,631,      ✖ should have valid user sync with pixelEnabled,acceptable,2026-11-04T08:50:45.119949+00:00,d8ebe1fce2447187,6,1,61571b0a68506e49,90578512d46c,1746211738_456ab20d12ef15df994278d7166ff8f88c38d403,1746537405_124b7105406f934a9014355e4ff936df94aac141,"✖ should have valid user sync with pixelEnabled
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected [ { type: 'image', …(1) } ] to deeply equal [ { …(2) } ]"
+prebid,min,1748453344_df04e1d85f8252de472401466748564b9668c501,build_unit,1,399,      ✖ should update reqBidsConfigObj and execute callback using audience from localStorage,acceptable,2026-11-04T09:01:44.482568+00:00,17f92d06dec6db0b,1,1,3be27187fb61220f,929513ceeda2,1748453344_df04e1d85f8252de472401466748564b9668c501,1748453344_df04e1d85f8252de472401466748564b9668c501,"✖ should update reqBidsConfigObj and execute callback using audience from localStorage
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected 'Emitting event for: auctionDebug' to equal 'Segtax data from RaynJS: {""6"":{""4"":[""…'"
+prebid,min,1748624854_c432193e52e9167cd738e7aa4fb09556f36aaad1,build_unit,1,413,        ✖ should include previousAuctionInfo in request when available,acceptable,2026-11-04T09:02:09.835561+00:00,451e8d88648bd2fa,1,1,89414cbe5708680d,,1748624854_c432193e52e9167cd738e7aa4fb09556f36aaad1,1748624854_c432193e52e9167cd738e7aa4fb09556f36aaad1,"✖ should include previousAuctionInfo in request when available
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { epoch: 1793747803204, …(2) } to have property 'previousAuctionInfo'"
+prebid,min,1749578088_d0b232884e84b9adca47771cc9cfc5d08e512fde,build_unit,1,445,      ✖ should not stop on unsupported mediaType,acceptable,2026-11-04T08:50:45.122932+00:00,abb1c2b089d14586,1,1,9e32e6c52d167e2b,90578512d46c,1749578088_d0b232884e84b9adca47771cc9cfc5d08e512fde,1749578088_d0b232884e84b9adca47771cc9cfc5d08e512fde,"✖ should not stop on unsupported mediaType
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '1899d44be09103', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749578088_d0b232884e84b9adca47771cc9cfc5d08e512fde,build_unit,1,465,      ✖ should return proper banner imp,acceptable,2026-11-04T08:50:45.123004+00:00,4879cfff3534071d,1,1,c363f51134943573,90578512d46c,1749578088_d0b232884e84b9adca47771cc9cfc5d08e512fde,1749578088_d0b232884e84b9adca47771cc9cfc5d08e512fde,"✖ should return proper banner imp
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '11a7faa6e25fe', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749578206_0438c8423edd85238170d41ff05abdfa5721e18c,build_unit,1,444,      ✖ should not stop on unsupported mediaType,acceptable,2026-11-04T08:50:45.123320+00:00,1d9a8592a3172297,1,1,0a1c344453187711,90578512d46c,1749578206_0438c8423edd85238170d41ff05abdfa5721e18c,1749578206_0438c8423edd85238170d41ff05abdfa5721e18c,"✖ should not stop on unsupported mediaType
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '1cee0732d25da4', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749578206_0438c8423edd85238170d41ff05abdfa5721e18c,build_unit,1,464,      ✖ should return proper banner imp,acceptable,2026-11-04T08:50:45.123389+00:00,8dbec1277d3edcbc,1,1,63fecc4140bf0ace,90578512d46c,1749578206_0438c8423edd85238170d41ff05abdfa5721e18c,1749578206_0438c8423edd85238170d41ff05abdfa5721e18c,"✖ should return proper banner imp
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: 'd373d0c9fdbde', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749581985_f03b5cdb7e9973d82b3bd052e0c74f4894a953cd,build_unit,1,443,      ✖ should not stop on unsupported mediaType,acceptable,2026-11-04T08:50:45.123721+00:00,3ea418da89871ea6,1,1,71eeb6ec2b5f44d7,90578512d46c,1749581985_f03b5cdb7e9973d82b3bd052e0c74f4894a953cd,1749581985_f03b5cdb7e9973d82b3bd052e0c74f4894a953cd,"✖ should not stop on unsupported mediaType
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '1c3356aa879c9c', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749581985_f03b5cdb7e9973d82b3bd052e0c74f4894a953cd,build_unit,1,463,      ✖ should return proper banner imp,acceptable,2026-11-04T08:50:45.123791+00:00,359ac812d2b8f2e8,1,1,79ad212e7542cc1c,90578512d46c,1749581985_f03b5cdb7e9973d82b3bd052e0c74f4894a953cd,1749581985_f03b5cdb7e9973d82b3bd052e0c74f4894a953cd,"✖ should return proper banner imp
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '178362321a0ddc', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749591898_63121bb0977cd0d8a7af5c53f893993bc4a86fe9,build_unit,1,443,      ✖ should not stop on unsupported mediaType,acceptable,2026-11-04T08:50:45.124109+00:00,c24f8c829b8b638d,1,1,0c45edb5344c3e0a,90578512d46c,1749591898_63121bb0977cd0d8a7af5c53f893993bc4a86fe9,1749591898_63121bb0977cd0d8a7af5c53f893993bc4a86fe9,"✖ should not stop on unsupported mediaType
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '202a284c74deb2', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749591898_63121bb0977cd0d8a7af5c53f893993bc4a86fe9,build_unit,1,463,      ✖ should return proper banner imp,acceptable,2026-11-04T08:50:45.124177+00:00,13e212963949476a,1,1,e641da9e2f47ddd3,90578512d46c,1749591898_63121bb0977cd0d8a7af5c53f893993bc4a86fe9,1749591898_63121bb0977cd0d8a7af5c53f893993bc4a86fe9,"✖ should return proper banner imp
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: 'c16ba4d6e09f8', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749592070_f8814065a61370223a61638cff031ba4d959d65f,build_unit,1,442,      ✖ should not stop on unsupported mediaType,acceptable,2026-11-04T08:50:45.124495+00:00,badb8a03b264a306,1,1,71d05f30cd0feff2,90578512d46c,1749592070_f8814065a61370223a61638cff031ba4d959d65f,1749592070_f8814065a61370223a61638cff031ba4d959d65f,"✖ should not stop on unsupported mediaType
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '8baee4ed78d09', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749592070_f8814065a61370223a61638cff031ba4d959d65f,build_unit,1,462,      ✖ should return proper banner imp,acceptable,2026-11-04T08:50:45.124579+00:00,34ad5830dd6a3fe5,1,1,5051210491f2a954,90578512d46c,1749592070_f8814065a61370223a61638cff031ba4d959d65f,1749592070_f8814065a61370223a61638cff031ba4d959d65f,"✖ should return proper banner imp
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '11c79b5ef4a704', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749592995_fbe0af15535e6ab33cef1e347a11db11b3af478e,build_unit,1,442,      ✖ should not stop on unsupported mediaType,acceptable,2026-11-04T08:50:45.124904+00:00,ba26664acb84c4ed,1,1,84e03a2f497a0461,90578512d46c,1749592995_fbe0af15535e6ab33cef1e347a11db11b3af478e,1749592995_fbe0af15535e6ab33cef1e347a11db11b3af478e,"✖ should not stop on unsupported mediaType
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '19038df57b05e', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749592995_fbe0af15535e6ab33cef1e347a11db11b3af478e,build_unit,1,462,      ✖ should return proper banner imp,acceptable,2026-11-04T08:50:45.124977+00:00,15aa8afaa380c331,1,1,2bd2538dc52b3b0e,90578512d46c,1749592995_fbe0af15535e6ab33cef1e347a11db11b3af478e,1749592995_fbe0af15535e6ab33cef1e347a11db11b3af478e,"✖ should return proper banner imp
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '189460d0cc62c7', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749593764_07fe9f8f134449a0da11e03aca667315be841c0b,build_unit,1,442,      ✖ should not stop on unsupported mediaType,acceptable,2026-11-04T08:50:45.125303+00:00,9e6c1e020fb16d14,1,1,f3103063cfd3104a,90578512d46c,1749593764_07fe9f8f134449a0da11e03aca667315be841c0b,1749593764_07fe9f8f134449a0da11e03aca667315be841c0b,"✖ should not stop on unsupported mediaType
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '2131e5f53fa3e0', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749593764_07fe9f8f134449a0da11e03aca667315be841c0b,build_unit,1,462,      ✖ should return proper banner imp,acceptable,2026-11-04T08:50:45.125371+00:00,f8e5281f369dcded,1,1,bf37f5f82b285015,90578512d46c,1749593764_07fe9f8f134449a0da11e03aca667315be841c0b,1749593764_07fe9f8f134449a0da11e03aca667315be841c0b,"✖ should return proper banner imp
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '174b2434b6d0e3', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749600813_bfeb12e0170a13e12367ac2e39ae6c379bf250a1,build_unit,1,442,      ✖ should not stop on unsupported mediaType,acceptable,2026-11-04T08:50:45.125696+00:00,c78b357354850390,1,1,5decf0a7a1b8ea52,90578512d46c,1749600813_bfeb12e0170a13e12367ac2e39ae6c379bf250a1,1749600813_bfeb12e0170a13e12367ac2e39ae6c379bf250a1,"✖ should not stop on unsupported mediaType
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '1b92f8aef35cef', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749600813_bfeb12e0170a13e12367ac2e39ae6c379bf250a1,build_unit,1,462,      ✖ should return proper banner imp,acceptable,2026-11-04T08:50:45.125765+00:00,9a9f5865a2c79d26,1,1,e21267aaa2f2c00e,90578512d46c,1749600813_bfeb12e0170a13e12367ac2e39ae6c379bf250a1,1749600813_bfeb12e0170a13e12367ac2e39ae6c379bf250a1,"✖ should return proper banner imp
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '1be78a479ba909', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749600813_c2fe82fa7235816f8336fcbf04574622fcf22dae,build_unit,1,441,      ✖ should not stop on unsupported mediaType,acceptable,2026-11-04T08:50:45.126085+00:00,131201354445cd71,1,1,e4324260cfe99adf,90578512d46c,1749600813_c2fe82fa7235816f8336fcbf04574622fcf22dae,1749600813_c2fe82fa7235816f8336fcbf04574622fcf22dae,"✖ should not stop on unsupported mediaType
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: 'd5bc99986da34', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749600813_c2fe82fa7235816f8336fcbf04574622fcf22dae,build_unit,1,461,      ✖ should return proper banner imp,acceptable,2026-11-04T08:50:45.126154+00:00,a2c13727a3ee19b0,1,1,8b63624b5b336f04,90578512d46c,1749600813_c2fe82fa7235816f8336fcbf04574622fcf22dae,1749600813_c2fe82fa7235816f8336fcbf04574622fcf22dae,"✖ should return proper banner imp
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '19c3bcb9e7f52', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749603918_ee5d2e18a633b05f99d2ae0984630c38d5de8bcd,build_unit,1,443,      ✖ should not stop on unsupported mediaType,acceptable,2026-11-04T08:50:45.126469+00:00,e501ae171220b0da,1,1,2707e4c2df0befc8,90578512d46c,1749603918_ee5d2e18a633b05f99d2ae0984630c38d5de8bcd,1749603918_ee5d2e18a633b05f99d2ae0984630c38d5de8bcd,"✖ should not stop on unsupported mediaType
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '1f49872207d485', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749603918_ee5d2e18a633b05f99d2ae0984630c38d5de8bcd,build_unit,1,463,      ✖ should return proper banner imp,acceptable,2026-11-04T08:50:45.126546+00:00,4baa1b889955044f,1,1,17a2311e4314ab7a,90578512d46c,1749603918_ee5d2e18a633b05f99d2ae0984630c38d5de8bcd,1749603918_ee5d2e18a633b05f99d2ae0984630c38d5de8bcd,"✖ should return proper banner imp
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '219fcfe688e028', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749604583_2623c6e60722c83260e676560e7e40124613c487,build_unit,1,442,      ✖ should not stop on unsupported mediaType,acceptable,2026-11-04T08:50:45.126867+00:00,6eab4c7a692e7ad7,1,1,6e2730855eb7b03d,90578512d46c,1749604583_2623c6e60722c83260e676560e7e40124613c487,1749604583_2623c6e60722c83260e676560e7e40124613c487,"✖ should not stop on unsupported mediaType
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '193bf8a4e88d2a', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749604583_2623c6e60722c83260e676560e7e40124613c487,build_unit,1,462,      ✖ should return proper banner imp,acceptable,2026-11-04T08:50:45.126936+00:00,98dd4c483d48b674,1,1,de9c0d2681a84b45,90578512d46c,1749604583_2623c6e60722c83260e676560e7e40124613c487,1749604583_2623c6e60722c83260e676560e7e40124613c487,"✖ should return proper banner imp
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '135990a364395d', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749605350_87d042f5f8f9ea3a1405f00b707e038817b4ccd9,build_unit,1,439,      ✖ should not stop on unsupported mediaType,acceptable,2026-11-04T08:50:45.127258+00:00,ad6a8cede4200942,1,1,e2579fd1c1fdd578,90578512d46c,1749605350_87d042f5f8f9ea3a1405f00b707e038817b4ccd9,1749605350_87d042f5f8f9ea3a1405f00b707e038817b4ccd9,"✖ should not stop on unsupported mediaType
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '165cbc4d8f96e2', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1749605350_87d042f5f8f9ea3a1405f00b707e038817b4ccd9,build_unit,1,459,      ✖ should return proper banner imp,acceptable,2026-11-04T08:50:45.127326+00:00,d692a852485834aa,1,1,6273f3d1cccdc269,90578512d46c,1749605350_87d042f5f8f9ea3a1405f00b707e038817b4ccd9,1749605350_87d042f5f8f9ea3a1405f00b707e038817b4ccd9,"✖ should return proper banner imp
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { id: '376989de5a0ef', …(5) } to deeply equal { tmax: 1500, ext: { …(1) }, …(4) }"
+prebid,min,1751379150_aa93e0fd2678115082ba1f3a06aa0319e9cd9c1b,build_unit,1,413,"    ✖ ""before each"" hook for ""should make a fetch call when a fetchUrl is present for a selected bidder""",acceptable,2026-11-04T08:50:45.127636+00:00,d1f429a9c61db32b,9,9,1fea4bb101acea82,be32e92d3888,1751379150_aa93e0fd2678115082ba1f3a06aa0319e9cd9c1b,1751387003_741d01060120aa1ae28b7939f41956ea531cc867,"✖ ""before each"" hook for ""should make a fetch call when a fetchUrl is present for a selected bidder""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Attempted to wrap fetch which is already stubbed"
+prebid,min,1751379150_aa93e0fd2678115082ba1f3a06aa0319e9cd9c1b,build_unit,1,422,"    ✖ ""after each"" hook for ""should make a fetch call when a fetchUrl is present for a selected bidder""",acceptable,2026-11-04T08:50:45.127701+00:00,52dcb54cdb36c5d8,9,9,6d7aa27f8132dc56,be32e92d3888,1751379150_aa93e0fd2678115082ba1f3a06aa0319e9cd9c1b,1751387003_741d01060120aa1ae28b7939f41956ea531cc867,"✖ ""after each"" hook for ""should make a fetch call when a fetchUrl is present for a selected bidder""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'restore')"
+prebid,min,1751379150_aa93e0fd2678115082ba1f3a06aa0319e9cd9c1b,build_unit,1,429,"      ✖ onAuctionEndEvent: should send analytics data using fetch as fallback, if navigator.sendBeacon is not available",acceptable,2026-11-04T09:02:56.300875+00:00,4ae70530466528c5,9,9,0798b7cc5a6f426b,3dd6968f04ad,1751379150_aa93e0fd2678115082ba1f3a06aa0319e9cd9c1b,1751387003_741d01060120aa1ae28b7939f41956ea531cc867,"✖ onAuctionEndEvent: should send analytics data using fetch as fallback, if navigator.sendBeacon is not available
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Attempted to wrap fetch which is already stubbed"
+prebid,min,1751379150_aa93e0fd2678115082ba1f3a06aa0319e9cd9c1b,build_unit,1,439,    ✖ sets timedOut = true on fetch timeout,reevaluated_acceptable,2026-11-04T08:50:45.127892+00:00,f2d723303d0a8267,9,2,6d3acaefaddc3151,0007503b5d11,1751379150_aa93e0fd2678115082ba1f3a06aa0319e9cd9c1b,1751387003_741d01060120aa1ae28b7939f41956ea531cc867,"✖ sets timedOut = true on fetch timeout
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+Error: Timeout of 3000ms exceeded. For async tests and hooks, ensure ""done()"" is called; if returning a Promise, ensure it resolves."
+prebid,min,1752003767_a3d13cdc8e5b40604bda82f16b82169c49831963,build_coverage_chunks_1_unit,1,358,      ✖ should handle missing userIdAsEids gracefully,acceptable,2026-11-04T09:03:11.155766+00:00,816cb4a9945badb7,2,1,cfd31a577708f83a,,1752003767_a3d13cdc8e5b40604bda82f16b82169c49831963,1752005744_97d66238a5e7c40c0f59129a3b32ec427f03e546,"✖ should handle missing userIdAsEids gracefully
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected [Function] to throw an error"
+prebid,min,1756859342_7e98c166d861fc05afdc5ef9cc4fdca8bc89cbb0,build_coverage_chunks_1_unit,1,369,"      ✖ ""after each"" hook for ""should set geolocation""",acceptable,2026-11-04T08:50:45.131055+00:00,94f8ea075743e4cd,1,1,d2327920b534eb32,90578512d46c,1756859342_7e98c166d861fc05afdc5ef9cc4fdca8bc89cbb0,1756859342_7e98c166d861fc05afdc5ef9cc4fdca8bc89cbb0,"✖ ""after each"" hook for ""should set geolocation""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected undefined to deeply equal { id: 'test-ruid-123' }"
+prebid,min,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,build_coverage_chunks_1_unit,1,299,"      ✖ ""before all"" hook for ""should be a first-price auction""",acceptable,2026-11-04T09:04:25.340136+00:00,96b4301ae760d744,3,3,1257ead297815dff,,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,1759501996_5df0005fdaa159b9e341b2f3c65916b51b88fca7,"✖ ""before all"" hook for ""should be a first-price auction""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Descriptor for property getDNT is non-configurable and non-writable"
+prebid,min,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,build_coverage_chunks_1_unit,1,309,"      ✖ ""before all"" hook for ""should have video object""",acceptable,2026-11-04T09:04:25.358158+00:00,2f29e5dc2bab80c8,3,3,0200b11d662711d9,05896582c17b,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,1759501996_5df0005fdaa159b9e341b2f3c65916b51b88fca7,"✖ ""before all"" hook for ""should have video object""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Descriptor for property getDNT is non-configurable and non-writable"
+prebid,min,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,build_coverage_chunks_1_unit,1,319,"      ✖ ""before all"" hook for ""should contain single request""",acceptable,2026-11-04T09:04:25.364865+00:00,bde749c312013209,3,3,70118fe9e51488dd,05896582c17b,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,1759501996_5df0005fdaa159b9e341b2f3c65916b51b88fca7,"✖ ""before all"" hook for ""should contain single request""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Descriptor for property getDNT is non-configurable and non-writable"
+prebid,min,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,build_coverage_chunks_1_unit,1,329,      ✖ should issue a request for each host,acceptable,2026-11-04T09:04:25.371471+00:00,88a443a922b03743,3,3,539482c5d14f8e49,05896582c17b,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,1759501996_5df0005fdaa159b9e341b2f3c65916b51b88fca7,"✖ should issue a request for each host
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Descriptor for property getDNT is non-configurable and non-writable"
+prebid,min,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,build_coverage_chunks_1_unit,1,338,      ✖ should issue a request for each zone,acceptable,2026-11-04T09:04:25.378300+00:00,7d5f1a70ebef8401,3,3,18b22fe879ef9bfb,05896582c17b,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,1759501996_5df0005fdaa159b9e341b2f3c65916b51b88fca7,"✖ should issue a request for each zone
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Descriptor for property getDNT is non-configurable and non-writable"
+prebid,min,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,build_coverage_chunks_1_unit,1,348,      ✖ should respect syncEnabled option,acceptable,2026-11-04T09:04:25.384882+00:00,67301be14e1e3de6,3,3,59d9fee47c9f494b,05896582c17b,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,1759501996_5df0005fdaa159b9e341b2f3c65916b51b88fca7,"✖ should respect syncEnabled option
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Descriptor for property getDNT is non-configurable and non-writable"
+prebid,min,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,build_coverage_chunks_1_unit,1,357,      ✖ should respect all config node,acceptable,2026-11-04T09:04:25.391356+00:00,67deb68791e63db6,3,3,1ef268025c40fcbf,05896582c17b,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,1759501996_5df0005fdaa159b9e341b2f3c65916b51b88fca7,"✖ should respect all config node
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Descriptor for property getDNT is non-configurable and non-writable"
+prebid,min,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,build_coverage_chunks_1_unit,1,366,      ✖ should respect exclude filter,acceptable,2026-11-04T09:04:25.397818+00:00,6cb1ed3b6347540b,3,3,c7bf6d51b291f7bc,05896582c17b,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,1759501996_5df0005fdaa159b9e341b2f3c65916b51b88fca7,"✖ should respect exclude filter
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Descriptor for property getDNT is non-configurable and non-writable"
+prebid,min,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,build_coverage_chunks_1_unit,1,375,      ✖ should respect total exclusion,acceptable,2026-11-04T09:04:25.404469+00:00,011407fe276bb8e3,3,3,b00479a23d4cf066,05896582c17b,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,1759501996_5df0005fdaa159b9e341b2f3c65916b51b88fca7,"✖ should respect total exclusion
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Descriptor for property getDNT is non-configurable and non-writable"
+prebid,min,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,build_coverage_chunks_1_unit,1,385,      ✖ should return fully-initialized banner bid-response,acceptable,2026-11-04T09:04:25.411065+00:00,b84288db7110c7ee,3,3,0c0359983d87640a,05896582c17b,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,1759501996_5df0005fdaa159b9e341b2f3c65916b51b88fca7,"✖ should return fully-initialized banner bid-response
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Descriptor for property getDNT is non-configurable and non-writable"
+prebid,min,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,build_coverage_chunks_1_unit,1,394,      ✖ should return fully-initialized video bid-response,acceptable,2026-11-04T09:04:25.417729+00:00,58b47ebb218785ca,3,3,29a7846c0d01ccd2,05896582c17b,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,1759501996_5df0005fdaa159b9e341b2f3c65916b51b88fca7,"✖ should return fully-initialized video bid-response
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Descriptor for property getDNT is non-configurable and non-writable"
+prebid,min,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,build_coverage_chunks_1_unit,1,403,      ✖ should support vast xml in adm,acceptable,2026-11-04T09:04:25.424339+00:00,cf5b4a3f4d21b28a,3,3,cb674a1ef3bc97bd,05896582c17b,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,1759501996_5df0005fdaa159b9e341b2f3c65916b51b88fca7,"✖ should support vast xml in adm
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Descriptor for property getDNT is non-configurable and non-writable"
+prebid,min,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,build_coverage_chunks_1_unit,1,412,      ✖ should add nurl as pixel for banner response,acceptable,2026-11-04T09:04:25.431113+00:00,b1767719bc358775,3,3,3b641d20feb8ab2a,05896582c17b,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,1759501996_5df0005fdaa159b9e341b2f3c65916b51b88fca7,"✖ should add nurl as pixel for banner response
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Descriptor for property getDNT is non-configurable and non-writable"
+prebid,min,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,build_coverage_chunks_1_unit,1,421,      ✖ should handle bidresponse with user-sync only,acceptable,2026-11-04T09:04:25.437752+00:00,a8f495e70c2442da,3,3,775a40cab2b03793,05896582c17b,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,1759501996_5df0005fdaa159b9e341b2f3c65916b51b88fca7,"✖ should handle bidresponse with user-sync only
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Descriptor for property getDNT is non-configurable and non-writable"
+prebid,min,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,build_coverage_chunks_1_unit,1,431,"      ✖ ""before all"" hook for ""native request building""",acceptable,2026-11-04T09:04:25.444446+00:00,e47e18533f6fae76,3,3,00375ce822d2ed5b,05896582c17b,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,1759501996_5df0005fdaa159b9e341b2f3c65916b51b88fca7,"✖ ""before all"" hook for ""native request building""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Descriptor for property getDNT is non-configurable and non-writable"
+prebid,min,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,build_coverage_chunks_1_unit,1,441,      ✖ should trigger pixel for nurl,acceptable,2026-11-04T09:04:25.451127+00:00,e2c9266e586ec1df,3,3,09335645fd37af2b,05896582c17b,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,1759501996_5df0005fdaa159b9e341b2f3c65916b51b88fca7,"✖ should trigger pixel for nurl
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Descriptor for property getDNT is non-configurable and non-writable"
+prebid,min,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,build_coverage_chunks_1_unit,1,617,      ✖ dnt is correctly set to 1,acceptable,2026-11-04T09:04:25.457813+00:00,57d5c6a8fafe0f8d,3,3,1d1485c52482e841,05896582c17b,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,1759501996_5df0005fdaa159b9e341b2f3c65916b51b88fca7,"✖ dnt is correctly set to 1
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Descriptor for property getDNT is non-configurable and non-writable"
+prebid,min,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,build_coverage_chunks_1_unit,1,629,"          ✖ ""before each"" hook for ""when there is a do not track, should send a dnt""",acceptable,2026-11-04T08:50:45.133376+00:00,0ac3668e3185223f,3,6,12e3364f12858a94,be32e92d3888,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,1759501996_5df0005fdaa159b9e341b2f3c65916b51b88fca7,"✖ ""before each"" hook for ""when there is a do not track, should send a dnt""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Descriptor for property getDNT is non-configurable and non-writable"
+prebid,min,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,build_coverage_chunks_1_unit,1,637,"          ✖ ""after each"" hook for ""when there is a do not track, should send a dnt""",acceptable,2026-11-04T08:50:45.133438+00:00,0dc6498df16532c4,3,6,0e1e6c8def01ffcf,be32e92d3888,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,1759501996_5df0005fdaa159b9e341b2f3c65916b51b88fca7,"✖ ""after each"" hook for ""when there is a do not track, should send a dnt""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'restore')"
+prebid,min,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,build_coverage_chunks_1_unit,1,711,"    ✖ ""before each"" hook for ""should exist and be a function""",acceptable,2026-11-04T09:04:25.464694+00:00,ffcf60fbbb8ab882,3,3,5d1fc3c7b8b5fbfc,05896582c17b,1759499339_b795035e987dc4a2d383ee7a740c994e270d45cb,1759501996_5df0005fdaa159b9e341b2f3c65916b51b88fca7,"✖ ""before each"" hook for ""should exist and be a function""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Descriptor for property getDNT is non-configurable and non-writable"
+prebid,min,1760966054_56a41d89c389e0695186b9da3160c8914ec044e4,build_coverage_chunks_1_unit,1,416,"      ✖ ""before each"" hook for ""should apply style to element when width is less than window width""",acceptable,2026-11-04T09:04:58.254927+00:00,f6965db050544aad,3,3,84db2b64688ddb44,05896582c17b,1760966054_56a41d89c389e0695186b9da3160c8914ec044e4,1760983676_7351a0feabb17cc5aceb401097ad2cf184d9d432,"✖ ""before each"" hook for ""should apply style to element when width is less than window width""
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Descriptor for property getWinDimensions is non-configurable and non-writable"
+prebid,min,1761231044_65e6c0bc5bad095d51cbb75637badebb2eabb369,build_coverage_chunks_1_unit,1,375,        ✖ should update data handler with consent data,acceptable,2026-11-04T10:17:27.051379+00:00,f30693e1fcb7b24c,2,1,600ac844a99fa1ba,,1761231044_65e6c0bc5bad095d51cbb75637badebb2eabb369,1761232695_54f2515d445fbfbe601db593601800244dfc69c6,"✖ should update data handler with consent data
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected value to match"
+prebid,min,1761231044_65e6c0bc5bad095d51cbb75637badebb2eabb369,build_coverage_chunks_1_unit,1,388,        ✖ uses initial pingData (and resolves promise) if CMP is ready,acceptable,2026-11-04T10:17:27.066837+00:00,8f6a1ce9a867e3ac,2,1,3dae9ea45ce2e89d,21bd341020c9,1761231044_65e6c0bc5bad095d51cbb75637badebb2eabb369,1761232695_54f2515d445fbfbe601db593601800244dfc69c6,"✖ uses initial pingData (and resolves promise) if CMP is ready
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected value to match"
+prebid,min,1761231044_65e6c0bc5bad095d51cbb75637badebb2eabb369,build_coverage_chunks_1_unit,1,401,          ✖ keeps updating consent data on new events,acceptable,2026-11-04T10:17:27.073746+00:00,68247f4eef320664,2,1,0986229d347c635c,21bd341020c9,1761231044_65e6c0bc5bad095d51cbb75637badebb2eabb369,1761232695_54f2515d445fbfbe601db593601800244dfc69c6,"✖ keeps updating consent data on new events
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected value to match"
+prebid,min,1761231044_65e6c0bc5bad095d51cbb75637badebb2eabb369,build_coverage_chunks_1_unit,1,511,        ✖ inserts gdprConsent object to bidRequest only when module was enabled,acceptable,2026-11-04T08:50:45.135011+00:00,2d8bed59afa73d3d,2,2,bd1d179d63fed5a4,be32e92d3888,1761231044_65e6c0bc5bad095d51cbb75637badebb2eabb369,1761232695_54f2515d445fbfbe601db593601800244dfc69c6,"✖ inserts gdprConsent object to bidRequest only when module was enabled
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+TypeError: Cannot read properties of undefined (reading 'consentString')"
+prebid,min,1762775810_79e6dbf0d957ff60922c7b1cc2f1456042fd2e74,build_coverage_chunks_1_unit,1,620,      ✖ should build single banner request for multiple bids,acceptable,2026-11-04T08:50:45.135602+00:00,a3d6553155be581b,4,1,4f9aef7aae5c53e6,90578512d46c,1762775810_79e6dbf0d957ff60922c7b1cc2f1456042fd2e74,1762776845_99c6ec3def28d545c0431c0301a9ecb5aff9efd4,"✖ should build single banner request for multiple bids
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { method: 'POST', …(2) } to deeply equal { method: 'POST', …(2) }"
+prebid,min,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,build_coverage_chunks_1_unit,1,1006,      ✖ should save the first party id,acceptable,2026-11-04T10:18:09.933349+00:00,6b025d11a9c2b524,23,23,0741665b45f6b030,d531db211f46,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,1766518528_66a74d7e25d64d5d41bad721671a4b346981cb94,"✖ should save the first party id
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected setCookie to be called with arguments"
+prebid,min,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,build_coverage_chunks_1_unit,1,1014,      ✖ should save the expiry,acceptable,2026-11-04T10:18:09.939990+00:00,4cbda06d3a1a9622,23,23,05ebe0bd79b932c7,d531db211f46,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,1766518528_66a74d7e25d64d5d41bad721671a4b346981cb94,"✖ should save the expiry
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected setCookie to be called with arguments"
+prebid,min,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,build_coverage_chunks_1_unit,1,1022,      ✖ should save the id,acceptable,2026-11-04T10:18:09.946591+00:00,e774f0f4c37ad01f,23,23,03a57f92ff60578b,d531db211f46,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,1766518528_66a74d7e25d64d5d41bad721671a4b346981cb94,"✖ should save the id
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected setCookie to be called with arguments"
+prebid,min,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,build_coverage_chunks_1_unit,1,1032,        ✖ should save the profile id,acceptable,2026-11-04T10:18:09.953391+00:00,8fd62aa9d5aca77f,23,23,018e53b6754b6ea4,d531db211f46,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,1766518528_66a74d7e25d64d5d41bad721671a4b346981cb94,"✖ should save the profile id
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected setCookie to be called with arguments"
+prebid,min,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,build_coverage_chunks_1_unit,1,1040,        ✖ should save the panorama id expiry,acceptable,2026-11-04T10:18:09.960012+00:00,87d8583b509d002b,23,23,1700c0b7c7489ecd,d531db211f46,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,1766518528_66a74d7e25d64d5d41bad721671a4b346981cb94,"✖ should save the panorama id expiry
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected setCookie to be called with arguments"
+prebid,min,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,build_coverage_chunks_1_unit,1,1048,        ✖ should NOT save the panorama id,acceptable,2026-11-04T10:18:09.966611+00:00,9f8c8a7e45fba6ed,23,23,1086a55516f4afd5,d531db211f46,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,1766518528_66a74d7e25d64d5d41bad721671a4b346981cb94,"✖ should NOT save the panorama id
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected setCookie to be called with arguments"
+prebid,min,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,build_coverage_chunks_1_unit,1,1073,        ✖ should save the panorama id,acceptable,2026-11-04T10:18:09.973251+00:00,98a8a63aaba1f0c2,23,23,0d8d3ca6b3f0d2eb,d531db211f46,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,1766518528_66a74d7e25d64d5d41bad721671a4b346981cb94,"✖ should save the panorama id
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected setCookie to be called with arguments"
+prebid,min,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,build_coverage_chunks_1_unit,1,1083,        ✖ should not call the remote server when getId is called,acceptable,2026-11-04T08:50:45.140806+00:00,a4f18b96ed2ce97b,23,1,0a8d2450c1c3d47f,90578512d46c,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,1766518528_66a74d7e25d64d5d41bad721671a4b346981cb94,"✖ should not call the remote server when getId is called
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { Object (callback) } to deeply equal { Object (id) }"
+prebid,min,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,build_coverage_chunks_1_unit,1,1098,        ✖ should clear the panorama id,acceptable,2026-11-04T10:18:09.980040+00:00,cb9e69efda7d6e1a,23,23,0babcfaa674fe60a,d531db211f46,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,1766518528_66a74d7e25d64d5d41bad721671a4b346981cb94,"✖ should clear the panorama id
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected setCookie to be called with arguments"
+prebid,min,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,build_coverage_chunks_1_unit,1,1106,        ✖ should clear the profile id,acceptable,2026-11-04T10:18:09.986569+00:00,aa698349e442f93b,23,23,07242fa114db9ea6,d531db211f46,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,1766518528_66a74d7e25d64d5d41bad721671a4b346981cb94,"✖ should clear the profile id
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected setCookie to be called with arguments"
+prebid,min,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,build_coverage_chunks_1_unit,1,1116,        ✖ should not call the remote server when getId is called,acceptable,2026-11-04T08:50:45.141035+00:00,25369b2807646f75,23,1,8f548f8df7550d7d,90578512d46c,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,1766518528_66a74d7e25d64d5d41bad721671a4b346981cb94,"✖ should not call the remote server when getId is called
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { Object (callback) } to deeply equal { id: null }"
+prebid,min,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,build_coverage_chunks_1_unit,1,1159,          ✖ should not call the remote server when getId is called nor get an id,acceptable,2026-11-04T08:50:45.141072+00:00,9c0f4052ca65ac92,23,1,a4e003c661972689,90578512d46c,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,1766518528_66a74d7e25d64d5d41bad721671a4b346981cb94,"✖ should not call the remote server when getId is called nor get an id
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { Object (callback) } to deeply equal { id: undefined, …(1) }"
+prebid,min,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,build_coverage_chunks_1_unit,1,1175,          ✖ should not call the remote server nor return an id,acceptable,2026-11-04T08:50:45.141106+00:00,49a59f86a629d400,23,1,aa2a3d2c64c28c68,90578512d46c,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,1766518528_66a74d7e25d64d5d41bad721671a4b346981cb94,"✖ should not call the remote server nor return an id
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { Object (callback) } to deeply equal { id: undefined, …(1) }"
+prebid,min,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,build_coverage_chunks_1_unit,1,1192,          ✖ should not call the remote server but use the cached value,acceptable,2026-11-04T08:50:45.141160+00:00,d29aab9f0d90778e,23,1,7a801d28f930c5ed,90578512d46c,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,1766518528_66a74d7e25d64d5d41bad721671a4b346981cb94,"✖ should not call the remote server but use the cached value
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected { Object (callback) } to deeply equal { Object (id) }"
+prebid,min,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,build_coverage_chunks_1_unit,1,1207,        ✖ should set the received expiry for the client,acceptable,2026-11-04T08:50:45.141235+00:00,ecf74ebf634d9180,23,23,14cff2fbe0dd33d1,7eafd99a33df,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,1766518528_66a74d7e25d64d5d41bad721671a4b346981cb94,"✖ should set the received expiry for the client
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertError: expected setCookie to be called with arguments"
+prebid,min,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,build_coverage_chunks_1_unit,1,1216,    ✖ should get the value from a nid cookie,acceptable,2026-11-04T08:50:45.141273+00:00,491d2d7def2ee892,23,1,3049f0923eab2e87,7eafd99a33df,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,1766518528_66a74d7e25d64d5d41bad721671a4b346981cb94,"✖ should get the value from a nid cookie
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected false to be true"
+prebid,min,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,build_coverage_chunks_1_unit,1,1228,    ✖ should get the value from a nav cookie,acceptable,2026-11-04T08:50:45.141312+00:00,43a990bb46172e73,23,1,23d62b52c106491d,7eafd99a33df,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,1766518528_66a74d7e25d64d5d41bad721671a4b346981cb94,"✖ should get the value from a nav cookie
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected false to be true"
+prebid,min,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,build_coverage_chunks_1_unit,1,1240,    ✖ should return no value from API response,acceptable,2026-11-04T08:50:45.141349+00:00,03b4ab3f75450cd1,23,1,733c2b8c52acdacc,7eafd99a33df,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,1766518528_66a74d7e25d64d5d41bad721671a4b346981cb94,"✖ should return no value from API response
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected false to be true"
+prebid,min,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,build_coverage_chunks_1_unit,1,1253,    ✖ should read publisher id from cookie if exists,acceptable,2026-11-04T08:50:45.141384+00:00,af4fe7efe78a2ff0,23,1,e8551a373d94c46f,90578512d46c,1764021476_f3fd447d7475a2dd6d81c906e89e180a2c8dbd18,1766518528_66a74d7e25d64d5d41bad721671a4b346981cb94,"✖ should read publisher id from cookie if exists
+Chrome Headless 120.0.6099.224 (Linux x86_64)
+AssertionError: expected undefined to deeply equal { id: [ 'test-pair-id4', …(2) ] }"

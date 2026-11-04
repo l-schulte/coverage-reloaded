@@ -1,0 +1,459 @@
+{
+  "general": {
+    "patterns": [
+      "^\\s*\u2716\\s",
+      "Disconnected \\(5 times\\)",
+      "^\\s*Error:\\s*Timeout",
+      "✔ 0 tests completed"
+    ],
+    "exclude": [
+      "^\\s*\u2716\\s*\\d+\\s*test"
+    ],
+    "exclude_blocks": []
+  },
+  "min_gap": 5,
+  "suites": {},
+  "auto_classify": [
+    {
+      "match": "✔ 0 tests completed",
+      "label": "problematic",
+      "note": "No tests completed, likely due to a configuration issue or a problem with the test environment",
+      "lines": 0,
+      "id": "53220b46e46e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\{\\ Object\\ \\(query\\)\\ \\}\\ to\\ have\\ own\\ property\\ 'ext'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "53220b46e46e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ undefined\\ to\\ exist",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "45b3462e7d15",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ properties\\ of\\ (undefined|null)\\ \\(reading\\ '.*'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "be32e92d3888",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertError:\\ expected\\ .*\\ to\\ be\\ called\\ once\\ but\\ was\\ called\\ 0\\ times",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "5844bbda7ee5",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "ReferenceError:\\ _s2sConfig\\ is\\ not\\ defined",
+      "label": "reevaluated_acceptable",
+      "note": "prebidServerBidAdapter typo (_s2sConfig instead of s2sConfig); reverted in PR #6249",
+      "lines": 2,
+      "id": "fa78501b97af",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ undefined\\ to\\ equal\\ false",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "1027ed73d0fb",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Failed\\ to\\ execute\\ 'atob'\\ on\\ 'Window':\\ The\\ string\\ to\\ be\\ decoded\\ is\\ not\\ correctly\\ encoded\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "dfc5756aeb00",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ undefined\\ to\\ be\\ an\\ array",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c4eeddd6a3f8",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ undefined\\ to\\ equal\\ \\d+",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b3ae1baed851",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ .*\\ to\\ deeply\\ equal\\ .*",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "90578512d46c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\d+\\ to\\ equal\\ \\d+",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d231290b1ead",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\{\\ Object\\ \\(id,\\ imp,\\ \\.\\.\\.\\)\\ \\}\\ to\\ have\\ deep\\ nested\\ property\\ 'user\\.ext\\.eids'\\ of\\ \\[\\ Array\\(2\\)\\ \\],\\ but\\ got\\ \\[\\ Array\\(2\\)\\ \\]",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0bad6e016c68",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ 'https://s2\\.adxpremium\\.services/graphql'\\ to\\ include\\ 'gdpr=1'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "856589e39b60",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "SyntaxError:\\ Unexpected\\ token\\ '.',\\ \".*\"\\.\\.\\.\\ is\\ not\\ valid\\ JSON",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "f735f181de2d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ undefined\\ to\\ equal\\ '.*'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0139c238ba86",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ INVALID_STATE_ERR\\ \\-\\ 4",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8b7e45d92004",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ (false|true)\\ to\\ (be|equal)\\ (false|true)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7eafd99a33df",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ '.*'\\ to\\ equal\\ '.*'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "929513ceeda2",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ 'https://s2\\.adxpremium\\.services/graphql'\\ to\\ include\\ 'h\\.parrable\\.com'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "fbf3e312f431",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ 'https://s2\\.adxpremium\\.services/graphql'\\ to\\ equal\\ 'http://example\\.com/win/1\\.1'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "bd2b507333c3",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "ReferenceError:\\ utils\\ is\\ not\\ defined",
+      "label": "reevaluated_acceptable",
+      "note": "relaidoBidAdapter typo (utils.deepAccess instead of deepAccess); reverted in PR #7520, fixed in PR #7521",
+      "lines": 2,
+      "id": "3d6b21d3a9c5",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ 'https?://.*'\\ to\\ equal\\ 'https?://.*'",
+      "label": "reevaluated_acceptable",
+      "note": "developer endpoint/sync URL expectation mismatches in adapter specs",
+      "lines": 2,
+      "id": "a50e883fbf12",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ '6\\.\\d+\\.0'\\ to\\ equal\\ '6\\.\\d+\\.0\\-pre'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "822a0d4a3d02",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ '6\\.6\\.0\\-pre'\\ to\\ equal\\ '6\\.5\\.0\\-pre'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "b147df5a0b91",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ read\\ properties\\ of\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d764299abdea",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ undefined\\ to\\ be\\ truthy",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "76a6bd81f50d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertError:\\ expected\\ track\\ to\\ be\\ called\\ \\d+\\ times\\ but\\ was\\ called\\ \\d+\\ times",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "056551a08947",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Attempted\\ to\\ wrap\\ .*\\ which\\ is\\ already\\ (wrapped|stubbed)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "3dd6968f04ad",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ .*\\ to\\ be\\ undefined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "22c123c4993d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ xhr\\.restore\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "021c87810a34",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ \\(0\\ ,\\ .*\\)\\ is\\ not\\ a\\ function",
+      "label": "reevaluated_acceptable",
+      "note": "lm_kiviadsBidAdapter imported getAdUnitSizes from wrong location (src/utils instead of libraries/sizeUtils); fixed in PR #10563",
+      "lines": 2,
+      "id": "597c15fd045c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Uncaught\\ SyntaxError:\\ Unexpected\\ end\\ of\\ JSON\\ input",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "4567cffd7827",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\[\\ \\{\\ fetch:\\ .* \\]\\ to\\ have\\ a\\ length\\ of\\ \\d+\\ but\\ got\\ \\d+",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "55813f966585",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\{.*\\}\\ to\\ have\\ keys\\ '.*',\\ ",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "c3475accf15c",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "expected\\ emit\\ to\\ not\\ have\\ been\\ called\\ but\\ was\\ called\\ \\d+\\ times",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a1e57d630670",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "ReferenceError:\\ deepAccess\\ is\\ not\\ defined",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8a0abf18cb73",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ .*:\\ expected\\ false\\ to\\ be\\ truthy",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "891c4ded95fc",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Cannot\\ set\\ properties\\ of\\ undefined\\ \\(setting\\ 'getBidsReceived'\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "7826fc264e72",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ utils\\.logInfo\\.restore\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "936944a8c22b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertError:\\ expected\\ .*\\ to\\ be\\ called\\ with\\ arguments",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d531db211f46",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\{\\ .* \\}\\ to\\ have\\ property\\ '.*'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "95a45c4bde27",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertionError:\\ expected\\ \\[Function\\]\\ to\\ throw\\ an\\ error",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "8a7d43e73135",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "TypeError:\\ Descriptor\\ for\\ property\\ .*\\ is\\ non\\-configurable\\ and\\ non\\-writable",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "05896582c17b",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "AssertError:\\ expected\\ value\\ to\\ match",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "21bd341020c9",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\u2716\\ Error\\ while\\ running\\ the\\ tests!\\ Exit\\ code:\\ 1",
+      "label": "problematic",
+      "note": "Karma browser capture timeout (has not captured in 20000 ms) under host load",
+      "lines": 0,
+      "id": "f1f820eace3e",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "ERROR\\\nDisconnected\\ ,\\ because\\ no\\ message\\ in\\ 30000\\ ms\\.",
+      "label": "problematic",
+      "note": "",
+      "lines": 2,
+      "id": "167ff4e781a4",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "Error:\\ Timeout\\ of\\ 3000ms\\ exceeded",
+      "label": "reevaluated_acceptable",
+      "note": "ajax_spec.js async timeout in monolithic Karma run; resolved upstream in PR #13483 by chunking tests",
+      "lines": 2,
+      "id": "0007503b5d11",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "ReferenceError:\\ deepAccess\\ is\\ not\\ defined",
+      "label": "reevaluated_acceptable",
+      "note": "missing deepAccess import in src/prebid.js; fixed upstream in PR #12558",
+      "lines": 2,
+      "id": "90b89d7d74d6",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    }
+  ]
+}
