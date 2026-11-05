@@ -37,7 +37,8 @@
   marked not-applicable rather than recording subset coverage (see
   [`STUDY_DECISIONS.md`](../../STUDY_DECISIONS.md) §2).
 - **LCOV production:** `nyc` with an `lcov` reporter. The frontend suite emits its
-  own `lcov.info` through the version-matched Vitest coverage provider.
+  own `lcov.info` through the version-matched Vitest coverage provider (injected v8
+  before 2023-07-11, the project's own istanbul provider after — see Known gaps).
 
 ## Checklist
 
@@ -162,3 +163,35 @@ The `archive/` folders hold the archived logs and outputs only; none contains a
 - **Lint-gated `test` script.** On the early `unit` suite, `npm run test` runs
   `npm run lint && mocha`, so a commit with lint errors fails the suite before any
   test executes.
+- **Upstream unit-test glob truncation, 2022-05-17 → 2022-06-07 (31 commits).**
+  After PR #627 split `test:unit` into `test:unit:forge`/`test:unit:frontend`, the
+  forge script was `mocha test/unit/forge/**/*_spec.js` (unquoted). npm runs scripts
+  under `/bin/sh` (dash on Debian/Ubuntu), where `**` behaves as a plain `*`, so the
+  pattern matched only the two one-level specs (`containers/index_spec.js`,
+  `licensing/loader_spec.js`) and **18 of 164 unit tests** ran; forge lines read
+  ≈ 28% instead of ≈ 58%. Upstream's CI (`npm run test`) and its own
+  `cover:unit:forge` were truncated identically; the maintainer reported it and
+  fixed it in PR #665 (`20923d47`, 2022-06-07) by quoting the glob, after which the
+  suite ran 164 tests again. The `system` suite was **not** affected: `test/system`
+  had no subdirectories, so the shell left the literal pattern for mocha to expand
+  (`30 passing` throughout). These 31 commits are a genuine upstream partial
+  measurement, not a pipeline defect, and are kept as recorded; the pipeline must
+  not quote the glob itself.
+- **Frontend coverage-provider boundary, 2023-07-11.** Before PR #2437 (`9dee4da`)
+  the project shipped no Vitest coverage provider, so the frontend `lcov` came from
+  the pipeline's injected `@vitest/coverage-v8` (version-matched). From that merge
+  onward `config/vitest.config.ts` selects `provider: 'istanbul'`
+  (`@vitest/coverage-istanbul`), which reports executable statement lines only,
+  whereas v8 emitted one `DA:` per physical line (blank and comment lines included)
+  and can credit a whole `.vue` template (`FormRow.vue`: 133/133 under v8, 21/28
+  under istanbul). The file set is essentially unchanged (264 → 259; the five
+  dropped files are unimported route/store/data modules that were already 0-hit),
+  the frontend rate barely moves (3.4% → 3.8%), but the denominator falls from
+  25,877 to 6,108 lines, which moves the summed per-commit aggregate up by ≈ 15
+  points. The same merge renamed `test/system/110-editor-login.js` and
+  `test/system/201-nr-tools-plugin.js` to `*_spec.js`, so the system suite gained 2
+  spec files (33 → 48 tests, ≈ +1.7 points). The frontend suite label also changes
+  with the `reportsDirectory` move
+  (`coverage_frontend_frontend_unit` → `coverage_reports_frontend_frontend_unit`).
+  Treat 2023-07-11 as a measurement boundary when using the aggregate series;
+  per-suite forge/system coverage is unaffected.
