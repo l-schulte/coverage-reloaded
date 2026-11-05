@@ -45,67 +45,80 @@ Every `LCOV_SANITY.md` must adhere to this standardized template:
 
 ---
 
-## 1. Executive Summary
+## 1. Study Verdict & Executive Assessment
 
-| Metric | Value | Proportion |
-|---|---|---|
-| **Total Commits Evaluated** | `<total>` | 100.0% |
-| **`OK` (Clean Coverage)** | `<ok_count>` | `<ok_pct>%` |
-| **`CRITICAL_ANOMALY`** | `<crit_count>` | `<crit_pct>%` |
-| **`WARNING`** | `<warn_count>` | `<warn_pct>%` |
-| **`ERROR` (Pipeline / Test Failure Marker)** | `<err_count>` | `<err_pct>%` |
-| **`NOT_APPLICABLE`** | `<na_count>` | `<na_pct>%` |
-| **Total Commits Producing Coverage** | `<cov_count>` | `<cov_pct>%` |
+- **Causal Study Verdict:** [VALID / VALID WITH EXPLAINED HEURISTICS / ACTION REQUIRED]
+- **Longitudinal Criterion ($\ge 90\%$):** **PASS / FAIL** (`<cov_pct>%` coverage yield across `<total>` commits)
+- **Structural Integrity:** [CLEAN / DEFECTS DETECTED] (`<ghost_count>` ghost files, `<leak_count>` artifact leaks)
 
-- **Longitudinal Study Criterion ($\ge 90\%$):** [PASS / FAIL] (<cov_pct>% of commits produced coverage).
-- **Core Findings:** <1-2 sentences on structural validity, ghost files, and exposure consistency>.
+### Executive Summary & Context
+<2-3 concise paragraphs establishing:
+ 1. Project architecture & upstream test boundary (what was upstream actually intending to test?).
+ 2. Dataset quality summary (coverage yield, structural integrity, exposure stability).
+ 3. High-level explanation of any automated checker flags (e.g., why raw directory heuristics triggered).>
 
 ---
 
-## 2. Structural Integrity & Artifact Audit
+## 2. Pipeline Execution & Study Yield
 
-| Integrity Check | Count | Status | Notes |
+*Summary of longitudinal commit processing and coverage availability for causal modeling.*
+
+| Metric | Commits | Proportion | Description |
 |---|---|---|---|
-| **Ghost Files (`SF:` not in Git)** | `<count>` | [Clean / Issues Found] | <Details on path normalization or leaks> |
-| **Artifact Leaks (`dist/`, `build/`, etc.)** | `<count>` | [Clean / Issues Found] | <Details on compiled code exclusion> |
-| **Missing File Extensions** | `<count>` | [Clean / Issues Found] | <Details on TS/JS/JSX/Vue matching> |
-| **Missing Core Directories** | `<count>` | [Clean / Issues Found] | <Details on packages/subtrees> |
+| **Total Commits Evaluated** | `<total>` | 100.0% | Full 5-year longitudinal evaluation window |
+| **Valid Coverage Produced** | `<cov_count>` | `<cov_pct>%` | Clean suite executions & non-bailing test runs |
+| **Hard Pipeline / Test Errors** | `<err_count>` | `<err_pct>%` | Broken build/environment states (`.error` / no LCOV) |
+| **Not Applicable** | `<na_count>` | `<na_pct>%` | Excluded commits (e.g. `.only` focus markers, non-test eras) |
 
 ---
 
-## 3. Coverage Granularity & Longitudinal Trends
+## 3. Structural Hygiene & Git Tree Alignment
 
-- **Coverage Ratio (`lcov_src_count / git_src_count`):**
-  - **Min:** `<min_ratio>`
-  - **Average:** `<avg_ratio>`
-  - **Max:** `<max_ratio>`
+*Verification that LCOV line records map 1-to-1 to Git-tracked source lines without container or build contamination.*
 
-### Timeline & Era Evolution
-<Analysis of any ratio shifts across major project milestones, runner migrations, or config updates>
-
-### Intermittent Dips & Broken Tests
-<Explanation of any commits with unusually low ratios, e.g. non-bailing test runs where only a subset of suites ran before failure>
+| Integrity Check | Count | Status | Finding / Analysis |
+|---|---|---|---|
+| **Ghost Files (`SF:` not in Git)** | `<count>` | **Clean** / Flagged | <Details on git source resolution; must be 0> |
+| **Artifact Leaks (`dist/`, `build/`)** | `<count>` | **Clean** / Flagged | <Details on compiled code exclusion; must be 0> |
+| **Path Normalization** | `<count>` | **Clean** / Flagged | <Details on container path stripping> |
 
 ---
 
-## 4. Root-Cause Analysis of Flagged Anomalies
+## 4. Coverage Scope & Longitudinal Denominators
 
-*(If no anomalies were detected, note that the project passed with 0 flags.)*
+*Definition of the codebase denominator and longitudinal stability of the exposure variable.*
 
-### Flagged Issues Overview
-<Summary of top flagged issues, missing directories, or underrepresented extensions>
+### Codebase Composition & Test Boundaries
+<Explanation of production code vs intentionally untested assets (generated code, vendored libraries, demo apps, docs tooling).>
 
-### Causal Attribution
-- **Classification:** [Intentional Project Architecture / Upstream Test Design / Pipeline Defect]
-- **Mechanism:** <Detailed technical explanation of why directories or files were omitted from coverage>
+### Longitudinal Metrics
+- **Effective Coverage Ratio (`lcov_src_count / git_src_count`):**
+  - **Min:** `<min_pct>%` | **Average:** `<avg_pct>%` | **Max:** `<max_pct>%`
+- **Longitudinal Trend:** <Analysis of ratio stability across eras, migrations (e.g. Mocha -> Jest -> Vitest), and codebase expansion.>
 
 ---
 
-## 5. Methodological Consequences & Guidance for Downstream Analysis
+## 5. Automated Checker Findings & Causal Attribution
 
-1. **Bug-Introduction & SZZ Validity:** <Impact on mapping commits to lines in Git blame>
-2. **Exposure Variable Comparability:** <Guidance on denominator definition and cross-era comparisons>
-3. **Action Items:** <Pipeline fixes if any, or confirmation that coverage collection is valid as-is>
+*Detailed attribution of flags raised by `check_lcov_sanity.py` heuristics.*
+
+| Flag / Detected Pattern | Affected Commits | Attribution Category | Root Cause & Upstream Mechanism |
+|---|---|---|---|
+| `<FLAG_NAME>` | `<count>` (`<pct>%`) | `Upstream Test Design` / `Vendored Asset` / `Pipeline Defect` | <Concrete explanation of why upstream excluded this path> |
+
+### Detailed Analysis of Findings
+<Paragraphs unpacking each flag, detailing why it is either a benign upstream design choice or an actionable pipeline defect. If 0 flags, confirm clean check.>
+
+---
+
+## 6. Downstream Methodological Guidance
+
+1. **SZZ & Bug-Introduction Mapping:**
+   <Can Git blame line numbers map directly to LCOV records without offset risk?>
+2. **Exposure Variable Denominator:**
+   <Specific recommendation on which file subsets or denominator downstream models should use.>
+3. **Pipeline Action Items:**
+   <Any fixes required, or explicit confirmation that collection is complete and sound.>
 ```
 
 ---

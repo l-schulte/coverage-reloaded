@@ -13,8 +13,6 @@
 *.db
 *.jsonl
 
-LCOV_SANITY.md
-
 *additional_information.csv
 *old_commits.csv
 *dashboard-index.json
