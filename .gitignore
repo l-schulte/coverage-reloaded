@@ -40,6 +40,8 @@ archive/**/archive/
 archive/**/commits.csv
 archive/**/command_changes.csv
 
+compressed_archives/
+
 node_modules/
 **/node_modules/
 **/__pycache__/
