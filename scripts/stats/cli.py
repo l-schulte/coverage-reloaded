@@ -26,7 +26,8 @@ from .plots import (
 from .report import write_report
 from .scanner import scan_output
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+# This file lives at <repo>/scripts/stats/cli.py.
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 PROJECTS_DIR = BASE_DIR / "projects"
 
 

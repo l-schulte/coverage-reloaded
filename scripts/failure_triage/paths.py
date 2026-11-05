@@ -22,7 +22,10 @@ both layouts work during the transition.
 
 import os
 
-REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# This file lives at <repo>/scripts/failure_triage/paths.py.
+REPO_ROOT = os.path.abspath(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
+)
 
 
 def project_dir(project):
