@@ -26,7 +26,9 @@
   coverage parameters appended.
 - **Suites excluded:** none.
 - **Coverage tool / config:** runner-native coverage; the project does not use
-  `testrunner` parameters.
+  `testrunner` parameters. Commits prior to upstream commit `ac9477f9e8` (2021-05-11)
+  did not define `collectCoverageFrom`, so Jest only collected coverage for files
+  imported during test execution.
 - **LCOV production:** runner coverage output is collected by `find-and-move-lcov.sh`.
 
 ## Checklist
@@ -89,3 +91,4 @@ reports numbers only and does not restate per-family labels.
 ## Known gaps
 
 - **Author timestamp vs dependency release skew (62 commits):** Commits authored on long-lived branches requiring packages published after the author date (56 commits requiring `@vue/cli-service@^4.5.9+`, 5 commits requiring `vue-eslint-parser@^8.0.1`, and 1 commit requiring `@nextcloud/vue@^4.2.0`). Under the author-timestamp snapshotting policy ([`STUDY_DECISIONS.md §1`](../../STUDY_DECISIONS.md)), WayPack excludes post-author-date releases, causing `npm install --force` to skip them.
+- **Single-file coverage in early test era (860 commits):** Between mid-December 2020 and May 5, 2021 (including commits around `5c77db56658a`), the project contained only one frontend test (`src/components/AvatarWrapper/AvatarWrapper.spec.js`), and `jest.config.js` did not define `collectCoverageFrom`. Jest therefore only instrumented files imported by that single test, reporting coverage exclusively for `src/components/AvatarWrapper/AvatarWrapper.vue`. Upstream broadened test coverage in May 2021 and added `collectCoverageFrom: ['<rootDir>/src/**/*.{js,vue}']` in commit `ac9477f9e8` (2021-05-11).
