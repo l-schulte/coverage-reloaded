@@ -4,8 +4,13 @@ set -e
 
 source "$(dirname "${BASH_SOURCE[0]}")/logging.sh"
 source "$(dirname "${BASH_SOURCE[0]}")/fake-time.sh"
+source /coverage_reloaded/na-if-focus-marker.sh
+source /coverage_reloaded/assert-suite-ran.sh
 
 cd /coverage_reloaded/repo
+
+# Guard against committed focus markers (.only) in collected suites (Mocha is run-global; see AGENTS.md §2)
+na_if_focus_marker --runner mocha test/client-unit test/server-unit test/integration test/integration-stock
 
 # ── Dependency installation ───────────────────────────────────────────────────
 
@@ -145,28 +150,32 @@ export CHROMIUM_FLAGS="--no-sandbox --disable-setuid-sandbox"
 export PUPPETEER_LAUNCH_OPTIONS='{"args":["--no-sandbox","--disable-setuid-sandbox"]}'
 export PUPPETEER_ARGS="--no-sandbox --disable-setuid-sandbox"
 
+SERVER_LOG=$(mktemp)
 set +e
 
 if [ "$SERVER_ERA" = "mocha_direct" ]; then
-    C8_OUTPUT=$(./node_modules/.bin/c8 \
+    SERVER_RUNNER="mocha"
+    ./node_modules/.bin/c8 \
         --reporter=lcov \
         ./node_modules/.bin/mocha \
             --recursive \
             --no-bail \
             --exit \
             --timeout 30000 \
-            test/server-unit 2>&1)
-    SERVER_EXIT=$?
+            test/server-unit 2>&1 | tee "$SERVER_LOG"
+    SERVER_EXIT=${PIPESTATUS[0]}
 else
-    C8_OUTPUT=$(./node_modules/.bin/c8 \
+    SERVER_RUNNER="node"
+    ./node_modules/.bin/c8 \
         --reporter=lcov \
-        bash sh/server-unit-tests-node.sh 2>&1)
-    SERVER_EXIT=$?
+        bash sh/server-unit-tests-node.sh 2>&1 | tee "$SERVER_LOG"
+    SERVER_EXIT=${PIPESTATUS[0]}
 fi
 
-echo "$C8_OUTPUT"
-
 set -e
+
+assert_suite_ran "server-unit" "$SERVER_RUNNER" "$SERVER_LOG" "$SERVER_EXIT"
+rm -f "$SERVER_LOG"
 
 bash /coverage_reloaded/find-and-move-lcov.sh "server" "false" "$SERVER_EXIT"
 suite_end "server-unit" "$SERVER_EXIT"
@@ -210,6 +219,7 @@ HAS_INTEGRATION=$(node -p "require('./package.json').scripts['test:integration']
 if [ "$HAS_INTEGRATION" = "yes" ] && [ -n "$(node -p "require('./package.json').scripts['test:integration'] || ''")" ]; then
     suite_start "integration" "Running integration tests with c8 coverage"
 
+    INTEG_LOG=$(mktemp)
     set +e
     NODE_OPTIONS="-r /coverage_reloaded/fake-time-node.js $NODE_OPTIONS" \
     TIMESTAMP_EPOCH="$timestamp" \
@@ -220,9 +230,12 @@ if [ "$HAS_INTEGRATION" = "yes" ] && [ -n "$(node -p "require('./package.json').
             --recursive \
             --no-bail \
             --exit \
-            --timeout 30000
-    INTEGRATION_EXIT=$?
+            --timeout 30000 2>&1 | tee "$INTEG_LOG"
+    INTEGRATION_EXIT=${PIPESTATUS[0]}
     set -e
+
+    assert_suite_ran "integration" "mocha" "$INTEG_LOG" "$INTEGRATION_EXIT"
+    rm -f "$INTEG_LOG"
 
     bash /coverage_reloaded/find-and-move-lcov.sh "integration" "false" "$INTEGRATION_EXIT" "bin/"
     suite_end "integration" "$INTEGRATION_EXIT"
@@ -252,6 +265,7 @@ if [ "$HAS_STOCK_INTEGRATION" = "yes" ] && [ -n "$(node -p "require('./package.j
 
     suite_start "integration-stock" "Running stock integration tests with c8 coverage"
 
+    STOCK_LOG=$(mktemp)
     set +e
     NODE_OPTIONS="-r /coverage_reloaded/fake-time-node.js $NODE_OPTIONS" \
     TIMESTAMP_EPOCH="$timestamp" \
@@ -262,9 +276,12 @@ if [ "$HAS_STOCK_INTEGRATION" = "yes" ] && [ -n "$(node -p "require('./package.j
             --recursive \
             --no-bail \
             --exit \
-            --timeout 30000
-    INTEGRATION_STOCK_EXIT=$?
+            --timeout 30000 2>&1 | tee "$STOCK_LOG"
+    INTEGRATION_STOCK_EXIT=${PIPESTATUS[0]}
     set -e
+
+    assert_suite_ran "integration-stock" "mocha" "$STOCK_LOG" "$INTEGRATION_STOCK_EXIT"
+    rm -f "$STOCK_LOG"
 
     bash /coverage_reloaded/find-and-move-lcov.sh "integration-stock" "false" "$INTEGRATION_STOCK_EXIT" "bin/"
     suite_end "integration-stock" "$INTEGRATION_STOCK_EXIT"
