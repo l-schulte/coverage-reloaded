@@ -257,9 +257,25 @@ reports numbers only and does not restate per-family labels.
   previously skipped was single-package `test-smoke` (2022-02-24 → 2023-01-15), now run;
   all other non-executed scripts are aggregates covered via their components or
   static/style checks (`test-typings`, `test-exports`, `test:format*`).
-- Smoke suites are upstream-broken from 2022-05-23 through 2026-09-17 (stale across the
-  entire portion of the study range in which they exist — see above); retained by policy
-  (all accessible unit/integration suites are run).
+- **The soft-failure share (2,789 of 3,007 runs, 92.8 %) is dominated by a permanently
+  failing smoke suite.** No smoke suite has passed since 2022-04-15 (`a45987a6`, "update
+  dependency sinon to v13.0.2"), and no run since then passes. The suite
+  (`test/smoke/smoketests.test.js`) calls `sinon.useFakeTimers()` in two nested `before`
+  hooks (the `[DIALECT] Instance` block and the `[DIALECT] Model` block it contains), and
+  the sinon v13 stack (`@sinonjs/fake-timers` >= 8) rejects the second install, aborting
+  the inner before-all hook (`TypeError: Can't install fake timers twice on the same global
+  object`; 2,436 runs, 2022-04-15 → 2025-12-31, i.e. every coverage-producing run in that
+  window). Two later errors follow the same suite: `SequelizeAssociationError: Defining
+  BelongsToMany association "relation2" from b to a failed` (1,440 runs, 2022-05-23 →
+  2024-04-09) and `TypeError: tasks[0].getAttributes is not a function` (1,039 runs,
+  2022-12-18 → 2024-04-09). The failure is the project's own — `yarn test-smoke` on those
+  commits fails identically — and the suites are retained by policy, so every run after
+  2022-04-15 is recorded as a soft failure. 1,078 runs (38.7 %) fail on smoke alone;
+  without smoke the share would fall from 92.8 % to 56.9 %, the remainder being dominated
+  by `integration_mysql` (336 of the 353 smoke-free failing runs) and `integration_db2`
+  (137). Coverage integrity is unaffected in kind: on the latest monorepo commit
+  (`1767171487`) none of the 110 source files in the smoke lcovs is absent from the
+  unit/integration lcovs, so the aborted block costs assertions, not a source file.
 - Pre-`dev/` era (65 commits) uses the root compose best-effort, including a floating
   `mssql:latest` tag.
 - **Smoke import typo makes the suite unloadable (67 commits, 2022-02-24 → 2022-03-29):**
