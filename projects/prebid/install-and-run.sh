@@ -47,6 +47,52 @@ if [ -f test/spec/modules/invibesBidAdapter_spec.js ]; then
     sed -i 's/1768600800000/4102444800000/g' test/spec/modules/invibesBidAdapter_spec.js
 fi
 
+# Backport upstream commit df6cda5e2 (PR #13464): eliminate real-time wait in dgkeywordRtdProvider_spec.js.
+# An orphaned setTimeout(..., 1000) scheduled request.respond() after done(), colliding asynchronously with
+# the shared Sinon fake XHR server of subsequent tests and aborting Mocha runs in Karma (~50-60% coverage).
+if [ -f test/spec/modules/dgkeywordRtdProvider_spec.js ] && grep -q "setTimeout(() => {" test/spec/modules/dgkeywordRtdProvider_spec.js; then
+    python3 -c "
+import re
+path = 'test/spec/modules/dgkeywordRtdProvider_spec.js'
+with open(path) as f:
+    c = f.read()
+if 'sinon.useFakeTimers()' not in c:
+    c = re.sub(
+        r\"(it\('should get profiles timeout\.', function \([^\)]*\) \{)\",
+        r\"\1\n      const clock = sinon.useFakeTimers();\",
+        c
+    )
+    c = re.sub(
+        r\"setTimeout\(\(\) => \{[\s\S]*?\}, 1000\);?\",
+        \"\"\"const request = server.requests[0];
+      if (request) {
+        clock.tick(50);
+        if (request) {
+          request.respond(
+            200,
+            DUMMY_RESPONSE_HEADER,
+            JSON.stringify(DUMMY_RESPONSE)
+          );
+        }
+      }
+      clock.restore();\"\"\",
+        c
+    )
+    with open(path, 'w') as f:
+        f.write(c)
+"
+fi
+
+# Backport upstream commit e953c2f91 (PR #13234) for chunking introduction window (May 28 - June 3, 2025):
+# Force single-pass testCoverage before multi-chunk coverage merging was added upstream in PR #13483
+if [ -f gulpfile.js ] && \
+   grep -q "karmaRunner.js" gulpfile.js && \
+   grep -q "NODE_OPTIONS: '--max-old-space-size=8096'" gulpfile.js && \
+   ! grep -q "TEST_CHUNKS:" gulpfile.js && \
+   ! grep -q "mergeCoverage" gulpfile.js; then
+    sed -i "s/NODE_OPTIONS: '--max-old-space-size=8096'/NODE_OPTIONS: '--max-old-space-size=8096', TEST_CHUNKS: '1'/g" gulpfile.js
+fi
+
 # Assert that all chunks completed successfully with >0 tests
 assert_suite_ran() {
     local log_file="$1"
