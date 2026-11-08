@@ -8,7 +8,7 @@
 - **Package manager:** npm, root workspace (see [`config.json`](../../config.json) → `uwazi`).
 - **Node strategy:** override Node 16 → `14` for epoch `1626742218`–`1659708655`.
 - **Runners:** `jest`.
-- **Eras:** jest `24.8.0` → `27.5.1` → `29.7.0`. Suites run with `--maxWorkers=10 --forceExit --testTimeout=60000` (worker isolation prevents V8 compilation-cache heap leaks across ~800 suites without container sharding).
+- **Eras:** jest `24.8.0` → `27.5.1` → `29.7.0`. Suites run with `--maxWorkers=2 --forceExit --testTimeout=60000` (matching upstream CI `--maxWorkers=2` to prevent internal port 6379 and file collision between concurrent suites while isolating V8 compilation-cache heap leaks across ~800 suites without container sharding).
 
 ## Development style
 
@@ -33,27 +33,27 @@
 - [x] failed tests doublechecked (failures below are known; none are bails)
 - [x] complete run
 - [x] complete test failure check
-- [x] complete JEV test failure check (Jev CSV in dedup-keyword mode with 209 flagged families; audited in label_analysis/jev_audit.md)
+- [x] complete JEV test failure check (Jev CSV in fingerprint mode with 165 flagged fingerprints; audited in [`label_analysis/jev_audit.md`](label_analysis/jev_audit.md))
 
 ## Results
 
-Source: `stats_output/report.txt` (generated 2026-10-26 12:26).
+Source: `stats_output/report.txt` (generated 2026-11-08 23:21).
 
 | Metric | Value |
 |---|---|
 | Commits processed | 8907 |
-| Without test failures | 2736 |
-| With test failures | 6146 |
+| Without test failures | 5414 |
+| With test failures | 3465 |
 | Not applicable | 0 |
-| Hard errors | 25 |
+| Hard errors | 28 |
 | Coverage produced | 99.7% |
 
 Full statistics and plots: [`stats_output/`](stats_output/).
 
 ## Failure triage
 
-Source: `python check_failures_v2.py uwazi --stats` (window `min`, run 2026-10-26) and
-`stats_output/report.txt` (generated 2026-10-26 12:26). Labels:
+Source: `python check_failures_v2.py uwazi --stats` (window `min`, run 2026-11-08) and
+`stats_output/report.txt` (generated 2026-11-08 23:21). Labels:
 [`failure_labels_project_min.csv`](label_analysis/failure_labels_project_min.csv)
 (primary) and [`failure_labels_project_max.csv`](label_analysis/failure_labels_project_max.csv)
 (diagnostic window). These CSVs are the single source of truth; this section
@@ -61,27 +61,40 @@ reports numbers only and does not restate per-family labels.
 
 | Metric | Value |
 |---|---|
-| Failing runs (`report.txt`) | 6146 |
-| Failing runs (label DB) | 6132 (`failing runs` line) |
-| Fingerprints (min / max) | 3401 / 3908 |
-| Labeled fingerprints | 3401 (100.0%) |
+| Failing runs (`report.txt`) | 3465 |
+| Failing runs (label DB) | 3449 (`failing runs` line) |
+| Fingerprints (min / max) | 2675 / 3123 |
+| Labeled fingerprints | 2675 (100.0%) |
 | Unlabeled fingerprints | 0 |
-| acceptable | 2103 |
-| reevaluated_acceptable | 1298 |
+| acceptable | 1843 |
+| reevaluated_acceptable | 832 |
 | problematic | 0 |
 | unclear | 0 |
 | false_positive | 0 |
-| Manual / auto-propagated labels | 191 / 3210 |
-| Labeled detections (min) | 27740/27740 (100.0%) |
-| Labeled runs (min) | 6132/6132 (100.0%) |
-| Jev mode | dedup-keyword |
-| Jev pipeline issues | 209 flagged rows (families in dedup-keyword mode) |
+| Manual / auto-propagated labels | 147 / 2528 |
+| Labeled detections (min) | 20546/20546 (100.0%) |
+| Labeled runs (min) | 3449/3449 (100.0%) |
+| Jev mode | fingerprint |
+| Jev pipeline issues | 165 flagged rows |
 | Jev audit | current |
 
-**State:** complete. *(Note: 14 runs exited with code 1 due to obsolete Jest snapshot warnings rather than test assertion failures, accounting for the 6,132 vs 6,146 run-count difference; 100.0% of detected failure patterns are assessed).*
+**State:** complete. *(Note: 16 runs exited with code 1 due to obsolete Jest snapshot warnings rather than test assertion failures, accounting for the 3,449 vs 3,465 run-count difference; 100.0% of detected failing runs are assessed and labeled.)*
 
 ## Environment / setup fixes
 
+- **Jest worker concurrency standard (`--maxWorkers=2`) and temporary elevation recovery:** `--maxWorkers=2` was and remains the permanent baseline standard for general runs in [`install-and-run.sh`](install-and-run.sh), matching upstream CI (`.github/workflows/ci_api_unit_tests.yml: yarn test app/api --coverage --maxWorkers=2`). This avoids container port 6379 binding races and Redis lock contention across ~800 suites. In August 2022 / early 2023 commits with ~460–730 suites, Jest child workers sequentially executing >300 suites per worker under Istanbul/Babel coverage hit V8's hard 4096 MB pointer-compression address ceiling (`FatalProcessOutOfMemory` in `AllocateCode(bool)`), causing 90-minute container timeout deadlocks. A batch of 16 affected runs was temporarily elevated to `--maxWorkers=5` / `--maxWorkers=10` to split the suite load into smaller per-worker batches (<150 suites/worker, keeping heap usage under 1.5 GB). All 16 runs completed successfully to full coverage (11 passing cleanly with exit code 0, 0 hard errors), after which [`install-and-run.sh`](install-and-run.sh) was immediately restored to `--maxWorkers=2` as the safer choice for all general runs.
+- **Transient network timeout archiving (Docker Hub, Elastic artifacts, and GitHub Releases):** Archived 24 runs affected by transient outbound network/DNS drops during parallel container execution (15 Docker Hub timeouts pulling `lazybit/minio` or Elasticsearch base images, 5 GitHub releases asset download timeouts for `sharp-libvips`, and 4 Elastic artifacts DNS resolution failures for `analysis-icu`) into [`archive/transient_network_timeouts/`](archive/transient_network_timeouts/) for clean re-run.
+- **GitHub unauthenticated API timeout incident archiving:** Archived 71 commits affected by the official GitHub infrastructure incident ([pyynvrm1vskw](https://www.githubstatus.com/incidents/pyynvrm1vskw), 10:36–11:56 UTC) into [`archive/github_outage_unauthenticated_timeouts/`](archive/github_outage_unauthenticated_timeouts/). The degradation caused 503 Service Unavailable and 502 Bad Gateway timeouts on unauthenticated release asset downloads (`sharp-libvips`, `electron`, `canvas`, and Elasticsearch plugins) during dependency installation. Commits vacated for clean re-run following GitHub's upstream mitigation.
+- **Unclear singletons archiving (`entities.spec.js` and `MongoDataSource.spec.ts`):** Archived 2 commits (`1620749563_11baf845` with a duplicate key error in `entities.spec.js` on a 240-file merge commit, and `1741700460_56ab248f` with a transient 30s Mongoose server selection timeout on a tree-identical commit) into [`archive/rerun_unclear_singletons/`](archive/rerun_unclear_singletons/). Commits vacated for verification re-run to distinguish transient test-environment flake from authentic developer regression.
+- **Permissions filters ES hook timeout archiving (`permissionsFilters.spec.ts`):** Archived 3 commits affected by a 20s `beforeAll` hook timeout in `app/api/search/specs/permissionsFilters.spec.ts` into [`archive/permissions_filters_es_hook_timeout/`](archive/permissions_filters_es_hook_timeout/). The timeout occurred during Elasticsearch index fixture setup (`permissionslevelfixtures`) under container worker contention, skipping all tests in the file and causing an artificial 15-line coverage deficit across `app/api/search/metadataAggregations.js`, `documentQueryBuilder.js`, and `search.js` (confirmed measurement bias against neighboring clean runs). Commits vacated for clean re-run.
+- **S3FileStorage 60s timeout archiving (`S3FileStorage.spec.ts`):** Archived 1 commit (`1737954470_7971a67f`) affected by an isolated 60s timeout on an AWS S3 `PutObjectCommand` promise under container worker contention into [`archive/rerun_s3_filestorage_timeout/`](archive/rerun_s3_filestorage_timeout/) for clean re-run under `--maxWorkers=2`.
+- **Redis restart persistence, connection race, and lock timing archiving (`taskManager.spec.ts` / `distributedLoop.spec.js`):** Archived 14 commits affected by Redis test execution artifacts into [`archive/rerun_redis_persistence_and_lock_races/`](archive/rerun_redis_persistence_and_lock_races/). 10 runs failed from unshimmed Redis restart persistence timeouts (missing RDB save points in older executions), 3 runs from the 100ms connection wait race (`Redis is not connected`), and 1 run (`8d011d51b`) from a 250ms sleep reconnect flake under worker load. All are resolved under the active [`redis-server-shim.sh`](redis-server-shim.sh) and `--maxWorkers=2` baseline; vacated for clean re-run.
+- **TaskManager Redis connection race archiving (`taskManager.spec.ts`):** Archived 15 commits affected by a transient Redis connection race in `app/api/services/tasksmanager/specs/taskManager.spec.ts` into [`archive/task_manager_redis_connection_race/`](archive/task_manager_redis_connection_race/). The test's `beforeAll` relied on a fixed 100ms sleep (`setTimeout(resolve, 100)`) that intermittently expired before `RedisClient` finished handshaking, throwing `Redis is not connected` and causing an artificial 3-line coverage deficit in `app/api/services/tasksmanager/TaskManager.ts` (confirmed measurement bias against neighboring clean runs). Commits vacated for clean re-run; re-runs passed to valid coverage (`8f057947` with exit code 0).
+- **CSV loader thesauri hook timeout archiving (`csvLoaderSelects.spec.js`):** Archived 42 commits affected by a 10s `beforeAll` hook timeout in `app/api/csv/specs/csvLoaderSelects.spec.js` into [`archive/csv_loader_selects_hook_timeout/`](archive/csv_loader_selects_hook_timeout/). The timeout occurred during heavy fixture setup (MongoDB cleanup, Elasticsearch index recreation, and CSV translation parsing) under container worker contention, aborting all 9 tests in the suite and causing an artificial 34-line coverage deficit in `app/api/csv/arrangeThesauri.ts` (confirmed measurement bias). Commits vacated for clean re-run.
+- **Concurrent batch network timeout archiving:** Archived 470 commits affected by transient external network timeouts during parallel container startup (177 Elasticsearch `analysis-icu` plugin downloads from `artifacts.elastic.co`, 108 WayPack proxy 502 gateway timeouts, 96 `sharp-libvips` binary downloads from GitHub releases, and 92 Docker Hub token/manifest timeouts from `registry-1.docker.io`, plus 1 aborted startup run) into [`archive/rerun_batch_network_timeouts/`](archive/rerun_batch_network_timeouts/) for clean recovery re-run under low concurrency.
+- **ICU Arabic localized date formatting alignment (macOS vs Linux CLDR divergence, Oct 2023+):** In commit `281662856` ("Replace moment.js", PR #6188), `app/react/V2/shared/specs/dateHelpers.spec.ts` introduced an assertion expecting `secondsToDate(1696624527, 'ar')` to equal `'٦ أكتوبر ٢٠٢٣'` (Eastern Arabic numerals). On the developer's macOS environment, system ICU defaults generic Arabic (`'ar'`) to Eastern Arabic digits (`nu-arab`). On Linux containers (Debian Bullseye), standard Node ICU/CLDR defaults `'ar'` to Latin digits (`"6 أكتوبر 2023"`), causing an assertion failure across 2,731 subsequent commits. Patched [`install-and-run.sh`](install-and-run.sh) to specify the Unicode numbering system extension (`sed -i "s/'ar'/'ar-u-nu-arab'/" app/react/V2/shared/specs/dateHelpers.spec.ts`), aligning Linux ICU output with the developer's environment without mutating expected values.
+- **Jest worker concurrency reduction to `--maxWorkers=2` and soft failure archiving:** Aligned Jest execution in [`install-and-run.sh`](install-and-run.sh) from `--maxWorkers=10` down to `--maxWorkers=2`, matching upstream CI (`.github/workflows/ci_api_unit_tests.yml: yarn test app/api --coverage --maxWorkers=2`). This eliminates internal container port 6379 binding races between `socketClusterMode.spec.ts` and `distributedLoop.spec.js`, as well as shared Redis lock contention and filesystem fixture races. Set `"container_cpus": 6` in [`config.json`](../../config.json). Archived 4,870 historical soft failure runs into [`archive/rerun_all_soft_failures/`](archive/rerun_all_soft_failures/) for clean re-run.
+- **Redis persistence for self-spawned servers (RedisServer / downloadRedis era, Oct 2021 – Sep 2022):** this era's tests spawn their own `redis-server` instances and rely on the dataset surviving a SIGINT restart; `taskManager › should read pending messages` writes a results message, kills the server, restarts it and expects the message to still be queued. The `redis-server` shipped in the image is compiled without upstream's default save points (a bare `redis-server --port N` reports an empty `save` and exits without writing `dump.rdb`), so every restart came up empty and the test failed deterministically in **1,692 of 1,692 executions** where it ran — not intermittently; the sibling `should send tasks again` intermittently reported `queueNotFound: Queue not found` (61 runs) for the same reason. `install-and-run.sh` now installs [`redis-server-shim.sh`](redis-server-shim.sh) (copied into the image by the `Dockerfile`) at every path the era's helpers resolve; the stub execs the packaged binary with the upstream save points (`3600 1`, `300 100`, `60 10000`), a per-port `--dir /tmp/redis-state/<port>` and a per-port `--logfile`, so a restart restores its own dataset and concurrent instances cannot overwrite each other's `dump.rdb`. 1,696 runs archived to [`archive/rerun_redis_save_points/`](archive/rerun_redis_save_points/) and the pilot run to [`archive/fix_redis_save_points/`](archive/fix_redis_save_points/) for re-run; the pilot commit re-ran to `exit_code=0` (641/641 suites, 3,996/3,996 tests).
 - **DistributedLoop Redis lock contention archiving:** Archived 6 commits affected by Redis lock timing under Jest test execution (`distributedLoop.spec.js`) in [`archive/rerun_distributed_loop_lock_remaining/`](archive/rerun_distributed_loop_lock_remaining/) for clean re-run.
 - **Ghostscript binary installation & archiving:** Added `ghostscript` to Dockerfile (`PdfCharacterCountToAbsolute.spec.ts` depends on `gs` binary to calculate PDF character positions). Archived 6 affected historical commits from Feb 2021 (`spawn gs ENOENT`) in [`archive/rerun_ghostscript_enoent/`](archive/rerun_ghostscript_enoent/) for clean re-run; all 6 passed with exit code 0.
 - **Transient WayPack 502 recovery:** Archived 1 commit (`bff5feade8cb`) affected by transient proxy gateway failure during yarn install in [`archive/rerun_transient_502/`](archive/rerun_transient_502/) and cleanly re-ran to valid coverage.

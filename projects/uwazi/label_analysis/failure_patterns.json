@@ -17,6 +17,13 @@
   "suites": {},
   "auto_classify": [
     {
+      "match": "\u25cf taskManager \u203a when redis server is not available",
+      "label": "problematic",
+      "note": "RedisServer-era test-spawned redis-server lost its dataset across the SIGINT restart because the image binary has no default save points; fixed by redis-server-shim.sh (see OVERVIEW.md Environment / setup fixes). Matches every test in the 'when redis server is not available' block.",
+      "lines": 2,
+      "id": "13b1818ec268"
+    },
+    {
       "match": "\\\nexpect\\(received\\)\\.toBe\\(expected\\)\\ //\\ Object\\.is\\ equality\\\n\\\nExpected:\\ \\d+\\\nReceived:\\ \\d+",
       "label": "acceptable",
       "note": "",
@@ -731,10 +738,10 @@
       "id": "59215a8743c3"
     },
     {
-      "match": "\\\nread\\ ECONNRESET",
-      "label": "problematic",
-      "note": "",
-      "lines": 2,
+      "match": "\u25cf DistributedLoopLock \u203a [^\\n]+[\\s\\S]*?(?:read ECONNRESET|AbortError: Redis connection lost)",
+      "label": "reevaluated_acceptable",
+      "note": "DistributedLoopLock: Redis connection drop when parallel taskManager test stopped/restarted Redis. Counterfactual audited against neighboring passing commits: confirmed 0 lines lost in DistributedLoop.ts.",
+      "lines": 4,
       "id": "9ec9b477f46a"
     },
     {
@@ -815,10 +822,10 @@
       "id": "79621473b3f3"
     },
     {
-      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 10000\\ ms\\ for\\ a\\ hook\\.",
+      "match": "\u25cf loader \u203a [^\\n]+[\\s\\S]*?thrown: \"Exceeded timeout of 10000 ms for a hook",
       "label": "problematic",
-      "note": "",
-      "lines": 2,
+      "note": "csvLoaderSelects: beforeAll fixture setup exceeded 10s hook timeout, skipping all 9 tests. Counterfactual audited against neighboring passing commits: confirmed 34 lines lost in app/api/csv/arrangeThesauri.ts. Confirmed measurement bias.",
+      "lines": 4,
       "id": "f0b3053f037a"
     },
     {
@@ -1592,10 +1599,10 @@
       "window": "min"
     },
     {
-      "match": "\\\nRedis\\ is\\ not\\ connected",
-      "label": "unclear",
-      "note": "",
-      "lines": 2,
+      "match": "\u25cf taskManager \u203a [^\\n]+[\\s\\S]*?Redis is not connected",
+      "label": "problematic",
+      "note": "taskManager: Redis connection handshake exceeded 100ms beforeAll sleep, throwing \"Redis is not connected\" and losing 3 lines in TaskManager.ts (lines 82, 85, 125). Confirmed measurement bias against neighboring passing commits.",
+      "lines": 4,
       "id": "94573f13b060",
       "generated_by": "check_failures_v2",
       "window": "min"
@@ -1781,10 +1788,10 @@
       "window": "min"
     },
     {
-      "match": "\\\n:\\ Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 60000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Timeout\\ \\-\\ Async\\ callback\\ was\\ not\\ invoked\\ within\\ the\\ 60000\\ ms\\ timeout\\ specified\\ by\\ jest\\.setTimeout\\.Error:",
-      "label": "problematic",
-      "note": "",
-      "lines": 2,
+      "match": "\u25cf DistributedLoopLock \u203a should handle when a node fails to unlock the lock[\\s\\S]*?Timeout - Async callback was not invoked within the 60000 ms timeout",
+      "label": "reevaluated_acceptable",
+      "note": "DistributedLoopLock: Flaky unit test race condition in stop() shutdown during Redlock contention. No suite bail; full suite of 800+ files executed to completion. Counterfactual audited against neighboring passing commits: confirmed 0 lines lost across entire codebase.",
+      "lines": 4,
       "id": "64d40a3156eb",
       "generated_by": "check_failures_v2",
       "window": "min"
@@ -1808,10 +1815,10 @@
       "window": "min"
     },
     {
-      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 10000\\ ms\\ for\\ a\\ test\\.",
-      "label": "unclear",
-      "note": "",
-      "lines": 2,
+      "match": "\u25cf DistributedLoopLock \u203a should handle when a node fails to unlock the lock[\\s\\S]*?thrown: \"Exceeded timeout of 10000 ms",
+      "label": "reevaluated_acceptable",
+      "note": "DistributedLoopLock: Flaky unit test race condition in stop() shutdown during Redlock contention. No suite bail; full suite of 800+ files executed to completion. Counterfactual audited against neighboring passing commits: confirmed 0 lines lost across entire codebase.",
+      "lines": 4,
       "id": "83ce48ca0a0a",
       "generated_by": "check_failures_v2",
       "window": "min"
@@ -1880,10 +1887,10 @@
       "window": "min"
     },
     {
-      "match": "\\\nthrown:\\ \"Exceeded\\ timeout\\ of\\ 20000\\ ms\\ for\\ a\\ hook\\.",
-      "label": "unclear",
-      "note": "",
-      "lines": 2,
+      "match": "\u25cf Permissions filters \u203a [^\\n]+[\\s\\S]*?thrown: \"Exceeded timeout of 20000 ms for a hook",
+      "label": "problematic",
+      "note": "permissionsFilters: beforeAll ES index fixture setup exceeded 20s hook timeout, skipping all tests and losing 15 lines across metadataAggregations.js, documentQueryBuilder.js, and search.js. Confirmed measurement bias against neighboring passing commits.",
+      "lines": 4,
       "id": "345ab594c35e",
       "generated_by": "check_failures_v2",
       "window": "min"
@@ -1894,6 +1901,96 @@
       "note": "",
       "lines": 2,
       "id": "d7e2e90d5bcf",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\u25cf entities \u203a save \u203a should sync select/multiselect/dates/multidate/multidaterange/numeric[\\s\\S]*?MongoError: E11000 duplicate key error",
+      "label": "reevaluated_acceptable",
+      "note": "entities.save: Authentic dev regression in PR #3688 / merge commit 11baf8456 where developer refactored entity.save to fetch from storedEntities without +permissions, causing assertion failure in permissions check and duplicate key error in relationships.saveEntityBasedReferences. Verified via code diff in entities.js:385 and counterfactual lcov audit (both runs covered 367/404 lines, 90.8%).",
+      "lines": 4,
+      "id": "11baf845e110",
+      "generated_by": "manual",
+      "window": "min"
+    },
+    {
+      "match": "\\\nMongoError:\\ E11000\\ duplicate\\ key\\ error",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "8fc9c9598142",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nValidationError:\\ title:\\ Path\\ `title`\\ is\\ required\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "a68e329c1ec4",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nexpect\\(jest\\.fn\\(\\)\\)\\.toHaveBeenCalledTimes\\(expected\\)",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "34f192a68edd",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nqueueExists:\\ Queue\\ exists",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "0179612a13fd",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nMongooseServerSelectionError:\\ Server\\ selection\\ timed\\ out\\ after",
+      "label": "unclear",
+      "note": "",
+      "lines": 2,
+      "id": "baa8b0c905e3",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\u25cf templates save \u203a when feature flag is true \u203a should again allow updating a template when the processing has finished[\\s\\S]*?MongoServerError: E11000 duplicate key error",
+      "label": "reevaluated_acceptable",
+      "note": "templatesUpdate: Dev-facing duplicate key bug in newly introduced test in PR #8220, fixed next day by author in PR #8229 (commit 64feea4c1). Counterfactual audited against neighboring passing commits: confirmed 0 lines lost in templates.ts (162/165 lines covered in both).",
+      "lines": 4,
+      "id": "aee7a4964dd0",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nTypeError:\\ errorEvent\\ is\\ not\\ a\\ function",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "d97a0fea9868",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nENOENT:\\ no\\ such\\ file\\ or\\ directory,\\ open\\ 'app/api/files/specs/uploads/file_to_be_deleted\\.txt'",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "6c45613d217d",
+      "generated_by": "check_failures_v2",
+      "window": "min"
+    },
+    {
+      "match": "\\\nNoSuchKey:\\ The\\ specified\\ key\\ does\\ not\\ exist\\.",
+      "label": "acceptable",
+      "note": "",
+      "lines": 2,
+      "id": "ef74c68c961e",
       "generated_by": "check_failures_v2",
       "window": "min"
     }

@@ -63,7 +63,7 @@
     },
     "uwazi": {
       "url": "https://github.com/huridocs/uwazi",
-      "container_cpus": 12,
+      "container_cpus": 6,
       "node_version_overrides": [
         {
           "start_ts": 1626742218,

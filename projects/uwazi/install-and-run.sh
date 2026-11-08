@@ -306,17 +306,27 @@ export MONGOMS_DISABLE_POSTINSTALL=1
 print_header 3 "Starting Redis"
 # The downloadRedis jest global setup (Oct 2021 – Sep 2022 era) compiles
 # redis-stable from source and aborts the whole run when that make fails
-# (flaky).  Drop a redis-server binary where it expects it so it early-returns.
+# (flaky).  Install a redis-server stub where it expects it so it early-returns.
 if [ -f app/api/utils/downloadRedis.js ] \
    || [ -f app/api/tasksmanager/RedisServer.ts ] \
    || [ -f app/api/services/tasksmanager/RedisServer.ts ]; then
-    print_header 4 "RedisServer / downloadRedis era — dropping redis-server binary for tests, no global daemon"
+    print_header 4 "RedisServer / downloadRedis era — installing redis-server stub, no global daemon"
+    # The stub is /coverage_reloaded/redis-server-shim.sh; the packaged binary
+    # is installed next to it as redis-server.real.  The packaged redis-server
+    # is built without the default save points that upstream redis-stable
+    # carries, so without the stub a SIGINT restart of a test-managed instance
+    # loses its dataset; the stub also gives each port its own state dir.
+    install_redis_stub() {
+        cp "$(command -v redis-server)" "$1.real"
+        cp /coverage_reloaded/redis-server-shim.sh "$1"
+        chmod +x "$1"
+    }
     mkdir -p redis-bin/redis-stable/src redis/redis-stable/src
-    cp "$(command -v redis-server)" redis-bin/redis-stable/src/redis-server
-    cp "$(command -v redis-server)" redis/redis-stable/src/redis-server
+    install_redis_stub redis-bin/redis-stable/src/redis-server
+    install_redis_stub redis/redis-stable/src/redis-server
     # RedisServer.ts and downloadRedis.js resolve their binary as
     # path.join(__dirname, 'redis-bin/redis-stable/src/redis-server') — relative
-    # to the helper's own directory, NOT the repo root.  Mirror the binary next
+    # to the helper's own directory, NOT the repo root.  Mirror the stub next
     # to every such helper present at this commit so downloadRedis() early-returns
     # instead of downloading and compiling redis-stable from source (which fails
     # with "jemalloc/jemalloc.h: No such file or directory" when pkg-config is
@@ -324,7 +334,7 @@ if [ -f app/api/utils/downloadRedis.js ] \
     while IFS= read -r helper; do
         helper_dir=$(dirname "$helper")
         mkdir -p "$helper_dir/redis-bin/redis-stable/src"
-        cp "$(command -v redis-server)" "$helper_dir/redis-bin/redis-stable/src/redis-server"
+        install_redis_stub "$helper_dir/redis-bin/redis-stable/src/redis-server"
     done < <(find app -type f \( -name 'RedisServer.ts' -o -name 'downloadRedis.js' \) -not -path '*/node_modules/*')
     # This era's tests manage their own redis instances (RedisServer spawns
     # redis-server --port <p> and asserts on "unavailable -> comes back").
@@ -353,8 +363,10 @@ print_header 4 "Redis started"
 # and add --coverage.  The --max-http-header-size and --no-experimental-fetch
 # flags are server/workaround flags not needed for Jest's test execution.
 #
-# --maxWorkers=10 caps parallel workers to avoid PID exhaustion and port
-# conflicts, while still isolating V8's compilation-cache per worker process.
+# --maxWorkers=2 matches upstream CI (.github/workflows/ci_api_unit_tests.yml:
+# `yarn test app/api --coverage --maxWorkers=2`). This eliminates internal port
+# collisions (e.g. socketClusterMode and distributedLoop both binding port 6379)
+# while still isolating V8 compilation-cache per worker process.
 # --runInBand is intentionally avoided: it forces all ~460 suites into a single
 # V8 heap, where a Node 16-19 compilation-cache leak (jest#12820) accumulates
 # unbounded and OOMs at ~3 GB.
@@ -372,10 +384,15 @@ if grep -q '"jest":.*"24\.' package.json; then
     done
 fi
 
+# Align Linux ICU Arabic numbering system with macOS developer environment (nu-arab)
+if [ -f "app/react/V2/shared/specs/dateHelpers.spec.ts" ]; then
+    sed -i "s/'ar'/'ar-u-nu-arab'/" app/react/V2/shared/specs/dateHelpers.spec.ts 2>/dev/null || true
+fi
+
 suite_start "unit" "Running unit/integration tests with Jest coverage"
 
 set +e
-node $COMPILATION_CACHE_FLAG ./node_modules/.bin/jest --coverage --coverageReporters=lcov --maxWorkers=10 --forceExit --testTimeout=60000
+./node_modules/.bin/jest --coverage --coverageReporters=lcov --maxWorkers=2 --forceExit --testTimeout=60000
 TEST_EXIT=$?
 set -e
 

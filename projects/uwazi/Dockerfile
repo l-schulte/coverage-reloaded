@@ -47,4 +47,7 @@ RUN curl -fsSL https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-debian10-4.
 
 COPY ./repo /coverage_reloaded/repo_disk
 COPY ./install-and-run.sh /coverage_reloaded/install-and-run.sh
-RUN chmod +x /coverage_reloaded/install-and-run.sh
+# Wrapper around the packaged redis-server that restores upstream's default
+# save points and gives each spawned instance its own state dir (see the file).
+COPY ./redis-server-shim.sh /coverage_reloaded/redis-server-shim.sh
+RUN chmod +x /coverage_reloaded/install-and-run.sh /coverage_reloaded/redis-server-shim.sh
