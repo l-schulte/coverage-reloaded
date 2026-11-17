@@ -45,18 +45,18 @@
 - [x] 100 done (2967/100)
 - [x] failed tests doublechecked (true exit codes restored across 3,140 output directories via `projects/compass/fix_compass_exit_codes.py`)
 - [x] complete run (6,260/6,260 commits processed, 0 pending)
-- [x] complete test failure check (176 fingerprints, 100 % labeled, 0 problematic, 0 unclear)
-- [x] complete JEV test failure check (176/176 fingerprints labeled; audit current, see [`label_analysis/jev_audit.md`](label_analysis/jev_audit.md))
+- [x] complete test failure check (172 fingerprints, 100 % labeled, 0 problematic, 0 unclear)
+- [x] complete JEV test failure check (172/172 fingerprints labeled; audit current, see [`label_analysis/jev_audit.md`](label_analysis/jev_audit.md))
 
 ## Results
 
-Source: [`stats_output/report.txt`](stats_output/report.txt) (generated 2026-11-04 18:52).
+Source: [`stats_output/report.txt`](stats_output/report.txt) (generated 2026-11-17 13:08).
 
 | Metric | Value |
 |---|---|
 | Commits processed | 6,260 |
-| Without test failures | 4,272 |
-| With test failures | 1,605 |
+| Without test failures | 4,284 |
+| With test failures | 1,593 |
 | Not applicable | 333 |
 | Hard errors | 50 |
 | Coverage produced | 99.2 % |
@@ -65,36 +65,44 @@ Full statistics and plots: [`stats_output/`](stats_output/).
 
 ## Failure triage
 
-Sources: `python check_failures_v2.py compass --stats` (window `min`, run 2026-11-04) and
-[`stats_output/report.txt`](stats_output/report.txt) (generated 2026-11-04 18:52). Labels:
+Sources: `python check_failures_v2.py compass --stats` (window `min`, run 2026-11-17) and
+[`stats_output/report.txt`](stats_output/report.txt) (generated 2026-11-17 13:08). Labels:
 [`failure_labels_project_min.csv`](label_analysis/failure_labels_project_min.csv) (primary) and
 [`failure_labels_project_max.csv`](label_analysis/failure_labels_project_max.csv) (diagnostic
 window). The label CSVs are the single source of truth; this section reports numbers only.
 
 | Metric | Value |
 |---|---|
-| Failing runs (`report.txt`) | 1,605 |
-| Failing runs (label DB) | 1,605 |
-| Fingerprints (min / max) | 176 / 183 |
-| Labeled fingerprints | 176 (100 %) |
+| Failing runs (`report.txt`) | 1,593 |
+| Failing runs (label DB) | 1,592 |
+| Fingerprints (min / max) | 172 / 179 |
+| Labeled fingerprints | 172 (100 %) |
 | Unlabeled fingerprints | 0 |
-| acceptable | 132 |
+| acceptable | 128 |
 | reevaluated_acceptable | 37 |
 | problematic | 0 |
 | unclear | 0 |
 | false_positive | 7 |
-| Manual / auto-propagated labels | 0 / 176 |
-| Labeled detections (min) | 8,893/8,893 (100 %) |
-| Labeled runs (min) | 1,605/1,605 (100 %) |
+| Manual / auto-propagated labels | 0 / 172 |
+| Labeled detections (min) | 8,880/8,880 (100 %) |
+| Labeled runs (min) | 1,592/1,592 (100 %) |
 | Jev mode | fingerprint |
-| Jev pipeline issues | 53 flagged rows |
+| Jev pipeline issues | 56 flagged rows |
 | Jev audit | current |
 
-**State:** complete. The label DB and `report.txt` agree on 1,605 failing runs, every fingerprint
+**State:** complete. The label DB and `report.txt` agree on 1,592 / 1,593 failing runs, every fingerprint
 and detection is labeled, and no `problematic` or `unclear` family remains.
 
 
 ## Environment / setup fixes
+
+- **Workspace package root traversal & path reconciliation repair (`path_resolving_mismatch`):** Relative module imports traversing out of spec files to monorepo package roots (`from '../..'`, `import '../'`, `require('../lib')`) resolved to `package.json` `"main": "dist/index.js"` instead of `compass:main` (`src/index.ts`) across 5 packages (`databases-collections`, `mongodb-language-model`, `hadron-document`, `compass-connections`, `hadron-app-registry`), causing 2,370 commits to attribute line execution to compiled artifacts (`dist/`) rather than TypeScript source files (`src/`). In `patch-coverage.js`, hooked `Module._resolveFilename` in `configs/mocha-config-compass/register/resolve-from-source-register.js` to intercept relative traversals resolving to workspace package roots and redirect them to `src/index.ts`. 1,956 affected runs archived to [`archive/path_resolving_mismatch/`](archive/path_resolving_mismatch/) and re-run clean, eliminating 62,741 `dist/` file instances and restoring true longitudinal line coverage across `src/`.
+- **Residual proxy, timeout, and prebuild flake retries:** Transient network and proxy timeouts during parallel re-runs were archived and cleared clean upon retry:
+  - 49 WPT `toascii.json` fetch drops archived to [`archive/retry_wpt_fetch_flakes_batch2/`](archive/retry_wpt_fetch_flakes_batch2/) and 3 residual drops to [`archive/retry_residual_wpt_metrics_tail/`](archive/retry_residual_wpt_metrics_tail/).
+  - 2 SRV DNS timeouts archived to [`archive/retry_connection_model_timeouts_residual/`](archive/retry_connection_model_timeouts_residual/).
+  - 1 GA mock socket hangup archived to [`archive/retry_metrics_socket_hangup_residual/`](archive/retry_metrics_socket_hangup_residual/).
+  - 1 MongoWriteConcern interruption archived to [`archive/retry_compass_crud_write_concern_interrupted/`](archive/retry_compass_crud_write_concern_interrupted/).
+  - 11 transient GitHub release prebuild download timeouts for `mongodb-client-encryption@6.3.0` archived to [`archive/retry_mongocrypt_prebuild_timeouts_batch2/`](archive/retry_mongocrypt_prebuild_timeouts_batch2/) and [`archive/retry_mongocrypt_prebuild_timeouts_round3/`](archive/retry_mongocrypt_prebuild_timeouts_round3/).
 
 - **Native CSFLE addon rebuild (`fix_mongocrypt_addon_rebuild`):** `npm install --ignore-scripts` suppresses `mongodb-client-encryption`'s `prebuild-install`/`node-gyp` step, and upstream's `node-rebuild` only covers `kerberos keytar interruptor`, so no `mongocrypt.node` was produced. In the driver-v4 era `data-service` requires the module at import, so 7 packages' suites died at load and their files were absent from LCOV; in the driver-v6 era 2 CSFLE tests failed. Fixed with a presence-guarded `npm rebuild mongodb-client-encryption --unsafe-perm`. Verified green on `e6754823` (2022, +2,651 covered lines recovered) and `ff4c2fd7` (2025). 2,032 affected runs archived to [`archive/fix_mongocrypt_addon_rebuild/`](archive/fix_mongocrypt_addon_rebuild/) for re-run.
 

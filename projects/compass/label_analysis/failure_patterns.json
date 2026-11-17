@@ -623,8 +623,8 @@
     },
     {
       "match": "mongodb\\-js\\-metrics:\\ \\ \\ \\ \\ \\ Error:\\ socket\\ hang\\ up",
-      "label": "unclear",
-      "note": "",
+      "label": "problematic",
+      "note": "WayPack GA mock HTTP socket hang up flake",
       "lines": 0,
       "id": "3e57d6e77b90",
       "generated_by": "check_failures_v2",
@@ -830,8 +830,8 @@
     },
     {
       "match": "@mongodb\\-js/compass\\-web:\\ \\ \\ \\ \\ \\ TypeError:\\ fetch\\ failed",
-      "label": "unclear",
-      "note": "",
+      "label": "problematic",
+      "note": "WayPack WPT toascii.json fetch transient timeout/reset under high concurrency",
       "lines": 0,
       "id": "1e0bb83c2fbd",
       "generated_by": "check_failures_v2",

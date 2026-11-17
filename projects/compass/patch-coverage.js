@@ -308,3 +308,71 @@ if (fs.existsSync('package.json')) {
     }
   } catch (e) {}
 }
+
+// Ensure resolve-from-source-register.js intercepts relative directory traversals (e.g. '../..')
+// that resolve to monorepo workspace packages, routing them to source instead of dist.
+const resolveRegisterCandidates = [
+  path.resolve('configs/mocha-config-compass/register/resolve-from-source-register.js'),
+  path.resolve('node_modules/@mongodb-js/mocha-config-compass/register/resolve-from-source-register.js'),
+];
+
+for (const rPath of resolveRegisterCandidates) {
+  if (fs.existsSync(rPath)) {
+    try {
+      let code = fs.readFileSync(rPath, 'utf8');
+      if (!code.includes('// CDBS_COVERAGE_RESOLVE_RELATIVE_FIX')) {
+        const patchCode = `
+// CDBS_COVERAGE_RESOLVE_RELATIVE_FIX
+(function() {
+  const _origResolveFilename = Module._resolveFilename;
+  const _wsDirMap = new Map();
+  if (typeof workspaces !== 'undefined' && Array.isArray(workspaces)) {
+    for (const ws of workspaces) {
+      try {
+        const p = require(path.join(ws, 'package.json'));
+        const src = p['compass:exports']?.['.'] ?? p['compass:main'];
+        if (src) {
+          _wsDirMap.set(path.resolve(ws), {
+            root: path.resolve(ws),
+            entry: path.resolve(ws, src)
+          });
+        }
+      } catch(e) {}
+    }
+  }
+  Module._resolveFilename = function (request, parent, isMain, options) {
+    if (typeof request === 'string' && request.startsWith('.') && parent && parent.filename) {
+      try {
+        const target = path.resolve(path.dirname(parent.filename), request);
+        for (const [wsRoot, info] of _wsDirMap.entries()) {
+          if (target === wsRoot) {
+            return _origResolveFilename.call(this, info.entry, parent, isMain, options);
+          }
+          if (target.startsWith(wsRoot + path.sep)) {
+            const rel = path.relative(wsRoot, target);
+            if (!rel.startsWith('src') && !rel.startsWith('node_modules')) {
+              for (const ext of ['', '.ts', '.tsx', '.js', '.jsx']) {
+                const candidate = path.join(wsRoot, 'src', rel + ext);
+                if (fs.existsSync(candidate) && !fs.statSync(candidate).isDirectory()) {
+                  return _origResolveFilename.call(this, candidate, parent, isMain, options);
+                }
+              }
+            }
+          }
+        }
+      } catch (err) {}
+    }
+    return _origResolveFilename.apply(this, arguments);
+  };
+})();
+`;
+        code += '\n' + patchCode + '\n';
+        fs.writeFileSync(rPath, code, 'utf8');
+        console.log(`Patched ${rPath} to resolve relative workspace paths to source.`);
+      }
+    } catch (e) {
+      console.error(`WARN: could not patch ${rPath}: ${e.message}`);
+    }
+  }
+}
+
